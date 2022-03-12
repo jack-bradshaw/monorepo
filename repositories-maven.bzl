@@ -37,7 +37,7 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.truth:truth:1.1.3",
             "io.ktor:ktor-server-core:%s" % KTOR_VERSION,
             "io.ktor:ktor-server-netty:%s" % KTOR_VERSION,
-#	    "javax.inject:jsr330-api:0.9",
+	    "javax.inject:jsr330-api:0.9",
 	    "javax.annotation:jsr250-api:1.0",
 	    "javax.inject:javax.inject:1",
             "junit:junit:4.13.2",
