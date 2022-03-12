@@ -4,10 +4,10 @@
 
 unlock_ssh() {                                                                  
   eval `ssh-agent`                                                              
-  ssh-add $HOME/.ssh/matthewbradshaw_private                                                     
+  ssh-add $HOME/.ssh/matthewbradshaw
 }
 
 unlock_gpg() {
   eval `gpg-agent`
-  gpg --import $HOME/.gpgkeys/matthewbrdshaw_private
+  gpg --import $HOME/.gpgkeys/matthewbradshaw
 }
