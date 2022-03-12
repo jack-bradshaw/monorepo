@@ -1,0 +1,5 @@
+[user]
+	name = Matthew Bradshaw
+	email = me@matthewbradshaw.io
+[pull]
+	rebase = false
