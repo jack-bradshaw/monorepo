@@ -12,14 +12,6 @@ start_tmux() {
   fi
 }
 
-clean_head() {
-  cd $SRC_HEAD 
-  
-  git reset --hard
-  git clean -fxd
-  git pull
-}
-
 source_subscripts() {
   source $HOME/src/HEAD/shell/self_constants.sh
   source $HOME/src/HEAD/shell/src_constants.sh
@@ -42,12 +34,8 @@ preheat_forge() {
 
 run() {
   start_tmux
-
-  clean_head
   source_subscripts
-
   preheat_forge
-
   system_report
 
   cd $HOME
