@@ -2,6 +2,7 @@
 
 REMOTE="https://github.com/matthewbradshaw-io/monorepo"
 move_to_head() {
+  echo "Refreshing HEAD"
   cd $HOME/src
   rm -rf HEAD
   git clone --quiet $REMOTE $HOME/src/HEAD >/dev/null
