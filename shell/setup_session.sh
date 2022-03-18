@@ -41,11 +41,10 @@ preheat_forge() {
 }
 
 run() {
-  # If not running interactively, don't do anything.
-  case $- in
-      *i*) ;;
-        *) return;;
-  esac
+  # Abort if non-interactive.
+  if [ -z "$PS1" ]; then
+      return
+  fi
 
   start_tmux
 
