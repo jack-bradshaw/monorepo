@@ -1,10 +1,11 @@
 #!/bin/bash
 
-REMOTE = http://github.com/matthewbradshaw-io/monorepo
+REMOTE="https://github.com/matthewbradshaw-io/monorepo"
 move_to_head() {
-  cd $HOME/src/HEAD
-  nuke *
-  git clone $REMOTE $HOME/src/HEAD >/dev/null
+  cd $HOME/src
+  rm -rf HEAD
+  git clone --quiet $REMOTE $HOME/src/HEAD >/dev/null
+  cd HEAD
 }
 
 source_from_head() {
