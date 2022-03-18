@@ -41,6 +41,12 @@ preheat_forge() {
 }
 
 run() {
+  # If not running interactively, don't do anything.
+  case $- in
+      *i*) ;;
+        *) return;;
+  esac
+
   start_tmux
 
   clean_head
