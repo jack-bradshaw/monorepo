@@ -33,11 +33,6 @@ preheat_forge() {
 }
 
 run() {
-  # Abort if non-interactive.
-  if [ -z "$PS1" ]; then
-      return
-  fi
-
   start_tmux
   source_subscripts
   preheat_forge

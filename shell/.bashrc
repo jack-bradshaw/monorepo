@@ -14,6 +14,11 @@ source_from_head() {
 }
 
 run() {
+  # Abort if non-interactive.                                                   
+  if [ -z "$PS1" ]; then                                                        
+      return                                                                    
+  fi  
+
   move_to_head
   source_from_head
 }
