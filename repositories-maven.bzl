@@ -7,6 +7,8 @@ DAGGER_VERSION = "2.41"
 
 FLOGGER_VERSION = "0.7.4"
 
+J_MONKEY_ENGINE_VERSION = "3.5.0-stable"
+
 GUAVA_VERSION = "31.0.1-jre"
 
 GOOGLE_HTTP_CLIENT_VERSION = "1.41.4"
@@ -28,6 +30,10 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.dagger:dagger-compiler:%s" % DAGGER_VERSION,
             "com.google.flogger:flogger-system-backend:%s" % FLOGGER_VERSION,
             "com.google.flogger:flogger:%s" % FLOGGER_VERSION,
+            "org.jmonkeyengine:jme3-core:%s" % J_MONKEY_ENGINE_VERSION,
+            "org.jmonkeyengine:jme3-desktop:%s" % J_MONKEY_ENGINE_VERSION,
+            "org.jmonkeyengine:jme3-lwjgl:%s" % J_MONKEY_ENGINE_VERSION,
+            "org.jmonkeyengine:jme3-vr:%s" % J_MONKEY_ENGINE_VERSION,
             "com.google.guava:failureaccess:1.0.1",
             "com.google.guava:guava-testlib:%s" % GUAVA_VERSION,
             "com.google.guava:guava:%s" % GUAVA_VERSION,
@@ -46,5 +52,6 @@ def io_matthewbradshaw_maven_repositories():
         repositories = [
             "https://maven.google.com",
             "https://repo1.maven.org/maven2",
+            "https://repository.mulesoft.org/nexus/content/repositories/public/",
         ],
     )

@@ -5,7 +5,7 @@ BAZEL_VERSION = "b3baae9720653a9c6fa8d97780d59331bd590e23"
 BAZEL_BUILDTOOLS_VERSION = "23e2a9e4721aa4969503b2fdfe5ce9efa95b4259"
 PROTOBUF_VERSION = "3.19.2"
 PROTOBUF_RULES_VERSION = "9cd4f8f1ede19d81c6d48910429fe96776e567b1"
-GO_RULES_VERSION = "0.21.0"
+GO_RULES_VERSION = "0.30.0"
 KOTLIN_RULES_VERSION = "1.5.0"
 CPP_RULES_VERSION = "ea5c5422a6b9e79e6432de3b2b29bbd84eb41081"
 JAVA_RULES_VERSION = "0.1.0"
@@ -66,13 +66,12 @@ def io_matthewbradshaw_bazel_repositories():
         url = "https://github.com/bazelbuild/rules_pkg/releases/download/%s/rules_pkg-%s.tar.gz" % (PKG_VERSION, PKG_VERSION),
     )
 
-    maybe(
-        http_archive,
+    http_archive(
         name = "io_bazel_rules_go",
-        sha256 = "b27e55d2dcc9e6020e17614ae6e0374818a3e3ce6f2024036e688ada24110444",
+        sha256 = "d6b2513456fe2229811da7eb67a444be7785f5323c6708b38d851d2b51e54d83",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v%s/rules_go-v%s.tar.gz" % (GO_RULES_VERSION, GO_RULES_VERSION),
-            "https://github.com/bazelbuild/rules_go/releases/download/v%s/rules_go-v%s.tar.gz" % (GO_RULES_VERSION, GO_RULES_VERSION),
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v%s/rules_go-v%s.zip" % (GO_RULES_VERSION, GO_RULES_VERSION),
+            "https://github.com/bazelbuild/rules_go/releases/download/v%s/rules_go-v%s.zip" % (GO_RULES_VERSION, GO_RULES_VERSION),
         ],
     )
 
@@ -137,6 +136,7 @@ def io_matthewbradshaw_bazel_repositories():
 
     http_archive(
         name = "dagger",
-        url = "https://github.com/google/dagger/archive/dagger-%s.zip" % DAGGER_VERSION,
+        sha256 = "5c2b22e88e52110178afebda100755f31f5dd505c317be0bfb4f7ad88a88db86",
         strip_prefix = "dagger-dagger-%s" % DAGGER_VERSION,
+        url = "https://github.com/google/dagger/archive/dagger-%s.zip" % DAGGER_VERSION,
     )
