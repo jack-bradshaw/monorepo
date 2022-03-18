@@ -3,7 +3,6 @@
 move_to_head() {
   cd $HOME/src/HEAD/
   git reset --hard HEAD
-  git clean -fxd
   git pull
 }
 
