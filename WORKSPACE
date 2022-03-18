@@ -27,4 +27,3 @@ load(
 )
 
 kt_register_toolchains()
-
