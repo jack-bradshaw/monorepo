@@ -6,7 +6,7 @@ move_to_head() {
   echo "Refreshing HEAD"
   cd $HOME/src
   rm -rf HEAD
-  git clone --quiet $REMOTE $HOME/src/HEAD >/dev/null
+  git clone --depth 1 --quiet $REMOTE $HOME/src/HEAD >/dev/null
   cd HEAD
 }
 
