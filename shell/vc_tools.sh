@@ -43,7 +43,11 @@ addremove() {
 }
 
 clone() {
-  git clone $SRC_REMOTE_PUBLIC
+  git clone --depth 1 $SRC_REMOTE_PUBLIC
+}
+
+clone_deep() {
+  git clone $SRC_REMOTE__PUBLIC
 }
 
 alias copybara="bazel run @com_github_google_copybara//java/com/google/copybara"
