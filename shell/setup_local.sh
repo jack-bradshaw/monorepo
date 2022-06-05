@@ -16,7 +16,7 @@ delete_temp_dir() {
 }
 
 clone_mono_repo() {
-  git clone $REMOTE .
+  git clone --depth 1 $REMOTE .
 }
 
 export_bashrc() {
@@ -59,11 +59,11 @@ export_gpg_keys() {
 inflate_codelab() {
   rm -rf $HOME/src/HEAD
   mkdir -p $HOME/src/HEAD
-  git clone $REMOTE $HOME/src/HEAD
+  git clone --depth 1 $REMOTE $HOME/src/HEAD
 
   rm -rf $HOME/src/FORGE
   mkdir -p $HOME/src/FORGE
-  git clone $REMOTE $HOME/src/FORGE
+  git clone --depth 1 $REMOTE $HOME/src/FORGE
 
   mkdir -p $HOME/src/WORKSPACES
 }

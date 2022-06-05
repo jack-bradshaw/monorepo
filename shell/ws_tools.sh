@@ -51,7 +51,7 @@ mkws() {
   mkdir $1
   cd $1
 
-  git clone $SRC_REMOTE_PUBLIC .
+  git clone --depth 1 $SRC_REMOTE_PUBLIC .
   git remote set-url origin git@github.com:matthewbradshaw-io/monorepo.git
 
   ws $1
