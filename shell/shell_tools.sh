@@ -8,6 +8,7 @@ reload_shell() {
 }
 
 SETUP_SCRIPT=https://raw.githubusercontent.com/matthewbradshaw-io/monorepo/main/shell/setup_local.sh
+
 revolve_shell() {
   bash <(curl -s $SETUP_SCRIPT)
   reload_shell
