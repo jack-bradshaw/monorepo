@@ -11,5 +11,5 @@ SETUP_SCRIPT=https://raw.githubusercontent.com/matthewbradshaw-io/monorepo/main/
 
 rebuild() {
   bash <(curl -s $SETUP_SCRIPT)
-  reload_shell
+  reinit
 }
