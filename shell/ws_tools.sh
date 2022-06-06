@@ -55,6 +55,9 @@ mkws() {
   git remote set-url origin git@github.com:matthewbradshaw-io/monorepo.git
 
   ws $1
+
+  git checkout -b $1_working
+  git push orign $1_working
 }
 
 rmws() {
