@@ -66,7 +66,6 @@ rmws() {
   git status
   read -r -p "Are you sure you want to delete? (Y/N) " response
   if [ "$response" == "Y" ] || [ "$response" == "y" ]; then
-    git branch -d $1_working
     git push origin --delete $1_working
     nuke $HOME/src/WORKSPACES/$1
     wss
