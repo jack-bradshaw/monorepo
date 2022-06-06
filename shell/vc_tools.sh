@@ -26,7 +26,7 @@ commit() {
 
 qcommit() {
   addremove
-  cmt
+  commit
   push
 }
 
