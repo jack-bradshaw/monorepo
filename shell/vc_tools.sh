@@ -20,17 +20,17 @@ pull() {
   git pull 
 }
 
-cmt() {
+commit() {
   git commit
 }
 
-fcmt() {
+qcommit() {
   addremove
   cmt
   push
 }
 
-mnd() {
+amend() {
   git commit --amend
 }
 
@@ -49,5 +49,3 @@ clone() {
 clone_deep() {
   git clone $SRC_REMOTE__PUBLIC
 }
-
-alias copybara="bazel run @com_github_google_copybara//java/com/google/copybara"
