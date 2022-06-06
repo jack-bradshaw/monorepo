@@ -58,6 +58,7 @@ mkws() {
 
   git checkout -b $1_working
   git push origin $1_working
+  git push --set-upstream origin $1_working
 }
 
 rmws() {
