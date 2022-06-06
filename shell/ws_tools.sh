@@ -57,7 +57,7 @@ mkws() {
   ws $1
 
   git checkout -b $1_working
-  git push orign $1_working
+  git push origin $1_working
 }
 
 rmws() {
