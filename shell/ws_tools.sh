@@ -69,4 +69,7 @@ rmws() {
     nuke $HOME/src/WORKSPACES/$1
     wss
   fi
+
+  git branch -d $1_working
+  git push origin --delete $1_working
 }
