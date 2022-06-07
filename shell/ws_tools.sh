@@ -56,9 +56,16 @@ mkws() {
 
   ws $1
 
-  git checkout -b $1_working
-  git push origin $1_working
-  git push --set-upstream origin $1_working
+  branchname=$1_working
+
+  touch .ws
+  echo $branchname > .ws
+  
+  git fetch
+  git checkout -b $branchname
+  git push origin $branchname
+  git push --set-upstream origin $branchname
+  git switch $branchname
 }
 
 rmws() {
