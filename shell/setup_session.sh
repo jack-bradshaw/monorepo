@@ -21,6 +21,7 @@ source_subscripts() {
   
   source $HOME/src/HEAD/shell/bazel_tools.sh
   source $HOME/src/HEAD/shell/misc_prefs.sh
+  source $HOME/src/HEAD/shell/path.sh
   source $HOME/src/HEAD/shell/secret_tools.sh
   source $HOME/src/HEAD/shell/shell_tools.sh
   source $HOME/src/HEAD/shell/sys_tools.sh
