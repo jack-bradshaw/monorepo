@@ -79,3 +79,6 @@ DerivedDataCache/*
 
 # Not sure what these are for
 .ijwb/*
+
+# Workspaces
+.ws
