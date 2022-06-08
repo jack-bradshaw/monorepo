@@ -9,12 +9,7 @@ src() {
 sync() {
   pull
   push
-
-  git checkout main
-  pull
-  git checkout $BRANCHNAME
-  git merge main
-  push
+  git rebase main $BRANCHNAME
 }
 
 push() {
