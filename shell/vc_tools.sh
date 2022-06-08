@@ -7,7 +7,6 @@ src() {
 }
 
 sync() {
-  push
   pull
   push
 }
@@ -17,7 +16,8 @@ push() {
 }
 
 pull() {
-  git pull 
+  git fetch
+  git pull origin $BRANCHNAME 
 }
 
 commit() {
