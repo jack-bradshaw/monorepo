@@ -16,6 +16,6 @@ kt_jvm_library(
 
 java_binary(
     name = "app_bin",
-    main_class = "io.matthewbradshaw.paracosm.core.Main",
+    main_class = "io.matthewbradshaw.omniverse.core.Main",
     runtime_deps = [":app_lib"],
 )

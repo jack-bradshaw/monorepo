@@ -1,4 +1,4 @@
-package io.matthewbradshaw.paracosm.core;
+package io.matthewbradshaw.omniverse.core;
 
 import com.jme3.system.AppSettings;
 import com.jme3.app.state.AppState;
