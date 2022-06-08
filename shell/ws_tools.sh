@@ -48,6 +48,21 @@ wss() {
 }
 
 mkws() {
+   mkws_at_main 
+  git fetch
+  git checkout -b $branchname
+  git pull origin $branchname
+  git push origin $branchname
+  git push --set-upstream origin $branchname
+  git switch $branchname
+}
+
+pullws() {
+  mkws_at_main
+  git fetch origin $branchname:$branchname
+}
+
+mkws_at_main() {
   cd $SRC_WS
   mkdir $1
   cd $1
@@ -55,19 +70,12 @@ mkws() {
   git clone --depth 1 $SRC_REMOTE_PUBLIC .
   git remote set-url origin git@github.com:matthewbradshaw-io/monorepo.git
 
-  ws $1
-
+  cd $SRC_WS
+  cd $1
+  
   branchname=$1_working
-
   touch .ws
   echo $branchname > .ws
-  
-  git fetch
-  git checkout -b $branchname
-  git pull origin $branchname
-  git push origin $branchname
-  git push --set-upstream origin $branchname
-  git switch $branchname
 }
 
 rmws() {
