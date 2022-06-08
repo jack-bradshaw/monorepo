@@ -39,6 +39,7 @@ reforge() {
 ws() {
   cd $SRC_WS
   cd $1
+  export $BRANCHNAME=$(<.ws)
 }
 
 wss() {
@@ -63,7 +64,7 @@ mkws() {
   
   git fetch
   git checkout -b $branchname
-  git pull -r
+  git pull origin $branchname
   git push origin $branchname
   git push --set-upstream origin $branchname
   git switch $branchname
