@@ -17,7 +17,7 @@ push() {
 
 pull() {
   git fetch
-  git pull origin $BRANCHNAME 
+  git pull origin $BRANCHNAME --depth=1 
 }
 
 commit() {
