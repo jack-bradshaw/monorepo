@@ -63,7 +63,7 @@ mkws() {
   
   git fetch
   git checkout -b $branchname
-  git pull
+  git pull -r
   git push origin $branchname
   git push --set-upstream origin $branchname
   git switch $branchname
