@@ -9,6 +9,11 @@ src() {
 sync() {
   pull
   push
+
+  git switch main
+  pull
+  git switch $BRANCHNAME
+
   git rebase main $BRANCHNAME
 }
 
