@@ -39,7 +39,7 @@ reforge() {
 ws() {
   cd $SRC_WS
   cd $1
-  export $BRANCHNAME=$(<.ws)
+  export BRANCHNAME=$(<.ws)
 }
 
 wss() {
