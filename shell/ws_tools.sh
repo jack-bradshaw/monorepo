@@ -35,7 +35,7 @@ forge() {
   cd $SRC_FORGE
 }
 
-# Syncs the forge workspace and builds the contents.
+# Updates the forge workspace to match the remote HEAD and builds the contents.
 reforge() {
   cd $SRC_FORGE
   git pull
