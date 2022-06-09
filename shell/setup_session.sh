@@ -23,6 +23,7 @@ source_subscripts() {
   
   source $HOME/src/HEAD/shell/bash_tools.sh
   source $HOME/src/HEAD/shell/bazel_tools.sh
+  source $HOME/src/HEAD/shell/java_tools.sh
   source $HOME/src/HEAD/shell/misc_prefs.sh
   source $HOME/src/HEAD/shell/secret_tools.sh
   source $HOME/src/HEAD/shell/sys_tools.sh
