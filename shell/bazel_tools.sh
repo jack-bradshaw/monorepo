@@ -23,7 +23,7 @@ buildifier() {
 }
 
 # Downloads and installs Bazel from apt.
-install_bazel() {
+install_bazel_for_linux() {
   sudo apt install apt-transport-https curl gnupg
   curl -fsSL https://bazel.build/bazel-release.pub.gpg \
       | gpg --dearmor > bazel.gpg
