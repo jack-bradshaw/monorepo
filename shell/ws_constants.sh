@@ -1,6 +1,5 @@
 #!/bin/bash
-
-# Constants for working with the matthewbradshaw-io monorepo.
+# Constants for working with workspaces.
 
 export SRC_HOME="$HOME/src"
 export SRC_HEAD="$SRC_HOME/HEAD/"

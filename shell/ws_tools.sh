@@ -1,8 +1,7 @@
 #!/bin/bash
-
 # Tools for manipulating workspaces.
 
-# Moves into the source directory.
+# Moves to the source directory.
 src() {
   cd $SRC_HOME
 }
@@ -16,7 +15,7 @@ clean_head() {
   git pull
 }
 
-# Moves into the HEAD workspace.
+# Moves to the HEAD workspace.
 head() {
   cd $SRC_HEAD
   clean_head
@@ -30,7 +29,7 @@ clean_forge() {
   git pull
 }
 
-# Moves into the forge workspace.
+# Moves to the forge workspace.
 forge() {
   cd $SRC_FORGE
 }
@@ -42,7 +41,7 @@ reforge() {
   blaze build //...
 }
 
-# Moves into a workspace.
+# Moves to a workspace.
 # Arg 1: The workspace name.
 ws() {
   cd $SRC_WS

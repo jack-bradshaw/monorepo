@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Constants for this user.
 
 SELF_NAME="Matthew Bradshaw"
