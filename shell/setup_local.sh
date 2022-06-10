@@ -82,7 +82,7 @@ install_basic_programs() {
   sudo apt-get install wget
 
   # ktfmt
-  ktfmtversion=0.38
+  ktfmt_version=0.38
   cd /usr/bin
   rm -rf ktfmt.jar
   sudo wget https://repo1.maven.org/maven2/com/facebook/ktfmt/$ktfmt_version/ktfmt-$ktfmt_version-jar-with-dependencies.jar
