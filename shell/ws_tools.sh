@@ -60,11 +60,20 @@ wss() {
 # Arg 1: The workspace name.
 mkws() {
   mkws_at_main $1
+<<<<<<< HEAD
   populate_ws_file $1
   git fetch
   git checkout -b $BRANCHNAME
   git push origin $BRANCHNAME
   git push --set-upstream origin $BRANCHNAME
+=======
+  populate_ws_file
+  branchname=$1_working
+  git fetch
+  git checkout -b $branchname
+  git push origin $branchname
+  git push --set-upstream origin $branchname
+>>>>>>> 33a75b95c4d7c15ceb38abab6f9d885cd30827f5
 }
 
 # Makes a new workspace. If a workspace with this name does not already exist
@@ -72,8 +81,14 @@ mkws() {
 # Arg 1: The workspace name.
 pullws() {
   mkws_at_main $1
+<<<<<<< HEAD
   populate_ws_file $1
   git fetch origin $BRANCHNAME:$BRANCHNAME
+=======
+  populate_ws_file
+  branchname=$1_working
+  git fetch origin $branchname:$branchname
+>>>>>>> 33a75b95c4d7c15ceb38abab6f9d885cd30827f5
 }
 
 # Makes a new workspace and syncs to main at HEAD. Moves into the workspace.
@@ -95,7 +110,10 @@ mkws_at_main() {
 populate_ws_file() {
   touch .ws
   echo $1_working > .ws
+<<<<<<< HEAD
   export BRANCHNAME=$1_working
+=======
+>>>>>>> 33a75b95c4d7c15ceb38abab6f9d885cd30827f5
 }
 
 # Deletes the workspace locally and deletes the working branch in the remote.
