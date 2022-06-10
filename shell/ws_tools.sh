@@ -60,7 +60,7 @@ wss() {
 # Arg 1: The workspace name.
 mkws() {
   mkws_at_main $1
-  populate_ws_file
+  populate_ws_file $1
   branchname=$1_working
   git fetch
   git checkout -b $branchname
@@ -73,7 +73,7 @@ mkws() {
 # Arg 1: The workspace name.
 pullws() {
   mkws_at_main $1
-  populate_ws_file
+  populate_ws_file $1
   branchname=$1_working
   git fetch origin $branchname:$branchname
 }
