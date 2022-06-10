@@ -26,7 +26,6 @@ source_subscripts() {
   source $HOME/src/HEAD/shell/java_tools.sh
   source $HOME/src/HEAD/shell/misc_prefs.sh
   source $HOME/src/HEAD/shell/secret_tools.sh
-  source $HOME/src/HEAD/shell/src_tools.sh
   source $HOME/src/HEAD/shell/sys_tools.sh
   source $HOME/src/HEAD/shell/vc_tools.sh
   source $HOME/src/HEAD/shell/ws_tools.sh
