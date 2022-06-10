@@ -14,7 +14,6 @@ push() {
 
 # Pulls updates on the current branch in the remote to the local branch.
 pull() {
-  echo $BRANCHNAME
   git fetch
   git pull origin $BRANCHNAME --depth=1 --allow-unrelated-histories
 }
