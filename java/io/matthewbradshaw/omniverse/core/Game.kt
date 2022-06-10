@@ -5,6 +5,7 @@ import com.jme3.material.Material
 import com.jme3.math.ColorRGBA
 import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
+import kotlin.random.Random
 import com.jme3.system.AppSettings
 import com.jme3.app.state.AppState
 import com.jme3.app.VRAppState
@@ -12,29 +13,71 @@ import com.jme3.app.VRConstants
 import com.jme3.app.VREnvironment
 import com.jme3.app.LostFocusBehavior
 import com.jme3.math.Vector3f
+import kotlin.math.sin
+import kotlin.math.cos
+import kotlin.math.acos
 
 class Game(
   private val appState: VRAppState,
   private val environment: VREnvironment,
 ) : SimpleApplication(appState) {
-  override fun simpleInitApp() {
-    val box = Box(1f, 1f, 1f)
-    val geometry = Geometry("Box", box)
-    val material = Material(
-      assetManager,
-      "Common/MatDefs/Misc/Unshaded.j3md"
-    )
 
-    material.setColor("Color", ColorRGBA.Blue)
-    geometry.setMaterial(material)
+  private val random = Random(0L)
 
-    rootNode.attachChild(geometry)
-
-    cam.setLocation(Vector3f(1f, 1f, 1f))
+  private val independenceFactor = 10
+  private val boxMaterialOffsets = List<Int>(independenceFactor) { random.nextInt(10) }
+  private val boxMaterialRateMultiplier = List<Float>(independenceFactor) { random.nextFloat() }
+  private val boxMaterials by lazy {
+    List<Material>(independenceFactor) {
+      Material(
+              assetManager,
+              "Common/MatDefs/Misc/Unshaded.j3md"
+      ).apply {
+        setColor("Color", ColorRGBA.Blue)
+      }
+    }
   }
 
+  val boxCount = 10000
+
+  override fun simpleInitApp() {
+    /*Geometry("Box 1", Box(1f, 1f, 1f)).apply {
+      setMaterial(boxMaterials[0])
+    }.let { rootNode.attachChild(it) }*/
+
+    for (i in 1..boxCount) {
+      Geometry("Box I", Box(0.5f, 0.5f, 0.5f)).apply {
+        setMaterial(boxMaterials[random.nextInt(9)])
+      }.let {
+        rootNode.attachChild(it)
+        it.setLocalTranslation(randomPosition())
+      }
+    }
+    cam.setLocation(Vector3f(0f, 0f, 0f))
+  }
+
+  private val maximumRadius = 1000
+  private val _2PI: Float = 2 * 3.14f
+
+  private fun randomPosition(): Vector3f {
+    val radius = random.nextInt(maximumRadius) + 10
+    val u = random.nextFloat()
+    val v = random.nextFloat()
+    val theta = _2PI * u
+    val phi = acos((2 * v)- 1)
+    val x = radius * cos(theta) * sin(phi)
+    val y = radius * sin(theta) * sin(phi)
+    val z = radius * cos(phi)
+    return Vector3f(x, y, z)
+  }
+
+  private var time = 0f
   override fun simpleUpdate(tpf: Float) {
-    // TODO
+    time += tpf
+    for (i in 0 until independenceFactor) {
+      val green = 0.6f + (0.4f * sin((boxMaterialRateMultiplier[i] * time) + boxMaterialOffsets[i]))
+      boxMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
+    }
   }
 
   companion object {
