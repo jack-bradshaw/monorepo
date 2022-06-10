@@ -10,6 +10,7 @@ import com.jme3.app.LostFocusBehavior;
 
 public class Main {
   public static void main(String[] args) {
+<<<<<<< HEAD
     AppSettings settings = new AppSettings(/* loadDefaults= */ true);
     settings.put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE);
     settings.put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true);
@@ -28,5 +29,8 @@ public class Main {
     } else {
       throw new IllegalStateException("Root environment initialization failed.");
     }
+=======
+    Game.main();
+>>>>>>> 33a75b95c4d7c15ceb38abab6f9d885cd30827f5
   }
 }
