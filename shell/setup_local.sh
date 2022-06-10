@@ -76,6 +76,30 @@ inflate_codelab() {
   mkdir -p $HOME/src/WORKSPACES
 }
 
+# Install programs that are usually not installed by default.
+install_basic_programs() {
+  # wget
+  sudo apt-get install wget
+
+  # ktfmt
+  ktfmtversion=0.38
+  cd /usr/bin
+  rm -rf ktfmt.jar
+  sudo wget https://repo1.maven.org/maven2/com/facebook/ktfmt/$ktfmt_version/ktfmt-$ktfmt_version-jar-with-dependencies.jar
+  sudo mv ktfmt-$ktfmt_version-jar-with-dependencies.jar ktfmt.jar
+
+  # Bazel
+  sudo apt install apt-transport-https curl gnupg
+  curl -fsSL https://bazel.build/bazel-release.pub.gpg \
+      | gpg --dearmor > bazel.gpg
+  sudo mv bazel.gpg /etc/apt/trusted.gpg.d/
+  echo "deb [arch=amd64] \
+  https://storage.googleapis.com/bazel-apt stable jdk1.8" \
+      | sudo tee /etc/apt/sources.list.d/bazel.list
+  sudo apt update && sudo apt install bazel
+  sudo apt update && sudo apt full-upgrade   
+}
+
 # Main function. Run on source loaded.
 run() {
   make_temp_dir
@@ -88,6 +112,8 @@ run() {
   export_bashrc
   export_gitconfig
   export_vimrc
+  
+  install_basic_programs
 
   delete_temp_dir
 }
