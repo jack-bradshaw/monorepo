@@ -9,7 +9,7 @@ kt_jvm_library(
     deps = [
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_desktop",
-        "@maven//:org_jmonkeyengine_jme3_lwjgl",
+        "@maven//:org_jmonkeyengine_jme3_lwjgl3",
         "@maven//:org_jmonkeyengine_jme3_vr",
     ],
 )
