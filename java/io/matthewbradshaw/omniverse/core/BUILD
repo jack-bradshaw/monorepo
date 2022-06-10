@@ -3,11 +3,7 @@ load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 kt_jvm_library(
     name = "app_lib",
     srcs = [
-<<<<<<< HEAD
-        "App.kt",
-=======
         "Game.kt",
->>>>>>> 33a75b95c4d7c15ceb38abab6f9d885cd30827f5
         "Main.java",
     ],
     deps = [
