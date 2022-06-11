@@ -41,10 +41,16 @@ class Game(
   val boxCount = 10000
 
   override fun simpleInitApp() {
-    /*Geometry("Box 1", Box(1f, 1f, 1f)).apply {
-      setMaterial(boxMaterials[0])
-    }.let { rootNode.attachChild(it) }*/
-
+    val playArea = environment.getVRBounds() ?: throw IllegalStateException("VR Bounds do not exist.")
+    val playAreaSize = playArea.getPlaySize() ?: throw IllegalStateException("Vr Bounds Size does not exist.")
+    try {
+      Geometry("Box 1", Box(playAreaSize.getX(), 0.2f, playAreaSize.getY())).apply {
+        setMaterial(boxMaterials[0])
+        setLocalTranslation(0f, 0f, 0f)
+      }.let { rootNode.attachChild(it) }
+    } catch (e: NullPointerException) {
+      throw IllegalStateException("Vr bounds size unwrapping failed")
+    }
     for (i in 1..boxCount) {
       Geometry("Box I", Box(0.5f, 0.5f, 0.5f)).apply {
         setMaterial(boxMaterials[random.nextInt(9)])
