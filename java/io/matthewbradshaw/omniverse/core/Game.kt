@@ -30,8 +30,8 @@ class Game(
   private val boxMaterials by lazy {
     List<Material>(independenceFactor) {
       Material(
-              assetManager,
-              "Common/MatDefs/Misc/Unshaded.j3md"
+        assetManager,
+        "Common/MatDefs/Misc/Unshaded.j3md"
       ).apply {
         setColor("Color", ColorRGBA.Blue)
       }
@@ -41,16 +41,11 @@ class Game(
   val boxCount = 10000
 
   override fun simpleInitApp() {
-    val playArea = environment.getVRBounds() ?: throw IllegalStateException("VR Bounds do not exist.")
-    val playAreaSize = playArea.getPlaySize() ?: throw IllegalStateException("Vr Bounds Size does not exist.")
-    try {
-      Geometry("Box 1", Box(playAreaSize.getX(), 0.2f, playAreaSize.getY())).apply {
-        setMaterial(boxMaterials[0])
-        setLocalTranslation(0f, 0f, 0f)
-      }.let { rootNode.attachChild(it) }
-    } catch (e: NullPointerException) {
-      throw IllegalStateException("Vr bounds size unwrapping failed")
-    }
+    Geometry("Box 1", Box(5f, 5f, 5f)).apply {
+      setMaterial(boxMaterials[0])
+      setLocalTranslation(0f, 0f, 0f)
+    }.let { rootNode.attachChild(it) }
+
     for (i in 1..boxCount) {
       Geometry("Box I", Box(0.5f, 0.5f, 0.5f)).apply {
         setMaterial(boxMaterials[random.nextInt(9)])
@@ -59,7 +54,7 @@ class Game(
         it.setLocalTranslation(randomPosition())
       }
     }
-    cam.setLocation(Vector3f(0f, 0f, 0f))
+    cam.setLocation(Vector3f(2.5f, 2.5f, 2.5f))
   }
 
   private val maximumRadius = 1000
@@ -70,7 +65,7 @@ class Game(
     val u = random.nextFloat()
     val v = random.nextFloat()
     val theta = _2PI * u
-    val phi = acos((2 * v)- 1)
+    val phi = acos((2 * v) - 1)
     val x = radius * cos(theta) * sin(phi)
     val y = radius * sin(theta) * sin(phi)
     val z = radius * cos(phi)
