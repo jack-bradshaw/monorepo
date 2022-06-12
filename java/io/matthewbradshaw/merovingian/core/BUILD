@@ -4,7 +4,7 @@ kt_jvm_library(
     name = "core",
     srcs = [
         "Lifecycle.kt",
-        "Restorable.java",
+        "Restorable.kt",
         "Stator.kt",
         "Sustainable.kt",
         "Usable.kt",
