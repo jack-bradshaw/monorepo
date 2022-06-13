@@ -4,14 +4,54 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "module",
+    name = "jmonkey",
     srcs = [
-        "JMonkeyModule.kt",
+        "JMonkeyEngine.kt",
+        "JMonkeyApp.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
-        "//java/io/matthewbradshaw/octavius/app:app",
         ":dagger",
+        "//java/io/matthewbradshaw/octavius:scope",
+        "//java/io/matthewbradshaw/octavius/core",
+        "//java/io/matthewbradshaw/octavius/heartbeat",
+        "//java/io/matthewbradshaw/octavius/ui",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_core",
+        "@maven//:org_jmonkeyengine_jme3_vr",
+    ],
+)
+
+kt_jvm_library(
+    name = "impl",
+    srcs = [
+        "JMonkeyAppImpl.kt",
+    ],
+    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    deps = [
+        ":dagger",
+        ":jmonkey",
+        "//java/io/matthewbradshaw/octavius:scope",
+        "//java/io/matthewbradshaw/octavius/core",
+        "//java/io/matthewbradshaw/octavius/heartbeat",
+        "//java/io/matthewbradshaw/octavius/ui",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_core",
+        "@maven//:org_jmonkeyengine_jme3_vr",
+    ],
+)
+
+kt_jvm_library(
+    name = "module",
+    srcs = [
+        "JMonkeyEngineModule.kt",
+        "JMonkeyAppModule.kt",
+    ],
+    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    deps = [
+        ":dagger",
+        ":jmonkey",
+        ":impl",
         "//java/io/matthewbradshaw/octavius:scope",
         "//java/io/matthewbradshaw/octavius/core",
         "//java/io/matthewbradshaw/octavius/heartbeat",

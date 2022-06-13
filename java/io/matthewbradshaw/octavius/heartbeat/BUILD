@@ -33,8 +33,8 @@ kt_jvm_library(
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         ":dagger",
-        ":impl",
         ":heartbeat",
+        ":impl",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

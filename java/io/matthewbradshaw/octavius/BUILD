@@ -23,11 +23,11 @@ kt_jvm_library(
     deps = [
         ":dagger",
         ":scope",
+        "//java/io/matthewbradshaw/octavius/heartbeat:module",
+        "//java/io/matthewbradshaw/octavius/jmonkey:module",
+        "//java/io/matthewbradshaw/octavius/jmonkey",
         "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
-        "//java/io/matthewbradshaw/octavius/jmonkey:module",
-        "//java/io/matthewbradshaw/octavius/heartbeat:module",
-        "//java/io/matthewbradshaw/octavius/core:core",
     ],
 )

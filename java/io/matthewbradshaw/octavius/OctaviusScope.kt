@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius
+package java.io.matthewbradshaw.octavius
 
 import javax.inject.Scope
 

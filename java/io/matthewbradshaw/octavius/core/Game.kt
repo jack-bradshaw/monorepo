@@ -6,6 +6,5 @@ import io.matthewbradshaw.octavius.heartbeat.Ticker
 
 interface Game {
   fun ui(): Flow<Frameable>
-  fun ticker(): Ticker
   fun paradigm(): Paradigm
 }
