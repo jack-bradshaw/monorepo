@@ -8,6 +8,8 @@ import com.jme3.app.VRConstants;
 import com.jme3.app.VREnvironment;
 import com.jme3.app.LostFocusBehavior;
 
+import java.io.matthewbradshaw.octavius.application.Game;
+
 public class Main {
   public static void main(String[] args) {
     Game.main();

@@ -6,6 +6,7 @@ import com.jme3.math.ColorRGBA
 import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import com.jme3.system.AppSettings
+import javax.inject.Inject
 
 class App : SimpleApplication() {
   override fun simpleInitApp() {
