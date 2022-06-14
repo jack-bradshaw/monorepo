@@ -4,18 +4,16 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "jmonkey",
+    name = "engine",
     srcs = [
-        "JMonkeyEngine.kt",
-        "JMonkeyApp.kt",
+        "Engine.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         ":dagger",
         "//java/io/matthewbradshaw/octavius:scope",
         "//java/io/matthewbradshaw/octavius/core",
-        "//java/io/matthewbradshaw/octavius/heartbeat",
-        "//java/io/matthewbradshaw/octavius/ui",
+        "//java/io/matthewbradshaw/octavius/driver",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
@@ -25,16 +23,14 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "JMonkeyAppImpl.kt",
+        "EngineModule.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         ":dagger",
-        ":jmonkey",
+        ":engine",
         "//java/io/matthewbradshaw/octavius:scope",
         "//java/io/matthewbradshaw/octavius/core",
-        "//java/io/matthewbradshaw/octavius/heartbeat",
-        "//java/io/matthewbradshaw/octavius/ui",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
@@ -44,18 +40,14 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "JMonkeyEngineModule.kt",
-        "JMonkeyAppModule.kt",
+        "EngineModule.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         ":dagger",
-        ":jmonkey",
+        ":engine",
         ":impl",
         "//java/io/matthewbradshaw/octavius:scope",
-        "//java/io/matthewbradshaw/octavius/core",
-        "//java/io/matthewbradshaw/octavius/heartbeat",
-        "//java/io/matthewbradshaw/octavius/ui",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",

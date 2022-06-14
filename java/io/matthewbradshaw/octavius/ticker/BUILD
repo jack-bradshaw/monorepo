@@ -4,7 +4,7 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "heartbeat",
+    name = "ticker",
     srcs = [
         "Ticker.kt",
     ],
@@ -19,7 +19,7 @@ kt_jvm_library(
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
-        ":heartbeat",
+        ":ticker",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
@@ -33,7 +33,7 @@ kt_jvm_library(
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         ":dagger",
-        ":heartbeat",
+        ":ticker",
         ":impl",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

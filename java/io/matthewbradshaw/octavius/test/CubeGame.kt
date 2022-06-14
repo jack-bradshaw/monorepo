@@ -1,15 +1,14 @@
 package java.io.matthewbradshaw.octavius.test
 
 import io.matthewbradshaw.octavius.core.Game
-import io.matthewbradshaw.octavius.jmonkey.JMonkeyEngine
+import io.matthewbradshaw.octavius.jmonkey.Engine
 import io.matthewbradshaw.octavius.core.Paradigm
-import io.matthewbradshaw.octavius.heartbeat.Ticker
+import io.matthewbradshaw.octavius.ticker.Ticker
 import io.matthewbradshaw.octavius.ui.Frameable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.MainScope
 import kotlin.math.acos
 import kotlin.math.cos
@@ -23,7 +22,7 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import com.jme3.math.Vector3f
 
-class CubeGame(private val ticker: Ticker, private val jMonkeyEngine: JMonkeyEngine) : Game {
+class CubeGame(private val ticker: Ticker, private val engine: Engine) : Game {
 
   private val coroutineScope = MainScope()
 
@@ -45,7 +44,7 @@ class CubeGame(private val ticker: Ticker, private val jMonkeyEngine: JMonkeyEng
   private val boxMaterials by lazy {
     List<Material>(INDEPENDENCE_FACTOR) {
       Material(
-        jMonkeyEngine.assetManager,
+        engine.assetManager,
         "Common/MatDefs/Misc/Unshaded.j3md"
       ).apply {
         setColor("Color", ColorRGBA.Blue)
@@ -69,7 +68,7 @@ class CubeGame(private val ticker: Ticker, private val jMonkeyEngine: JMonkeyEng
         it.setLocalTranslation(randomPositionOnSphere())
       }
     }
-    jMonkeyEngine.camera.setLocation(Vector3f(2.5f, 2.5f, 2.5f))
+    engine.camera.setLocation(Vector3f(2.5f, 2.5f, 2.5f))
 
     return@createFrameable root
   })

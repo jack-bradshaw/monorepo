@@ -1,6 +1,6 @@
-package io.matthewbradshaw.octavius.jmonkey
+package io.matthewbradshaw.octavius.engine
 
-import java.io.matthewbradshaw.octavius.OctaviusScope
+import io.matthewbradshaw.octavius.OctaviusScope
 import dagger.Provides
 import dagger.Module
 import com.jme3.app.VRAppState
@@ -8,39 +8,39 @@ import com.jme3.app.VREnvironment
 import com.jme3.system.AppSettings
 import com.jme3.app.VRConstants
 import io.matthewbradshaw.octavius.core.Paradigm
-import io.matthewbradshaw.octavius.core.Game
+import io.matthewbradshaw.octavius.driver.Driver
 
 @Module
-class JMonkeyEngineModule {
+class EngineModule {
 
   @Provides
   @OctaviusScope
-  fun provideJMonkey(game: Game, app: JMonkeyApp) = when (game.paradigm()) {
-    Paradigm.FLATWARE -> createJMonkeyFlatWare(app)
-    Paradigm.VR -> createJMonkeyVr(app)
+  fun provideJMonkey(paradigm: Paradigm, driver: Driver) = when (paradigm) {
+    Paradigm.FLATWARE -> createFlatWareEngine(driver)
+    Paradigm.VR -> createVrEngine(driver)
   }
 
-  private fun createJMonkeyFlatWare(app: JMonkeyApp): JMonkeyEngine.FlatWare {
+  private fun createFlatWareEngine(driver: Driver): Engine.FlatWare {
     val settings = AppSettings( /* loadDefaults= */ true).also {
-      app.asSimpleApplication().setSettings(it)
-      app.asSimpleApplication().setShowSettings(false)
+      driver.extractApplication().setSettings(it)
+      driver.extractApplication().setShowSettings(false)
     }
 
-    return JMonkeyEngine.FlatWare(
+    return Engine.FlatWare(
       settings,
-      app,
-      app.extractCamera(),
-      app.extractAssetManager()
+      driver,
+      driver.extractCamera(),
+      driver.extractAssetManager()
     )
   }
 
-  private fun createJMonkeyVr(app: JMonkeyApp): JMonkeyEngine.Vr {
+  private fun createVrEngine(driver: Driver): Engine.Vr {
     val settings = AppSettings( /* loadDefaults= */ true).apply {
       put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
       put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
     }.also {
-      app.asSimpleApplication().setSettings(it)
-      app.asSimpleApplication().setShowSettings(false)
+      driver.extractApplication().setSettings(it)
+      driver.extractApplication().setShowSettings(false)
     }
 
     val environment = VREnvironment(settings).apply {
@@ -52,11 +52,11 @@ class JMonkeyEngineModule {
       setMirrorWindowSize(DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX, DEFAULT_VR_MIRROR_WINDOW_HEIGHT_PX)
     }
 
-    return JMonkeyEngine.Vr(
+    return Engine.Vr(
       settings,
-      app,
-      app.extractCamera(),
-      app.extractAssetManager(),
+      driver,
+      driver.extractCamera(),
+      driver.extractAssetManager(),
       appState,
       environment
     )

@@ -1,24 +1,30 @@
-package java.io.matthewbradshaw.octavius
+package io.matthewbradshaw.octavius
 
 import dagger.Component
-import io.matthewbradshaw.octavius.jmonkey.JMonkeyEngine
-import io.matthewbradshaw.octavius.core.Game
-import io.matthewbradshaw.octavius.jmonkey.JMonkeyEngineModule
-import io.matthewbradshaw.octavius.jmonkey.JMonkeyAppModule
 import dagger.BindsInstance
-import io.matthewbradshaw.octavius.heartbeat.Ticker
-import io.matthewbradshaw.octavius.heartbeat.TickerModule
+import io.matthewbradshaw.octavius.engine.Engine
+import io.matthewbradshaw.octavius.engine.EngineModule
+import io.matthewbradshaw.octavius.driver.DriverModule
+import io.matthewbradshaw.octavius.driver.Driver
+import io.matthewbradshaw.octavius.ignition.IgnitionModule
+import io.matthewbradshaw.octavius.ignition.Ignition
+import io.matthewbradshaw.octavius.core.Paradigm
+import io.matthewbradshaw.octavius.ticker.Ticker
+import io.matthewbradshaw.octavius.ticker.TickerModule
 
 @OctaviusScope
-@Component(modules = [JMonkeyEngineModule::class, JMonkeyAppModule::class, TickerModule::class])
+@Component(modules = [EngineModule::class, DriverModule::class, TickerModule::class, IgnitionModule::class])
 interface Octavius {
 
+  fun ignition(): Ignition
   fun ticker(): Ticker
-  fun jMonkeyEngine(): JMonkeyEngine
+  fun engine(): Engine
+  fun driver(): Driver
 
   @Component.Builder
   interface Builder {
-    @BindsInstance fun game(game: Game): Builder
+    @BindsInstance
+    fun paradigm(paradigm: Paradigm): Builder
     fun build(): Octavius
   }
 }

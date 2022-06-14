@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius.heartbeat
+package io.matthewbradshaw.octavius.ticker
 
 import kotlinx.coroutines.flow.Flow
 
