@@ -7,6 +7,8 @@ kt_jvm_library(
     name = "cubegame_lib",
     srcs = [
         "CubeGame.kt",
+        "Main.java",
+        "MainKt.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [

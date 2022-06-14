@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.collect
 import com.jme3.scene.Spatial
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.MainScope
 import com.jme3.app.LostFocusBehavior
 import io.matthewbradshaw.octavius.ignition.Ignition
 import io.matthewbradshaw.octavius.ticker.Ticker
@@ -25,10 +26,10 @@ class DriverImpl @Inject internal constructor(private val ignition: Ignition, pr
     setLostFocusBehavior(LostFocusBehavior.Disabled)
   }
 
-  private val mainScope = MainScope()
+  private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
   override fun simpleInitApp() {
-    mainScope.launch {
+    coroutineScope.launch {
       gameFlow
         .flatMapLatest { it?.ui() ?: flowOf<Spatial?>(null) }
         .collect {
@@ -36,7 +37,7 @@ class DriverImpl @Inject internal constructor(private val ignition: Ignition, pr
           it?.let { getRootNode().attachChild(it) }
         }
     }
-    mainScope.launch {
+    coroutineScope.launch {
       ignition.started().first()
       start()
     }

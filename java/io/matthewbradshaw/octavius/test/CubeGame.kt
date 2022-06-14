@@ -1,4 +1,4 @@
-package java.io.matthewbradshaw.octavius.test
+package io.matthewbradshaw.octavius.test
 
 import io.matthewbradshaw.octavius.core.Game
 import io.matthewbradshaw.octavius.core.Paradigm
@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlin.math.acos
 import kotlin.math.cos
 import com.jme3.scene.Node
@@ -23,7 +24,7 @@ import com.jme3.math.Vector3f
 
 class CubeGame(private val octavius: Octavius) : Game {
 
-  private val coroutineScope = MainScope()
+  private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
   init {
     coroutineScope.launch {

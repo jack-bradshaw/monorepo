@@ -1,7 +1,7 @@
-package java.io.matthewbradshaw.octavius.test;
+package io.matthewbradshaw.octavius.test;
 
 public class Main {
-    public static void Main(String[] args) {
-        MainKt.main()
+    public static void main(String[] args) {
+        (new MainKt()).main();
     }
 }
