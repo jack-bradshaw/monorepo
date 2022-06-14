@@ -11,10 +11,8 @@ kt_jvm_library(
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         "//java/io/matthewbradshaw/octavius/core",
-        "//java/io/matthewbradshaw/octavius/heartbeat",
-        "//java/io/matthewbradshaw/octavius/jmonkey:module",
-        "//java/io/matthewbradshaw/octavius/lifecycle",
-        "//java/io/matthewbradshaw/octavius/ui",
+        "//java/io/matthewbradshaw/octavius",
+        "//java/io/matthewbradshaw/octavius/ticker",
         "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

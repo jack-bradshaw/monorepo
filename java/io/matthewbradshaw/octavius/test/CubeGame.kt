@@ -1,10 +1,9 @@
 package java.io.matthewbradshaw.octavius.test
 
 import io.matthewbradshaw.octavius.core.Game
-import io.matthewbradshaw.octavius.jmonkey.Engine
 import io.matthewbradshaw.octavius.core.Paradigm
 import io.matthewbradshaw.octavius.ticker.Ticker
-import io.matthewbradshaw.octavius.ui.Frameable
+import io.matthewbradshaw.octavius.Octavius
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -13,21 +12,22 @@ import kotlinx.coroutines.MainScope
 import kotlin.math.acos
 import kotlin.math.cos
 import com.jme3.scene.Node
+import com.jme3.scene.Spatial
 import kotlin.math.sin
 import kotlin.random.Random
-import io.matthewbradshaw.octavius.ui.createFrameable
 import com.jme3.material.Material
 import com.jme3.math.ColorRGBA
 import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import com.jme3.math.Vector3f
 
-class CubeGame(private val ticker: Ticker, private val engine: Engine) : Game {
+class CubeGame(private val octavius: Octavius) : Game {
 
   private val coroutineScope = MainScope()
 
   init {
     coroutineScope.launch {
+      val ticker = octavius.ticker()
       ticker.pulse().collect {
         for (i in 0 until INDEPENDENCE_FACTOR) {
           val green = 0.6f + (0.4f * sin((boxMaterialRateMultiplier[i] * ticker.netTimeSec()) + boxMaterialOffsets[i]))
@@ -44,7 +44,7 @@ class CubeGame(private val ticker: Ticker, private val engine: Engine) : Game {
   private val boxMaterials by lazy {
     List<Material>(INDEPENDENCE_FACTOR) {
       Material(
-        engine.assetManager,
+        octavius.engine().assetManager,
         "Common/MatDefs/Misc/Unshaded.j3md"
       ).apply {
         setColor("Color", ColorRGBA.Blue)
@@ -52,7 +52,9 @@ class CubeGame(private val ticker: Ticker, private val engine: Engine) : Game {
     }
   }
 
-  override fun ui(): Flow<Frameable> = flowOf(createFrameable {
+  override fun ui(): Flow<Spatial> = flowOf(createUi())
+
+  private fun createUi(): Spatial {
     val root = Node("game_root")
 
     Geometry("Box 1", Box(5f, 5f, 5f)).apply {
@@ -68,12 +70,10 @@ class CubeGame(private val ticker: Ticker, private val engine: Engine) : Game {
         it.setLocalTranslation(randomPositionOnSphere())
       }
     }
-    engine.camera.setLocation(Vector3f(2.5f, 2.5f, 2.5f))
+    octavius.engine().camera.setLocation(Vector3f(2.5f, 2.5f, 2.5f))
 
-    return@createFrameable root
-  })
-
-  override fun paradigm() = Paradigm.VR
+    return root
+  }
 
   private fun randomPositionOnSphere(): Vector3f {
     val radius = random.nextInt(MAX_RADIUS) + MIN_RADIUS
