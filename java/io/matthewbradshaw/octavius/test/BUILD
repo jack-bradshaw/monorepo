@@ -4,7 +4,7 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "cubegame",
+    name = "cubegame_lib",
     srcs = [
         "CubeGame.kt",
     ],
@@ -18,4 +18,10 @@ kt_jvm_library(
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
+)
+
+java_binary(
+    name = "cubegame_app",
+    main_class = "io.matthewbradshaw.octavius.test.Main",
+    runtime_deps = [":cubegame_lib"],
 )
