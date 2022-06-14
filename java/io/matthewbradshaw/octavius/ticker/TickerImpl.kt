@@ -1,9 +1,11 @@
 package io.matthewbradshaw.octavius.ticker
 
+import io.matthewbradshaw.octavius.OctaviusScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.channels.BufferOverflow
 import javax.inject.Inject
 
+@OctaviusScope
 class TickerImpl @Inject internal constructor() : Ticker {
 
   private val pulse = MutableSharedFlow<TimeSec>(onBufferOverflow = BufferOverflow.SUSPEND)

@@ -1,10 +1,12 @@
 package io.matthewbradshaw.octavius.ignition
 
+import io.matthewbradshaw.octavius.OctaviusScope
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.filter
 
+@OctaviusScope
 class IgnitionImpl @Inject constructor() : Ignition {
 
   private val _started = MutableStateFlow(false)

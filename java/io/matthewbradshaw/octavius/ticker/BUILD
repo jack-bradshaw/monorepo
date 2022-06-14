@@ -21,6 +21,7 @@ kt_jvm_library(
     deps = [
         ":ticker",
         "@maven//:javax_inject_javax_inject",
+        "//java/io/matthewbradshaw/octavius:scope",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

@@ -16,7 +16,9 @@ import kotlinx.coroutines.flow.flatMapLatest
 import com.jme3.app.LostFocusBehavior
 import io.matthewbradshaw.octavius.ignition.Ignition
 import io.matthewbradshaw.octavius.ticker.Ticker
+import io.matthewbradshaw.octavius.OctaviusScope
 
+@OctaviusScope
 class DriverImpl @Inject internal constructor(private val ignition: Ignition, private val ticker: Ticker) :
   Driver, SimpleApplication() {
 
