@@ -8,6 +8,10 @@ import javax.inject.Inject
 @OctaviusScope
 class TickerImpl @Inject internal constructor() : Ticker {
 
+  init {
+    println("ticker init")
+  }
+
   private val pulse = MutableSharedFlow<TimeSec>(onBufferOverflow = BufferOverflow.SUSPEND)
   private var netTimeSec = 0f
 

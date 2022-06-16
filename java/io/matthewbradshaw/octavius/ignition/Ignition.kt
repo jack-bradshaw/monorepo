@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface Ignition {
   fun started(): Flow<Unit>
-  suspend fun ignite()
+  suspend fun go()
 }

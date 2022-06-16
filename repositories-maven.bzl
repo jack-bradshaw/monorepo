@@ -26,6 +26,7 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.auto.value:auto-value-annotations:%s" % AUTO_VALUE_VERSION,
             "com.google.auto.value:auto-value:%s" % AUTO_VALUE_VERSION,
             "com.google.auto:auto-common:1.2.1",
+            "com.google.auto.factory:auto-factory:1.0.1",
             "com.google.code.findbugs:jsr305:3.0.2",
             "com.google.code.gson:gson:2.9.0",
             "com.google.dagger:dagger:%s" % DAGGER_VERSION,
