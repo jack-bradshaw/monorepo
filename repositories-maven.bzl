@@ -26,6 +26,10 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.auto.value:auto-value-annotations:%s" % AUTO_VALUE_VERSION,
             "com.google.auto.value:auto-value:%s" % AUTO_VALUE_VERSION,
             "com.google.auto:auto-common:1.2.1",
+<<<<<<< HEAD
+=======
+            "com.google.auto.factory:auto-factory:1.0.1",
+>>>>>>> c57fad40b5c4f0a93c121aecd463635626b91646
             "com.google.code.findbugs:jsr305:3.0.2",
             "com.google.code.gson:gson:2.9.0",
             "com.google.dagger:dagger:%s" % DAGGER_VERSION,
@@ -56,6 +60,10 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.protobuf:protobuf-lite:3.0.1",
             "com.google.protobuf:protobuf-kotlin:%s" % PROTOBUF_GENERAL_VERSION,
             "com.google.protobuf:protobuf-kotlin-lite:%s" % PROTOBUF_GENERAL_VERSION,
+<<<<<<< HEAD
+=======
+            "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2",
+>>>>>>> c57fad40b5c4f0a93c121aecd463635626b91646
             "org.mockito:mockito-core:4.3.1",
         ],
         repositories = [
