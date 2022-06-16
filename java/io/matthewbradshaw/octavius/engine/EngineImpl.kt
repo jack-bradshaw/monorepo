@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flatMapLatest
+import io.matthewbradshaw.kmonkey.coroutines.dispatcher
 import com.jme3.app.LostFocusBehavior
 import io.matthewbradshaw.octavius.ignition.Ignition
 import io.matthewbradshaw.octavius.ticker.Ticker
@@ -26,8 +27,8 @@ class EngineImpl(
   private val appStates: List<AppState>
 ) : Engine, SimpleApplication(*appStates.toTypedArray()) {
 
-  private lateinit var mainThread: Thread
-  private latienit var mainDispatcher: Dispatcher
+  private val dispatcher = dispatcher()
+  private val scope = CoroutineScope(dispatcher)
 
   private val vrAppState = appStates.filter { it::class == VrAppState::class }.first()
 
@@ -38,15 +39,13 @@ class EngineImpl(
   }
 
   override fun simpleInitApp() {
-    mainThread = Thread.currentThread()
-    coroutineScope.launch {
+    scope.launch {
       gameFlow
-              .onEach { println("gameflow emitted $it") }
-              .flatMapLatest { it?.ui() ?: flowOf<Spatial?>(null) }
-              .collect {
-                getRootNode().detachAllChildren()
-                it?.let { getRootNode().attachChild(it) }
-              }
+        .flatMapLatest { it?.ui() ?: flowOf<Spatial?>(null) }
+        .collect {
+          getRootNode().detachAllChildren()
+          it?.let { getRootNode().attachChild(it) }
+        }
     }
   }
 
@@ -63,7 +62,5 @@ class EngineImpl(
   override fun camera() = cam
   override fun assetManager() = assetManager
   override fun application() = this
-  override fun thread() = mainThread
-  override fun dispatcher() = mainDispatcher
   override fun vr() = vrAppState
 }

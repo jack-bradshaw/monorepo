@@ -10,6 +10,5 @@ interface Engine {
   fun camera(): Camera
   fun assetManager(): AssetManager
   fun application(): SimpleApplication
-  fun context(): CoroutineContext
   fun vr(): VrAppState?
 }

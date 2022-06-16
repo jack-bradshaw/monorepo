@@ -10,7 +10,7 @@ kt_jvm_library(
         "Usable.kt",
     ],
     deps = [
-        "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:com_google_protobuf_protobuf_java",
+        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
