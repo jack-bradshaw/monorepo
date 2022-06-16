@@ -74,7 +74,10 @@ pullws() {
   mkws_at_main $1
   populate_ws_file $1
   git fetch origin $BRANCHNAME:$BRANCHNAME
+<<<<<<< HEAD
   git checkout $BRANCHNAME
+=======
+>>>>>>> c57fad40b5c4f0a93c121aecd463635626b91646
 }
 
 # Makes a new workspace and syncs to main at HEAD. Moves into the workspace.

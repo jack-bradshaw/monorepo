@@ -3,8 +3,13 @@ load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 kt_jvm_library(
     name = "app_lib",
     srcs = [
+<<<<<<< HEAD
         "VrGame.kt",
         "Main.java",
+=======
+        "Main.java",
+        "VrGame.kt",
+>>>>>>> c57fad40b5c4f0a93c121aecd463635626b91646
     ],
     deps = [
         "@maven//:org_jmonkeyengine_jme3_core",
