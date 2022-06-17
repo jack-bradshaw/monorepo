@@ -2,7 +2,7 @@
 
 # Constants.
 REMOTE="https://github.com/matthewbradshaw-io/monorepo"
-LOCAL = $HOME/HEAD
+LOCAL=$HOME/HEAD
 
 # Clones HEAD and sources the shell from the cloned repo.
 source_head_shell() {
