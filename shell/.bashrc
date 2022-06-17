@@ -16,5 +16,6 @@ run() {
       return                                                                    
   fi  
 
+  source_from_head
 }
 run
