@@ -1,6 +1,9 @@
 #!/bin/bash
 # Per-session setup.
 
+# Constants
+SCRIPT_PATH=$HOME/HEAD/shell
+
 # Initializes a new tmux session.
 start_tmux() {
   if command -v tmux &> /dev/null && \
@@ -14,39 +17,32 @@ start_tmux() {
 
 # Sources all scripts from the HEAD workspace.
 source_subscripts() {
-  source $HOME/src/HEAD/shell/path.sh
-  source $HOME/src/HEAD/shell/self_constants.sh
-  source $HOME/src/HEAD/shell/ws_constants.sh
+  source $SCRIPT_PATH/path.sh
   
-  source $HOME/src/HEAD/shell/dir_tweaks.sh
-  source $HOME/src/HEAD/shell/tmux_tweaks.sh
-  
-  source $HOME/src/HEAD/shell/bash_tools.sh
-  source $HOME/src/HEAD/shell/bazel_tools.sh
-  source $HOME/src/HEAD/shell/java_tools.sh
-  source $HOME/src/HEAD/shell/misc_prefs.sh
-  source $HOME/src/HEAD/shell/secret_tools.sh
-  source $HOME/src/HEAD/shell/sys_tools.sh
-  source $HOME/src/HEAD/shell/vc_tools.sh
-  source $HOME/src/HEAD/shell/ws_tools.sh
-}
-
-# Begins building all forge artifacts in the background.
-preheat_forge() {
-  nohup reforge > /dev/null 2>&1 &
+  source $SCRIPT_PATH/bash_tools.sh
+  source $SCRIPT_PATH/bazel_tools.sh
+  source $SCRIPT_PATH/dir_tools.sh
+  source $SCRIPT_PATH/git_tools.sh
+  source $SCRIPT_PATH/misc_prefs.sh
+  source $SCRIPT_PATH/secret_tools.sh
+  source $SCRIPT_PATH/sw_installation_tools.sh
+  source $SCRIPT_PATH/sys_tools.sh
+  source $SCRIPT_PATH/tmux_tools.sh
 }
 
 # Main function. Run on source loaded.
 run() {
+  # To suppress MacOS zsh notice.
+  export BASH_SILENCE_DEPRECATION_WARNING=1
+
   start_tmux
   source_subscripts
-  preheat_forge
   system_report
 
   cd $HOME
 
-  echo "-------------------------------------------------"
-  echo "                Welcome, Matthew.                "
-  echo "-------------------------------------------------"
+  echo "---------------------------------------------------------------"
+  echo "                         Welcome, Sir.                         "
+  echo "---------------------------------------------------------------"
 }
 run

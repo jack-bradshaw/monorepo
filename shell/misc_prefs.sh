@@ -1,5 +1,5 @@
 #!/bin/bash
-# Miscellaneous shell preferences.
+# Miscellaneous preferences.
 
 export EDITOR=vim
 export VISUAL=vim
