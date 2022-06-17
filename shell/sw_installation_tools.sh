@@ -1,12 +1,12 @@
 #!/bin/bash
-# Tools for working with Java.
+# Tools for quickly installing software.
 
 # Downloads and installs JDK11 using apt.
 apt_get_jdk11() {
   sudo apt install openjdk-11-jdk
 }
 
-# Downloads and install bazel using apt.
+# Downloads and install Bazel using apt.
 apt_get_bazel() {
   sudo apt install apt-transport-https curl gnupg
   curl -fsSL https://bazel.build/bazel-release.pub.gpg | \

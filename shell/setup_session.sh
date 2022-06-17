@@ -32,7 +32,7 @@ source_subscripts() {
 
 # Main function. Run on source loaded.
 run() {
-  # For MacOS zsh notice.
+  # To suppress MacOS zsh notice.
   export BASH_SILENCE_DEPRECATION_WARNING=1
 
   start_tmux
@@ -41,8 +41,8 @@ run() {
 
   cd $HOME
 
-  echo "-----------------------------------------------------"
-  echo "                    Welcome, Sir.                    "
-  echo "-----------------------------------------------------"
+  echo "---------------------------------------------------------------"
+  echo "                         Welcome, Sir.                         "
+  echo "---------------------------------------------------------------"
 }
 run

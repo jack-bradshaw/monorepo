@@ -1,5 +1,5 @@
 #!/bin/bash
-# Tweaks to improve directory interaction.
+# Tools to improve directory interaction.
 
 alias ls="ls -la"
 alias nuke="rm -rf"

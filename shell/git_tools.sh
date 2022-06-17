@@ -1,5 +1,5 @@
 #!/bin/bash
-# Tools for working git git.
+# Tools for working with git.
 
 # Reverts a modified file.
 # Arg 1: The file to revert, as a local or absolute path.
