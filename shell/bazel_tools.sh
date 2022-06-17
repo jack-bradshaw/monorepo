@@ -1,23 +1,23 @@
 #!/bin/bash
 # Tools for working with Google Blaze/Bazel.
 
-# Blaze is the internal name for Bazel. This makes muscle memory more useful.
 alias blaze=bazel
 
 # Builds all targets in a directory.
-# Arg 1: The absolute or local path to the BUILD file containing the targets
-# to build.
+# Arg 1: The directory to build, as an absolute or local path from with respect
+#     to the workspace root.
 bba() {
   bazel build $1:all
 }
 
-# Builds all targets in a directory and the recursively contained directories.
-# Arg 1: The absolute path of the directory to begin the resursive build at.
+# Builds all targets in a directory and all recursively contained directories.
+# Arg 1: The root directory for recursion, as an absolute path with respect to
+#     the workspace root
 bbr() {
   bazel build $1...
 }
 
-# Builds buildifier and invokes it in the current directory.
+# Builds buildifier and invokes it. Must be run from within the monorepo.
 buildifier() {
   bazel run //:buildifier
 }

@@ -2,11 +2,11 @@
 
 REMOTE="https://github.com/matthewbradshaw-io/monorepo"
 
-source_from_head() {
-  cd $HOME
-  rm -rf HEAD
+# Clones HEAD and sources the shell from the cloned repo.
+source_head_shell() {
+  rm -rf $HOME/HEAD
   git clone --depth 1 --quiet $REMOTE $HOME/HEAD >/dev/null
-  source HEAD/shell/setup_session.sh
+  source $HOME/HEAD/shell/setup_session.sh
 }
 
 # Main operation. Run on source loaded. Exits early for non-interactive shells.
@@ -16,6 +16,6 @@ run() {
       return                                                                    
   fi  
 
-  source_from_head
+  source_head_shell
 }
 run
