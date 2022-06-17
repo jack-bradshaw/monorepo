@@ -2,16 +2,10 @@
 
 REMOTE="https://github.com/matthewbradshaw-io/monorepo"
 
-# Syncs the HEAD workspace to remote HEAD and moves into the workspace. 
-sync_head() {
-  cd $HOME/src
-  rm -rf HEAD
-  git clone --depth 1 --quiet $REMOTE $HOME/src/HEAD >/dev/null
-}
-
-# Sources shell utilities from the HEAD workspace.
 source_from_head() {
-  cd $HOME/src/HEADZZ
+  cd $HOME
+  rm -rf shell
+  git clone --depth 1 --quiet $REMOTE $HOME/src/HEAD >/dev/null
   source shell/setup_session.sh
 }
 
@@ -22,7 +16,5 @@ run() {
       return                                                                    
   fi  
 
-  sync_head
-  source_from_head
 }
 run
