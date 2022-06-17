@@ -12,7 +12,7 @@ start_tmux() {
   fi
 }
 
-SCRIPT_PATH=$HOME/shell/shell
+SCRIPT_PATH=$HOME/HEAD/shell
 
 # Sources all scripts from the HEAD workspace.
 source_subscripts() {
@@ -31,6 +31,8 @@ source_subscripts() {
 
 # Main function. Run on source loaded.
 run() {
+  export BASH_SILENCE_DEPRECATION_WARNING=1
+
   start_tmux
   source_subscripts
   system_report
