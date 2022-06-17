@@ -7,10 +7,6 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import kotlin.random.Random
 import com.jme3.system.AppSettings
-<<<<<<< HEAD
-import com.jme3.app.state.AppState
-=======
->>>>>>> c57fad40b5c4f0a93c121aecd463635626b91646
 import com.jme3.app.VRAppState
 import com.jme3.app.VRConstants
 import com.jme3.app.VREnvironment
