@@ -2,22 +2,17 @@
 # Configures the local shell environment.
 
 REMOTE="https://github.com/matthewbradshaw-io/monorepo"
-LOCAL=/tmp/monorepo
+LOCAL=$HOME/shell
 
 # Creates a temporary directory that can be abandonned when no longer required.
-make_temp_dir() {
+make_local_dir() {
   rm -rf $LOCAL
   mkdir -p $LOCAL
   cd $LOCAL
 }
 
-# Deletes the temporary directory if one exists.
-delete_temp_dir() {
-  rm -rf $LOCAL
-}
-
 # Downloads a copy of the monorepo from the remote into the current directory.
-clone_mono_repo() {
+clone_repo() {
   git clone --depth 1 $REMOTE .
 }
 
@@ -63,58 +58,15 @@ export_gpg_keys() {
   fi
 }
 
-# Creates the necessary directories for local source control.
-inflate_codelab() {
-  rm -rf $HOME/src/HEAD
-  mkdir -p $HOME/src/HEAD
-  git clone --depth 1 $REMOTE $HOME/src/HEAD
-
-  rm -rf $HOME/src/FORGE
-  mkdir -p $HOME/src/FORGE
-  git clone --depth 1 $REMOTE $HOME/src/FORGE
-
-  mkdir -p $HOME/src/WORKSPACES
-}
-
-# Install programs that are usually not installed by default.
-install_basic_programs() {
-  # wget
-  sudo apt-get install wget
-
-  # ktfmt
-  ktfmt_version=0.38
-  cd /usr/bin
-  rm -rf ktfmt.jar
-  sudo wget https://repo1.maven.org/maven2/com/facebook/ktfmt/$ktfmt_version/ktfmt-$ktfmt_version-jar-with-dependencies.jar
-  sudo mv ktfmt-$ktfmt_version-jar-with-dependencies.jar ktfmt.jar
-
-  # Bazel
-  sudo apt install apt-transport-https curl gnupg
-  curl -fsSL https://bazel.build/bazel-release.pub.gpg \
-      | gpg --dearmor > bazel.gpg
-  sudo mv bazel.gpg /etc/apt/trusted.gpg.d/
-  echo "deb [arch=amd64] \
-  https://storage.googleapis.com/bazel-apt stable jdk1.8" \
-      | sudo tee /etc/apt/sources.list.d/bazel.list
-  sudo apt update && sudo apt install bazel
-  sudo apt update && sudo apt full-upgrade   
-}
-
 # Main function. Run on source loaded.
 run() {
-  make_temp_dir
-  clone_mono_repo
-
-  inflate_codelab
+  make_local_dir
+  clone_repo
 
   export_ssh_keys
   export_gpg_keys
   export_bashrc
   export_gitconfig
   export_vimrc
-  
-  install_basic_programs
-
-  delete_temp_dir
 }
 run
