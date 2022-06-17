@@ -13,7 +13,7 @@ make_local_cache() {
 
 # Downloads the monorepo from the remote into the local cache.
 clone_remote() {
-  git clone --depth 1 $REMOTE . $LOCAL
+  git clone --depth 1 $REMOTE $LOCAL
 }
 
 # Exports the .bashrc file from the local cache into the local home.
