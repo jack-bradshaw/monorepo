@@ -1,6 +1,6 @@
-package io.matthewbradshaw.octavius.engine
+package io.matthewbradshaw.gmonkey.octavius.engine
 
-import io.matthewbradshaw.octavius.Game
+import io.matthewbradshaw.gmonkey.octavius.Game
 import com.jme3.app.SimpleApplication
 import com.jme3.renderer.Camera
 import com.jme3.asset.AssetManager

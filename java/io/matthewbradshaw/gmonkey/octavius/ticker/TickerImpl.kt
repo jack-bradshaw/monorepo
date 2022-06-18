@@ -1,6 +1,6 @@
-package io.matthewbradshaw.octavius.ticker
+package io.matthewbradshaw.gmonkey.octavius.ticker
 
-import io.matthewbradshaw.octavius.OctaviusScope
+import io.matthewbradshaw.gmonkey.octavius.OctaviusScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.channels.BufferOverflow
 import javax.inject.Inject

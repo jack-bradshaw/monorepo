@@ -1,7 +1,7 @@
-package io.matthewbradshaw.octavius.testing
+package io.matthewbradshaw.gmonkey.testing
 
-import io.matthewbradshaw.octavius.otto
-import io.matthewbradshaw.octavius.engine.Paradigm
+import io.matthewbradshaw.gmonkey.octavius.otto
+import io.matthewbradshaw.gmonkey.octavius.engine.Paradigm
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.delay
 
@@ -11,7 +11,7 @@ class MainKt {
       val octavius = otto(Paradigm.FLATWARE)
       val game = CubeGame(octavius)
       octavius.engine().play(game)
-      //Test()
+      Test()
       while (true) delay(1000000000000L)
     }
   }

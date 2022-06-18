@@ -1,7 +1,7 @@
-package io.matthewbradshaw.octavius.testing
+package io.matthewbradshaw.gmonkey.testing
 
-import io.matthewbradshaw.octavius.Game
-import io.matthewbradshaw.octavius.Octavius
+import io.matthewbradshaw.gmonkey.octavius.Game
+import io.matthewbradshaw.gmonkey.octavius.Octavius
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius.ticker
+package io.matthewbradshaw.gmonkey.octavius.ticker
 
 import dagger.Binds
 import dagger.Module

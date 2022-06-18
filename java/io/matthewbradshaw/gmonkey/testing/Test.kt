@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius.testing
+package io.matthewbradshaw.gmonkey.testing
 
 import com.jme3.app.SimpleApplication
 import com.jme3.system.AppSettings
@@ -22,5 +22,6 @@ class Test : SimpleApplication() {
 
   override fun simpleUpdate(tpf: Float) {
     /* Interact with game events in the main loop */
+    println("hi")
   }
 }

@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius.testing;
+package io.matthewbradshaw.gmonkey.testing;
 
 public class Main {
     public static void main(String[] args) {

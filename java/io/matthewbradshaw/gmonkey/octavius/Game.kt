@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius
+package io.matthewbradshaw.gmonkey.octavius
 
 import kotlinx.coroutines.flow.Flow
 import com.jme3.scene.Spatial

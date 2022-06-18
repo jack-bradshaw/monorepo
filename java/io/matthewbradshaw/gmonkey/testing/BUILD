@@ -5,17 +5,18 @@ dagger_rules()
 
 kt_jvm_library(
     name = "cubegame_lib",
+    testonly = True,
     srcs = [
         "CubeGame.kt",
         "Main.java",
         "MainKt.kt",
         "Test.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = [
-        "//java/io/matthewbradshaw/octavius",
-        "//java/io/matthewbradshaw/octavius/engine",
-        "//java/io/matthewbradshaw/octavius/ticker",
+        "//java/io/matthewbradshaw/gmonkey/octavius",
+        "//java/io/matthewbradshaw/gmonkey/octavius/engine",
+        "//java/io/matthewbradshaw/gmonkey/octavius/ticker",
         "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

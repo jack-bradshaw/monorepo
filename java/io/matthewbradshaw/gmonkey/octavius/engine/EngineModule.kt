@@ -1,6 +1,6 @@
-package io.matthewbradshaw.octavius.engine
+package io.matthewbradshaw.gmonkey.octavius.engine
 
-import io.matthewbradshaw.octavius.OctaviusScope
+import io.matthewbradshaw.gmonkey.octavius.OctaviusScope
 import dagger.Provides
 import dagger.Module
 import com.jme3.app.VRAppState
@@ -9,8 +9,8 @@ import com.jme3.system.AppSettings
 import com.jme3.app.VRConstants
 
 import com.jme3.app.state.AppState
-import io.matthewbradshaw.octavius.engine.Paradigm
-import io.matthewbradshaw.octavius.ticker.Ticker
+import io.matthewbradshaw.gmonkey.octavius.engine.Paradigm
+import io.matthewbradshaw.gmonkey.octavius.ticker.Ticker
 
 @Module
 class EngineModule {

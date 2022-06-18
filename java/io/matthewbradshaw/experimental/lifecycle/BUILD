@@ -7,7 +7,7 @@ kt_jvm_library(
         "Restorable.kt",
         "Suspendable.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey/octavius:__subpackages__"],
     deps = [
         "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:org_jmonkeyengine_jme3_core",

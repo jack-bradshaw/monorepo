@@ -9,8 +9,8 @@ kt_jvm_library(
         "Dispatcher.kt",
     ],
     visibility = [
+        "//java/io/matthewbradshaw/gmonkey/octavius:__subpackages__",
         "//java/io/matthewbradshaw/kmonkey3/coroutines:__subpackages__",
-        "//java/io/matthewbradshaw/octavius:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -25,8 +25,8 @@ kt_jvm_library(
         "DispatcherModule.kt",
     ],
     visibility = [
+        "//java/io/matthewbradshaw/gmonkey/octavius:__subpackages__",
         "//java/io/matthewbradshaw/kmonkey3/coroutines:__subpackages__",
-        "//java/io/matthewbradshaw/octavius:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

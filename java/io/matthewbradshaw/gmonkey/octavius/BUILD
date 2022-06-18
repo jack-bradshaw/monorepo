@@ -8,7 +8,7 @@ kt_jvm_library(
     srcs = [
         "Game.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = [
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -20,7 +20,7 @@ kt_jvm_library(
     srcs = [
         "OctaviusScope.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = [
         ":dagger",
     ],
@@ -32,15 +32,15 @@ kt_jvm_library(
         "Octavius.kt",
         "Otto.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = [
         ":dagger",
         ":scope",
-        "//java/io/matthewbradshaw/octavius/engine",
-        "//java/io/matthewbradshaw/octavius/engine:module",
-        "//java/io/matthewbradshaw/octavius/ticker",
-        "//java/io/matthewbradshaw/octavius/ticker:impl",
-        "//java/io/matthewbradshaw/octavius/ticker:module",
+        "//java/io/matthewbradshaw/gmonkey/octavius/engine",
+        "//java/io/matthewbradshaw/gmonkey/octavius/engine:module",
+        "//java/io/matthewbradshaw/gmonkey/octavius/ticker",
+        "//java/io/matthewbradshaw/gmonkey/octavius/ticker:impl",
+        "//java/io/matthewbradshaw/gmonkey/octavius/ticker:module",
         "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",

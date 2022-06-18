@@ -1,4 +1,4 @@
-package io.matthewbradshaw.kmonkey.coroutines
+package io.matthewbradshaw.gmonkey.coroutines
 
 import java.util.concurrent.ConcurrentHashMap
 import com.jme3.app.Application
