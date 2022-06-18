@@ -26,20 +26,16 @@ class EngineImpl(
   private val appStates: List<AppState>
 ) : Engine, SimpleApplication(*appStates.toTypedArray()) {
 
-  private lateinit var mainThread: Thread
-  private latienit var mainDispatcher: Dispatcher
-
-  private val vrAppState = appStates.filter { it::class == VrAppState::class }.first()
+  //private val vrAppState = appStates.filter { it::class == VrAppState::class }.first()
 
   private val gameFlow = MutableStateFlow<Game?>(null)
 
   init {
-    if (vrAppState != null) setLostFocusBehavior(LostFocusBehavior.Disabled)
+    //if (vrAppState != null) setLostFocusBehavior(LostFocusBehavior.Disabled)
   }
 
   override fun simpleInitApp() {
-    mainThread = Thread.currentThread()
-    coroutineScope.launch {
+    launch(dispatcher()) {
       gameFlow
               .onEach { println("gameflow emitted $it") }
               .flatMapLatest { it?.ui() ?: flowOf<Spatial?>(null) }
@@ -63,7 +59,5 @@ class EngineImpl(
   override fun camera() = cam
   override fun assetManager() = assetManager
   override fun application() = this
-  override fun thread() = mainThread
-  override fun dispatcher() = mainDispatcher
-  override fun vr() = vrAppState
+  override fun vr() = TODO()
 }
