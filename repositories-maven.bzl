@@ -51,6 +51,7 @@ def io_matthewbradshaw_maven_repositories():
             "javax.annotation:jsr250-api:1.0",
             "javax.inject:javax.inject:1",
             "junit:junit:4.13.2",
+            "org.junit.jupiter:junit-jupiter-engine:5.8.1",
             "com.google.protobuf:protobuf-java:%s" % PROTOBUF_GENERAL_VERSION,
             "com.google.protobuf:protobuf-java-util:%s" % PROTOBUF_GENERAL_VERSION,
             "com.google.protobuf:protobuf-javalite:%s" % PROTOBUF_GENERAL_VERSION,

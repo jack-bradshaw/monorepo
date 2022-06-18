@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flatMapLatest
+import io.matthewbradshaw.kmonkey.coroutines.dispatcher
 import com.jme3.app.LostFocusBehavior
 import io.matthewbradshaw.octavius.ignition.Ignition
 import io.matthewbradshaw.octavius.ticker.Ticker
@@ -28,6 +29,8 @@ class EngineImpl(
 
   //private val vrAppState = appStates.filter { it::class == VrAppState::class }.first()
 
+  private val vrAppState = appStates.filter { it::class == VrAppState::class }.first()
+
   private val gameFlow = MutableStateFlow<Game?>(null)
 
   init {
@@ -36,13 +39,14 @@ class EngineImpl(
 
   override fun simpleInitApp() {
     launch(dispatcher()) {
+
+    scope.launch {
       gameFlow
-              .onEach { println("gameflow emitted $it") }
-              .flatMapLatest { it?.ui() ?: flowOf<Spatial?>(null) }
-              .collect {
-                getRootNode().detachAllChildren()
-                it?.let { getRootNode().attachChild(it) }
-              }
+        .flatMapLatest { it?.ui() ?: flowOf<Spatial?>(null) }
+        .collect {
+          getRootNode().detachAllChildren()
+          it?.let { getRootNode().attachChild(it) }
+        }
     }
   }
 
