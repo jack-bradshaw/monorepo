@@ -20,11 +20,15 @@ kt_jvm_library(
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
+        "@maven//:org_jmonkeyengine_jme3_lwjgl",
+        "@maven//:org_jmonkeyengine_jme3_lwjgl3",
     ],
 )
 
 java_binary(
     name = "cubegame_app",
-    main_class = "io.matthewbradshaw.octavius.test.Main",
-    runtime_deps = [":cubegame_lib"],
+    main_class = "io.matthewbradshaw.octavius.testing.Main",
+    runtime_deps = [
+        ":cubegame_lib",
+    ],
 )

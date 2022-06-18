@@ -10,6 +10,6 @@ interface Engine {
   suspend fun play(game: Game)
   fun camera(): Camera
   fun assetManager(): AssetManager
-  fun application(): SimpleApplication
+  fun root(): SimpleApplication
   fun vr(): VRAppState?
 }

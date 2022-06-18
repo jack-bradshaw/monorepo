@@ -1,8 +1,6 @@
-package io.matthewbradshaw.octavius.test
+package io.matthewbradshaw.octavius.testing
 
 import io.matthewbradshaw.octavius.Game
-import io.matthewbradshaw.octavius.engine.Paradigm
-import io.matthewbradshaw.octavius.ticker.Ticker
 import io.matthewbradshaw.octavius.Octavius
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

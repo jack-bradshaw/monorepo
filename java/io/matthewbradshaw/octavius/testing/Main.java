@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius.test;
+package io.matthewbradshaw.octavius.testing;
 
 public class Main {
     public static void main(String[] args) {

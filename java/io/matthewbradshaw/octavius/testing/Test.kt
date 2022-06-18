@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius.test
+package io.matthewbradshaw.octavius.testing
 
 import com.jme3.app.SimpleApplication
 import com.jme3.system.AppSettings

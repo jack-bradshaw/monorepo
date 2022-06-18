@@ -25,8 +25,8 @@ class EngineModule {
   private fun createFlatWareEngine(ticker: Ticker): Engine {
     val settings = AppSettings( /* loadDefaults= */ true)
     return EngineImpl(ticker, listOf()).apply {
-      application().setSettings(settings)
-      application().setShowSettings(false)
+      root().setSettings(settings)
+      root().setShowSettings(false)
     }
   }
 
@@ -46,8 +46,8 @@ class EngineModule {
     }
 
     return EngineImpl(ticker, listOf(vrAppState)).apply {
-      application().setSettings(settings)
-      application().setShowSettings(false)
+      root().setSettings(settings)
+      root().setShowSettings(false)
     }
   }
 

@@ -61,6 +61,6 @@ class EngineImpl(
 
   override fun camera() = cam
   override fun assetManager() = assetManager
-  override fun application() = this
+  override fun root() = this
   override fun vr() = vrAppState
 }
