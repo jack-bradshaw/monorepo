@@ -4,9 +4,9 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "ticker",
+    name = "ignition",
     srcs = [
-        "Ticker.kt",
+        "Ignition.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = ["@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
@@ -15,11 +15,11 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "TickerImpl.kt",
+        "IgnitionImpl.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
-        ":ticker",
+        ":ignition",
         "//java/io/matthewbradshaw/octavius:scope",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -29,13 +29,13 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "TickerModule.kt",
+        "IgnitionModule.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         ":dagger",
+        ":ignition",
         ":impl",
-        ":ticker",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
