@@ -1,7 +1,7 @@
 package io.matthewbradshaw.octavius.test
 
-import io.matthewbradshaw.octavius.core.Game
-import io.matthewbradshaw.octavius.core.Paradigm
+import io.matthewbradshaw.octavius.Game
+import io.matthewbradshaw.octavius.engine.Paradigm
 import io.matthewbradshaw.octavius.ticker.Ticker
 import io.matthewbradshaw.octavius.Octavius
 import kotlinx.coroutines.flow.Flow
@@ -45,7 +45,7 @@ class CubeGame(private val octavius: Octavius) : Game {
   private val boxMaterials by lazy {
     List<Material>(INDEPENDENCE_FACTOR) {
       Material(
-        octavius.engine().assetManager,
+        octavius.engine().assetManager(),
         "Common/MatDefs/Misc/Unshaded.j3md"
       ).apply {
         setColor("Color", ColorRGBA.Blue)
@@ -71,7 +71,7 @@ class CubeGame(private val octavius: Octavius) : Game {
         it.setLocalTranslation(randomPositionOnSphere())
       }
     }
-    octavius.engine().camera.setLocation(Vector3f(2.5f, 2.5f, 2.5f))
+    octavius.engine().camera().setLocation(Vector3f(2.5f, 2.5f, 2.5f))
 
     return root
   }

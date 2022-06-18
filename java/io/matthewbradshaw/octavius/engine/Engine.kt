@@ -1,14 +1,15 @@
 package io.matthewbradshaw.octavius.engine
 
+import io.matthewbradshaw.octavius.Game
 import com.jme3.app.SimpleApplication
-import io.matthewbradshaw.octavius.core.Game
 import com.jme3.renderer.Camera
 import com.jme3.asset.AssetManager
+import com.jme3.app.VRAppState
 
 interface Engine {
   suspend fun play(game: Game)
   fun camera(): Camera
   fun assetManager(): AssetManager
   fun application(): SimpleApplication
-  fun vr(): VrAppState?
+  fun vr(): VRAppState?
 }

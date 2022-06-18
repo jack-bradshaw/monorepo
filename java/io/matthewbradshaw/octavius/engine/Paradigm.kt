@@ -1,4 +1,4 @@
-package io.matthewbradshaw.octavius.core
+package io.matthewbradshaw.octavius.engine
 
 enum class Paradigm {
   FLATWARE,

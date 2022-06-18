@@ -9,36 +9,28 @@ import com.jme3.system.AppSettings
 import com.jme3.app.VRConstants
 
 import com.jme3.app.state.AppState
-import io.matthewbradshaw.octavius.core.Paradigm
+import io.matthewbradshaw.octavius.engine.Paradigm
 import io.matthewbradshaw.octavius.ticker.Ticker
-import io.matthewbradshaw.octavius.ignition.Ignition
 
 @Module
 class EngineModule {
 
   @Provides
   @OctaviusScope
-  fun provideJMonkey(paradigm: Paradigm, ticker: Ticker, ignition: Ignition) = when (paradigm) {
-    Paradigm.FLATWARE -> createFlatWareEngine(ticker, ignition)
-    Paradigm.VR -> createVrEngine(ticker, ignition)
+  fun provideJMonkey(paradigm: Paradigm, ticker: Ticker) = when (paradigm) {
+    Paradigm.FLATWARE -> createFlatWareEngine(ticker)
+    Paradigm.VR -> createVrEngine(ticker)
   }
 
-  private fun createFlatWareEngine(ticker: Ticker, ignition: Ignition): Engine.FlatWare {
+  private fun createFlatWareEngine(ticker: Ticker): Engine {
     val settings = AppSettings( /* loadDefaults= */ true)
-    val driver = EngineImpl(ticker, ignition, listOf<AppState>()).apply {
-      extractApplication().setSettings(settings)
-      extractApplication().setShowSettings(false)
+    return EngineImpl(ticker, listOf()).apply {
+      application().setSettings(settings)
+      application().setShowSettings(false)
     }
-
-    return Engine.FlatWare(
-      settings,
-      driver
-    )
   }
 
-  private fun createVrEngine(ticker: Ticker, ignition: Ignition): Engine.Vr {
-    println("create vr engine")
-
+  private fun createVrEngine(ticker: Ticker): Engine {
     val settings = AppSettings( /* loadDefaults= */ true).apply {
       put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
       put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
@@ -49,21 +41,14 @@ class EngineModule {
       if (!isInitialized()) throw IllegalStateException("VR environment did not initialize.")
     }
 
-    val appState = VRAppState(settings, environment).apply {
+    val vrAppState = VRAppState(settings, environment).apply {
       setMirrorWindowSize(DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX, DEFAULT_VR_MIRROR_WINDOW_HEIGHT_PX)
     }
 
-    val driver = EngineImpl(ticker, ignition, listOf(appState)).apply {
-      extractApplication().setSettings(settings)
-      extractApplication().setShowSettings(false)
+    return EngineImpl(ticker, listOf(vrAppState)).apply {
+      application().setSettings(settings)
+      application().setShowSettings(false)
     }
-
-    return Engine.Vr(
-      settings,
-      driver,
-      appState,
-      environment
-    )
   }
 
   companion object {
