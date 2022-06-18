@@ -26,7 +26,10 @@ kt_jvm_library(
     srcs = [
         "EngineImpl.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
+    visibility = [
+        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
     deps = [
         ":dagger",
         ":engine",
@@ -45,7 +48,10 @@ kt_jvm_library(
     srcs = [
         "EngineModule.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
+    visibility = [
+        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
     deps = [
         ":dagger",
         ":engine",

@@ -31,6 +31,7 @@ kt_jvm_library(
     ],
     visibility = ["//java/io/matthewbradshaw/gmonkey/octavius:__subpackages__"],
     deps = [
+        "//java/io/matthewbradshaw/gmonkey/octavius",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],

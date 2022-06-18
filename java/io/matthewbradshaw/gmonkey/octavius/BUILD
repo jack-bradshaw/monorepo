@@ -8,7 +8,10 @@ kt_jvm_library(
     srcs = [
         "Game.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
+    visibility = [
+        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
     deps = [
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -20,7 +23,10 @@ kt_jvm_library(
     srcs = [
         "OctaviusScope.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
+    visibility = [
+        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
     deps = [
         ":dagger",
     ],
@@ -32,7 +38,10 @@ kt_jvm_library(
         "Octavius.kt",
         "Otto.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
+    visibility = [
+        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
     deps = [
         ":dagger",
         ":scope",
