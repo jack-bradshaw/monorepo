@@ -3,11 +3,11 @@ load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 AUTO_VALUE_VERSION = "1.9"
 
-DAGGER_VERSION = "2.41"
+DAGGER_VERSION = "2.42"
 
 FLOGGER_VERSION = "0.7.4"
 
-J_MONKEY_ENGINE_VERSION = "3.5.0-stable"
+J_MONKEY_ENGINE_VERSION = "3.5.2-stable"
 
 GUAVA_VERSION = "31.0.1-jre"
 
@@ -38,6 +38,7 @@ def io_matthewbradshaw_maven_repositories():
             "org.jmonkeyengine:jme3-lwjgl:%s" % J_MONKEY_ENGINE_VERSION,
             "org.jmonkeyengine:jme3-lwjgl3:%s" % J_MONKEY_ENGINE_VERSION,
             "org.jmonkeyengine:jme3-vr:%s" % J_MONKEY_ENGINE_VERSION,
+            "org.jmonkeyengine:jme3-testdata:%s" % J_MONKEY_ENGINE_VERSION,
             "com.google.guava:failureaccess:1.0.1",
             "com.google.guava:guava-testlib:%s" % GUAVA_VERSION,
             "com.google.guava:guava:%s" % GUAVA_VERSION,
@@ -59,6 +60,7 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.protobuf:protobuf-kotlin:%s" % PROTOBUF_GENERAL_VERSION,
             "com.google.protobuf:protobuf-kotlin-lite:%s" % PROTOBUF_GENERAL_VERSION,
             "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2",
+            "org.lwjgl:lwjgl:3.3.1",
             "org.mockito:mockito-core:4.3.1",
         ],
         repositories = [
