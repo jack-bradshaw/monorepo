@@ -5,9 +5,8 @@ kt_jvm_test(
     srcs = [
         "DispatcherTest.kt.kt",
     ],
-    use_testrunner = False,
     deps = [
-        "@maven//:org_junit_jupiter_junit_jupiter_engine",
         "//java/io/matthewbradshaw/kmonkey/coroutines:dispatcher",
+        "@maven//:org_junit_jupiter_junit_jupiter_engine",
     ],
 )
