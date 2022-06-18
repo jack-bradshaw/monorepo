@@ -20,8 +20,8 @@ kt_jvm_library(
     visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
     deps = [
         ":ignition",
-        "@maven//:javax_inject_javax_inject",
         "//java/io/matthewbradshaw/octavius:scope",
+        "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
