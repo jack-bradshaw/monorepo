@@ -8,10 +8,11 @@ import kotlinx.coroutines.delay
 class MainKt {
   fun main() {
     runBlocking {
-      val octavius = otto(Paradigm.VR)
+     /* val octavius = otto(Paradigm.VR)
       val game = CubeGame(octavius)
       octavius.engine().core.play(game)
-      octavius.ignition().go()
+      octavius.ignition().go()*/
+      Test()
       while (true) delay(1000000000000L)
     }
   }

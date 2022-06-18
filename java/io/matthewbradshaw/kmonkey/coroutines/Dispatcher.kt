@@ -9,7 +9,7 @@ import kotlin.coroutines.CoroutineContext
  * Dispatcher for posting to the JMonkey Engine 3 application thread.
  */
 class JMonkeyDispatcher(private val app: Application) : CoroutineDispatcher() {
-  override fun dispatch(context: CoroutineContext, block: Runnable): Unit {
+  override fun dispatch(context: CoroutineContext, block: Runnable) {
     app.enqueue(block)
   }
 }
