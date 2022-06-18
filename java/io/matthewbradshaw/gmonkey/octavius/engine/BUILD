@@ -45,7 +45,7 @@ kt_jvm_library(
     srcs = [
         "EngineModule.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/gmonkey/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = [
         ":dagger",
         ":engine",

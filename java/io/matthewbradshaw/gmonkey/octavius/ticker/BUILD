@@ -8,7 +8,7 @@ kt_jvm_library(
     srcs = [
         "Ticker.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = ["@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
 )
 
@@ -17,10 +17,10 @@ kt_jvm_library(
     srcs = [
         "TickerImpl.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = [
         ":ticker",
-        "//java/io/matthewbradshaw/octavius:scope",
+        "//java/io/matthewbradshaw/gmonkey/octavius:scope",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
@@ -31,7 +31,7 @@ kt_jvm_library(
     srcs = [
         "TickerModule.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/octavius:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
     deps = [
         ":dagger",
         ":impl",
