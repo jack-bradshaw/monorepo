@@ -1,4 +1,4 @@
-package io.matthewbradshaw.gmonkey.octavius.ticker
+package io.matthewbradshaw.gmonkey.core.ticker
 
 import kotlinx.coroutines.flow.Flow
 

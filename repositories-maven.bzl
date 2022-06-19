@@ -59,6 +59,7 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.protobuf:protobuf-kotlin:%s" % PROTOBUF_GENERAL_VERSION,
             "com.google.protobuf:protobuf-kotlin-lite:%s" % PROTOBUF_GENERAL_VERSION,
             "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2",
+            "org.lwjgl:lwjgl:3.3.1",
             "org.mockito:mockito-core:4.3.1",
         ],
         repositories = [

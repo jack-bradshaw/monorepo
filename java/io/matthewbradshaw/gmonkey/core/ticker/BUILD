@@ -4,15 +4,27 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "dispatcher",
+    name = "ticker",
     srcs = [
-        "Dispatcher.kt",
+        "Ticker.kt",
+    ],
+    visibility = ["//java/io/matthewbradshaw/gmonkey:__subpackages__"],
+    deps = ["@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
+)
+
+kt_jvm_library(
+    name = "impl",
+    srcs = [
+        "TickerImpl.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/gmonkey:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        ":ticker",
+        "//java/io/matthewbradshaw/gmonkey/core:scope",
+        "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
@@ -21,7 +33,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "DispatcherModule.kt",
+        "TickerModule.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/gmonkey:__subpackages__",
@@ -29,7 +41,8 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
-        ":dispatcher",
-        "@maven//:org_jmonkeyengine_jme3_core",
+        ":impl",
+        ":ticker",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

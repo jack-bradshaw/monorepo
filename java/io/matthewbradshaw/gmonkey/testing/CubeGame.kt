@@ -1,7 +1,7 @@
 package io.matthewbradshaw.gmonkey.testing
 
-import io.matthewbradshaw.gmonkey.octavius.Game
-import io.matthewbradshaw.gmonkey.octavius.Octavius
+import io.matthewbradshaw.gmonkey.core.model.Game
+import io.matthewbradshaw.gmonkey.core.Core
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -20,13 +20,13 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import com.jme3.math.Vector3f
 
-class CubeGame(private val octavius: Octavius) : Game {
+class CubeGame(private val core: Core) : Game {
 
   private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
   init {
     coroutineScope.launch {
-      val ticker = octavius.ticker()
+      val ticker = core.ticker()
       ticker.pulse().collect {
         for (i in 0 until INDEPENDENCE_FACTOR) {
           val green = 0.6f + (0.4f * sin((boxMaterialRateMultiplier[i] * ticker.netTimeSec()) + boxMaterialOffsets[i]))
@@ -43,7 +43,7 @@ class CubeGame(private val octavius: Octavius) : Game {
   private val boxMaterials by lazy {
     List<Material>(INDEPENDENCE_FACTOR) {
       Material(
-        octavius.engine().assetManager(),
+        core.engine().assetManager(),
         "Common/MatDefs/Misc/Unshaded.j3md"
       ).apply {
         setColor("Color", ColorRGBA.Blue)
@@ -69,7 +69,7 @@ class CubeGame(private val octavius: Octavius) : Game {
         it.setLocalTranslation(randomPositionOnSphere())
       }
     }
-    octavius.engine().camera().setLocation(Vector3f(2.5f, 2.5f, 2.5f))
+    core.engine().camera().setLocation(Vector3f(2.5f, 2.5f, 2.5f))
 
     return root
   }

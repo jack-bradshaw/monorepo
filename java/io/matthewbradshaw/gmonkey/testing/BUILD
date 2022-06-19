@@ -13,7 +13,6 @@ kt_jvm_library(
         "Test.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -30,9 +29,8 @@ kt_jvm_library(
 java_binary(
     name = "cubegame_app",
     testonly = True,
-    main_class = "io.matthewbradshaw.octavius.test.Main",
+    main_class = "io.matthewbradshaw.gmonkey.testing.Main",
     visibility = [
-        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
         "//javatests:__subpackages__",
     ],
     runtime_deps = [":cubegame_lib"],

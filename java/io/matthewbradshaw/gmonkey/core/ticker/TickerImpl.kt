@@ -1,11 +1,11 @@
-package io.matthewbradshaw.gmonkey.octavius.ticker
+package io.matthewbradshaw.gmonkey.core.ticker
 
-import io.matthewbradshaw.gmonkey.octavius.OctaviusScope
+import io.matthewbradshaw.gmonkey.core.CoreScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.channels.BufferOverflow
 import javax.inject.Inject
 
-@OctaviusScope
+@CoreScope
 class TickerImpl @Inject internal constructor() : Ticker {
 
   init {

@@ -8,9 +8,10 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import kotlinx.coroutines.runBlocking
 import com.google.common.truth.Truth.assertThat
-import io.matthewbradshaw.gmonkey.octavius.engine.Paradigm
-import io.matthewbradshaw.gmonkey.octavius.otto
+import io.matthewbradshaw.gmonkey.core.model.Paradigm
+import io.matthewbradshaw.gmonkey.core.otto
 import io.matthewbradshaw.gmonkey.testing.CubeGame
 
 @RunWith(JUnit4::class)
@@ -22,8 +23,13 @@ class DispatcherTest {
 
   @Before
   fun before() {
-    application = TestApplication()
-    dispatcher = application.dispatcher()
+    runBlocking {
+      val octavius = otto(Paradigm.FLATWARE)
+      val game = CubeGame(octavius)
+      octavius.engine().play(game)
+      //dispatcher = octavius.engine().root()
+    }
+    throw RuntimeException()
   }
 
   @Test
@@ -59,10 +65,4 @@ class TestApplication : SimpleApplication() {
   override fun simpleUpdate(tpf: Float) {
     /* Interact with game events in the main loop */
   }
-}
-
-fun startGame() {
-  val octavius = otto(Paradigm.FLATWARE)
-  val game = CubeGame(octavius)
-  octavius.engine().play(game)
 }
