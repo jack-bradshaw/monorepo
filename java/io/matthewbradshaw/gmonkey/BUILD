@@ -4,9 +4,9 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "qualifier",
+    name = "scope",
     srcs = [
-        "Qualifier.kt",
+        "GMonkeyScope.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/gmonkey:__subpackages__",
@@ -18,24 +18,9 @@ kt_jvm_library(
 )
 
 kt_jvm_library(
-    name = "dispatcher",
+    name = "gmonkey",
     srcs = [
-        "Dispatcher.kt",
-    ],
-    visibility = [
-        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
-        "//javatests:__subpackages__",
-    ],
-    deps = [
-        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@maven//:org_jmonkeyengine_jme3_core",
-    ],
-)
-
-kt_jvm_library(
-    name = "module",
-    srcs = [
-        "DispatcherModule.kt",
+        "GMonkey.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/gmonkey:__subpackages__",
@@ -43,7 +28,15 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
-        ":dispatcher",
+        ":scope",
+        "//java/io/matthewbradshaw/gmonkey/coroutines:qualifier",
+        "//java/io/matthewbradshaw/gmonkey/engine",
+        "//java/io/matthewbradshaw/gmonkey/engine:module",
+        "//java/io/matthewbradshaw/gmonkey/ticker",
+        "//java/io/matthewbradshaw/gmonkey/ticker:impl",
+        "//java/io/matthewbradshaw/gmonkey/ticker:module",
+        "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:org_jmonkeyengine_jme3_core",
+        "@maven//:org_jmonkeyengine_jme3_vr",
     ],
 )

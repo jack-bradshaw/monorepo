@@ -1,7 +1,6 @@
 package io.matthewbradshaw.gmonkey.testing
 
-import io.matthewbradshaw.gmonkey.core.model.Game
-import io.matthewbradshaw.gmonkey.core.Core
+import io.matthewbradshaw.gmonkey.ui.Item
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -20,8 +19,9 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import com.jme3.math.Vector3f
 
-class CubeGame(private val core: Core) : Game {
+class CubeGame() : Item {
 
+  private val random = Random(0L)
   private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
   init {
@@ -35,8 +35,6 @@ class CubeGame(private val core: Core) : Game {
       }
     }
   }
-
-  private val random = Random(0L)
 
   private val boxMaterialOffsets = List<Int>(INDEPENDENCE_FACTOR) { random.nextInt(10) }
   private val boxMaterialRateMultiplier = List<Float>(INDEPENDENCE_FACTOR) { random.nextFloat() }
@@ -66,7 +64,7 @@ class CubeGame(private val core: Core) : Game {
         setMaterial(boxMaterials[random.nextInt(9)])
       }.let {
         root.attachChild(it)
-        it.setLocalTranslation(randomPositionOnSphere())
+        it.setLocalTranslation(generateRandomPositionOnSphere())
       }
     }
     core.engine().camera().setLocation(Vector3f(2.5f, 2.5f, 2.5f))
@@ -74,7 +72,7 @@ class CubeGame(private val core: Core) : Game {
     return root
   }
 
-  private fun randomPositionOnSphere(): Vector3f {
+  private fun generateRandomPositionOnSphere(): Vector3f {
     val radius = random.nextInt(MAX_RADIUS) + MIN_RADIUS
     val u = random.nextFloat()
     val v = random.nextFloat()

@@ -10,13 +10,10 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlinx.coroutines.runBlocking
 import com.google.common.truth.Truth.assertThat
-import io.matthewbradshaw.gmonkey.core.model.Paradigm
-import io.matthewbradshaw.gmonkey.core.otto
 import io.matthewbradshaw.gmonkey.testing.CubeGame
 
 @RunWith(JUnit4::class)
 class DispatcherTest {
-
 
   private lateinit var application: TestApplication
   private lateinit var dispatcher: JMonkeyDispatcher
@@ -24,8 +21,8 @@ class DispatcherTest {
   @Before
   fun before() {
     runBlocking {
-      val octavius = otto(Paradigm.FLATWARE)
-      val game = CubeGame(octavius)
+      val gMonkey = gMonkey(CubeGame(octavius))
+      val game =
       octavius.engine().play(game)
       //dispatcher = octavius.engine().root()
     }

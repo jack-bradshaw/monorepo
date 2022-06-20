@@ -1,7 +1,7 @@
 package io.matthewbradshaw.gmonkey.testing
 
 import io.matthewbradshaw.gmonkey.core.otto
-import io.matthewbradshaw.gmonkey.core.model.Paradigm
+import io.matthewbradshaw.gmonkey.config.Paradigm
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.delay
 
