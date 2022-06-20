@@ -4,17 +4,12 @@ import com.jme3.app.SimpleApplication
 import com.jme3.renderer.Camera
 import com.jme3.asset.AssetManager
 import com.jme3.app.VRAppState
-import io.matthewbradshaw.gmonkey.ui.Item
+import com.jme3.scene.Node
 
 /**
  * The core elements of the [jMonkey 3 game engine](https://jmonkeyengine.org/).
  */
 interface Engine {
-
-  /**
-   * Loads [game] into the engine.
-   */
-  fun play(game: Item)
 
   /**
    * Extracts the default camera from the engine.
@@ -35,4 +30,9 @@ interface Engine {
    * Extracts the VR controller from the game engine. Returns null if the engine is not configured for VR.
    */
   fun extractVr(): VRAppState?
+
+  /**
+   * Extracts the root game node. Nodes attached to this node are displayed.
+   */
+  fun extractRootNode(): Node
 }

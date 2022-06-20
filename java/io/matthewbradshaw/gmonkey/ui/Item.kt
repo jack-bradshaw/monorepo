@@ -6,6 +6,6 @@ import com.google.protobuf.MessageLite
 import io.matthewbradshaw.gmonkey.lifecycle.Preparable
 import com.jme3.scene.Spatial
 
-interface Item<S : MessageLite> : Restorable<S>, Preparable, Pausable {
-  fun ui(): Spatial
+interface Item : Pausable, Preparable {
+  fun representation(): Spatial
 }

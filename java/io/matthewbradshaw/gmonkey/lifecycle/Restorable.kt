@@ -7,6 +7,9 @@ import com.google.protobuf.MessageLite
  * and machines.
  */
 interface Restorable<S : MessageLite> {
+
+  suspend fun identity(): String
+
   /**
    * Restores the object to the provided state. Any two objects with the same state should be functionally identical
    * from the perspective of the consumer.

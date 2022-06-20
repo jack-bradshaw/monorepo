@@ -5,7 +5,6 @@ import com.jme3.app.VREnvironment
 import com.jme3.app.VRConstants
 import com.jme3.app.LostFocusBehavior
 import kotlinx.coroutines.runBlocking
-import io.matthewbradshaw.gmonkey.ui.Item
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.cancel
@@ -25,9 +24,7 @@ class EngineImpl @Inject internal constructor(
   private val paradigm: Paradigm
 ) : Engine, SimpleApplication() {
 
-  private val scope = CoroutineScope(dispatcher())
   private var vrAppState: VRAppState? = null
-  private val game: MutableStateFlow<Item?>(null)
 
   init {
     when (paradigm) {
@@ -67,34 +64,18 @@ class EngineImpl @Inject internal constructor(
   }
 
   override fun simpleInitApp() {
-    scope.launch {
-      game
-        .ui()
-        .collect {
-          getRootNode().detachAllChildren()
-          getRootNode().attachChild(it)
-        }
-    }
+    // Unused
   }
 
   override fun simpleUpdate(tpf: Float) = runBlocking {
     ticker.tick(tpf)
   }
 
-  override fun destroy() {
-    super.destroy()
-    scope.cancel()
-  }
-
-
-  override fun play(game: Item) {
-    TODO("Not yet implemented")
-  }
-
   override fun extractCamera() = cam
   override fun extractAssetManager() = assetManager
   override fun extractApp() = this
   override fun extractVr() = vrAppState
+  override fun extractRootNode() = getRootNode()
 
   companion object {
     private const val DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX = 1024

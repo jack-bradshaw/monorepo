@@ -6,7 +6,8 @@ import dagger.Provides
 import dagger.Binds
 import dagger.Module
 import com.jme3.app.VRAppState
-import kotlinx.coroutines.Dispatcher
+import com.jme3.scene.Node
+import kotlinx.coroutines.CoroutineDispatcher
 
 import com.jme3.asset.AssetManager
 import com.jme3.renderer.Camera
@@ -35,8 +36,13 @@ object EngineModules {
 
     @Provides
     @GMonkeyScope
-    @GMonkeyDispatcher
-    fun provideDispatcher(engine: Engine): Dispatcher = engine.extractApp().dispatcher()
+    @MainDispatcher
+    fun provideDispatcher(engine: Engine): CoroutineDispatcher = engine.extractApp().dispatcher()
+
+    @Provides
+    @GMonkeyScope
+    @RootNode
+    fun provideRootNode(engine: Engine): Node = engine.extractRootNode()
   }
 
   @Module

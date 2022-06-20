@@ -4,20 +4,6 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "qualifier",
-    srcs = [
-        "Qualifier.kt",
-    ],
-    visibility = [
-        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
-        "//javatests:__subpackages__",
-    ],
-    deps = [
-        ":dagger",
-    ],
-)
-
-kt_jvm_library(
     name = "dispatcher",
     srcs = [
         "Dispatcher.kt",

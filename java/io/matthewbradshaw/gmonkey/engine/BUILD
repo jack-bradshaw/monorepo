@@ -12,7 +12,6 @@ kt_jvm_library(
     deps = [
         ":dagger",
         "//java/io/matthewbradshaw/gmonkey:scope",
-        "//java/io/matthewbradshaw/gmonkey/model",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
@@ -32,12 +31,27 @@ kt_jvm_library(
         ":dagger",
         ":engine",
         "//java/io/matthewbradshaw/gmonkey:scope",
+        "//java/io/matthewbradshaw/gmonkey/config",
         "//java/io/matthewbradshaw/gmonkey/coroutines:dispatcher",
         "//java/io/matthewbradshaw/gmonkey/ticker",
         "@maven//:com_google_auto_factory_auto_factory",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
+    ],
+)
+
+kt_jvm_library(
+    name = "qualifiers",
+    srcs = [
+        "Qualifiers.kt",
+    ],
+    visibility = [
+        "//java/io/matthewbradshaw/gmonkey:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":dagger",
     ],
 )
 
@@ -54,9 +68,8 @@ kt_jvm_library(
         ":dagger",
         ":engine",
         ":engine_impl",
+        ":qualifiers",
         "//java/io/matthewbradshaw/gmonkey:scope",
-        "//java/io/matthewbradshaw/gmonkey/coroutines:qualifier",
-        "//java/io/matthewbradshaw/gmonkey/model",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
