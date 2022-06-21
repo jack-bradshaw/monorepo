@@ -1,4 +1,4 @@
-package io.matthewbradshaw.gmonkey.engine
+package io.matthewbradshaw.merovingian.engine
 
 import org.junit.Before
 import org.junit.runner.RunWith

@@ -1,4 +1,4 @@
-package io.matthewbradshaw.gmonkey.coroutines
+package io.matthewbradshaw.merovingian.coroutines
 
 import com.jme3.app.SimpleApplication
 import org.junit.Before
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlinx.coroutines.runBlocking
 import com.google.common.truth.Truth.assertThat
-import io.matthewbradshaw.gmonkey.testing.CubeGame
+import io.matthewbradshaw.merovingian.testing.CubeGame
 
 @RunWith(JUnit4::class)
 class DispatcherTest {

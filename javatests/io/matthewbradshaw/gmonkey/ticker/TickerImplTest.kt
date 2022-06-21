@@ -1,4 +1,4 @@
-package io.matthewbradshaw.gmonkey.ticker
+package io.matthewbradshaw.merovingian.ticker
 
 import org.junit.Before
 import org.junit.runner.RunWith

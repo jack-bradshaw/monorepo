@@ -14,4 +14,8 @@ def auto_factory():
     native.java_library(
         name = "auto_factory",
         exported_plugins = [":auto_factory_processor"],
+        exports = [
+            "@maven//:com_google_auto_factory_auto_factory",
+            "@maven//:com_google_auto_auto_common",
+        ],
     )

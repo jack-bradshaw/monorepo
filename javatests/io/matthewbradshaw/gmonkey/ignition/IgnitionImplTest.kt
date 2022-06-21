@@ -1,4 +1,4 @@
-package io.matthewbradshaw.gmonkey.ignition
+package io.matthewbradshaw.merovingian.ignition
 
 import org.junit.Before
 import org.junit.runner.RunWith
