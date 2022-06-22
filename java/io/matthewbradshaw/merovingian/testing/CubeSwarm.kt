@@ -10,6 +10,7 @@ import io.matthewbradshaw.merovingian.engine.MainDispatcher
 import com.jme3.scene.shape.Box
 import com.jme3.scene.Spatial
 import kotlin.math.acos
+import kotlinx.coroutines.flow.collect
 import kotlin.math.cos
 import kotlinx.coroutines.launch
 import kotlin.math.sin
@@ -18,6 +19,8 @@ import com.google.auto.factory.AutoFactory
 import io.matthewbradshaw.merovingian.ticker.Ticker
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onEach
 import kotlin.random.Random
 
 @TestingScope
@@ -36,7 +39,7 @@ class CubeSwarm(
 
   override suspend fun prepare() {
     if (!this::cubeMaterials.isInitialized) {
-      cubeMaterials = List(INDEPENDENCE_COUNT) { materials.createGreenMaterial() }
+      cubeMaterials = List(INDEPENDENCE_COUNT) { materials.createUnshadedGreen() }
     }
 
     if (!this::timeOffsets.isInitialized) {
@@ -46,7 +49,7 @@ class CubeSwarm(
     if (!this::swarm.isInitialized) {
       swarm = Node("origin").apply {
         for (i in 0 until CUBE_COUNT) {
-          val cube = cubeFactory.create(cubeMaterials[random.nextInt(9)])
+          val cube = cubeFactory.create(cubeMaterials[random.nextInt(9)]).representation()
           attachChild(cube)
           cube.setLocalTranslation(generateRandomPositionOnSphere())
         }
@@ -63,8 +66,8 @@ class CubeSwarm(
       .onEach {
         for (i in 0 until INDEPENDENCE_COUNT) {
           val time = it + timeOffsets[i]
-          val green = GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))
-          materials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
+          val green = (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
+          cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
         }
       }.collect()
   }
@@ -73,11 +76,11 @@ class CubeSwarm(
     val radius = random.nextInt(MAX_RADIUS) + MIN_RADIUS
     val u = random.nextFloat()
     val v = random.nextFloat()
-    val theta = CubeGame._2PI * u
+    val theta = _2PI * u
     val phi = acos((2 * v) - 1)
-    val x = radius * cos(theta) * sin(phi)
-    val y = radius * sin(theta) * sin(phi)
-    val z = radius * cos(phi)
+    val x = (radius * cos(theta) * sin(phi)).toFloat()
+    val y = (radius * sin(theta) * sin(phi)).toFloat()
+    val z = (radius * cos(phi)).toFloat()
     return Vector3f(x, y, z)
   }
 

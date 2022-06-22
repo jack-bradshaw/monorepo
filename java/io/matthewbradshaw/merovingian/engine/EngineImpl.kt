@@ -25,6 +25,7 @@ class EngineImpl @Inject internal constructor(
       Paradigm.FLATWARE -> initForFlatware()
       Paradigm.VR -> initForVr()
     }
+    start()
   }
 
   private fun initForFlatware() {

@@ -12,6 +12,7 @@ import io.matthewbradshaw.merovingian.ticker.TickerModule
 import com.jme3.renderer.Camera
 import kotlinx.coroutines.CoroutineDispatcher
 import com.jme3.scene.Node
+import io.matthewbradshaw.merovingian.coroutines.DispatcherModule
 import io.matthewbradshaw.merovingian.engine.RootNode
 import io.matthewbradshaw.merovingian.engine.MainDispatcher
 import io.matthewbradshaw.merovingian.host.HostFactory
@@ -21,7 +22,8 @@ import io.matthewbradshaw.merovingian.host.HostFactory
   modules = [
     EngineModules.Binding::class,
     EngineModules.Provisioning::class,
-    TickerModule::class
+    TickerModule::class,
+    DispatcherModule::class,
   ]
 )
 interface MerovingianComponent {

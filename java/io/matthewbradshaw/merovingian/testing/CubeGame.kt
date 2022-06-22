@@ -20,6 +20,7 @@ import com.jme3.math.ColorRGBA
 import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import com.jme3.math.Vector3f
+import com.jme3.renderer.Camera
 import com.google.auto.factory.Provided
 import com.google.auto.factory.AutoFactory
 
@@ -27,6 +28,7 @@ import com.google.auto.factory.AutoFactory
 @AutoFactory
 class CubeGame(
   @Provided private val materials: Materials,
+  @Provided private val camera: Camera,
   @Provided private val cubeSwarmFactory: CubeSwarmFactory
 ) : Game {
 
@@ -37,7 +39,7 @@ class CubeGame(
     swarm = cubeSwarmFactory.create()
   }
 
-  override fun ui() = flowOf(swarm)
+  override fun representation() = flowOf(swarm)
 
   override suspend fun logic() {
     camera.setLocation(Vector3f(0f, 0f, 0f))

@@ -30,6 +30,7 @@ kt_jvm_library(
         ":dagger",
         ":scope",
         "//java/io/matthewbradshaw/merovingian/config",
+        "//java/io/matthewbradshaw/merovingian/coroutines:module",
         "//java/io/matthewbradshaw/merovingian/engine",
         "//java/io/matthewbradshaw/merovingian/engine:module",
         "//java/io/matthewbradshaw/merovingian/engine:qualifiers",

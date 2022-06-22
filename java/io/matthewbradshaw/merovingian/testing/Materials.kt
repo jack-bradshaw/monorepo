@@ -3,5 +3,5 @@ package io.matthewbradshaw.merovingian.testing
 import com.jme3.material.Material
 
 interface Materials {
-  suspend fun createGreenMaterial(): Material
+  suspend fun createUnshadedGreen(): Material
 }

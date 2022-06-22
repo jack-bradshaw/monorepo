@@ -27,7 +27,7 @@ interface Ticker {
    * Notifies the ticker as update has occurred. The [timeSinceLastTickSec] value holds the time since the previous
    * update (otherwise known as time per frame or TPF), measured in seconds.
    */
-  suspend fun tick(timeSinceLastTickSec: TimeSec)
+  suspend fun tick(timeSinceLastTickS: TimeSec)
 }
 
 typealias TimeSec = Float

@@ -1,5 +1,6 @@
 package io.matthewbradshaw.merovingian.engine
 
+import com.jme3.app.Application
 import com.jme3.app.SimpleApplication
 import io.matthewbradshaw.merovingian.MerovingianScope
 import dagger.Provides
@@ -26,7 +27,11 @@ object EngineModules {
 
     @Provides
     @MerovingianScope
-    fun provideApp(engine: Engine): SimpleApplication = engine.extractApp()
+    fun provideSimpleApplication(engine: Engine): SimpleApplication = engine.extractApp()
+
+    @Provides
+    @MerovingianScope
+    fun provideApplication(engine: Engine): Application = engine.extractApp()
 
     @Provides
     @MerovingianScope

@@ -7,29 +7,23 @@ auto_factory()
 dagger_rules()
 
 kt_jvm_library(
-    name = "testing_lib",
+    name = "external_module",
     testonly = True,
     srcs = [
-        "Cube.kt",
-        "CubeGame.kt",
-        "CubeSwarm.kt",
-        "Main.java",
-        "MainKt.kt",
-        "Materials.kt",
-        "MaterialsModule.kt",
-        "Materialsimpl.kt",
-        "TestingComponent.kt",
-        "TestingModule.kt",
-        "TestingScope.kt",
+        "ExternalModule.kt",
     ],
     visibility = [
         "//javatests:__subpackages__",
     ],
     deps = [
         ":auto_factory",
+        ":cube",
         ":dagger",
+        ":materials",
+        ":scope",
         "//java/io/matthewbradshaw/merovingian",
         "//java/io/matthewbradshaw/merovingian/engine",
+        "//java/io/matthewbradshaw/merovingian/model",
         "//java/io/matthewbradshaw/merovingian/ticker",
         "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:javax_inject_javax_inject",
@@ -38,12 +32,153 @@ kt_jvm_library(
     ],
 )
 
+kt_jvm_library(
+    name = "scope",
+    testonly = True,
+    srcs = [
+        "TestingScope.kt",
+    ],
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":dagger",
+    ],
+)
+
+kt_jvm_library(
+    name = "materials",
+    testonly = True,
+    srcs = [
+        "Materials.kt",
+        "MaterialsImpl.kt",
+        "MaterialsModule.kt",
+    ],
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":dagger",
+        ":scope",
+        "@maven//:javax_inject_javax_inject",
+        "@maven//:org_jmonkeyengine_jme3_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "cube",
+    testonly = True,
+    srcs = [
+        "Cube.kt",
+        "Materials.kt",
+        "TestingScope.kt",
+    ],
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":auto_factory",
+        ":dagger",
+        ":materials",
+        ":scope",
+        "//java/io/matthewbradshaw/merovingian/model",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "cubeswarm",
+    testonly = True,
+    srcs = [
+        "CubeSwarm.kt",
+    ],
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":auto_factory",
+        ":cube",
+        ":dagger",
+        ":materials",
+        ":scope",
+        "//java/io/matthewbradshaw/merovingian",
+        "//java/io/matthewbradshaw/merovingian/engine",
+        "//java/io/matthewbradshaw/merovingian/model",
+        "//java/io/matthewbradshaw/merovingian/ticker",
+        "@maven//:com_google_protobuf_protobuf_java",
+        "@maven//:javax_inject_javax_inject",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "cubegame",
+    testonly = True,
+    srcs = [
+        "CubeGame.kt",
+    ],
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":auto_factory",
+        ":cube",
+        ":cubeswarm",
+        ":dagger",
+        ":materials",
+        ":scope",
+        "//java/io/matthewbradshaw/merovingian/engine",
+        "//java/io/matthewbradshaw/merovingian/model",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "component",
+    testonly = True,
+    srcs = [
+        "TestingComponent.kt",
+    ],
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":auto_factory",
+        ":cube",
+        ":cubegame",
+        ":cubeswarm",
+        ":dagger",
+        ":external_module",
+        ":materials",
+        ":scope",
+        "//java/io/matthewbradshaw/merovingian",
+    ],
+)
+
+kt_jvm_library(
+    name = "main",
+    testonly = True,
+    srcs = [
+        "Main.java",
+        "MainKt.kt",
+    ],
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":component",
+    ],
+)
+
 java_binary(
-    name = "testing_app",
+    name = "testing",
     testonly = True,
     main_class = "io.matthewbradshaw.merovingian.testing.Main",
     visibility = [
         "//javatests:__subpackages__",
     ],
-    runtime_deps = [":testing_lib"],
+    runtime_deps = [":main"],
 )

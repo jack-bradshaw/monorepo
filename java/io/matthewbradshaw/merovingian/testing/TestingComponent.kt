@@ -15,17 +15,17 @@ import com.jme3.renderer.Camera
 import io.matthewbradshaw.merovingian.engine.RootNode
 
 @TestingScope
-@Component(modules = [MaterialsModule::class], dependencies = [MerovingianComponent::class])
+@Component(modules = [MaterialsModule::class, ExternalModule::class], dependencies = [MerovingianComponent::class])
 interface TestingComponent {
 
-  fun cubeSwarm(): CubeSwarm
-  fun hostfactory(): HostFactory
+  fun game(): CubeGameFactory
 
   @Component.Builder
   interface Builder {
-    @BindsInstance fun setMerovingianComponent(merovingianComponent: MerovingianComponent): Builder
+    fun setMerovingianComponent(merovingianComponent: MerovingianComponent): Builder
     fun build(): TestingComponent
   }
 }
 
-fun testing(merovingian: MerovingianComponent) = DaggerTestingComponent.builder().setMerovingianComponent(merovingian).build()
+fun testing(merovingian: MerovingianComponent) =
+  DaggerTestingComponent.builder().setMerovingianComponent(merovingian).build()

@@ -3,7 +3,7 @@ load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 AUTO_VALUE_VERSION = "1.9"
 
-DAGGER_VERSION = "2.41"
+DAGGER_VERSION = "2.42"
 
 FLOGGER_VERSION = "0.7.4"
 

@@ -1,11 +1,11 @@
 package io.matthewbradshaw.merovingian.testing
 
-import dagger.Module
 import dagger.Provides
+import dagger.Module
 import kotlin.random.Random
 
 @Module
-class TestingModule {
+class ExternalModule {
   @Provides
   @TestingScope
   fun provideRandom() = Random(0L)
