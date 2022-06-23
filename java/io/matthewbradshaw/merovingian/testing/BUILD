@@ -180,5 +180,8 @@ java_binary(
     visibility = [
         "//javatests:__subpackages__",
     ],
-    runtime_deps = [":main"],
+    runtime_deps = [
+        ":main",
+        "@maven//:org_jmonkeyengine_jme3_lwjgl3",
+    ],
 )
