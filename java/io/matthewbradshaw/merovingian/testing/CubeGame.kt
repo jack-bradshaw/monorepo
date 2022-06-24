@@ -25,6 +25,7 @@ class CubeGame(
   override suspend fun prepare() {
     if (!this::swarm.isInitialized) {
       swarm = cubeSwarmFactory.create()
+      swarm.prepare()
     }
   }
 
@@ -34,5 +35,6 @@ class CubeGame(
 
   override suspend fun logic() {
     camera.setLocation(Vector3f(0f, 0f, 0f))
+    swarm.logic()
   }
 }

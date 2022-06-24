@@ -23,6 +23,10 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlin.random.Random
 
 @TestingScope
@@ -42,24 +46,21 @@ class CubeSwarm(
 
   override suspend fun prepare() {
     if (!this::cubeMaterials.isInitialized) {
-      println("initializing materials")
       cubeMaterials = List(INDEPENDENCE_COUNT) { materials.createUnshadedGreen() }
     }
 
     if (!this::timeOffsets.isInitialized) {
-      println("initializing offsets")
       timeOffsets = List(INDEPENDENCE_COUNT) { (random.nextFloat() * MAX_TIME_OFFSET).toInt() }
     }
 
     if (!this::swarm.isInitialized) {
-      println("initializing swarm")
       swarm = Node("origin").apply {
-        for (i in 0 until 1) {
-          val material = cubeMaterials[random.nextInt(INDEPENDENCE_COUNT)]
-          val cube = cubeFactory.create(material)
+        for (i in 0 until CUBE_COUNT) {
+          val material = cubeMaterials[random.nextInt(INDEPENDENCE_COUNT - 1)]
+          val cube = Cube(material)
           cube.prepare()
           attachChild(cube.representation())
-          cube.setLocalTranslation(generateRandomPositionOnSphere())
+          cube.representation().setLocalTranslation(generateRandomPositionOnSphere())
         }
       }
     }
@@ -69,17 +70,30 @@ class CubeSwarm(
     return swarm
   }
 
-  override suspend fun logic() {
-    ticker
-      .pulseTotalS()
-      .flowOn(mainDispatcher)
-      .onEach {
-        for (i in 0 until INDEPENDENCE_COUNT) {
-          val time = it + timeOffsets[i]
-          val green = (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
-          cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
-        }
-      }.collect()
+  override suspend fun logic(){
+    coroutineScope {
+      async(Dispatchers.Default) {
+        ticker
+          .pulseTotalS()
+          .flowOn(Dispatchers.IO)
+          .map { sin(time) }
+          .map {
+            for (i in 0 until INDEPENDENCE_COUNT) {
+              val time = it + timeOffsets[i]
+              val green = (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
+              cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
+            }
+          }
+          .onEach {
+            println("tick")
+            for (i in 0 until INDEPENDENCE_COUNT) {
+              val time = it + timeOffsets[i]
+              val green = (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
+              cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
+            }
+          }.collect()
+      }
+    }
   }
 
   private fun generateRandomPositionOnSphere(): Vector3f {
@@ -95,7 +109,7 @@ class CubeSwarm(
   }
 
   companion object {
-    private const val CUBE_COUNT = 100
+    private const val CUBE_COUNT = 1000
     private const val MAX_TIME_OFFSET = 10
     private const val INDEPENDENCE_COUNT = 10
     private const val MAX_RADIUS = 1000

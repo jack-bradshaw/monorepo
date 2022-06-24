@@ -21,10 +21,8 @@ class Cube(
 
   override suspend fun prepare() {
     if (!this::cube.isInitialized) {
-      println("preparing cube")
-      cube = Geometry("klek $number", Box(SIZE, SIZE, SIZE)).apply {
-        println("set material")
-        setMaterial(material)
+      cube = Geometry("cube_box", Box(SIZE, SIZE, SIZE)).apply {
+        setMaterial(this@Cube.material)
       }
       number = number + 1
     }

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.coroutineScope
 import com.google.auto.factory.Provided
 import com.google.auto.factory.AutoFactory
-import kotlinx.coroutines.join
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 @AutoFactory(className = "HostFactory")
@@ -28,8 +28,9 @@ class HostImpl(
     coroutineScope {
       withContext(Dispatchers.Default) {
         launch(mainDispatcher) { gameItem.prepare() }.join()
+        delay(10000)
         launch(mainDispatcher) { rootNode.attachChild(gameItem.representation()) }
-        //launch(Dispatchers.Default) { gameItem.logic() }
+        launch(Dispatchers.Default) { gameItem.logic() }
       }
     }
   }
