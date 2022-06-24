@@ -8,7 +8,7 @@ import kotlinx.coroutines.delay
 class MainKt {
   fun main() {
     runBlocking {
-      val merovingian = merovingian(Paradigm.FLATWARE)
+      val merovingian = merovingian(Paradigm.VR)
       val testing = testing(merovingian)
       val game = testing.game().create()
       merovingian.hostFactory().create(game).go()

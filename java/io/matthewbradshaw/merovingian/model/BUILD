@@ -6,7 +6,6 @@ dagger_rules()
 kt_jvm_library(
     name = "model",
     srcs = [
-        "Game.kt",
         "GameItem.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],

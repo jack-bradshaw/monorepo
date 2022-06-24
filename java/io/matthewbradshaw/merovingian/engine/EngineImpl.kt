@@ -10,6 +10,9 @@ import io.matthewbradshaw.merovingian.ticker.Ticker
 import io.matthewbradshaw.merovingian.MerovingianScope
 import com.jme3.app.VRAppState
 import com.jme3.system.AppSettings
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
 import io.matthewbradshaw.merovingian.config.Paradigm
 
 @MerovingianScope
@@ -18,6 +21,8 @@ class EngineImpl @Inject internal constructor(
   private val paradigm: Paradigm
 ) : Engine, SimpleApplication() {
 
+  private val started = MutableStateFlow(false)
+
   private var vrAppState: VRAppState? = null
 
   init {
@@ -25,7 +30,13 @@ class EngineImpl @Inject internal constructor(
       Paradigm.FLATWARE -> initForFlatware()
       Paradigm.VR -> initForVr()
     }
-    start()
+
+    runBlocking {
+      println("mattbradshaw starting")
+      start()
+      started.filter { it == true }.first()
+      println("mattbradshaw past wait for start")
+    }
   }
 
   private fun initForFlatware() {
@@ -58,7 +69,11 @@ class EngineImpl @Inject internal constructor(
     setLostFocusBehavior(LostFocusBehavior.Disabled)
   }
 
+
+
   override fun simpleInitApp() {
+    println("mattbradshaw init app")
+    started.value = true
     // Unused
   }
 
@@ -77,3 +92,6 @@ class EngineImpl @Inject internal constructor(
     private const val DEFAULT_VR_MIRROR_WINDOW_HEIGHT_PX = 800
   }
 }
+
+
+

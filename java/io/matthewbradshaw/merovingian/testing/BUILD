@@ -170,6 +170,10 @@ kt_jvm_library(
     ],
     deps = [
         ":component",
+        "@maven//:org_jmonkeyengine_jme3_core",
+        "@maven//:org_jmonkeyengine_jme3_desktop",
+        "@maven//:org_jmonkeyengine_jme3_lwjgl3",
+        "@maven//:org_jmonkeyengine_jme3_vr",
     ],
 )
 
@@ -182,6 +186,27 @@ java_binary(
     ],
     runtime_deps = [
         ":main",
+        "@maven//:org_jmonkeyengine_jme3_core",
+        "@maven//:org_jmonkeyengine_jme3_desktop",
         "@maven//:org_jmonkeyengine_jme3_lwjgl3",
+        "@maven//:org_jmonkeyengine_jme3_vr",
+        "@maven//:org_lwjgl_lwjgl",
+    ],
+)
+
+java_binary(
+    name = "hello",
+    testonly = True,
+    srcs = ["Thing.java"],
+    main_class = "io.matthewbradshaw.merovingian.testing.Thing",
+    visibility = [
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        "@maven//:org_jmonkeyengine_jme3_core",
+        "@maven//:org_jmonkeyengine_jme3_desktop",
+        "@maven//:org_jmonkeyengine_jme3_lwjgl3",
+        "@maven//:org_jmonkeyengine_jme3_testdata",
+        "@maven//:org_jmonkeyengine_jme3_vr",
     ],
 )
