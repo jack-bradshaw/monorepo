@@ -32,5 +32,5 @@ class ClockImpl @Inject internal constructor(
   private val deltaFlow = MutableStateFlow<Double>(0.0)
 
   override fun totalSec() = totalFlow
-  override fun deltaSec() = totalFlow
+  override fun deltaSec() = deltaFlow
 }

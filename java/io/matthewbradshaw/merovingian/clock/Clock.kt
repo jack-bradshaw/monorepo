@@ -3,7 +3,7 @@ package io.matthewbradshaw.merovingian.clock
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Provides flow-based access to the current time with reference to the game engine.
+ * Provides flow-based access to game time.
  */
 interface Clock {
   /**
