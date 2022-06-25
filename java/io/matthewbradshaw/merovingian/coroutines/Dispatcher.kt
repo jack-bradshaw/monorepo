@@ -23,5 +23,5 @@ private val DISPATCHERS = ConcurrentHashMap<Application, JMonkeyDispatcher>()
  * Gets a CoroutineDispatcher for this application. Every call for a given application returns the same instance, and
  * calls are thread safe.
  */
-fun Application.dispatcher() = DISPATCHERS.getOrPut(this) { JMonkeyDispatcher(this) }
+fun Application.dispatcher(): CoroutineDispatcher = DISPATCHERS.getOrPut(this) { JMonkeyDispatcher(this) }
 

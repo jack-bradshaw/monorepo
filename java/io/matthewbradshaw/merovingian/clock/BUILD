@@ -4,26 +4,30 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "ticker",
+    name = "clock",
     srcs = [
-        "Ticker.kt",
+        "Clock.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
-    deps = ["@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
+    deps = [
+        "//java/io/matthewbradshaw/merovingian/engine",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
 )
 
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "TickerImpl.kt",
+        "ClockImpl.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":ticker",
+        ":clock",
         "//java/io/matthewbradshaw/merovingian:scope",
+        "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -33,16 +37,16 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "TickerModule.kt",
+        "ClockModule.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        ":clock",
         ":dagger",
         ":impl",
-        ":ticker",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

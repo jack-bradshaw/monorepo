@@ -33,7 +33,6 @@ kt_jvm_library(
         "//java/io/matthewbradshaw/merovingian:scope",
         "//java/io/matthewbradshaw/merovingian/config",
         "//java/io/matthewbradshaw/merovingian/coroutines:dispatcher",
-        "//java/io/matthewbradshaw/merovingian/ticker",
         "@maven//:com_google_auto_factory_auto_factory",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",

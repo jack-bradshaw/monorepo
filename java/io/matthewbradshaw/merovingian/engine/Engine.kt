@@ -5,6 +5,7 @@ import com.jme3.renderer.Camera
 import com.jme3.asset.AssetManager
 import com.jme3.app.VRAppState
 import com.jme3.scene.Node
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * The core elements of the [jMonkey 3 game engine](https://jmonkeyengine.org/).
@@ -35,4 +36,19 @@ interface Engine {
    * Extracts the root game node. Nodes attached to this node are displayed.
    */
   fun extractRootNode(): Node
+
+  /**
+   * Extracts a coroutine scope which tracks the engine state. The scope is cancelled when the game engine stops.
+   */
+  fun extractCoroutineScope(): CoroutineScope
+
+  /**
+   * Extracts the time since game start, measured in seconds.
+   */
+  fun extractTotalTime(): Double
+
+  /**
+   * Extracts the framerate of the game, measured in Hz.
+   */
+  fun extractFrameRate(): Int
 }

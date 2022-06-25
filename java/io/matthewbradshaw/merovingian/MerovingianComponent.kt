@@ -7,38 +7,38 @@ import dagger.Component
 import dagger.BindsInstance
 import io.matthewbradshaw.merovingian.engine.EngineModules
 import io.matthewbradshaw.merovingian.config.Paradigm
-import io.matthewbradshaw.merovingian.ticker.Ticker
-import io.matthewbradshaw.merovingian.ticker.TickerModule
+import io.matthewbradshaw.merovingian.clock.Clock
+import io.matthewbradshaw.merovingian.clock.ClockModule
+import kotlinx.coroutines.CoroutineScope
 import com.jme3.renderer.Camera
 import kotlinx.coroutines.CoroutineDispatcher
 import com.jme3.scene.Node
 import io.matthewbradshaw.merovingian.coroutines.DispatcherModule
-import io.matthewbradshaw.merovingian.engine.RootNode
-import io.matthewbradshaw.merovingian.engine.MainDispatcher
 import io.matthewbradshaw.merovingian.host.HostFactory
+import io.matthewbradshaw.merovingian.engine.EngineBound
 
 @MerovingianScope
 @Component(
   modules = [
     EngineModules.Binding::class,
     EngineModules.Provisioning::class,
-    TickerModule::class,
+    ClockModule::class,
     DispatcherModule::class,
   ]
 )
 interface MerovingianComponent {
 
-  fun ticker(): Ticker
+  fun clock(): Clock
   fun camera(): Camera
   fun assetManager(): AssetManager
   fun app(): SimpleApplication
   fun vr(): VRAppState
 
-  @MainDispatcher
-  fun mainDispatcher(): CoroutineDispatcher
+  @EngineBound
+  fun coroutineDispatcher(): CoroutineDispatcher
 
-  @RootNode
-  fun rootNode(): Node
+  @EngineBound
+  fun coroutineScope(): CoroutineScope
 
   fun hostFactory(): HostFactory
 

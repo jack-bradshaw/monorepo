@@ -6,24 +6,31 @@ import com.jme3.app.VRConstants
 import com.jme3.app.LostFocusBehavior
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
-import io.matthewbradshaw.merovingian.ticker.Ticker
 import io.matthewbradshaw.merovingian.MerovingianScope
 import com.jme3.app.VRAppState
 import com.jme3.system.AppSettings
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.filter
 import io.matthewbradshaw.merovingian.config.Paradigm
 
 @MerovingianScope
 class EngineImpl @Inject internal constructor(
-  private val ticker: Ticker,
   private val paradigm: Paradigm
 ) : Engine, SimpleApplication() {
 
   private val started = MutableStateFlow(false)
 
   private var vrAppState: VRAppState? = null
+
+  private val coroutineScopeJob = Job()
+  private val coroutineScope = CoroutineScope(coroutineScopeJob)
+
+  private lateinit var settings: AppSettings
+
+  private var totalTime = 0.0
 
   init {
     when (paradigm) {
@@ -32,22 +39,20 @@ class EngineImpl @Inject internal constructor(
     }
 
     runBlocking {
-      println("mattbradshaw starting")
       start()
       started.filter { it == true }.first()
-      println("mattbradshaw past wait for start")
     }
   }
 
   private fun initForFlatware() {
-    val settings = AppSettings( /* loadDefaults= */ true)
+    settings = AppSettings( /* loadDefaults= */ true)
     setSettings(settings)
     setShowSettings(false)
     vrAppState = null
   }
 
   private fun initForVr() {
-    val settings = AppSettings(/* loadDefaults= */ true).apply {
+    settings = AppSettings(/* loadDefaults= */ true).apply {
       put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
       put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
     }
@@ -56,7 +61,7 @@ class EngineImpl @Inject internal constructor(
 
     val environment = VREnvironment(settings).apply {
       initialize()
-      if (!isInitialized()) throw IllegalStateException("VR environment did not initialize.")
+      if (!isInitialized()) throw IllegalStateException("VR environment did not successfully initialize")
     }
     vrAppState = VRAppState(settings, environment).apply {
       setMirrorWindowSize(
@@ -69,16 +74,19 @@ class EngineImpl @Inject internal constructor(
     setLostFocusBehavior(LostFocusBehavior.Disabled)
   }
 
-
-
   override fun simpleInitApp() {
-    println("mattbradshaw init app")
     started.value = true
-    // Unused
   }
 
+
+
   override fun simpleUpdate(tpf: Float) = runBlocking {
-    ticker.tick(tpf)
+    totalTime = totalTime + tpf
+  }
+
+  override fun destroy() {
+    coroutineScopeJob.cancel()
+    super.destroy()
   }
 
   override fun extractCamera() = cam
@@ -86,6 +94,9 @@ class EngineImpl @Inject internal constructor(
   override fun extractApp() = this
   override fun extractVr() = vrAppState
   override fun extractRootNode() = getRootNode()
+  override fun extractCoroutineScope(): CoroutineScope = coroutineScope
+  override fun extractTotalTime(): Double = totalTime
+  override fun extractFrameRate(): Int = settings.getFrameRate()
 
   companion object {
     private const val DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX = 1024

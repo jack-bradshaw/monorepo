@@ -7,29 +7,33 @@ import com.jme3.scene.Spatial
 import com.jme3.material.Material
 import io.matthewbradshaw.merovingian.model.GameItem
 import com.jme3.scene.shape.Box
+import io.matthewbradshaw.kotlinhelpers.once
 import com.google.auto.factory.Provided
+import kotlin.random.Random
 import com.google.auto.factory.AutoFactory
 
 @TestingScope
 @AutoFactory
 class Cube(
-  private val material: Material
+  private val material: Material,
+  @Provided private val random: Random,
 ) : GameItem {
 
-  private val prepared = Mutex()
   private lateinit var cube: Spatial
 
-  override suspend fun prepare() {
-    if (!this::cube.isInitialized) {
-      cube = Geometry("cube_box", Box(SIZE, SIZE, SIZE)).apply {
-        setMaterial(this@Cube.material)
-      }
-      number = number + 1
-    }
-  }
+  private val size = random.nextFloat()
+
 
   override suspend fun representation(): Spatial {
+    preparations.runOnce()
     return cube
+  }
+
+  private val preparations = once {
+    cube = Geometry("cube_box", Box(size, size, size)).apply {
+      setMaterial(this@Cube.material)
+    }
+    number = number + 1
   }
 
   companion object {

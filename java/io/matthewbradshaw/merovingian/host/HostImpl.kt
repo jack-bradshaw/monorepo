@@ -1,37 +1,26 @@
 package io.matthewbradshaw.merovingian.host
 
-import io.matthewbradshaw.merovingian.engine.MainDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.launch
-import io.matthewbradshaw.merovingian.engine.RootNode
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
-import com.jme3.scene.Node
-import io.matthewbradshaw.merovingian.model.GameItem
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.coroutineScope
-import com.google.auto.factory.Provided
 import com.google.auto.factory.AutoFactory
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
+import com.google.auto.factory.Provided
+import io.matthewbradshaw.merovingian.engine.Engine
+import io.matthewbradshaw.merovingian.engine.EngineBound
+import io.matthewbradshaw.merovingian.model.GameItem
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @AutoFactory(className = "HostFactory")
 class HostImpl(
   private val gameItem: GameItem,
-  @Provided @RootNode private val rootNode: Node,
-  @Provided @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
+  @Provided private val engine: Engine,
+  @Provided @EngineBound private val engineDispatcher: CoroutineDispatcher,
+  @Provided @EngineBound private val engineScope: CoroutineScope,
 ) : Host {
 
   override suspend fun go() {
-    coroutineScope {
-      withContext(Dispatchers.Default) {
-        launch(mainDispatcher) { gameItem.prepare() }.join()
-        delay(10000)
-        launch(mainDispatcher) { rootNode.attachChild(gameItem.representation()) }
-        launch(Dispatchers.Default) { gameItem.logic() }
-      }
+    engineScope.launch {
+      engine.extractRootNode().attachChild(gameItem.representation())
+      gameItem.logic()
     }
   }
 }

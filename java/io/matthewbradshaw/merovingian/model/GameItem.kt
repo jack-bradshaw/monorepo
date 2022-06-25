@@ -5,9 +5,6 @@ import io.matthewbradshaw.merovingian.lifecycle.Preparable
 import com.jme3.scene.Spatial
 
 interface GameItem{
-
-  suspend fun prepare()
-
   suspend fun representation(): Spatial
 
   suspend fun logic() = Unit

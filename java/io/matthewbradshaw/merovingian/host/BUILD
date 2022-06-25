@@ -24,6 +24,7 @@ kt_jvm_library(
     deps = [
         ":auto_factory",
         ":host",
+        "//java/io/matthewbradshaw/merovingian/engine",
         "//java/io/matthewbradshaw/merovingian/engine:qualifiers",
         "//java/io/matthewbradshaw/merovingian/model",
         "@maven//:com_google_auto_auto_common",
