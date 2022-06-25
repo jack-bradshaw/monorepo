@@ -5,6 +5,7 @@ kt_jvm_test(
     srcs = [
         "DispatcherTest.kt",
     ],
+    jvm_flags = ["-Djava.security.manager=allow"],  # TODO(https://github.com/bazelbuild/bazel/issues/14502): Remove
     deps = [
         "//java/io/matthewbradshaw/gmonkey",
         "//java/io/matthewbradshaw/gmonkey/coroutines:dispatcher",
