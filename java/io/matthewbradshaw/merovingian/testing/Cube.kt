@@ -1,13 +1,11 @@
 package io.matthewbradshaw.merovingian.testing
 
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import com.jme3.scene.Geometry
 import com.jme3.scene.Spatial
 import com.jme3.material.Material
 import io.matthewbradshaw.merovingian.model.GameItem
 import com.jme3.scene.shape.Box
-import io.matthewbradshaw.kotlinhelpers.once
+import io.matthewbradshaw.kotty.once
 import com.google.auto.factory.Provided
 import kotlin.random.Random
 import com.google.auto.factory.AutoFactory

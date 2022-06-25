@@ -8,7 +8,10 @@ kt_jvm_library(
     srcs = [
         "Once.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw:__subpackages__"],
+    visibility = [
+        "//java/io/matthewbradshaw:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
     deps = [
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

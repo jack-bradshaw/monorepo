@@ -7,7 +7,7 @@ import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
 import com.jme3.scene.Node
 import com.jme3.scene.Spatial
-import io.matthewbradshaw.kotlinhelpers.once
+import io.matthewbradshaw.kotty.once
 import io.matthewbradshaw.merovingian.clock.Clock
 import io.matthewbradshaw.merovingian.engine.EngineBound
 import io.matthewbradshaw.merovingian.model.GameItem
