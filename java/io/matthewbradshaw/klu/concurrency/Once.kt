@@ -1,4 +1,4 @@
-package io.matthewbradshaw.kotty.concurrency
+package io.matthewbradshaw.klu.concurrency
 
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.coroutines.sync.Mutex
@@ -15,9 +15,9 @@ interface Once {
 }
 
 /**
- * Creates a block of code that should be run exactly once, but does not run the block yet. Call [runOnce] on the
- * returned object to invoke the code. This function guarantees that the wrapped code will never run more than once
- * even when [runOnce] is called in parallel.
+ * Defines a [block] of code that should be run exactly once without invoking the code. Call [runOnce] on the
+ * returned object to invoke the block. This function guarantees the wrapped code will never run more than once (in a
+ * given process) even if [runOnce] is called multiple times asynchronously.
  *
  * Example:
  * ```
