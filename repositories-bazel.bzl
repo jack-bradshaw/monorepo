@@ -5,9 +5,9 @@ def io_matthewbradshaw_bazel_repositories():
     maybe(
         http_archive,
         name = "rules_jvm_external",
-        sha256 = "62133c125bf4109dfd9d2af64830208356ce4ef8b165a6ef15bbff7460b35c3a",
-        strip_prefix = "rules_jvm_external-3.0",
-        url = "https://github.com/bazelbuild/rules_jvm_external/archive/3.0.zip",
+        sha256 = "cd1a77b7b02e8e008439ca76fd34f5b07aecb8c752961f9640dea15e9e5ba1ca",
+        strip_prefix = "rules_jvm_external-4.2",
+        url = "https://github.com/bazelbuild/rules_jvm_external/archive/4.2.zip",
     )
 
     maybe(

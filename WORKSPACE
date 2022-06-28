@@ -4,6 +4,14 @@ load("//:repositories-bazel.bzl", "io_matthewbradshaw_bazel_repositories")
 
 io_matthewbradshaw_bazel_repositories()
 
+load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
+
+rules_jvm_external_deps()
+
+load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
+
+rules_jvm_external_setup()
+
 load("//:repositories-maven.bzl", "io_matthewbradshaw_maven_repositories")
 
 io_matthewbradshaw_maven_repositories()
