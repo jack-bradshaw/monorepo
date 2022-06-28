@@ -16,6 +16,7 @@ java_export(
     name = "klu_release",
     srcs = ["Stub.java"],
     maven_coordinates = "io.matthewbradshaw:klu:0.0.1",
+    pom_template = "pom_template",
     deps = [
         ":klu",
     ],
