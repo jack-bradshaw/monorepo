@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.coroutines.sync.Mutex
 
 /**
- * A block of code that should be run exactly once.
+ * Contains a block of code that should be run exactly once.
  */
 interface Once {
   /**
@@ -15,18 +15,22 @@ interface Once {
 }
 
 /**
- * Defines a [block] of code that should be run exactly once without invoking the code. Call [runOnce] on the
+ * Defines a [block] of code that should be run exactly once, but does not invoke the code yet. Call [runOnce] on the
  * returned object to invoke the block. This function guarantees the wrapped code will never run more than once (in a
  * given process) even if [runOnce] is called multiple times asynchronously.
  *
  * Example:
  * ```
+ * var x = 0
  * val setup = once {
- *   // set some variables
+ *   x +=1
  * }
  *
- * setup.runOnce() // runs
- * setup.runOnce() // does not run
+ * fun main() {
+ *   setup.runOnce()
+ *   setup.runOnce()
+ *   println("$x") // prints 1
+ * }
  * ```
  */
 fun once(block: suspend () -> Unit) = object : Once {
