@@ -2,6 +2,11 @@
 
 Essential utilities and helpers to fill the gaps in the Kotlin standard library.
 
+This guide covers:
+
+- Dependency: How to include the library in another project.
+- Concurrency: How to use the utilities in the KLU concurrency package.
+
 ## Dependency
 
 There are multiple ways to include KLU in your project:
@@ -52,11 +57,11 @@ kt_jvm_library(
 )
 ```
 
-## Developer Guide
+## Concurrency
 
-KLU current has one package: io.matthewbradshaw.concurrency. Other packages will be added progressively.
+The concurrency package (io.matthewbradshaw.klu.concurrency) contains utilities to simplify concurrency in Kotlin.
 
-### Concurrency
+### Once
 
 The [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) ensures a block of code runs exactly once even under asynchronous operation. For example:
 
