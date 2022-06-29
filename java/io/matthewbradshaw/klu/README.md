@@ -31,7 +31,7 @@ In short: io.matthewbradshaw:klu:1.0.0
 
 To build KLU from the source:
 
-1. Install Bazel: Follow https://docs.bazel.build/versions/main/install.html.
+1. [Install Bazel](https://docs.bazel.build/versions/main/install.html).
 2. Clone the monorepo: `git clone https://github.com/matthewbradshaw/-io/monorepo`
 3. Run the build command: `blaze build //java/io/matthewbradshaw/klu`
 
