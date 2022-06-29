@@ -26,9 +26,7 @@ interface Once {
  *
  * println("$x") // Will print 0
  *
- * setup.runIfNeverRun()
- * setup.runIfNeverRun()
- * setup.runIfNeverRun()
+ * for (i in 0..10) launch { setup.runIfNeverRun() }
  *
  * println("$x") // Will print 1
  * ```
