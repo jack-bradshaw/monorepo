@@ -63,7 +63,7 @@ The concurrency package (io.matthewbradshaw.klu.concurrency) contains utilities 
 
 ### Once
 
-The [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) ensures a block of code runs exactly once even under asynchronous operation. For example:
+[Once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) ensures a block of code runs exactly once even under asynchronous operation. For example:
 
 ```kotlin
 var x = 0
