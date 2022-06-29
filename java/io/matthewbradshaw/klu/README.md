@@ -9,15 +9,15 @@ This guide is divided into:
 
 ## Access
 
-There are multiple ways to get access to KLU in your project:
+There are multiple ways to getting access to KLU in another project:
 
-1. Download the binaries.
-2. Build directly from the source.
-3. Reference the source from Bazel.
+1. Include the pre-built binaries in the dependencies.
+2. Build the binaries directly from the source.
+3. Reference the source directly from another Bazel target.
 
-### Binaries
+### Pre-built binaries
 
-KLU is released to [Maven Central](https://repo1.maven.org/maven2). The latest release is available at:
+The pre-built binaries for KLU are released to [Maven Central](https://repo1.maven.org/maven2). The latest release is available at:
 
 - Group ID: io.matthewbradshaw
 - Artifact ID: klu
@@ -67,21 +67,21 @@ kt_jvm_library(
 
 ## Concurrency Utilities
 
-KLU provides various concurrency utilities.
+The io.matthewbradshaw.klu.concurrency package contains various concurrency utilities.
 
 ### Once
 
-KLU provides the [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) utility for running a block of code exactly once (per process). For example:
+The [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) utility simplifies running a block of code exactly one time. For example:
 
 ```kotlin
 var x = 0
-val once = {
+val setup = once {
   x += 1
 }
 
-once.runOnce()
-once.runOnce()
-once.runOnce()
+once.runIfNeverRun()
+once.runIfNeverRun()
+once.runIfNeverRun()
 
 println("$x") // Will print 1
 ```
