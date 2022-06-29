@@ -32,29 +32,29 @@ class OnceTest {
   }
 
   @Test
-  fun runOnce_calledOnce_invokesBlock() = runBlocking {
-    once(callCounter).runOnce()
+  fun runIfNotRun_calledOnce_invokesBlock() = runBlocking {
+    once(callCounter).runIfNotRun()
 
     assertThat(callCount).isEqualTo(1)
   }
 
   @Test
-  fun runOnce_calledMultipleTimesSequentially_invokesBlockOnceOnly() = runBlocking {
+  fun runIfNotRun_calledMultipleTimesSequentially_invokesBlockOnceOnly() = runBlocking {
     val once = once(callCounter)
 
-    for (i in 0 until MULTIPLE_RUN_COUNT) once.runOnce()
+    for (i in 0 until MULTIPLE_RUN_COUNT) once.runIfNotRun()
 
     assertThat(callCount).isEqualTo(1)
   }
 
   @Test
-  fun runOnce_calledMultipleTimesInAsynchronously_invokesBlockOnceOnly() = runBlocking {
+  fun runIfNotRun_calledMultipleTimesInAsynchronously_invokesBlockOnceOnly() = runBlocking {
     val jobs = mutableSetOf<Job>()
     val once = once(callCounter)
 
     for (i in 0 until MULTIPLE_RUN_COUNT) {
       val job = launch {
-        once.runOnce()
+        once.runIfNotRun()
       }
       jobs.add(job)
     }
