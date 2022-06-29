@@ -4,8 +4,8 @@ Essential utilities and helpers to fill the gaps in the Kotlin standard library.
 
 This guide is divided into:
 
-1. [Getting Access](##Getting-Access).
-2. [Concurrency Utilities](##Concurrency-Utilities).
+1. Getting Access.
+2. Concurrency Utilities
 
 ## Getting Access
 
