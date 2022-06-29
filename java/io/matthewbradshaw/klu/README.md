@@ -21,7 +21,7 @@ KLU is released to [Maven Central](https://repo1.maven.org/maven2). The latest r
 
 - Group ID: io.matthewbradshaw
 - Artifact ID: klu
-- Version ID: 
+- Version ID: 1.0.0
 
 In short: io.matthewbradshaw:klu:1.0.0
 
