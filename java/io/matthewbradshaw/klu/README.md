@@ -4,10 +4,10 @@ Essential utilities and helpers to fill the gaps in the Kotlin standard library.
 
 This guide is divided into:
 
-1. Getting Access.
-2. Concurrency Utilities
+1. Getting access.
+2. Learning the concurrency utilities.
 
-## Getting Access
+## Access
 
 There are multiple ways to get access to KLU in your project:
 
@@ -48,7 +48,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
     name = "io_matthewbradshaw",
-    commit = "", # TODO(you): Pick a commit from the monorepo.
+    commit = "", # TODO(you): Pick a commit.
     remote = "https://github.com/matthewbradshaw/-io/monorepo",
 )
 ```
@@ -71,7 +71,7 @@ KLU provides various concurrency utilities.
 
 ### Once
 
-KLU provides the [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) utility for running a block of code exactly once. Example:
+KLU provides the [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) utility for running a block of code exactly once (per process). Example:
 
 ```kotlin
 var x = 0
@@ -83,5 +83,5 @@ once.runOnce()
 once.runOnce()
 once.runOnce()
 
-println(x) // should print 1
+println("$x") // Will print 1
 ```
