@@ -12,6 +12,17 @@ kt_jvm_library(
     ],
 )
 
+java_binary(
+    name = "klu_full",
+    visibility = [
+        "//java/io/matthewbradshaw:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+    runtime_deps = [
+        "//java/io/matthewbradshaw/klu/concurrency",
+    ],
+)
+
 java_export(
     name = "klu_release",
     srcs = ["Stub.java"],
