@@ -71,7 +71,7 @@ KLU provides various concurrency utilities.
 
 ### Once
 
-KLU provides the [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) utility for running a block of code exactly once (per process). Example:
+KLU provides the [once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/matthewbradshaw/klu/concurrency/Once.kt) utility for running a block of code exactly once (per process). For example:
 
 ```kotlin
 var x = 0
