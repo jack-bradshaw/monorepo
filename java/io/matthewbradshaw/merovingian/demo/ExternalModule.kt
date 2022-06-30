@@ -1,4 +1,4 @@
-package io.matthewbradshaw.merovingian.testing
+package io.matthewbradshaw.merovingian.demo
 
 import dagger.Provides
 import dagger.Module
@@ -7,6 +7,6 @@ import kotlin.random.Random
 @Module
 class ExternalModule {
   @Provides
-  @TestingScope
+  @DemoScope
   fun provideRandom() = Random(0L)
 }

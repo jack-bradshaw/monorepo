@@ -1,33 +1,33 @@
-package io.matthewbradshaw.merovingian.testing
+package io.matthewbradshaw.merovingian.demo.items
 
-import io.matthewbradshaw.merovingian.model.GameItem
 import com.jme3.math.Vector3f
 import com.jme3.renderer.Camera
-import com.google.auto.factory.Provided
 import kotlinx.coroutines.launch
-import com.google.auto.factory.AutoFactory
 import com.jme3.scene.Spatial
+import io.matthewbradshaw.klu.concurrency.once
 import io.matthewbradshaw.merovingian.engine.EngineBound
 import kotlinx.coroutines.CoroutineScope
-import io.matthewbradshaw.kotty.once
+import io.matthewbradshaw.merovingian.demo.materials.Materials
+import io.matthewbradshaw.merovingian.demo.DemoScope
+import javax.inject.Provider
+import javax.inject.Inject
 
-@TestingScope
-@AutoFactory
-class CubeGame(
-  @Provided private val camera: Camera,
-  @Provided private val cubeSwarmFactory: CubeSwarmFactory,
-  @Provided @EngineBound private val engineScope: CoroutineScope,
-  @Provided private val materials: Materials,
-) : GameItem {
+@DemoScope
+class CubeWorldImpl @Inject internal constructor(
+  private val camera: Camera,
+  private val cubeSwarmProvider: Provider<CubeSwarm>,
+  @EngineBound private val engineScope: CoroutineScope,
+  private val materials: Materials,
+) : CubeWorld {
 
   //private lateinit var root: Node
   private lateinit var swarm: CubeSwarm
   //private lateinit var floor: Spatial
 
   private val preparations = once {
-   // root = Node("root")
+    // root = Node("root")
 
-    swarm = cubeSwarmFactory.create(CUBE_COUNT)
+    swarm = cubeSwarmProvider.get()
 
     /*if (!this::floor.isInitialized) {
       floor = Geometry("cube_box", Box(5f, 0.2f, 5f)).apply {
@@ -37,7 +37,7 @@ class CubeGame(
   }
 
   override suspend fun representation() : Spatial {
-    preparations.runOnce()
+    preparations.runIfNeverRun()
     return swarm.representation()
   }
 

@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlinx.coroutines.runBlocking
 import com.google.common.truth.Truth.assertThat
-import io.matthewbradshaw.merovingian.testing.CubeGame
+import io.matthewbradshaw.merovingian.testing.CubeWorld
 
 @RunWith(JUnit4::class)
 class DispatcherTest {
@@ -21,7 +21,7 @@ class DispatcherTest {
   @Before
   fun before() {
     runBlocking {
-      val gMonkey = gMonkey(CubeGame(octavius))
+      val gMonkey = gMonkey(CubeWorld(octavius))
       val game =
       octavius.engine().play(game)
       //dispatcher = octavius.engine().root()

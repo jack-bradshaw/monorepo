@@ -1,7 +1,7 @@
-package io.matthewbradshaw.merovingian.testing
+package io.matthewbradshaw.merovingian.demo.materials
 
-import dagger.Module
 import dagger.Binds
+import dagger.Module
 
 @Module
 interface MaterialsModule {
