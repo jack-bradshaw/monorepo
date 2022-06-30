@@ -1,17 +1,14 @@
-package io.matthewbradshaw.merovingian.engine
+package io.matthewbradshaw.merovingian.clock
 
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.junit.Test
 
 @RunWith(JUnit4::class)
-class EngineImplTest {
+class ClockTest {
 
   @Before
   fun before() {
 
   }
-
-
 }
