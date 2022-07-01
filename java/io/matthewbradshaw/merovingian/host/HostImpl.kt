@@ -17,7 +17,7 @@ class HostImpl @Inject internal constructor(
 
   override suspend fun run(item: WorldItem) {
     mutex.withLock {
-      engine.extractCoroutineScope().launch {
+      engine.extractCoroutineScope().launch(engine.extractCoroutineDispatcher()) {
         activeLogic?.let { it.cancel() }
         engine.extractRootNode().detachAllChildren()
         engine.extractRootNode().attachChild(item.representation())

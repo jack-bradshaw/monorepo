@@ -9,7 +9,6 @@ import io.matthewbradshaw.merovingian.demo.materials.Materials
 import javax.inject.Inject
 import kotlin.random.Random
 
-@DemoScope
 class CubeImpl @Inject internal constructor(
   private val materials: Materials,
   private val random: Random,

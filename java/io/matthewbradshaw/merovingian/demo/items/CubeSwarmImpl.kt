@@ -24,7 +24,6 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
-@DemoScope
 class CubeSwarmImpl @Inject internal constructor(
   private val cubeProvider: Provider<Cube>,
   private val materials: Materials,
@@ -51,8 +50,7 @@ class CubeSwarmImpl @Inject internal constructor(
   }
 
   override suspend fun logic() {
-    coroutineScope {
-      launch(engine.extractCoroutineDispatcher()) {
+    logicScope.launch(engine.extractCoroutineDispatcher()) {
         clock
           .totalSec()
           .onEach {
@@ -66,13 +64,12 @@ class CubeSwarmImpl @Inject internal constructor(
           .collect()
       }
     }
-  }
 
   override suspend fun setCubeCount(count: Int) {
+    preparations.runIfNeverRun()
     origin.detachAllChildren()
     withContext(engine.extractCoroutineDispatcher()) {
       for (i in 0 until count) {
-        val material = cubeMaterials[random.nextInt(Config.ITEM_CHANNELS - 1)]
         val cube = cubeProvider.get()
         origin.attachChild(cube.representation())
         cube.representation().setLocalTranslation(generateRandomPositionOnSphere())
