@@ -1,8 +1,8 @@
 package io.matthewbradshaw.merovingian.coroutines
 
-import java.util.concurrent.ConcurrentHashMap
 import com.jme3.app.Application
 import kotlinx.coroutines.CoroutineDispatcher
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
 
 /**

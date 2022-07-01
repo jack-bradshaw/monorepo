@@ -1,10 +1,11 @@
 package io.matthewbradshaw.merovingian.engine
 
 import com.jme3.app.SimpleApplication
-import com.jme3.renderer.Camera
-import com.jme3.asset.AssetManager
 import com.jme3.app.VRAppState
+import com.jme3.asset.AssetManager
+import com.jme3.renderer.Camera
 import com.jme3.scene.Node
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -43,12 +44,12 @@ interface Engine {
   fun extractCoroutineScope(): CoroutineScope
 
   /**
+   * Extracts a coroutine dispatcher which posts to the application thread.
+   */
+  fun extractCoroutineDispatcher(): CoroutineDispatcher
+
+  /**
    * Extracts the time since game start, measured in seconds.
    */
   fun extractTotalTime(): Double
-
-  /**
-   * Extracts the framerate of the game, measured in Hz.
-   */
-  fun extractFrameRate(): Int
 }
