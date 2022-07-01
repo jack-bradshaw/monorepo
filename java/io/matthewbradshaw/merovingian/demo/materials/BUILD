@@ -33,6 +33,7 @@ kt_jvm_library(
         ":materials",
         "//java/io/matthewbradshaw/merovingian/demo:scope",
         "//java/io/matthewbradshaw/merovingian/demo/config",
+        "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
@@ -52,6 +53,5 @@ kt_jvm_library(
         ":impl",
         ":materials",
         "@maven//:javax_inject_javax_inject",
-        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )

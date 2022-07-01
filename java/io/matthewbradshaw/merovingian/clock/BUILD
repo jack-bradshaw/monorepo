@@ -10,7 +10,6 @@ kt_jvm_library(
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
     deps = [
-        "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -30,7 +29,6 @@ kt_jvm_library(
         "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
 

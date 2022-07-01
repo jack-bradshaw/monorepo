@@ -1,4 +1,4 @@
-package java.io.matthewbradshaw.merovingian.demo;
+package io.matthewbradshaw.merovingian.demo;
 
 public class Main {
     public static void main(String[] args) {

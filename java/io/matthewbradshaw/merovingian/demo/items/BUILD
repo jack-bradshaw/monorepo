@@ -17,7 +17,6 @@ kt_jvm_library(
     ],
     deps = [
         "//java/io/matthewbradshaw/merovingian/model",
-        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
 
@@ -37,11 +36,11 @@ kt_jvm_library(
         ":items",
         "//java/io/matthewbradshaw/klu",
         "//java/io/matthewbradshaw/merovingian/clock",
+        "//java/io/matthewbradshaw/merovingian/coroutines",
         "//java/io/matthewbradshaw/merovingian/demo:scope",
         "//java/io/matthewbradshaw/merovingian/demo/config",
         "//java/io/matthewbradshaw/merovingian/demo/materials",
         "//java/io/matthewbradshaw/merovingian/engine",
-        "//java/io/matthewbradshaw/merovingian/engine:qualifiers",
         "//java/io/matthewbradshaw/merovingian/model",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",

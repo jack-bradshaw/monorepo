@@ -2,16 +2,10 @@ package io.matthewbradshaw.merovingian.clock
 
 import io.matthewbradshaw.merovingian.MerovingianScope
 import io.matthewbradshaw.merovingian.engine.Engine
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.scan
-import javax.inject.Inject
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @MerovingianScope
 class ClockImpl @Inject internal constructor(

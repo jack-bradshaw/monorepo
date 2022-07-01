@@ -1,26 +1,23 @@
 package io.matthewbradshaw.merovingian.host
 
-import com.google.auto.factory.AutoFactory
-import com.google.auto.factory.Provided
 import io.matthewbradshaw.merovingian.engine.Engine
-import io.matthewbradshaw.merovingian.engine.EngineBound
 import io.matthewbradshaw.merovingian.model.WorldItem
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@AutoFactory(className = "HostFactory")
-class HostImpl(
-  private val worldItem: WorldItem,
-  @Provided private val engine: Engine,
-  @Provided @EngineBound private val engineDispatcher: CoroutineDispatcher,
-  @Provided @EngineBound private val engineScope: CoroutineScope,
+class HostImpl @Inject internal constructor(
+  private val engine: Engine,
 ) : Host {
 
-  override suspend fun go() {
-    engineScope.launch {
-      engine.extractRootNode().attachChild(worldItem.representation())
-      worldItem.logic()
+  private var logic: Job? = null
+
+  override suspend fun run(item: WorldItem) {
+    engine.extractCoroutineScope().launch {
+      logic?.let { it.cancel() }
+      engine.extractRootNode().detachAllChildren()
+      engine.extractRootNode().attachChild(item.representation())
+      logic = launch { item.logic() }
     }
   }
 }

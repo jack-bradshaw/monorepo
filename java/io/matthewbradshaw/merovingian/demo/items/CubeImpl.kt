@@ -4,10 +4,10 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
 import io.matthewbradshaw.klu.concurrency.once
-import kotlin.random.Random
-import io.matthewbradshaw.merovingian.demo.materials.Materials
 import io.matthewbradshaw.merovingian.demo.DemoScope
+import io.matthewbradshaw.merovingian.demo.materials.Materials
 import javax.inject.Inject
+import kotlin.random.Random
 
 @DemoScope
 class CubeImpl @Inject internal constructor(

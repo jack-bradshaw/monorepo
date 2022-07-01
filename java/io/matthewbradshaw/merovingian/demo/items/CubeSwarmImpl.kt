@@ -7,23 +7,22 @@ import com.jme3.scene.Node
 import com.jme3.scene.Spatial
 import io.matthewbradshaw.klu.concurrency.once
 import io.matthewbradshaw.merovingian.clock.Clock
-import io.matthewbradshaw.merovingian.demo.materials.Materials
-import io.matthewbradshaw.merovingian.demo.config.Config
 import io.matthewbradshaw.merovingian.demo.DemoScope
-import io.matthewbradshaw.merovingian.engine.EngineBound
-import kotlinx.coroutines.CoroutineDispatcher
+import io.matthewbradshaw.merovingian.demo.config.Config
+import io.matthewbradshaw.merovingian.demo.materials.Materials
+import io.matthewbradshaw.merovingian.engine.Engine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Provider
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
-import javax.inject.Provider
-import javax.inject.Inject
 
 @DemoScope
 class CubeSwarmImpl @Inject internal constructor(
@@ -31,11 +30,10 @@ class CubeSwarmImpl @Inject internal constructor(
   private val materials: Materials,
   private val clock: Clock,
   private val random: Random,
-  @EngineBound private val engineDispatcher: CoroutineDispatcher,
-  @EngineBound private val engineScope: CoroutineScope
+  private val engine: Engine
 ) : CubeSwarm {
 
-  private val logicScope = CoroutineScope(engineScope.coroutineContext)
+  private val logicScope = CoroutineScope(engine.extractCoroutineScope().coroutineContext)
 
   private lateinit var cubeMaterials: List<Material>
   private lateinit var timeOffsets: List<Int>
@@ -54,7 +52,7 @@ class CubeSwarmImpl @Inject internal constructor(
 
   override suspend fun logic() {
     coroutineScope {
-      launch(engineDispatcher) {
+      launch(engine.extractCoroutineDispatcher()) {
         clock
           .totalSec()
           .onEach {
@@ -72,7 +70,7 @@ class CubeSwarmImpl @Inject internal constructor(
 
   override suspend fun setCubeCount(count: Int) {
     origin.detachAllChildren()
-    withContext(engineDispatcher) {
+    withContext(engine.extractCoroutineDispatcher()) {
       for (i in 0 until count) {
         val material = cubeMaterials[random.nextInt(Config.ITEM_CHANNELS - 1)]
         val cube = cubeProvider.get()

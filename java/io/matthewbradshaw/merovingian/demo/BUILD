@@ -19,23 +19,6 @@ kt_jvm_library(
 )
 
 kt_jvm_library(
-    name = "external_module",
-    testonly = True,
-    srcs = [
-        "ExternalModule.kt",
-    ],
-    visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
-        "//javatests:__subpackages__",
-    ],
-    deps = [
-        ":dagger",
-        ":scope",
-        "@maven//:javax_inject_javax_inject",
-    ],
-)
-
-kt_jvm_library(
     name = "component",
     testonly = True,
     srcs = [
@@ -47,12 +30,12 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
-        ":external_module",
         ":scope",
         "//java/io/matthewbradshaw/merovingian",
         "//java/io/matthewbradshaw/merovingian/demo/items",
         "//java/io/matthewbradshaw/merovingian/demo/items:module",
         "//java/io/matthewbradshaw/merovingian/demo/materials:module",
+        "//java/io/matthewbradshaw/merovingian/demo/support:module",
     ],
 )
 
@@ -69,14 +52,13 @@ kt_jvm_library(
     ],
     deps = [
         ":component",
-        ":external_module",
     ],
 )
 
 java_binary(
     name = "demo",
     testonly = True,
-    main_class = "io.matthewbradshaw.merovingian.demo.main.Main",
+    main_class = "io.matthewbradshaw.merovingian.demo.Main",
     visibility = [
         "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
         "//javatests:__subpackages__",

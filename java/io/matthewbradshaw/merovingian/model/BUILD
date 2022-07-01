@@ -10,8 +10,6 @@ kt_jvm_library(
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
     deps = [
-        "@maven//:com_google_protobuf_protobuf_java",
-        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )

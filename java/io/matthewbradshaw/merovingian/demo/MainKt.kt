@@ -1,18 +1,17 @@
-package java.io.matthewbradshaw.merovingian.demo
+package io.matthewbradshaw.merovingian.demo
 
 import io.matthewbradshaw.merovingian.config.Paradigm
-import io.matthewbradshaw.merovingian.demo.demo
 import io.matthewbradshaw.merovingian.merovingian
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class MainKt {
   fun main() {
     runBlocking {
       val merovingian = merovingian(Paradigm.VR)
-      val demo = demo(merovingian)
-      val world = demo.world()
-      merovingian.hostFactory().create(world).go()
+      val game = demo(merovingian)
+      val world = game.world()
+      merovingian.host().run(world)
       while (true) delay(1000000000000L)
     }
   }
