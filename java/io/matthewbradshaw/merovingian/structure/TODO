@@ -1,0 +1,17 @@
+put some basic game items in here
+
+go top down and bottom up
+
+top down:
+
+multilevel game: multiple world items, one at a time, exposes a controller for switching between them
+single level game: just a single world item
+continuous: multiple world items, dynamically loads them
+
+bottom up:
+
+atomic: a singular object in the world with no complex behavior
+cluster: a group of other objects with no geometry of its own
+room: hosts other objects, and has its own geometry
+
+also need to work out how the player will be structured

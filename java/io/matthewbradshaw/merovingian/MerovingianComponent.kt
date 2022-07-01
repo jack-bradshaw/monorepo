@@ -1,46 +1,28 @@
 package io.matthewbradshaw.merovingian
 
-import com.jme3.app.SimpleApplication
-import com.jme3.app.VRAppState
-import com.jme3.asset.AssetManager
-import dagger.Component
 import dagger.BindsInstance
-import io.matthewbradshaw.merovingian.engine.EngineModules
-import io.matthewbradshaw.merovingian.config.Paradigm
+import dagger.Component
 import io.matthewbradshaw.merovingian.clock.Clock
 import io.matthewbradshaw.merovingian.clock.ClockModule
-import kotlinx.coroutines.CoroutineScope
-import com.jme3.renderer.Camera
-import kotlinx.coroutines.CoroutineDispatcher
-import com.jme3.scene.Node
-import io.matthewbradshaw.merovingian.coroutines.DispatcherModule
-import io.matthewbradshaw.merovingian.host.HostFactory
-import io.matthewbradshaw.merovingian.engine.EngineBound
+import io.matthewbradshaw.merovingian.config.Paradigm
+import io.matthewbradshaw.merovingian.engine.Engine
+import io.matthewbradshaw.merovingian.engine.EngineModule
+import io.matthewbradshaw.merovingian.host.Host
+import io.matthewbradshaw.merovingian.host.HostModule
 
 @MerovingianScope
 @Component(
   modules = [
-    EngineModules.Binding::class,
-    EngineModules.Provisioning::class,
+    EngineModule::class,
     ClockModule::class,
-    DispatcherModule::class,
+    HostModule::class,
   ]
 )
 interface MerovingianComponent {
 
   fun clock(): Clock
-  fun camera(): Camera
-  fun assetManager(): AssetManager
-  fun app(): SimpleApplication
-  fun vr(): VRAppState
-
-  @EngineBound
-  fun coroutineDispatcher(): CoroutineDispatcher
-
-  @EngineBound
-  fun coroutineScope(): CoroutineScope
-
-  fun hostFactory(): HostFactory
+  fun engine(): Engine
+  fun host(): Host
 
   @Component.Builder
   interface Builder {
@@ -50,4 +32,5 @@ interface MerovingianComponent {
   }
 }
 
-fun merovingian(paradigm: Paradigm): MerovingianComponent = DaggerMerovingianComponent.builder().setParadigm(paradigm).build()
+fun merovingian(paradigm: Paradigm): MerovingianComponent =
+  DaggerMerovingianComponent.builder().setParadigm(paradigm).build()

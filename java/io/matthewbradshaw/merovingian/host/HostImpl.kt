@@ -1,26 +1,28 @@
 package io.matthewbradshaw.merovingian.host
 
-import com.google.auto.factory.AutoFactory
-import com.google.auto.factory.Provided
 import io.matthewbradshaw.merovingian.engine.Engine
-import io.matthewbradshaw.merovingian.engine.EngineBound
-import io.matthewbradshaw.merovingian.model.GameItem
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
+import io.matthewbradshaw.merovingian.model.WorldItem
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import javax.inject.Inject
 
-@AutoFactory(className = "HostFactory")
-class HostImpl(
-  private val gameItem: GameItem,
-  @Provided private val engine: Engine,
-  @Provided @EngineBound private val engineDispatcher: CoroutineDispatcher,
-  @Provided @EngineBound private val engineScope: CoroutineScope,
+class HostImpl @Inject internal constructor(
+  private val engine: Engine,
 ) : Host {
 
-  override suspend fun go() {
-    engineScope.launch {
-      engine.extractRootNode().attachChild(gameItem.representation())
-      gameItem.logic()
+  private val mutex = Mutex()
+  private var activeLogic: Job? = null
+
+  override suspend fun run(item: WorldItem) {
+    mutex.withLock {
+      engine.extractCoroutineScope().launch(engine.extractCoroutineDispatcher()) {
+        activeLogic?.let { it.cancel() }
+        engine.extractRootNode().detachAllChildren()
+        engine.extractRootNode().attachChild(item.representation())
+        activeLogic = launch { item.logic() }
+      }
     }
   }
 }

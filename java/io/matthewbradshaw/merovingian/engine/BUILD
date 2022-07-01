@@ -19,7 +19,7 @@ kt_jvm_library(
 )
 
 kt_jvm_library(
-    name = "engine_impl",
+    name = "impl",
     srcs = [
         "EngineImpl.kt",
     ],
@@ -32,25 +32,10 @@ kt_jvm_library(
         ":engine",
         "//java/io/matthewbradshaw/merovingian:scope",
         "//java/io/matthewbradshaw/merovingian/config",
-        "//java/io/matthewbradshaw/merovingian/coroutines:dispatcher",
-        "@maven//:com_google_auto_factory_auto_factory",
+        "//java/io/matthewbradshaw/merovingian/coroutines",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
-    ],
-)
-
-kt_jvm_library(
-    name = "qualifiers",
-    srcs = [
-        "Qualifiers.kt",
-    ],
-    visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
-        "//javatests:__subpackages__",
-    ],
-    deps = [
-        ":dagger",
     ],
 )
 
@@ -66,9 +51,7 @@ kt_jvm_library(
     deps = [
         ":dagger",
         ":engine",
-        ":engine_impl",
-        ":qualifiers",
-        "//java/io/matthewbradshaw/merovingian:scope",
+        ":impl",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",

@@ -1,20 +1,22 @@
 package io.matthewbradshaw.merovingian.engine
 
-import com.jme3.app.SimpleApplication
-import com.jme3.app.VREnvironment
-import com.jme3.app.VRConstants
 import com.jme3.app.LostFocusBehavior
+import com.jme3.app.SimpleApplication
+import com.jme3.app.VRAppState
+import com.jme3.app.VRConstants
+import com.jme3.app.VREnvironment
+import com.jme3.system.AppSettings
+import io.matthewbradshaw.merovingian.MerovingianScope
+import io.matthewbradshaw.merovingian.config.Paradigm
+import io.matthewbradshaw.merovingian.coroutines.dispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
-import io.matthewbradshaw.merovingian.MerovingianScope
-import com.jme3.app.VRAppState
-import com.jme3.system.AppSettings
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.filter
-import io.matthewbradshaw.merovingian.config.Paradigm
 
 @MerovingianScope
 class EngineImpl @Inject internal constructor(
@@ -78,8 +80,6 @@ class EngineImpl @Inject internal constructor(
     started.value = true
   }
 
-
-
   override fun simpleUpdate(tpf: Float) = runBlocking {
     totalTime = totalTime + tpf
   }
@@ -95,8 +95,8 @@ class EngineImpl @Inject internal constructor(
   override fun extractVr() = vrAppState
   override fun extractRootNode() = getRootNode()
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
+  override fun extractCoroutineDispatcher(): CoroutineDispatcher = this.dispatcher()
   override fun extractTotalTime(): Double = totalTime
-  override fun extractFrameRate(): Int = settings.getFrameRate()
 
   companion object {
     private const val DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX = 1024

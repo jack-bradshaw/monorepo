@@ -1,7 +1,7 @@
 load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//:auto_factory.bzl", "auto_factory")
+load("@dagger//:workspace_defs.bzl", "dagger_rules")
 
-auto_factory()
+dagger_rules()
 
 kt_jvm_library(
     name = "host",
@@ -10,8 +10,7 @@ kt_jvm_library(
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
     deps = [
-        "@maven//:com_google_protobuf_protobuf_java",
-        "@maven//:org_jmonkeyengine_jme3_core",
+        "//java/io/matthewbradshaw/merovingian/model",
     ],
 )
 
@@ -22,15 +21,25 @@ kt_jvm_library(
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
     deps = [
-        ":auto_factory",
         ":host",
         "//java/io/matthewbradshaw/merovingian/engine",
-        "//java/io/matthewbradshaw/merovingian/engine:qualifiers",
         "//java/io/matthewbradshaw/merovingian/model",
-        "@maven//:com_google_auto_auto_common",
-        "@maven//:com_google_auto_factory_auto_factory",
-        "@maven//:com_google_protobuf_protobuf_java",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@maven//:org_jmonkeyengine_jme3_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "module",
+    srcs = [
+        "HostModule.kt",
+    ],
+    visibility = [
+        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":dagger",
+        ":host",
+        ":impl",
     ],
 )
