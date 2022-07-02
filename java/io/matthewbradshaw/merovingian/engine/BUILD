@@ -13,6 +13,7 @@ kt_jvm_library(
         ":dagger",
         "//java/io/matthewbradshaw/merovingian:scope",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
     ],

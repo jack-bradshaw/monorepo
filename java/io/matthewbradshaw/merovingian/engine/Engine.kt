@@ -7,6 +7,7 @@ import com.jme3.renderer.Camera
 import com.jme3.scene.Node
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import com.jme3.bullet.BulletAppState
 
 /**
  * The core elements of the [jMonkey 3 game engine](https://jmonkeyengine.org/).
@@ -32,6 +33,11 @@ interface Engine {
    * Extracts the VR controller from the game engine. Returns null if the engine is not configured for VR.
    */
   fun extractVr(): VRAppState?
+
+  /**
+   * Extracts the physics controller from the game engine.
+   */
+  fun extractPhysics(): BulletAppState
 
   /**
    * Extracts the root game node. Nodes attached to this node are displayed.
