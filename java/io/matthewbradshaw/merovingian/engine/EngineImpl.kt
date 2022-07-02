@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
+import com.jme3.bullet.PhysicsSpace
 
 @MerovingianScope
 class EngineImpl @Inject internal constructor(
@@ -69,6 +70,7 @@ class EngineImpl @Inject internal constructor(
   override fun extractApp() = this
   override fun extractVr() = vr
   override fun extractPhysics() = physics
+  override fun extractStateManager() = stateManager
   override fun extractRootNode() = getRootNode()
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
   override fun extractCoroutineDispatcher(): CoroutineDispatcher = this.dispatcher()

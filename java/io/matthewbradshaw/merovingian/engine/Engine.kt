@@ -8,6 +8,7 @@ import com.jme3.scene.Node
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import com.jme3.bullet.BulletAppState
+import com.jme3.bullet.PhysicsSpace
 
 /**
  * The core elements of the [jMonkey 3 game engine](https://jmonkeyengine.org/).
@@ -40,9 +41,14 @@ interface Engine {
   fun extractPhysics(): BulletAppState
 
   /**
-   * Extracts the root game node. Nodes attached to this node are displayed.
+   * Extracts the root game node from the game engine. Nodes attached to this node are displayed.
    */
   fun extractRootNode(): Node
+
+  /**
+   * Extracts the state manager from the game engine.
+   */
+  fun extractStateManager(): AppStateManager
 
   /**
    * Extracts a coroutine scope which tracks the engine state. The scope is cancelled when the game engine stops.
