@@ -24,7 +24,3 @@ fun Engine.collisionEvents() = COLLISION_EVENTS.getOrPut(extractPhysics().getPhy
     awaitClose { extractPhysics().getPhysicsSpace().removeCollisionListener(listener) }
   }.shareIn(extractCoroutineScope(), SharingStarted.Eagerly, replay = 0)
 }
-
-private val COLLISION_EVENTS = ConcurrentHashMap<PhysicsSpace, SharedFlow<PhysicsCollisionEvent>>()
-
-fun Engine.currentCollisions() =
