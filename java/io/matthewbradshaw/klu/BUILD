@@ -8,25 +8,26 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     exports = [
+        "//java/io/matthewbradshaw/klu/collections",
         "//java/io/matthewbradshaw/klu/concurrency",
     ],
 )
 
 java_binary(
-    name = "klu_full",
+    name = "klu_binary",
     visibility = [
         "//java/io/matthewbradshaw:__subpackages__",
         "//javatests:__subpackages__",
     ],
     runtime_deps = [
-        "//java/io/matthewbradshaw/klu/concurrency",
+        "//java/io/matthewbradshaw/klu",
     ],
 )
 
 java_export(
     name = "klu_release",
     srcs = ["Stub.java"],
-    maven_coordinates = "io.matthewbradshaw:klu:2.1.0",
+    maven_coordinates = "io.matthewbradshaw:klu:2.1.1",
     pom_template = "pom_template",
     deps = [
         ":klu",
