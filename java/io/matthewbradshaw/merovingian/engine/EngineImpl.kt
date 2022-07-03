@@ -2,6 +2,7 @@ package io.matthewbradshaw.merovingian.engine
 
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
+import com.jme3.system.JmeContext
 import com.jme3.app.VREnvironment
 import com.jme3.bullet.BulletAppState
 import com.jme3.system.AppSettings
@@ -48,7 +49,7 @@ class EngineImpl @Inject internal constructor(
     runBlocking {
       if (vr != null) stateManager.attach(vr)
       stateManager.attach(physics)
-      start()
+      if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
     }
   }
