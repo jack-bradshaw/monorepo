@@ -4,6 +4,17 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
+    name = "qualifiers",
+    srcs = [
+        "Qualifiers.kt",
+    ],
+    visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
+    deps = [
+        ":dagger",
+    ],
+)
+
+kt_jvm_library(
     name = "clock",
     srcs = [
         "Clock.kt",
@@ -17,7 +28,8 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "ClockImpl.kt",
+        "PhysicsClock.kt",
+        "RenderingClock.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
@@ -45,6 +57,7 @@ kt_jvm_library(
         ":clock",
         ":dagger",
         ":impl",
+        ":qualifiers",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

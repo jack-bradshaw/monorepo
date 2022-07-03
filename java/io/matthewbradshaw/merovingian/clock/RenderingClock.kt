@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @MerovingianScope
-class ClockImpl @Inject internal constructor(
+class RenderingClock @Inject internal constructor(
   private val engine: Engine
 ) : Clock {
 
