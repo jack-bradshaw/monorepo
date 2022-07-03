@@ -5,9 +5,9 @@ import com.jme3.app.VRAppState
 import com.jme3.app.VREnvironment
 import com.jme3.bullet.BulletAppState
 import com.jme3.system.AppSettings
+import com.jme3.scene.Node
 import io.matthewbradshaw.merovingian.MerovingianScope
 import io.matthewbradshaw.merovingian.config.Paradigm
-import io.matthewbradshaw.merovingian.coroutines.dispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -32,6 +32,9 @@ class EngineImpl @Inject internal constructor(
 
   private val coroutineScopeJob = Job()
   private val coroutineScope = CoroutineScope(coroutineScopeJob)
+
+  private val frameworkNode = Node("framework").also { getRootNode().attachChild(it) }
+  private val applicationNode = Node("application").also { getRootNode().attachChild(it) }
 
   private fun createVrAppState(): VRAppState {
     val environment = VREnvironment(settings).apply {
@@ -71,9 +74,9 @@ class EngineImpl @Inject internal constructor(
   override fun extractVr() = vr
   override fun extractPhysics() = physics
   override fun extractStateManager() = stateManager
-  override fun extractRootNode() = getRootNode()
+  override fun extractFrameworkNode() = frameworkNode
+  override fun extractApplicationNode() = applicationNode
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
-  override fun extractCoroutineDispatcher(): CoroutineDispatcher = this.dispatcher()
   override fun extractTotalTime(): Double = totalRuntimeSec
 
   companion object {

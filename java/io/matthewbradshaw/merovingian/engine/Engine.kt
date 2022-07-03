@@ -2,13 +2,12 @@ package io.matthewbradshaw.merovingian.engine
 
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
+import com.jme3.app.state.AppStateManager
 import com.jme3.asset.AssetManager
+import com.jme3.bullet.BulletAppState
 import com.jme3.renderer.Camera
 import com.jme3.scene.Node
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import com.jme3.bullet.BulletAppState
-import com.jme3.bullet.PhysicsSpace
 
 /**
  * The core elements of the [jMonkey 3 game engine](https://jmonkeyengine.org/).
@@ -41,9 +40,9 @@ interface Engine {
   fun extractPhysics(): BulletAppState
 
   /**
-   * Extracts the root game node from the game engine. Nodes attached to this node are displayed.
+   * Extracts the physics controller from the game engine.
    */
-  fun extractRootNode(): Node
+  fun extractPhysics(): BulletAppState
 
   /**
    * Extracts the state manager from the game engine.
@@ -51,14 +50,21 @@ interface Engine {
   fun extractStateManager(): AppStateManager
 
   /**
+   * Extracts a node for use by the framework. Application programmers should not modify this node and should
+   * instead use the node supplied by [extractApplicationNode] if they need direct access to a node near the root.
+   */
+  fun extractFrameworkNode(): Node
+
+  /**
+   * Extracts a node for use by applications. Application programmers should use this node instead of
+   * [extractFrameworkNode] if they need direct access to a node near the root.
+   */
+  fun extractApplicationNode(): Node
+
+  /**
    * Extracts a coroutine scope which tracks the engine state. The scope is cancelled when the game engine stops.
    */
   fun extractCoroutineScope(): CoroutineScope
-
-  /**
-   * Extracts a coroutine dispatcher which posts to the application thread.
-   */
-  fun extractCoroutineDispatcher(): CoroutineDispatcher
 
   /**
    * Extracts the time since game start, measured in seconds.

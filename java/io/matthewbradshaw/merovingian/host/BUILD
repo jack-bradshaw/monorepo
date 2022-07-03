@@ -22,6 +22,7 @@ kt_jvm_library(
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
     deps = [
         ":host",
+        "//java/io/matthewbradshaw/merovingian/coroutines",
         "//java/io/matthewbradshaw/merovingian/engine",
         "//java/io/matthewbradshaw/merovingian/model",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

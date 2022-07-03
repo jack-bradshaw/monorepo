@@ -7,6 +7,7 @@ import com.jme3.scene.Node
 import com.jme3.scene.Spatial
 import io.matthewbradshaw.klu.concurrency.once
 import io.matthewbradshaw.merovingian.clock.Clock
+import io.matthewbradshaw.merovingian.coroutines.renderingDispatcher
 import io.matthewbradshaw.merovingian.demo.DemoScope
 import io.matthewbradshaw.merovingian.demo.config.Config
 import io.matthewbradshaw.merovingian.demo.materials.Materials
@@ -50,7 +51,7 @@ class CubeSwarmImpl @Inject internal constructor(
   }
 
   override suspend fun logic() {
-    logicScope.launch(engine.extractCoroutineDispatcher()) {
+    logicScope.launch(engine.renderingDispatcher()) {
         clock
           .totalSec()
           .onEach {
@@ -68,7 +69,7 @@ class CubeSwarmImpl @Inject internal constructor(
   override suspend fun setCubeCount(count: Int) {
     preparations.runIfNeverRun()
     origin.detachAllChildren()
-    withContext(engine.extractCoroutineDispatcher()) {
+    withContext(engine.renderingDispatcher()) {
       for (i in 0 until count) {
         val cube = cubeProvider.get()
         origin.attachChild(cube.representation())

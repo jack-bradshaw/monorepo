@@ -6,13 +6,14 @@ dagger_rules()
 kt_jvm_library(
     name = "coroutines",
     srcs = [
-        "Dispatcher.kt",
+        "Dispatchers.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
