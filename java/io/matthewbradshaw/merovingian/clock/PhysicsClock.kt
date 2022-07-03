@@ -26,16 +26,13 @@ class PhysicsClock @Inject internal constructor(
   init {
     runBlocking {
       val ghostControl = object : GhostControl(), PhysicsTickListener {
-        override fun physicsTick(space: PhysicsSpace, tpf: Float) = runBlocking {
-          totalRuntime += tpf
-        }
-
+        override fun physicsTick(space: PhysicsSpace, tpf: Float) = runBlocking { totalRuntime += tpf }
         override fun prePhysicsTick(space: PhysicsSpace, tpf: Float) {}
       }
-      val ghost = Node("physics_clock_ghost").apply { addControl(ghostControl) }
+      val ghostNode = Node("physics_clock_ghost").apply { addControl(ghostControl) }
 
       withContext(engine.renderingDispatcher()) {
-        engine.extractFrameworkNode().attachChild(ghost)
+        engine.extractFrameworkNode().attachChild(ghostNode)
       }
 
       engine.extractPhysics().getPhysicsSpace().add(ghostControl)
