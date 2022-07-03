@@ -38,6 +38,7 @@ kt_jvm_library(
     deps = [
         ":clock",
         "//java/io/matthewbradshaw/merovingian:scope",
+        "//java/io/matthewbradshaw/merovingian/coroutines",
         "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
