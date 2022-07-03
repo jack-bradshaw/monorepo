@@ -12,18 +12,17 @@ class MainKt {
       val game = demo(merovingian)
       val world = game.world()
       merovingian.host().run(world)
-      waitForever()
+      suspendForever()
     }
   }
 
-  private suspend fun waitForever() {
-    while (true) delay(1000000000000L)
+  private suspend fun suspendForever() {
+    while (true) delay(Long.MAX_VALUE)
   }
 
   companion object {
     private val CONFIG = Config(
       vrEnabled = true,
-      debugEnabled = false,
       headlessEnabled = false,
     )
   }
