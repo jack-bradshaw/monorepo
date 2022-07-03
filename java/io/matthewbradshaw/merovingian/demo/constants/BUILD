@@ -1,10 +1,10 @@
 load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
-    name = "config",
+    name = "constants",
     testonly = True,
     srcs = [
-        "Config.kt",
+        "Constants.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",

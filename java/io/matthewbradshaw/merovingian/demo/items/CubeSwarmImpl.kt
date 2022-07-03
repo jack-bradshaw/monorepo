@@ -8,12 +8,10 @@ import com.jme3.scene.Spatial
 import io.matthewbradshaw.klu.concurrency.once
 import io.matthewbradshaw.merovingian.clock.Clock
 import io.matthewbradshaw.merovingian.coroutines.renderingDispatcher
-import io.matthewbradshaw.merovingian.demo.DemoScope
-import io.matthewbradshaw.merovingian.demo.config.Config
+import io.matthewbradshaw.merovingian.demo.config.Constants
 import io.matthewbradshaw.merovingian.demo.materials.Materials
 import io.matthewbradshaw.merovingian.engine.Engine
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -42,9 +40,17 @@ class CubeSwarmImpl @Inject internal constructor(
   private lateinit var origin: Node
 
   private val preparations = once {
-    cubeMaterials = List(Config.ITEM_CHANNELS) { materials.getRandomly() }
-    timeOffsets = List(Config.ITEM_CHANNELS) { (random.nextFloat() * MAX_TIME_OFFSET).toInt() }
+    cubeMaterials = List(Constants.ITEM_CHANNELS) { materials.getRandomly() }
+    timeOffsets = List(Constants.ITEM_CHANNELS) { (random.nextFloat() * MAX_TIME_OFFSET).toInt() }
     origin = Node("origin")
+
+    withContext(engine.renderingDispatcher()) {
+      for (i in 0 until Constants.SWARM_SIZE) {
+        val cube = cubeProvider.get()
+        origin.attachChild(cube.representation())
+        cube.representation().setLocalTranslation(generateRandomPositionOnSphere())
+      }
+    }
   }
 
   override suspend fun representation(): Spatial {
@@ -57,7 +63,7 @@ class CubeSwarmImpl @Inject internal constructor(
         clock
           .totalSec()
           .onEach {
-            for (i in 0 until Config.ITEM_CHANNELS) {
+            for (i in 0 until Constants.ITEM_CHANNELS) {
               val time = it + timeOffsets[i]
               val green =
                 (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
@@ -67,18 +73,6 @@ class CubeSwarmImpl @Inject internal constructor(
           .collect()
       }
     }
-
-  override suspend fun setCubeCount(count: Int) {
-    preparations.runIfNeverRun()
-    origin.detachAllChildren()
-    withContext(engine.renderingDispatcher()) {
-      for (i in 0 until count) {
-        val cube = cubeProvider.get()
-        origin.attachChild(cube.representation())
-        cube.representation().setLocalTranslation(generateRandomPositionOnSphere())
-      }
-    }
-  }
 
   private fun generateRandomPositionOnSphere(): Vector3f {
     val radius = random.nextInt(MAX_RADIUS) + MIN_RADIUS

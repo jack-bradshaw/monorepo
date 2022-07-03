@@ -23,9 +23,7 @@ class CubeWorldImpl @Inject internal constructor(
   private lateinit var floor: Spatial
 
   private val preparations = once {
-    swarm = cubeSwarmProvider.get().apply {
-      setCubeCount(CUBE_COUNT)
-    }
+    swarm = cubeSwarmProvider.get()
 
     floor = Geometry("cube_box", Box(2f, 0.2f, 2f)).apply {
       setMaterial(materials.getRandomly())
@@ -48,9 +46,5 @@ class CubeWorldImpl @Inject internal constructor(
       engine.extractCamera().setLocation(Vector3f(0f, 0f, 0f))
       swarm.logic()
     }
-  }
-
-  companion object {
-    private const val CUBE_COUNT = 10_000
   }
 }
