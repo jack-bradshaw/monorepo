@@ -6,14 +6,13 @@ dagger_rules()
 kt_jvm_library(
     name = "physics",
     srcs = [
-        "Physical.kt",
-        "Physics.kt",
+        "Collisions.kt",
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
     deps = [
-        "//java/io/matthewbradshaw/merovingian/lifecycle",
-        "@maven//:com_google_protobuf_protobuf_java",
+        "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
