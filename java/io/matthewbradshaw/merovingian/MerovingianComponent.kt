@@ -3,6 +3,8 @@ package io.matthewbradshaw.merovingian
 import dagger.BindsInstance
 import dagger.Component
 import io.matthewbradshaw.merovingian.clock.Clock
+import io.matthewbradshaw.merovingian.clock.Physics
+import io.matthewbradshaw.merovingian.clock.Rendering
 import io.matthewbradshaw.merovingian.clock.ClockModule
 import io.matthewbradshaw.merovingian.config.Paradigm
 import io.matthewbradshaw.merovingian.engine.Engine
@@ -20,7 +22,8 @@ import io.matthewbradshaw.merovingian.host.HostModule
 )
 interface MerovingianComponent {
 
-  fun clock(): Clock
+  @Physics fun physicsClock(): Clock
+  @Rendering fun renderingClock(): Clock
   fun engine(): Engine
   fun host(): Host
 

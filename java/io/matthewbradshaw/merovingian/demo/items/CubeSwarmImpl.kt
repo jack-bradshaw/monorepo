@@ -25,10 +25,12 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
+import io.matthewbradshaw.merovingian.clock.Rendering
+
 class CubeSwarmImpl @Inject internal constructor(
   private val cubeProvider: Provider<Cube>,
   private val materials: Materials,
-  private val clock: Clock,
+  @Rendering private val clock: Clock,
   private val random: Random,
   private val engine: Engine
 ) : CubeSwarm {

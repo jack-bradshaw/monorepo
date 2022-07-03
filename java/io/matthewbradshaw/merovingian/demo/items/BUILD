@@ -36,6 +36,7 @@ kt_jvm_library(
         ":items",
         "//java/io/matthewbradshaw/klu",
         "//java/io/matthewbradshaw/merovingian/clock",
+        "//java/io/matthewbradshaw/merovingian/clock:qualifiers",
         "//java/io/matthewbradshaw/merovingian/coroutines",
         "//java/io/matthewbradshaw/merovingian/demo:scope",
         "//java/io/matthewbradshaw/merovingian/demo/config",
