@@ -28,7 +28,7 @@ class JMonkeyRenderingDispatcher(private val engine: Engine) : CoroutineDispatch
 class JMonkeyPhysicsDispatcher(private val engine: Engine) : CoroutineDispatcher() {
   override fun dispatch(context: CoroutineContext, block: Runnable) {
     runBlocking {
-      engine.extractPhysics().getPhysicsSpace.enqueue(block)
+      engine.extractPhysics().getPhysicsSpace().enqueue(block)
     }
   }
 }
