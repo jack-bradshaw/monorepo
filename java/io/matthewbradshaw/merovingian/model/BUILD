@@ -10,6 +10,7 @@ kt_jvm_library(
     ],
     visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
     deps = [
+        "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )

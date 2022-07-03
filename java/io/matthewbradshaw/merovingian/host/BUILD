@@ -26,6 +26,8 @@ kt_jvm_library(
         "//java/io/matthewbradshaw/merovingian/engine",
         "//java/io/matthewbradshaw/merovingian/model",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_bullet",
+        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
 
