@@ -40,11 +40,6 @@ interface Engine {
   fun extractPhysics(): BulletAppState
 
   /**
-   * Extracts the physics controller from the game engine.
-   */
-  fun extractPhysics(): BulletAppState
-
-  /**
    * Extracts the state manager from the game engine.
    */
   fun extractStateManager(): AppStateManager

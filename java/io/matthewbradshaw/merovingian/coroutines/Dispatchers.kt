@@ -1,11 +1,15 @@
 package io.matthewbradshaw.merovingian.coroutines
 
-import com.jme3.app.Application
+import com.jme3.bullet.PhysicsSpace
+import com.jme3.bullet.PhysicsTickListener
+import com.jme3.bullet.control.GhostControl
+import com.jme3.scene.Node
+import io.matthewbradshaw.klu.collections.SimpleDoubleListBuffer
+import io.matthewbradshaw.merovingian.engine.Engine
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
-import io.matthewbradshaw.merovingian.engine.Engine
-
 
 /**
  * Dispatcher for posting to the JMonkey Engine 3
@@ -27,18 +31,23 @@ class JMonkeyPhysicsPreTickDispatcher(private val engine: Engine) : CoroutineDis
 
   init {
     val ghostControl = object : GhostControl(), PhysicsTickListener {
-      override fun prePhysicsTick(space: PhysicsSpace, tpf: Float) {
+      override fun prePhysicsTick(space: PhysicsSpace, tpf: Float) = runBlocking {
         pendingRunnables.switch()
         pendingRunnables.getInactive().forEach { it.run() }
+      }
+
+      override fun physicsTick(space: PhysicsSpace, tpf: Float) { /* unused */
       }
     }
     val ghost = Node("physics_pre_tick_dispatcher_ghost").apply { addControl(ghostControl) }
     engine.extractFrameworkNode().attachChild(ghost)
-    engine.extractPhysics().add(ghostControl)
+    engine.extractPhysics().getPhysicsSpace().add(ghostControl)
   }
 
   override fun dispatch(context: CoroutineContext, block: Runnable) {
-    pendingRunnables.getActive().add(block)
+    runBlocking {
+      pendingRunnables.getActive().add(block)
+    }
   }
 }
 
@@ -51,18 +60,23 @@ class JMonkeyPhysicsOnTickDispatcher(private val engine: Engine) : CoroutineDisp
 
   init {
     val ghostControl = object : GhostControl(), PhysicsTickListener {
-      override fun physicsTick(space: PhysicsSpace, tpf: Float) {
+      override fun physicsTick(space: PhysicsSpace, tpf: Float) = runBlocking {
         pendingRunnables.switch()
         pendingRunnables.getInactive().forEach { it.run() }
+      }
+
+      override fun prePhysicsTick(space: PhysicsSpace, tpf: Float) { /* unused */
       }
     }
     val ghost = Node("physics_pre_tick_dispatcher_ghost").apply { addControl(ghostControl) }
     engine.extractFrameworkNode().attachChild(ghost)
-    engine.extractPhysics().add(ghostControl)
+    engine.extractPhysics().getPhysicsSpace().add(ghostControl)
   }
 
   override fun dispatch(context: CoroutineContext, block: Runnable) {
-    pendingRunnables.getActive().add(block)
+    runBlocking {
+      pendingRunnables.getActive().add(block)
+    }
   }
 }
 
@@ -98,4 +112,3 @@ fun Engine.physicsPreTickDispatcher(): CoroutineDispatcher =
  */
 fun Engine.physicsOnTickDispatcher(): CoroutineDispatcher =
   PHYSICS_ON_TICK_DISPATCHERS.getOrPut(this) { JMonkeyPhysicsOnTickDispatcher(this) }
-
