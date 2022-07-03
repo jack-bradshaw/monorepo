@@ -7,8 +7,7 @@ import com.jme3.bullet.BulletAppState
 import com.jme3.system.AppSettings
 import com.jme3.scene.Node
 import io.matthewbradshaw.merovingian.MerovingianScope
-import io.matthewbradshaw.merovingian.config.Paradigm
-import kotlinx.coroutines.CoroutineDispatcher
+import io.matthewbradshaw.merovingian.config.Config
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,18 +15,17 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
-import com.jme3.bullet.PhysicsSpace
 
 @MerovingianScope
 class EngineImpl @Inject internal constructor(
-  private val paradigm: Paradigm
+  private val config: Config
 ) : Engine, SimpleApplication() {
 
   private val started = MutableStateFlow(false)
   private var totalRuntimeSec = 0.0
 
   private val settings = AppSettings(/* loadDefaults= */ true)
-  private val vr = if (paradigm == Paradigm.VR) createVrAppState() else null
+  private val vr = if (config.vrEnabled) createVrAppState() else null
   private val physics = BulletAppState()
 
   private val coroutineScopeJob = Job()
