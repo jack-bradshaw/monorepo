@@ -28,7 +28,7 @@ class JMonkeyRenderingDispatcher(private val engine: Engine) : CoroutineDispatch
 class JMonkeyPhysicsDispatcher(private val engine: Engine) : CoroutineDispatcher() {
   override fun dispatch(context: CoroutineContext, block: Runnable) {
     runBlocking {
-      engine.extractPhysics().getPhysicsSpace().enqueue(block)
+      engine.extractPhysics().getPhysicsSpace().enqueue(block.toCallable())
     }
   }
 }
@@ -53,4 +53,6 @@ fun Engine.renderingDispatcher(): CoroutineDispatcher =
 /**
  */
 fun Engine.physicsDispatcher(): CoroutineDispatcher =
-  PHYSICS_DISPATCHERS.getOrPut(this) { JMonkeyPhysicsPreTickDispatcher(this) }
+  PHYSICS_DISPATCHERS.getOrPut(this) { JMonkeyPhysicsDispatcher(this) }
+
+private fun Runnable.toCallable() = { run() }
