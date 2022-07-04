@@ -9,7 +9,7 @@ The major locations in this repository are:
 - [Merovingian](https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/matthewbradshaw/merovingian): A Kotlin framework for game development, rendering, and physical simulation.
 - [Kotlin Lightweight Upgrade](https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/matthewbradshaw/klu): Essential utilities and helpers to fill the gaps in the Kotlin standard library.
 
-Follow the above links for documentation, artifacts, and release information for each.
+Follow the above links for documentation and release information for each.
 
 ## Contributing
 
