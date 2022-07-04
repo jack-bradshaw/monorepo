@@ -31,20 +31,20 @@ class CubeWorldImpl @Inject internal constructor(
     }
 
     coordinator = Node("coordinator").apply {
-      attachChild(swarm.representation())
+      attachChild(swarm.visual())
       attachChild(floor)
     }
   }
 
-  override suspend fun representation(): Spatial {
+  override suspend fun visual(): Spatial {
     preparations.runIfNeverRun()
     return coordinator
   }
 
-  override suspend fun logic() {
+  override suspend fun logical() {
     engine.extractCoroutineScope().launch {
       engine.extractCamera().setLocation(Vector3f(0f, 0f, 0f))
-      swarm.logic()
+      swarm.logical()
     }
   }
 }

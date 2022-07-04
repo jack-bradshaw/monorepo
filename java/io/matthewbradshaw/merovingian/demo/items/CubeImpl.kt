@@ -24,7 +24,7 @@ class CubeImpl @Inject internal constructor(
     number = number + 1
   }
 
-  override suspend fun representation(): Spatial {
+  override suspend fun visual(): Spatial {
     preparations.runIfNeverRun()
     return cube
   }

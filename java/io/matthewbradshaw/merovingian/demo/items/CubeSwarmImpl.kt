@@ -47,18 +47,18 @@ class CubeSwarmImpl @Inject internal constructor(
     withContext(engine.renderingDispatcher()) {
       for (i in 0 until Constants.SWARM_SIZE) {
         val cube = cubeProvider.get()
-        origin.attachChild(cube.representation())
-        cube.representation().setLocalTranslation(generateRandomPositionOnSphere())
+        origin.attachChild(cube.visual())
+        cube.visual().setLocalTranslation(generateRandomPositionOnSphere())
       }
     }
   }
 
-  override suspend fun representation(): Spatial {
+  override suspend fun visual(): Spatial {
     preparations.runIfNeverRun()
     return origin
   }
 
-  override suspend fun logic() {
+  override suspend fun logical() {
     logicScope.launch(engine.renderingDispatcher()) {
         clock
           .totalSec()

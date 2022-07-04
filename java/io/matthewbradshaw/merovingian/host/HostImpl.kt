@@ -19,7 +19,7 @@ class HostImpl @Inject internal constructor(
 ) : Host {
 
   private val mutex = Mutex()
-  private var activeRepresentation: Spatial? = null
+  private var activeVisuals: Spatial? = null
   private var activePhysics: PhysicsCollisionObject? = null
   private var activeLogic: Job? = null
 
@@ -33,14 +33,14 @@ class HostImpl @Inject internal constructor(
           activePhysics?.let { engine.extractPhysics().getPhysicsSpace().remove(it) }
         }
         withContext(engine.renderingDispatcher()) {
-          activeRepresentation?.let { engine.extractFrameworkNode().detachChild(it) }
-          activeRepresentation = item.representation().also { engine.extractApplicationNode().attachChild(it) }
+          activeVisuals?.let { engine.extractFrameworkNode().detachChild(it) }
+          activeVisuals = item.visual().also { engine.extractApplicationNode().attachChild(it) }
         }
         withContext(engine.physicsDispatcher()) {
-          activePhysics = item.physics().also { engine.extractPhysics().getPhysicsSpace().add(it) }
+          activePhysics = item.physical().also { engine.extractPhysics().getPhysicsSpace().add(it) }
         }
         withContext(Dispatchers.Default) {
-          activeLogic = launch { item.logic() }
+          activeLogic = launch { item.logical() }
         }
       }
     }
