@@ -1,4 +1,4 @@
-# monorepo
+# Monorepo
 
 This repository contains all public code authored by Matthew Bradshaw from 2022 onwards. It is structured as a monorepo and contains multiple interdependent libraries, packages, and applications. All code is available for public and private consumption under the terms of the [MIT License](LICENSE).
 
