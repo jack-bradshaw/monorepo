@@ -69,6 +69,8 @@ java_binary(
         "@maven//:org_jmonkeyengine_jme3_desktop",
         "@maven//:org_jmonkeyengine_jme3_lwjgl3",
         "@maven//:org_jmonkeyengine_jme3_vr",
+        "@maven//:org_jmonkeyengine_jme3_bullet",
+        "@maven//:org_jmonkeyengine_jme3_bullet_native",
         "@maven//:org_lwjgl_lwjgl",
     ],
 )

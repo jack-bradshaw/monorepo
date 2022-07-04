@@ -37,7 +37,7 @@ class HostImpl @Inject internal constructor(
           activeVisuals = item.visual().also { engine.extractApplicationNode().attachChild(it) }
         }
         withContext(engine.physicsDispatcher()) {
-          activePhysics = item.physical().also { engine.extractPhysics().getPhysicsSpace().add(it) }
+          activePhysics = item.physical()?.also { engine.extractPhysics().getPhysicsSpace().add(it) }
         }
         withContext(Dispatchers.Default) {
           activeLogic = launch { item.logical() }

@@ -2,6 +2,7 @@ package io.matthewbradshaw.merovingian.engine
 
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
+import com.jme3.app.VRConstants
 import com.jme3.system.JmeContext
 import com.jme3.app.VREnvironment
 import com.jme3.bullet.BulletAppState
@@ -25,7 +26,12 @@ class EngineImpl @Inject internal constructor(
   private val started = MutableStateFlow(false)
   private var totalRuntimeSec = 0.0
 
-  private val settings = AppSettings(/* loadDefaults= */ true)
+  private val settings = AppSettings(/* loadDefaults= */ true).apply {
+    if (config.vrEnabled) {
+      put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
+      put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
+    }
+  }
   private val vr = if (config.vrEnabled) createVrAppState() else null
   private val physics = BulletAppState()
 
@@ -47,10 +53,12 @@ class EngineImpl @Inject internal constructor(
 
   init {
     runBlocking {
-      if (vr != null) stateManager.attach(vr)
-      stateManager.attach(physics)
+      setSettings(settings)
+      setShowSettings(false)
       if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
+      if (vr != null) stateManager.attach(vr)
+      stateManager.attach(physics)
     }
   }
 

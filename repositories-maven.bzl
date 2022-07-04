@@ -7,7 +7,9 @@ DAGGER_VERSION = "2.42"
 
 FLOGGER_VERSION = "0.7.4"
 
-J_MONKEY_ENGINE_VERSION = "3.5.2-stable"
+J_MONKEY_ENGINE_MAIN_VERSION = "3.5.2-stable"
+
+J_MONKEY_ENGINE_BULLET_VERSION = "3.3.2-stable"
 
 GUAVA_VERSION = "31.0.1-jre"
 
@@ -33,13 +35,14 @@ def io_matthewbradshaw_maven_repositories():
             "com.google.dagger:dagger-compiler:%s" % DAGGER_VERSION,
             "com.google.flogger:flogger-system-backend:%s" % FLOGGER_VERSION,
             "com.google.flogger:flogger:%s" % FLOGGER_VERSION,
-            "org.jmonkeyengine:jme3-bullet:3.3.2-stable", # Version purposefully does not match the others.
-            "org.jmonkeyengine:jme3-core:%s" % J_MONKEY_ENGINE_VERSION,
-            "org.jmonkeyengine:jme3-desktop:%s" % J_MONKEY_ENGINE_VERSION,
-            "org.jmonkeyengine:jme3-lwjgl:%s" % J_MONKEY_ENGINE_VERSION,
-            "org.jmonkeyengine:jme3-lwjgl3:%s" % J_MONKEY_ENGINE_VERSION,
-            "org.jmonkeyengine:jme3-testdata:%s" % J_MONKEY_ENGINE_VERSION,
-            "org.jmonkeyengine:jme3-vr:%s" % J_MONKEY_ENGINE_VERSION,
+            "org.jmonkeyengine:jme3-bullet:%s" % J_MONKEY_ENGINE_BULLET_VERSION,
+            "org.jmonkeyengine:jme3-bullet-native:%s" % J_MONKEY_ENGINE_BULLET_VERSION,
+            "org.jmonkeyengine:jme3-core:%s" % J_MONKEY_ENGINE_MAIN_VERSION,
+            "org.jmonkeyengine:jme3-desktop:%s" % J_MONKEY_ENGINE_MAIN_VERSION,
+            "org.jmonkeyengine:jme3-lwjgl:%s" % J_MONKEY_ENGINE_MAIN_VERSION,
+            "org.jmonkeyengine:jme3-lwjgl3:%s" % J_MONKEY_ENGINE_MAIN_VERSION,
+            "org.jmonkeyengine:jme3-testdata:%s" % J_MONKEY_ENGINE_MAIN_VERSION,
+            "org.jmonkeyengine:jme3-vr:%s" % J_MONKEY_ENGINE_MAIN_VERSION,
             "com.google.guava:failureaccess:1.0.1",
             "com.google.guava:guava-testlib:%s" % GUAVA_VERSION,
             "com.google.guava:guava:%s" % GUAVA_VERSION,
