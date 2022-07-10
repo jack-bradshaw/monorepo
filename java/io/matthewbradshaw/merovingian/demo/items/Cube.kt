@@ -1,6 +1,10 @@
 package io.matthewbradshaw.merovingian.demo.items
 
-import io.matthewbradshaw.merovingian.model.WorldItem
+import com.jme3.math.Vector3f
+import io.matthewbradshaw.merovingian.model.LevelItem
 
-interface Cube : WorldItem
+interface Cube : LevelItem {
+  suspend fun setRelativePosition(position: Vector3f)
+}
 
+ 

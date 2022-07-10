@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package io.matthewbradshaw.merovingian.model.math;
+
+option java_multiple_files = true;
+option java_package = "io.matthewbradshaw.merovingian.model.math";
+option java_outer_classname = "QuaternionProto";
+
+/**
+ * A quaternion (https://en.wikipedia.org/wiki/Quaternion) of the form w + xi + yj + zk, where i, j and k conform to the
+ * Hamilton convention (i^2 = j^2 = k^2 = ijk = -1).
+ */
+message Quaternion {
+  /**
+   * The x-axis component.
+   */
+  float x = 1;
+
+  /**
+   * The y-axis component.
+   */
+  float y = 2;
+
+  /**
+   * The z-axis component.
+   */
+  float z = 3;
+
+  /**
+   * The scalar component.
+   */
+  float w = 4;
+}

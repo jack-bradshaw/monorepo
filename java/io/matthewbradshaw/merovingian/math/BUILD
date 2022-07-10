@@ -4,9 +4,11 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 proto_library(
-    name = "snapshot_proto",
+    name = "math_proto",
     srcs = [
-        "level.proto",
+        "quaternion.proto",
+        "transform.proto",
+        "vector3.proto",
     ],
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
@@ -15,42 +17,37 @@ proto_library(
 )
 
 java_proto_library(
-    name = "snapshot_java_proto",
+    name = "math_java_proto",
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
         "//javatests:__subpackages__",
     ],
-    deps = [":level_item_snapshot.proto"],
+    deps = [":math_proto"],
 )
 
 java_lite_proto_library(
-    name = "snapshot_java_lite_proto",
+    name = "math_java_lite_proto",
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
         "//javatests:__subpackages__",
     ],
-    deps = [":snapshot_proto"],
+    deps = [":math_proto"],
 )
 
 kt_jvm_library(
-    name = "model",
+    name = "math_ext",
     srcs = [
-        "Game.kt",
-        "GameBase.kt",
-        "GameDelegate.kt",
-        "LevelItem.kt",
-        "LevelItemBase.kt",
-        "LevelItemDelegate.kt",
+        "QuaternionExt.kt",
+        "TransformExt.kt",
+        "Vector3Ext.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/merovingian:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":snapshot_java_lite_proto",
-        "//java/io/matthewbradshaw/klu/flow",
+        ":math_java_lite_proto",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )

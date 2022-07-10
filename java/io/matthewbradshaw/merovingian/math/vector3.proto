@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package io.matthewbradshaw.merovingian.model.math;
+
+option java_multiple_files = true;
+option java_package = "io.matthewbradshaw.merovingian.model.math";
+option java_outer_classname = "Vector3Proto";
+
+/**
+ * A vector in 3 dimensional Euclidean space (https://en.wikipedia.org/wiki/Euclidean_vector), where the axes are
+ * oriented using the right hand rule (https://en.wikipedia.org/wiki/Right-hand_rule#Coordinates).
+ */
+message Vector3 {
+  /**
+   * The x-axis component.
+   */
+  float x = 1;
+
+  /**
+   * The y-axis component.
+   */
+  float y = 2;
+
+  /**
+   * The z-axis component.
+   */
+  float z = 3;
+}

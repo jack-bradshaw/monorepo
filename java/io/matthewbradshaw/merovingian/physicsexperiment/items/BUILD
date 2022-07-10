@@ -8,15 +8,15 @@ kt_jvm_library(
     testonly = True,
     srcs = [
         "Cube.kt",
-        "CubeLevel.kt",
-        "CubeSwarm.kt",
+        "Lab.kt",
+        "Origin.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        "//java/io/matthewbradshaw/merovingian/model/world:model",
+        "//java/io/matthewbradshaw/merovingian/model/world",
     ],
 )
 
@@ -25,24 +25,27 @@ kt_jvm_library(
     testonly = True,
     srcs = [
         "CubeImpl.kt",
-        "CubeLevelImpl.kt",
-        "CubeSwarmImpl.kt",
+        "LabImpl.kt",
+        "OriginImpl.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":items",
         "//java/io/matthewbradshaw/klu",
+        "//java/io/matthewbradshaw/klu/flow",
         "//java/io/matthewbradshaw/merovingian/clock",
         "//java/io/matthewbradshaw/merovingian/clock:qualifiers",
         "//java/io/matthewbradshaw/merovingian/coroutines",
-        "//java/io/matthewbradshaw/merovingian/demo:scope",
-        "//java/io/matthewbradshaw/merovingian/demo/constants",
-        "//java/io/matthewbradshaw/merovingian/demo/materials",
         "//java/io/matthewbradshaw/merovingian/engine",
-        "//java/io/matthewbradshaw/merovingian/model/world:model",
+        "//java/io/matthewbradshaw/merovingian/model/math:math_ext",
+        "//java/io/matthewbradshaw/merovingian/model/math:math_java_lite_proto",
+        "//java/io/matthewbradshaw/merovingian/model/world",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:scope",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment/constants",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment/materials",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -56,7 +59,7 @@ kt_jvm_library(
         "ItemsModule.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

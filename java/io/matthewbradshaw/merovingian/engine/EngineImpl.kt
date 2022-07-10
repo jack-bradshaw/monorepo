@@ -38,9 +38,6 @@ class EngineImpl @Inject internal constructor(
   private val coroutineScopeJob = Job()
   private val coroutineScope = CoroutineScope(coroutineScopeJob)
 
-  private val frameworkNode = Node("framework").also { getRootNode().attachChild(it) }
-  private val applicationNode = Node("application").also { getRootNode().attachChild(it) }
-
   private fun createVrAppState(): VRAppState {
     val environment = VREnvironment(settings).apply {
       initialize()
@@ -81,8 +78,7 @@ class EngineImpl @Inject internal constructor(
   override fun extractVr() = vr
   override fun extractPhysics() = physics
   override fun extractStateManager() = stateManager
-  override fun extractFrameworkNode() = frameworkNode
-  override fun extractApplicationNode() = applicationNode
+  override fun extractRootNode() = getRootNode()
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
   override fun extractTotalTime(): Double = totalRuntimeSec
 

@@ -45,16 +45,9 @@ interface Engine {
   fun extractStateManager(): AppStateManager
 
   /**
-   * Extracts a node for use by the framework. Application programmers should not modify this node and should
-   * instead use the node supplied by [extractApplicationNode] if they need direct access to a node near the root.
+   * Extracts the root scene node.
    */
-  fun extractFrameworkNode(): Node
-
-  /**
-   * Extracts a node for use by applications. Application programmers should use this node instead of
-   * [extractFrameworkNode] if they need direct access to a node near the root.
-   */
-  fun extractApplicationNode(): Node
+  fun extractRootNode(): Node
 
   /**
    * Extracts a coroutine scope which tracks the engine state. The scope is cancelled when the game engine stops.

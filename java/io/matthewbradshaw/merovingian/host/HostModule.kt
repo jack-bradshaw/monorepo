@@ -1,7 +1,7 @@
 package io.matthewbradshaw.merovingian.host
 
-import dagger.Binds
 import dagger.Module
+import dagger.Binds
 
 @Module
 interface HostModule {

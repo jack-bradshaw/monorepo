@@ -1,20 +1,23 @@
 package io.matthewbradshaw.merovingian.demo.items
 
+import com.jme3.bullet.collision.PhysicsCollisionObject
 import com.jme3.material.Material
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
 import com.jme3.scene.Node
-import com.jme3.scene.Spatial
-import io.matthewbradshaw.klu.concurrency.once
 import io.matthewbradshaw.merovingian.clock.Clock
+import io.matthewbradshaw.merovingian.clock.Rendering
 import io.matthewbradshaw.merovingian.coroutines.renderingDispatcher
 import io.matthewbradshaw.merovingian.demo.config.Constants
 import io.matthewbradshaw.merovingian.demo.materials.Materials
 import io.matthewbradshaw.merovingian.engine.Engine
-import kotlinx.coroutines.CoroutineScope
+import io.matthewbradshaw.merovingian.model.DeltaFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Provider
@@ -22,8 +25,6 @@ import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
-
-import io.matthewbradshaw.merovingian.clock.Rendering
 
 class CubeSwarmImpl @Inject internal constructor(
   private val cubeProvider: Provider<Cube>,
@@ -33,46 +34,46 @@ class CubeSwarmImpl @Inject internal constructor(
   private val engine: Engine
 ) : CubeSwarm {
 
-  private val logicScope = CoroutineScope(engine.extractCoroutineScope().coroutineContext)
-
   private lateinit var cubeMaterials: List<Material>
   private lateinit var timeOffsets: List<Int>
-  private lateinit var origin: Node
+  private lateinit var root: Node
+  private var physicsFlow: DeltaFlow<PhysicsCollisionObject> = flowOf()
 
-  private val preparations = once {
-    cubeMaterials = List(Constants.ITEM_CHANNELS) { materials.getRandomly() }
-    timeOffsets = List(Constants.ITEM_CHANNELS) { (random.nextFloat() * MAX_TIME_OFFSET).toInt() }
-    origin = Node("origin")
+  init {
+    runBlocking {
+      cubeMaterials = List(Constants.ITEM_CHANNELS) { materials.getRandomly() }
+      timeOffsets = List(Constants.ITEM_CHANNELS) { (random.nextFloat() * MAX_TIME_OFFSET).toInt() }
+      root = Node("root")
 
-    withContext(engine.renderingDispatcher()) {
-      for (i in 0 until Constants.SWARM_SIZE) {
-        val cube = cubeProvider.get()
-        origin.attachChild(cube.visual())
-        cube.visual().setLocalTranslation(generateRandomPositionOnSphere())
+      withContext(engine.renderingDispatcher()) {
+        for (i in 0 until Constants.SWARM_SIZE) {
+          val cube = cubeProvider.get()
+          root.attachChild(cube.spatial)
+          cube.setRelativePosition(generateRandomPositionOnSphere())
+          physicsFlow = merge(physicsFlow, cube.colliders())
+        }
       }
     }
   }
 
-  override suspend fun visual(): Spatial {
-    preparations.runIfNeverRun()
-    return origin
-  }
+  override val spatial = root
+  override fun colliders() = physicsFlow
 
-  override suspend fun logical() {
-    logicScope.launch(engine.renderingDispatcher()) {
-        clock
-          .totalSec()
-          .onEach {
-            for (i in 0 until Constants.ITEM_CHANNELS) {
-              val time = it + timeOffsets[i]
-              val green =
-                (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
-              cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
-            }
+  init {
+    engine.extractCoroutineScope().launch(engine.renderingDispatcher()) {
+      clock
+        .totalSec()
+        .onEach {
+          for (i in 0 until Constants.ITEM_CHANNELS) {
+            val time = it + timeOffsets[i]
+            val green =
+              (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
+            cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
           }
-          .collect()
-      }
+        }
+        .collect()
     }
+  }
 
   private fun generateRandomPositionOnSphere(): Vector3f {
     val radius = random.nextInt(MAX_RADIUS) + MIN_RADIUS

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package io.matthewbradshaw.merovingian.model;
+
+option java_multiple_files = true;
+option java_package = "io.matthewbradshaw.merovingian.model";
+option java_outer_classname = "LevelProto";
+
+message LevelId {
+  string it = 1;
+}
+
+message LevelSnapshotId {
+  int64 it = 1;
+}
+
+message LevelSnapshotMetadata {
+  LevelSnapshotId snapshot_id  = 1;
+  google.protobuf.Timestamp snapshot_time = 2;
+}
+
+message LevelSnapshotContent {
+  LevelId level_id = 1;
+  LevelItemSnapshot root_item_snapshot = 2;
+}
+
+message LevelSnapshot {
+  LevelSnapshotMetadata = 1;
+  LevelSnapshotContent level_id = ;
+  bytes extras = 3;
+}

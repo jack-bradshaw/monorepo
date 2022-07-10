@@ -10,5 +10,5 @@ object Constants {
   /**
    * The number of items in the swarm.
    */
-  const val SWARM_SIZE = 10_000
+  const val SWARM_SIZE = 500
 }

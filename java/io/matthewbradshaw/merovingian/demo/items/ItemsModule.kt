@@ -1,7 +1,6 @@
 package io.matthewbradshaw.merovingian.demo.items
 
 import dagger.Binds
-import dagger.Module
 
 @Module
 interface ItemsModule {
@@ -12,5 +11,5 @@ interface ItemsModule {
   fun bindCubeSwarm(impl: CubeSwarmImpl): CubeSwarm
 
   @Binds
-  fun bindCubeWorld(impl: CubeWorldImpl): CubeWorld
+  fun bindCubeWorld(impl: CubeLevelImpl): CubeLevel
 }

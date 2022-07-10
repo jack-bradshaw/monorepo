@@ -7,10 +7,10 @@ kt_jvm_library(
     name = "scope",
     testonly = True,
     srcs = [
-        "DemoScope.kt",
+        "PhysicsExperimentScope.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -22,20 +22,20 @@ kt_jvm_library(
     name = "component",
     testonly = True,
     srcs = [
-        "DemoComponent.kt",
+        "PhysicsExperimentComponent.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
         ":scope",
         "//java/io/matthewbradshaw/merovingian",
-        "//java/io/matthewbradshaw/merovingian/demo/items",
-        "//java/io/matthewbradshaw/merovingian/demo/items:module",
-        "//java/io/matthewbradshaw/merovingian/demo/materials:module",
-        "//java/io/matthewbradshaw/merovingian/demo/support:module",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment/items",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment/items:module",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment/materials:module",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment/support:module",
     ],
 )
 
@@ -47,7 +47,7 @@ kt_jvm_library(
         "MainKt.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -56,11 +56,11 @@ kt_jvm_library(
 )
 
 java_binary(
-    name = "demo",
+    name = "physicsexperiment",
     testonly = True,
-    main_class = "io.matthewbradshaw.merovingian.demo.Main",
+    main_class = "io.matthewbradshaw.merovingian.physicsexperiment.Main",
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     runtime_deps = [
