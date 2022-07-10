@@ -1,4 +1,4 @@
-package io.matthewbradshaw.merovingian.clock
+package io.matthewbradshaw.frankl.clock
 
 import org.junit.Before
 import org.junit.runner.RunWith

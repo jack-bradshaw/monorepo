@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package io.matthewbradshaw.frankl.model.math;
+
+import "java/io/matthewbradshaw/merovingian/model/math/quaternion.proto";
+import "java/io/matthewbradshaw/merovingian/model/math/vector3.proto";
+
+option java_multiple_files = true;
+option java_package = "io.matthewbradshaw.frankl.model.math";
+option java_outer_classname = "TransformProto";
+
+/**
+ * A single entity to represent scale, rotation, and translation in Eucliean space (applied in that order).
+ */
+message Transform {
+  /**
+   * The scale component.
+   */
+  io.matthewbradshaw.frankl.model.math.Vector3 scale = 1;
+
+  /**
+   * The rotation component.
+   */
+  io.matthewbradshaw.frankl.model.math.Quaternion rotation = 2;
+
+  /**
+   * The translation component.
+   */
+  io.matthewbradshaw.frankl.model.math.Vector3 translation = 3;
+}

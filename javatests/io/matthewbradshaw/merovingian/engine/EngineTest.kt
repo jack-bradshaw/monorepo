@@ -1,4 +1,4 @@
-package io.matthewbradshaw.merovingian.engine
+package io.matthewbradshaw.frankl.engine
 
 import org.junit.Before
 import org.junit.runner.RunWith
