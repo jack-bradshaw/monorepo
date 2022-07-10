@@ -12,11 +12,11 @@ kt_jvm_library(
         "Origin.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        "//java/io/matthewbradshaw/merovingian/model/world",
+        "//java/io/matthewbradshaw/frankl/model/world",
     ],
 )
 
@@ -29,23 +29,23 @@ kt_jvm_library(
         "OriginImpl.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":items",
+        "//java/io/matthewbradshaw/frankl/clock",
+        "//java/io/matthewbradshaw/frankl/clock:qualifiers",
+        "//java/io/matthewbradshaw/frankl/coroutines",
+        "//java/io/matthewbradshaw/frankl/engine",
+        "//java/io/matthewbradshaw/frankl/model/math:math_ext",
+        "//java/io/matthewbradshaw/frankl/model/math:math_java_lite_proto",
+        "//java/io/matthewbradshaw/frankl/model/world",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:scope",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment/constants",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment/materials",
         "//java/io/matthewbradshaw/klu",
         "//java/io/matthewbradshaw/klu/flow",
-        "//java/io/matthewbradshaw/merovingian/clock",
-        "//java/io/matthewbradshaw/merovingian/clock:qualifiers",
-        "//java/io/matthewbradshaw/merovingian/coroutines",
-        "//java/io/matthewbradshaw/merovingian/engine",
-        "//java/io/matthewbradshaw/merovingian/model/math:math_ext",
-        "//java/io/matthewbradshaw/merovingian/model/math:math_java_lite_proto",
-        "//java/io/matthewbradshaw/merovingian/model/world",
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:scope",
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment/constants",
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment/materials",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -59,7 +59,7 @@ kt_jvm_library(
         "ItemsModule.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

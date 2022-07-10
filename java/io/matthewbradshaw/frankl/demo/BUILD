@@ -10,7 +10,7 @@ kt_jvm_library(
         "DemoScope.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -25,17 +25,17 @@ kt_jvm_library(
         "DemoComponent.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
         ":scope",
-        "//java/io/matthewbradshaw/merovingian",
-        "//java/io/matthewbradshaw/merovingian/demo/items",
-        "//java/io/matthewbradshaw/merovingian/demo/items:module",
-        "//java/io/matthewbradshaw/merovingian/demo/materials:module",
-        "//java/io/matthewbradshaw/merovingian/demo/support:module",
+        "//java/io/matthewbradshaw/frankl",
+        "//java/io/matthewbradshaw/frankl/demo/items",
+        "//java/io/matthewbradshaw/frankl/demo/items:module",
+        "//java/io/matthewbradshaw/frankl/demo/materials:module",
+        "//java/io/matthewbradshaw/frankl/demo/support:module",
     ],
 )
 
@@ -47,7 +47,7 @@ kt_jvm_library(
         "MainKt.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -60,7 +60,7 @@ java_binary(
     testonly = True,
     main_class = "io.matthewbradshaw.frankl.demo.Main",
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     runtime_deps = [

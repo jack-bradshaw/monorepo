@@ -8,10 +8,10 @@ kt_jvm_library(
     srcs = [
         "Engine.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/frankl:__subpackages__"],
     deps = [
         ":dagger",
-        "//java/io/matthewbradshaw/merovingian:scope",
+        "//java/io/matthewbradshaw/frankl:scope",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -25,15 +25,15 @@ kt_jvm_library(
         "EngineImpl.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
         ":engine",
-        "//java/io/matthewbradshaw/merovingian:scope",
-        "//java/io/matthewbradshaw/merovingian/config",
-        "//java/io/matthewbradshaw/merovingian/coroutines",
+        "//java/io/matthewbradshaw/frankl:scope",
+        "//java/io/matthewbradshaw/frankl/config",
+        "//java/io/matthewbradshaw/frankl/coroutines",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",
@@ -46,7 +46,7 @@ kt_jvm_library(
         "EngineModule.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

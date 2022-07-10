@@ -10,12 +10,12 @@ kt_jvm_library(
         "SupportModule.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
-        "//java/io/matthewbradshaw/merovingian/demo:scope",
+        "//java/io/matthewbradshaw/frankl/demo:scope",
         "@maven//:javax_inject_javax_inject",
     ],
 )

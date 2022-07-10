@@ -10,7 +10,7 @@ kt_jvm_library(
         "Materials.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -26,14 +26,14 @@ kt_jvm_library(
         "MaterialsImpl.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":materials",
-        "//java/io/matthewbradshaw/merovingian/demo:scope",
-        "//java/io/matthewbradshaw/merovingian/demo/constants",
-        "//java/io/matthewbradshaw/merovingian/engine",
+        "//java/io/matthewbradshaw/frankl/demo:scope",
+        "//java/io/matthewbradshaw/frankl/demo/constants",
+        "//java/io/matthewbradshaw/frankl/engine",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
@@ -46,7 +46,7 @@ kt_jvm_library(
         "MaterialsModule.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

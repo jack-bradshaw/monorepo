@@ -9,12 +9,12 @@ kt_jvm_library(
         "SnapshotStore.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        "//java/io/matthewbradshaw/frankl/model:snapshot_java_lite_proto",
         "//java/io/matthewbradshaw/klu/flow",
-        "//java/io/matthewbradshaw/merovingian/model:snapshot_java_lite_proto",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

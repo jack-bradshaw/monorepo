@@ -7,7 +7,7 @@ kt_jvm_library(
         "Constants.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
 )

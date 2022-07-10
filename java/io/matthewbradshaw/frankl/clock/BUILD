@@ -8,7 +8,7 @@ kt_jvm_library(
     srcs = [
         "Qualifiers.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/frankl:__subpackages__"],
     deps = [
         ":dagger",
     ],
@@ -19,7 +19,7 @@ kt_jvm_library(
     srcs = [
         "Clock.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/frankl:__subpackages__"],
     deps = [
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
@@ -32,14 +32,14 @@ kt_jvm_library(
         "RenderingClock.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":clock",
-        "//java/io/matthewbradshaw/merovingian:scope",
-        "//java/io/matthewbradshaw/merovingian/coroutines",
-        "//java/io/matthewbradshaw/merovingian/engine",
+        "//java/io/matthewbradshaw/frankl:scope",
+        "//java/io/matthewbradshaw/frankl/coroutines",
+        "//java/io/matthewbradshaw/frankl/engine",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
@@ -51,7 +51,7 @@ kt_jvm_library(
         "ClockModule.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

@@ -10,7 +10,7 @@ kt_jvm_library(
         "PhysicsExperimentScope.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -25,17 +25,17 @@ kt_jvm_library(
         "PhysicsExperimentComponent.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
         ":scope",
-        "//java/io/matthewbradshaw/merovingian",
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment/items",
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment/items:module",
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment/materials:module",
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment/support:module",
+        "//java/io/matthewbradshaw/frankl",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment/items",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment/items:module",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment/materials:module",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment/support:module",
     ],
 )
 
@@ -47,7 +47,7 @@ kt_jvm_library(
         "MainKt.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -60,7 +60,7 @@ java_binary(
     testonly = True,
     main_class = "io.matthewbradshaw.frankl.physicsexperiment.Main",
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
     runtime_deps = [

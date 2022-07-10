@@ -7,7 +7,7 @@ kt_jvm_library(
         "Constants.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/physicsexperiment:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/physicsexperiment:__subpackages__",
         "//javatests:__subpackages__",
     ],
 )

@@ -12,11 +12,11 @@ kt_jvm_library(
         "CubeSwarm.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        "//java/io/matthewbradshaw/merovingian/model/world:model",
+        "//java/io/matthewbradshaw/frankl/model/world:model",
     ],
 )
 
@@ -29,20 +29,20 @@ kt_jvm_library(
         "CubeSwarmImpl.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
         ":items",
+        "//java/io/matthewbradshaw/frankl/clock",
+        "//java/io/matthewbradshaw/frankl/clock:qualifiers",
+        "//java/io/matthewbradshaw/frankl/coroutines",
+        "//java/io/matthewbradshaw/frankl/demo:scope",
+        "//java/io/matthewbradshaw/frankl/demo/constants",
+        "//java/io/matthewbradshaw/frankl/demo/materials",
+        "//java/io/matthewbradshaw/frankl/engine",
+        "//java/io/matthewbradshaw/frankl/model/world:model",
         "//java/io/matthewbradshaw/klu",
-        "//java/io/matthewbradshaw/merovingian/clock",
-        "//java/io/matthewbradshaw/merovingian/clock:qualifiers",
-        "//java/io/matthewbradshaw/merovingian/coroutines",
-        "//java/io/matthewbradshaw/merovingian/demo:scope",
-        "//java/io/matthewbradshaw/merovingian/demo/constants",
-        "//java/io/matthewbradshaw/merovingian/demo/materials",
-        "//java/io/matthewbradshaw/merovingian/engine",
-        "//java/io/matthewbradshaw/merovingian/model/world:model",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -56,7 +56,7 @@ kt_jvm_library(
         "ItemsModule.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian/demo:__subpackages__",
+        "//java/io/matthewbradshaw/frankl/demo:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

@@ -8,9 +8,9 @@ kt_jvm_library(
     srcs = [
         "Collisions.kt",
     ],
-    visibility = ["//java/io/matthewbradshaw/merovingian:__subpackages__"],
+    visibility = ["//java/io/matthewbradshaw/frankl:__subpackages__"],
     deps = [
-        "//java/io/matthewbradshaw/merovingian/engine",
+        "//java/io/matthewbradshaw/frankl/engine",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",

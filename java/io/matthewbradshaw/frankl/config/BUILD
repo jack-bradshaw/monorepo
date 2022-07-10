@@ -6,7 +6,7 @@ kt_jvm_library(
         "Config.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
 )

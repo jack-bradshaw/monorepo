@@ -11,7 +11,7 @@ proto_library(
         "vector3.proto",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
 )
@@ -19,7 +19,7 @@ proto_library(
 java_proto_library(
     name = "math_java_proto",
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [":math_proto"],
@@ -28,7 +28,7 @@ java_proto_library(
 java_lite_proto_library(
     name = "math_java_lite_proto",
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [":math_proto"],
@@ -42,7 +42,7 @@ kt_jvm_library(
         "Vector3Ext.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

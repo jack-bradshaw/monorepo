@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package io.matthewbradshaw.frankl.model.math;
 
-import "java/io/matthewbradshaw/merovingian/model/math/quaternion.proto";
-import "java/io/matthewbradshaw/merovingian/model/math/vector3.proto";
+import "java/io/matthewbradshaw/frankl/model/math/quaternion.proto";
+import "java/io/matthewbradshaw/frankl/model/math/vector3.proto";
 
 option java_multiple_files = true;
 option java_package = "io.matthewbradshaw.frankl.model.math";

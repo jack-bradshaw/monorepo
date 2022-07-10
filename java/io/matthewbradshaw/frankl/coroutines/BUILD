@@ -9,12 +9,12 @@ kt_jvm_library(
         "Dispatchers.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        "//java/io/matthewbradshaw/frankl/engine",
         "//java/io/matthewbradshaw/klu/collections",
-        "//java/io/matthewbradshaw/merovingian/engine",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],

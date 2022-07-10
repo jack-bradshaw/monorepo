@@ -4,12 +4,23 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 proto_library(
+    name = "level_proto",
+    srcs = [
+        "level.proto",
+    ],
+    visibility = [
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+)
+
+proto_library(
     name = "snapshot_proto",
     srcs = [
         "level.proto",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
 )
@@ -17,7 +28,7 @@ proto_library(
 java_proto_library(
     name = "snapshot_java_proto",
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [":level_item_snapshot.proto"],
@@ -26,7 +37,7 @@ java_proto_library(
 java_lite_proto_library(
     name = "snapshot_java_lite_proto",
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [":snapshot_proto"],
@@ -43,7 +54,7 @@ kt_jvm_library(
         "LevelItemDelegate.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw/merovingian:__subpackages__",
+        "//java/io/matthewbradshaw/frankl:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
