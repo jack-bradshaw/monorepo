@@ -12,6 +12,8 @@ interface Once {
    * the function returns normally without error.
    */
   operator suspend fun invoke()
+
+  suspend fun hasRun(): Boolean
 }
 
 /**
@@ -33,16 +35,22 @@ interface Once {
  */
 fun once(block: suspend () -> Unit) = object : Once {
   private val hasRun = AtomicBoolean(false)
+
   override operator suspend fun invoke() {
     if (hasRun.compareAndSet(false, true)) block()
   }
+
+  override suspend fun hasRun() = hasRun.get()
 }
 
 fun Once.onSubsequentRuns(block: suspend () -> Throwable) = object : Once {
   private val hasRun = AtomicBoolean(false)
+
   override operator suspend fun invoke() {
     if (hasRun.compareAndSet(false, true)) this@onSubsequentRuns.invoke() else block()
   }
+
+  override suspend fun hasRun() = hasRun.get()
 }
 
 fun Once.errorOnSubsequentRuns(throwable: Throwable) = onSubsequentRuns { throw throwable }

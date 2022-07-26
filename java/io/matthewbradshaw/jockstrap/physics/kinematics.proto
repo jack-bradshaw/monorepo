@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package io.matthewbradshaw.jockstrap.physics;
+
+import "java/io/matthewbradshaw/jockstrap/math/quaternion.proto";
+import "java/io/matthewbradshaw/jockstrap/math/vector.proto";
+
+option java_multiple_files = true;
+option java_package = "io.matthewbradshaw.jockstrap.physics";
+option java_outer_classname = "KinematicsProto";
+
+/**
+ * A kinematic properties of a body at a point in time.
+ */
+message Kinematics {
+  io.matthewbradshaw.jockstrap.math.Vector linear_velocity = 2;
+  io.matthewbradshaw.jockstrap.math.Quaternion angular_velocity = 3;
+}

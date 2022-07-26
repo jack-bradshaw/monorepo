@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package io.matthewbradshaw.jockstrap.model.elements;
+
+option java_multiple_files = true;
+option java_package = "io.matthewbradshaw.jockstrap.model.elements";
+option java_outer_classname = "ComponentProto";
+
+message ComponentId {
+  string value = 1;
+}
+
+message ComponentSnapshot {
+  ComponentId id = 1;
+  bytes extras = 2;
+}
