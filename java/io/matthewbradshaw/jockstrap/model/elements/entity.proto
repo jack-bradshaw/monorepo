@@ -17,6 +17,6 @@ message EntitySnapshot {
   EntityId entity_id = 1;
   io.matthewbradshaw.jockstrap.physics.Placement placement = 2;
   map<string, io.matthewbradshaw.jockstrap.model.elements.EntitySnapshot> content_snapshots = 3;
-  map<string, io.matthewbradshaw.jockstrap.model.elements.ComponentSnapshot> component_snapshots = 4;
+  map<string, bytes> component_snapshots = 4;
   bytes extras = 5;
 }

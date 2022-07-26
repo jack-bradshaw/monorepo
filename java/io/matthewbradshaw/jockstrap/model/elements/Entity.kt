@@ -13,6 +13,6 @@ interface Entity : Hostable, Placeable, Restorable<EntitySnapshot> {
   fun contents(): Set<Entity>
   fun contentFlow(): BinaryDeltaFlow<Entity>
 
-  fun exports(): Set<Component<*>>
-  fun exportFlow(): BinaryDeltaFlow<Component<*>>
+  fun exports(): Set<Component<*, *>>
+  fun exportFlow(): BinaryDeltaFlow<Component<*, *>>
 }
