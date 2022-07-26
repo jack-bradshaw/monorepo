@@ -11,6 +11,6 @@ message ComponentId {
 }
 
 message ComponentSnapshot {
-  ComponentId id = 1;
+  ComponentId component_id = 1;
   bytes extras = 2;
 }
