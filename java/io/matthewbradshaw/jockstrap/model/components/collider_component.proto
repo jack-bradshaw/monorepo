@@ -5,10 +5,9 @@ package io.matthewbradshaw.jockstrap.model.components;
 import "java/io/matthewbradshaw/jockstrap/model/elements/component.proto";
 
 option java_multiple_files = true;
-option java_package = "io.matthewbradshaw.jockstrap.model.components";
+option java_package = "io.matthewbradshaw.jockstrap.model.bases";
 option java_outer_classname = "ColliderComponentProto";
 
 message ColliderComponentSnapshot {
-  io.matthewbradshaw.jockstrap.model.elements.ComponentId component_id = 1;
   // TODO prior to release, add other fields
 }

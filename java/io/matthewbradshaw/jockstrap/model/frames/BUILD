@@ -17,6 +17,7 @@ kt_jvm_library(
     ],
     deps = [
         "//java/io/matthewbradshaw/jockstrap/physics:java_lite_proto",
+        "//java/io/matthewbradshaw/klu/flow",
         "@maven//:com_google_protobuf_protobuf_lite",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

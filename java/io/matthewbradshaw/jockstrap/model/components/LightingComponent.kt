@@ -1,12 +1,10 @@
 package io.matthewbradshaw.jockstrap.model.components
 
-import io.matthewbradshaw.jockstrap.model.elements.Component
-import io.matthewbradshaw.jockstrap.model.elements.Entity
+import io.matthewbradshaw.jockstrap.sensation.Color
+import io.matthewbradshaw.klu.flow.NiceFlower
+import io.matthewbradshaw.
 
-class LightingComponent(
-  override val id: ComponentId,
-  override val source: Entity,
-  override val item: Light,
-  override val onAttach: suspend () -> Unit = {},
-  override val onDetach: suspend () -> Unit = {}
-) : Component<Light>()
+interface LightingComponent : Component {
+  abstract val color: NiceFlower<Color>
+  abstract val behavior: NiceFlower<LightingComponentBehavior>
+}

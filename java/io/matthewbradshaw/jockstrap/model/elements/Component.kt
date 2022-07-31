@@ -2,11 +2,14 @@ package io.matthewbradshaw.jockstrap.model.elements
 
 import io.matthewbradshaw.jockstrap.model.frames.Hostable
 import io.matthewbradshaw.jockstrap.model.frames.Placeable
+import io.matthewbradshaw.jockstrap.model.frames.Simulatable
 import io.matthewbradshaw.jockstrap.model.frames.Restorable
-import google.protobuf.MessageLite
+import com.google.protobuf.MessageLite
+import kotlinx.coroutines.flow.Flow
 
-interface Component<I, S : MessageLite> : Hostable, Placeable, Restorable<S> {
+interface Component<I> : Hostable, Placeable, Restorable<ComponentSnapshot>, Simulatable {
   val id: ComponentId
   val source: Entity
-  val intrinsic: I
+
+  fun intrinsic(): Flow<I>
 }

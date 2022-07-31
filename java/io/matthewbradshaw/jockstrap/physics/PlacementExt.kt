@@ -10,7 +10,7 @@ import io.matthewbradshaw.jockstrap.math.identityQuaternion
 import io.matthewbradshaw.jockstrap.math.plus
 import io.matthewbradshaw.jockstrap.math.times
 
-fun statics(
+fun placement(
   position: Point = originPoint,
   rotation: Quaternion = identityQuaternion,
   scale: Vector = zeroVector
@@ -27,3 +27,5 @@ fun Placement.rotateBy(rotation: Quaternion): Placement = toBuilder().setRotatio
 fun Placement.scaleTo(scale: Vector): Placement = toBuilder().setScale(scale).build()
 
 fun Placement.scaleBy(scale: Vector): Placement = toBuilder().setScale(this.scale.perElementProduct(scale)).build()
+
+val placeZero = placement()

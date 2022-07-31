@@ -1,9 +1,10 @@
 package io.matthewbradshaw.jockstrap.model.elements
 
-import io.matthewbradshaw.jockstrap.model.core.Hostable
-import io.matthewbradshaw.jockstrap.model.core.Restorable
-import io.matthewbradshaw.jockstrap.model.core.Stageable
+import io.matthewbradshaw.jockstrap.model.frames.Hostable
+import io.matthewbradshaw.jockstrap.model.frames.Restorable
+import io.matthewbradshaw.jockstrap.model.frames.Placeable
 import io.matthewbradshaw.jockstrap.model.frames.Simulatable
+import io.matthewbradshaw.klu.flow.BinaryDeltaFlow
 
 interface Level : Hostable, Restorable<LevelSnapshot>, Simulatable {
   val id: LevelId

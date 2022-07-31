@@ -17,4 +17,4 @@ fun Placement.toJMonkeyTransform() =
  * Creates a new Merovingian Transform which is equivalent to this vector.
  */
 fun JmeTransform.toJockstrapPlacement() =
-  statics(getTranslation().toJockstrapPoint(), getRotation().toJockstrapQuaternion(), getScale().toJockstrapVector())
+  placement(getTranslation().toJockstrapPoint(), getRotation().toJockstrapQuaternion(), getScale().toJockstrapVector())
