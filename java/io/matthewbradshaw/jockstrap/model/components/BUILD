@@ -75,7 +75,7 @@ kt_jvm_library(
     name = "jmonkey",
     srcs = [
         #  "ColliderComponent.kt",
-        "JMonkeyLightingComponent.kt",
+        "LightingComponentImpl.kt",
         # "SpatialComponent.kt",
     ],
     visibility = [

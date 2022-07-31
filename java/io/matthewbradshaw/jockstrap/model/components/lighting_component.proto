@@ -17,27 +17,27 @@ message LightingComponentSnapshot {
 
 message LightingComponentBehavior {
   oneof behavior {
-    SpotLightConfig spot = 1;
-    PointLightConfig point = 2;
-    AmbientLightConfig ambient = 3;
-    DirectionalLightConfig directional = 4;
+    SpotConfig spot_config = 1;
+    PointConfig point_config = 2;
+    AmbientConfig ambient_config = 3;
+    DirectionalConfig directional_config = 4;
   }
 }
 
-message SpotLightConfig {
+message SpotConfig {
   float rangeRadius = 1;
   float innerAngleRadians = 2;
   float outerAngleRadians = 3;
 }
 
-message PointLightConfig {
+message PointConfig {
   float rangeRadius = 1;
 }
 
-message AmbientLightConfig {
+message AmbientConfig {
   // no fields needed
 }
 
-message DirectionalLightConfig {
+message DirectionalConfig {
   // no fields needed
 }

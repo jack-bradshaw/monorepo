@@ -6,40 +6,40 @@ import com.jme3.light.Light
 import com.jme3.light.PointLight
 import com.jme3.light.SpotLight
 import io.matthewbradshaw.jockstrap.math.toJMonkeyVector
-import io.matthewbradshaw.jockstrap.model.bases.BaseLightingComponent.Behavior.Point
-import io.matthewbradshaw.jockstrap.model.bases.BaseLightingComponent.Behavior.Spot
-import io.matthewbradshaw.jockstrap.model.bases.AmbientLightConfig
-import io.matthewbradshaw.jockstrap.model.bases.SpotLightConfig
-import io.matthewbradshaw.jockstrap.model.bases.PointLightConfig
-import io.matthewbradshaw.jockstrap.model.bases.BaseLightingComponent.Behavior.Ambient
-import io.matthewbradshaw.jockstrap.model.bases.BaseLightingComponent.Behavior.Directional
-import io.matthewbradshaw.jockstrap.model.elements.ComponentId
+import io.matthewbradshaw.jockstrap.model.bases.BaseComponent
+import io.matthewbradshaw.jockstrap.model.elements.ComponentSnapshot
 import io.matthewbradshaw.jockstrap.model.elements.Entity
+import io.matthewbradshaw.jockstrap.model.components.PointConfig
+import io.matthewbradshaw.jockstrap.model.components.SpotConfig
+import io.matthewbradshaw.jockstrap.model.components.AmbientConfig
+import io.matthewbradshaw.jockstrap.model.components.DirectionalConfig
+import io.matthewbradshaw.jockstrap.model.elements.ComponentId
 import io.matthewbradshaw.jockstrap.physics.Placement
 import io.matthewbradshaw.jockstrap.sensation.Color
 import io.matthewbradshaw.jockstrap.sensation.toJMonkeyColor
 import io.matthewbradshaw.jockstrap.sensation.white
 import io.matthewbradshaw.klu.flow.NiceFlower
 
-class JMonkeyLightingComponent(
+class LightingComponentImpl(
   override val id: ComponentId,
   override val source: Entity,
-) : BaseComponent<Light>, LightingComponent {
+) : BaseComponent<Light>(), LightingComponent {
 
   private val light = NiceFlower<Light>(AmbientLight())
 
-  val color = NiceFlower(white) {
+  override val color = NiceFlower(white) {
     light.get().setColor(it.toJMonkeyColor())
   }
 
-  val behavior = NiceFlower<BaseLightingComponent.Behavior<*>>(
-    Behavior.Ambient(AmbientLightConfig.newBuilder().build())
+  override val behavior = NiceFlower<LightingComponentBehavior>(
+    LightingComponentBehavior.newBuilder().setAmbientConfig(AmbientConfig.newBuilder().build()).build()
   ) {
-    val newLight = when (it) {
-      is Spot -> SpotLight().apply { configureTo(it.config) }
-      is Point -> PointLight().apply { configureTo(it.config) }
-      is Ambient -> AmbientLight()
-      is Directional -> DirectionalLight()
+    val newLight = when {
+      it.hasSpotConfig() -> SpotLight().apply { configureTo(it.spotConfig) }
+      it.hasPointConfig() -> PointLight().apply { configureTo(it.pointConfig) }
+      it.hasAmbientConfig() -> AmbientLight()
+      it.hasDirectionalConfig() -> DirectionalLight()
+      else -> throw IllegalStateException("Missing or unsupported lighting behavior in $it.")
     }
     newLight.placeAt(placement.get())
     newLight.tint(color.get())
@@ -52,26 +52,26 @@ class JMonkeyLightingComponent(
     light.get().placeAt(placement)
   }
 
-  protected final override suspend fun contributeToSnapshot(): LightingIntrinsicSnapshot {
-    return LightingIntrinsicSnapshot.newBuilder()
+  protected final override suspend fun contributeToSnapshot(): LightingComponentSnapshot {
+    return LightingComponentSnapshot.newBuilder()
       .setColor(color.get())
       .setBehavior(behavior.get())
       .build()
   }
 
   protected final override suspend fun contributeToRestoration(snapshot: ComponentSnapshot) {
-    val contribution = LightingIntrinsicSnapshot.parseFrom(snapshot.extras)
+    val contribution = LightingComponentSnapshot.parseFrom(snapshot.extras)
     color.set(contribution.color)
     behavior.set(contribution.behavior)
   }
 
   private suspend fun Light.placeAt(placement: Placement) {
-    when (light) {
+    when (this) {
       is SpotLight -> {
-        light.setPosition(placement.position.toJMonkeyVector())
+        setPosition(placement.position.toJMonkeyVector())
         TODO() // apply rotation as direction
       }
-      is PointLight -> light.setPosition(placement.position.toJMonkeyVector())
+      is PointLight -> setPosition(placement.position.toJMonkeyVector())
       is AmbientLight -> {
         // Ambient light exists equally everywhere, no need to place anything.
       }
@@ -82,16 +82,16 @@ class JMonkeyLightingComponent(
   }
 
   private suspend fun Light.tint(color: Color) {
-    light.get().setColor(color.toJMonkeyColor())
+    setColor(color.toJMonkeyColor())
   }
 
-  private suspend fun SpotLight.configureTo(config: SpotLightConfig) {
+  private suspend fun SpotLight.configureTo(config: SpotConfig) {
     setSpotRange(config.rangeRadius)
     setSpotInnerAngle(config.innerAngleRadians)
     setSpotOuterAngle(config.outerAngleRadians)
   }
 
-  private suspend fun PointLight.configureTo(config: PointLightConfig) {
+  private suspend fun PointLight.configureTo(config: PointConfig) {
     setRadius(config.rangeRadius)
   }
 }
