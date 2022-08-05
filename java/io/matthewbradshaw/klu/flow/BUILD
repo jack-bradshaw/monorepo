@@ -5,6 +5,7 @@ kt_jvm_library(
     srcs = [
         "BinaryDeltaFlow.kt",
         "Flower.kt",
+        "MutableFlower.kt",
         "NiceFlower.kt",
     ],
     visibility = [

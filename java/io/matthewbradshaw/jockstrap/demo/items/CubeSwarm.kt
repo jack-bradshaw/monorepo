@@ -1,5 +1,5 @@
 package io.matthewbradshaw.jockstrap.demo.items
 
-import java.io.matthewbradshaw.jockstrap.model.entity.Entity
+import java.io.matthewbradshaw.jockstrap.entity.Entity
 
 interface CubeSwarm : Entity

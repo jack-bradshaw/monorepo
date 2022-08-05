@@ -1,7 +1,7 @@
 package io.matthewbradshaw.jockstrap.restoration
 
 import io.matthewbradshaw.klu.flow.BinaryDeltaFlow
-import io.matthewbradshaw.jockstrap.model.elements.LevelSnapshot
+import io.matthewbradshaw.jockstrap.elements.LevelSnapshot
 
 interface SnapshotStore {
   suspend fun snapshotExists(id: RestorationId): Boolean

@@ -1,17 +1,16 @@
 load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
-
-dagger_rules()
 
 proto_library(
     name = "proto",
     srcs = [
-        "restoration_id.proto",
+        "color.proto",
+        "mesh.proto",
     ],
     visibility = [
         "//java/io/matthewbradshaw/jockstrap:__subpackages__",
         "//javatests:__subpackages__",
     ],
+    deps = ["//java/io/matthewbradshaw/jockstrap/math:proto"],
 )
 
 java_proto_library(
@@ -24,7 +23,7 @@ java_proto_library(
 )
 
 java_lite_proto_library(
-    name = "java_lite_protos",
+    name = "java_lite_proto",
     visibility = [
         "//java/io/matthewbradshaw/jockstrap:__subpackages__",
         "//javatests:__subpackages__",
@@ -33,18 +32,31 @@ java_lite_proto_library(
 )
 
 kt_jvm_library(
-    name = "snapshot",
+    name = "proto_extensions",
     srcs = [
-        "SnapshotStore.kt",
+        "ColorExt.kt",
+        "MeshExt.kt",
+    ],
+    visibility = ["//java/io/matthewbradshaw/jockstrap:__subpackages__"],
+    deps = [
+        ":java_lite_proto",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "jmonkey_conversion",
+    srcs = [
+        "JMonkeyConversion.kt",
     ],
     visibility = [
         "//java/io/matthewbradshaw/jockstrap:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":java_lite_protos",
-        "//java/io/matthewbradshaw/jockstrap/elements:java_lite_protos",
-        "//java/io/matthewbradshaw/klu/flow",
-        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        ":java_lite_proto",
+        ":proto_extensions",
+        "//java/io/matthewbradshaw/jockstrap/math:jmonkey_conversion",
+        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )

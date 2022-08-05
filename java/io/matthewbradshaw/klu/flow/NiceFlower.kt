@@ -6,7 +6,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.withLock
 
-class NiceFlower<T>(initialValue: T, private val onChange: suspend (T) -> Unit = {}) : Flower<T> {
+class NiceFlower<T>(initialValue: T, private val onChange: suspend (T) -> Unit = {}) : MutableFlower<T> {
 
   private val coreGuard = Mutex()
   private val core = MutableStateFlow(initialValue)
