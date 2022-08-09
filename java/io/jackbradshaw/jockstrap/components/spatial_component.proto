@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package io.jackbradshaw.jockstrap.components;
+
+import "java/io/jackbradshaw/jockstrap/elements/component.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.jockstrap.components";
+option java_outer_classname = "SpatialComponentProto";
+
+message SpatialComponentSnapshot {
+  // no fields needed
+}

@@ -1,4 +1,4 @@
-package io.matthewbradshaw.jockstrap.clock
+package io.jackbradshaw.jockstrap.clock
 
 import org.junit.Before
 import org.junit.runner.RunWith

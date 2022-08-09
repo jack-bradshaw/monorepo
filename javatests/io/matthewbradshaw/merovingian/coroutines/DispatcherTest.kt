@@ -1,4 +1,4 @@
-package io.matthewbradshaw.jockstrap.coroutines
+package io.jackbradshaw.jockstrap.coroutines
 
 import com.jme3.app.SimpleApplication
 import org.junit.Before
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlinx.coroutines.runBlocking
 import com.google.common.truth.Truth.assertThat
-import io.matthewbradshaw.jockstraptesting.CubeWorld
+import io.jackbradshaw.jockstraptesting.CubeWorld
 
 @RunWith(JUnit4::class)
 class DispatcherTest {

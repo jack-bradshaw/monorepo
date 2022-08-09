@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package io.jackbradshaw.jockstrap.math;
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.jockstrap.math";
+option java_outer_classname = "QuaternionProto";
+
+/**
+ * A quaternion (https://en.wikipedia.org/wiki/Quaternion) of the form k + ai + bj + ck where i, j and k conform to the
+ * Hamilton convention (i^2 = j^2 = k^2 = ijk = -1).
+ */
+message Quaternion {
+  /**
+   * The scalar component.
+   */
+  float scalar = 4;
+
+  /**
+   * The coefficient applied to the imaginary unit i.
+   */
+  float i_coefficient = 1;
+
+  /**
+   * The coefficient applied to the imaginary unit j.
+   */
+  float j_coefficient = 2;
+
+  /**
+   * The coefficient applied to the imaginary unit k.
+   */
+  float k_coefficient = 3;
+}
