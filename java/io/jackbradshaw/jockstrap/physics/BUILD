@@ -9,8 +9,7 @@ auto_factory()
 proto_library(
     name = "proto",
     srcs = [
-        "dynamics.proto",
-        "kinematics.proto",
+        "force.proto",
         "placement.proto",
     ],
     visibility = [
@@ -41,9 +40,7 @@ java_lite_proto_library(
 kt_jvm_library(
     name = "proto_extensions",
     srcs = [
-        "DynamicsExt.kt",
         "ForceExt.kt",
-        "KinematicsExt.kt",
         "PlacementExt.kt",
     ],
     visibility = ["//java/io/jackbradshaw/jockstrap:__subpackages__"],
@@ -51,20 +48,6 @@ kt_jvm_library(
         ":java_lite_proto",
         "//java/io/jackbradshaw/jockstrap/math:java_lite_proto",
         "//java/io/jackbradshaw/jockstrap/math:proto_extensions",
-    ],
-)
-
-kt_jvm_library(
-    name = "collisions",
-    srcs = [
-        "Collisions.kt",
-    ],
-    visibility = ["//java/io/jackbradshaw/jockstrap:__subpackages__"],
-    deps = [
-        "//java/io/jackbradshaw/jockstrap/engine",
-        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@maven//:org_jmonkeyengine_jme3_bullet",
-        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
 

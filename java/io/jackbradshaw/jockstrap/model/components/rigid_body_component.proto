@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package io.jackbradshaw.jockstrap.components;
+
+import "java/io/jackbradshaw/jockstrap/elements/component.proto";
+import "java/io/jackbradshaw/jockstrap/graphics/color.proto";
+import "java/io/jackbradshaw/jockstrap/math/vector.proto";
+import "java/io/jackbradshaw/jockstrap/graphics/mesh.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.jockstrap.components";
+option java_outer_classname = "RigidBodyComponentProto";
+
+message RigidBodyComponentSnapshot {
+  repeated int64 group_filter = 1;
+  PhysicsSystem physics_system = 2;
+  ContactProperties contact_properties = 3;
+  io.jackbradshaw.jockstrap.graphics.Mesh collision_mesh = 4;
+}
+
+message PhysicsSystem {
+  oneof system {
+    StaticPhysics static = 1;
+    KinematicPhysics kinematic = 2;
+    DynamicPhysics dynamic = 3;
+  }
+}
+
+message StaticPhysics {
+  // no fields needed
+}
+
+message KinematicPhysics {
+  float mass = 1;
+  float gravity_override = 2;
+}
+
+message DynamicPhysics {
+  float mass = 1;
+  float gravity_override = 2;
+}
+
+message ContactProperties {
+  float restitution = 1;
+  float friction = 2;
+  float linear_damping = 3;
+  float angular_damping = 4;
+}
