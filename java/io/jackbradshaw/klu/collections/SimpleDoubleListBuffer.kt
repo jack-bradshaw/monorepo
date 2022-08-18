@@ -1,4 +1,4 @@
-package io.matthewbradshaw.klu.collections
+package io.jackbradshaw.klu.collections
 
 import java.util.LinkedList
 import kotlinx.coroutines.sync.Mutex

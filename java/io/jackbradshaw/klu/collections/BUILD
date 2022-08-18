@@ -10,7 +10,7 @@ kt_jvm_library(
         "SimpleDoubleListBuffer.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw:__subpackages__",
+        "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

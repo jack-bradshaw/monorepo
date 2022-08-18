@@ -9,7 +9,7 @@ kt_jvm_library(
         "Once.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw:__subpackages__",
+        "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

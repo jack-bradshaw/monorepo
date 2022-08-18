@@ -8,8 +8,8 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     exports = [
-        "//java/io/matthewbradshaw/klu/collections",
-        "//java/io/matthewbradshaw/klu/concurrency",
+        "//java/io/jackbradshaw/klu/collections",
+        "//java/io/jackbradshaw/klu/concurrency",
     ],
 )
 
@@ -20,7 +20,7 @@ java_binary(
         "//javatests:__subpackages__",
     ],
     runtime_deps = [
-        "//java/io/matthewbradshaw/klu",
+        "//java/io/jackbradshaw/klu",
     ],
 )
 
