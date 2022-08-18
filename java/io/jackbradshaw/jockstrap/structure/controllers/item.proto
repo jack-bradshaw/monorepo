@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package io.jackbradshaw.jockstrap.structure.controllers;
+
+import "java/io/jackbradshaw/jockstrap/physics/placement.proto";
+import "java/io/jackbradshaw/jockstrap/structure/controllers/primitive.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.jockstrap.structure.controllers";
+option java_outer_classname = "ItemProto";
+
+message ItemId {
+  string value = 1;
+}
+
+message ItemSnapshot {
+  ItemId item_id = 1;
+  io.jackbradshaw.jockstrap.physics.Placement placement = 2;
+  repeated io.jackbradshaw.jockstrap.structure.controllers.PrimitiveSnapshot primitive_snapshot = 3;
+  bytes extras = 4;
+}

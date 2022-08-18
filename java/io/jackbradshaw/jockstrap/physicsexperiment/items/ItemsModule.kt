@@ -1,7 +1,6 @@
 package io.jackbradshaw.jockstrap.physics.experiment.items
 
 import dagger.Binds
-import dagger.Module
 
 @Module
 interface ItemsModule {

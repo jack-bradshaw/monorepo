@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package io.jackbradshaw.jockstrap.components;
+
+import "java/io/jackbradshaw/jockstrap/elements/primitive.proto";
+import "java/io/jackbradshaw/jockstrap/graphics/color.proto";
+import "java/io/jackbradshaw/jockstrap/math/vector.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.jockstrap.components";
+option java_outer_classname = "LightingComponentProto";
+
+message LightingComponentSnapshot {
+  io.jackbradshaw.jockstrap.graphics.Color color = 1;
+  LightingComponentBehavior behavior = 2;
+}
+
+message LightingComponentBehavior {
+  oneof behavior {
+    SpotConfig spot_config = 1;
+    PointConfig point_config = 2;
+    AmbientConfig ambient_config = 3;
+    DirectionalConfig directional_config = 4;
+  }
+}
+
+message SpotConfig {
+  float rangeRadius = 1;
+  float innerAngleRadians = 2;
+  float outerAngleRadians = 3;
+}
+
+message PointConfig {
+  float rangeRadius = 1;
+}
+
+message AmbientConfig {
+  // no fields needed
+}
+
+message DirectionalConfig {
+  io.jackbradshaw.math.Vector direction = 1;
+}

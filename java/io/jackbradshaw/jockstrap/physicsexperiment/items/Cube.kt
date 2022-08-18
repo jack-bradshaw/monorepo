@@ -1,6 +1,5 @@
 package io.jackbradshaw.jockstrap.physics.experiment.items
 
-import com.jme3.math.Vector3f
 import io.jackbradshaw.jockstrapmodel.world.WorldItem
 
 interface Cube : WorldItem {

@@ -1,16 +1,9 @@
 package io.jackbradshaw.jockstrap.physics.experiment.items
 
-import com.jme3.bullet.collision.PhysicsCollisionObject
 import com.jme3.math.Vector3f
 import com.jme3.scene.Node
-import com.jme3.scene.Spatial
-import com.jme3.util.SkyFactory
-import io.jackbradshaw.jockstrap.coroutines.physicsDispatcher
 import io.jackbradshaw.jockstrap.coroutines.renderingDispatcher
 import io.jackbradshaw.jockstrap.engine.Engine
-import io.jackbradshaw.klu.flow.BinaryDeltaFlow
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext

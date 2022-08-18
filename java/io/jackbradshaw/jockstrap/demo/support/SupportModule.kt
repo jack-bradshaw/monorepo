@@ -1,7 +1,6 @@
 package io.jackbradshaw.jockstrap.demo.support
 
 import dagger.Provides
-import dagger.Module
 import io.jackbradshaw.jockstrap.demo.DemoScope
 import kotlin.random.Random
 

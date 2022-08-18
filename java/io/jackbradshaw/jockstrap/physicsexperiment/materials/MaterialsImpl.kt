@@ -3,10 +3,8 @@ package io.jackbradshaw.jockstrap.physics.experiment.materials
 import com.jme3.material.Material
 import com.jme3.math.ColorRGBA
 import io.jackbradshaw.jockstrap.physics.experiment.PhysicsExperimentScope
-import io.jackbradshaw.jockstrap.physics.experiment.config.Constants
 import io.jackbradshaw.jockstrap.engine.Engine
 import javax.inject.Inject
-import kotlin.random.Random
 
 @PhysicsExperimentScope
 class MaterialsImpl @Inject internal constructor(

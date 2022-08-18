@@ -1,7 +1,6 @@
 package io.jackbradshaw.jockstrap.clock
 
 import dagger.Binds
-import dagger.Module
 
 @Module
 interface ClockModule {

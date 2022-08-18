@@ -1,7 +1,6 @@
 package io.jackbradshaw.jockstrap.math
 
 import com.google.auto.factory.AutoFactory
-import io.jackbradshaw.jockstrap.math.times
 
 @AutoFactory
 class QuaternionNlerpInterpolator(

@@ -1,6 +1,5 @@
 package io.jackbradshaw.jockstrap.math
 
-import io.jackbradshaw.jockstrap.math.zeroVector
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
