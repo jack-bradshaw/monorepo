@@ -13,7 +13,7 @@ kt_jvm_library(
 )
 
 java_binary(
-    name = "klu_full",
+    name = "klu_binary",
     visibility = [
         "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
