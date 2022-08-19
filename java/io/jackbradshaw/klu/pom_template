@@ -11,10 +11,10 @@
     <version>{version}</version>
 
     <name>Kotlin Lightweight Upgrade (KLU)</name>
-    <description>Essential utilities and helpers to fill the gaps in the Kotlin standard library.</description>
-    <url>https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/jackbradshaw/klu</url>
+    <description>Essential Kotlin helpers and utilities.</description>
+    <url>https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu</url>
     <scm>
-      <url>https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/jackbradshaw/klu</url>
+      <url>https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu</url>
     </scm>
 
     <licenses>
@@ -26,9 +26,9 @@
 
     <developers>
       <developer>
-        <name>Matthew Bradshaw</name>
-        <email>matthewbradshaw@matthewbradshaw.io</email>
-        <url>https://matthewbradshaw.io</url>
+        <name>Jack Bradshaw</name>
+        <email>jack@jackbradshaw.io</email>
+        <url>https://jackbradshaw.io</url>
       </developer>
     </developers>
 
