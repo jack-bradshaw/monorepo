@@ -1,4 +1,4 @@
-package io.matthewbradshaw.klu.concurrency
+package io.jackbradshaw.klu.concurrency
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.launch

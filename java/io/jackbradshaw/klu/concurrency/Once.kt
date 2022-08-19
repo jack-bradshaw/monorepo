@@ -1,4 +1,4 @@
-package io.matthewbradshaw.klu.concurrency
+package io.jackbradshaw.klu.concurrency
 
 import java.util.concurrent.atomic.AtomicBoolean
 

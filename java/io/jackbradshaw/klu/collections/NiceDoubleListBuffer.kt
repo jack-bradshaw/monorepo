@@ -1,10 +1,10 @@
-package io.matthewbradshaw.klu.collections
+package io.jackbradshaw.klu.collections
 
 import java.util.LinkedList
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-class SimpleDoubleListBuffer<T> : DoubleListBuffer<T> {
+class NiceDoubleListBuffer<T> : DoubleListBuffer<T> {
 
   private val switchMutex = Mutex()
 
