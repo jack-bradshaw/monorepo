@@ -4,13 +4,12 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "collections",
+    name = "concurrency",
     srcs = [
-        "DoubleListBuffer.kt",
-        "SimpleDoubleListBuffer.kt",
+        "Once.kt",
     ],
     visibility = [
-        "//java/io/matthewbradshaw:__subpackages__",
+        "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

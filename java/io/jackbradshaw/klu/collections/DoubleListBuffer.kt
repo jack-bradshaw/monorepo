@@ -1,4 +1,4 @@
-package io.matthewbradshaw.klu.collections
+package io.jackbradshaw.klu.collections
 
 import java.util.LinkedList
 
@@ -19,7 +19,7 @@ import java.util.LinkedList
  *   buffer.getInactive().forEach { /* process it */ }
  * }
  *
- * See [SimpleDoubleListBuffer] for a simple implementation.
+ * See [NiceDoubleListBuffer] for a simple implementation.
  */
 interface DoubleListBuffer<T> {
   /**

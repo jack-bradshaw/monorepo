@@ -1,4 +1,4 @@
-package java.io.matthewbradshaw.klu;
+package io.jackbradshaw.klu;
 
 /**
  * Empty class to satisfy the build tool.
