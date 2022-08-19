@@ -74,5 +74,5 @@ The available concurrency utilities are:
 - [Once](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency/Once.kt): Ensures
   blocks of code are executed at most once.
 
-Implementations are available for the interfaces with a Nice* prefix on the name. For example the DoubleListBuffer is
-implemented by the NiceDoubleListBuffer. 
+Implementations are available for the interfaces with a Nice* prefix on the name. For example, DoubleListBuffer is
+implemented by NiceDoubleListBuffer. 
