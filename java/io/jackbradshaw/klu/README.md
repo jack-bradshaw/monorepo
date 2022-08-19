@@ -2,35 +2,30 @@
 
 Essential Kotlin helpers and utilities.
 
-This guide covers:
-
-- Dependency: How to include the library in your project.
-- Usage guide: How to use the utilities.
-
 ## Dependency
 
-There are multiple ways to include KLU in your project:
+There are multiple options for including this library in your project:
 
-1. Download the pre-built binaries.
-2. Build the binaries from source.
-3. Reference the source directly using Bazel.
+- Download the pre-built binaries.
+- Build the binaries from source.
+- Reference the source directly using Bazel.
 
-### Pre-built binaries
+### Pre-built Binaries
 
 To use the pre-build binaries, include `io.jackbradshaw:klu:0.0.1` in your Maven dependencies. Visit
-[Maven Central](https://search.maven.org/artifact/io.jackbradshaw/klu) for build-tool specific instructions and previous
-versions.
+[Maven Central](https://search.maven.org/artifact/io.jackbradshaw/klu) for build-tool specific instructions and links to
+previous versions.
 
-### Building from source
+### Building From Source
 
-To build the compiled binary from source:
+To build the binary from source:
 
 1. [Install Bazel](https://docs.bazel.build/versions/main/install.html).
-2. Clone the repository: `git clone https://github.com/jack-bradshaw/monorepo && cd monorepo`
-3. Run the build command: `bazel build //java/io/jackbradshaw/klu_full.deploy`
+2. Clone the repository: `git clone https://github.com/jack-bradshaw/monorepo`
+3. Invoke the build: `bazel build //java/io/jackbradshaw/klu_full.deploy`
 
-This will produce a jar in the `monorepo/bazel-out` containing the library and all its dependencies. The exact steps
-for using this jar in your project will vary depending on your choice of build tool and project stucture.
+This will produce a jar in the `monorepo/bazel-out` directory. The exact steps for including this jar in your project
+will vary depending on your setup.
 
 ### Referencing with Bazel
 
@@ -60,26 +55,24 @@ kt_jvm_library(
 )
 ```
 
-## Usage Guide
+## Contents
 
-TODO: This section needs work.
+This library contains:
 
-The concurrency package contains various concurrency utilities.
+- Collections utilities
+  in [io.jackbradshaw.klu.collections](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/collections)
+- Concurrency utilities
+  in [io.jackbradshaw.klu.concurrency](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency)
 
-### Once
+The available collections utilities are:
 
-[Once](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency/Once.kt) ensures a block
-of code runs exactly once even under asynchronous conditions. For example:
+- [DoubleListBuffer](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/collections/DoubleListBuffer.kt):
+  Simplifies buffering with concurrent read/write support.
 
-```kotlin
-var x = 0
-val setup = once {
-  x += 1
-}
+The available concurrency utilities are:
 
-println("$x") // Will print 0
+- [Once](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency/Once.kt): Ensures
+  blocks of code are executed at most once.
 
-for (i in 0..10) launch { setup.runIfNeverRun() }
-
-println("$x") // Will print 1
-```
+Implementations are available for the interfaces with a Nice* prefix on the name. For example the DoubleListBuffer is
+implemented by the NiceDoubleListBuffer. 

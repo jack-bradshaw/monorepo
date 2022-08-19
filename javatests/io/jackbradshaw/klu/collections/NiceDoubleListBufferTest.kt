@@ -1,16 +1,15 @@
-package io.matthewbradshaw.klu.collections
+package io.jackbradshaw.klu.collections
 
 import com.google.common.truth.Truth.assertThat
-import org.jetbrains.annotations.TestOnly
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlinx.coroutines.runBlocking
 
 @RunWith(JUnit4::class)
-class SimpleDoubleListBufferTest {
+class NiceDoubleListBufferTest {
 
-  private val buffer = SimpleDoubleListBuffer<String>()
+  private val buffer = NiceDoubleListBuffer<String>()
 
   @Test
   fun switch_inactiveListBecomesActive() = runBlocking {

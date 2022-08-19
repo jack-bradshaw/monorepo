@@ -7,7 +7,7 @@ kt_jvm_library(
     name = "collections",
     srcs = [
         "DoubleListBuffer.kt",
-        "SimpleDoubleListBuffer.kt",
+        "NiceDoubleListBuffer.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw:__subpackages__",
