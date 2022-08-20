@@ -10,7 +10,7 @@ the [issue tracker](https://github.com/jack-bradshaw/monorepo/issues).
 This repository is structured as a single monolithic repository containing multiple libraries, applications, packages,
 and collections. The locations of importance are:
 
-- [Jockstrap](https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/matthewbradshaw/jockstrap): A Kotlin
+- [otter](https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/matthewbradshaw/otter): A Kotlin
   framework for code-first game development.
 - [Kotlin Lightweight Upgrade](https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/matthewbradshaw/klu):
   Essential Kotlin helpers and utilities.

@@ -1,4 +1,4 @@
-package io.jackbradshaw.jockstrap.engine
+package io.jackbradshaw.otter.engine
 
 import org.junit.Before
 import org.junit.runner.RunWith
