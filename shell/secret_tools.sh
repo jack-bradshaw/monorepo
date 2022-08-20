@@ -4,11 +4,11 @@
 # Decrypts the main SSH key.
 unlock_ssh() {                                                                  
   eval `ssh-agent`                                                              
-  ssh-add $HOME/.ssh/matthewbradshaw
+  ssh-add $HOME/.ssh/jackbradshaw
 }
 
 # Decrypts the main GPG key.
 unlock_gpg() {
   eval `gpg-agent`
-  gpg --import $HOME/.gpgkeys/matthewbradshaw
+  gpg --import $HOME/.gpgkeys/jackbradshaw
 }

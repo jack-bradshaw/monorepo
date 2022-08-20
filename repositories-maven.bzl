@@ -19,7 +19,7 @@ KTOR_VERSION = "1.6.7"
 
 PROTOBUF_GENERAL_VERSION = "3.21.1"
 
-def io_matthewbradshaw_maven_repositories():
+def io_jackbradshaw_maven_repositories():
     maybe(
         maven_install,
         name = DEFAULT_REPOSITORY_NAME,

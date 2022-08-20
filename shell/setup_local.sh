@@ -2,7 +2,7 @@
 # Configures the local shell environment.
 
 # Constants.
-REMOTE="https://github.com/matthewbradshaw-io/monorepo"
+REMOTE="https://github.com/jack-bradshaw/monorepo"
 LOCAL=$HOME/HEAD
 
 # Creates a local directory to cache the remote files.
@@ -41,9 +41,9 @@ export_ssh_keys() {
   
   read -r -p "Decrypt SSH keys? (Y/N) " response
     if [ "$response" == "Y" ] || [ "$response" == "y" ]; then
-      gpg --output $HOME/.ssh/matthewbradshaw --decrypt \
-          $LOCAL/shell/.ssh/matthewbradshaw_private.gpg
-      chmod 400 $HOME/.ssh/matthewbradshaw # self-read-only
+      gpg --output $HOME/.ssh/jackbradshaw --decrypt \
+          $LOCAL/shell/.ssh/jackbradshaw_private.gpg
+      chmod 400 $HOME/.ssh/jackbradshaw # self-read-only
     fi
 }
 
@@ -54,9 +54,9 @@ export_gpg_keys() {
 
   read -r -p "Decrypt GPG keys? (Y/N) " response 
   if [ "$response" == "Y" ] || [ "$response" == "y" ]; then
-    gpg --output $HOME/.gpgkeys/matthewbradshaw --decrypt \
-        $LOCAL/shell/.gpgkeys/matthewbradshaw_private.gpg
-    chmod 400 $HOME/.gpgkeys/matthewbradshaw # self-read-only
+    gpg --output $HOME/.gpgkeys/jackbradshaw --decrypt \
+        $LOCAL/shell/.gpgkeys/jackbradshaw_private.gpg
+    chmod 400 $HOME/.gpgkeys/jackbradshaw # self-read-only
   fi
 }
 

@@ -4,7 +4,7 @@ load("@rules_jvm_external//:defs.bzl", "java_export")
 kt_jvm_library(
     name = "klu",
     visibility = [
-        "//java/io/matthewbradshaw:__subpackages__",
+        "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
     ],
     exports = [
@@ -16,7 +16,7 @@ kt_jvm_library(
 java_binary(
     name = "klu_binary",
     visibility = [
-        "//java/io/matthewbradshaw:__subpackages__",
+        "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
     ],
     runtime_deps = [
@@ -27,7 +27,7 @@ java_binary(
 java_export(
     name = "klu_release",
     srcs = ["Stub.java"],
-    maven_coordinates = "io.matthewbradshaw:klu:2.1.1",
+    maven_coordinates = "io.jackbradshaw:klu:0.1.1",
     pom_template = "pom_template",
     deps = [
         ":klu",
