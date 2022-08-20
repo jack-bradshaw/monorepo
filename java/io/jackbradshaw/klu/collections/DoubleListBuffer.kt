@@ -19,7 +19,7 @@ import java.util.LinkedList
  *   buffer.getInactive().forEach { /* process it */ }
  * }
  *
- * See [NiceDoubleListBuffer] for a simple implementation.
+ * See [SimpleDoubleListBuffer] for a simple implementation.
  */
 interface DoubleListBuffer<T> {
   /**

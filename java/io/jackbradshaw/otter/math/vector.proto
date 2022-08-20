@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package io.jackbradshaw.otter.math;
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.otter.math";
+option java_outer_classname = "VectorProto";
+
+/**
+ * A vector in 3 dimensional space (https://en.wikipedia.org/wiki/Euclidean_vector) where the axes are oriented using
+ * the right hand rule (https://en.wikipedia.org/wiki/Right-hand_rule#Coordinates).
+ */
+message Vector {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}

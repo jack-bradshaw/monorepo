@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package io.jackbradshaw.otter.physics;
+
+import "java/io/jackbradshaw/otter/math/vector.proto";
+import "java/io/jackbradshaw/otter/math/point.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.otter.physics";
+option java_outer_classname = "DynamicsProto";
+
+message Force {
+  io.jackbradshaw.otter.math.Vector force = 1;
+  io.jackbradshaw.otter.math.Point location = 2;
+}

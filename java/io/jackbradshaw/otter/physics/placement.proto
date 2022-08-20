@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package io.jackbradshaw.otter.physics;
+
+import "java/io/jackbradshaw/otter/math/quaternion.proto";
+import "java/io/jackbradshaw/otter/math/point.proto";
+import "java/io/jackbradshaw/otter/math/vector.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.otter.physics";
+option java_outer_classname = "PlacementProto";
+
+/**
+ * The static properties of a body at a point in time.
+ */
+message Placement {
+  /**
+   * The translation component.
+   */
+  io.jackbradshaw.otter.math.Point position = 1;
+
+  /**
+   * The rotation component.
+   */
+  io.jackbradshaw.otter.math.Quaternion rotation = 2;
+
+  /**
+   * The scale component.
+   */
+  io.jackbradshaw.otter.math.Vector scale = 3;
+}
