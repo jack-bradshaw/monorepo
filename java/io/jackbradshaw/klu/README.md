@@ -1,78 +1,79 @@
 # Kotlin Lightweight Upgrade (KLU)
 
-Essential Kotlin helpers and utilities.
+Essential utilities and helpers to fill the gaps in the Kotlin standard library.
+
+This guide covers:
+
+- Dependency: How to include the library in another project.
+- Concurrency: How to use the utilities in the KLU concurrency package.
 
 ## Dependency
 
-There are multiple options for including this library in your project:
+There are multiple ways to include KLU in your project:
 
-- Download the pre-built binaries.
-- Build the binaries from source.
-- Reference the source directly using Bazel.
+1. Include the pre-built binaries in your dependencies.
+2. Build the binaries directly from the source.
+3. Reference the source directly from another Bazel target.
 
-### Pre-built Binaries
+### Pre-built binaries
 
-To use the pre-build binaries, include `io.jackbradshaw:klu:0.0.1` in your Maven dependencies. Visit
-[Maven Central](https://search.maven.org/artifact/io.jackbradshaw/klu) for build-tool specific instructions and links to
-previous versions.
+To use the pre-build binaries, include `io.jackbradshaw:klu:2.0.0` in your Maven dependencies. See [Maven Central](https://search.maven.org/artifact/io.jackbradshaw/klu) for build-tool specific instructions and previous versions.
 
-### Building From Source
+### Building from the source
 
-To build the binary from source:
+To build the compiled binary from the source:
 
 1. [Install Bazel](https://docs.bazel.build/versions/main/install.html).
-2. Clone the repository: `git clone https://github.com/jack-bradshaw/monorepo`
-3. Invoke the build: `bazel build //java/io/jackbradshaw/klu_full.deploy`
+2. Clone the repository: `git clone https://github.com/matthewbradshaw-io/monorepo && cd monorepo`
+3. Run the build command: `bazel build //java/io/jackbradshaw/klu_full.deploy`
 
-This will produce a jar in the `monorepo/bazel-out` directory. The exact steps for including this jar in your project
-will vary depending on your setup.
+This will produce a jar in the bazel-out directory which contains the library and all its dependencies. Include this in your project directly (exact steps depend on your choice of build tool).
 
 ### Referencing with Bazel
 
 To reference the library directly in another Bazel workspace:
 
-1. Install this repository. In your WORKSPACE file add:
+1. Install the repository in the WORKSPACE:
 
 ```
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
-    name = "io_jackbradshaw",
+    name = "io_matthewbradshaw",
     branch = "main",
-    remote = "https://github.com/jack-bradshaw/monorepo",
+    remote = "https://github.com/matthewbradshaw-io/monorepo",
 )
 ```
 
-2. Reference the library. In your BUILD file:
+2. Reference the library in the deps of another target:
 
 ```
 kt_jvm_library(
     name = "hello_world",
     srcs = "HelloWorld.kt",
     deps = [
-        "@io_jackbradshaw//:java/io/jackbradshaw/klu",
+        "@io_matthewbradshaw//:java/io/jackbradshaw/klu",
     ]
 )
 ```
 
-## Contents
+## Concurrency
 
-This library contains:
+The concurrency package (io.jackbradshaw.klu.concurrency) contains utilities to simplify concurrency in Kotlin.
 
-- Collections utilities
-  in [io.jackbradshaw.klu.collections](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/collections)
-- Concurrency utilities
-  in [io.jackbradshaw.klu.concurrency](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency)
+### Once
 
-The available collections utilities are:
+[Once](https://github.com/matthewbradshaw-io/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency/Once.kt) ensures a block of code runs exactly once even under asynchronous conditions. For example:
 
-- [DoubleListBuffer](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/collections/DoubleListBuffer.kt):
-  Simplifies buffering with concurrent read/write support.
+```kotlin
+var x = 0
+val setup = once {
+  x += 1
+}
 
-The available concurrency utilities are:
+println("$x") // Will print 0
 
-- [Once](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency/Once.kt): Ensures
-  blocks of code are executed at most once.
+for (i in 0..10) launch { setup.runIfNeverRun() }
 
-Implementations are available for the interfaces with a Nice* prefix on the name. For example, DoubleListBuffer is
-implemented by NiceDoubleListBuffer. 
+println("$x") // Will print 1
+```
