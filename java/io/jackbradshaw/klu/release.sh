@@ -4,8 +4,6 @@
 echo "Enter password for Sonatype."
 read -s password
 
-unlock_gpg
-
 bazel run --stamp \
     --define "maven_repo=https://s01.oss.sonatype.org/service/local/staging/deploy/maven2" \
     --define "maven_user=jackbradshaw" \
