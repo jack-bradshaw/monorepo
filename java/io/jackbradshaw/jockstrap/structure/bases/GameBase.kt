@@ -1,26 +1,23 @@
-package java.io.jackbradshaw.jockstrap.bases
+package io.jackbradshaw.jockstrap.structure.bases
 
-import io.jackbradshaw.klu.concurrency.errorOnSubsequentRuns
-import io.jackbradshaw.klu.concurrency.once
 import io.jackbradshaw.jockstrap.engine.Engine
-import io.jackbradshaw.jockstrap.snapshot.SnapshotStore
-import io.jackbradshaw.jockstrap.structure.level.LevelId
-import io.jackbradshaw.jockstrap.structure.level.LevelSnapshot
+import io.jackbradshaw.jockstrap.structure.controllers.LevelId
+import io.jackbradshaw.jockstrap.structure.controllers.LevelSnapshot
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.io.jackbradshaw.jockstrap.elements.*
+import io.jackbradshaw.jockstrap.structure.controllers.Game
 
 /**
- * A convenience implementation of [Game] that does all the heavy lifting. Game can be difficult to implement
- * correctly, so the framework authors highly recommend using this class as the base for all production games.
+ * A convenience implementation of [Game] that does all the heavy lifting. This class implements many of the interface
+ * functions which reduces the work on the end-engineer but takes away some control. Engineers who need access to these
+ * functions can instead override the pre* and post* functions to receive callbacks when the functions enter and exit.
  */
-open class BaseGame(
-  engine: Engine,
-  snapshotStore: SnapshotStore,
+abstract class GameBase(
+    private val engine: Engine,
 ) : Game {
 
-  abstract suspend fun createDefaultLevel(): Level
+  /*abstract suspend fun createDefaultLevel(): Level
 
   abstract suspend fun createCleanLevel(levelId: LevelId): Level
 
@@ -96,11 +93,7 @@ open class BaseGame(
 
   protected suspend fun preSwitchToLevel(levelId: LevelId, restorationBehavior: RestorationBehavior) = Unit
 
-  protected suspend fun postSwitchToLevel(
-    levelId: LevelId,
-    restorationBehavior: RestorationBehavior,
-    result: SwitchResult
-  ) = Unit
+  protected suspend fun postSwitchToLevel(levelId: LevelId, restorationBehavior: RestorationBehavior, result: SwitchResult) = Unit
 
   protected suspend fun preSaveCurrentLevel() = Unit
 
@@ -117,5 +110,5 @@ open class BaseGame(
     levelGuard.withLock {
       return level?.save() ?: SaveResult.NoLevelSet
     }
-  }
+  }*/
 }

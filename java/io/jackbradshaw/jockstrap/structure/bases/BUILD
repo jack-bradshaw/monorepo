@@ -7,28 +7,29 @@ dagger_rules()
 auto_factory()
 
 kt_jvm_library(
-    name = "proto_extensions",
+    name = "bases",
     srcs = [
-        "BasePrimitive.kt",
-        #"BaseEntity.kt",
-        #  "BaseGame.kt",
-        #  "BaseLevel.kt",
+        "ComponentBase.kt",
+        "GameBase.kt",
+        "IntegrationBase.kt",
+        "ItemBase.kt",
+        "LevelBase.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/jockstrap:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":auto_factory",
-        "//java/io/jackbradshaw/jockstrap/graphics:java_lite_proto",
-        "//java/io/jackbradshaw/jockstrap/graphics:jmonkey_conversion",
-        "//java/io/jackbradshaw/jockstrap/math:jmonkey_conversion",
-        "//java/io/jackbradshaw/jockstrap/math:proto_extensions",
-        "//java/io/jackbradshaw/jockstrap/model/elements:java_lite_protos",
-        "//java/io/jackbradshaw/jockstrap/model/elements:proto_extensions",
+        "//java/io/jackbradshaw/jockstrap/engine",
+        "//java/io/jackbradshaw/jockstrap/math:java_lite_proto",
         "//java/io/jackbradshaw/jockstrap/physics:java_lite_proto",
-        "//java/io/jackbradshaw/jockstrap/physics:jmonkey_conversion",
         "//java/io/jackbradshaw/jockstrap/physics:proto_extensions",
+        "//java/io/jackbradshaw/jockstrap/structure/controllers",
+        "//java/io/jackbradshaw/jockstrap/structure/controllers:java_lite_protos",
+        "//java/io/jackbradshaw/jockstrap/structure/frames",
         "//java/io/jackbradshaw/klu/flow",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@maven//:org_jmonkeyengine_jme3_bullet",
+        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )

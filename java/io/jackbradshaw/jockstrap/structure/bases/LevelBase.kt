@@ -1,16 +1,19 @@
-package java.io.jackbradshaw.jockstrap.bases
+package io.jackbradshaw.jockstrap.structure.bases
 
-import java.io.jackbradshaw.jockstrap.elements.Entity
+import io.jackbradshaw.jockstrap.engine.Engine
+import io.jackbradshaw.jockstrap.structure.controllers.Level
+import io.jackbradshaw.jockstrap.structure.controllers.LevelId
 
 /**
- * A convenience implementation of [Level] that does all the heavy lifting. Level can be difficult to implement
- * correctly, so the framework authors recommend using this class as the base for all production levels.
+ * A convenience implementation of [Level] that does all the heavy lifting. This class implements many of the interface
+ * functions which reduces the work on the end-engineer but takes away some control. Engineers who need access to these
+ * functions can instead override the pre* and post* functions to receive callbacks when the functions enter and exit.
  */
 abstract class BaseLevel(
-  engine: Engine,
+    private val engine: Engine,
 ) : Level {
 
-  private val rootNode = Node("level_root")
+  /*private val rootNode = Node("level_root")
 
   private val entitiesById = mutableMapOf<EntityId, Entity>()
 
@@ -147,9 +150,9 @@ abstract class BaseLevel(
 
   private suspend fun cancelOngoingOperations() {
     ongoingOperations?.cancel()
-  }
+  }*/
 }
-
+/*
 sealed interface RestorationBehavior {
   object StartFresh : RestorationBehavior
   class RestoreSnapshotWithId(val id: LevelSnapshotId) : RestorationBehavior
@@ -167,4 +170,4 @@ sealed class SaveResult(val isSuccess: Boolean) {
   object NoLevelSet : SaveResult(false)
   object SnapshotUnavailable : SaveResult(false)
   class GenericFailure(val error: Throwable) : SaveResult(false)
-}
+}*/

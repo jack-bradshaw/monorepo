@@ -12,7 +12,6 @@ proto_library(
         "component.proto",
         "item.proto",
         "level.proto",
-        "primitive.proto",
     ],
     visibility = [
         "//java/io/jackbradshaw/jockstrap:__subpackages__",
@@ -43,13 +42,14 @@ java_lite_proto_library(
 )
 
 kt_jvm_library(
-    name = "proto_extensions",
+    name = "controllers",
     srcs = [
         "Component.kt",
         "Game.kt",
+        "Ids.kt",
+        "Integration.kt",
         "Item.kt",
         "Level.kt",
-        "Primitive.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/jockstrap:__subpackages__",

@@ -8,12 +8,8 @@ option java_multiple_files = true;
 option java_package = "io.jackbradshaw.jockstrap.structure.controllers";
 option java_outer_classname = "LevelProto";
 
-message LevelId {
-  string value = 1;
-}
-
 message LevelSnapshot {
-  LevelId level_id = 1;
+  string level_id = 1;
   repeated io.jackbradshaw.jockstrap.structure.controllers.ComponentSnapshot component_snapshot = 2;
   bytes extras = 3;
 }

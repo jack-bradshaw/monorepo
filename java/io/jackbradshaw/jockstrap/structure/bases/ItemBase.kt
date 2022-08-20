@@ -1,22 +1,24 @@
-package java.io.jackbradshaw.jockstrap.bases
+package io.jackbradshaw.jockstrap.structure.bases
 
 import io.jackbradshaw.klu.flow.BinaryDelta
 import io.jackbradshaw.klu.flow.BinaryDeltaFlow
 import io.jackbradshaw.klu.flow.BinaryDeltaPair
-import io.jackbradshaw.jockstrap.physics.originTransform
-import io.jackbradshaw.jockstrap.physics.Transform
+import io.jackbradshaw.jockstrap.physics.placeZero
+import io.jackbradshaw.jockstrap.physics.Placement
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onStart
-import java.io.jackbradshaw.jockstrap.elements.Entity
+import io.jackbradshaw.jockstrap.structure.controllers.Item
+import io.jackbradshaw.jockstrap.structure.controllers.ItemId
 
 /**
- * A convenience implementation of [Entity] that does all the heavy lifting. Entity can be difficult to implement
- * correctly, so the framework authors recommend using this class as the base for all production entities.
+ * A convenience implementation of [Item] that does all the heavy lifting. This class implements many of the interface
+ * functions which reduces the work on the end-engineer but takes away some control. Engineers who need access to these
+ * functions can instead override the pre* and post* functions to receive callbacks when the functions enter and exit.
  */
-open class BaseItem(override val id: EntityId) : Entity {
+abstract class ItemBase(override val id: ItemId) : Item {
 
-  private val placement = MutableStateFlow<Transform>(originTransform())
+  /*private val placement = MutableStateFlow<Transform>(originTransform())
   private val attachedComponents = mutableMapOf<EntityId, Entity>()
   private val exportedComponents = mutableSetOf<ExportedComponent<*>>()
   private val attachedComponentFlow = MutableSharedFlow<BinaryDeltaPair<Entity>>(replay = 0)
@@ -121,5 +123,5 @@ open class BaseItem(override val id: EntityId) : Entity {
 
   protected suspend fun preOnDetachFromHost() = Unit
 
-  protected suspend fun postOnDetachFromHost() = Unit
+  protected suspend fun postOnDetachFromHost() = Unit*/
 }

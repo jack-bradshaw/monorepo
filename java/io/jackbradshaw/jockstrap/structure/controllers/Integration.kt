@@ -1,15 +1,13 @@
 package io.jackbradshaw.jockstrap.structure.controllers
 
 import io.jackbradshaw.jockstrap.engine.Engine
+import io.jackbradshaw.jockstrap.structure.controllers.Item
 import io.jackbradshaw.jockstrap.structure.frames.Hostable
-import io.jackbradshaw.jockstrap.structure.frames.Placeable
-import io.jackbradshaw.jockstrap.structure.frames.Playable
-import io.jackbradshaw.jockstrap.structure.frames.Restorable
 import io.jackbradshaw.klu.flow.BinaryDeltaFlow
 
-interface Primitive : Hostable<Item>, Playable, Placeable {
+interface Integration : Hostable<Item> {
 
-  val id: PrimitiveId
+  val id: IntegrationId
 
   fun engineElements(): BinaryDeltaFlow<Any>
 

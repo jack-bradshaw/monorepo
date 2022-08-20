@@ -4,11 +4,13 @@ import io.jackbradshaw.jockstrap.structure.frames.Hostable
 import io.jackbradshaw.jockstrap.structure.frames.Placeable
 import io.jackbradshaw.jockstrap.structure.frames.Restorable
 import io.jackbradshaw.klu.flow.BinaryDeltaFlow
-import io.jackbradshaw.klu.flow.Flower
+import io.jackbradshaw.jockstrap.structure.controllers.Integration
 
 interface Item : Hostable<Component>, Placeable, Restorable<ItemSnapshot> {
 
   val id: ItemId
 
-  fun constituents(): BinaryDeltaFlow<Primitive>
+  fun integrations(): BinaryDeltaFlow<Integration>
+
+  fun engineElements(): BinaryDeltaFlow<Any>
 }
