@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Constants.
-REMOTE="https://github.com/matthewbradshaw-io/monorepo"
+REMOTE="https://github.com/jack-bradshaw/monorepo"
 LOCAL=$HOME/HEAD
 
 # Clones HEAD and sources the shell from the cloned repo.

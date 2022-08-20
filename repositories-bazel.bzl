@@ -1,7 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
-def io_matthewbradshaw_bazel_repositories():
+def io_jackbradshaw_bazel_repositories():
     maybe(
         http_archive,
         name = "rules_jvm_external",

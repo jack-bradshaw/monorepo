@@ -1,8 +1,8 @@
-workspace(name = "io_matthewbradshaw")
+workspace(name = "io_jackbradshaw")
 
-load("//:repositories-bazel.bzl", "io_matthewbradshaw_bazel_repositories")
+load("//:repositories-bazel.bzl", "io_jackbradshaw_bazel_repositories")
 
-io_matthewbradshaw_bazel_repositories()
+io_jackbradshaw_bazel_repositories()
 
 load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
 
@@ -12,9 +12,9 @@ load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
 
 rules_jvm_external_setup()
 
-load("//:repositories-maven.bzl", "io_matthewbradshaw_maven_repositories")
+load("//:repositories-maven.bzl", "io_jackbradshaw_maven_repositories")
 
-io_matthewbradshaw_maven_repositories()
+io_jackbradshaw_maven_repositories()
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 

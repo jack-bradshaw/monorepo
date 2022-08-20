@@ -10,9 +10,9 @@ the [issue tracker](https://github.com/jack-bradshaw/monorepo/issues).
 This repository is structured as a single monolithic repository containing multiple libraries, applications, packages,
 and collections. The locations of importance are:
 
-- [Otter](https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/matthewbradshaw/otter): A Kotlin
+- [Otter](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter): A Kotlin
   framework for working with the [jMonkeyEngine](https://jmonkeyengine.org/).
-- [Kotlin Lightweight Upgrade](https://github.com/matthewbradshaw-io/monorepo/tree/main/java/io/matthewbradshaw/klu):
+- [Kotlin Lightweight Upgrade](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu):
   Essential Kotlin helpers and utilities.
 
 Follow the links for detailed documentation including release information.
