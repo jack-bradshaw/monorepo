@@ -1,13 +1,13 @@
 package io.jackbradshaw.otter.clock
 
-import io.jackbradshaw.otter.otterScope
+import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.engine.Engine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@otterScope
+@OtterScope
 class RenderingClock @Inject internal constructor(
   private val engine: Engine
 ) : Clock {
