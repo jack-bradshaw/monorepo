@@ -36,3 +36,4 @@ interface DoubleListBuffer<T> {
    * Switches the active list and the inactive list atomically.
    */
   suspend fun switch()
+}
