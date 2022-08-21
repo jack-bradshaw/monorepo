@@ -15,6 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+import com.jme3.audio.Listener
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -79,6 +80,7 @@ class EngineImpl @Inject internal constructor(
   }
 
   override fun extractDefaultCamera() = cam
+  override fun extractDefaultMicrophone() = listener
   override fun extractViewPort() = viewPort
   override fun extractAssetManager() = assetManager
   override fun extractStateManager() = stateManager

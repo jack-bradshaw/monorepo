@@ -10,6 +10,7 @@ import com.jme3.scene.Node
 import kotlinx.coroutines.CoroutineScope
 import com.jme3.input.InputManager
 import com.jme3.renderer.ViewPort
+import com.jme3.audio.Listener
 
 /**
  * Extracts elements from a jMonkey game engine.
@@ -20,6 +21,11 @@ interface Engine {
    * Extracts the default camera.
    */
   fun extractDefaultCamera(): Camera
+
+  /**
+   * Extracts the default audio listener.
+   */
+  fun extractDefaultMicrophone(): Listener
 
   /**
    * Extracts the view port.
