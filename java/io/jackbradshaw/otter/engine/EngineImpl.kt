@@ -79,10 +79,11 @@ class EngineImpl @Inject internal constructor(
 
   override fun extractDefaultCamera() = cam
   override fun extractAssetManager() = assetManager
+  override fun extractStateManager() = stateManager
+  override fun extractInputManager(): inputManager
   override fun extractApp() = this
   override fun extractVr() = vr
   override fun extractPhysics() = physics
-  override fun extractStateManager() = stateManager
   override fun extractFrameworkNode() = frameworkNode
   override fun extractGameNode() = gameNode
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
