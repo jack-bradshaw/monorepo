@@ -78,6 +78,7 @@ class EngineImpl @Inject internal constructor(
   }
 
   override fun extractDefaultCamera() = cam
+  override fun extractViewPort() = viewPort
   override fun extractAssetManager() = assetManager
   override fun extractStateManager() = stateManager
   override fun extractInputManager() = inputManager
@@ -87,7 +88,7 @@ class EngineImpl @Inject internal constructor(
   override fun extractFrameworkNode() = frameworkNode
   override fun extractGameNode() = gameNode
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
-  override fun extractTotalTime(): Double = totalRuntimeSec
+  override fun extractTotalGameRuntime(): Double = totalRuntimeSec
 
   companion object {
     private const val DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX = 1024
