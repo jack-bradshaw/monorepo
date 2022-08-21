@@ -8,6 +8,7 @@ import com.jme3.bullet.BulletAppState
 import com.jme3.renderer.Camera
 import com.jme3.scene.Node
 import kotlinx.coroutines.CoroutineScope
+import com.jme3.input.InputManager
 
 /**
  * The core elements of the [jMonkey 3 game engine](https://jmonkeyengine.org/).
@@ -25,6 +26,16 @@ interface Engine {
   fun extractAssetManager(): AssetManager
 
   /**
+   * Extracts the state manager from the game engine.
+   */
+  fun extractStateManager(): AppStateManager
+
+  /**
+   * Extracts the input manager from the game engine.
+   */
+  fun extractInputManager(): InputManager
+
+  /**
    * Extracts the root application object from the game engine.
    */
   fun extractApp(): SimpleApplication
@@ -38,11 +49,6 @@ interface Engine {
    * Extracts the physics controller from the game engine.
    */
   fun extractPhysics(): BulletAppState
-
-  /**
-   * Extracts the state manager from the game engine.
-   */
-  fun extractStateManager(): AppStateManager
 
   /**
    * Extracts a node near the scene root for internal use by the framework. Framework consumers should not modify or

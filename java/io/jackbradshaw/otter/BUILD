@@ -6,7 +6,7 @@ dagger_rules()
 kt_jvm_library(
     name = "scope",
     srcs = [
-        "otterScope.kt",
+        "OtterScope.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
@@ -20,7 +20,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "component",
     srcs = [
-        "otterComponent.kt",
+        "OtterComponent.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
