@@ -34,10 +34,10 @@ kt_jvm_library(
     name = "impl",
     srcs = [
         "LightIntegrator.kt",
+        "NodeIntegrator.kt",
         "PhysicsCharacterIntegrator.kt",
         "PhysicsColliderIntegrator.kt",
         "PhysicsJointIntegrator.kt",
-        "SpatialIntegrator.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",

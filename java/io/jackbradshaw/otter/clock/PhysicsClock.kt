@@ -4,7 +4,7 @@ import com.jme3.bullet.PhysicsSpace
 import com.jme3.bullet.PhysicsTickListener
 import com.jme3.bullet.control.GhostControl
 import com.jme3.scene.Node
-import io.jackbradshaw.otter.otterScope
+import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.engine.Engine
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@otterScope
+@OtterScope
 class PhysicsClock @Inject internal constructor(
   private val engine: Engine
 ) : Clock {

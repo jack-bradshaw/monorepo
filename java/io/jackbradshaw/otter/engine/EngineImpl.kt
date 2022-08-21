@@ -8,7 +8,7 @@ import com.jme3.app.VREnvironment
 import com.jme3.scene.Node
 import com.jme3.bullet.BulletAppState
 import com.jme3.system.AppSettings
-import io.jackbradshaw.otter.otterScope
+import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.config.Config
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-@otterScope
+@OtterScope
 class EngineImpl @Inject internal constructor(
   private val config: Config
 ) : Engine, SimpleApplication() {
@@ -79,10 +79,11 @@ class EngineImpl @Inject internal constructor(
 
   override fun extractDefaultCamera() = cam
   override fun extractAssetManager() = assetManager
+  override fun extractStateManager() = stateManager
+  override fun extractInputManager() = inputManager
   override fun extractApp() = this
   override fun extractVr() = vr
   override fun extractPhysics() = physics
-  override fun extractStateManager() = stateManager
   override fun extractFrameworkNode() = frameworkNode
   override fun extractGameNode() = gameNode
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope

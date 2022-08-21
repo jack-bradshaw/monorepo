@@ -1,6 +1,7 @@
 package io.jackbradshaw.otter.clock
 
 import dagger.Binds
+import dagger.Module
 
 @Module
 interface ClockModule {

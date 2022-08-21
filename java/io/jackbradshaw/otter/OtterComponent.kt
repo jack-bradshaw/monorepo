@@ -11,14 +11,14 @@ import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.engine.Engine
 import io.jackbradshaw.otter.engine.EngineModule
 
-@otterScope
+@OtterScope
 @Component(
   modules = [
     EngineModule::class,
     ClockModule::class,
   ]
 )
-interface TrinityComponent {
+interface OtterComponent {
 
   @Physics
   fun physicsClock(): Clock
@@ -35,9 +35,9 @@ interface TrinityComponent {
   interface Builder {
     @BindsInstance
     fun setConfig(config: Config): Builder
-    fun build(): TrinityComponent
+    fun build(): OtterComponent
   }
 }
 
-fun trinity(config: Config): TrinityComponent =
-  DaggerTrinityComponent.builder().setConfig(config).build()
+fun otter(config: Config): OtterComponent =
+  DaggerOtterComponent.builder().setConfig(config).build()

@@ -1,6 +1,7 @@
 package io.jackbradshaw.otter.engine
 
 import dagger.Binds
+import dagger.Module
 
 @Module
 interface EngineModule {
