@@ -34,9 +34,11 @@ kt_jvm_library(
     name = "impl",
     srcs = [
         "LightIntegrator.kt",
+        "ParticleEffectIntegrator.kt",
         "PhysicsCharacterIntegrator.kt",
         "PhysicsColliderIntegrator.kt",
         "PhysicsJointIntegrator.kt",
+        "SceneProcessorIntegrator.kt",
         "SpatialIntegrator.kt",
     ],
     visibility = [
