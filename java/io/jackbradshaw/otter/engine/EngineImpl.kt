@@ -63,6 +63,7 @@ class EngineImpl @Inject internal constructor(
       setSettings(settings)
       setShowSettings(false)
       setLostFocusBehavior(LostFocusBehavior.Disabled)
+      inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
       setDisplayFps(config.debugEnabled)
       if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
