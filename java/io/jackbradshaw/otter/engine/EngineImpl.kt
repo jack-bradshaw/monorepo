@@ -9,7 +9,7 @@ import com.jme3.bullet.BulletAppState
 import com.jme3.audio.AudioRenderer
 import com.jme3.system.AppSettings
 import io.jackbradshaw.otter.OtterScope
-import io.jackbradshaw.otter.config.Config
+import io.jackbradshaw.otter.engine.config.Config
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

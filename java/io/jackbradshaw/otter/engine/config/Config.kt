@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.config
+package io.jackbradshaw.otter.engine.config
 
 /**
  * Engine configuration.
