@@ -79,8 +79,8 @@ class EngineImpl @Inject internal constructor(
     super.destroy()
   }
 
-  override fun extractDefaultCamera() = cam
-  override fun extractDefaultMicrophone() = listener
+  override fun extractDefaultInGameCamera() = cam
+  override fun extractDefaultInGameMicrophone() = listener
   override fun extractViewPort() = viewPort
   override fun extractAssetManager() = assetManager
   override fun extractStateManager() = stateManager

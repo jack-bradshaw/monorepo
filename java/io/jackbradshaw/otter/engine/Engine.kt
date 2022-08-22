@@ -20,12 +20,12 @@ interface Engine {
   /**
    * Extracts the default camera.
    */
-  fun extractDefaultCamera(): Camera
+  fun extractDefaultInGameCamera(): Camera
 
   /**
    * Extracts the default audio listener.
    */
-  fun extractDefaultMicrophone(): Listener
+  fun extractDefaultInGameMicrophone(): Listener
 
   /**
    * Extracts the view port.
