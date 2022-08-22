@@ -36,7 +36,7 @@ class EngineImpl @Inject internal constructor(
     if (config.vrEnabled) {
       put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
       put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
-      setGammaCorrection(config.gammaCorrectionEnabled)
+
     }
   }
   private val vr = if (config.vrEnabled) createVrAppState() else null
@@ -63,6 +63,7 @@ class EngineImpl @Inject internal constructor(
       setSettings(settings)
       setShowSettings(false)
       setLostFocusBehavior(LostFocusBehavior.Disabled)
+      setDisplayFps(config.debugEnabled)
       if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
       if (vr != null) stateManager.attach(vr)
