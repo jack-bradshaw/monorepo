@@ -12,22 +12,7 @@ and collections. The locations of importance are:
 
 - [Otter](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter): A Kotlin
   framework for working with the [jMonkeyEngine](https://jmonkeyengine.org/).
-- [Kotlin Lightweight Upgrade](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu):
+- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu):
   Essential Kotlin helpers and utilities.
 
 Follow the links for detailed documentation including release information.
-
-## Contributing
-
-Contributions from others are welcome. To keep the codebase healthy, please ensure all contributions are:
-
-1. Readable: Can other engineers understand the meaning of the code without significant difficulty?
-2. Maintainable: Can engineers keep the code working and make changes as needed without breaking production?
-3. Testable: Is the correctness of the code be enforced by an automated test?
-4. Consistent: Does the code conform to the conventions, designs, and patterns of the surrounding code and the larger
-   software ecosystem/community?
-5. Durable: Does the code solve a long-term problem and prevent the need for repeated refactoring/redesign?
-6. Respectful: Does the code avoid unnecessary suffering and
-   use [inclusive terminology](https://opensource.google/documentation/reference/respectfulcode)?
-
-Contributions will be accepted once they have been determined to meet these requirements via code review.
