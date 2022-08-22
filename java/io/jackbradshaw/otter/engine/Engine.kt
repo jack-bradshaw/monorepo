@@ -18,7 +18,7 @@ import com.jme3.audio.Listener
 import com.jme3.audio.AudioRenderer
 
 /**
- * Extracts elements from a jMonkey game engine.
+ * The [jMonkey](https://wiki.jmonkeyengine.org/docs/3.4/documentation.html) game engine.
  */
 interface Engine {
 
@@ -28,7 +28,7 @@ interface Engine {
   fun extractApplication(): SimpleApplication
 
   /**
-   * Extracts the context.
+   * Extracts the jMonkey context.
    */
   fun extractContext(): JmeContext
 
@@ -47,8 +47,14 @@ interface Engine {
    */
   fun extractInputManager(): InputManager
 
+  /**
+   * Extracts the render manager.
+   */
   fun extractRenderManager(): RenderManager
 
+  /**
+   * Extracts the video renderer.
+   */
   fun extractVideoRenderer(): Renderer
 
   /**
@@ -57,51 +63,54 @@ interface Engine {
   fun extractAudioRenderer(): AudioRenderer
 
   /**
-   * Extracts the default camera.
+   * Extracts the default in-game camera.
    */
   fun extractDefaultInGameCamera(): Camera
 
   /**
-   * Extracts the default audio listener.
+   * Extracts the default in-game microphone (otherwise known as the audio listener).
    */
   fun extractDefaultInGameMicrophone(): Listener
 
   /**
-   * Extracts the view port.
+   * Extracts the default view port.
    */
   fun extractDefaultViewPort(): ViewPort
 
   /**
-   * Extracts the VR controller, null if the engine is not configured for VR.
+   * Extracts the VR system, null if the engine is not configured for VR.
    */
   fun extractVr(): VRAppState?
 
   /**
-   * Extracts the physics controller.
+   * Extracts the physics system.
    */
   fun extractPhysics(): BulletAppState
 
   /**
-   * Extracts a node near the scene root for internal use by the framework. Framework consumers should not modify or use
-   * this node and should instead use [extractGameNode].
+   * Extracts a node near the scene root for use by the framework internally. Framework consumers should not modify or
+   * use this node and should instead use [extractGameNode] as their root node.
    */
   fun extractFrameworkNode(): Node
 
   /**
    * Extracts a node near the scene root for use by framework consumers. Framework consumers should treat this as the
-   * root node for their games.
+   * root node in their games/applications.
    */
   fun extractGameNode(): Node
 
   /**
-   * Extracts a coroutine scope which tracks the engine state, meaning it is cancelled when the game engine stops.
+   * Extracts a coroutine scope which tracks the engine state. When the engine stops, the scope is cancelled.
    */
   fun extractCoroutineScope(): CoroutineScope
 
+  /**
+   * Extracts the timer.
+   */
   fun extractTimer(): Timer
 
   /**
-   * The time since game start, measured in seconds.
+   * Extracts the time between now and when the engine was started, measured in seconds.
    */
-  fun extractTotalGameRuntime(): Double
+  fun extractTotalEngineRuntime(): Double
 }

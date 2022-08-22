@@ -102,7 +102,7 @@ class EngineImpl @Inject internal constructor(
   override fun extractGameNode() = gameNode
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
   override fun extractTimer() = timer
-  override fun extractTotalGameRuntime(): Double = totalRuntimeSec
+  override fun extractTotalEngineRuntime(): Double = totalRuntimeSec
 
   companion object {
     private const val DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX = 1024
