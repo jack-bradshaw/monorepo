@@ -3,20 +3,26 @@ package io.jackbradshaw.otter.engine
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
 import com.jme3.app.VRConstants
-import com.jme3.system.JmeContext
 import com.jme3.app.VREnvironment
 import com.jme3.scene.Node
 import com.jme3.bullet.BulletAppState
+import com.jme3.audio.AudioRenderer
 import com.jme3.system.AppSettings
 import io.jackbradshaw.otter.OtterScope
-import io.jackbradshaw.otter.config.Config
+import io.jackbradshaw.otter.engine.config.Config
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
+import com.jme3.app.LostFocusBehavior
 import kotlinx.coroutines.flow.first
+import com.jme3.audio.Listener
 import kotlinx.coroutines.runBlocking
+import com.jme3.renderer.RenderManager
 import javax.inject.Inject
+import com.jme3.system.JmeContext
+import com.jme3.system.Timer
+import com.jme3.renderer.Renderer
 
 @OtterScope
 class EngineImpl @Inject internal constructor(
@@ -30,6 +36,7 @@ class EngineImpl @Inject internal constructor(
     if (config.vrEnabled) {
       put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
       put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
+
     }
   }
   private val vr = if (config.vrEnabled) createVrAppState() else null
@@ -55,6 +62,8 @@ class EngineImpl @Inject internal constructor(
     runBlocking {
       setSettings(settings)
       setShowSettings(false)
+      setLostFocusBehavior(LostFocusBehavior.Disabled)
+      setDisplayFps(config.debugEnabled)
       if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
       if (vr != null) stateManager.attach(vr)
@@ -77,17 +86,24 @@ class EngineImpl @Inject internal constructor(
     super.destroy()
   }
 
-  override fun extractDefaultCamera() = cam
+  override fun extractApplication() = this
+  override fun extractContext() = context
   override fun extractAssetManager() = assetManager
   override fun extractStateManager() = stateManager
   override fun extractInputManager() = inputManager
-  override fun extractApp() = this
+  override fun extractRenderManager() = renderManager
+  override fun extractVideoRenderer() = renderer
+  override fun extractAudioRenderer() = audioRenderer
+  override fun extractDefaultInGameCamera() = cam
+  override fun extractDefaultInGameMicrophone() = listener
+  override fun extractDefaultViewPort() = viewPort
   override fun extractVr() = vr
   override fun extractPhysics() = physics
   override fun extractFrameworkNode() = frameworkNode
   override fun extractGameNode() = gameNode
   override fun extractCoroutineScope(): CoroutineScope = coroutineScope
-  override fun extractTotalTime(): Double = totalRuntimeSec
+  override fun extractTimer() = timer
+  override fun extractTotalEngineRuntime(): Double = totalRuntimeSec
 
   companion object {
     private const val DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX = 1024
