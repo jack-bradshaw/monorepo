@@ -16,7 +16,7 @@ class RenderingClock @Inject internal constructor(
     engine.extractCoroutineScope().launch(Dispatchers.Default) {
       while (true) {
         val previousTotalTime = totalFlow.value
-        totalFlow.value = engine.extractTotalTime()
+        totalFlow.value = engine.extractTotalEngineRuntime()
         deltaFlow.value = totalFlow.value - previousTotalTime
       }
     }

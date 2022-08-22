@@ -7,67 +7,110 @@ import com.jme3.asset.AssetManager
 import com.jme3.bullet.BulletAppState
 import com.jme3.renderer.Camera
 import com.jme3.scene.Node
+import com.jme3.system.Timer
+import com.jme3.system.JmeContext
+import com.jme3.renderer.Renderer
 import kotlinx.coroutines.CoroutineScope
+import com.jme3.renderer.RenderManager
 import com.jme3.input.InputManager
+import com.jme3.renderer.ViewPort
+import com.jme3.audio.Listener
+import com.jme3.audio.AudioRenderer
 
 /**
- * The core elements of the [jMonkey 3 game engine](https://jmonkeyengine.org/).
+ * The [jMonkey](https://wiki.jmonkeyengine.org/docs/3.4/documentation.html) game engine.
  */
 interface Engine {
 
   /**
-   * Extracts the default camera from the engine.
+   * Extracts the root application object.
    */
-  fun extractDefaultCamera(): Camera
+  fun extractApplication(): SimpleApplication
 
   /**
-   * Extracts the asset manager from the engine.
+   * Extracts the jMonkey context.
+   */
+  fun extractContext(): JmeContext
+
+  /**
+   * Extracts the asset manager.
    */
   fun extractAssetManager(): AssetManager
 
   /**
-   * Extracts the state manager from the game engine.
+   * Extracts the state manager.
    */
   fun extractStateManager(): AppStateManager
 
   /**
-   * Extracts the input manager from the game engine.
+   * Extracts the input manager.
    */
   fun extractInputManager(): InputManager
 
   /**
-   * Extracts the root application object from the game engine.
+   * Extracts the render manager.
    */
-  fun extractApp(): SimpleApplication
+  fun extractRenderManager(): RenderManager
 
   /**
-   * Extracts the VR controller from the game engine. Returns null if the engine is not configured for VR.
+   * Extracts the video renderer.
+   */
+  fun extractVideoRenderer(): Renderer
+
+  /**
+   * Extracts the audio renderer.
+   */
+  fun extractAudioRenderer(): AudioRenderer
+
+  /**
+   * Extracts the default in-game camera.
+   */
+  fun extractDefaultInGameCamera(): Camera
+
+  /**
+   * Extracts the default in-game microphone (otherwise known as the audio listener).
+   */
+  fun extractDefaultInGameMicrophone(): Listener
+
+  /**
+   * Extracts the default view port.
+   */
+  fun extractDefaultViewPort(): ViewPort
+
+  /**
+   * Extracts the VR system, null if the engine is not configured for VR.
    */
   fun extractVr(): VRAppState?
 
   /**
-   * Extracts the physics controller from the game engine.
+   * Extracts the physics system.
    */
   fun extractPhysics(): BulletAppState
 
   /**
-   * Extracts a node near the scene root for internal use by the framework. Framework consumers should not modify or
-   * use this node, and the framework will likely malfunction if it is modified.
+   * Extracts a node near the scene root for use by the framework internally. Framework consumers should not modify or
+   * use this node and should instead use [extractGameNode] as their root node.
    */
   fun extractFrameworkNode(): Node
 
   /**
-   * Extracts a node near the scene root for use by games. Framework consumers should treat this as the root node.
+   * Extracts a node near the scene root for use by framework consumers. Framework consumers should treat this as the
+   * root node in their games/applications.
    */
   fun extractGameNode(): Node
 
   /**
-   * Extracts a coroutine scope which tracks the engine state. The scope is cancelled when the game engine stops.
+   * Extracts a coroutine scope which tracks the engine state. When the engine stops, the scope is cancelled.
    */
   fun extractCoroutineScope(): CoroutineScope
 
   /**
-   * Extracts the time since game start, measured in seconds.
+   * Extracts the timer.
    */
-  fun extractTotalTime(): Double
+  fun extractTimer(): Timer
+
+  /**
+   * Extracts the time between now and when the engine was started, measured in seconds.
+   */
+  fun extractTotalEngineRuntime(): Double
 }

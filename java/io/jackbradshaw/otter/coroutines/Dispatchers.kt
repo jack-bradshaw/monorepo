@@ -34,7 +34,7 @@ fun Application.renderingDispatcher(): CoroutineDispatcher =
  * Gets a CoroutineDispatcher for this application. Every call for a given application returns the same instance, and
  * calls are thread safe.
  */
-fun Engine.renderingDispatcher(): CoroutineDispatcher = this.extractApp().renderingDispatcher()
+fun Engine.renderingDispatcher(): CoroutineDispatcher = this.extractApplication().renderingDispatcher()
 
 /**
  * Dispatcher for posting to the JMonkey Engine 3 [physics update loop]

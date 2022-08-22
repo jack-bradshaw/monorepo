@@ -7,7 +7,7 @@ import io.jackbradshaw.otter.clock.ClockModule
 import io.jackbradshaw.otter.clock.Physics
 import io.jackbradshaw.otter.clock.Rendering
 import io.jackbradshaw.otter.clock.Real
-import io.jackbradshaw.otter.config.Config
+import io.jackbradshaw.otter.engine.config.Config
 import io.jackbradshaw.otter.engine.Engine
 import io.jackbradshaw.otter.engine.EngineModule
 

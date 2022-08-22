@@ -3,9 +3,9 @@ package io.jackbradshaw.otter.engine.integrators
 import io.jackbradshaw.otter.engine.Engine
 import com.jme3.scene.Spatial
 
-class NodeIntegrator(
+class SpatialIntegrator(
     private val engine: Engine
-) : Integrator<Node> {
+) : Integrator<Spatial> {
 
   override suspend fun integrate(element: Spatial) {
     engine.extractGameNode().attachChild(element)
