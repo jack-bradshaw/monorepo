@@ -33,9 +33,9 @@ kt_jvm_library(
         "//java/io/jackbradshaw/otter/clock:impl",
         "//java/io/jackbradshaw/otter/clock:module",
         "//java/io/jackbradshaw/otter/clock:qualifiers",
-        "//java/io/jackbradshaw/otter/config",
         "//java/io/jackbradshaw/otter/engine",
         "//java/io/jackbradshaw/otter/engine:impl",
         "//java/io/jackbradshaw/otter/engine:module",
+        "//java/io/jackbradshaw/otter/engine/config",
     ],
 )
