@@ -96,7 +96,7 @@ class EngineImpl @Inject internal constructor(
   override fun extractAudioRenderer() = audioRenderer
   override fun extractDefaultInGameCamera() = cam
   override fun extractDefaultInGameMicrophone() = listener
-  override fun extractViewPort() = viewPort
+  override fun extractDefaultViewPort() = viewPort
   override fun extractVr() = vr
   override fun extractPhysics() = physics
   override fun extractFrameworkNode() = frameworkNode

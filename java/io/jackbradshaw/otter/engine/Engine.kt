@@ -23,19 +23,14 @@ import com.jme3.audio.AudioRenderer
 interface Engine {
 
   /**
-   * Extracts the default camera.
+   * Extracts the root application object.
    */
-  fun extractDefaultInGameCamera(): Camera
+  fun extractApplication(): SimpleApplication
 
   /**
-   * Extracts the default audio listener.
+   * Extracts the context.
    */
-  fun extractDefaultInGameMicrophone(): Listener
-
-  /**
-   * Extracts the view port.
-   */
-  fun extractViewPort(): ViewPort
+  fun extractContext(): JmeContext
 
   /**
    * Extracts the asset manager.
@@ -62,14 +57,19 @@ interface Engine {
   fun extractAudioRenderer(): AudioRenderer
 
   /**
-   * Extracts the context.
+   * Extracts the default camera.
    */
-  fun extractContext(): JmeContext
+  fun extractDefaultInGameCamera(): Camera
 
   /**
-   * Extracts the root application object.
+   * Extracts the default audio listener.
    */
-  fun extractApplication(): SimpleApplication
+  fun extractDefaultInGameMicrophone(): Listener
+
+  /**
+   * Extracts the view port.
+   */
+  fun extractDefaultViewPort(): ViewPort
 
   /**
    * Extracts the VR controller, null if the engine is not configured for VR.
