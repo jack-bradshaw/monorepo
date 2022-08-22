@@ -3,7 +3,6 @@ package io.jackbradshaw.otter.engine
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
 import com.jme3.app.VRConstants
-import com.jme3.system.JmeContext
 import com.jme3.app.VREnvironment
 import com.jme3.scene.Node
 import com.jme3.bullet.BulletAppState
