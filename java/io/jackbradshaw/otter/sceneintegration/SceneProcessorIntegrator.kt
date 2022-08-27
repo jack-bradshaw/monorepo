@@ -1,13 +1,11 @@
-package io.jackbradshaw.otter.engine.integrators
+package io.jackbradshaw.otter.engine.sceneintegration
 
 import io.jackbradshaw.otter.engine.Engine
-import com.jme3.bullet.collision.PhysicsCollisionObject
-import com.jme3.bullet.control.BetterCharacterControl
 import com.jme3.post.SceneProcessor
 
 class SceneProcessorIntegrator(
     private val engine: Engine
-) : Integrator<SceneProcessor> {
+) : SceneIntegrator<SceneProcessor> {
 
   override suspend fun integrate(element: SceneProcessor) {
     engine.extractDefaultViewPort().addProcessor(element)

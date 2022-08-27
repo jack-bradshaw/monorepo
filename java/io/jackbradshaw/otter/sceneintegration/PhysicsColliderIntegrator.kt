@@ -1,11 +1,11 @@
-package io.jackbradshaw.otter.engine.integrators
+package io.jackbradshaw.otter.engine.sceneintegration
 
 import io.jackbradshaw.otter.engine.Engine
 import com.jme3.bullet.collision.PhysicsCollisionObject
 
 class PhysicsColliderIntegrator(
     private val engine: Engine
-) : Integrator<PhysicsCollisionObject> {
+) : SceneIntegrator<PhysicsCollisionObject> {
 
   override suspend fun integrate(element: PhysicsCollisionObject) {
     engine.extractPhysics().getPhysicsSpace().add(element)

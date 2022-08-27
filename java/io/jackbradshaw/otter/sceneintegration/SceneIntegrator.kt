@@ -1,11 +1,9 @@
-package io.jackbradshaw.otter.engine.integrators
-
-import io.jackbradshaw.otter.engine.Engine
+package io.jackbradshaw.otter.engine.sceneintegration
 
 /**
  * Integrates an arbitrary game element into a game engine.
  */
-interface Integrator<T> {
+interface SceneIntegrator<T> {
   /**
    * Registers [element] with the game engine.
    */

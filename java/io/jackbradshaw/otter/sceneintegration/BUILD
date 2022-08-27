@@ -7,9 +7,9 @@ dagger_rules()
 auto_factory()
 
 kt_jvm_library(
-    name = "integrator",
+    name = "scene_integration",
     srcs = [
-        "Integrator.kt",
+        "SceneIntegrator.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
@@ -44,7 +44,7 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":integrator",
+        ":scene_integration",
         "//java/io/jackbradshaw/klu/flow",
         "//java/io/jackbradshaw/otter/math:jmonkey_conversion",
         "//java/io/jackbradshaw/otter/math:proto_extensions",
