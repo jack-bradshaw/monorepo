@@ -10,10 +10,10 @@ class SceneProcessorIntegrator(
 ) : Integrator<SceneProcessor> {
 
   override suspend fun integrate(element: SceneProcessor) {
-    engine.extractViewPort().addProcessor(element)
+    engine.extractDefaultViewPort().addProcessor(element)
   }
 
   override suspend fun disintegrate(element: SceneProcessor) {
-    engine.extractViewPort().removeProcessor(element)
+    engine.extractDefaultViewPort().removeProcessor(element)
   }
 }
