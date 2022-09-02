@@ -25,6 +25,7 @@ def io_jackbradshaw_maven_repositories():
         name = DEFAULT_REPOSITORY_NAME,
         artifacts = [
             "commons-codec:commons-codec:1.15",
+            "com.googlecode.json-simple:json-simple:1.1.1",
             "com.google.auto.value:auto-value-annotations:%s" % AUTO_VALUE_VERSION,
             "com.google.auto.value:auto-value:%s" % AUTO_VALUE_VERSION,
             "com.google.auto:auto-common:1.2.1",

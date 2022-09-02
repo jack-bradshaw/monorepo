@@ -34,6 +34,7 @@ kt_jvm_library(
         "//java/io/jackbradshaw/otter:scope",
         "//java/io/jackbradshaw/otter/coroutines",
         "//java/io/jackbradshaw/otter/engine/config",
+        "//java/io/jackbradshaw/otter/openxr/installation",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
         "@maven//:org_jmonkeyengine_jme3_vr",

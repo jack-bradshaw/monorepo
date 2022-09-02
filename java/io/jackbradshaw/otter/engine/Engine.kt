@@ -78,9 +78,9 @@ interface Engine {
   fun extractDefaultViewPort(): ViewPort
 
   /**
-   * Extracts the VR system, null if the engine is not configured for VR.
+   * Extracts the XR system, null if the engine is not configured for XR.
    */
-  fun extractVr(): VRAppState?
+  fun extractXr(): VRAppState?
 
   /**
    * Extracts the physics system.

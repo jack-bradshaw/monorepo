@@ -23,23 +23,25 @@ import javax.inject.Inject
 import com.jme3.system.JmeContext
 import com.jme3.system.Timer
 import com.jme3.renderer.Renderer
+import io.jackbradshaw.otter.openxr.installation.OpenXrInstaller
 
 @OtterScope
 class EngineImpl @Inject internal constructor(
-  private val config: Config
+  private val config: Config,
+  private val openXrInstaller: OpenXrInstaller
 ) : Engine, SimpleApplication() {
 
   private val started = MutableStateFlow(false)
   private var totalRuntimeSec = 0.0
 
   private val settings = AppSettings(/* loadDefaults= */ true).apply {
-    if (config.vrEnabled) {
+    if (config.xrEnabled) {
       put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
       put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
 
     }
   }
-  private val vr = if (config.vrEnabled) createVrAppState() else null
+  private val xr = if (config.xrEnabled) createVrAppState() else null
   private val physics = BulletAppState()
 
   private val coroutineScopeJob = Job()
@@ -67,7 +69,10 @@ class EngineImpl @Inject internal constructor(
       setDisplayFps(config.debugEnabled)
       if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
-      if (vr != null) stateManager.attach(vr)
+      if (xr != null) {
+        stateManager.attach(xr)
+        openXrInstaller.deployActionManifestFiles()
+      }
       stateManager.attach(physics)
       getRootNode().attachChild(frameworkNode)
       getRootNode().attachChild(gameNode)
@@ -98,7 +103,7 @@ class EngineImpl @Inject internal constructor(
   override fun extractDefaultInGameCamera() = cam
   override fun extractDefaultInGameMicrophone() = listener
   override fun extractDefaultViewPort() = viewPort
-  override fun extractVr() = vr
+  override fun extractXr() = xr
   override fun extractPhysics() = physics
   override fun extractFrameworkNode() = frameworkNode
   override fun extractGameNode() = gameNode

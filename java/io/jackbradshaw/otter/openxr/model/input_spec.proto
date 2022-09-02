@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package io.jackbradshaw.otter.openxr.model;
+
+import "java/io/jackbradshaw/otter/openxr/model/input_component.proto";
+import "java/io/jackbradshaw/otter/openxr/model/user.proto";
+import "java/io/jackbradshaw/otter/openxr/model/input_identifier.proto";
+import "java/io/jackbradshaw/otter/openxr/model/input_location.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.otter.openxr.model";
+option java_outer_classname = "InputSpecProto";
+
+message InputSpec {
+  io.jackbradshaw.otter.openxr.model.User user = 1;
+  io.jackbradshaw.otter.openxr.model.InputIdentifier identifier = 2;
+  io.jackbradshaw.otter.openxr.model.InputComponent component = 3;
+  io.jackbradshaw.otter.openxr.model.InputLocation location = 4;
+}
