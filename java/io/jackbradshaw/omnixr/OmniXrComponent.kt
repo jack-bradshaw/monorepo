@@ -25,3 +25,5 @@ interface OmniXrComponent {
     fun build(): OmniXrComponent
   }
 }
+
+fun omniXr(config: Config): OmniXrComponent = DaggerOmniXrComponent.builder().setConfig(config).build()
