@@ -23,7 +23,7 @@ class ManifestEncoderImpl @Inject internal constructor() : ManifestEncoder {
   private fun buildInputEncoding(): Map<Pair<InteractionProfile, Input>, String> {
     var counter = 0;
     val map = mutableMapOf<Pair<InteractionProfile, Input>, String>()
-    for (profile in StandardInteractionProfile.values()) {
+    for (profile in StandardInteractionProfile.values().sorted()) {
       val interactionProfile = profile.interactionProfile
       for (input in interactionProfile.inputList) {
         map[Pair(interactionProfile, input)] = counter++.toString()
@@ -35,7 +35,7 @@ class ManifestEncoderImpl @Inject internal constructor() : ManifestEncoder {
   private fun buildOutputEncoding(): Map<Pair<InteractionProfile, Output>, String> {
     var counter = 0;
     val map = mutableMapOf<Pair<InteractionProfile, Output>, String>()
-    for (profile in StandardInteractionProfile.values()) {
+    for (profile in StandardInteractionProfile.values().sorted()) {
       val interactionProfile = profile.interactionProfile
       for (output in interactionProfile.outputList) {
         map[Pair(interactionProfile, output)] = counter++.toString()
