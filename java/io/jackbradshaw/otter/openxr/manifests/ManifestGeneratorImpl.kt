@@ -79,6 +79,7 @@ class ManifestGeneratorImpl(
 
   private fun actionSetDeclaration() = JsonObject().apply {
     addProperty("name", OpenXrConstants.ACTION_SET_NAME)
+    addProperty("usage", "hidden")
     addProperty("localizedName", OpenXrConstants.ACTION_SET_NAME)
   }
 
