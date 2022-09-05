@@ -31,7 +31,7 @@ kt_jvm_library(
     deps = [
         ":dagger",
         ":engine",
-        "//java/io/jackbradshaw/openxr/installation",
+        "//java/io/jackbradshaw/omnixr/installation",
         "//java/io/jackbradshaw/otter:scope",
         "//java/io/jackbradshaw/otter/coroutines",
         "//java/io/jackbradshaw/otter/engine/config",
