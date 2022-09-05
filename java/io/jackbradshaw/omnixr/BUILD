@@ -30,6 +30,7 @@ kt_jvm_library(
         ":dagger",
         ":scope",
         "//java/io/jackbradshaw/omnixr/config:java_lite_proto",
+        "//java/io/jackbradshaw/omnixr/config:proto_extensions",
         "//java/io/jackbradshaw/omnixr/manifest/encoder",
         "//java/io/jackbradshaw/omnixr/manifest/encoder:module",
         "//java/io/jackbradshaw/omnixr/manifest/generator",

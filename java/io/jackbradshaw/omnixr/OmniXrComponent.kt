@@ -9,6 +9,7 @@ import io.jackbradshaw.omnixr.manifest.installer.ManifestInstallerModule
 import io.jackbradshaw.omnixr.manifest.generator.ManifestGenerator
 import io.jackbradshaw.omnixr.manifest.generator.ManifestGeneratorModule
 import io.jackbradshaw.omnixr.config.Config
+import io.jackbradshaw.omnixr.config.defaultConfig
 
 @OmniXrScope
 @Component(modules = [ManifestEncoderModule::class, ManifestInstallerModule::class, ManifestGeneratorModule::class])
@@ -26,4 +27,4 @@ interface OmniXrComponent {
   }
 }
 
-fun omniXr(config: Config): OmniXrComponent = DaggerOmniXrComponent.builder().setConfig(config).build()
+fun omniXr(config: Config = defaultConfig): OmniXrComponent = DaggerOmniXrComponent.builder().setConfig(config).build()
