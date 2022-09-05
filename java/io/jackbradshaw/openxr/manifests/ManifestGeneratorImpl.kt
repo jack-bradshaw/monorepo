@@ -57,11 +57,13 @@ class ManifestGeneratorImpl(
     }.toString()
   }
 
-  private suspend fun createSecondaryManifests(): Map<InteractionProfile, String> = StandardInteractionProfile
+  private suspend fun createSecondaryManifests(): Set<SecondaryManifest> = StandardInteractionProfile
       .values()
       .asFlow()
-      .map { it.interactionProfile to it.interactionProfile.toSecondaryManifest() }
-      .toMap()
+      .map {it.interactionProfile}
+      .map { SecondaryManifest("${it.path()}.json", it.toSecondaryManifest()) }
+      .toList()
+      .toSet()
 
   private fun InteractionProfile.declaration(): JsonObject = JsonObject().apply {
     addProperty("binding_url", "${path()}.json")

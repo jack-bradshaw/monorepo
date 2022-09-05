@@ -54,6 +54,7 @@ kt_jvm_library(
         "//java/io/jackbradshaw/otter/math:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/constants",
         "//java/io/jackbradshaw/otter/openxr/encoding",
+        "//java/io/jackbradshaw/otter/openxr/manifests",
         "//java/io/jackbradshaw/otter/openxr/model:java_lite_proto",
         "//java/io/jackbradshaw/otter/openxr/standard",
         "//java/io/jackbradshaw/otter/physics:java_proto",

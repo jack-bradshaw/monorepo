@@ -14,5 +14,10 @@ interface ManifestGenerator {
  */
 data class Manifests(
     val primaryManifest: String,
-    val secondaryManifests: Map<InteractionProfile, String>
+    val secondaryManifests: Set<SecondaryManifest>
+)
+
+data class SecondaryManifest(
+    val url: String,
+    val content: String
 )

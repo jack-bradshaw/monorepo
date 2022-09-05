@@ -1,4 +1,4 @@
-package java.io.jackbradshaw.otter.openxr.standard
+package java.io.jackbradshaw.openxr.standard
 
 import io.jackbradshaw.otter.openxr.standard.StandardUser.LEFT_HAND
 import io.jackbradshaw.otter.openxr.standard.StandardUser.RIGHT_HAND
