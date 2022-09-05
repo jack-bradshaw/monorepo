@@ -1,30 +1,18 @@
 package io.jackbradshaw.otter.openxr.manifest
 
-import io.jackbradshaw.otter.openxr.constants.OpenXrConstants
-import io.jackbradshaw.otter.openxr.model.InputIdentifier
-import io.jackbradshaw.otter.openxr.model.InputLocation
-import io.jackbradshaw.otter.openxr.model.OutputIdentifier
-import io.jackbradshaw.otter.openxr.model.OutputLocation
-import io.jackbradshaw.otter.openxr.model.InputComponent
-import io.jackbradshaw.otter.openxr.model.User
 import io.jackbradshaw.otter.openxr.model.Input
 import io.jackbradshaw.otter.openxr.standard.StandardInputComponent
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import io.jackbradshaw.otter.openxr.encoding.Encoding
 import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
 import kotlinx.coroutines.flow.Flow
-import io.jackbradshaw.klu.flow.toMap
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.onEach
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import com.google.gson.Gson
-import kotlinx.coroutines.runBlocking
 
 // TODO still needs two items of work:
 // 2. Secondary manifests and very wrong. Need to work out what's going on there.
@@ -80,15 +68,15 @@ class ManifestGeneratorImpl(
       }
 
   private fun actionSetDeclaration() = JsonObject().apply {
-    addProperty("name", OpenXrConstants.ACTION_SET_NAME)
+    addProperty("name", ACTION_SET_NAME)
     addProperty("usage", "hidden")
-    addProperty("localizedName", OpenXrConstants.ACTION_SET_NAME)
+    addProperty("localizedName", ACTION_SET_NAME)
   }
 
   private suspend fun InteractionProfile.toSecondaryManifest(): String = JsonObject().apply {
     addProperty("interaction_profile", path())
     add("bindings", JsonObject().apply {
-      add(OpenXrConstants.ACTION_SET_NAME, JsonObject().apply {
+      add(ACTION_SET_NAME, JsonObject().apply {
         add("sources", JsonArray().apply {
           for (input in inputList) add(input.toBinding(this@toSecondaryManifest))
         })
@@ -120,4 +108,8 @@ class ManifestGeneratorImpl(
   }
 
   private suspend fun Flow<JsonObject>.toJsonArray() = fold(JsonArray()) { array, next -> array.also { it.add(next) } }
+
+  companion object {
+    private val ACTION_SET_NAME = "omniset"
+  }
 }
