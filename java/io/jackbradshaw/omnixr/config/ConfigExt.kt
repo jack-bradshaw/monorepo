@@ -5,4 +5,4 @@ fun config(actionManifestDirectory: String) = Config
     .setActionManifestDirectory(actionManifestDirectory)
     .build()
 
-val defaultConfig = config(System.getProperty("java.io.tempdir"))
+val defaultConfig = config(System.getProperty("java.io.tmpdir"))
