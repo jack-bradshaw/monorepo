@@ -54,8 +54,8 @@ enum class StandardOutputLocation(val location: OutputLocation) {
 
   companion object {
     private val reverse = StandardOutputLocation.values().map { it.location to it }.toMap()
-    fun fromOutputLocation(location: OutputLocation): StandardOutputLocation {
-      return reverse[location] ?: throw IllegalArgumentException("No enum value found for $location.")
+    fun fromOutputLocation(location: OutputLocation): StandardOutputLocation? {
+      return reverse[location]
     }
   }
 }

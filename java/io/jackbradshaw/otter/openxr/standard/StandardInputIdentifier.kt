@@ -83,8 +83,8 @@ enum class StandardInputIdentifier(val identifier: InputIdentifier) {
 
   companion object {
     private val reverse = StandardInputIdentifier.values().map { it.identifier to it }.toMap()
-    fun fromOutputLocation(identifier: InputIdentifier): StandardInputIdentifier {
-      return reverse[identifier] ?: throw IllegalArgumentException("No enum value found for $identifier.")
+    fun fromInputIdentifier(identifier: InputIdentifier): StandardInputIdentifier? {
+      return reverse[identifier]
     }
   }
 }

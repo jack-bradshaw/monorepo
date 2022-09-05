@@ -13,4 +13,11 @@ enum class StandardUser(val user: User) {
   RIGHT_HAND(user("hand/right")),
   GAMEPAD(user("gamepad")),
   TREADMILL(user("treadmill"));
+
+  companion object {
+    private val reverse = StandardUser.values().map { it.user to it }.toMap()
+    fun fromUser(user: User): StandardUser? {
+      return reverse[user]
+    }
+  }
 }

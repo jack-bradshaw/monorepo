@@ -1,13 +1,10 @@
 syntax = "proto3";
 
-package io.jackbradshaw.otter.openxr.model;
-
-import "java/io/jackbradshaw/otter/openxr/model/input.proto";
-import "java/io/jackbradshaw/otter/openxr/model/output.proto";
+package io.jackbradshaw.otter.openxr.service;
 
 option java_multiple_files = true;
-option java_package = "io.jackbradshaw.otter.openxr.model";
-option java_outer_classname = "InteractionProfileProto";
+option java_package = "io.jackbradshaw.otter.openxr.service";
+option java_outer_classname = "JMonkeyHapticParameter";
 
 message InteractionProfile {
   Vendor vendor = 1;

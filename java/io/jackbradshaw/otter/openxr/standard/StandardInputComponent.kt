@@ -19,8 +19,8 @@ enum class StandardInputComponent(val component: InputComponent) {
 
   companion object {
     private val reverse = StandardInputComponent.values().map { it.component to it }.toMap()
-    fun fromOutputLocation(component: InputComponent): StandardInputComponent {
-      return reverse[component] ?: throw IllegalArgumentException("No enum value found for $component.")
+    fun fromInputComponent(component: InputComponent): StandardInputComponent? {
+      return reverse[component]
     }
   }
 }

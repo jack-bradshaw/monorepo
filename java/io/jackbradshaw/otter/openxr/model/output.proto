@@ -8,9 +8,9 @@ import "java/io/jackbradshaw/otter/openxr/model/user.proto";
 
 option java_multiple_files = true;
 option java_package = "io.jackbradshaw.otter.openxr.model";
-option java_outer_classname = "OutputSpecProto";
+option java_outer_classname = "OutputProto";
 
-message OutputSpec {
+message Output {
   io.jackbradshaw.otter.openxr.model.User user = 1;
   io.jackbradshaw.otter.openxr.model.OutputIdentifier identifier = 2;
   io.jackbradshaw.otter.openxr.model.OutputLocation location = 3;

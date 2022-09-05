@@ -6,14 +6,14 @@ dagger_rules()
 proto_library(
     name = "proto",
     srcs = [
+        "input.proto",
         "input_component.proto",
         "input_identifier.proto",
         "input_location.proto",
-        "input_spec.proto",
         "interaction_profile.proto",
+        "output.proto",
         "output_identifier.proto",
         "output_location.proto",
-        "output_spec.proto",
         "user.proto",
     ],
     visibility = [
@@ -44,13 +44,13 @@ kt_jvm_library(
     name = "proto_extensions",
     srcs = [
         "InputComponentExt.kt",
+        "InputExt.kt",
         "InputIdentifierExt.kt",
         "InputLocationExt.kt",
-        "InputSpecExt.kt",
         "InteractionProfileExt.kt",
+        "OutputExt.kt",
         "OutputIdentifier.kt",
         "OutputLocation.kt",
-        "OutputSpecExt.kt",
         "UserExt.kt",
     ],
     visibility = [

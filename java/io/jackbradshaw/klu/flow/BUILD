@@ -7,6 +7,7 @@ kt_jvm_library(
         "Flower.kt",
         "MutableFlower.kt",
         "NiceFlower.kt",
+        "Operators.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw:__subpackages__",
