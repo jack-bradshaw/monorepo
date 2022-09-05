@@ -4,24 +4,24 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "manifest",
+    name = "encoder",
     srcs = [
-        "ManifestGenerator.kt",
+        "ManifestEncoder.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/omnixr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        "//java/io/jackbradshaw/klu/flow",
-        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "//java/io/jackbradshaw/omnixr/model:java_lite_proto",
+        "//java/io/jackbradshaw/omnixr/standard",
     ],
 )
 
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "ManifestGeneratorImpl.kt",
+        "ManifestEncoderImpl.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/omnixr:__subpackages__",
@@ -29,13 +29,8 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
-        ":manifest",
-        "//java/io/jackbradshaw/klu/flow",
+        ":encoder",
         "//java/io/jackbradshaw/omnixr:scope",
-        "//java/io/jackbradshaw/omnixr/encoding",
-        "//java/io/jackbradshaw/omnixr/model:java_lite_proto",
-        "//java/io/jackbradshaw/omnixr/standard",
-        "@maven//:com_google_code_gson_gson",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -43,7 +38,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "ManifestGeneratorModule.kt",
+        "ManifestEncoderModule.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/omnixr:__subpackages__",
@@ -51,7 +46,7 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
+        ":encoder",
         ":impl",
-        ":manifest",
     ],
 )

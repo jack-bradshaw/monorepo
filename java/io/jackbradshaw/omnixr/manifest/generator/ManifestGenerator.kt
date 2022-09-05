@@ -1,4 +1,4 @@
-package io.jackbradshaw.omnixr.manifest
+package io.jackbradshaw.omnixr.manifest.generator
 
 interface ManifestGenerator {
    suspend fun generateManifests(): Manifests

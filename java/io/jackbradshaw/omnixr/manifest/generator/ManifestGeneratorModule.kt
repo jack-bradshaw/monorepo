@@ -1,4 +1,4 @@
-package io.jackbradshaw.omnixr.manifest
+package io.jackbradshaw.omnixr.manifest.generator
 
 import dagger.Module
 import dagger.Binds

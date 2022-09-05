@@ -6,7 +6,6 @@ import com.jme3.app.VRConstants
 import com.jme3.app.VREnvironment
 import com.jme3.scene.Node
 import com.jme3.bullet.BulletAppState
-import com.jme3.audio.AudioRenderer
 import com.jme3.system.AppSettings
 import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.engine.config.Config
@@ -16,19 +15,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
 import com.jme3.app.LostFocusBehavior
 import kotlinx.coroutines.flow.first
-import com.jme3.audio.Listener
 import kotlinx.coroutines.runBlocking
-import com.jme3.renderer.RenderManager
 import javax.inject.Inject
 import com.jme3.system.JmeContext
-import com.jme3.system.Timer
-import com.jme3.renderer.Renderer
-import io.jackbradshaw.omnixr.installation.OpenXrInstaller
+import java.io.jackbradshaw.omnixr.manifest.installer.ManifestInstaller
 
 @OtterScope
 class EngineImpl @Inject internal constructor(
   private val config: Config,
-  private val openXrInstaller: OpenXrInstaller
+  private val manifestInstaller: ManifestInstaller
 ) : Engine, SimpleApplication() {
 
   private val started = MutableStateFlow(false)
@@ -71,7 +66,7 @@ class EngineImpl @Inject internal constructor(
       started.filter { it == true }.first()
       if (xr != null) {
         stateManager.attach(xr)
-        openXrInstaller.deployActionManifestFiles()
+        manifestInstaller.deployActionManifestFiles()
       }
       stateManager.attach(physics)
       getRootNode().attachChild(frameworkNode)

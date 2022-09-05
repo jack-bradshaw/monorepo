@@ -1,4 +1,4 @@
-package io.jackbradshaw.omnixr.encoding
+package io.jackbradshaw.omnixr.manifest.encoder
 
 import io.jackbradshaw.omnixr.OmniXrScope
 import io.jackbradshaw.omnixr.model.InteractionProfile
@@ -8,7 +8,7 @@ import io.jackbradshaw.omnixr.model.Output
 import javax.inject.Inject
 
 @OmniXrScope
-class EncodingImpl @Inject internal constructor() : Encoding {
+class ManifestEncoderImpl @Inject internal constructor() : ManifestEncoder {
 
   private val inputEncoding: Map<Pair<InteractionProfile, Input>, String> = buildInputEncoding()
   private val inputEncodingReverse = inputEncoding.map { it.value to it.key }.toMap()

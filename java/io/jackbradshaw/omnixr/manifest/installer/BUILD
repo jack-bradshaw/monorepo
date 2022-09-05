@@ -4,24 +4,26 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "encoding",
+    name = "installer",
     srcs = [
-        "Encoding.kt",
+        "ManifestInstaller.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/omnixr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        "//java/io/jackbradshaw/klu/flow",
         "//java/io/jackbradshaw/omnixr/model:java_lite_proto",
         "//java/io/jackbradshaw/omnixr/standard",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "EncodingImpl.kt",
+        "ManifestInstallerImpl.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/omnixr:__subpackages__",
@@ -29,8 +31,11 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
-        ":encoding",
+        ":installer",
         "//java/io/jackbradshaw/omnixr:scope",
+        "//java/io/jackbradshaw/omnixr/config:java_lite_proto",
+        "//java/io/jackbradshaw/omnixr/manifest/generator",
+        "@maven//:com_google_code_gson_gson",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -38,7 +43,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "EncodingModule.kt",
+        "ManifestInstallerModule.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/omnixr:__subpackages__",
@@ -46,7 +51,7 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
-        ":encoding",
         ":impl",
+        ":installer",
     ],
 )

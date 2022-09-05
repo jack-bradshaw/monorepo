@@ -1,9 +1,9 @@
-package io.jackbradshaw.omnixr.manifest
+package io.jackbradshaw.omnixr.manifest.generator
 
 import io.jackbradshaw.omnixr.model.Input
 import io.jackbradshaw.omnixr.standard.StandardInputComponent
 import io.jackbradshaw.omnixr.model.InteractionProfile
-import io.jackbradshaw.omnixr.encoding.Encoding
+import io.jackbradshaw.omnixr.manifest.encoder.ManifestEncoder
 import io.jackbradshaw.omnixr.standard.StandardInteractionProfile
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @OmniXrScope
 class ManifestGeneratorImpl @Inject internal constructor(
-    private val encoding: Encoding
+    private val encoder: ManifestEncoder
 ) : ManifestGenerator {
 
   override suspend fun generateManifests() = Manifests(createPrimaryManifest(), createSecondaryManifests())
@@ -62,7 +62,7 @@ class ManifestGeneratorImpl @Inject internal constructor(
       .asFlow()
       .map { input ->
         JsonObject().apply {
-          addProperty("name", encoding.encodeInput(this@actionDeclarations, input))
+          addProperty("name", encoder.encodeInput(this@actionDeclarations, input))
           addProperty("type", input.toType())
         }
       }
@@ -101,7 +101,7 @@ class ManifestGeneratorImpl @Inject internal constructor(
   private fun Input.toBinding(profile: InteractionProfile): JsonObject = JsonObject().apply {
     add("inputs", JsonObject().apply {
       add(component.standardName, JsonObject().apply {
-        addProperty("output", encoding.encodeInput(profile, this@toBinding))
+        addProperty("output", encoder.encodeInput(profile, this@toBinding))
       })
     })
     addProperty("path", "/${user.standardName}/input/${identifier.standardName}")
