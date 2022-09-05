@@ -1,11 +1,14 @@
 package io.jackbradshaw.openxr.encoding
 
+import io.jackbradshaw.openxr.OpenXrScope
 import io.jackbradshaw.openxr.model.InteractionProfile
 import io.jackbradshaw.openxr.standard.StandardInteractionProfile
 import io.jackbradshaw.openxr.model.Input
 import io.jackbradshaw.openxr.model.Output
+import javax.inject.Inject
 
-class EncodingImpl : Encoding {
+@OpenXrScope
+class EncodingImpl @Inject internal constructor() : Encoding {
 
   private val inputEncoding: Map<Pair<InteractionProfile, Input>, String> = buildInputEncoding()
   private val inputEncodingReverse = inputEncoding.map { it.value to it.key }.toMap()

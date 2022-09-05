@@ -1,5 +1,6 @@
 package io.jackbradshaw.openxr.installation
 
+import io.jackbradshaw.openxr.OpenXrScope
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -7,16 +8,18 @@ import java.io.IOException
 import java.nio.file.Paths
 import io.jackbradshaw.openxr.manifest.ManifestGenerator
 import kotlinx.coroutines.runBlocking
-import io.jackbradshaw.openxr.model.Config
+import io.jackbradshaw.openxr.config.Config
+import javax.inject.Inject
 
-class OpenXrInstallerImpl(
+@OpenXrScope
+class OpenXrInstallerImpl @Inject internal constructor(
     private val manifestGenerator: ManifestGenerator,
     private val config: Config
 ) : OpenXrInstaller {
 
   override fun deployActionManifestFiles() = runBlocking {
     val manifests = manifestGenerator.generateManifests()
-    MAIN_MANIFEST_FILENAME.overwriteWith(manifests.primaryManifest)
+    Paths.get(config.actionManifestDirectory, MAIN_MANIFEST_FILENAME).toFile().overwriteWith(manifests.primaryManifest)
     manifests.secondaryManifests.forEach {
       val file = Paths.get(
           config.actionManifestDirectory.toString(),

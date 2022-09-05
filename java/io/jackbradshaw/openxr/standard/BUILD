@@ -14,7 +14,7 @@ kt_jvm_library(
         "StandardUser.kt",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -29,7 +29,7 @@ kt_jvm_library(
         "StandardInput.kt",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

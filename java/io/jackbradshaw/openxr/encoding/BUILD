@@ -9,7 +9,7 @@ kt_jvm_library(
         "Encoding.kt",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
@@ -24,11 +24,13 @@ kt_jvm_library(
         "EncodingImpl.kt",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        ":dagger",
         ":encoding",
+        "//java/io/jackbradshaw/openxr:scope",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -39,7 +41,7 @@ kt_jvm_library(
         "EncodingModule.kt",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

@@ -17,7 +17,7 @@ proto_library(
         "user.proto",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
 )
@@ -25,7 +25,7 @@ proto_library(
 java_proto_library(
     name = "java_proto",
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [":proto"],
@@ -34,7 +34,7 @@ java_proto_library(
 java_lite_proto_library(
     name = "java_lite_proto",
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [":proto"],
@@ -54,7 +54,7 @@ kt_jvm_library(
         "UserExt.kt",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw/openxr:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [

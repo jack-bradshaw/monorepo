@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.flatMapConcat
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import io.jackbradshaw.openxr.OpenXrScope
+import javax.inject.Inject
 
-// TODO still needs two items of work:
-// 2. Secondary manifests and very wrong. Need to work out what's going on there.
-
-class ManifestGeneratorImpl(
+@OpenXrScope
+class ManifestGeneratorImpl @Inject internal constructor(
     private val encoding: Encoding
 ) : ManifestGenerator {
 
