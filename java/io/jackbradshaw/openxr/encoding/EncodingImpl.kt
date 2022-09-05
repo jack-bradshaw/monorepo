@@ -1,9 +1,9 @@
-package io.jackbradshaw.otter.openxr.encoding
+package io.jackbradshaw.openxr.encoding
 
-import io.jackbradshaw.otter.openxr.model.InteractionProfile
-import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
-import io.jackbradshaw.otter.openxr.model.Input
-import io.jackbradshaw.otter.openxr.model.Output
+import io.jackbradshaw.openxr.model.InteractionProfile
+import io.jackbradshaw.openxr.standard.StandardInteractionProfile
+import io.jackbradshaw.openxr.model.Input
+import io.jackbradshaw.openxr.model.Output
 
 class EncodingImpl : Encoding {
 

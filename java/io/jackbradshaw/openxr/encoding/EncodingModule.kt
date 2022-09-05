@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.openxr.encoding
+package io.jackbradshaw.openxr.encoding
 
 import dagger.Module
 import dagger.Binds

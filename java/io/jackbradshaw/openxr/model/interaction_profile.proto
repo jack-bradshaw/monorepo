@@ -1,19 +1,19 @@
 syntax = "proto3";
 
-package io.jackbradshaw.otter.openxr.model;
+package io.jackbradshaw.openxr.model;
 
-import "java/io/jackbradshaw/otter/openxr/model/input.proto";
-import "java/io/jackbradshaw/otter/openxr/model/output.proto";
+import "java/io/jackbradshaw/openxr/model/input.proto";
+import "java/io/jackbradshaw/openxr/model/output.proto";
 
 option java_multiple_files = true;
-option java_package = "io.jackbradshaw.otter.openxr.model";
+option java_package = "io.jackbradshaw.openxr.model";
 option java_outer_classname = "InteractionProfileProto";
 
 message InteractionProfile {
   Vendor vendor = 1;
   Controller controller = 2;
-  repeated io.jackbradshaw.otter.openxr.model.Input input = 3;
-  repeated io.jackbradshaw.otter.openxr.model.Output output = 4;
+  repeated io.jackbradshaw.openxr.model.Input input = 3;
+  repeated io.jackbradshaw.openxr.model.Output output = 4;
 }
 
 message Vendor {

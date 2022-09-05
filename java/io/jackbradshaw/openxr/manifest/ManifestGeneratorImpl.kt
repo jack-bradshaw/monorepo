@@ -1,10 +1,10 @@
-package io.jackbradshaw.otter.openxr.manifest
+package io.jackbradshaw.openxr.manifest
 
-import io.jackbradshaw.otter.openxr.model.Input
-import io.jackbradshaw.otter.openxr.standard.StandardInputComponent
-import io.jackbradshaw.otter.openxr.model.InteractionProfile
-import io.jackbradshaw.otter.openxr.encoding.Encoding
-import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
+import io.jackbradshaw.openxr.model.Input
+import io.jackbradshaw.openxr.standard.StandardInputComponent
+import io.jackbradshaw.openxr.model.InteractionProfile
+import io.jackbradshaw.openxr.encoding.Encoding
+import io.jackbradshaw.openxr.standard.StandardInteractionProfile
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.asFlow

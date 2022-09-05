@@ -13,8 +13,8 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     deps = [
-        "//java/io/jackbradshaw/otter/openxr/model:java_lite_proto",
-        "//java/io/jackbradshaw/otter/openxr/standard",
+        "//java/io/jackbradshaw/openxr/model:java_lite_proto",
+        "//java/io/jackbradshaw/openxr/standard",
     ],
 )
 

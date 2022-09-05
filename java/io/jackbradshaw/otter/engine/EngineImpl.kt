@@ -23,7 +23,7 @@ import javax.inject.Inject
 import com.jme3.system.JmeContext
 import com.jme3.system.Timer
 import com.jme3.renderer.Renderer
-import io.jackbradshaw.otter.openxr.installation.OpenXrInstaller
+import io.jackbradshaw.openxr.installation.OpenXrInstaller
 
 @OtterScope
 class EngineImpl @Inject internal constructor(

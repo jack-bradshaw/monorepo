@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.openxr.manifest
+package io.jackbradshaw.openxr.manifest
 
 import dagger.Module
 import dagger.Binds

@@ -1,6 +1,6 @@
-package io.jackbradshaw.otter.openxr.manifest
+package io.jackbradshaw.openxr.manifest
 
-import io.jackbradshaw.otter.openxr.model.InteractionProfile
+import io.jackbradshaw.openxr.model.InteractionProfile
 
 interface ManifestGenerator {
    suspend fun generateManifests(): Manifests

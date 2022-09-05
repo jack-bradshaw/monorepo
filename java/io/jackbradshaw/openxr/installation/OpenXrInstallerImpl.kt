@@ -1,13 +1,13 @@
-package io.jackbradshaw.otter.openxr.installation
+package io.jackbradshaw.openxr.installation
 
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.nio.file.Paths
-import io.jackbradshaw.otter.openxr.manifest.ManifestGenerator
+import io.jackbradshaw.openxr.manifest.ManifestGenerator
 import kotlinx.coroutines.runBlocking
-import io.jackbradshaw.otter.openxr.model.Config
+import io.jackbradshaw.openxr.model.Config
 
 class OpenXrInstallerImpl(
     private val manifestGenerator: ManifestGenerator,

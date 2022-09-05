@@ -1,7 +1,7 @@
-package io.jackbradshaw.otter.openxr.standard
+package io.jackbradshaw.openxr.standard
 
-import io.jackbradshaw.otter.openxr.model.User
-import io.jackbradshaw.otter.openxr.model.user
+import io.jackbradshaw.openxr.model.User
+import io.jackbradshaw.openxr.model.user
 
 /*
  * The standard users defined by

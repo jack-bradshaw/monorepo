@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.openxr.model
+package io.jackbradshaw.openxr.model
 
 
 fun interactionProfile(vendor: String, controller: String, inputs: Set<Input>, outputs: Set<Output>) =

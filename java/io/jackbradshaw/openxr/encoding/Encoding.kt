@@ -1,8 +1,8 @@
-package io.jackbradshaw.otter.openxr.encoding
+package io.jackbradshaw.openxr.encoding
 
-import io.jackbradshaw.otter.openxr.model.InteractionProfile
-import io.jackbradshaw.otter.openxr.model.Input
-import io.jackbradshaw.otter.openxr.model.Output
+import io.jackbradshaw.openxr.model.InteractionProfile
+import io.jackbradshaw.openxr.model.Input
+import io.jackbradshaw.openxr.model.Output
 
 interface Encoding {
   fun encodeInput(profile: InteractionProfile, input: Input): String

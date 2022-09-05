@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package io.jackbradshaw.otter.openxr.model;
+package io.jackbradshaw.openxr.model;
 
 option java_multiple_files = true;
-option java_package = "io.jackbradshaw.otter.openxr.model";
+option java_package = "io.jackbradshaw.openxr.model";
 option java_outer_classname = "InputLocationProto";
 
 message InputLocation {

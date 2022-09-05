@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.openxr.installation
+package io.jackbradshaw.openxr.installation
 
 interface OpenXrInstaller {
   fun deployActionManifestFiles()

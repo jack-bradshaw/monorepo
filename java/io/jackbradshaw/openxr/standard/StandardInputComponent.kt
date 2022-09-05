@@ -1,7 +1,7 @@
-package io.jackbradshaw.otter.openxr.standard
+package io.jackbradshaw.openxr.standard
 
-import io.jackbradshaw.otter.openxr.model.InputComponent
-import io.jackbradshaw.otter.openxr.model.inputComponent
+import io.jackbradshaw.openxr.model.InputComponent
+import io.jackbradshaw.openxr.model.inputComponent
 
 /*
  * The standard input components defined by

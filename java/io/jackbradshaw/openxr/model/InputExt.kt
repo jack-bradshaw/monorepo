@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.openxr.model
+package io.jackbradshaw.openxr.model
 
 fun input(
     user: User,
