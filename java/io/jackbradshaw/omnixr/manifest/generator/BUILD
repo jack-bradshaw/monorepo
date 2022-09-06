@@ -14,6 +14,7 @@ kt_jvm_library(
     ],
     deps = [
         "//java/io/jackbradshaw/klu/flow",
+        "//java/io/jackbradshaw/omnixr/model:java_lite_proto",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

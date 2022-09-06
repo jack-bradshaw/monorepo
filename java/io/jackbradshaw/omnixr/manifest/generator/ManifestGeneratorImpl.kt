@@ -49,7 +49,7 @@ class ManifestGeneratorImpl @Inject internal constructor(
       .values()
       .asFlow()
       .map {it.interactionProfile}
-      .map { SecondaryManifest("${it.path()}.json", it.toSecondaryManifest()) }
+      .map { SecondaryManifest(it, "${it.path()}.json", it.toSecondaryManifest()) }
       .toList()
       .toSet()
 

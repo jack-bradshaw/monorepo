@@ -1,5 +1,7 @@
 package io.jackbradshaw.omnixr.manifest.generator
 
+import io.jackbradshaw.omnixr.model.InteractionProfile
+
 interface ManifestGenerator {
    suspend fun generateManifests(): Manifests
 }
@@ -16,6 +18,7 @@ data class Manifests(
 )
 
 data class SecondaryManifest(
+    val profile: InteractionProfile,
     val url: String,
     val content: String
 )
