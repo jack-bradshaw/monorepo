@@ -55,8 +55,8 @@ private fun output(user: StandardUser, identifier: StandardOutputIdentifier, loc
  */
 enum class StandardInteractionProfile(val interactionProfile: InteractionProfile) {
   KHRONOS_SIMPLE_CONTROLLER(interactionProfile(
-      vendor = "khr",
-      controller = "simple_controller",
+      vendorId = "khr",
+      controllerId = "simple_controller",
       inputs = setOf(
           input(LEFT_HAND, SELECT, CLICK),
           input(LEFT_HAND, MENU, CLICK),
@@ -71,7 +71,7 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
           output(LEFT_HAND, HAPTIC),
           output(RIGHT_HAND, HAPTIC)
       ))),
-  GOOGLE_DAYDREAM_CONTROLLER(interactionProfile(vendor = "google", controller = "daydream_controller", inputs = setOf(
+  GOOGLE_DAYDREAM_CONTROLLER(interactionProfile(vendorId = "google", controllerId = "daydream_controller", inputs = setOf(
       input(LEFT_HAND, SELECT, CLICK),
       input(LEFT_HAND, TRACKPAD, StandardInputComponent.X),
       input(LEFT_HAND, TRACKPAD, StandardInputComponent.Y),
@@ -87,7 +87,7 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
       input(RIGHT_HAND, GRIP, POSE),
       input(RIGHT_HAND, AIM, POSE),
   ), outputs = setOf())),
-  HTC_VIVE_CONTROLLER(interactionProfile(vendor = "htc", controller = "vive_controller", inputs = setOf(
+  HTC_VIVE_CONTROLLER(interactionProfile(vendorId = "htc", controllerId = "vive_controller", inputs = setOf(
       input(LEFT_HAND, SYSTEM, CLICK),
       input(LEFT_HAND, SQUEEZE, CLICK),
       input(LEFT_HAND, MENU, CLICK),
@@ -113,15 +113,15 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
   ), outputs = setOf(
       output(LEFT_HAND, HAPTIC), output(RIGHT_HAND, HAPTIC)
   ))),
-  HTC_VIVE_PRO(interactionProfile(vendor = "htc", controller = "vive_pro", inputs = setOf(
+  HTC_VIVE_PRO(interactionProfile(vendorId = "htc", controllerId = "vive_pro", inputs = setOf(
       input(HEAD, SYSTEM, CLICK),
       input(HEAD, VOLUME_UP, CLICK),
       input(HEAD, VOLUME_DOWN, CLICK),
       input(HEAD, MUTE_MIC, CLICK),
   ), outputs = setOf())),
   MICROSOFT_MIXED_REALITY_MOTION_CONTROLLER(interactionProfile(
-      vendor = "microsoft",
-      controller = "motion_controller",
+      vendorId = "microsoft",
+      controllerId = "motion_controller",
       inputs = setOf(
           input(LEFT_HAND, MENU, CLICK),
           input(LEFT_HAND, SQUEEZE, CLICK),
@@ -150,7 +150,7 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
       ), outputs = setOf(
       output(LEFT_HAND, HAPTIC), output(RIGHT_HAND, HAPTIC)
   ))),
-  MICROSOFT_XBOX_CONTROLLER(interactionProfile(vendor = "microsoft", controller = "xbox_controller", inputs = setOf(
+  MICROSOFT_XBOX_CONTROLLER(interactionProfile(vendorId = "microsoft", controllerId = "xbox_controller", inputs = setOf(
       input(GAMEPAD, MENU, CLICK),
       input(GAMEPAD, VIEW, CLICK),
       input(GAMEPAD, A, CLICK),
@@ -179,7 +179,7 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
       output(GAMEPAD, HAPTIC, LEFT_TRIGGER),
       output(GAMEPAD, HAPTIC, RIGHT_TRIGGER),
   ))),
-  OCCULUS_GO_CONTROLLER(interactionProfile(vendor = "oculus", controller = "go_controller", inputs = setOf(
+  OCCULUS_GO_CONTROLLER(interactionProfile(vendorId = "oculus", controllerId = "go_controller", inputs = setOf(
       input(LEFT_HAND, SYSTEM, CLICK),
       input(LEFT_HAND, TRIGGER, CLICK),
       input(LEFT_HAND, BACK, CLICK),
@@ -199,7 +199,7 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
       input(RIGHT_HAND, GRIP, POSE),
       input(RIGHT_HAND, AIM, POSE),
   ), outputs = setOf())),
-  OCCULUS_TOUCH_CONTROLLER(interactionProfile(vendor = "oculus", controller = "touch_controller", inputs = setOf(
+  OCCULUS_TOUCH_CONTROLLER(interactionProfile(vendorId = "oculus", controllerId = "touch_controller", inputs = setOf(
       input(LEFT_HAND, StandardInputIdentifier.X, CLICK),
       input(LEFT_HAND, StandardInputIdentifier.X, TOUCH),
       input(LEFT_HAND, StandardInputIdentifier.Y, CLICK),
@@ -233,7 +233,7 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
   ), outputs = setOf(
       output(LEFT_HAND, HAPTIC), output(RIGHT_HAND, HAPTIC)
   ))),
-  VALVE_INDEX_CONTROLLER(interactionProfile(vendor = "valve", controller = "index_controller", inputs = setOf(
+  VALVE_INDEX_CONTROLLER(interactionProfile(vendorId = "valve", controllerId = "index_controller", inputs = setOf(
       input(LEFT_HAND, SYSTEM, CLICK),
       input(LEFT_HAND, SYSTEM, TOUCH),
       input(LEFT_HAND, A, CLICK),
