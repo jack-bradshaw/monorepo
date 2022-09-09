@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package io.jackbradshaw.omnixr.model;
+
+import "java/io/jackbradshaw/omnixr/model/output_identifier.proto";
+import "java/io/jackbradshaw/omnixr/model/output_location.proto";
+import "java/io/jackbradshaw/omnixr/model/user.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.omnixr.model";
+option java_outer_classname = "OutputProto";
+
+message Output {
+  io.jackbradshaw.omnixr.model.User user = 1;
+  io.jackbradshaw.omnixr.model.OutputIdentifier identifier = 2;
+  io.jackbradshaw.omnixr.model.OutputLocation location = 3;
+}
