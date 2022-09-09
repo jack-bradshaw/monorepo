@@ -19,13 +19,16 @@ class ManifestInstallerImpl @Inject internal constructor(
 
   override fun deployActionManifestFiles() = runBlocking {
     val manifests = manifestGenerator.generateManifests()
-    Paths.get(config.actionManifestDirectory, MAIN_MANIFEST_FILENAME).toFile().overwriteWith(manifests.primaryManifest)
+    Paths
+        .get(config.actionManifestDirectory, config.actionManifestFilename)
+        .toFile()
+        .overwriteWith(manifests.primaryManifest)
+
     manifests.secondaryManifests.forEach {
-      val file = Paths.get(
-          config.actionManifestDirectory.toString(),
-          it.url
-      ).toFile()
-      file.overwriteWith(it.content)
+      Paths
+          .get(config.actionManifestDirectory.toString(), it.url)
+          .toFile()
+          .overwriteWith(it.content)
     }
   }
 
@@ -39,10 +42,6 @@ class ManifestInstallerImpl @Inject internal constructor(
     } catch (e: IOException) {
       throw IllegalStateException("Failed to overwrite file $this.", e)
     }
-  }
-
-  companion object {
-    private const val MAIN_MANIFEST_FILENAME = "action_manifest.json"
   }
 }
 
