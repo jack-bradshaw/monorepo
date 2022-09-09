@@ -15,6 +15,7 @@ import io.jackbradshaw.omnixr.config.defaultConfig
 @Component(modules = [ManifestEncoderModule::class, ManifestInstallerModule::class, ManifestGeneratorModule::class])
 interface OmniXrComponent {
 
+  fun config(): Config
   fun manifestEncoder(): ManifestEncoder
   fun manifestInstaller(): ManifestInstaller
   fun manifestGenerator(): ManifestGenerator
