@@ -8,4 +8,5 @@ option java_outer_classname = "ConfigProto";
 
 message Config {
   string action_manifest_directory = 1;
+  string action_manifest_filename = 2;
 }
