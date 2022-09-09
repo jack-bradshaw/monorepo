@@ -1,3 +1,3 @@
 package io.jackbradshaw.omnixr.model
 
-fun inputComponent(name: String) = InputComponent.newBuilder().setStandardName(name).build()
+fun inputComponent(id: String) = InputComponent.newBuilder().setId(id).build()

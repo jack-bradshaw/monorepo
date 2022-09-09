@@ -1,3 +1,3 @@
 package io.jackbradshaw.omnixr.model
 
-fun inputLocation(name: String) = InputLocation.newBuilder().setStandardName(name).build()
+fun inputLocation(id: String) = InputLocation.newBuilder().setId(id).build()

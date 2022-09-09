@@ -10,5 +10,3 @@ fun input(
   setComponent(component)
   if (location != null) setLocation(location)
 }.build()
-
-//fun InputSpec.path() = "input/" + identifier.standardName + (location?.standardName?.let { "_$it" } ?: "") + "/" + component.standardName

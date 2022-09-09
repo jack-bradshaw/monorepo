@@ -7,5 +7,5 @@ option java_package = "io.jackbradshaw.omnixr.model";
 option java_outer_classname = "InputIdentifierProto";
 
 message InputIdentifier {
-  string standard_name = 1;
+  string id = 1;
 }

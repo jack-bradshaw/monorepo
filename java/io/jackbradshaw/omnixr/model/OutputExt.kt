@@ -9,5 +9,3 @@ fun output(
   setIdentifier(identifier)
   if (location != null) setLocation(location)
 }.build()
-
-//fun OutputSpec.path() = "output/" + identifier.standardName + (location?.standardName?.let { "_$it" } ?: "")

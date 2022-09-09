@@ -1,3 +1,3 @@
 package io.jackbradshaw.omnixr.model
 
-fun outputIdentifier(name: String) = OutputIdentifier.newBuilder().setStandardName(name).build()
+fun outputIdentifier(id: String) = OutputIdentifier.newBuilder().setId(id).build()

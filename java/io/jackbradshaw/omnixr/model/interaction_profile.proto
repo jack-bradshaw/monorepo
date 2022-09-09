@@ -17,9 +17,9 @@ message InteractionProfile {
 }
 
 message Vendor {
-  string standard_name = 1;
+  string id = 1;
 }
 
 message Controller {
-  string standard_name = 1;
+  string id = 1;
 }
