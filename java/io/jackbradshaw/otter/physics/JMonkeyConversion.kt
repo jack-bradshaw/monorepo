@@ -2,9 +2,9 @@ package io.jackbradshaw.otter.physics
 
 import io.jackbradshaw.otter.math.toJMonkeyQuaternion
 import io.jackbradshaw.otter.math.toJMonkeyVector
-import io.jackbradshaw.otter.math.tootterPoint
-import io.jackbradshaw.otter.math.tootterQuaternion
-import io.jackbradshaw.otter.math.tootterVector
+import io.jackbradshaw.otter.math.toOtterPoint
+import io.jackbradshaw.otter.math.toOtterQuaternion
+import io.jackbradshaw.otter.math.toOtterVector
 import com.jme3.math.Transform as JmeTransform
 
 /**
@@ -16,5 +16,5 @@ fun Placement.toJMonkeyTransform() =
 /**
  * Creates a new Merovingian Transform which is equivalent to this vector.
  */
-fun JmeTransform.tootterPlacement() =
-  placement(getTranslation().tootterPoint(), getRotation().tootterQuaternion(), getScale().tootterVector())
+fun JmeTransform.toOtterPlacement() =
+  placement(getTranslation().toOtterPoint(), getRotation().toOtterQuaternion(), getScale().toOtterVector())
