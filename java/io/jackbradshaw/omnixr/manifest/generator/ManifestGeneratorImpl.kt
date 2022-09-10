@@ -55,7 +55,7 @@ class ManifestGeneratorImpl @Inject internal constructor(
 
   private fun InteractionProfile.declaration(): JsonObject = JsonObject().apply {
     addProperty("binding_url", "${path()}.json")
-    addProperty("controller_type", "${vendor.standardName}_${controller.standardName}")
+    addProperty("controller_type", "${vendor.id}_${controller.id}")
   }
 
   private fun InteractionProfile.actionDeclarations(): Flow<JsonObject> = inputList
@@ -84,7 +84,7 @@ class ManifestGeneratorImpl @Inject internal constructor(
     })
   }.toString()
 
-  private fun InteractionProfile.path(): String = "${vendor.standardName}_${controller.standardName}"
+  private fun InteractionProfile.path(): String = "${vendor.id}_${controller.id}"
 
   private fun Input.toType(): String = when (StandardInputComponent.fromInputComponent(this.component)) {
     StandardInputComponent.CLICK -> "boolean"
@@ -100,11 +100,11 @@ class ManifestGeneratorImpl @Inject internal constructor(
 
   private fun Input.toBinding(profile: InteractionProfile): JsonObject = JsonObject().apply {
     add("inputs", JsonObject().apply {
-      add(component.standardName, JsonObject().apply {
+      add(component.id, JsonObject().apply {
         addProperty("output", encoder.encodeInput(profile, this@toBinding))
       })
     })
-    addProperty("path", "/${user.standardName}/input/${identifier.standardName}")
+    addProperty("path", "/${user.id}/input/${identifier.id}")
   }
 
   private suspend fun Flow<JsonObject>.toJsonArray() = fold(JsonArray()) { array, next -> array.also { it.add(next) } }
