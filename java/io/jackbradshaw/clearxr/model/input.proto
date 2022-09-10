@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package io.jackbradshaw.clearxr.model;
+
+import "java/io/jackbradshaw/clearxr/model/input_identifier.proto";
+import "java/io/jackbradshaw/clearxr/model/input_component.proto";
+import "java/io/jackbradshaw/clearxr/model/input_location.proto";
+import "java/io/jackbradshaw/clearxr/model/user.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.clearxr.model";
+option java_outer_classname = "InputProto";
+
+message Input {
+  io.jackbradshaw.clearxr.model.User user = 1;
+  io.jackbradshaw.clearxr.model.InputIdentifier identifier = 2;
+  io.jackbradshaw.clearxr.model.InputComponent component = 3;
+  io.jackbradshaw.clearxr.model.InputLocation location = 4;
+}
