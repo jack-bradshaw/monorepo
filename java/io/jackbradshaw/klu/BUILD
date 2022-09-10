@@ -14,7 +14,7 @@ kt_jvm_library(
 )
 
 java_binary(
-    name = "klu_binary",
+    name = "binary",
     visibility = [
         "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
@@ -25,7 +25,7 @@ java_binary(
 )
 
 java_export(
-    name = "klu_release",
+    name = "release",
     srcs = ["Stub.java"],
     maven_coordinates = "io.jackbradshaw:klu:0.1.1",
     pom_template = "pom_template.xml",

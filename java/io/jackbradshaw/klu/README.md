@@ -28,7 +28,7 @@ To build the binary from source:
 
 1. [Install Bazel](https://docs.bazel.build/versions/main/install.html).
 2. Clone the repository: `git clone https://github.com/jack-bradshaw/monorepo`
-3. Invoke the build: `bazel build //java/io/jackbradshaw/klu_full.deploy`
+3. Invoke the build: `bazel build //java/io/jackbradshaw/klu:binary.deploy`
 
 This will produce a jar in the `monorepo/bazel-out` directory. The exact steps for including this jar in your project
 will vary depending on your setup.
