@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to publish the clearxr library to Maven Central.
+# Script to publish the ClearXR library to Maven Central.
 
 echo "Enter password for Sonatype."
 read -s password
