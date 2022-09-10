@@ -20,7 +20,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "component",
     srcs = [
-        "OmniXrComponent.kt",
+        "OmniXr.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw:__subpackages__",

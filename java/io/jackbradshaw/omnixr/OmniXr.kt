@@ -13,7 +13,7 @@ import io.jackbradshaw.omnixr.config.defaultConfig
 
 @OmniXrScope
 @Component(modules = [ManifestEncoderModule::class, ManifestInstallerModule::class, ManifestGeneratorModule::class])
-interface OmniXrComponent {
+interface OmniXr {
 
   fun config(): Config
   fun manifestEncoder(): ManifestEncoder
@@ -24,8 +24,8 @@ interface OmniXrComponent {
   interface Builder {
     @BindsInstance
     fun setConfig(config: Config): Builder
-    fun build(): OmniXrComponent
+    fun build(): OmniXr
   }
 }
 
-fun omniXr(config: Config = defaultConfig): OmniXrComponent = DaggerOmniXrComponent.builder().setConfig(config).build()
+fun omniXr(config: Config = defaultConfig): OmniXr = DaggerOmniXr.builder().setConfig(config).build()
