@@ -1,6 +1,6 @@
 # OmniXR
 
-A system for using OpenXR without compromising on architectural best practices.
+A system for using OpenXR with advanced programming and architectural best practices.
 
 Contents:
 
