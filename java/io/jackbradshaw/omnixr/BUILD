@@ -1,5 +1,7 @@
 load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("@dagger//:workspace_defs.bzl", "dagger_rules")
+load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_jvm_external//:defs.bzl", "java_export")
 
 dagger_rules()
 
@@ -37,5 +39,38 @@ kt_jvm_library(
         "//java/io/jackbradshaw/omnixr/manifest/generator:module",
         "//java/io/jackbradshaw/omnixr/manifest/installer",
         "//java/io/jackbradshaw/omnixr/manifest/installer:module",
+    ],
+)
+
+kt_jvm_library(
+    name = "omnixr",
+    visibility = [
+        "//java/io/jackbradshaw:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+    exports = [
+        ":component",
+        ":scope",
+    ],
+)
+
+java_binary(
+    name = "binary",
+    visibility = [
+        "//java/io/jackbradshaw:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+    runtime_deps = [
+        ":omnixr",
+    ],
+)
+
+java_export(
+    name = "release",
+    srcs = ["Stub.java"],
+    maven_coordinates = "io.jackbradshaw:omnixr:0.0.0",
+    pom_template = "pom_template.xml",
+    deps = [
+        ":omnixr",
     ],
 )
