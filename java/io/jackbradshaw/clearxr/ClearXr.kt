@@ -13,7 +13,7 @@ import io.jackbradshaw.clearxr.config.defaultConfig
 
 @clearxrScope
 @Component(modules = [ManifestEncoderModule::class, ManifestInstallerModule::class, ManifestGeneratorModule::class])
-interface clearxr {
+interface ClearXr {
 
   fun config(): Config
   fun manifestEncoder(): ManifestEncoder
@@ -24,8 +24,8 @@ interface clearxr {
   interface Builder {
     @BindsInstance
     fun setConfig(config: Config): Builder
-    fun build(): clearxr
+    fun build(): ClearXr
   }
 }
 
-fun clearxr(config: Config = defaultConfig): clearxr = Daggerclearxr.builder().setConfig(config).build()
+fun clearxr(config: Config = defaultConfig): ClearXr = DaggerClearXr.builder().setConfig(config).build()
