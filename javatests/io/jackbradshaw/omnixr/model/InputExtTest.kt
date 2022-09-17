@@ -1,4 +1,4 @@
-package io.jackbradshaw.omnixr.model
+package io.jackbradshaw.clearxr.model
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test

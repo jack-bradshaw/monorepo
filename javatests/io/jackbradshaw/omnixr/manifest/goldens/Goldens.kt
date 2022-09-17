@@ -1,16 +1,16 @@
-package io.jackbradshaw.omnixr.manifest.goldens
+package io.jackbradshaw.clearxr.manifest.goldens
 
 
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.KHRONOS_SIMPLE_CONTROLLER
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.HTC_VIVE_PRO
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.HTC_VIVE_CONTROLLER
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.MICROSOFT_MIXED_REALITY_MOTION_CONTROLLER
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.MICROSOFT_XBOX_CONTROLLER
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.OCCULUS_GO_CONTROLLER
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.OCCULUS_TOUCH_CONTROLLER
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile.VALVE_INDEX_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.KHRONOS_SIMPLE_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.HTC_VIVE_PRO
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.HTC_VIVE_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.MICROSOFT_MIXED_REALITY_MOTION_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.MICROSOFT_XBOX_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.OCCULUS_GO_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.OCCULUS_TOUCH_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.VALVE_INDEX_CONTROLLER
 import java.io.File
 import com.google.devtools.build.runfiles.Runfiles
 
@@ -28,5 +28,5 @@ val goldenSecondaryManifests = buildMap<StandardInteractionProfile, String> {
 }
 
 private fun readGoldenFile(filename: String) = File(
-    Runfiles.create().rlocation("io_jackbradshaw/javatests/io/jackbradshaw/omnixr/manifest/goldens/$filename")
+    Runfiles.create().rlocation("io_jackbradshaw/javatests/io/jackbradshaw/clearxr/manifest/goldens/$filename")
 ).readText()

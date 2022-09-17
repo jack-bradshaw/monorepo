@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import com.jme3.system.JmeContext
-import java.io.jackbradshaw.omnixr.manifest.installer.ManifestInstaller
+import java.io.jackbradshaw.clearxr.manifest.installer.ManifestInstaller
 
 @OtterScope
 class EngineImpl @Inject internal constructor(

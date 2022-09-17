@@ -1,17 +1,17 @@
-package io.jackbradshaw.omnixr.manifest.encoder
+package io.jackbradshaw.clearxr.manifest.encoder
 
-import io.jackbradshaw.omnixr.omniXr
-import io.jackbradshaw.omnixr.model.InteractionProfile
-import io.jackbradshaw.omnixr.model.Input
-import io.jackbradshaw.omnixr.model.input
-import io.jackbradshaw.omnixr.model.Output
-import io.jackbradshaw.omnixr.model.output
+import io.jackbradshaw.clearxr.clearxr
+import io.jackbradshaw.clearxr.model.InteractionProfile
+import io.jackbradshaw.clearxr.model.Input
+import io.jackbradshaw.clearxr.model.input
+import io.jackbradshaw.clearxr.model.Output
+import io.jackbradshaw.clearxr.model.output
 import com.google.common.truth.Truth.assertThat
-import io.jackbradshaw.omnixr.standard.StandardInputComponent
-import io.jackbradshaw.omnixr.standard.StandardInputIdentifier
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile
-import io.jackbradshaw.omnixr.standard.StandardOutputIdentifier
-import io.jackbradshaw.omnixr.standard.StandardUser
+import io.jackbradshaw.clearxr.standard.StandardInputComponent
+import io.jackbradshaw.clearxr.standard.StandardInputIdentifier
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile
+import io.jackbradshaw.clearxr.standard.StandardOutputIdentifier
+import io.jackbradshaw.clearxr.standard.StandardUser
 import org.junit.Test
 import org.junit.Before
 import org.junit.runner.RunWith
@@ -25,7 +25,7 @@ class ManifestEncoderTest {
 
   @Before
   fun setUp() {
-    encoder = omniXr().manifestEncoder()
+    encoder = clearxr().manifestEncoder()
   }
 
   @Test

@@ -1,12 +1,12 @@
-package io.jackbradshaw.omnixr.manifest.generator
+package io.jackbradshaw.clearxr.manifest.generator
 
-import io.jackbradshaw.omnixr.manifest.goldens.goldenPrimaryManifest
-import io.jackbradshaw.omnixr.manifest.goldens.goldenSecondaryManifests
+import io.jackbradshaw.clearxr.manifest.goldens.goldenPrimaryManifest
+import io.jackbradshaw.clearxr.manifest.goldens.goldenSecondaryManifests
 import com.google.common.truth.Truth.assertThat
 import io.jackbradshaw.klu.flow.toMap
-import io.jackbradshaw.omnixr.omniXr
-import io.jackbradshaw.omnixr.standard.StandardInteractionProfile
-import io.jackbradshaw.omnixr.model.InteractionProfile
+import io.jackbradshaw.clearxr.clearxr
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile
+import io.jackbradshaw.clearxr.model.InteractionProfile
 import org.junit.Before
 import org.junit.Test
 import kotlinx.coroutines.flow.asFlow
@@ -24,7 +24,7 @@ class ManifestGeneratorTest {
 
   @Before
   fun setUp() {
-    generator = omniXr().manifestGenerator()
+    generator = clearxr().manifestGenerator()
   }
 
   @Test
@@ -60,6 +60,6 @@ class ManifestGeneratorTest {
   private fun readGolden(relativeFilename: String) = File(Runfiles.create().rlocation("$BASE_GOLDEN_PATH/$relativeFilename")).readText()
 
   companion object {
-    private const val BASE_GOLDEN_PATH = "io_jackbradshaw/javatests/io/jackbradshaw/omnixr/manifest/goldens"
+    private const val BASE_GOLDEN_PATH = "io_jackbradshaw/javatests/io/jackbradshaw/clearxr/manifest/goldens"
   }
 }

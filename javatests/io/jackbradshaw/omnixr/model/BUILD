@@ -6,7 +6,7 @@ kt_jvm_test(
         "InputComponentExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -19,7 +19,7 @@ kt_jvm_test(
         "InputExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -32,7 +32,7 @@ kt_jvm_test(
         "InputIdentifierExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -45,7 +45,7 @@ kt_jvm_test(
         "InputLocationExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -58,7 +58,7 @@ kt_jvm_test(
         "InteractionProfileExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -71,7 +71,7 @@ kt_jvm_test(
         "OutputExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -84,7 +84,7 @@ kt_jvm_test(
         "OutputLocationExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -97,7 +97,7 @@ kt_jvm_test(
         "UserExtTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/model:proto_extensions",
+        "//java/io/jackbradshaw/clearxr/model:proto_extensions",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

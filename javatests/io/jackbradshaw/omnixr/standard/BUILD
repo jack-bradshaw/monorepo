@@ -6,7 +6,7 @@ kt_jvm_test(
         "StandardInputComponentTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/standard",
+        "//java/io/jackbradshaw/clearxr/standard",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -19,7 +19,7 @@ kt_jvm_test(
         "StandardInputIdentifierTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/standard",
+        "//java/io/jackbradshaw/clearxr/standard",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -32,7 +32,7 @@ kt_jvm_test(
         "StandardInputLocationTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/standard",
+        "//java/io/jackbradshaw/clearxr/standard",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -45,7 +45,7 @@ kt_jvm_test(
         "StandardInteractionProfileTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/standard",
+        "//java/io/jackbradshaw/clearxr/standard",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -58,7 +58,7 @@ kt_jvm_test(
         "StandardOutputLocationTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/standard",
+        "//java/io/jackbradshaw/clearxr/standard",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -71,7 +71,7 @@ kt_jvm_test(
         "StandardUserTest.kt",
     ],
     deps = [
-        "//java/io/jackbradshaw/omnixr/standard",
+        "//java/io/jackbradshaw/clearxr/standard",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
