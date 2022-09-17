@@ -1,4 +1,4 @@
-package io.jackbradshaw.omnixr.standard
+package io.jackbradshaw.clearxr.standard
 
 
 import com.google.common.truth.Truth.assertThat

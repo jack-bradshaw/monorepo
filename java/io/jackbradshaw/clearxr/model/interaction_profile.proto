@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package io.jackbradshaw.clearxr.model;
+
+import "java/io/jackbradshaw/clearxr/model/input.proto";
+import "java/io/jackbradshaw/clearxr/model/output.proto";
+
+option java_multiple_files = true;
+option java_package = "io.jackbradshaw.clearxr.model";
+option java_outer_classname = "InteractionProfileProto";
+
+message InteractionProfile {
+  Vendor vendor = 1;
+  Controller controller = 2;
+  repeated io.jackbradshaw.clearxr.model.Input input = 3;
+  repeated io.jackbradshaw.clearxr.model.Output output = 4;
+}
+
+message Vendor {
+  string id = 1;
+}
+
+message Controller {
+  string id = 1;
+}

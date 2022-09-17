@@ -1,4 +1,4 @@
-package io.jackbradshaw.omnixr.config
+package io.jackbradshaw.clearxr.config
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -27,7 +27,7 @@ class ConfigExtTest {
         Config
             .newBuilder()
             .setActionManifestDirectory(System.getProperty("java.io.tmpdir"))
-            .setActionManifestFilename("omnixr_action_manifest.json")
+            .setActionManifestFilename("clearxr_action_manifest.json")
             .build()
     )
   }
