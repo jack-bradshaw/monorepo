@@ -10,6 +10,10 @@ proto_library(
         "//java/io/jackbradshaw/otter:__subpackages__",
         "//javatests:__subpackages__",
     ],
+    deps = [
+        "//java/io/jackbradshaw/otter/engine/config:proto",
+        "//java/io/jackbradshaw/otter/openxr/config:proto",
+    ],
 )
 
 java_proto_library(
@@ -50,5 +54,7 @@ kt_jvm_library(
     ],
     deps = [
         ":kt_jvm_proto",
+        "//java/io/jackbradshaw/otter/engine/config:proto_extensions",
+        "//java/io/jackbradshaw/otter/openxr/config:proto_extensions",
     ],
 )

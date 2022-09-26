@@ -1,10 +1,20 @@
 load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("@com_github_grpc_grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_proto_library")
+load("@dagger//:workspace_defs.bzl", "dagger_rules")
+
+dagger_rules()
 
 proto_library(
     name = "proto",
     srcs = [
-        "config.proto",
+        "input.proto",
+        "input_component.proto",
+        "input_identifier.proto",
+        "input_location.proto",
+        "interaction_profile.proto",
+        "output.proto",
+        "output_identifier.proto",
+        "output_location.proto",
+        "user.proto",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
@@ -30,25 +40,24 @@ java_lite_proto_library(
     deps = [":proto"],
 )
 
-kt_jvm_proto_library(
-    name = "kt_jvm_proto",
-    visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
-    ],
-    deps = [":proto"],
-)
-
 kt_jvm_library(
     name = "proto_extensions",
     srcs = [
-        "ConfigExt.kt",
+        "InputComponentExt.kt",
+        "InputExt.kt",
+        "InputIdentifierExt.kt",
+        "InputLocationExt.kt",
+        "InteractionProfileExt.kt",
+        "OutputExt.kt",
+        "OutputIdentifier.kt",
+        "OutputLocation.kt",
+        "UserExt.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":kt_jvm_proto",
+        ":java_lite_proto",
     ],
 )

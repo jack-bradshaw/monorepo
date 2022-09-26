@@ -1,5 +1,6 @@
 package io.jackbradshaw.otter.engine
 
+import io.jackbradshaw.otter.config.Config
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
 import com.jme3.app.VRConstants
@@ -8,7 +9,6 @@ import com.jme3.scene.Node
 import com.jme3.bullet.BulletAppState
 import com.jme3.system.AppSettings
 import io.jackbradshaw.otter.OtterScope
-import io.jackbradshaw.otter.engine.config.Config
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import com.jme3.system.JmeContext
-import java.io.jackbradshaw.clearxr.manifest.installer.ManifestInstaller
+import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 
 @OtterScope
 class EngineImpl @Inject internal constructor(
@@ -30,13 +30,13 @@ class EngineImpl @Inject internal constructor(
   private var totalRuntimeSec = 0.0
 
   private val settings = AppSettings(/* loadDefaults= */ true).apply {
-    if (config.xrEnabled) {
+    if (config.engineConfig.xrEnabled) {
       put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
       put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
 
     }
   }
-  private val xr = if (config.xrEnabled) createVrAppState() else null
+  private val xr = if (config.engineConfig.xrEnabled) createVrAppState() else null
   private val physics = BulletAppState()
 
   private val coroutineScopeJob = Job()
@@ -61,8 +61,8 @@ class EngineImpl @Inject internal constructor(
       setShowSettings(false)
       setLostFocusBehavior(LostFocusBehavior.Disabled)
       inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
-      setDisplayFps(config.debugEnabled)
-      if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
+      setDisplayFps(config.engineConfig.debugEnabled)
+      if (config.engineConfig.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
       if (xr != null) {
         stateManager.attach(xr)
