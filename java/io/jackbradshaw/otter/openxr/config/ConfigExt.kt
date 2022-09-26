@@ -1,7 +1,3 @@
 package io.jackbradshaw.otter.openxr.config
 
-val defaultConfig = config {
-  actionManifestDirectory = System.getProperty("java.io.tmpdir")
-  actionManifestFilename = "otter_action_manifest.json"
-  actionSetName = "main"
-}
+val defaultConfig = Config.newBuilder().setActionManifestDirectory(System.getProperty("java.io.tmpdir")).setActionManifestFilename("otter_action_manifest.json").setActionSetName("main").build()

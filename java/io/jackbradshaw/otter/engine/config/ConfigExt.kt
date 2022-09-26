@@ -1,7 +1,3 @@
 package io.jackbradshaw.otter.engine.config
 
-val defaultConfig = config {
-  xrEnabled = false
-  headlessEnabled = false
-  debugEnabled = false
-}
+val defaultConfig = Config.newBuilder().setXrEnabled(false).setHeadlessEnabled(false).setDebugEnabled(false).build()

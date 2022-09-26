@@ -26,7 +26,6 @@ kt_jvm_library(
         "//javatests/io/jackbradshaw/otter/openxr/manifest:__subpackages__",
     ],
     deps = [
-        "//java/io/jackbradshaw/clearxr:component",
         "//java/io/jackbradshaw/otter/openxr/manifest/encoder",
         "//java/io/jackbradshaw/otter/openxr/manifest/installer",
         "//java/io/jackbradshaw/otter/openxr/model:proto_extensions",

@@ -11,8 +11,11 @@ import io.jackbradshaw.otter.clock.Rendering
 import io.jackbradshaw.otter.clock.Real
 import io.jackbradshaw.otter.engine.Engine
 import io.jackbradshaw.otter.engine.EngineModule
+import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoder
 import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoderModule
+import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGenerator
 import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGeneratorModule
+import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerModule
 
 @OtterScope
@@ -25,7 +28,7 @@ import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerModule
       ManifestEncoderModule::class
     ]
 )
-interface OtterComponent {
+interface Otter {
 
   @Physics
   fun physicsClock(): Clock
@@ -38,13 +41,17 @@ interface OtterComponent {
 
   fun engine(): Engine
 
+  fun manifestGenerator(): ManifestGenerator
+  fun manifestInstaller(): ManifestInstaller
+  fun manifestEncoder(): ManifestEncoder
+  fun config(): Config
+
   @Component.Builder
   interface Builder {
     @BindsInstance
     fun setConfig(config: Config): Builder
-    fun build(): OtterComponent
+    fun build(): Otter
   }
 }
 
-fun otter(config: Config = defaultConfig): OtterComponent =
-    DaggerOtterComponent.builder().setConfig(config).build()
+fun otter(config: Config = defaultConfig): Otter = DaggerOtter.builder().setConfig(config).build()

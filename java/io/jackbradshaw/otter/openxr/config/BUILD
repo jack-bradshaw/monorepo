@@ -49,6 +49,6 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":kt_jvm_proto",
+        ":java_lite_proto",
     ],
 )

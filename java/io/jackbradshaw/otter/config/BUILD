@@ -53,7 +53,7 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":kt_jvm_proto",
+        ":java_lite_proto",
         "//java/io/jackbradshaw/otter/engine/config:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/config:proto_extensions",
     ],

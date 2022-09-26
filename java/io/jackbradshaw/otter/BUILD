@@ -22,7 +22,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "component",
     srcs = [
-        "OtterComponent.kt",
+        "Otter.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",

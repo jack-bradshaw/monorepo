@@ -1,13 +1,13 @@
 package io.jackbradshaw.otter.openxr.manifest.encoder
 
-import io.jackbradshaw.otter.openxr.clearxr
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import io.jackbradshaw.otter.openxr.model.Input
 import io.jackbradshaw.otter.openxr.model.input
 import io.jackbradshaw.otter.openxr.model.Output
 import io.jackbradshaw.otter.openxr.model.output
 import com.google.common.truth.Truth.assertThat
-import io.jackbradshaw.otter.OtterComponent
+import io.jackbradshaw.otter.Otter
+import javax.inject.Scope
 import io.jackbradshaw.otter.openxr.standard.StandardInputComponent
 import io.jackbradshaw.otter.openxr.standard.StandardInputIdentifier
 import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
@@ -29,7 +29,7 @@ class ManifestEncoderTest {
 
   @Before
   fun setUp() {
-    ManifestEncoderTestComponent.create(otter()).inject(this)
+    DaggerTestComponent.builder().setOtter(otter()).build().inject(this)
   }
 
   @Test
@@ -125,14 +125,20 @@ class ManifestEncoderTest {
   fun decodeOutput_nonStandardEncoding_returnsNull() {
     assertThat(encoder.decodeOutput("not_an_encoding")).isNull()
   }
-
-  companion object {
-    //private val GOLDENS =
-  }
 }
 
-// TODO(jack@jackbradshaw.io): Consider creating a component to automatically generate test modules
-@Component(dependencies = [OtterComponent::class])
-class ManifestEncoderTestComponent {
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class TestScope
+
+@TestScope
+@Component(dependencies = [Otter::class])
+interface TestComponent {
   fun inject(test: ManifestEncoderTest)
+
+  @Component.Builder
+  interface Builder {
+    fun setOtter(otter: Otter): Builder
+    fun build(): TestComponent
+  }
 }

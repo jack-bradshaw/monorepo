@@ -4,7 +4,6 @@ import io.jackbradshaw.otter.openxr.manifest.goldens.goldenPrimaryManifest
 import io.jackbradshaw.otter.openxr.manifest.goldens.goldenSecondaryManifests
 import com.google.common.truth.Truth.assertThat
 import io.jackbradshaw.klu.flow.toMap
-import io.jackbradshaw.otter.openxr.clearxr
 import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import org.junit.Before
@@ -14,17 +13,22 @@ import kotlinx.coroutines.flow.map
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import com.google.devtools.build.runfiles.Runfiles
+import io.jackbradshaw.otter.Otter
+import io.jackbradshaw.otter.otter
 import kotlinx.coroutines.runBlocking
 import java.io.File
+import dagger.Component
+import javax.inject.Scope
+import javax.inject.Inject
 
 @RunWith(JUnit4::class)
 class ManifestGeneratorTest {
 
-  private lateinit var generator: ManifestGenerator
+  @Inject lateinit var generator: ManifestGenerator
 
   @Before
   fun setUp() {
-    generator = clearxr().manifestGenerator()
+    DaggerTestComponent.builder().setOtter(otter()).build().inject(this)
   }
 
   @Test
@@ -61,5 +65,21 @@ class ManifestGeneratorTest {
 
   companion object {
     private const val BASE_GOLDEN_PATH = "io_jackbradshaw/javatests/io/jackbradshaw/otter/openxr/manifest/goldens"
+  }
+}
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class TestScope
+
+@TestScope
+@Component(dependencies = [Otter::class])
+interface TestComponent {
+  fun inject(test: ManifestGeneratorTest)
+
+  @Component.Builder
+  interface Builder {
+    fun setOtter(otter: Otter): Builder
+    fun build(): TestComponent
   }
 }
