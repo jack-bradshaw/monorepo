@@ -13,11 +13,16 @@ class ConfigExtTest {
   fun config_createsConfigWithPassedValues() {
     val directory = "testdirectory"
     val filename = "testfilename"
+    val actionSet = "someset"
 
-    val config = config(directory, filename)
+    val config = config(directory, filename, actionSet)
 
     assertThat(config).isEqualTo(
-        Config.newBuilder().setActionManifestDirectory(directory).setActionManifestFilename(filename).build()
+        Config.newBuilder()
+            .setActionManifestDirectory(directory)
+            .setActionManifestFilename(filename)
+            .setActionSetName(actionSet)
+            .build()
     )
   }
 
@@ -28,6 +33,7 @@ class ConfigExtTest {
             .newBuilder()
             .setActionManifestDirectory(System.getProperty("java.io.tmpdir"))
             .setActionManifestFilename("clearxr_action_manifest.json")
+            .setActionSetName("omniset")
             .build()
     )
   }

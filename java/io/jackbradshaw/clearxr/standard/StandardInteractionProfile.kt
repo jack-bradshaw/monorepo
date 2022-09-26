@@ -38,22 +38,12 @@ import io.jackbradshaw.clearxr.standard.StandardOutputLocation.LEFT_TRIGGER
 import io.jackbradshaw.clearxr.standard.StandardOutputLocation.RIGHT_TRIGGER
 import io.jackbradshaw.clearxr.model.interactionProfile
 import io.jackbradshaw.clearxr.model.InteractionProfile
-import io.jackbradshaw.clearxr.model.input
-import io.jackbradshaw.clearxr.model.output
-
-private fun input(
-    user: StandardUser,
-    identifier: StandardInputIdentifier,
-    component: StandardInputComponent,
-    location: StandardInputLocation? = null) = input(user.user, identifier.identifier, component.component, location?.location)
-
-private fun output(user: StandardUser, identifier: StandardOutputIdentifier, location: StandardOutputLocation? = null) = output(user.user, identifier.identifier, location?.location)
 
 /*
  * The standard interaction profiles defined by
  * [version 1.0 of the OpenXR standard](https://registry.khronos.org/OpenXR/specs/1.0/pdf/xrspec.pdf).
  */
-enum class StandardInteractionProfile(val interactionProfile: InteractionProfile) {
+enum class StandardInteractionProfile(val profile: InteractionProfile) {
   KHRONOS_SIMPLE_CONTROLLER(interactionProfile(
       vendorId = "khr",
       controllerId = "simple_controller",
@@ -281,9 +271,9 @@ enum class StandardInteractionProfile(val interactionProfile: InteractionProfile
   )));
 
   companion object {
-    private val reverse = StandardInteractionProfile.values().map { it.interactionProfile to it }.toMap()
-    fun fromInteractionProfile(interactionProfile: InteractionProfile): StandardInteractionProfile? {
-      return reverse[interactionProfile]
+    private val reverse = StandardInteractionProfile.values().map { it.profile to it }.toMap()
+    fun fromInteractionProfile(profile: InteractionProfile): StandardInteractionProfile? {
+      return reverse[profile]
     }
   }
 }

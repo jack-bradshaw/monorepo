@@ -1,5 +1,6 @@
 package io.jackbradshaw.clearxr.manifest.generator
 
+import io.jackbradshaw.clearxr.config.Config
 import io.jackbradshaw.clearxr.model.Input
 import io.jackbradshaw.clearxr.standard.StandardInputComponent
 import io.jackbradshaw.clearxr.model.InteractionProfile
@@ -18,6 +19,7 @@ import javax.inject.Inject
 
 @clearxrScope
 class ManifestGeneratorImpl @Inject internal constructor(
+    private val config: Config,
     private val encoder: ManifestEncoder
 ) : ManifestGenerator {
 
@@ -27,13 +29,13 @@ class ManifestGeneratorImpl @Inject internal constructor(
     val profileBindings: JsonArray = StandardInteractionProfile
         .values()
         .asFlow()
-        .map { it.interactionProfile.declaration() }
+        .map { it.profile.declaration() }
         .toJsonArray()
 
     val actions: JsonArray = StandardInteractionProfile
         .values()
         .asFlow()
-        .flatMapConcat { it.interactionProfile.actionDeclarations() }
+        .flatMapConcat { it.profile.actionDeclarations() }
         .toJsonArray()
 
     val actionSets = JsonArray().apply { add(actionSetDeclaration()) }
@@ -48,7 +50,7 @@ class ManifestGeneratorImpl @Inject internal constructor(
   private suspend fun createSecondaryManifests(): Set<SecondaryManifest> = StandardInteractionProfile
       .values()
       .asFlow()
-      .map {it.interactionProfile}
+      .map { it.profile }
       .map { SecondaryManifest(it, "${it.path()}.json", it.toSecondaryManifest()) }
       .toList()
       .toSet()
@@ -68,15 +70,15 @@ class ManifestGeneratorImpl @Inject internal constructor(
       }
 
   private fun actionSetDeclaration() = JsonObject().apply {
-    addProperty("name", ACTION_SET_NAME)
+    addProperty("name", config.actionSetName)
     addProperty("usage", "hidden")
-    addProperty("localizedName", ACTION_SET_NAME)
+    addProperty("localizedName", config.actionSetName)
   }
 
   private suspend fun InteractionProfile.toSecondaryManifest(): String = JsonObject().apply {
     addProperty("interaction_profile", path())
     add("bindings", JsonObject().apply {
-      add(ACTION_SET_NAME, JsonObject().apply {
+      add(config.actionSetName, JsonObject().apply {
         add("sources", JsonArray().apply {
           for (input in inputList) add(input.toBinding(this@toSecondaryManifest))
         })
@@ -108,8 +110,4 @@ class ManifestGeneratorImpl @Inject internal constructor(
   }
 
   private suspend fun Flow<JsonObject>.toJsonArray() = fold(JsonArray()) { array, next -> array.also { it.add(next) } }
-
-  companion object {
-    private val ACTION_SET_NAME = "omniset"
-  }
 }

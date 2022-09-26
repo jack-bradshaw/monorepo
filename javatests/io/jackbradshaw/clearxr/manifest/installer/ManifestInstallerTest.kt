@@ -46,14 +46,12 @@ class ManifestInstallerTest {
     val secondaryManifests = generator.generateManifests().secondaryManifests
 
     for (profile in StandardInteractionProfile.values()) {
-      val filename = profile.interactionProfile.expectedSecondaryManifestFilename()
+      val filename = profile.profile.expectedSecondaryManifestFilename()
       val contents = File(config.actionManifestDirectory, filename).readText()
 
       assertThat(contents).isEqualTo(goldenSecondaryManifests[profile])
     }
   }
 
-  private fun InteractionProfile.expectedSecondaryManifestFilename(): String {
-    return vendor.standardName + "_" + controller.standardName + ".json"
-  }
+  private fun InteractionProfile.expectedSecondaryManifestFilename() = vendor.id + "_" + controller.id + ".json"
 }
