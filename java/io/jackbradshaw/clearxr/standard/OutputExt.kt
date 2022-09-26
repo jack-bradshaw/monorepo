@@ -2,6 +2,9 @@ package io.jackbradshaw.clearxr.standard
 
 import io.jackbradshaw.clearxr.model.output
 
+/**
+ * Creates an [io.jackbradshaw.clearxr.model.output] from standard types.
+ */
 private fun output(
     user: StandardUser,
     identifier: StandardOutputIdentifier,

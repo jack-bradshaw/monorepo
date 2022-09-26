@@ -2,6 +2,9 @@ package io.jackbradshaw.clearxr.standard
 
 import io.jackbradshaw.clearxr.model.input
 
+/**
+ * Creates an [io.jackbradshaw.clearxr.model.input] from standard types.
+ */
 private fun input(
     user: StandardUser,
     identifier: StandardInputIdentifier,
