@@ -52,7 +52,7 @@ class ManifestGeneratorTest {
         .toMap()
 
     for (profile in StandardInteractionProfile.values()) {
-      assertThat(manifestsByProfile[profile.interactionProfile]!!.content)
+      assertThat(manifestsByProfile[profile.profile]!!.content)
           .isEqualTo(goldenSecondaryManifests[profile]!!)
     }
   }

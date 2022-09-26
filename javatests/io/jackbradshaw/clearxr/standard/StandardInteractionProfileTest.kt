@@ -10,7 +10,7 @@ class StandardInteractionProfileTest {
   @Test
   fun toInteractionProfileAndBack_forEachStandardInteractionProfile_returnsOriginalValue() {
     for (standardInteractionProfile in StandardInteractionProfile.values()) {
-      val profile = standardInteractionProfile.interactionProfile
+      val profile = standardInteractionProfile.profile
       val reverse = StandardInteractionProfile.fromInteractionProfile(profile)
       assertThat(reverse).isEqualTo(standardInteractionProfile)
     }

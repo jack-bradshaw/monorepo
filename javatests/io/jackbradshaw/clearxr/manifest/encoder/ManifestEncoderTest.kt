@@ -33,10 +33,10 @@ class ManifestEncoderTest {
     val encodingToEncoded = mutableMapOf<String, MutableList<Pair<InteractionProfile, Input>>>()
 
     for (profile in StandardInteractionProfile.values()) {
-      for (input in profile.interactionProfile.inputList) {
-        val encoding = encoder.encodeInput(profile.interactionProfile, input)!!
+      for (input in profile.profile.inputList) {
+        val encoding = encoder.encodeInput(profile.profile, input)!!
         encodingToEncoded[encoding] = encodingToEncoded.getOrPut(encoding) { mutableListOf() }.also {
-          it.add(Pair(profile.interactionProfile, input))
+          it.add(Pair(profile.profile, input))
         }
       }
     }
@@ -51,7 +51,7 @@ class ManifestEncoderTest {
   @Test
   fun encodeInput_nonStandardProfileInputCombination_returnsNull() {
     val encoding = encoder.encodeInput(
-        StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.interactionProfile,
+        StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.profile,
         input(StandardUser.TREADMILL.user, StandardInputIdentifier.THUMBSTICK.identifier, StandardInputComponent.CLICK.component)
     )
 
@@ -61,10 +61,10 @@ class ManifestEncoderTest {
   @Test
   fun decodeInput_eachStandardProfileInputCombination_restoresOriginalInputForEach() {
     for (profile in StandardInteractionProfile.values()) {
-      for (input in profile.interactionProfile.inputList) {
-        val encoding = encoder.encodeInput(profile.interactionProfile, input)!!
+      for (input in profile.profile.inputList) {
+        val encoding = encoder.encodeInput(profile.profile, input)!!
         val decoded = encoder.decodeInput(encoding)!!
-        assertThat(decoded.first).isEqualTo(profile.interactionProfile)
+        assertThat(decoded.first).isEqualTo(profile.profile)
         assertThat(decoded.second).isEqualTo(input)
       }
     }
@@ -80,10 +80,10 @@ class ManifestEncoderTest {
     val encodingToEncoded = mutableMapOf<String, MutableList<Pair<InteractionProfile, Output>>>()
 
     for (profile in StandardInteractionProfile.values()) {
-      for (output in profile.interactionProfile.outputList) {
-        val encoding = encoder.encodeOutput(profile.interactionProfile, output)!!
+      for (output in profile.profile.outputList) {
+        val encoding = encoder.encodeOutput(profile.profile, output)!!
         encodingToEncoded[encoding] = encodingToEncoded.getOrPut(encoding) { mutableListOf() }.also {
-          it.add(Pair(profile.interactionProfile, output))
+          it.add(Pair(profile.profile, output))
         }
       }
     }
@@ -98,7 +98,7 @@ class ManifestEncoderTest {
   @Test
   fun encodeOutput_nonStandardProfileOutputCombination_returnsNull() {
     val encoding = encoder.encodeOutput(
-        StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.interactionProfile,
+        StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.profile,
         output(StandardUser.TREADMILL.user, StandardOutputIdentifier.HAPTIC.identifier)
     )
 
@@ -108,10 +108,10 @@ class ManifestEncoderTest {
   @Test
   fun decodeOutput_eachStandardProfileOutputCombination_restoresOriginalOutputForEach() {
     for (profile in StandardInteractionProfile.values()) {
-      for (output in profile.interactionProfile.outputList) {
-        val encoding = encoder.encodeOutput(profile.interactionProfile, output)!!
+      for (output in profile.profile.outputList) {
+        val encoding = encoder.encodeOutput(profile.profile, output)!!
         val decoded = encoder.decodeOutput(encoding)!!
-        assertThat(decoded.first).isEqualTo(profile.interactionProfile)
+        assertThat(decoded.first).isEqualTo(profile.profile)
         assertThat(decoded.second).isEqualTo(output)
       }
     }
