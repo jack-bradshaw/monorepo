@@ -1,47 +1,38 @@
-# CleanXR
+# ClearXR
 
-[OpenXR](https://registry.khronos.org/OpenXR/specs/1.0/pdf/xrspec.pdf) without the architectural burden.
+ClearXR gives JMonkey Engine developers a way to access raw input signals from OpenXR hardware. This is useful if you
+need to define input handling logic that is too complex for the basic static
+[action manifest](https://github.com/ValveSoftware/openvr/wiki/Action-manifest) approach, and it allows you to
+distribute your input handling logic throughout the application instead of putting it all in one place. This approach
+can save you time and effort in the long-term by making your application more cohesive, less coupled, and more
+programmatic.
 
-OpenXR does not allow applications to access raw input signals from controllers. Instead it provides an [action manifest
-system](https://github.com/ValveSoftware/openvr/wiki/Action-manifest) which hides the raw input signals behind
-semantically meaningful actions such as "open inventory" and "fire weapon". While the simplicity of this system can be
-appealing, by coupling low-level IO handling to high-level logic it creates endless problems for code health which are
-best avoided up front. To this end, it would be better if applications could handle the raw inputs using standard
-programming techniques instead of being forced to use the action manifest system. CleanXR makes this simple.
+Although not strictly required, it's useful to have a cursory understanding of
+the [OpenXR standard](https://registry.khronos.org/OpenXR/specs/1.0/pdf/xrspec.pdf) before proceeding.
 
-CleanXR essentially provides a complete bypass for the action manifest system. It contains a utility which generates
-a manifest containing an action for each input, so you can essentially observe each input as an action. You simply need
-to invoke the generation logic, pass the generated file to OpenXR, and listen to the actions as if they were the raw
-inputs. Follow the tutorial below for a practical usage guide.
+## Getting Access
 
-## Tutorial
-
-This tutorial is divided into three sections:
-
-1. Getting access: How to import the library into your project.
-2. Core usage guide: How to use the core features of the library.
-3. Supplementary usage guide: How to use the the supplementary features of the library.
-
-If you still have questions after reading the tutorial, please email
-jack@jackbradshaw.io. [G: consider business address instead of main personal]
-
-### Getting Access
-
-Getting access covers including CleanXR in your project dependencies. You have three options:
+There are three ways to include ClearXR in your project:
 
 1. Download the pre-built binaries.
 2. Build the binaries from source.
 3. Reference the source directly.
 
-The pre-built binaries are available via Maven. The latest version is `io.jackbradshaw:clearxr:0.0.1` and previous
+**Option 1**
+
+The pre-built binaries are available via Maven. The latest version is `io.jackbradshaw:clearxr:0.0.0` and previous
 versions are available in the [Maven Central Repository](https://search.maven.org/artifact/io.jackbradshaw/clearxr).
+
+**Option 2**
 
 To build the binary from source:
 
 1. [Install Bazel](https://docs.bazel.build/versions/main/install.html).
 2. Clone the repository by running `git clone https://github.com/jack-bradshaw/monorepo && cd monorepo`
-3. Invoke the build by running `bazel build //java/io/jackbradshaw/klu_full.deploy`
+3. Invoke the build by running `bazel build //java/io/jackbradshaw/clearxr/clearxr_full.deploy`
 4. Collect the binary from the `monorepo/bazel-out` for inclusion in your project.
+
+**Option 3**
 
 To include the source in your project directly:
 
@@ -65,92 +56,108 @@ kt_jvm_library(
     name = "my_hello_world",
     srcs = "MyHelloWorld.kt",
     deps = [
-        "@io_jackbradshaw//:java/io/jackbradshaw/openxr",
+        "@io_jackbradshaw//:java/io/jackbradshaw/clearxr",
     ]
 )
 ```
 
-### Core Usage Guide
+## Basic Tutorial
 
-The core usage guide covers the basics of using CleanXR.
-
-Start by instantiating the CleanXR object:
+Instantiate the ClearXR object. This object exposes all the utilities contained in the library.
 
 ```
-import io.jackbradshaw.clearxr.clearxr
+import io.jackbradshaw.clearxr.clearXr
 
 val clearXr = clearXr()
 ```
 
-This gives you access to all the different parts of the library.
-
-Next use the manifest installer to generate a manifest and write it to disk:
-
-```
-cleanXr.manifestInstaller().deployActionManifestFiles()
-```
-
-By default the file is named `clearxr_action_manifest.json` and is placed in the device's temporary directory. If
-you need to change this, read the advanced usage guide for details.
-
-Next, pass the manifest to the OpenXR framework you're using. The details of this step depend on your framework of
-choice. Using the JMonkey Engine for example:
+Use the manifest installer to generate an action manifest file and write it to disk. You don't need to worry about how
+it works, it's enough to know that it contains important configuration details that ClearXr depends on at runtime.
 
 ```
-vrAppState.getVrInput().registerActionManifest(cleanXr.config().actionManifestFile(), cleanXr.config().actionSetName)
+clearXr.manifestInstaller().deployActionManifestFiles()
 ```
 
-Finally listen for input events and use CleanXR to turn them into useful objects. Again, the details of this step depend
-on your framework of choice. Using the JMonkey Engine for example:
+Declare the action manifest to the JMonkey Engine VR system.
 
 ```
-vrAppState.getVrInput().registerAnalogListener(input -> {
-  val input = cleanXr.manifestEncoder().decodeInput(input)
-  TODO() // Your input handling logic
-})
+vrAppState.getVrInput().registerActionManifest(clearXr.config().actionManifestFile, clearXr.config().actionSetName)
 ```
 
-Now you can listen for all inputs directly and handle them using whichever programming technique you like. No need for
-complex manifest files, mappings, and action sets. Just input events and standard logic.
-
-### Advanced Usage Guide
-
-The advanced usage guide covers a few additional points that were left out of the core usage guide. Specifically:
-
-1. Configuring CleanXR.
-2. Integrating with Dagger.
-3. The OpenXR model.
-
-#### Configuring CleanXR
-
-CleanXR can be configured using a `Config` object:
+Register a listener with JMonkey. For example: The "A button" on the Valve Index controller.
 
 ```
-import io.jackbradshaw.clearxr.cleanXr
+import io.jackbradshaw.clearxr.events.booleanEvent
+import io.jackbradshaw.clearxr.standard.input
+import io.jackbradshaw.clearxr.standard.StandardUser.LEFT_HAND
+import io.jackbradshaw.clearxr.standard.StandardInputIdentifier.A
+import io.jackbradshaw.clearxr.standard.StandardInputComponent.CLICK
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.VALVE_INDEX_CONTROLLER
+
+val input: Input = input(LEFT_HAND, A, CLICK),
+val action: String = clearXr.manifestEncoder().encodeInput(VALVE_INDEX_CONTROLLER.profile, input)!!
+val events: Flow<Boolean> = vrAppState.getVrInput().booleanEvent()
+
+events.collect { 
+  println("The A button on the left hand controller is " + if (it) "pressed." else "released.")
+}
+```
+
+An update will be printed to the console whenever the "A button" is pressed or released.
+
+## Non-Binary Input
+
+For events which are not on/off, use the `floatEvent` function instead. This is useful for thumbsticks, touchpads, and
+other such inputs. For example: The "Thumbstick" on the Valve Index controller.
+
+```
+import io.jackbradshaw.clearxr.events.floatEvent
+import io.jackbradshaw.clearxr.standard.input
+import io.jackbradshaw.clearxr.standard.StandardUser.LEFT_HAND
+import io.jackbradshaw.clearxr.standard.StandardInputIdentifier.THUMBSTICK
+import io.jackbradshaw.clearxr.standard.StandardInputComponent.X
+import io.jackbradshaw.clearxr.standard.StandardInteractionProfile.VALVE_INDEX_CONTROLLER
+
+val input: Input = input(LEFT_HAND, THUMBSTICK, X),
+val action: String = clearXr.manifestEncoder().encodeInput(VALVE_INDEX_CONTROLLER.profile, input)!!
+val events: Flow<Boolean> = vrAppState.getVrInput().floatEvent()
+
+events.collect { 
+  println("The X position of the left hand thumbstick is $it.")
+}
+```
+
+An update will be printed to the console whenever the thumbstick is moved.
+
+## Non-Default Configurations
+
+The default config can be overriden by passing a custom config.
+
+```
+import io.jackbradshaw.clearxr.clearXr
 import io.jackbradshaw.clearxr.config.config
 
 val config = config(
     actionManifestDirectory = "/home/myapp",
     actionManifestName = "action_manifest.json",
-    actionSetName = "omniset"
+    actionSetName = "myset"
 )
-val cleanXr = cleanXr(config)
+
+val clearXr = clearXr(config)
 ```
 
-#### Integrating With Dagger
+## Dagger Integration
 
-The CleanXR object is actually a [Dagger](https://github.com/google/dagger) component. This means other Dagger
-components can use it as a component dependency and inject the CleanXR classes directly. For example:
+The ClearXR object is implemented as a [Dagger](https://github.com/google/dagger) component. This means other Dagger
+components can install it as a component dependency and inject the ClearXR classes directly.
 
 ```
 import io.jackbradshaw.clearxr.ClearXr
-import io.jackbradshaw.clearxr.manifest.intaller.ManifestInstaller
+import io.jackbradshaw.clearxr.manifest.installer.ManifestInstaller
 import javax.inject.Inject
 
 @Component(dependencies = [ClearXr::class])
 interface MyComponent() {
-  fun setup(): Setup
-  
   @Component.Builder
   interface Builder {
     fun setClearXr(clearXr: ClearXr): Builder
@@ -158,7 +165,7 @@ interface MyComponent() {
   }
 }
 
-class Setup @Inject internal constructor(
+class MySetup @Inject internal constructor(
   private val clearXrInstaller: ManifestInstaller
 ) {
   suspend fun doAllSetupTasks() {
@@ -167,13 +174,19 @@ class Setup @Inject internal constructor(
 }
 ```
 
-#### OpenXR Model
+## OpenXR Model
 
-OpenXR contains a rich model of the OpenXR input/output system which may be useful to you. See the
-[io/jackbradshaw/cleanxr/model](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/cleanxr/model)
+ClearXR contains a model that encodes the OpenXR standard. The
+[io/jackbradshaw/clearxr/model](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/clearxr/model)
 package and the
-[io/jackbradshaw/cleanxr/standard](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/cleanxr/standard)
-package for details.
+[io/jackbradshaw/clearxr/standard](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/clearxr/standard)
+package contain the relevant classes.
+
+## Protobuf Support
+
+Most data holder types in this package are implemented using
+Google's [protobuf library](https://developers.google.com/protocol-buffers). This provides build-in support
+for serialization and deserialization without extra libraries.
 
 ## Support
 
