@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @clearxrScope
 class ManifestInstallerImpl @Inject internal constructor(
-    private val manifestGenerator: ManifestGenerator,
-    private val config: Config
+    private val config: Config,
+    private val manifestGenerator: ManifestGenerator
 ) : ManifestInstaller {
 
   override fun deployActionManifestFiles() = runBlocking {

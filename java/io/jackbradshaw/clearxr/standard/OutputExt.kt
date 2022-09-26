@@ -5,7 +5,7 @@ import io.jackbradshaw.clearxr.model.output
 /**
  * Creates an [io.jackbradshaw.clearxr.model.output] from standard types.
  */
-private fun output(
+fun output(
     user: StandardUser,
     identifier: StandardOutputIdentifier,
     location: StandardOutputLocation? = null

@@ -5,7 +5,7 @@ import io.jackbradshaw.clearxr.model.input
 /**
  * Creates an [io.jackbradshaw.clearxr.model.input] from standard types.
  */
-private fun input(
+fun input(
     user: StandardUser,
     identifier: StandardInputIdentifier,
     component: StandardInputComponent,

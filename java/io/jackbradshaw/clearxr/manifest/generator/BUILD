@@ -32,6 +32,7 @@ kt_jvm_library(
         ":dagger",
         ":generator",
         "//java/io/jackbradshaw/clearxr:scope",
+        "//java/io/jackbradshaw/clearxr/config:java_lite_proto",
         "//java/io/jackbradshaw/clearxr/manifest/encoder",
         "//java/io/jackbradshaw/clearxr/model:java_lite_proto",
         "//java/io/jackbradshaw/clearxr/standard",
