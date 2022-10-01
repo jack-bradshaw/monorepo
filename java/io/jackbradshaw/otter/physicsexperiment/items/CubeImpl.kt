@@ -18,8 +18,9 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
-class CubeImpl @Inject internal constructor(
+class CubeImpl
+@Inject
+internal constructor(
     private val materials: Materials,
     private val engine: Engine,
 ) : Cube {
@@ -37,9 +38,7 @@ class CubeImpl @Inject internal constructor(
       shape = Box(size, size, size)
       coordinator = Node("coordinator")
       collider = RigidBodyControl(HullCollisionShape(shape), 10f)
-      geometry = Geometry("cube", shape).apply {
-        coordinator.attachChild(this)
-      }
+      geometry = Geometry("cube", shape).apply { coordinator.attachChild(this) }
     }
   }
 
@@ -68,9 +67,7 @@ class CubeImpl @Inject internal constructor(
   }
 
   override suspend fun setCubeB(cube: Cube) {
-    withContext(engine.renderingDispatcher()) {
-      coordinator.attachChild(cube.spatial)
-    }
+    withContext(engine.renderingDispatcher()) { coordinator.attachChild(cube.spatial) }
   }
 
   override suspend fun doTestThing() {

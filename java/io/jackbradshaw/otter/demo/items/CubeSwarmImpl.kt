@@ -26,7 +26,9 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
-class CubeSwarmImpl @Inject internal constructor(
+class CubeSwarmImpl
+@Inject
+internal constructor(
     private val cubeProvider: Provider<Cube>,
     private val materials: Materials,
     @Rendering private val clock: Clock,
@@ -67,7 +69,8 @@ class CubeSwarmImpl @Inject internal constructor(
             for (i in 0 until Constants.ITEM_CHANNELS) {
               val time = it + timeOffsets[i]
               val green =
-                  (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
+                  (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time)))
+                      .toFloat()
               cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
             }
           }

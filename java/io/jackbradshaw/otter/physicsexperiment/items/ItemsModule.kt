@@ -4,12 +4,9 @@ import dagger.Binds
 
 @Module
 interface ItemsModule {
-  @Binds
-  fun bindCube(impl: CubeImpl): Cube
+  @Binds fun bindCube(impl: CubeImpl): Cube
 
-  @Binds
-  fun bindLab(impl: LabImpl): Lab
+  @Binds fun bindLab(impl: LabImpl): Lab
 
-  @Binds
-  fun bindOrigin(impl: OriginImpl): Origin
+  @Binds fun bindOrigin(impl: OriginImpl): Origin
 }

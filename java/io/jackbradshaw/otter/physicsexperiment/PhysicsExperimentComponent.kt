@@ -10,8 +10,7 @@ import java.io.jackbradshaw.otter.MerovingianComponent
 @PhysicsExperimentScope
 @Component(
     modules = [MaterialsModule::class, SupportModule::class, ItemsModule::class],
-    dependencies = [MerovingianComponent::class]
-)
+    dependencies = [MerovingianComponent::class])
 interface PhysicsExperimentComponent {
 
   fun world(): Lab

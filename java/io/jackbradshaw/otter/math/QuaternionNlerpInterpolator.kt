@@ -3,10 +3,8 @@ package io.jackbradshaw.otter.math
 import com.google.auto.factory.AutoFactory
 
 @AutoFactory
-class QuaternionNlerpInterpolator(
-    private val start: Quaternion,
-    private val end: Quaternion
-) : QuaternionInterpolator {
+class QuaternionNlerpInterpolator(private val start: Quaternion, private val end: Quaternion) :
+    QuaternionInterpolator {
 
   private val dotProduct = start.dotProduct(end)
 
@@ -19,5 +17,8 @@ class QuaternionNlerpInterpolator(
   }
 }
 
-suspend fun singletonQuaternionNlerp(start: Quaternion, end: Quaternion, proportion: Float): Quaternion =
-    QuaternionNlerpInterpolator(start, end).at(proportion)
+suspend fun singletonQuaternionNlerp(
+    start: Quaternion,
+    end: Quaternion,
+    proportion: Float
+): Quaternion = QuaternionNlerpInterpolator(start, end).at(proportion)

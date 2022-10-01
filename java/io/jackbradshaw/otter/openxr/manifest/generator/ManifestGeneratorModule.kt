@@ -4,6 +4,5 @@ import dagger.Binds
 
 @Module
 interface ManifestGeneratorModule {
-  @Binds
-  fun bindManifestGenerator(impl: ManifestGeneratorImpl): ManifestGenerator
+  @Binds fun bindManifestGenerator(impl: ManifestGeneratorImpl): ManifestGenerator
 }

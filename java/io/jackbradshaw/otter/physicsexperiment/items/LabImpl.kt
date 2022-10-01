@@ -11,7 +11,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Provider
 
-class LabImpl @Inject internal constructor(
+class LabImpl
+@Inject
+internal constructor(
     private val engine: Engine,
     private val cubeProvider: Provider<Cube>,
     private val originProvider: Provider<Origin>,
@@ -31,10 +33,11 @@ class LabImpl @Inject internal constructor(
         cubeA = cubeProvider.get().apply { setA() }
         cubeB = cubeProvider.get().apply { setB() }
         cubeA.setCubeB(cubeB)
-        coordinator = Node("coordinator").apply {
-          attachChild(originProvider.get().spatial)
-          attachChild(cubeA.spatial)
-        }
+        coordinator =
+            Node("coordinator").apply {
+              attachChild(originProvider.get().spatial)
+              attachChild(cubeA.spatial)
+            }
         cubeA.doTestThing()
         cubeB.doTestThing()
       }

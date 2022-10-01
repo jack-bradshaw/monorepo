@@ -6,7 +6,5 @@ import kotlin.random.Random
 
 @Module
 class SupportModule {
-  @Provides
-  @PhysicsExperimentScope
-  fun provideRandom() = Random(0L)
+  @Provides @PhysicsExperimentScope fun provideRandom() = Random(0L)
 }

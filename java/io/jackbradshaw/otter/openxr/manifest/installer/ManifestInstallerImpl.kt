@@ -12,21 +12,20 @@ import java.nio.file.Paths
 import javax.inject.Inject
 
 @OtterScope
-class ManifestInstallerImpl @Inject internal constructor(
-    private val config: Config,
-    private val manifestGenerator: ManifestGenerator
-) : ManifestInstaller {
+class ManifestInstallerImpl
+@Inject
+internal constructor(private val config: Config, private val manifestGenerator: ManifestGenerator) :
+    ManifestInstaller {
 
   override fun deployActionManifestFiles() = runBlocking {
     val manifests = manifestGenerator.generateManifests()
-    Paths
-        .get(config.openXrConfig.actionManifestDirectory, config.openXrConfig.actionManifestFilename)
+    Paths.get(
+            config.openXrConfig.actionManifestDirectory, config.openXrConfig.actionManifestFilename)
         .toFile()
         .overwriteWith(manifests.primaryManifest)
 
     manifests.secondaryManifests.forEach {
-      Paths
-          .get(config.openXrConfig.actionManifestDirectory, it.url)
+      Paths.get(config.openXrConfig.actionManifestDirectory, it.url)
           .toFile()
           .overwriteWith(it.content)
     }
@@ -36,12 +35,9 @@ class ManifestInstallerImpl @Inject internal constructor(
     try {
       if (exists()) delete()
       createNewFile()
-      BufferedWriter(FileWriter(this)).use {
-        it.write(contents)
-      }
+      BufferedWriter(FileWriter(this)).use { it.write(contents) }
     } catch (e: IOException) {
       throw IllegalStateException("Failed to overwrite file $this.", e)
     }
   }
 }
-

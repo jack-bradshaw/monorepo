@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-class OriginImpl @Inject constructor(
+class OriginImpl
+@Inject
+constructor(
     private val materials: Materials,
 ) : Origin {
 
@@ -18,20 +20,21 @@ class OriginImpl @Inject constructor(
 
   init {
     runBlocking {
-      val x = Geometry("cube", Box(AXIS_LONG_DIMENSION, AXIS_SHORT_DIMENSION, AXIS_SHORT_DIMENSION)).apply {
-        setMaterial(materials.getRed())
-      }
-      val y = Geometry("cube", Box(AXIS_SHORT_DIMENSION, AXIS_LONG_DIMENSION, AXIS_SHORT_DIMENSION)).apply {
-        setMaterial(materials.getBlue())
-      }
-      val z = Geometry("cube", Box(AXIS_SHORT_DIMENSION, AXIS_SHORT_DIMENSION, AXIS_LONG_DIMENSION)).apply {
-        setMaterial(materials.getGreen())
-      }
-      coordinator = Node("coordinator").apply {
-        attachChild(x)
-        attachChild(y)
-        attachChild(z)
-      }
+      val x =
+          Geometry("cube", Box(AXIS_LONG_DIMENSION, AXIS_SHORT_DIMENSION, AXIS_SHORT_DIMENSION))
+              .apply { setMaterial(materials.getRed()) }
+      val y =
+          Geometry("cube", Box(AXIS_SHORT_DIMENSION, AXIS_LONG_DIMENSION, AXIS_SHORT_DIMENSION))
+              .apply { setMaterial(materials.getBlue()) }
+      val z =
+          Geometry("cube", Box(AXIS_SHORT_DIMENSION, AXIS_SHORT_DIMENSION, AXIS_LONG_DIMENSION))
+              .apply { setMaterial(materials.getGreen()) }
+      coordinator =
+          Node("coordinator").apply {
+            attachChild(x)
+            attachChild(y)
+            attachChild(z)
+          }
     }
   }
 

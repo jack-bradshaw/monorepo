@@ -4,6 +4,5 @@ import dagger.Binds
 
 @Module
 interface EventsModule {
-  @Binds
-  fun bindEvents(impl: EventsImpl): Events
+  @Binds fun bindEvents(impl: EventsImpl): Events
 }
