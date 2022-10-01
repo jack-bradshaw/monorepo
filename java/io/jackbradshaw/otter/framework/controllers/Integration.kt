@@ -10,9 +10,7 @@ interface Integration : Hostable<Item> {
 
   fun engineElements(): BinaryDeltaFlow<Any>
 
-  /**
-   * Registers this primitive with the game engine.
-   */
+  /** Registers this primitive with the game engine. */
   suspend fun registerWith(engine: Engine)
 
   /**

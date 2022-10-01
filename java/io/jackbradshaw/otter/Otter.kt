@@ -16,24 +16,20 @@ import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerModule
 
 @OtterScope
 @Component(
-    modules = [
-      EngineModule::class,
-      ClockModule::class,
-      ManifestInstallerModule::class,
-      ManifestGeneratorModule::class,
-      ManifestEncoderModule::class
-    ]
-)
+    modules =
+        [
+            EngineModule::class,
+            ClockModule::class,
+            ManifestInstallerModule::class,
+            ManifestGeneratorModule::class,
+            ManifestEncoderModule::class])
 interface Otter {
 
-  @Physics
-  fun physicsClock(): Clock
+  @Physics fun physicsClock(): Clock
 
-  @Rendering
-  fun renderingClock(): Clock
+  @Rendering fun renderingClock(): Clock
 
-  @Real
-  fun realClock(): Clock
+  @Real fun realClock(): Clock
 
   fun engine(): Engine
 
@@ -44,8 +40,7 @@ interface Otter {
 
   @Component.Builder
   interface Builder {
-    @BindsInstance
-    fun setConfig(config: Config): Builder
+    @BindsInstance fun setConfig(config: Config): Builder
     fun build(): Otter
   }
 }

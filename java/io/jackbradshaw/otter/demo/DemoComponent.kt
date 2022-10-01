@@ -10,8 +10,7 @@ import java.io.jackbradshaw.otter.MerovingianComponent
 @DemoScope
 @Component(
     modules = [MaterialsModule::class, SupportModule::class, ItemsModule::class],
-    dependencies = [MerovingianComponent::class]
-)
+    dependencies = [MerovingianComponent::class])
 interface DemoComponent {
 
   fun world(): CubeLevel

@@ -15,9 +15,11 @@ class ManifestEncoderImpl @Inject internal constructor() : ManifestEncoder {
   private val outputEncoding: Map<Pair<InteractionProfile, Output>, String> = buildOutputEncoding()
   private val outputEncodingReverse = outputEncoding.map { it.value to it.key }.toMap()
 
-  override fun encodeInput(profile: InteractionProfile, input: Input) = inputEncoding[Pair(profile, input)]
+  override fun encodeInput(profile: InteractionProfile, input: Input) =
+      inputEncoding[Pair(profile, input)]
   override fun decodeInput(encoded: String) = inputEncodingReverse[encoded]
-  override fun encodeOutput(profile: InteractionProfile, output: Output) = outputEncoding[Pair(profile, output)]
+  override fun encodeOutput(profile: InteractionProfile, output: Output) =
+      outputEncoding[Pair(profile, output)]
   override fun decodeOutput(encoded: String) = outputEncodingReverse[encoded]
 
   private fun buildInputEncoding(): Map<Pair<InteractionProfile, Input>, String> {

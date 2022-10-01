@@ -8,9 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @OtterScope
-class RenderingClock @Inject internal constructor(
-    private val engine: Engine
-) : Clock {
+class RenderingClock @Inject internal constructor(private val engine: Engine) : Clock {
 
   init {
     engine.extractCoroutineScope().launch(Dispatchers.Default) {

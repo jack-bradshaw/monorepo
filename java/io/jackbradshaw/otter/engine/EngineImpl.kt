@@ -21,21 +21,21 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @OtterScope
-class EngineImpl @Inject internal constructor(
-    private val config: Config,
-    private val manifestInstaller: ManifestInstaller
-) : Engine, SimpleApplication() {
+class EngineImpl
+@Inject
+internal constructor(private val config: Config, private val manifestInstaller: ManifestInstaller) :
+    Engine, SimpleApplication() {
 
   private val started = MutableStateFlow(false)
   private var totalRuntimeSec = 0.0
 
-  private val settings = AppSettings(/* loadDefaults= */ true).apply {
-    if (config.engineConfig.xrEnabled) {
-      put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
-      put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
-
-    }
-  }
+  private val settings =
+      AppSettings(/* loadDefaults= */ true).apply {
+        if (config.engineConfig.xrEnabled) {
+          put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
+          put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
+        }
+      }
   private val xr = if (config.engineConfig.xrEnabled) createVrAppState() else null
   private val physics = BulletAppState()
 
@@ -46,10 +46,12 @@ class EngineImpl @Inject internal constructor(
   private val gameNode = Node("game_root")
 
   private fun createVrAppState(): VRAppState {
-    val environment = VREnvironment(settings).apply {
-      initialize()
-      if (!isInitialized()) throw IllegalStateException("VR environment did not successfully initialize")
-    }
+    val environment =
+        VREnvironment(settings).apply {
+          initialize()
+          if (!isInitialized())
+              throw IllegalStateException("VR environment did not successfully initialize")
+        }
     return VRAppState(settings, environment).apply {
       setMirrorWindowSize(DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX, DEFAULT_VR_MIRROR_WINDOW_HEIGHT_PX)
     }
@@ -78,9 +80,7 @@ class EngineImpl @Inject internal constructor(
     started.value = true
   }
 
-  override fun simpleUpdate(tpf: Float) = runBlocking {
-    totalRuntimeSec = totalRuntimeSec + tpf
-  }
+  override fun simpleUpdate(tpf: Float) = runBlocking { totalRuntimeSec = totalRuntimeSec + tpf }
 
   override fun destroy() {
     coroutineScopeJob.cancel()
@@ -111,6 +111,3 @@ class EngineImpl @Inject internal constructor(
     private const val DEFAULT_VR_MIRROR_WINDOW_HEIGHT_PX = 800
   }
 }
-
-
-

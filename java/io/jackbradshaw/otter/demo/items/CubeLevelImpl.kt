@@ -16,7 +16,9 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Provider
 
-class CubeLevelImpl @Inject internal constructor(
+class CubeLevelImpl
+@Inject
+internal constructor(
     private val cubeSwarmProvider: Provider<CubeSwarm>,
     private val engine: Engine,
     private val materials: Materials,
@@ -35,15 +37,17 @@ class CubeLevelImpl @Inject internal constructor(
     runBlocking {
       swarm = cubeSwarmProvider.get()
 
-      floor = Geometry("cube_box", Box(2f, 0.2f, 2f)).apply {
-        setMaterial(materials.getRandomly())
-        setLocalTranslation(0f, 0f, 0f)
-      }
+      floor =
+          Geometry("cube_box", Box(2f, 0.2f, 2f)).apply {
+            setMaterial(materials.getRandomly())
+            setLocalTranslation(0f, 0f, 0f)
+          }
 
-      coordinator = Node("coordinator").apply {
-        attachChild(swarm.spatial)
-        attachChild(floor)
-      }
+      coordinator =
+          Node("coordinator").apply {
+            attachChild(swarm.spatial)
+            attachChild(floor)
+          }
 
       physicsFlow = merge(physicsFlow, swarm.colliders())
     }

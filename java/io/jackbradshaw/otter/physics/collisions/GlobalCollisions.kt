@@ -15,16 +15,17 @@ import java.util.concurrent.ConcurrentHashMap
 private val COLLISION_EVENTS = ConcurrentHashMap<PhysicsSpace, SharedFlow<Collision>>()
 
 fun Engine.allCollisions(): Flow<Collision> =
-    COLLISION_EVENTS.getOrPut(extractPhysics().getPhysicsSpace()) {
-      newCollisionEventFlow()
-    }
+    COLLISION_EVENTS.getOrPut(extractPhysics().getPhysicsSpace()) { newCollisionEventFlow() }
 
-private fun Engine.newCollisionEventFlow() = callbackFlow<Collision> {
-  val listener = object : PhysicsCollisionListener {
-    override fun collision(event: PhysicsCollisionEvent) {
-      trySend(event.toCollision())
-    }
-  }
-  extractPhysics().getPhysicsSpace().addCollisionListener(listener)
-  awaitClose { extractPhysics().getPhysicsSpace().removeCollisionListener(listener) }
-}.shareIn(extractCoroutineScope(), SharingStarted.Lazily, replay = 0)
+private fun Engine.newCollisionEventFlow() =
+    callbackFlow<Collision> {
+          val listener =
+              object : PhysicsCollisionListener {
+                override fun collision(event: PhysicsCollisionEvent) {
+                  trySend(event.toCollision())
+                }
+              }
+          extractPhysics().getPhysicsSpace().addCollisionListener(listener)
+          awaitClose { extractPhysics().getPhysicsSpace().removeCollisionListener(listener) }
+        }
+        .shareIn(extractCoroutineScope(), SharingStarted.Lazily, replay = 0)

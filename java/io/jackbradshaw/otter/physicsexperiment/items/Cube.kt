@@ -8,5 +8,3 @@ interface Cube : WorldItem {
   suspend fun setCubeB(cube: Cube)
   suspend fun doTestThing()
 }
-
- 

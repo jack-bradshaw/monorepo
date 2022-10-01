@@ -26,4 +26,3 @@ enum class StandardInputComponent(val component: InputComponent) {
 }
 
 private fun inputComponent(id: String) = InputComponent.newBuilder().setId(id).build()
-

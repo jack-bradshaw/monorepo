@@ -15,9 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @OtterScope
-class PhysicsClock @Inject internal constructor(
-    private val engine: Engine
-) : Clock {
+class PhysicsClock @Inject internal constructor(private val engine: Engine) : Clock {
 
   private var totalRuntime = 0.0
   private val totalFlow = MutableStateFlow<Double>(0.0)
@@ -25,10 +23,13 @@ class PhysicsClock @Inject internal constructor(
 
   init {
     runBlocking {
-      val ghostControl = object : GhostControl(), PhysicsTickListener {
-        override fun physicsTick(space: PhysicsSpace, tpf: Float) = runBlocking { totalRuntime += tpf }
-        override fun prePhysicsTick(space: PhysicsSpace, tpf: Float) {}
-      }
+      val ghostControl =
+          object : GhostControl(), PhysicsTickListener {
+            override fun physicsTick(space: PhysicsSpace, tpf: Float) = runBlocking {
+              totalRuntime += tpf
+            }
+            override fun prePhysicsTick(space: PhysicsSpace, tpf: Float) {}
+          }
       val ghostNode = Node("physics_clock_ghost").apply { addControl(ghostControl) }
 
       withContext(engine.renderingDispatcher()) {

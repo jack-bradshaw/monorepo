@@ -21,9 +21,10 @@ class MainKt {
   }
 
   companion object {
-    private val CONFIG = Config(
-        vrEnabled = true,
-        headlessEnabled = false,
-    )
+    private val CONFIG =
+        Config(
+            vrEnabled = true,
+            headlessEnabled = false,
+        )
   }
 }

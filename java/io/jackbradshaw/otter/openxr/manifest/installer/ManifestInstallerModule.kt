@@ -4,6 +4,5 @@ import dagger.Binds
 
 @Module
 interface ManifestInstallerModule {
-  @Binds
-  fun bindManifestInstaller(impl: ManifestInstallerImpl): ManifestInstaller
+  @Binds fun bindManifestInstaller(impl: ManifestInstallerImpl): ManifestInstaller
 }
