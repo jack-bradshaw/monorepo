@@ -26,12 +26,14 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
-class CubeSwarmImpl @Inject internal constructor(
-  private val cubeProvider: Provider<Cube>,
-  private val materials: Materials,
-  @Rendering private val clock: Clock,
-  private val random: Random,
-  private val engine: Engine
+class CubeSwarmImpl
+@Inject
+internal constructor(
+    private val cubeProvider: Provider<Cube>,
+    private val materials: Materials,
+    @Rendering private val clock: Clock,
+    private val random: Random,
+    private val engine: Engine
 ) : CubeSwarm {
 
   private lateinit var cubeMaterials: List<Material>
@@ -62,16 +64,17 @@ class CubeSwarmImpl @Inject internal constructor(
   init {
     engine.extractCoroutineScope().launch(engine.renderingDispatcher()) {
       clock
-        .totalSec()
-        .onEach {
-          for (i in 0 until Constants.ITEM_CHANNELS) {
-            val time = it + timeOffsets[i]
-            val green =
-              (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time))).toFloat()
-            cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
+          .totalSec()
+          .onEach {
+            for (i in 0 until Constants.ITEM_CHANNELS) {
+              val time = it + timeOffsets[i]
+              val green =
+                  (GREEN_CHANNEL_CONSTANT_OFFSET + (GREEN_CHANNEL_AMPLITUDE_MODIFIER * sin(time)))
+                      .toFloat()
+              cubeMaterials[i].setColor("Color", ColorRGBA(0f, green, 0f, 1f))
+            }
           }
-        }
-        .collect()
+          .collect()
     }
   }
 

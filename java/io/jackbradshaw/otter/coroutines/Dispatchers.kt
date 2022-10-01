@@ -1,7 +1,7 @@
 package io.jackbradshaw.otter.coroutines
 
-import com.jme3.bullet.PhysicsSpace
 import com.jme3.app.Application
+import com.jme3.bullet.PhysicsSpace
 import io.jackbradshaw.otter.engine.Engine
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.runBlocking
@@ -18,23 +18,22 @@ class JMonkeyRenderingDispatcher(private val application: Application) : Corouti
   }
 }
 
-/**
- * Existing rendering dispatchers by engine.
- */
+/** Existing rendering dispatchers by engine. */
 private val RENDERING_DISPATCHERS = ConcurrentHashMap<Application, JMonkeyRenderingDispatcher>()
 
 /**
- * Gets a CoroutineDispatcher for this application. Every call for a given application returns the same instance, and
- * calls are thread safe.
+ * Gets a CoroutineDispatcher for this application. Every call for a given application returns the
+ * same instance, and calls are thread safe.
  */
 fun Application.renderingDispatcher(): CoroutineDispatcher =
-  RENDERING_DISPATCHERS.getOrPut(this) { JMonkeyRenderingDispatcher(this) }
+    RENDERING_DISPATCHERS.getOrPut(this) { JMonkeyRenderingDispatcher(this) }
 
 /**
- * Gets a CoroutineDispatcher for this application. Every call for a given application returns the same instance, and
- * calls are thread safe.
+ * Gets a CoroutineDispatcher for this application. Every call for a given application returns the
+ * same instance, and calls are thread safe.
  */
-fun Engine.renderingDispatcher(): CoroutineDispatcher = this.extractApplication().renderingDispatcher()
+fun Engine.renderingDispatcher(): CoroutineDispatcher =
+    this.extractApplication().renderingDispatcher()
 
 /**
  * Dispatcher for posting to the JMonkey Engine 3 [physics update loop]
@@ -42,20 +41,17 @@ fun Engine.renderingDispatcher(): CoroutineDispatcher = this.extractApplication(
  */
 class JMonkeyPhysicsDispatcher(private val physicsSpace: PhysicsSpace) : CoroutineDispatcher() {
   override fun dispatch(context: CoroutineContext, block: Runnable) {
-    runBlocking {
-      physicsSpace.enqueue(block.toCallable())
-    }
+    runBlocking { physicsSpace.enqueue(block.toCallable()) }
   }
 }
 
-/**
- * Existing physics dispatchers by engine.
- */
+/** Existing physics dispatchers by engine. */
 private val PHYSICS_DISPATCHERS = ConcurrentHashMap<PhysicsSpace, JMonkeyPhysicsDispatcher>()
 
 fun PhysicsSpace.physicsDispatcher(): CoroutineDispatcher =
-  PHYSICS_DISPATCHERS.getOrPut(this) { JMonkeyPhysicsDispatcher(this) }
+    PHYSICS_DISPATCHERS.getOrPut(this) { JMonkeyPhysicsDispatcher(this) }
 
-fun Engine.physicsDispatcher(): CoroutineDispatcher = this.extractPhysics().getPhysicsSpace().physicsDispatcher()
+fun Engine.physicsDispatcher(): CoroutineDispatcher =
+    this.extractPhysics().getPhysicsSpace().physicsDispatcher()
 
 private fun Runnable.toCallable() = { run() }

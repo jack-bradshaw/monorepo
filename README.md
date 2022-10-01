@@ -11,8 +11,7 @@ This repository is structured as a single monolithic codebase containing multipl
 packages. The important locations are:
 
 - [Otter](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter): A Kotlin
-  framework for working with the [jMonkey Engine](https://jmonkeyengine.org/).
-- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu):
-  Essential Kotlin helpers and utilities.
+  framework for the [jMonkey Engine](https://jmonkeyengine.org/). Unreleased, work in progress.
+- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu): General helpers and utilities for Kotlin.
 
 Follow the links for detailed documentation including release/dependency information.

@@ -5,6 +5,5 @@ import dagger.Module
 
 @Module
 interface EngineModule {
-  @Binds
-  fun bindEngine(impl: EngineImpl): Engine
+  @Binds fun bindEngine(impl: EngineImpl): Engine
 }

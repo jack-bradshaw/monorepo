@@ -1,1 +1,0 @@
-{"interaction_profile":"htc_vive_pro","bindings":{"omniset":{"sources":[{"inputs":{"click":{"output":"44"}},"path":"/head/input/system"},{"inputs":{"click":{"output":"45"}},"path":"/head/input/volume_up"},{"inputs":{"click":{"output":"46"}},"path":"/head/input/volume_down"},{"inputs":{"click":{"output":"47"}},"path":"/head/input/mute_mic"}]}}}

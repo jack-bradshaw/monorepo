@@ -18,10 +18,12 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import kotlin.random.Random
 
-class CubeImpl @Inject internal constructor(
-  private val materials: Materials,
-  private val engine: Engine,
-  private val random: Random,
+class CubeImpl
+@Inject
+internal constructor(
+    private val materials: Materials,
+    private val engine: Engine,
+    private val random: Random,
 ) : Cube {
 
   private val size = random.nextFloat()
@@ -33,10 +35,11 @@ class CubeImpl @Inject internal constructor(
     runBlocking {
       shape = Box(size, size, size)
       collider = RigidBodyControl(HullCollisionShape(shape), mass())
-      geometry = Geometry("cube", shape).apply {
-        setMaterial(materials.getRandomly())
-        addControl(collider)
-      }
+      geometry =
+          Geometry("cube", shape).apply {
+            setMaterial(materials.getRandomly())
+            addControl(collider)
+          }
     }
   }
 
@@ -55,11 +58,11 @@ class CubeImpl @Inject internal constructor(
     engine.extractCoroutineScope().launch(engine.physicsDispatcher()) {
       while (true) {
         delay(1000)
-        val magnitude = Vector3f(
-          (100 * (random.nextFloat() - 0.5)).toFloat(),
-          (100 * (random.nextFloat() - 0.5)).toFloat(),
-          (100 * (random.nextFloat() - 0.5)).toFloat()
-        )
+        val magnitude =
+            Vector3f(
+                (100 * (random.nextFloat() - 0.5)).toFloat(),
+                (100 * (random.nextFloat() - 0.5)).toFloat(),
+                (100 * (random.nextFloat() - 0.5)).toFloat())
         val location = Vector3f(size / 2, size / 2, size / 2)
         collider.applyImpulse(magnitude, location)
       }
