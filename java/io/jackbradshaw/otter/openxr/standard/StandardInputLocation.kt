@@ -37,7 +37,6 @@ import io.jackbradshaw.otter.openxr.standard.StandardInputComponent.VALUE
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.LEFT_TRIGGER
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.RIGHT_TRIGGER
 import io.jackbradshaw.otter.openxr.model.InputLocation
-import io.jackbradshaw.otter.openxr.model.inputLocation
 
 /*
  * The standard input locations defined by
@@ -60,3 +59,5 @@ enum class StandardInputLocation(val location: InputLocation) {
     }
   }
 }
+
+private fun inputLocation(id: String) = InputLocation.newBuilder().setId(id).build()

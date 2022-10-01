@@ -36,8 +36,11 @@ import io.jackbradshaw.otter.openxr.standard.StandardInputComponent.FORCE
 import io.jackbradshaw.otter.openxr.standard.StandardInputComponent.VALUE
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.LEFT_TRIGGER
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.RIGHT_TRIGGER
-import io.jackbradshaw.otter.openxr.model.interactionProfile
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
+import io.jackbradshaw.otter.openxr.model.Vendor
+import io.jackbradshaw.otter.openxr.model.Controller
+import io.jackbradshaw.otter.openxr.model.Input
+import io.jackbradshaw.otter.openxr.model.Output
 
 /*
  * The standard interaction profiles defined by
@@ -61,22 +64,26 @@ enum class StandardInteractionProfile(val profile: InteractionProfile) {
           output(LEFT_HAND, HAPTIC),
           output(RIGHT_HAND, HAPTIC)
       ))),
-  GOOGLE_DAYDREAM_CONTROLLER(interactionProfile(vendorId = "google", controllerId = "daydream_controller", inputs = setOf(
-      input(LEFT_HAND, SELECT, CLICK),
-      input(LEFT_HAND, TRACKPAD, StandardInputComponent.X),
-      input(LEFT_HAND, TRACKPAD, StandardInputComponent.Y),
-      input(LEFT_HAND, TRACKPAD, CLICK),
-      input(LEFT_HAND, TRACKPAD, TOUCH),
-      input(LEFT_HAND, GRIP, POSE),
-      input(LEFT_HAND, AIM, POSE),
-      input(RIGHT_HAND, SELECT, CLICK),
-      input(RIGHT_HAND, TRACKPAD, StandardInputComponent.X),
-      input(RIGHT_HAND, TRACKPAD, StandardInputComponent.Y),
-      input(RIGHT_HAND, TRACKPAD, CLICK),
-      input(RIGHT_HAND, TRACKPAD, TOUCH),
-      input(RIGHT_HAND, GRIP, POSE),
-      input(RIGHT_HAND, AIM, POSE),
-  ), outputs = setOf())),
+  GOOGLE_DAYDREAM_CONTROLLER(interactionProfile(
+      vendorId = "google",
+      controllerId = "daydream_controller",
+      inputs = setOf(
+          input(LEFT_HAND, SELECT, CLICK),
+          input(LEFT_HAND, TRACKPAD, StandardInputComponent.X),
+          input(LEFT_HAND, TRACKPAD, StandardInputComponent.Y),
+          input(LEFT_HAND, TRACKPAD, CLICK),
+          input(LEFT_HAND, TRACKPAD, TOUCH),
+          input(LEFT_HAND, GRIP, POSE),
+          input(LEFT_HAND, AIM, POSE),
+          input(RIGHT_HAND, SELECT, CLICK),
+          input(RIGHT_HAND, TRACKPAD, StandardInputComponent.X),
+          input(RIGHT_HAND, TRACKPAD, StandardInputComponent.Y),
+          input(RIGHT_HAND, TRACKPAD, CLICK),
+          input(RIGHT_HAND, TRACKPAD, TOUCH),
+          input(RIGHT_HAND, GRIP, POSE),
+          input(RIGHT_HAND, AIM, POSE),
+      ),
+      outputs = setOf())),
   HTC_VIVE_CONTROLLER(interactionProfile(vendorId = "htc", controllerId = "vive_controller", inputs = setOf(
       input(LEFT_HAND, SYSTEM, CLICK),
       input(LEFT_HAND, SQUEEZE, CLICK),
@@ -277,3 +284,11 @@ enum class StandardInteractionProfile(val profile: InteractionProfile) {
     }
   }
 }
+
+private fun interactionProfile(vendorId: String, controllerId: String, inputs: Set<Input> = setOf(), outputs: Set<Output> = setOf()) =
+    InteractionProfile.newBuilder()
+        .setVendor(Vendor.newBuilder().setId(vendorId).build())
+        .setController(Controller.newBuilder().setId(controllerId).build())
+        .addAllInput(inputs)
+        .addAllOutput(outputs)
+        .build()

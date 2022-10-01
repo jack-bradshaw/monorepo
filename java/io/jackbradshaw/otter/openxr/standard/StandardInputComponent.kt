@@ -1,7 +1,6 @@
 package io.jackbradshaw.otter.openxr.standard
 
 import io.jackbradshaw.otter.openxr.model.InputComponent
-import io.jackbradshaw.otter.openxr.model.inputComponent
 
 /*
  * The standard input components defined by
@@ -19,8 +18,12 @@ enum class StandardInputComponent(val component: InputComponent) {
 
   companion object {
     private val reverse = StandardInputComponent.values().map { it.component to it }.toMap()
+
     fun fromInputComponent(component: InputComponent): StandardInputComponent? {
       return reverse[component]
     }
   }
 }
+
+private fun inputComponent(id: String) = InputComponent.newBuilder().setId(id).build()
+

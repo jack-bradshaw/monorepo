@@ -39,25 +39,3 @@ java_lite_proto_library(
     ],
     deps = [":proto"],
 )
-
-kt_jvm_library(
-    name = "proto_extensions",
-    srcs = [
-        "InputComponentExt.kt",
-        "InputExt.kt",
-        "InputIdentifierExt.kt",
-        "InputLocationExt.kt",
-        "InteractionProfileExt.kt",
-        "OutputExt.kt",
-        "OutputIdentifier.kt",
-        "OutputLocation.kt",
-        "UserExt.kt",
-    ],
-    visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
-    ],
-    deps = [
-        ":java_lite_proto",
-    ],
-)

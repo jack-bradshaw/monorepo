@@ -1,7 +1,6 @@
 package io.jackbradshaw.otter.openxr.standard
 
 import io.jackbradshaw.otter.openxr.model.User
-import io.jackbradshaw.otter.openxr.model.user
 
 /*
  * The standard users defined by
@@ -21,3 +20,5 @@ enum class StandardUser(val user: User) {
     }
   }
 }
+
+private fun user(id: String) = User.newBuilder().setId(id).build()

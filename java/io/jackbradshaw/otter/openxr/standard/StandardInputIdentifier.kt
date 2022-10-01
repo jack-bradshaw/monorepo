@@ -37,7 +37,7 @@ import io.jackbradshaw.otter.openxr.standard.StandardInputComponent.VALUE
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.LEFT_TRIGGER
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.RIGHT_TRIGGER
 import io.jackbradshaw.otter.openxr.model.InputIdentifier
-import io.jackbradshaw.otter.openxr.model.inputIdentifier
+
 /*
  * The standard input identifiers defined by
  * [version 1.0 of the OpenXR standard](https://registry.khronos.org/OpenXR/specs/1.0/pdf/xrspec.pdf).
@@ -88,3 +88,5 @@ enum class StandardInputIdentifier(val identifier: InputIdentifier) {
     }
   }
 }
+
+private fun inputIdentifier(id: String) = InputIdentifier.newBuilder().setId(id).build()

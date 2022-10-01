@@ -19,6 +19,5 @@ kt_jvm_library(
     ],
     deps = [
         "//java/io/jackbradshaw/otter/openxr/model:java_lite_proto",
-        "//java/io/jackbradshaw/otter/openxr/model:proto_extensions",
     ],
 )

@@ -36,8 +36,6 @@ import io.jackbradshaw.otter.openxr.standard.StandardInputComponent.FORCE
 import io.jackbradshaw.otter.openxr.standard.StandardInputComponent.VALUE
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.LEFT_TRIGGER
 import io.jackbradshaw.otter.openxr.standard.StandardOutputLocation.RIGHT_TRIGGER
-import io.jackbradshaw.otter.openxr.model.outputLocation
-import io.jackbradshaw.otter.openxr.model.outputIdentifier
 import io.jackbradshaw.otter.openxr.model.OutputLocation
 import io.jackbradshaw.otter.openxr.model.OutputIdentifier
 
@@ -55,3 +53,5 @@ enum class StandardOutputIdentifier(val identifier: OutputIdentifier) {
     }
   }
 }
+
+private fun outputIdentifier(id: String) = OutputIdentifier.newBuilder().setId(id).build()
