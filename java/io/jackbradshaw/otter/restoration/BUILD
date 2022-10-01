@@ -43,7 +43,6 @@ kt_jvm_library(
     ],
     deps = [
         ":java_lite_protos",
-        "//java/io/jackbradshaw/otter/model/elements:java_lite_protos",
         "//java/io/jackbradshaw/klu/flow",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

@@ -14,7 +14,6 @@ kt_jvm_test(
         "//java/io/jackbradshaw/otter/config:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/config:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/manifest/encoder",
-        "//java/io/jackbradshaw/otter/openxr/model:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/standard",
         "//javatests/io/jackbradshaw/otter/openxr/manifest/goldens",
         "@bazel_tools//tools/java/runfiles",

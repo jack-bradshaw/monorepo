@@ -28,7 +28,6 @@ kt_jvm_library(
     deps = [
         "//java/io/jackbradshaw/otter/openxr/manifest/encoder",
         "//java/io/jackbradshaw/otter/openxr/manifest/installer",
-        "//java/io/jackbradshaw/otter/openxr/model:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/standard",
         "@bazel_tools//tools/java/runfiles",
         "@maven//:com_google_truth_truth",
