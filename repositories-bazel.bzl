@@ -1,5 +1,6 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 def io_jackbradshaw_bazel_repositories():
     maybe(
@@ -129,4 +130,19 @@ def io_jackbradshaw_bazel_repositories():
         sha256 = "5c2b22e88e52110178afebda100755f31f5dd505c317be0bfb4f7ad88a88db86",
         strip_prefix = "dagger-dagger-2.41",
         url = "https://github.com/google/dagger/archive/dagger-2.41.zip",
+    )
+
+    http_archive(
+        name = "io_grpc_grpc_java",
+        sha256 = "2f2ca0701cf23234e512f415318bfeae00036a980f6a83574264f41c0201e5cd",
+        strip_prefix = "grpc-java-1.46.0",
+        url = "https://github.com/grpc/grpc-java/archive/v1.46.0.zip",
+    )
+
+    maybe(
+        git_repository,
+        name = "com_github_grpc_grpc_kotlin",
+        remote = "https://github.com/grpc/grpc-kotlin",
+        commit = "0681fc85677e2cca53bdf1cbf71f8d92d0355117",
+        shallow_since = "1658949766 -0600",
     )

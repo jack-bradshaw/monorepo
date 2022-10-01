@@ -1,17 +1,13 @@
 package io.jackbradshaw.otter.structure.bases
 
 import io.jackbradshaw.otter.engine.Engine
-import io.jackbradshaw.otter.structure.controllers.LevelId
-import io.jackbradshaw.otter.structure.controllers.LevelSnapshot
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import io.jackbradshaw.otter.structure.controllers.Game
 
 /**
- * A convenience implementation of [Game] that does all the heavy lifting. This class implements many of the interface
- * functions which reduces the work on the end-engineer but takes away some control. Engineers who need access to these
- * functions can instead override the pre* and post* functions to receive callbacks when the functions enter and exit.
+ * A convenience implementation of [Game] that does all the heavy lifting. This class implements
+ * many of the interface functions which reduces the work on the end-engineer but takes away some
+ * control. Engineers who need access to these functions can instead override the pre* and post*
+ * functions to receive callbacks when the functions enter and exit.
  */
 abstract class GameBase(
     private val engine: Engine,

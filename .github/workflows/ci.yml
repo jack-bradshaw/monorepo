@@ -1,0 +1,19 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    steps:
+      # Checkout repository and use as pwd for all subsequent steps
+      - uses: actions/checkout@v2
+
+      # Build everything with Bazel.
+      - name: build all
+        run: bazel build //...
+
+      # Test everything with Bazel.
+      - name: test all
+        run: bazel test //...

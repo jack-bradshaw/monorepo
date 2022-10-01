@@ -1,6 +1,6 @@
 # Kotlin Lightweight Upgrade (KLU)
 
-Essential Kotlin helpers and utilities for:
+General helpers and utilities for Kotlin. Divided into:
 
 - [Collections](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/collections)
 - [Concurrency](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency)

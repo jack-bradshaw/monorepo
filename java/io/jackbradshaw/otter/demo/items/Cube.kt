@@ -6,5 +6,3 @@ import java.io.jackbradshaw.otter.entity.Entity
 interface Cube : Entity {
   suspend fun setRelativePosition(position: Vector3f)
 }
-
- 

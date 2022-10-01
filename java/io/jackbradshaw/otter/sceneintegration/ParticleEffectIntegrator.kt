@@ -1,4 +1,3 @@
 package java.io.jackbradshaw.otter.sceneintegration
 
-class ParticleEffectIntegrator {
-}
+class ParticleEffectIntegrator

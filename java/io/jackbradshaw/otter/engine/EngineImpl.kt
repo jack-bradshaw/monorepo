@@ -1,42 +1,42 @@
 package io.jackbradshaw.otter.engine
 
+import com.jme3.app.LostFocusBehavior
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
 import com.jme3.app.VRConstants
 import com.jme3.app.VREnvironment
-import com.jme3.scene.Node
 import com.jme3.bullet.BulletAppState
+import com.jme3.scene.Node
 import com.jme3.system.AppSettings
+import com.jme3.system.JmeContext
 import io.jackbradshaw.otter.OtterScope
-import io.jackbradshaw.otter.engine.config.Config
+import io.jackbradshaw.otter.config.Config
+import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
-import com.jme3.app.LostFocusBehavior
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
-import com.jme3.system.JmeContext
-import java.io.jackbradshaw.clearxr.manifest.installer.ManifestInstaller
 
 @OtterScope
-class EngineImpl @Inject internal constructor(
-  private val config: Config,
-  private val manifestInstaller: ManifestInstaller
-) : Engine, SimpleApplication() {
+class EngineImpl
+@Inject
+internal constructor(private val config: Config, private val manifestInstaller: ManifestInstaller) :
+    Engine, SimpleApplication() {
 
   private val started = MutableStateFlow(false)
   private var totalRuntimeSec = 0.0
 
-  private val settings = AppSettings(/* loadDefaults= */ true).apply {
-    if (config.xrEnabled) {
-      put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
-      put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
-
-    }
-  }
-  private val xr = if (config.xrEnabled) createVrAppState() else null
+  private val settings =
+      AppSettings(/* loadDefaults= */ true).apply {
+        if (config.engineConfig.xrEnabled) {
+          put(VRConstants.SETTING_VRAPI, VRConstants.SETTING_VRAPI_OPENVR_LWJGL_VALUE)
+          put(VRConstants.SETTING_ENABLE_MIRROR_WINDOW, true)
+        }
+      }
+  private val xr = if (config.engineConfig.xrEnabled) createVrAppState() else null
   private val physics = BulletAppState()
 
   private val coroutineScopeJob = Job()
@@ -46,10 +46,12 @@ class EngineImpl @Inject internal constructor(
   private val gameNode = Node("game_root")
 
   private fun createVrAppState(): VRAppState {
-    val environment = VREnvironment(settings).apply {
-      initialize()
-      if (!isInitialized()) throw IllegalStateException("VR environment did not successfully initialize")
-    }
+    val environment =
+        VREnvironment(settings).apply {
+          initialize()
+          if (!isInitialized())
+              throw IllegalStateException("VR environment did not successfully initialize")
+        }
     return VRAppState(settings, environment).apply {
       setMirrorWindowSize(DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX, DEFAULT_VR_MIRROR_WINDOW_HEIGHT_PX)
     }
@@ -61,8 +63,8 @@ class EngineImpl @Inject internal constructor(
       setShowSettings(false)
       setLostFocusBehavior(LostFocusBehavior.Disabled)
       inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
-      setDisplayFps(config.debugEnabled)
-      if (config.headlessEnabled) start(JmeContext.Type.Headless) else start()
+      setDisplayFps(config.engineConfig.debugEnabled)
+      if (config.engineConfig.headlessEnabled) start(JmeContext.Type.Headless) else start()
       started.filter { it == true }.first()
       if (xr != null) {
         stateManager.attach(xr)
@@ -78,9 +80,7 @@ class EngineImpl @Inject internal constructor(
     started.value = true
   }
 
-  override fun simpleUpdate(tpf: Float) = runBlocking {
-    totalRuntimeSec = totalRuntimeSec + tpf
-  }
+  override fun simpleUpdate(tpf: Float) = runBlocking { totalRuntimeSec = totalRuntimeSec + tpf }
 
   override fun destroy() {
     coroutineScopeJob.cancel()
@@ -111,6 +111,3 @@ class EngineImpl @Inject internal constructor(
     private const val DEFAULT_VR_MIRROR_WINDOW_HEIGHT_PX = 800
   }
 }
-
-
-

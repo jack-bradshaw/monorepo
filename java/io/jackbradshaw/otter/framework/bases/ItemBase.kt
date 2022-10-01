@@ -1,20 +1,13 @@
 package io.jackbradshaw.otter.structure.bases
 
-import io.jackbradshaw.klu.flow.BinaryDelta
-import io.jackbradshaw.klu.flow.BinaryDeltaFlow
-import io.jackbradshaw.klu.flow.BinaryDeltaPair
-import io.jackbradshaw.otter.physics.placeZero
-import io.jackbradshaw.otter.physics.Placement
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.onStart
 import io.jackbradshaw.otter.structure.controllers.Item
 import io.jackbradshaw.otter.structure.controllers.ItemId
 
 /**
- * A convenience implementation of [Item] that does all the heavy lifting. This class implements many of the interface
- * functions which reduces the work on the end-engineer but takes away some control. Engineers who need access to these
- * functions can instead override the pre* and post* functions to receive callbacks when the functions enter and exit.
+ * A convenience implementation of [Item] that does all the heavy lifting. This class implements
+ * many of the interface functions which reduces the work on the end-engineer but takes away some
+ * control. Engineers who need access to these functions can instead override the pre* and post*
+ * functions to receive callbacks when the functions enter and exit.
  */
 abstract class ItemBase(override val id: ItemId) : Item {
 
