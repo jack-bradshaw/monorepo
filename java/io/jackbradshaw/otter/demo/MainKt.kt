@@ -1,9 +1,9 @@
 package io.jackbradshaw.otter.demo
 
 import io.jackbradshaw.otter.config.Config
-import java.io.jackbradshaw.otter.merovingian
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import java.io.jackbradshaw.otter.merovingian
 
 class MainKt {
   fun main() {
@@ -22,8 +22,8 @@ class MainKt {
 
   companion object {
     private val CONFIG = Config(
-      vrEnabled = true,
-      headlessEnabled = false,
+        vrEnabled = true,
+        headlessEnabled = false,
     )
   }
 }

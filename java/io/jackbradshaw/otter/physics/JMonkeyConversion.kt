@@ -11,10 +11,10 @@ import com.jme3.math.Transform as JmeTransform
  * Creates a new JMonkey Engine 3 Transform which is equivalent to this vector.
  */
 fun Placement.toJMonkeyTransform() =
-  JmeTransform(position.toJMonkeyVector(), rotation.toJMonkeyQuaternion(), scale.toJMonkeyVector())
+    JmeTransform(position.toJMonkeyVector(), rotation.toJMonkeyQuaternion(), scale.toJMonkeyVector())
 
 /**
  * Creates a new Merovingian Transform which is equivalent to this vector.
  */
 fun JmeTransform.toOtterPlacement() =
-  placement(getTranslation().toOtterPoint(), getRotation().toOtterQuaternion(), getScale().toOtterVector())
+    placement(getTranslation().toOtterPoint(), getRotation().toOtterQuaternion(), getScale().toOtterVector())

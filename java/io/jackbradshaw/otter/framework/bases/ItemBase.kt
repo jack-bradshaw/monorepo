@@ -1,13 +1,5 @@
 package io.jackbradshaw.otter.structure.bases
 
-import io.jackbradshaw.klu.flow.BinaryDelta
-import io.jackbradshaw.klu.flow.BinaryDeltaFlow
-import io.jackbradshaw.klu.flow.BinaryDeltaPair
-import io.jackbradshaw.otter.physics.placeZero
-import io.jackbradshaw.otter.physics.Placement
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.onStart
 import io.jackbradshaw.otter.structure.controllers.Item
 import io.jackbradshaw.otter.structure.controllers.ItemId
 

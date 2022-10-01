@@ -1,16 +1,16 @@
 package io.jackbradshaw.otter.physics.experiment
 
 import dagger.Component
-import java.io.jackbradshaw.otter.MerovingianComponent
-import io.jackbradshaw.otter.physics.experiment.items.Lab
 import io.jackbradshaw.otter.physics.experiment.items.ItemsModule
+import io.jackbradshaw.otter.physics.experiment.items.Lab
 import io.jackbradshaw.otter.physics.experiment.materials.MaterialsModule
 import io.jackbradshaw.otter.physics.experiment.support.SupportModule
+import java.io.jackbradshaw.otter.MerovingianComponent
 
 @PhysicsExperimentScope
 @Component(
-  modules = [MaterialsModule::class, SupportModule::class, ItemsModule::class],
-  dependencies = [MerovingianComponent::class]
+    modules = [MaterialsModule::class, SupportModule::class, ItemsModule::class],
+    dependencies = [MerovingianComponent::class]
 )
 interface PhysicsExperimentComponent {
 
@@ -24,4 +24,4 @@ interface PhysicsExperimentComponent {
 }
 
 fun physicsExperiment(merovingian: MerovingianComponent) =
-  DaggerPhysicsExperimentComponent.builder().setMerovingianComponent(merovingian).build()
+    DaggerPhysicsExperimentComponent.builder().setMerovingianComponent(merovingian).build()

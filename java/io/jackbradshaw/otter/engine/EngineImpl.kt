@@ -1,29 +1,29 @@
 package io.jackbradshaw.otter.engine
 
-import io.jackbradshaw.otter.config.Config
+import com.jme3.app.LostFocusBehavior
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
 import com.jme3.app.VRConstants
 import com.jme3.app.VREnvironment
-import com.jme3.scene.Node
 import com.jme3.bullet.BulletAppState
+import com.jme3.scene.Node
 import com.jme3.system.AppSettings
+import com.jme3.system.JmeContext
 import io.jackbradshaw.otter.OtterScope
+import io.jackbradshaw.otter.config.Config
+import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
-import com.jme3.app.LostFocusBehavior
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
-import com.jme3.system.JmeContext
-import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 
 @OtterScope
 class EngineImpl @Inject internal constructor(
-  private val config: Config,
-  private val manifestInstaller: ManifestInstaller
+    private val config: Config,
+    private val manifestInstaller: ManifestInstaller
 ) : Engine, SimpleApplication() {
 
   private val started = MutableStateFlow(false)

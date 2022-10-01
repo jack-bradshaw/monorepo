@@ -2,7 +2,6 @@ package io.jackbradshaw.otter.structure.bases
 
 import io.jackbradshaw.otter.engine.Engine
 import io.jackbradshaw.otter.structure.controllers.Level
-import io.jackbradshaw.otter.structure.controllers.LevelId
 
 /**
  * A convenience implementation of [Level] that does all the heavy lifting. This class implements many of the interface

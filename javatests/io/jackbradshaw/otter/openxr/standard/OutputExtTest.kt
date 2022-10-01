@@ -1,14 +1,12 @@
 package io.jackbradshaw.otter.openxr.standard
 
-import io.jackbradshaw.otter.openxr.model.Output
-import io.jackbradshaw.otter.openxr.model.User
-import io.jackbradshaw.otter.openxr.model.OutputIdentifier
-import io.jackbradshaw.otter.openxr.model.OutputLocation
 import com.google.common.truth.Truth.assertThat
+import io.jackbradshaw.otter.openxr.model.Output
+import io.jackbradshaw.otter.openxr.model.OutputIdentifier
+import io.jackbradshaw.otter.openxr.model.User
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import kotlinx.coroutines.runBlocking
 
 @RunWith(JUnit4::class)
 class OutputExtTest {
@@ -19,7 +17,12 @@ class OutputExtTest {
 
     val output = output(user, identifier)
 
-    assertThat(output).isEqualTo(Output.newBuilder().setUser(User.newBuilder().setId(user.user.id).build()).setIdentifier(OutputIdentifier.newBuilder().setId(identifier.identifier.id).build()).build())
+    assertThat(output)
+        .isEqualTo(
+            Output.newBuilder()
+                .setUser(StandardUser.HEAD.user)
+                .setIdentifier(StandardOutputIdentifier.HAPTIC.identifier)
+                .build())
   }
 
   @Test
@@ -30,6 +33,12 @@ class OutputExtTest {
 
     val output = output(user, identifier, location)
 
-    assertThat(output).isEqualTo(Output.newBuilder().setUser(User.newBuilder().setId(user.user.id).build()).setIdentifier(OutputIdentifier.newBuilder().setId(identifier.identifier.id).build()).setLocation(OutputLocation.newBuilder().setId(location.location.id).build()).build())
+    assertThat(output)
+        .isEqualTo(
+            Output.newBuilder()
+                .setUser(StandardUser.HEAD.user)
+                .setIdentifier(StandardOutputIdentifier.HAPTIC.identifier)
+                .setLocation(StandardOutputLocation.LEFT.location)
+                .build())
   }
 }

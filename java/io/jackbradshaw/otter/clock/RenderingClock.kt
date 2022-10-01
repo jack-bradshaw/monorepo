@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @OtterScope
 class RenderingClock @Inject internal constructor(
-  private val engine: Engine
+    private val engine: Engine
 ) : Clock {
 
   init {

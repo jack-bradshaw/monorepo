@@ -3,7 +3,7 @@ package io.jackbradshaw.otter.openxr.manifest.generator
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
 
 interface ManifestGenerator {
-   suspend fun generateManifests(): Manifests
+  suspend fun generateManifests(): Manifests
 }
 
 /**

@@ -1,7 +1,7 @@
 package io.jackbradshaw.otter.openxr.manifest.encoder
 
-import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import io.jackbradshaw.otter.openxr.model.Input
+import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import io.jackbradshaw.otter.openxr.model.Output
 
 interface ManifestEncoder {

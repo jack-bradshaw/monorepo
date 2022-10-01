@@ -2,8 +2,8 @@ package io.jackbradshaw.klu.flow
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 class NiceFlower<T>(initialValue: T, private val onChange: suspend (T) -> Unit = {}) : MutableFlower<T> {

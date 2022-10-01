@@ -2,13 +2,9 @@ package io.jackbradshaw.otter
 
 import dagger.BindsInstance
 import dagger.Component
-import io.jackbradshaw.otter.clock.Clock
-import io.jackbradshaw.otter.clock.ClockModule
+import io.jackbradshaw.otter.clock.*
 import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.config.defaultConfig
-import io.jackbradshaw.otter.clock.Physics
-import io.jackbradshaw.otter.clock.Rendering
-import io.jackbradshaw.otter.clock.Real
 import io.jackbradshaw.otter.engine.Engine
 import io.jackbradshaw.otter.engine.EngineModule
 import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoder

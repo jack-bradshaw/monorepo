@@ -1,6 +1,5 @@
 package io.jackbradshaw.otter.openxr.events
 
-import dagger.Module
 import dagger.Binds
 
 @Module

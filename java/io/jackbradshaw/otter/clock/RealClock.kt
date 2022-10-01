@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @OtterScope
 class RealClock @Inject internal constructor(
-  private val engine: Engine
+    private val engine: Engine
 ) : Clock {
 
   private val totalFlow = MutableStateFlow<Double>(0.0)

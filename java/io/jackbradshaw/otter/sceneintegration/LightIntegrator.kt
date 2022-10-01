@@ -1,7 +1,7 @@
 package io.jackbradshaw.otter.engine.sceneintegration
 
-import io.jackbradshaw.otter.engine.Engine
 import com.jme3.light.Light
+import io.jackbradshaw.otter.engine.Engine
 
 class LightIntegrator(
     private val engine: Engine

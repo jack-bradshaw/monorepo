@@ -11,7 +11,7 @@ interface Once {
    * Runs the block if and only if it has never been run before. If the block has run before (or is currently running)
    * the function returns normally without error.
    */
-  operator suspend fun invoke()
+  suspend operator fun invoke()
 
   suspend fun hasRun(): Boolean
 }
@@ -36,7 +36,7 @@ interface Once {
 fun once(block: suspend () -> Unit) = object : Once {
   private val hasRun = AtomicBoolean(false)
 
-  override operator suspend fun invoke() {
+  override suspend operator fun invoke() {
     if (hasRun.compareAndSet(false, true)) block()
   }
 
@@ -46,7 +46,7 @@ fun once(block: suspend () -> Unit) = object : Once {
 fun Once.onSubsequentRuns(block: suspend () -> Throwable) = object : Once {
   private val hasRun = AtomicBoolean(false)
 
-  override operator suspend fun invoke() {
+  override suspend operator fun invoke() {
     if (hasRun.compareAndSet(false, true)) this@onSubsequentRuns.invoke() else block()
   }
 

@@ -1,6 +1,5 @@
 package io.jackbradshaw.otter.openxr.manifest.encoder
 
-import dagger.Module
 import dagger.Binds
 
 @Module

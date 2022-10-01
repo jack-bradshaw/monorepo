@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @OtterScope
 class PhysicsClock @Inject internal constructor(
-  private val engine: Engine
+    private val engine: Engine
 ) : Clock {
 
   private var totalRuntime = 0.0

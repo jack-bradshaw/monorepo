@@ -7,7 +7,7 @@ import kotlin.math.sqrt
  * Creates a vector set to ([x], [y], [z]).
  */
 fun point(x: Number = 0f, y: Number = 0f, z: Number = 0f): Point =
-  Point.newBuilder().setX(x.toFloat()).setY(y.toFloat()).setZ(z.toFloat()).build()
+    Point.newBuilder().setX(x.toFloat()).setY(y.toFloat()).setZ(z.toFloat()).build()
 
 /**
  * Creates a new vector by adding this vector to [other].
@@ -25,7 +25,7 @@ operator fun Point.minus(other: Point): Point = point(x - other.x, y - other.y, 
  * Creates a new vector by multiplying each component of this vector by [scalar].
  */
 operator fun Point.times(scalar: Number): Point =
-  point(x * scalar.toFloat(), y * scalar.toFloat(), z * scalar.toFloat())
+    point(x * scalar.toFloat(), y * scalar.toFloat(), z * scalar.toFloat())
 
 /**
  * Creates a new vector by multiplying this number by each component of [vector].

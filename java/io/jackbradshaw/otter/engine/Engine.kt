@@ -4,18 +4,18 @@ import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
 import com.jme3.app.state.AppStateManager
 import com.jme3.asset.AssetManager
-import com.jme3.bullet.BulletAppState
-import com.jme3.renderer.Camera
-import com.jme3.scene.Node
-import com.jme3.system.Timer
-import com.jme3.system.JmeContext
-import com.jme3.renderer.Renderer
-import kotlinx.coroutines.CoroutineScope
-import com.jme3.renderer.RenderManager
-import com.jme3.input.InputManager
-import com.jme3.renderer.ViewPort
-import com.jme3.audio.Listener
 import com.jme3.audio.AudioRenderer
+import com.jme3.audio.Listener
+import com.jme3.bullet.BulletAppState
+import com.jme3.input.InputManager
+import com.jme3.renderer.Camera
+import com.jme3.renderer.RenderManager
+import com.jme3.renderer.Renderer
+import com.jme3.renderer.ViewPort
+import com.jme3.scene.Node
+import com.jme3.system.JmeContext
+import com.jme3.system.Timer
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * The [jMonkey](https://wiki.jmonkeyengine.org/docs/3.4/documentation.html) game engine.

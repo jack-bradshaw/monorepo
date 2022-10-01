@@ -1,9 +1,8 @@
 package io.jackbradshaw.otter.structure.controllers
 
-import io.jackbradshaw.otter.engine.Engine
-import io.jackbradshaw.otter.structure.controllers.Item
-import io.jackbradshaw.otter.structure.frames.Hostable
 import io.jackbradshaw.klu.flow.BinaryDeltaFlow
+import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.structure.frames.Hostable
 
 interface Integration : Hostable<Item> {
 

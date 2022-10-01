@@ -19,9 +19,9 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 class CubeImpl @Inject internal constructor(
-  private val materials: Materials,
-  private val engine: Engine,
-  private val random: Random,
+    private val materials: Materials,
+    private val engine: Engine,
+    private val random: Random,
 ) : Cube {
 
   private val size = random.nextFloat()
@@ -56,9 +56,9 @@ class CubeImpl @Inject internal constructor(
       while (true) {
         delay(1000)
         val magnitude = Vector3f(
-          (100 * (random.nextFloat() - 0.5)).toFloat(),
-          (100 * (random.nextFloat() - 0.5)).toFloat(),
-          (100 * (random.nextFloat() - 0.5)).toFloat()
+            (100 * (random.nextFloat() - 0.5)).toFloat(),
+            (100 * (random.nextFloat() - 0.5)).toFloat(),
+            (100 * (random.nextFloat() - 0.5)).toFloat()
         )
         val location = Vector3f(size / 2, size / 2, size / 2)
         collider.applyImpulse(magnitude, location)

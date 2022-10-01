@@ -17,9 +17,9 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class CubeLevelImpl @Inject internal constructor(
-  private val cubeSwarmProvider: Provider<CubeSwarm>,
-  private val engine: Engine,
-  private val materials: Materials,
+    private val cubeSwarmProvider: Provider<CubeSwarm>,
+    private val engine: Engine,
+    private val materials: Materials,
 ) : CubeLevel {
 
   init {

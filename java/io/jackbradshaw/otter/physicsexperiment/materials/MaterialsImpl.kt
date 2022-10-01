@@ -2,19 +2,19 @@ package io.jackbradshaw.otter.physics.experiment.materials
 
 import com.jme3.material.Material
 import com.jme3.math.ColorRGBA
-import io.jackbradshaw.otter.physics.experiment.PhysicsExperimentScope
 import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.physics.experiment.PhysicsExperimentScope
 import javax.inject.Inject
 
 @PhysicsExperimentScope
 class MaterialsImpl @Inject internal constructor(
-  private val engine: Engine,
+    private val engine: Engine,
 ) : Materials {
 
   private val red by lazy {
     Material(
-      engine.extractAssetManager(),
-      "Common/MatDefs/Misc/Unshaded.j3md"
+        engine.extractAssetManager(),
+        "Common/MatDefs/Misc/Unshaded.j3md"
     ).apply {
       setColor("Color", ColorRGBA.Red)
     }
@@ -22,8 +22,8 @@ class MaterialsImpl @Inject internal constructor(
 
   private val blue by lazy {
     Material(
-      engine.extractAssetManager(),
-      "Common/MatDefs/Misc/Unshaded.j3md"
+        engine.extractAssetManager(),
+        "Common/MatDefs/Misc/Unshaded.j3md"
     ).apply {
       setColor("Color", ColorRGBA.Blue)
     }
@@ -31,8 +31,8 @@ class MaterialsImpl @Inject internal constructor(
 
   private val green by lazy {
     Material(
-      engine.extractAssetManager(),
-      "Common/MatDefs/Misc/Unshaded.j3md"
+        engine.extractAssetManager(),
+        "Common/MatDefs/Misc/Unshaded.j3md"
     ).apply {
       setColor("Color", ColorRGBA.Green)
     }

@@ -1,5 +1,6 @@
 package io.jackbradshaw.otter.physics.experiment.items
 
+import com.jme3.bullet.collision.PhysicsCollisionObject
 import com.jme3.bullet.collision.shapes.HullCollisionShape
 import com.jme3.bullet.control.RigidBodyControl
 import com.jme3.scene.Geometry
@@ -7,21 +8,20 @@ import com.jme3.scene.Mesh
 import com.jme3.scene.Node
 import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
-import io.jackbradshaw.otter.coroutines.renderingDispatcher
-import io.jackbradshaw.otter.engine.Engine
 import io.jackbradshaw.klu.flow.BinaryDelta
 import io.jackbradshaw.klu.flow.BinaryDeltaFlow
+import io.jackbradshaw.otter.coroutines.renderingDispatcher
+import io.jackbradshaw.otter.engine.Engine
 import io.jackbradshaw.otter.physics.experiment.materials.Materials
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import com.jme3.bullet.collision.PhysicsCollisionObject
 
 
 class CubeImpl @Inject internal constructor(
-  private val materials: Materials,
-  private val engine: Engine,
+    private val materials: Materials,
+    private val engine: Engine,
 ) : Cube {
 
   private val size = 0.1f

@@ -11,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class OriginImpl @Inject constructor(
-  private val materials: Materials,
+    private val materials: Materials,
 ) : Origin {
 
   lateinit var coordinator: Node

@@ -1,6 +1,6 @@
 package io.jackbradshaw.klu.collections
 
-import java.util.LinkedList
+import java.util.*
 
 /**
  * A dual buffer containing items of type [T].

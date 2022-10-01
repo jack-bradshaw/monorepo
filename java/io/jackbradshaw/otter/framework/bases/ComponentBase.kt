@@ -1,7 +1,6 @@
 package io.jackbradshaw.otter.structure.bases
 
 import io.jackbradshaw.otter.structure.controllers.Component
-import io.jackbradshaw.otter.structure.controllers.ComponentId
 
 /**
  * A convenience implementation of [Component] that does all the heavy lifting. This class implements many of the
@@ -9,6 +8,4 @@ import io.jackbradshaw.otter.structure.controllers.ComponentId
  * to these functions can instead override the pre* and post* functions to receive callbacks when the functions enter
  * and exit.
  */
-abstract class ComponentBase : Component {
-
-}
+abstract class ComponentBase : Component

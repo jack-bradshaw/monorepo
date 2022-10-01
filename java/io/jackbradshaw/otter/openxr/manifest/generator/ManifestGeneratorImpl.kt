@@ -1,20 +1,20 @@
 package io.jackbradshaw.otter.openxr.manifest.generator
 
-import io.jackbradshaw.otter.config.Config
-import io.jackbradshaw.otter.openxr.model.Input
-import io.jackbradshaw.otter.openxr.standard.StandardInputComponent
-import io.jackbradshaw.otter.openxr.model.InteractionProfile
-import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoder
-import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.flow.fold
-import kotlinx.coroutines.flow.flatMapConcat
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.jackbradshaw.otter.OtterScope
+import io.jackbradshaw.otter.config.Config
+import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoder
+import io.jackbradshaw.otter.openxr.model.Input
+import io.jackbradshaw.otter.openxr.model.InteractionProfile
+import io.jackbradshaw.otter.openxr.standard.StandardInputComponent
+import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.fold
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import javax.inject.Inject
 
 @OtterScope

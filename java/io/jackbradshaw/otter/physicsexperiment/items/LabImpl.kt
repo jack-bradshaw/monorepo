@@ -4,17 +4,17 @@ import com.jme3.math.Vector3f
 import com.jme3.scene.Node
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.engine.Engine
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Provider
-import kotlinx.coroutines.flow.merge
 
 class LabImpl @Inject internal constructor(
-  private val engine: Engine,
-  private val cubeProvider: Provider<Cube>,
-  private val originProvider: Provider<Origin>,
+    private val engine: Engine,
+    private val cubeProvider: Provider<Cube>,
+    private val originProvider: Provider<Origin>,
 ) : Lab {
 
   init {

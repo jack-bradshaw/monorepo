@@ -5,8 +5,8 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 fun vector(origin: Point = originPoint, destination: Point = originPoint) =
-  Vector.newBuilder().setX(destination.x - origin.x).setY(destination.y - origin.y).setZ(destination.z - origin.z)
-    .build()
+    Vector.newBuilder().setX(destination.x - origin.x).setY(destination.y - origin.y).setZ(destination.z - origin.z)
+        .build()
 
 fun vector(destination: Point = originPoint) = vector(originPoint, destination)
 
@@ -17,28 +17,28 @@ operator fun Vector.plus(other: Vector): Vector = vector(x + other.x, y + other.
 operator fun Vector.minus(other: Vector): Vector = vector(x - other.x, y - other.y, z - other.z)
 
 operator fun Vector.times(scalar: Number): Vector =
-  vector(scalar.toFloat() * x, scalar.toFloat() * y, scalar.toFloat() * z)
+    vector(scalar.toFloat() * x, scalar.toFloat() * y, scalar.toFloat() * z)
 
 operator fun Number.times(vector: Vector): Vector = vector * this
 
 operator fun Vector.div(scalar: Number): Vector =
-  vector(x / scalar.toFloat(), y / scalar.toFloat(), z / scalar.toFloat())
+    vector(x / scalar.toFloat(), y / scalar.toFloat(), z / scalar.toFloat())
 
 operator fun Number.div(vector: Vector): Vector = vector / this
 
 fun Vector.perElementProduct(other: Vector): Vector = vector(
-  x = x * other.x,
-  y = y * other.y,
-  z = z * other.z
+    x = x * other.x,
+    y = y * other.y,
+    z = z * other.z
 )
 
 /**
  * Calculates the cross product (https://en.wikipedia.org/wiki/Cross_product) of this vector with [other].
  */
 fun Vector.crossProduct(other: Point): Vector = vector(
-  x = (y * other.z) - (z * other.y),
-  y = (z * other.x) - (x * other.z),
-  z = (x * other.y) - (y * other.x),
+    x = (y * other.z) - (z * other.y),
+    y = (z * other.x) - (x * other.z),
+    z = (x * other.y) - (y * other.x),
 )
 
 /**

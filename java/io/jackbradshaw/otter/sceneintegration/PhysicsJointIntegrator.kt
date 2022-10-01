@@ -1,7 +1,7 @@
 package io.jackbradshaw.otter.engine.sceneintegration
 
-import io.jackbradshaw.otter.engine.Engine
 import com.jme3.bullet.joints.PhysicsJoint
+import io.jackbradshaw.otter.engine.Engine
 
 class PhysicsJointIntegrator(
     private val engine: Engine

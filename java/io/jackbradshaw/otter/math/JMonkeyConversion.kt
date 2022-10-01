@@ -6,7 +6,7 @@ import com.jme3.math.Vector3f as JmeVector
 fun Quaternion.toJMonkeyQuaternion(): JmeQuaternion = JmeQuaternion(iCoefficient, jCoefficient, kCoefficient, scalar)
 
 fun JmeQuaternion.toOtterQuaternion(): Quaternion =
-  quaternion(scalar = w, iCoefficient = x, jCoefficient = y, kCoefficient = z)
+    quaternion(scalar = w, iCoefficient = x, jCoefficient = y, kCoefficient = z)
 
 fun Vector.toJMonkeyVector(): JmeVector = JmeVector(x, y, z)
 

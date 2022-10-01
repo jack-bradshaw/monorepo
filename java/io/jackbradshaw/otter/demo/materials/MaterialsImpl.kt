@@ -10,14 +10,14 @@ import kotlin.random.Random
 
 @DemoScope
 class MaterialsImpl @Inject internal constructor(
-  private val engine: Engine,
-  private val random: Random
+    private val engine: Engine,
+    private val random: Random
 ) : Materials {
 
   private var materials = List<Material>(Constants.ITEM_CHANNELS) {
     Material(
-      engine.extractAssetManager(),
-      "Common/MatDefs/Misc/Unshaded.j3md"
+        engine.extractAssetManager(),
+        "Common/MatDefs/Misc/Unshaded.j3md"
     ).apply {
       setColor("Color", ColorRGBA.Green)
     }
