@@ -11,7 +11,7 @@
     <version>{version}</version>
 
     <name>Otter</name>
-    <description>A JMonkey Engine framework for clean coding and engineering excellence.</description>
+    <description>A Kotlin framework for the JMonkey Engine.</description>
     <url>https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter</url>
     <scm>
         <url>https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter</url>

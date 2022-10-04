@@ -10,8 +10,8 @@ proto_library(
         "//javatests:__subpackages__",
     ],
     deps = [
-        "//java/io/jackbradshaw/otter/graphics:proto",
-        "//java/io/jackbradshaw/otter/math:proto",
+        "//java/io/jackbradshaw/otter/graphics/model:proto",
+        "//java/io/jackbradshaw/otter/math/model:proto",
     ],
 )
 
