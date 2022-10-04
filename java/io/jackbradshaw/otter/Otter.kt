@@ -14,7 +14,7 @@ import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGeneratorModule
 import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerModule
 import io.jackbradshaw.otter.qualifiers.Physics
-import io.jackbradshaw.otter.qualifiers.Real
+import io.jackbradshaw.otter.qualifiers.Host
 import io.jackbradshaw.otter.qualifiers.Rendering
 import io.jackbradshaw.otter.timing.Clock
 import io.jackbradshaw.otter.timing.TimingModule
@@ -40,7 +40,7 @@ interface Otter {
 
   @Rendering fun renderingClock(): Clock
 
-  @Real fun realClock(): Clock
+  @Host fun hostClock(): Clock
 
   fun engine(): Engine
 

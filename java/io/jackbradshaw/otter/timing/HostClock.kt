@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @OtterScope
-class RealClock @Inject internal constructor(private val engine: Engine) : Clock {
+class HostClock @Inject internal constructor(private val engine: Engine) : Clock {
 
   private val totalFlow = MutableStateFlow<Double>(0.0)
   private val deltaFlow = MutableStateFlow<Double>(0.0)
