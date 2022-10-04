@@ -45,8 +45,11 @@ interface Otter {
   fun engine(): Engine
 
   fun manifestGenerator(): ManifestGenerator
+
   fun manifestInstaller(): ManifestInstaller
+
   fun manifestEncoder(): ManifestEncoder
+
   fun config(): Config
 
   @Component.Builder
