@@ -10,10 +10,10 @@ jobs:
       # Checkout repository as working directory.
       - uses: actions/checkout@v2
 
-      # Build all build targets.
+      # Build all targets.
       - name: build_all
         run: bazel build //...
 
-      # Run all test targets.
+      # Test all applicable targets.
       - name: test_all
         run: bazel test //...
