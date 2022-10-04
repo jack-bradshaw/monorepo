@@ -31,10 +31,6 @@ kt_jvm_library(
     deps = [
         ":dagger",
         ":scope",
-        "//java/io/jackbradshaw/otter/clock",
-        "//java/io/jackbradshaw/otter/clock:impl",
-        "//java/io/jackbradshaw/otter/clock:module",
-        "//java/io/jackbradshaw/otter/clock:qualifiers",
         "//java/io/jackbradshaw/otter/config:java_lite_proto",
         "//java/io/jackbradshaw/otter/config:proto_extensions",
         "//java/io/jackbradshaw/otter/engine",
@@ -43,6 +39,10 @@ kt_jvm_library(
         "//java/io/jackbradshaw/otter/openxr/manifest/encoder:module",
         "//java/io/jackbradshaw/otter/openxr/manifest/generator:module",
         "//java/io/jackbradshaw/otter/openxr/manifest/installer:module",
+        "//java/io/jackbradshaw/otter/qualifiers",
+        "//java/io/jackbradshaw/otter/timing",
+        "//java/io/jackbradshaw/otter/timing:impl",
+        "//java/io/jackbradshaw/otter/timing:module",
     ],
 )
 

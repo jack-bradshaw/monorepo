@@ -4,17 +4,12 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "generator",
+    name = "timing",
     srcs = [
-        "ManifestGenerator.kt",
+        "Clock.kt",
     ],
-    visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
-    ],
+    visibility = ["//java/io/jackbradshaw/otter:__subpackages__"],
     deps = [
-        "//java/io/jackbradshaw/klu/flow",
-        "//java/io/jackbradshaw/otter/openxr/model:java_lite_proto",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -22,22 +17,20 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "ManifestGeneratorImpl.kt",
+        "PhysicsClock.kt",
+        "RealClock.kt",
+        "RenderingClock.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":dagger",
-        ":generator",
-        "//java/io/jackbradshaw/klu/flow",
+        ":timing",
         "//java/io/jackbradshaw/otter:scope",
-        "//java/io/jackbradshaw/otter/openxr/manifest/encoder",
-        "//java/io/jackbradshaw/otter/openxr/model:java_lite_proto",
-        "//java/io/jackbradshaw/otter/openxr/standard",
-        "//java/io/jackbradshaw/otter/config:kt_jvm_proto",
-        "@maven//:com_google_code_gson_gson",
+        "//java/io/jackbradshaw/otter/coroutines",
+        "//java/io/jackbradshaw/otter/engine",
+        "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -45,7 +38,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "ManifestGeneratorModule.kt",
+        "TimingModule.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
@@ -53,7 +46,9 @@ kt_jvm_library(
     ],
     deps = [
         ":dagger",
-        ":generator",
         ":impl",
+        ":timing",
+        "//java/io/jackbradshaw/otter/qualifiers",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

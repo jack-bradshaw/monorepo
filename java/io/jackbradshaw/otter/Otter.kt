@@ -2,7 +2,6 @@ package io.jackbradshaw.otter
 
 import dagger.BindsInstance
 import dagger.Component
-import io.jackbradshaw.otter.clock.*
 import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.config.defaultConfig
 import io.jackbradshaw.otter.engine.Engine
@@ -13,13 +12,18 @@ import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGenerator
 import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGeneratorModule
 import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerModule
+import io.jackbradshaw.otter.qualifiers.Rendering
+import io.jackbradshaw.otter.qualifiers.Physics
+import io.jackbradshaw.otter.qualifiers.Real
+import io.jackbradshaw.otter.timing.Clock
+import io.jackbradshaw.otter.timing.TimingModule
 
 @OtterScope
 @Component(
     modules =
         [
             EngineModule::class,
-            ClockModule::class,
+            TimingModule::class,
             ManifestInstallerModule::class,
             ManifestGeneratorModule::class,
             ManifestEncoderModule::class])
