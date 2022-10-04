@@ -19,3 +19,21 @@ kt_jvm_library(
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
+
+kt_jvm_library(
+    name = "module",
+    srcs = [
+        "CoroutinesModule.kt",
+    ],
+    visibility = [
+        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":coroutines",
+        ":dagger",
+        "//java/io/jackbradshaw/otter/engine",
+        "//java/io/jackbradshaw/otter/qualifiers",
+        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)

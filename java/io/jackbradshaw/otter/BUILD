@@ -33,6 +33,7 @@ kt_jvm_library(
         ":scope",
         "//java/io/jackbradshaw/otter/config:java_lite_proto",
         "//java/io/jackbradshaw/otter/config:proto_extensions",
+        "//java/io/jackbradshaw/otter/coroutines:module",
         "//java/io/jackbradshaw/otter/engine",
         "//java/io/jackbradshaw/otter/engine:impl",
         "//java/io/jackbradshaw/otter/engine:module",
