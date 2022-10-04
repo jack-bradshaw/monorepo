@@ -7,13 +7,13 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      # Checkout repository and use as pwd for all subsequent steps
+      # Checkout repository as working directory.
       - uses: actions/checkout@v2
 
-      # Build everything with Bazel.
-      - name: build all
+      # Build all targets.
+      - name: build_all
         run: bazel build //...
 
-      # Test everything with Bazel.
-      - name: test all
+      # Test all applicable targets.
+      - name: test_all
         run: bazel test //...

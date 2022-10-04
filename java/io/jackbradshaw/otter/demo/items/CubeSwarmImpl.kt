@@ -5,8 +5,8 @@ import com.jme3.material.Material
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
 import com.jme3.scene.Node
-import io.jackbradshaw.otter.clock.Clock
-import io.jackbradshaw.otter.clock.Rendering
+import io.jackbradshaw.otter.timing.Clock
+import io.jackbradshaw.otter.timing.Rendering
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.demo.config.Constants
 import io.jackbradshaw.otter.demo.materials.Materials
