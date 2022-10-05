@@ -9,7 +9,7 @@ import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
 import io.jackbradshaw.otter.coroutines.physicsDispatcher
 import io.jackbradshaw.otter.demo.materials.Materials
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 import io.jackbradshaw.ottermodel.Delta
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
@@ -22,7 +22,7 @@ class CubeImpl
 @Inject
 internal constructor(
     private val materials: Materials,
-    private val engine: Engine,
+    private val engineCore: EngineCore,
     private val random: Random,
 ) : Cube {
 
@@ -55,7 +55,7 @@ internal constructor(
   private fun mass() = size * size * size
 
   init {
-    engine.extractCoroutineScope().launch(engine.physicsDispatcher()) {
+    engineCore.extractCoroutineScope().launch(engineCore.physicsDispatcher()) {
       while (true) {
         delay(1000)
         val magnitude =

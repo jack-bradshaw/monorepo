@@ -1,15 +1,15 @@
 package io.jackbradshaw.otter.engine.integration
 
 import com.jme3.scene.Spatial
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 
-class SpatialIntegrator(private val engine: Engine) : EngineIntegrator<Spatial> {
+class SpatialIntegrator(private val engineCore: EngineCore) : EngineIntegrator<Spatial> {
 
   override suspend fun integrate(element: Spatial) {
-    engine.extractGameNode().attachChild(element)
+    engineCore.extractGameNode().attachChild(element)
   }
 
   override suspend fun disintegrate(element: Spatial) {
-    engine.extractGameNode().detachChild(element)
+    engineCore.extractGameNode().detachChild(element)
   }
 }

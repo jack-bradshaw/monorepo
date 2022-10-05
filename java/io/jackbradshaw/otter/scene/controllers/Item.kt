@@ -9,7 +9,5 @@ interface Item : Hostable<Component>, Placeable, Restorable<ItemSnapshot> {
 
   val id: ItemId
 
-  fun integrations(): BinaryDeltaFlow<Integration>
-
-  fun engineElements(): BinaryDeltaFlow<Any>
+  fun engineParts(): BinaryDeltaFlow<Any>
 }

@@ -5,8 +5,8 @@ import dagger.Component
 import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.config.defaultConfig
 import io.jackbradshaw.otter.coroutines.CoroutinesModule
-import io.jackbradshaw.otter.engine.Engine
-import io.jackbradshaw.otter.engine.EngineModule
+import io.jackbradshaw.otter.engine.core.EngineCore
+import io.jackbradshaw.otter.engine.core.EngineModule
 import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoder
 import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoderModule
 import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGenerator
@@ -42,7 +42,7 @@ interface Otter {
 
   @Host fun hostClock(): Clock
 
-  fun engine(): Engine
+  fun engine(): EngineCore
 
   fun manifestGenerator(): ManifestGenerator
 

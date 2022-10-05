@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface Game {
   suspend fun start()
   suspend fun stop()
-  val level: Flow<Level?>
+  fun level(): Flow<Level?>
 }

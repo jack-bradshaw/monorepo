@@ -1,15 +1,15 @@
 package io.jackbradshaw.otter.engine.integration
 
 import com.jme3.post.SceneProcessor
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 
-class SceneProcessorIntegrator(private val engine: Engine) : EngineIntegrator<SceneProcessor> {
+class SceneProcessorIntegrator(private val engineCore: EngineCore) : EngineIntegrator<SceneProcessor> {
 
   override suspend fun integrate(element: SceneProcessor) {
-    engine.extractDefaultViewPort().addProcessor(element)
+    engineCore.extractDefaultViewPort().addProcessor(element)
   }
 
   override suspend fun disintegrate(element: SceneProcessor) {
-    engine.extractDefaultViewPort().removeProcessor(element)
+    engineCore.extractDefaultViewPort().removeProcessor(element)
   }
 }

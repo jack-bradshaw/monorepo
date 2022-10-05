@@ -1,15 +1,15 @@
 package io.jackbradshaw.otter.engine.integration
 
 import com.jme3.light.Light
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 
-class LightIntegrator(private val engine: Engine) : EngineIntegrator<Light> {
+class LightIntegrator(private val engineCore: EngineCore) : EngineIntegrator<Light> {
 
   override suspend fun integrate(element: Light) {
-    engine.extractGameNode().addLight(element)
+    engineCore.extractGameNode().addLight(element)
   }
 
   override suspend fun disintegrate(element: Light) {
-    engine.extractGameNode().removeLight(element)
+    engineCore.extractGameNode().removeLight(element)
   }
 }

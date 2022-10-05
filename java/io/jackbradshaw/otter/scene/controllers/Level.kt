@@ -9,7 +9,7 @@ interface Level : Hostable<Game>, Restorable<LevelSnapshot>, Playable {
 
   val id: LevelId
 
-  fun components(): BinaryDeltaFlow<Component>
+  fun components(): Flow<Component>
 
   suspend fun findIntegrationBy(id: IntegrationId): Integration?
   suspend fun findIntegrationBy(engineElement: Any): Integration?

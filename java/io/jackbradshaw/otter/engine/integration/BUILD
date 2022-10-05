@@ -17,7 +17,7 @@ kt_jvm_library(
     ],
     deps = [
         "//java/io/jackbradshaw/klu/flow",
-        "//java/io/jackbradshaw/otter/engine",
+        "//java/io/jackbradshaw/otter/engine/core",
         "//java/io/jackbradshaw/otter/math/model:proto_extensions",
         "//java/io/jackbradshaw/otter/physics/model:proto_extensions",
         "@maven//:com_google_guava_guava",

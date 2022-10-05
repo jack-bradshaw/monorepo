@@ -14,7 +14,7 @@ kt_jvm_library(
     ],
     deps = [
         "//java/io/jackbradshaw/klu/collections",
-        "//java/io/jackbradshaw/otter/engine",
+        "//java/io/jackbradshaw/otter/engine/core",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",
     ],
@@ -32,7 +32,7 @@ kt_jvm_library(
     deps = [
         ":coroutines",
         ":dagger",
-        "//java/io/jackbradshaw/otter/engine",
+        "//java/io/jackbradshaw/otter/engine/core",
         "//java/io/jackbradshaw/otter/qualifiers",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

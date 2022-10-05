@@ -4,9 +4,9 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 dagger_rules()
 
 kt_jvm_library(
-    name = "engine",
+    name = "core",
     srcs = [
-        "Engine.kt",
+        "EngineCore.kt",
     ],
     visibility = ["//java/io/jackbradshaw/otter:__subpackages__"],
     deps = [
@@ -22,15 +22,15 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "EngineImpl.kt",
+        "EngineCoreImpl.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
+        ":core",
         ":dagger",
-        ":engine",
         "//java/io/jackbradshaw/otter:scope",
         "//java/io/jackbradshaw/otter/config:java_lite_proto",
         "//java/io/jackbradshaw/otter/coroutines",
@@ -51,8 +51,8 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     deps = [
+        ":core",
         ":dagger",
-        ":engine",
         ":impl",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",

@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.engine
+package io.jackbradshaw.otter.engine.core
 
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
@@ -18,7 +18,7 @@ import com.jme3.system.Timer
 import kotlinx.coroutines.CoroutineScope
 
 /** The [jMonkey](https://wiki.jmonkeyengine.org/docs/3.4/documentation.html) game engine. */
-interface Engine {
+interface EngineCore {
 
   /** Extracts the root application object. */
   fun extractApplication(): SimpleApplication

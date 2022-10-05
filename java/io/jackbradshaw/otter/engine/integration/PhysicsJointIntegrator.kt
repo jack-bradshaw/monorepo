@@ -1,15 +1,15 @@
 package io.jackbradshaw.otter.engine.integration
 
 import com.jme3.bullet.joints.PhysicsJoint
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 
-class PhysicsJointIntegrator(private val engine: Engine) : EngineIntegrator<PhysicsJoint> {
+class PhysicsJointIntegrator(private val engineCore: EngineCore) : EngineIntegrator<PhysicsJoint> {
 
   override suspend fun integrate(element: PhysicsJoint) {
-    engine.extractPhysics().getPhysicsSpace().add(element)
+    engineCore.extractPhysics().getPhysicsSpace().add(element)
   }
 
   override suspend fun disintegrate(element: PhysicsJoint) {
-    engine.extractPhysics().getPhysicsSpace().remove(element)
+    engineCore.extractPhysics().getPhysicsSpace().remove(element)
   }
 }

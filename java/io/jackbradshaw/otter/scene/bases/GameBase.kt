@@ -1,6 +1,6 @@
 package io.jackbradshaw.otter.structure.bases
 
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 import io.jackbradshaw.otter.structure.controllers.Game
 
 /**
@@ -10,7 +10,7 @@ import io.jackbradshaw.otter.structure.controllers.Game
  * functions to receive callbacks when the functions enter and exit.
  */
 abstract class GameBase(
-    private val engine: Engine,
+    private val engineCore: EngineCore,
 ) : Game {
 
   /*abstract suspend fun createDefaultLevel(): Level

@@ -1,7 +1,5 @@
 package io.jackbradshaw.otter.structure.bases
 
-import io.jackbradshaw.otter.structure.controllers.Integration
-
 /**
  * A convenience implementation of [Integration] that does all the heavy lifting. This class
  * implements many of the interface functions which reduces the work on the end-engineer but takes

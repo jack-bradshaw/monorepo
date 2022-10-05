@@ -1,6 +1,6 @@
 package io.jackbradshaw.otter.structure.bases
 
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 import io.jackbradshaw.otter.structure.controllers.Level
 
 /**
@@ -10,7 +10,7 @@ import io.jackbradshaw.otter.structure.controllers.Level
  * functions to receive callbacks when the functions enter and exit.
  */
 abstract class BaseLevel(
-    private val engine: Engine,
+    private val engineCore: EngineCore,
 ) : Level {
 
   /*private val rootNode = Node("level_root")

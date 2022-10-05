@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.engine
+package io.jackbradshaw.otter.engine.core
 
 import com.jme3.app.LostFocusBehavior
 import com.jme3.app.SimpleApplication
@@ -21,10 +21,10 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @OtterScope
-class EngineImpl
+class EngineCoreImpl
 @Inject
 internal constructor(private val config: Config, private val manifestInstaller: ManifestInstaller) :
-    Engine, SimpleApplication() {
+    EngineCore, SimpleApplication() {
 
   private val started = MutableStateFlow(false)
   private var totalRuntimeSec = 0.0
