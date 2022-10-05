@@ -4,6 +4,6 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface EngineModule {
+interface EngineCoreModule {
   @Binds fun bindEngine(impl: EngineCoreImpl): EngineCore
 }

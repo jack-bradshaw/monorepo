@@ -44,7 +44,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = [
-        "EngineModule.kt",
+        "EngineCoreModule.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
