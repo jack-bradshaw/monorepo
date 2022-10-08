@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.engine.integration
+package io.jackbradshaw.otter.scene.integration
 
 import com.jme3.post.SceneProcessor
 import io.jackbradshaw.otter.engine.core.EngineCore
