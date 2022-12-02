@@ -1,4 +1,4 @@
-package io.jackbradshaw.otter.scene.primitives
+package io.jackbradshaw.otter.scene.primitiveintegration
 
 import com.jme3.bullet.collision.PhysicsCollisionObject
 import io.jackbradshaw.otter.engine.core.EngineCore
