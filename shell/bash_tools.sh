@@ -2,7 +2,7 @@
 # Tools for working with bash.
 
 # Constants
-REMOTE_SETUP_SCRIPT=https://raw.githubusercontent.com/jack-bradshaw/monorepo/main/shell/setup_local.sh
+REMOTE_SETUP_SCRIPT=https://raw.githubusercontent.com/jackxbradshaw/monorepo/main/shell/setup_local.sh
 
 # Reinitializes the current shell instance.
 reinit() {

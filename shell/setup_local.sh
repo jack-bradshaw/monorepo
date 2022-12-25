@@ -2,7 +2,7 @@
 # Configures the local shell environment.
 
 # Constants.
-REMOTE="https://github.com/jack-bradshaw/monorepo"
+REMOTE="https://github.com/jackxbradshaw/monorepo"
 LOCAL=$HOME/HEAD
 
 # Creates a local directory to cache the remote files.
@@ -29,7 +29,7 @@ export_gitconfig() {
 }
 
 # Exports the .vimrc file from the local cache into the local home.
-export_vimrc() {
+ZZ
   rm -rf $HOME/.vimrc
   cp $LOCAL/shell/.vimrc $HOME
 }

@@ -19,3 +19,8 @@ apt_get_bazel() {
   sudo apt update && sudo apt install bazel
   sudo apt update && sudo apt full-upgrade
 }
+
+get_homebrew() {
+  /bin/bash -c "$(curl -fsSL \
+      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
