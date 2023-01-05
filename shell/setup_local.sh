@@ -29,7 +29,7 @@ export_gitconfig() {
 }
 
 # Exports the .vimrc file from the local cache into the local home.
-ZZ
+export_vimrc() {
   rm -rf $HOME/.vimrc
   cp $LOCAL/shell/.vimrc $HOME
 }
