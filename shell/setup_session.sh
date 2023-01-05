@@ -30,6 +30,10 @@ source_subscripts() {
   source $SCRIPT_PATH/tmux_tools.sh
 }
 
+source_local_bashrc() {
+  source $HOME/.bashrclocalonly
+}
+
 # Main function. Run on source loaded.
 run() {
   # To suppress MacOS zsh notice.
@@ -37,6 +41,7 @@ run() {
 
   start_tmux
   source_subscripts
+  source_local_bashrc
   system_report
 
   cd $HOME
