@@ -83,8 +83,8 @@ def io_jackbradshaw_bazel_repositories():
     maybe(
         http_archive,
         name = "io_bazel_rules_kotlin",
-        sha256 = "a57591404423a52bd6b18ebba7979e8cd2243534736c5c94d35c89718ea38f94",
-        url = "https://github.com/bazelbuild/rules_kotlin/releases/download/v1.6.0/rules_kotlin_release.tgz",
+        sha256 = "fd92a98bd8a8f0e1cdcb490b93f5acef1f1727ed992571232d33de42395ca9b3",
+        url = "https://github.com/bazelbuild/rules_kotlin/releases/download/v1.7.1/rules_kotlin_release.tgz",
     )
 
     maybe(
