@@ -2,7 +2,7 @@
 # Configures the local shell environment.
 
 # Constants.
-REMOTE="https://github.com/jack-bradshaw/monorepo"
+REMOTE="https://github.com/jackxbradshaw/monorepo"
 LOCAL=$HOME/HEAD
 
 # Creates a local directory to cache the remote files.
@@ -60,15 +60,22 @@ export_gpg_keys() {
   fi
 }
 
+create_local_bashrc() {
+  touch $HOME/.bashrclocalonly
+}
+
 # Main function. Run on source loaded.
 run() {
   make_local_cache
   clone_remote
 
-  export_ssh_keys
-  export_gpg_keys
   export_bashrc
   export_gitconfig
   export_vimrc
+  
+  export_ssh_keys
+  export_gpg_keys
+
+  create_local_bashrc
 }
 run
