@@ -9,5 +9,5 @@ git_revert() {
 
 # Configures the monorepo for SSH.
 git_setup_ssh() {
-  git remote set-url origin https://github.com/jackxbradshaw/monorepo.git
+  git remote set-url origin git@github.com:jackxbradshaw/monorepo.git
 }
