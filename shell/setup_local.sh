@@ -21,7 +21,8 @@ setup_zsh() {
   touch $HOME/.zshrclocalonly
 
   rm -rf $HOME/.zsh/puretheme
-  git clone https://github.com/sindresorhus/pure $HOME/.zsh/puretheme
+  git clone --quiet https://github.com/sindresorhus/pure \
+      $HOME/.zsh/puretheme > /dev/null
 }
 
 # Exports the .gitconfig file to local home.
