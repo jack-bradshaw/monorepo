@@ -42,7 +42,8 @@ use_pure_theme() {
 
 # Main function. Run on source loaded.
 run() {
-  start_tmux
+  use_pure_theme
+  #start_tmux
   source_subscripts
   source_local_zshrc
   system_report
