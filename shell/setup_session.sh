@@ -36,19 +36,18 @@ source_local_bashrc() {
 
 use_pure_theme() {
   fpath+=($HOME/.zsh/pure)
+  autoload -U promptinit; promptinit
+  prompt pure
 }
 
 # Main function. Run on source loaded.
 run() {
-  # To suppress MacOS zsh notice.
-  export BASH_SILENCE_DEPRECATION_WARNING=1
+  zsh
 
   start_tmux
   source_subscripts
   source_local_bashrc
   system_report
-
-  use_pure_theme
 
   cd $HOME
 
