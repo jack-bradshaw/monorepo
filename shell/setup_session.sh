@@ -34,6 +34,10 @@ source_local_bashrc() {
   source $HOME/.bashrclocalonly
 }
 
+use_pure_theme() {
+  fpath+=($HOME/.zsh/pure)
+}
+
 # Main function. Run on source loaded.
 run() {
   # To suppress MacOS zsh notice.
@@ -43,6 +47,8 @@ run() {
   source_subscripts
   source_local_bashrc
   system_report
+
+  use_pure_theme
 
   cd $HOME
 

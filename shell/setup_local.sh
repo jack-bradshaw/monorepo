@@ -2,39 +2,40 @@
 # Configures the local shell environment.
 
 # Constants.
-REMOTE="https://github.com/jackxbradshaw/monorepo"
-LOCAL=$HOME/HEAD
+REMOTE_HEAD="https://github.com/jackxbradshaw/monorepo"
+LOCAL_HEAD=$HOME/HEAD
 
-# Creates a local directory to cache the remote files.
-make_local_cache() {
-  rm -rf $LOCAL
-  mkdir -p $LOCAL
+# Creates a shallow clone of HEAD locally.
+update_head() {
+  rm -rf $LOCAL_HEAD
+  mkdir -p $LOCAL_HEAD
+  git clone --depth 1 $REMOTE_HEAD $LOCAL_HEAD
 }
 
-# Downloads the monorepo from the remote into the local cache.
-clone_remote() {
-  git clone --depth 1 $REMOTE $LOCAL
+# Configures the shell to use ZSH.
+setup_zsh() {
+  rm -rf $HOME/.zshrc
+  cp $LOCAL/shell/.zshrc $HOME
+
+  touch $HOME/.zshlocal
+
+  rm -rf $HOME/.zsh/puretheme
+  git clone https://github.com/sindresorhus/pure $HOME/.zsh/puretheme
 }
 
-# Exports the .bashrc file from the local cache into the local home.
-export_bashrc() {
-  rm -rf $HOME/.bashrc
-  cp $LOCAL/shell/.bashrc $HOME
-}
-
-# Exports the .gitconfig file from the local cache into the local home.
+# Exports the .gitconfig file to local home.
 export_gitconfig() {
   rm -rf $HOME/.gitconfig
   cp $LOCAL/shell/.gitconfig $HOME
 }
 
-# Exports the .vimrc file from the local cache into the local home.
+# Exports the .vimrc file to local home
 export_vimrc() {
   rm -rf $HOME/.vimrc
   cp $LOCAL/shell/.vimrc $HOME
 }
 
-# Decrypts and exports ssh keys from the local cache into the local home.
+# Decrypts and exports ssh keys to local home.
 export_ssh_keys() {
   rm -rf $HOME/.ssh
   mkdir $HOME/.ssh
@@ -47,7 +48,7 @@ export_ssh_keys() {
     fi
 }
 
-# Decrypts and exports gpg keys from the local cache into the local home.
+# Decrypts and exports gpg keys to local home.
 export_gpg_keys() {
   rm -rf $HOME/.gpgkeys
   mkdir $HOME/.gpgkeys
@@ -60,22 +61,15 @@ export_gpg_keys() {
   fi
 }
 
-create_local_bashrc() {
-  touch $HOME/.bashrclocalonly
-}
-
 # Main function. Run on source loaded.
 run() {
-  make_local_cache
-  clone_remote
+  update_head
 
-  export_bashrc
+  setup_zsh
+
   export_gitconfig
   export_vimrc
-  
   export_ssh_keys
   export_gpg_keys
-
-  create_local_bashrc
 }
 run
