@@ -30,8 +30,8 @@ source_subscripts() {
   source $SCRIPT_PATH/tmux_tools.sh
 }
 
-source_local_bashrc() {
-  source $HOME/.bashrclocalonly
+source_local_zshrc() {
+  source $HOME/.zshrclocal
 }
 
 use_pure_theme() {
@@ -46,7 +46,7 @@ run() {
 
   start_tmux
   source_subscripts
-  source_local_bashrc
+  source_local_zshrc
   system_report
 
   cd $HOME
