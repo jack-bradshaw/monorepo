@@ -1,5 +1,6 @@
 #!/bin/bash
-# Configures the local shell environment.
+# Once off installation of the shell onto the local machine.
+# Overwrites previous installations.
 
 # Constants.
 REMOTE_HEAD="https://github.com/jackxbradshaw/monorepo"
@@ -9,7 +10,7 @@ LOCAL_HEAD=$HOME/HEAD
 update_head() {
   rm -rf $LOCAL_HEAD
   mkdir -p $LOCAL_HEAD
-  git clone --depth 1 $REMOTE_HEAD $LOCAL_HEAD
+  git clone --depth 1 --quiet $REMOTE_HEAD $LOCAL_HEAD > /dev/null
 }
 
 # Configures the shell to use ZSH.
