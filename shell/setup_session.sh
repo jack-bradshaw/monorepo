@@ -42,8 +42,6 @@ use_pure_theme() {
 
 # Main function. Run on source loaded.
 run() {
-  zsh
-
   start_tmux
   source_subscripts
   source_local_zshrc
