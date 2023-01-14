@@ -18,7 +18,7 @@ setup_zsh() {
   rm -rf $HOME/.zshrc
   cp $LOCAL_HEAD/shell/.zshrc $HOME
 
-  touch $HOME/.zshlocal
+  touch $HOME/.zshrclocalonly
 
   rm -rf $HOME/.zsh/puretheme
   git clone https://github.com/sindresorhus/pure $HOME/.zsh/puretheme

@@ -31,7 +31,7 @@ source_subscripts() {
 }
 
 source_local_zshrc() {
-  source $HOME/.zshrclocal
+  source $HOME/.zshrclocalonly
 }
 
 use_pure_theme() {
