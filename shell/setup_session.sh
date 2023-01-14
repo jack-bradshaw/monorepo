@@ -35,7 +35,7 @@ source_local_zshrc() {
 }
 
 use_pure_theme() {
-  fpath+=($HOME/.zsh/pure)
+  fpath+=($HOME/.zsh/puretheme)
   autoload -U promptinit; promptinit
   prompt pure
 }
