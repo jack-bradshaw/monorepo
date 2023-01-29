@@ -1,5 +1,5 @@
 #!/bin/bash
-# Tools for working with bash.
+# Tools for working with the shell itself.
 
 # Constants
 REMOTE_SETUP_SCRIPT=https://raw.githubusercontent.com/jackxbradshaw/monorepo/main/shell/setup_local.sh
@@ -7,7 +7,7 @@ REMOTE_SETUP_SCRIPT=https://raw.githubusercontent.com/jackxbradshaw/monorepo/mai
 # Reinitializes the current shell instance.
 reinit() {
   clear
-  source $HOME/.bashrc
+  source $HOME/.zshrc
 }
 
 # Re-runs the shell setup script.
