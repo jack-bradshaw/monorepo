@@ -13,7 +13,7 @@ source_subscripts() {
   source $SCRIPT_PATH/git_tools.sh
   source $SCRIPT_PATH/misc_prefs.sh
   source $SCRIPT_PATH/secret_tools.sh
-  source $SCRIPT_PATH/shell_toolsh
+  source $SCRIPT_PATH/shell_tools.sh
   source $SCRIPT_PATH/sw_installation_tools.sh
   source $SCRIPT_PATH/tmux_tools.sh
 }
