@@ -24,7 +24,7 @@ internal constructor(
     private val materials: Materials,
     private val engineCore: EngineCore,
     private val random: Random,
-) : Cube {
+) : Cube, SceneItemImpl {
 
   private val size = random.nextFloat()
   private lateinit var shape: Mesh

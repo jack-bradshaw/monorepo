@@ -5,22 +5,22 @@ import io.jackbradshaw.otter.demo.items.CubeLevel
 import io.jackbradshaw.otter.demo.items.ItemsModule
 import io.jackbradshaw.otter.demo.materials.MaterialsModule
 import io.jackbradshaw.otter.demo.support.SupportModule
-import java.io.jackbradshaw.otter.MerovingianComponent
+import java.io.jackbradshaw.otter.OtterComponent
 
 @DemoScope
 @Component(
     modules = [MaterialsModule::class, SupportModule::class, ItemsModule::class],
-    dependencies = [MerovingianComponent::class])
+    dependencies = [OtterComponent::class])
 interface DemoComponent {
 
   fun world(): CubeLevel
 
   @Component.Builder
   interface Builder {
-    fun setMerovingianComponent(merovingianComponent: MerovingianComponent): Builder
+    fun setOtterComponent(otterComponent: OtterComponent): Builder
     fun build(): DemoComponent
   }
 }
 
-fun demo(merovingian: MerovingianComponent) =
-    DaggerDemoComponent.builder().setMerovingianComponent(merovingian).build()
+fun demo(otter: OtterComponent) =
+    DaggerDemoComponent.builder().setOtterComponent(otter).build()

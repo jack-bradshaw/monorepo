@@ -44,11 +44,11 @@ interface Otter {
 
   fun engine(): EngineCore
 
-  fun manifestGenerator(): ManifestGenerator
+  fun openXrManifestGenerator(): ManifestGenerator
 
-  fun manifestInstaller(): ManifestInstaller
+  fun openXrManifestInstaller(): ManifestInstaller
 
-  fun manifestEncoder(): ManifestEncoder
+  fun openXrManifestEncoder(): ManifestEncoder
 
   fun config(): Config
 

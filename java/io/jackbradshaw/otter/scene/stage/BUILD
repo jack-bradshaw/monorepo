@@ -7,9 +7,9 @@ dagger_rules()
 auto_factory()
 
 kt_jvm_library(
-    name = "integration",
+    name = "stage",
     srcs = [
-        "EngineIntegrator.kt",
+        "SceneStage.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
@@ -20,36 +20,46 @@ kt_jvm_library(
         "//java/io/jackbradshaw/otter/engine/core",
         "//java/io/jackbradshaw/otter/math/model:proto_extensions",
         "//java/io/jackbradshaw/otter/physics/model:proto_extensions",
+        "//java/io/jackbradshaw/otter/scene/item",
+        "//java/io/jackbradshaw/otter/scene/primitive",
         "@maven//:com_google_guava_guava",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@maven//:org_jmonkeyengine_jme3_bullet",
-        "@maven//:org_jmonkeyengine_jme3_core",
     ],
 )
 
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "LightIntegrator.kt",
-        "ParticleEffectIntegrator.kt",
-        "PhysicsCharacterIntegrator.kt",
-        "PhysicsColliderIntegrator.kt",
-        "PhysicsJointIntegrator.kt",
-        "SceneProcessorIntegrator.kt",
-        "SpatialIntegrator.kt",
+        "SceneStageImpl.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
-        ":integration",
+        ":stage",
         "//java/io/jackbradshaw/klu/flow",
-        "//java/io/jackbradshaw/otter/math/model:proto_extensions",
-        "//java/io/jackbradshaw/otter/physics/model:proto_extensions",
-        "@maven//:com_google_guava_guava",
+        "//java/io/jackbradshaw/otter/coroutines",
+        "//java/io/jackbradshaw/otter/engine/core",
+        "//java/io/jackbradshaw/otter/qualifiers",
+        "//java/io/jackbradshaw/otter/timing",
+        "//java/io/jackbradshaw/otter/scene/item",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@maven//:org_jmonkeyengine_jme3_bullet",
-        "@maven//:org_jmonkeyengine_jme3_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "module",
+    srcs = [
+        "SceneStageModule.kt",
+    ],
+    visibility = [
+        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
+    deps = [
+        ":dagger",
+        ":impl",
+        ":stage",
     ],
 )

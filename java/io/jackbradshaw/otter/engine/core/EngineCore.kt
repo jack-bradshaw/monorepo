@@ -82,4 +82,6 @@ interface EngineCore {
 
   /** Extracts the time between now and when the engine was started, measured in seconds. */
   fun extractTotalEngineRuntime(): Double
+
+  // TODO perhaps add start and stop methods
 }

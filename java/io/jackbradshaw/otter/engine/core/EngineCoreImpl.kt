@@ -65,7 +65,7 @@ internal constructor(private val config: Config, private val manifestInstaller: 
       inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
       setDisplayFps(config.engineConfig.debugEnabled)
       if (config.engineConfig.headlessEnabled) start(JmeContext.Type.Headless) else start()
-      started.filter { it == true }.first()
+      blockUntilStarted()
       if (xr != null) {
         stateManager.attach(xr)
         manifestInstaller.deployActionManifestFiles()
@@ -75,6 +75,8 @@ internal constructor(private val config: Config, private val manifestInstaller: 
       getRootNode().attachChild(gameNode)
     }
   }
+
+  private suspend fun blockUntilStarted() = started.filter { it == true }.first()
 
   override fun simpleInitApp() {
     started.value = true
@@ -102,9 +104,9 @@ internal constructor(private val config: Config, private val manifestInstaller: 
   override fun extractPhysics() = physics
   override fun extractFrameworkNode() = frameworkNode
   override fun extractGameNode() = gameNode
-  override fun extractCoroutineScope(): CoroutineScope = coroutineScope
+  override fun extractCoroutineScope() = coroutineScope
   override fun extractTimer() = timer
-  override fun extractTotalEngineRuntime(): Double = totalRuntimeSec
+  override fun extractTotalEngineRuntime() = totalRuntimeSec
 
   companion object {
     private const val DEFAULT_VR_MIRROR_WINDOW_WIDTH_PX = 1024

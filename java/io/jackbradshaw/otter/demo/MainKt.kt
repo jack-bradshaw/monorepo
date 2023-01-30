@@ -8,10 +8,9 @@ import java.io.jackbradshaw.otter.merovingian
 class MainKt {
   fun main() {
     runBlocking {
-      val merovingian = merovingian(CONFIG)
-      val game = demo(merovingian)
-      val world = game.world()
-      merovingian.host().run(world)
+      val platform = otter(CONFIG)
+      val game = demo(platform)
+      platform.stage().attach(game.world())
       suspendForever()
     }
   }
