@@ -2,7 +2,7 @@ package io.jackbradshaw.otter.coroutines
 
 import com.jme3.app.Application
 import com.jme3.bullet.PhysicsSpace
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.ConcurrentHashMap
@@ -32,7 +32,7 @@ fun Application.renderingDispatcher(): CoroutineDispatcher =
  * Gets a CoroutineDispatcher for this application. Every call for a given application returns the
  * same instance, and calls are thread safe.
  */
-fun Engine.renderingDispatcher(): CoroutineDispatcher =
+fun EngineCore.renderingDispatcher(): CoroutineDispatcher =
     this.extractApplication().renderingDispatcher()
 
 /**
@@ -51,7 +51,7 @@ private val PHYSICS_DISPATCHERS = ConcurrentHashMap<PhysicsSpace, JMonkeyPhysics
 fun PhysicsSpace.physicsDispatcher(): CoroutineDispatcher =
     PHYSICS_DISPATCHERS.getOrPut(this) { JMonkeyPhysicsDispatcher(this) }
 
-fun Engine.physicsDispatcher(): CoroutineDispatcher =
+fun EngineCore.physicsDispatcher(): CoroutineDispatcher =
     this.extractPhysics().getPhysicsSpace().physicsDispatcher()
 
 private fun Runnable.toCallable() = { run() }

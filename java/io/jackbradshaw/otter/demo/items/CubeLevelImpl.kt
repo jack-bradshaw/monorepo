@@ -7,7 +7,7 @@ import com.jme3.scene.Node
 import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
 import io.jackbradshaw.otter.demo.materials.Materials
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 import io.jackbradshaw.ottermodel.DeltaFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.merge
@@ -20,12 +20,12 @@ class CubeLevelImpl
 @Inject
 internal constructor(
     private val cubeSwarmProvider: Provider<CubeSwarm>,
-    private val engine: Engine,
+    private val engineCore: EngineCore,
     private val materials: Materials,
 ) : CubeLevel {
 
   init {
-    engine.extractPhysics().getPhysicsSpace().setGravity(Vector3f(0f, 0f, 0f))
+    engineCore.extractPhysics().getPhysicsSpace().setGravity(Vector3f(0f, 0f, 0f))
   }
 
   private lateinit var coordinator: Node
@@ -57,8 +57,8 @@ internal constructor(
   override fun colliders() = physicsFlow
 
   init {
-    engine.extractCoroutineScope().launch {
-      engine.extractCamera().setLocation(Vector3f(0f, 0f, 0f))
+    engineCore.extractCoroutineScope().launch {
+      engineCore.extractCamera().setLocation(Vector3f(0f, 0f, 0f))
     }
   }
 }

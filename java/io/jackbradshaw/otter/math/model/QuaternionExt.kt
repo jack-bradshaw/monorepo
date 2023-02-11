@@ -129,6 +129,8 @@ fun Quaternion.inverse(): Quaternion = conjugate() / norm()
 
 fun Quaternion.negate(): Quaternion = -this
 
+fun Quaternion.vectorPart() = vector(iCoefficient, jCoefficient, kCoefficient)
+
 fun Quaternion.toJMonkeyQuaternion(): JmeQuaternion =
   JmeQuaternion(iCoefficient, jCoefficient, kCoefficient, scalar)
 
