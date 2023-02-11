@@ -31,10 +31,6 @@ interface SceneStageServices {
    * Returns the item that has [element] as one of its immediate elements, null if none is found.
    */
   suspend fun findItemByElement(element: ScenePrimitive): SceneItem?
-
-  suspend fun findItemById(id: String): Set<SceneItem>
-
-  suspend fun findUniqueItemById(id: String): SceneItem
 }
 
 /**

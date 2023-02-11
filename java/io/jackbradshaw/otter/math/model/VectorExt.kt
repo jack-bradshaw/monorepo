@@ -1,16 +1,16 @@
 package io.jackbradshaw.otter.math.model
 
+import com.jme3.math.Vector3f as JmeVector
 import kotlin.math.acos
 import kotlin.math.pow
 import kotlin.math.sqrt
-import com.jme3.math.Vector3f as JmeVector
 
 fun vector(origin: Point = originPoint, destination: Point = originPoint) =
-  Vector.newBuilder()
-    .setX(destination.x - origin.x)
-    .setY(destination.y - origin.y)
-    .setZ(destination.z - origin.z)
-    .build()
+    Vector.newBuilder()
+        .setX(destination.x - origin.x)
+        .setY(destination.y - origin.y)
+        .setZ(destination.z - origin.z)
+        .build()
 
 fun vector(destination: Point = originPoint) = vector(originPoint, destination)
 
@@ -21,28 +21,28 @@ operator fun Vector.plus(other: Vector): Vector = vector(x + other.x, y + other.
 operator fun Vector.minus(other: Vector): Vector = vector(x - other.x, y - other.y, z - other.z)
 
 operator fun Vector.times(scalar: Number): Vector =
-  vector(scalar.toFloat() * x, scalar.toFloat() * y, scalar.toFloat() * z)
+    vector(scalar.toFloat() * x, scalar.toFloat() * y, scalar.toFloat() * z)
 
 operator fun Number.times(vector: Vector): Vector = vector * this
 
 operator fun Vector.div(scalar: Number): Vector =
-  vector(x / scalar.toFloat(), y / scalar.toFloat(), z / scalar.toFloat())
+    vector(x / scalar.toFloat(), y / scalar.toFloat(), z / scalar.toFloat())
 
 operator fun Number.div(vector: Vector): Vector = vector / this
 
 fun Vector.perElementProduct(other: Vector): Vector =
-  vector(x = x * other.x, y = y * other.y, z = z * other.z)
+    vector(x = x * other.x, y = y * other.y, z = z * other.z)
 
 /**
  * Calculates the cross product (https://en.wikipedia.org/wiki/Cross_product) of this vector with
  * [other].
  */
-fun Vector.crossProduct(other: Point): Vector =
-  vector(
-    x = (y * other.z) - (z * other.y),
-    y = (z * other.x) - (x * other.z),
-    z = (x * other.y) - (y * other.x),
-  )
+fun Vector.crossProduct(other: Vector): Vector =
+    vector(
+        x = (y * other.z) - (z * other.y),
+        y = (z * other.x) - (x * other.z),
+        z = (x * other.y) - (y * other.x),
+    )
 
 /**
  * Calculates the dot product (https://en.wikipedia.org/wiki/Dot_product) of this vector with
@@ -64,11 +64,20 @@ fun Vector.normalize(): Vector = this / length()
  * [other]
  */
 fun Vector.projectionOnto(other: Vector): Vector =
-  (this.dotProduct(other) * other) / other.length().pow(2)
+    (this.dotProduct(other) * other) / other.length().pow(2)
 
 /** Calculates the angle between this vector and [other]. The result is measured in radians. */
 fun Vector.angleTo(other: Vector): Float =
-  acos(this.dotProduct(other) / (this.length() * other.length()))
+    acos(this.dotProduct(other) / (this.length() * other.length()))
+
+// TODO check this, based on https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
+fun Vector.rotateBy(quaternion: Quaternion): Vector {
+  val quaternionVector = quaternion.vectorPart()
+  val quaternionScalar = quaternion.scalar
+  return (2 * quaternionVector.dotProduct(this) * quaternionVector) +
+      ((quaternionScalar.pow(2) - quaternionVector.dotProduct(quaternionVector)) * this) +
+      (2.0f * quaternionScalar * quaternionVector.crossProduct(this))
+}
 
 fun Vector.toJMonkeyVector(): JmeVector = JmeVector(x, y, z)
 

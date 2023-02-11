@@ -8,6 +8,7 @@ import io.jackbradshaw.otter.math.model.identityQuaternion
 import io.jackbradshaw.otter.math.model.originPoint
 import io.jackbradshaw.otter.math.model.perElementProduct
 import io.jackbradshaw.otter.math.model.plus
+import io.jackbradshaw.otter.math.model.minus
 import io.jackbradshaw.otter.math.model.times
 import io.jackbradshaw.otter.math.model.toJMonkeyQuaternion
 import io.jackbradshaw.otter.math.model.toJMonkeyVector
@@ -22,6 +23,12 @@ fun placement(
   scale: Vector = zeroVector
 ): Placement =
   Placement.newBuilder().setPosition(position).setRotation(rotation).setScale(scale).build()
+
+operator fun Placement.minus(placement: Placement): Placement = placement(
+    position = position - placement.position,
+    rotation = rotation - placement.rotation,
+    scale = scale.perElementProduct(placement.scale)
+)
 
 fun Placement.moveTo(position: Point): Placement = toBuilder().setPosition(position).build()
 

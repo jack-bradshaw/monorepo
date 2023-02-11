@@ -6,19 +6,8 @@ import io.jackbradshaw.otter.scene.primitive.ScenePrimitive
 import kotlinx.coroutines.flow.Flow
 
 /**
- * A self-contained entity in a scene consisting of atomic elements (primitives which cannot be decomposed into props)
- * and descendants (other props that are part of this one).
- *
- * Generally descendants follow the placement of the ancestor, but this is neither required nor guaranteed. This means
- * descendants may have their own placement that is unaffected by the placement of their ancestor, or is sometimes
- * affected by the placement of their ancestor and othertimes not. This allows for mechanics such as spawners and other
- * entities where some descendant are logically disconnected from their ancestor once the player interacts with them.
- * For example, consider a prop that spawns grenades when the user presses a button. Initially it makes sense for them
- * to move with the spawner, but once the player has picked them up and moved them around the scene it no longer makes
- * logical sense for them to move with the spawner. To ensure the logic remains flexible and open, tethering and
- * untethering is left as an implementation detail. One caveat of this approach is that descendants are removed from the
- * stage when the ancestor is removed, meaning in the example grenades would be removed once the spawner is removed. If
- * this is undesirable, such desendants should instead be owned and coordinated by a common ancestor of the spawner.
+ * A self-contained entity in a scene consisting of atomic elements (primitives which cannot be decomposed into items)
+ * and descendants items. Descendants are placed relative to this item.
  */
 interface SceneItem : SceneItemSceneProperties, SceneItemMutations, SceneItemEvents, SceneItemLifecycle
 
