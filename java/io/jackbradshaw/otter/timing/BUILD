@@ -29,7 +29,7 @@ kt_jvm_library(
         ":timing",
         "//java/io/jackbradshaw/otter:scope",
         "//java/io/jackbradshaw/otter/coroutines",
-        "//java/io/jackbradshaw/otter/engine",
+        "//java/io/jackbradshaw/otter/engine/core",
         "@maven//:javax_inject_javax_inject",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

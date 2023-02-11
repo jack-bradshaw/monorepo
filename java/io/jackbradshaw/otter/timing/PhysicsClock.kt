@@ -6,7 +6,7 @@ import com.jme3.bullet.control.GhostControl
 import com.jme3.scene.Node
 import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @OtterScope
-class PhysicsClock @Inject internal constructor(private val engine: Engine) : Clock {
+class PhysicsClock @Inject internal constructor(private val engineCore: EngineCore) : Clock {
 
   private var totalRuntime = 0.0
   private val totalFlow = MutableStateFlow<Double>(0.0)
@@ -32,12 +32,12 @@ class PhysicsClock @Inject internal constructor(private val engine: Engine) : Cl
           }
       val ghostNode = Node("physics_clock_ghost").apply { addControl(ghostControl) }
 
-      withContext(engine.renderingDispatcher()) {
-        engine.extractFrameworkNode().attachChild(ghostNode)
+      withContext(engineCore.renderingDispatcher()) {
+        engineCore.extractFrameworkNode().attachChild(ghostNode)
       }
 
-      engine.extractPhysics().getPhysicsSpace().add(ghostControl)
-      engine.extractCoroutineScope().launch(Dispatchers.Default) {
+      engineCore.extractPhysics().getPhysicsSpace().add(ghostControl)
+      engineCore.extractCoroutineScope().launch(Dispatchers.Default) {
         while (true) {
           val previousTotalRuntime = totalFlow.value
           totalFlow.value = totalRuntime

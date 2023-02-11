@@ -5,8 +5,8 @@ import dagger.Component
 import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.config.defaultConfig
 import io.jackbradshaw.otter.coroutines.CoroutinesModule
-import io.jackbradshaw.otter.engine.Engine
-import io.jackbradshaw.otter.engine.EngineModule
+import io.jackbradshaw.otter.engine.core.EngineCore
+import io.jackbradshaw.otter.engine.core.EngineCoreModule
 import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoder
 import io.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoderModule
 import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGenerator
@@ -24,7 +24,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 @Component(
     modules =
         [
-            EngineModule::class,
+            EngineCoreModule::class,
             TimingModule::class,
             ManifestInstallerModule::class,
             ManifestGeneratorModule::class,
@@ -42,13 +42,13 @@ interface Otter {
 
   @Host fun hostClock(): Clock
 
-  fun engine(): Engine
+  fun engine(): EngineCore
 
-  fun manifestGenerator(): ManifestGenerator
+  fun openXrManifestGenerator(): ManifestGenerator
 
-  fun manifestInstaller(): ManifestInstaller
+  fun openXrManifestInstaller(): ManifestInstaller
 
-  fun manifestEncoder(): ManifestEncoder
+  fun openXrManifestEncoder(): ManifestEncoder
 
   fun config(): Config
 

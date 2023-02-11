@@ -69,7 +69,7 @@ kt_jvm_library(
         ":collision",
         ":interaction_extensions",
         ":interaction_java_lite_proto",
-        "//java/io/jackbradshaw/otter/engine",
+        "//java/io/jackbradshaw/otter/engine/core",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",
@@ -85,7 +85,7 @@ kt_jvm_library(
     deps = [
         ":collision",
         ":physics_collision_event_extensions",
-        "//java/io/jackbradshaw/otter/engine",
+        "//java/io/jackbradshaw/otter/engine/core",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_bullet",
         "@maven//:org_jmonkeyengine_jme3_core",

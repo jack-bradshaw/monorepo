@@ -10,7 +10,7 @@ import io.jackbradshaw.otter.timing.Rendering
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.demo.config.Constants
 import io.jackbradshaw.otter.demo.materials.Materials
-import io.jackbradshaw.otter.engine.Engine
+import io.jackbradshaw.otter.engine.core.EngineCore
 import io.jackbradshaw.ottermodel.DeltaFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
@@ -33,7 +33,7 @@ internal constructor(
     private val materials: Materials,
     @Rendering private val clock: Clock,
     private val random: Random,
-    private val engine: Engine
+    private val engineCore: EngineCore
 ) : CubeSwarm {
 
   private lateinit var cubeMaterials: List<Material>
@@ -47,7 +47,7 @@ internal constructor(
       timeOffsets = List(Constants.ITEM_CHANNELS) { (random.nextFloat() * MAX_TIME_OFFSET).toInt() }
       root = Node("root")
 
-      withContext(engine.renderingDispatcher()) {
+      withContext(engineCore.renderingDispatcher()) {
         for (i in 0 until Constants.SWARM_SIZE) {
           val cube = cubeProvider.get()
           root.attachChild(cube.spatial)
@@ -62,7 +62,7 @@ internal constructor(
   override fun colliders() = physicsFlow
 
   init {
-    engine.extractCoroutineScope().launch(engine.renderingDispatcher()) {
+    engineCore.extractCoroutineScope().launch(engineCore.renderingDispatcher()) {
       clock
           .totalSec()
           .onEach {
