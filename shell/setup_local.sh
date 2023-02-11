@@ -1,40 +1,45 @@
 #!/bin/bash
-# Configures the local shell environment.
+# Once off installation of the shell onto the local machine.
+# Overwrites previous installations.
 
 # Constants.
-REMOTE="https://github.com/jackxbradshaw/monorepo"
-LOCAL=$HOME/HEAD
+REMOTE_HEAD="https://github.com/jackxbradshaw/monorepo"
+LOCAL_HEAD=$HOME/HEAD
 
-# Creates a local directory to cache the remote files.
-make_local_cache() {
-  rm -rf $LOCAL
-  mkdir -p $LOCAL
+# Creates a shallow clone of HEAD locally.
+update_head() {
+  rm -rf $LOCAL_HEAD
+  mkdir -p $LOCAL_HEAD
+  git clone --depth 1 --quiet $REMOTE_HEAD $LOCAL_HEAD > /dev/null
 }
 
-# Downloads the monorepo from the remote into the local cache.
-clone_remote() {
-  git clone --depth 1 $REMOTE $LOCAL
+# Configures the shell to use ZSH.
+setup_zsh() {
+  rm -rf $HOME/.zshrc
+  cp $LOCAL_HEAD/shell/.zshrc $HOME
+
+  touch $HOME/.zshrclocalonly
+
+  rm -rf $HOME/.zsh/puretheme
+  git clone --quiet https://github.com/sindresorhus/pure \
+      $HOME/.zsh/puretheme > /dev/null
+
+  chsh -s $(which zsh)
 }
 
-# Exports the .bashrc file from the local cache into the local home.
-export_bashrc() {
-  rm -rf $HOME/.bashrc
-  cp $LOCAL/shell/.bashrc $HOME
-}
-
-# Exports the .gitconfig file from the local cache into the local home.
+# Exports the .gitconfig file to local home.
 export_gitconfig() {
   rm -rf $HOME/.gitconfig
-  cp $LOCAL/shell/.gitconfig $HOME
+  cp $LOCAL_HEAD/shell/.gitconfig $HOME
 }
 
-# Exports the .vimrc file from the local cache into the local home.
+# Exports the .vimrc file to local home
 export_vimrc() {
   rm -rf $HOME/.vimrc
-  cp $LOCAL/shell/.vimrc $HOME
+  cp $LOCAL_HEAD/shell/.vimrc $HOME
 }
 
-# Decrypts and exports ssh keys from the local cache into the local home.
+# Decrypts and exports ssh keys to local home.
 export_ssh_keys() {
   rm -rf $HOME/.ssh
   mkdir $HOME/.ssh
@@ -42,12 +47,12 @@ export_ssh_keys() {
   read -r -p "Decrypt SSH keys? (Y/N) " response
     if [ "$response" == "Y" ] || [ "$response" == "y" ]; then
       gpg --output $HOME/.ssh/jackbradshaw --decrypt \
-          $LOCAL/shell/.ssh/jackbradshaw_private.gpg
+          $LOCAL_HEAD/shell/.ssh/jackbradshaw_private.gpg
       chmod 400 $HOME/.ssh/jackbradshaw # self-read-only
     fi
 }
 
-# Decrypts and exports gpg keys from the local cache into the local home.
+# Decrypts and exports gpg keys to local home.
 export_gpg_keys() {
   rm -rf $HOME/.gpgkeys
   mkdir $HOME/.gpgkeys
@@ -55,27 +60,20 @@ export_gpg_keys() {
   read -r -p "Decrypt GPG keys? (Y/N) " response 
   if [ "$response" == "Y" ] || [ "$response" == "y" ]; then
     gpg --output $HOME/.gpgkeys/jackbradshaw --decrypt \
-        $LOCAL/shell/.gpgkeys/jackbradshaw_private.gpg
+        $LOCAL_HEAD/shell/.gpgkeys/jackbradshaw_private.gpg
     chmod 400 $HOME/.gpgkeys/jackbradshaw # self-read-only
   fi
 }
 
-create_local_bashrc() {
-  touch $HOME/.bashrclocalonly
-}
-
 # Main function. Run on source loaded.
 run() {
-  make_local_cache
-  clone_remote
+  update_head
 
-  export_bashrc
+  setup_zsh
+
   export_gitconfig
   export_vimrc
-  
   export_ssh_keys
   export_gpg_keys
-
-  create_local_bashrc
 }
 run
