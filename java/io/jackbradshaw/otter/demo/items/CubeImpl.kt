@@ -8,9 +8,10 @@ import com.jme3.scene.Mesh
 import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
 import io.jackbradshaw.otter.coroutines.physicsDispatcher
+import io.jackbradshaw.otter.scene.item.SceneItemImpl
 import io.jackbradshaw.otter.demo.materials.Materials
 import io.jackbradshaw.otter.engine.core.EngineCore
-import io.jackbradshaw.ottermodel.Delta
+import io.jackbradshaw.otter.physics.model.Placement
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -24,31 +25,23 @@ internal constructor(
     private val materials: Materials,
     private val engineCore: EngineCore,
     private val random: Random,
-) : Cube, SceneItemImpl {
+) : Cube, SceneItemImpl() {
 
   private val size = random.nextFloat()
   private lateinit var shape: Mesh
   private lateinit var geometry: Spatial
-  private lateinit var collider: RigidBodyControl
+  //private lateinit var collider: RigidBodyControl
 
   init {
     runBlocking {
+      println("jackbradshaw cube init")
       shape = Box(size, size, size)
-      collider = RigidBodyControl(HullCollisionShape(shape), mass())
+      //collider = RigidBodyControl(HullCollisionShape(shape), mass()).also { add(it) }
       geometry =
-          Geometry("cube", shape).apply {
-            setMaterial(materials.getRandomly())
-            addControl(collider)
-          }
+          Geometry("cube", shape)
+              .apply { setMaterial(materials.getRandomly()) }
+              .also { addElement(it) }
     }
-  }
-
-  override val spatial = geometry
-  override fun colliders() = flowOf(collider to Delta.INCLUDE)
-
-  override suspend fun setRelativePosition(position: Vector3f) {
-    val current = collider.getPhysicsLocation()
-    collider.setPhysicsLocation(current.add(position))
   }
 
   // Cube mass is defined as density * L^3. Let density be = 1 kg/m^3.
@@ -64,7 +57,7 @@ internal constructor(
                 (100 * (random.nextFloat() - 0.5)).toFloat(),
                 (100 * (random.nextFloat() - 0.5)).toFloat())
         val location = Vector3f(size / 2, size / 2, size / 2)
-        collider.applyImpulse(magnitude, location)
+        //collider.applyImpulse(magnitude, location)
       }
     }
   }

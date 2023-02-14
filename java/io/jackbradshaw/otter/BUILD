@@ -36,6 +36,7 @@ kt_jvm_library(
         "//java/io/jackbradshaw/otter/coroutines:module",
         "//java/io/jackbradshaw/otter/engine/core",
         "//java/io/jackbradshaw/otter/engine/core:impl",
+        "//java/io/jackbradshaw/otter/scene/stage:module",
         "//java/io/jackbradshaw/otter/engine/core:module",
         "//java/io/jackbradshaw/otter/openxr/manifest/encoder:module",
         "//java/io/jackbradshaw/otter/openxr/manifest/generator:module",

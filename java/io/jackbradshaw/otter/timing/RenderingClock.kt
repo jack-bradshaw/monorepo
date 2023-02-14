@@ -11,7 +11,7 @@ import javax.inject.Inject
 class RenderingClock @Inject internal constructor(private val engineCore: EngineCore) : Clock {
 
   init {
-    engineCore.extractCoroutineScope().launch(Dispatchers.Default) {
+    engineCore.extractCoroutineScope().launch {
       while (true) {
         val previousTotalTime = totalFlow.value
         totalFlow.value = engineCore.extractTotalEngineRuntime()

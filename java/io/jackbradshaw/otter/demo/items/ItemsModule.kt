@@ -1,6 +1,7 @@
 package io.jackbradshaw.otter.demo.items
 
 import dagger.Binds
+import dagger.Module
 
 @Module
 interface ItemsModule {

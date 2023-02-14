@@ -5,6 +5,7 @@ import com.jme3.bullet.PhysicsSpace
 import io.jackbradshaw.otter.engine.core.EngineCore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.runBlocking
+import java.lang.RuntimeException
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
 

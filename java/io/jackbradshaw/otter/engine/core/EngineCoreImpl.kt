@@ -12,12 +12,10 @@ import com.jme3.system.JmeContext
 import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @OtterScope
@@ -42,8 +40,8 @@ internal constructor(private val config: Config, private val manifestInstaller: 
   private val coroutineScopeJob = Job()
   private val coroutineScope = CoroutineScope(coroutineScopeJob)
 
-  private val frameworkNode = Node("framework_root")
-  private val gameNode = Node("game_root")
+  private val frameworkNode = getRootNode()// Node("framework_root")
+  private val gameNode = getRootNode()//Node("game_root")
 
   private fun createVrAppState(): VRAppState {
     val environment =
@@ -62,7 +60,7 @@ internal constructor(private val config: Config, private val manifestInstaller: 
       setSettings(settings)
       setShowSettings(false)
       setLostFocusBehavior(LostFocusBehavior.Disabled)
-      inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
+      //inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
       setDisplayFps(config.engineConfig.debugEnabled)
       if (config.engineConfig.headlessEnabled) start(JmeContext.Type.Headless) else start()
       blockUntilStarted()
@@ -71,8 +69,17 @@ internal constructor(private val config: Config, private val manifestInstaller: 
         manifestInstaller.deployActionManifestFiles()
       }
       stateManager.attach(physics)
-      getRootNode().attachChild(frameworkNode)
-      getRootNode().attachChild(gameNode)
+      cam.frustumFar = Float.MAX_VALUE
+
+
+
+
+      // These two lines seem to be causing issues.
+
+
+
+      //getRootNode().attachChild(frameworkNode)
+      //getRootNode().attachChild(gameNode)
     }
   }
 
@@ -82,7 +89,10 @@ internal constructor(private val config: Config, private val manifestInstaller: 
     started.value = true
   }
 
-  override fun simpleUpdate(tpf: Float) = runBlocking { totalRuntimeSec = totalRuntimeSec + tpf }
+  override fun simpleUpdate(tpf: Float) = runBlocking {
+    //println("tick $tpf")
+    totalRuntimeSec = totalRuntimeSec + tpf
+  }
 
   override fun destroy() {
     coroutineScopeJob.cancel()

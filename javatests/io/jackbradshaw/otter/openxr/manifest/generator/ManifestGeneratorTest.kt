@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import com.google.devtools.build.runfiles.Runfiles
-import io.jackbradshaw.otter.Otter
+import io.jackbradshaw.otter.OtterComponent
 import io.jackbradshaw.otter.otter
 import kotlinx.coroutines.runBlocking
 import java.io.File
@@ -73,13 +73,13 @@ class ManifestGeneratorTest {
 annotation class TestScope
 
 @TestScope
-@Component(dependencies = [Otter::class])
+@Component(dependencies = [OtterComponent::class])
 interface TestComponent {
   fun inject(test: ManifestGeneratorTest)
 
   @Component.Builder
   interface Builder {
-    fun setOtter(otter: Otter): Builder
+    fun setOtter(otter: OtterComponent): Builder
     fun build(): TestComponent
   }
 }

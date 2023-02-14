@@ -24,15 +24,14 @@ interface SceneItemSceneProperties {
  * Mutations that can be performed on a [SceneItem].
  */
 interface SceneItemMutations {
-  val id: String
 
   suspend fun placeAt(place: Placement)
 
   suspend fun addDescendant(descendant: SceneItem, relativePlacement: Placement = placeZero)
 
-  suspend fun removeDescendant(descendant: SceneItem)
-
   suspend fun addElement(element: ScenePrimitive)
+
+  suspend fun removeDescendant(descendant: SceneItem)
 
   suspend fun removeElement(element: ScenePrimitive)
 }
