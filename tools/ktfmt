@@ -2,4 +2,4 @@
 # Executable for ktfmt
 # Arg 0: The full path to the file to fix.
 
-java -jar ktfmt-0.43-jar-with-dependencies.jar $0
+java -jar $HOME/HEAD/tools/ktfmt-0.43-jar-with-dependencies.jar $0
