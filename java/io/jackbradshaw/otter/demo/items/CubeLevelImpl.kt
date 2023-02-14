@@ -8,13 +8,13 @@ import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
 import io.jackbradshaw.otter.demo.materials.Materials
 import io.jackbradshaw.otter.engine.core.EngineCore
-import io.jackbradshaw.ottermodel.DeltaFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Provider
+import io.jackbradshaw.otter.scene.item.SceneItemImpl
 
 class CubeLevelImpl
 @Inject
@@ -22,43 +22,30 @@ internal constructor(
     private val cubeSwarmProvider: Provider<CubeSwarm>,
     private val engineCore: EngineCore,
     private val materials: Materials,
-) : CubeLevel {
+) : CubeLevel, SceneItemImpl() {
 
   init {
+    println("cube level impl init")
     engineCore.extractPhysics().getPhysicsSpace().setGravity(Vector3f(0f, 0f, 0f))
   }
 
-  private lateinit var coordinator: Node
   private lateinit var swarm: CubeSwarm
   private lateinit var floor: Spatial
-  private var physicsFlow: DeltaFlow<PhysicsCollisionObject> = flowOf()
 
   init {
     runBlocking {
-      swarm = cubeSwarmProvider.get()
+      swarm = cubeSwarmProvider.get().also { addDescendant(it) }
 
       floor =
           Geometry("cube_box", Box(2f, 0.2f, 2f)).apply {
             setMaterial(materials.getRandomly())
-            setLocalTranslation(0f, 0f, 0f)
-          }
-
-      coordinator =
-          Node("coordinator").apply {
-            attachChild(swarm.spatial)
-            attachChild(floor)
-          }
-
-      physicsFlow = merge(physicsFlow, swarm.colliders())
+          }.also { addElement(it) }
     }
   }
 
-  override val spatial = coordinator
-  override fun colliders() = physicsFlow
-
   init {
     engineCore.extractCoroutineScope().launch {
-      engineCore.extractCamera().setLocation(Vector3f(0f, 0f, 0f))
+      engineCore.extractDefaultInGameCamera().setLocation(Vector3f(0f, 0f, 0f))
     }
   }
 }

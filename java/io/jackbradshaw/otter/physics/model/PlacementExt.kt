@@ -24,7 +24,7 @@ fun placement(
 ): Placement =
   Placement.newBuilder().setPosition(position).setRotation(rotation).setScale(scale).build()
 
-operator fun Placement.minus(placement: Placement): Placement = placement(
+fun Placement.relativeTo(placement: Placement): Placement = placement(
     position = position - placement.position,
     rotation = rotation - placement.rotation,
     scale = scale.perElementProduct(placement.scale)

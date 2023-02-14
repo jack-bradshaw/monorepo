@@ -1,6 +1,5 @@
 package io.jackbradshaw.otter.demo.items
 
-import com.jme3.math.Vector3f
-import java.io.jackbradshaw.otter.entity.Entity
+import io.jackbradshaw.otter.scene.item.SceneItem
 
 interface Cube : SceneItem

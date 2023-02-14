@@ -2,7 +2,8 @@ package io.jackbradshaw.otter.openxr.manifest.encoder
 
 import com.google.common.truth.Truth.assertThat
 import dagger.Component
-import io.jackbradshaw.otter.Otter
+import io.jackbradshaw.otter.OtterComponent
+import io.jackbradshaw.otter.otter
 import io.jackbradshaw.otter.openxr.model.Input
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import io.jackbradshaw.otter.openxr.model.Output
@@ -142,13 +143,13 @@ class ManifestEncoderTest {
 @Scope @Retention(AnnotationRetention.RUNTIME) annotation class TestScope
 
 @TestScope
-@Component(dependencies = [Otter::class])
+@Component(dependencies = [OtterComponent::class])
 interface TestComponent {
   fun inject(test: ManifestEncoderTest)
 
   @Component.Builder
   interface Builder {
-    fun setOtter(otter: Otter): Builder
+    fun setOtter(otter: OtterComponent): Builder
     fun build(): TestComponent
   }
 }
