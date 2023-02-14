@@ -3,7 +3,7 @@
 # Overwrites previous installations.
 
 # Constants.
-REMOTE_HEAD="https://github.com/jackxbradshaw/monorepo"
+REMOTE_HEAD="https://github.com/jack-bradshaw/monorepo"
 LOCAL_HEAD=$HOME/HEAD
 
 # Creates a shallow clone of HEAD locally.
