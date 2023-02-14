@@ -1,17 +1,17 @@
 package io.jackbradshaw.otter.demo.items
-import kotlinx.coroutines.flow.first
-import io.jackbradshaw.otter.physics.model.placement
-import io.jackbradshaw.otter.math.model.point
+
 import com.jme3.material.Material
 import com.jme3.math.ColorRGBA
-import com.jme3.math.Vector3f
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.demo.config.Constants
 import io.jackbradshaw.otter.demo.materials.Materials
 import io.jackbradshaw.otter.engine.core.EngineCore
+import io.jackbradshaw.otter.math.model.point
 import io.jackbradshaw.otter.physics.model.Placement
-import io.jackbradshaw.otter.timing.Clock
+import io.jackbradshaw.otter.physics.model.placement
 import io.jackbradshaw.otter.qualifiers.Rendering
+import io.jackbradshaw.otter.scene.item.SceneItemImpl
+import io.jackbradshaw.otter.timing.Clock
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.math.acos
@@ -22,7 +22,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import io.jackbradshaw.otter.scene.item.SceneItemImpl
 
 class CubeSwarmImpl
 @Inject

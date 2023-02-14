@@ -1,12 +1,12 @@
 package io.jackbradshaw.otter.math.model
 
+import com.jme3.math.Vector3f as JmeVector
 import kotlin.math.pow
 import kotlin.math.sqrt
-import com.jme3.math.Vector3f as JmeVector
 
 /** Creates a vector set to ([x], [y], [z]). */
 fun point(x: Number = 0f, y: Number = 0f, z: Number = 0f): Point =
-  Point.newBuilder().setX(x.toFloat()).setY(y.toFloat()).setZ(z.toFloat()).build()
+    Point.newBuilder().setX(x.toFloat()).setY(y.toFloat()).setZ(z.toFloat()).build()
 
 /** Creates a new vector by adding this vector to [other]. */
 operator fun Point.plus(other: Point): Point = point(x + other.x, y + other.y, z + other.z)
@@ -18,7 +18,7 @@ operator fun Point.minus(other: Point): Point = point(x - other.x, y - other.y, 
 
 /** Creates a new vector by multiplying each component of this vector by [scalar]. */
 operator fun Point.times(scalar: Number): Point =
-  point(x * scalar.toFloat(), y * scalar.toFloat(), z * scalar.toFloat())
+    point(x * scalar.toFloat(), y * scalar.toFloat(), z * scalar.toFloat())
 
 /** Creates a new vector by multiplying this number by each component of [vector]. */
 operator fun Number.times(vector: Point): Point = vector * this
@@ -36,7 +36,7 @@ operator fun Point.unaryPlus(): Point = this
 operator fun Point.unaryMinus(): Point = -1 * this
 
 fun Point.distanceTo(other: Point) =
-  sqrt((other.x - x).pow(2) + (other.y - y).pow(2) + (other.z - z).pow(2))
+    sqrt((other.x - x).pow(2) + (other.y - y).pow(2) + (other.z - z).pow(2))
 
 fun Point.toJMonkeyVector(): JmeVector = JmeVector(x, y, z)
 
