@@ -10,11 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 /**
  * A basic implementation of [SceneItem] that can be customized by the constructor parameters.
  */
-class ParameterizedSceneItem(
-    override var id: String,
-    var onEnterStage: () -> Unit,
-    var onExitStage: () -> Unit
-) : SceneItem {
+abstract class SceneItemImpl : SceneItem {
 
   override val elements = mutableSetOf<ScenePrimitive>()
   override val descendants = mutableSetOf<SceneItem>()
@@ -23,17 +19,17 @@ class ParameterizedSceneItem(
   override fun placement() = placement
 
   override suspend fun placeAt(place: Placement) {
-    placement.tryEmit(place)
+    placement.value = place
   }
 
   private val descendantAdded = MutableSharedFlow<SceneItem>(replay = 0)
   override fun descendantAdded() = descendantAdded
 
-  private val descendantRemoved = MutableSharedFlow<SceneItem>(replay = 0)
-  override fun descendantRemoved() = descendantRemoved
-
   private val elementAdded = MutableSharedFlow<ScenePrimitive>(replay = 0)
   override fun elementAdded() = elementAdded
+
+  private val descendantRemoved = MutableSharedFlow<SceneItem>(replay = 0)
+  override fun descendantRemoved() = descendantRemoved
 
   private val elementRemoved = MutableSharedFlow<ScenePrimitive>(replay = 0)
   override fun elementRemoved() = elementRemoved
@@ -44,14 +40,14 @@ class ParameterizedSceneItem(
     descendantAdded.tryEmit(descendant)
   }
 
-  override suspend fun removeDescendant(descendant: SceneItem) {
-    descendants.remove(descendant)
-    descendantRemoved.tryEmit(descendant)
-  }
-
   override suspend fun addElement(element: ScenePrimitive) {
     elements.add(element)
     elementAdded.tryEmit(element)
+  }
+
+  override suspend fun removeDescendant(descendant: SceneItem) {
+    descendants.remove(descendant)
+    descendantRemoved.tryEmit(descendant)
   }
 
   override suspend fun removeElement(element: ScenePrimitive) {
@@ -59,7 +55,11 @@ class ParameterizedSceneItem(
     elementRemoved.tryEmit(element)
   }
 
-  override suspend fun onEnterStage() = onEnterStage.invoke()
+  override suspend fun onEnterScene() {
+    // NO-OP
+  }
 
-  override suspend fun onExitStage() = onExitStage.invoke()
+  override suspend fun onExitScene() {
+    // NO-OP
+  }
 }

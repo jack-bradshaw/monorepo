@@ -1,5 +1,6 @@
 package io.jackbradshaw.otter.demo.items
 
-import java.io.jackbradshaw.otter.entity.Entity
+import io.jackbradshaw.otter.scene.item.SceneItem
 
-interface CubeLevel : Entity
+interface CubeLevel : SceneItem
+

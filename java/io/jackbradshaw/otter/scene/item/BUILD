@@ -30,7 +30,6 @@ kt_jvm_library(
     name = "impl",
     srcs = [
         "SceneItemImpl.kt",
-
     ],
     visibility = [
         "//java/io/jackbradshaw/otter:__subpackages__",
