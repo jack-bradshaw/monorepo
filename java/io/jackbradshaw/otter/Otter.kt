@@ -17,6 +17,10 @@ import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerModule
 import io.jackbradshaw.otter.qualifiers.Physics
 import io.jackbradshaw.otter.qualifiers.Rendering
 import io.jackbradshaw.otter.scene.stage.SceneStage
+<<<<<<< HEAD
+=======
+import io.jackbradshaw.otter.scene.stage.SceneStageModule
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 import io.jackbradshaw.otter.timing.Clock
 import io.jackbradshaw.otter.timing.TimingModule
 import kotlinx.coroutines.CoroutineDispatcher
@@ -24,6 +28,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 @OtterScope
 @Component(
     modules =
+<<<<<<< HEAD
     [
       EngineCoreModule::class,
       TimingModule::class,
@@ -32,6 +37,16 @@ import kotlinx.coroutines.CoroutineDispatcher
       ManifestEncoderModule::class,
       CoroutinesModule::class,
       SceneStageModule::class])
+=======
+        [
+            EngineCoreModule::class,
+            TimingModule::class,
+            ManifestInstallerModule::class,
+            ManifestGeneratorModule::class,
+            ManifestEncoderModule::class,
+            CoroutinesModule::class,
+            SceneStageModule::class])
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 interface OtterComponent {
 
   @Physics
@@ -43,8 +58,12 @@ interface OtterComponent {
   @Physics
   fun physicsClock(): Clock
 
+<<<<<<< HEAD
   @Rendering
   fun renderingClock(): Clock
+=======
+  @Rendering fun renderingClock(): Clock
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
   fun engine(): EngineCore
 
@@ -60,10 +79,19 @@ interface OtterComponent {
 
   @Component.Builder
   interface Builder {
+<<<<<<< HEAD
     @BindsInstance
     fun setConfig(config: Config): Builder
+=======
+    @BindsInstance fun setConfig(config: Config): Builder
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
     fun build(): OtterComponent
   }
 }
 
+<<<<<<< HEAD
 fun otter(config: Config = defaultConfig): OtterComponent = DaggerOtterComponent.builder().setConfig(config).build()
+=======
+fun otter(config: Config = defaultConfig): OtterComponent =
+    DaggerOtterComponent.builder().setConfig(config).build()
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b

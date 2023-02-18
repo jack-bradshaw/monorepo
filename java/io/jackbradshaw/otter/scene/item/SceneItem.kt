@@ -6,23 +6,20 @@ import io.jackbradshaw.otter.scene.primitive.ScenePrimitive
 import kotlinx.coroutines.flow.Flow
 
 /**
- * A self-contained entity in a scene consisting of atomic elements (primitives which cannot be decomposed into items)
- * and descendants items. Descendants are placed relative to this item.
+ * A self-contained entity in a scene consisting of atomic elements (primitives which cannot be
+ * decomposed into items) and descendants items. Descendants are placed relative to this item.
  */
-interface SceneItem : SceneItemSceneProperties, SceneItemMutations, SceneItemEvents, SceneItemLifecycle
+interface SceneItem :
+    SceneItemSceneProperties, SceneItemMutations, SceneItemEvents, SceneItemLifecycle
 
-/**
- * Properties of a [SceneItem].
- */
+/** Properties of a [SceneItem]. */
 interface SceneItemSceneProperties {
   val elements: Set<ScenePrimitive>
   val descendants: Set<SceneItem>
   fun placement(): Flow<Placement>
 }
 
-/**
- * Mutations that can be performed on a [SceneItem].
- */
+/** Mutations that can be performed on a [SceneItem]. */
 interface SceneItemMutations {
 
   suspend fun placeAt(place: Placement)
@@ -36,9 +33,7 @@ interface SceneItemMutations {
   suspend fun removeElement(element: ScenePrimitive)
 }
 
-/**
- * Observable events emitted by a [SceneItem].
- */
+/** Observable events emitted by a [SceneItem]. */
 interface SceneItemEvents {
   fun descendantAdded(): Flow<SceneItem>
   fun descendantRemoved(): Flow<SceneItem>
@@ -46,9 +41,7 @@ interface SceneItemEvents {
   fun elementRemoved(): Flow<ScenePrimitive>
 }
 
-/**
- * The lifecycle of a [SceneItem].
- */
+/** The lifecycle of a [SceneItem]. */
 interface SceneItemLifecycle {
   suspend fun onEnterScene()
   suspend fun onExitScene()

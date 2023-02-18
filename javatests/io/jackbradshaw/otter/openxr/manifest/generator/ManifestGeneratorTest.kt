@@ -1,17 +1,26 @@
 package io.jackbradshaw.otter.openxr.manifest.generator
 
+import com.google.common.truth.Truth.assertThat
+import com.google.devtools.build.runfiles.Runfiles
+import dagger.Component
+import io.jackbradshaw.klu.flow.toMap
+import io.jackbradshaw.otter.OtterComponent
 import io.jackbradshaw.otter.openxr.manifest.goldens.goldenPrimaryManifest
 import io.jackbradshaw.otter.openxr.manifest.goldens.goldenSecondaryManifests
-import com.google.common.truth.Truth.assertThat
-import io.jackbradshaw.klu.flow.toMap
-import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
-import org.junit.Before
-import org.junit.Test
+import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
+import io.jackbradshaw.otter.otter
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Scope
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
+import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+<<<<<<< HEAD
 import com.google.devtools.build.runfiles.Runfiles
 import io.jackbradshaw.otter.OtterComponent
 import io.jackbradshaw.otter.otter
@@ -20,6 +29,8 @@ import java.io.File
 import dagger.Component
 import javax.inject.Scope
 import javax.inject.Inject
+=======
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
 @RunWith(JUnit4::class)
 class ManifestGeneratorTest {
@@ -42,18 +53,16 @@ class ManifestGeneratorTest {
   fun generateManifest_secondaryManifests_oneForEachStandardInteractionProfile() = runBlocking {
     val manifests = generator.generateManifests()
 
-    assertThat(manifests.secondaryManifests.size).isEqualTo(StandardInteractionProfile.values().size)
+    assertThat(manifests.secondaryManifests.size)
+        .isEqualTo(StandardInteractionProfile.values().size)
   }
 
   @Test
   fun generateManifest_secondaryManifestForEachStandardInteractionProfile_isGolden() = runBlocking {
     val manifests = generator.generateManifests()
 
-    val manifestsByProfile: Map<InteractionProfile, SecondaryManifest> = manifests
-        .secondaryManifests
-        .asFlow()
-        .map { it.profile to it }
-        .toMap()
+    val manifestsByProfile: Map<InteractionProfile, SecondaryManifest> =
+        manifests.secondaryManifests.asFlow().map { it.profile to it }.toMap()
 
     for (profile in StandardInteractionProfile.values()) {
       assertThat(manifestsByProfile[profile.profile]!!.content)
@@ -61,16 +70,16 @@ class ManifestGeneratorTest {
     }
   }
 
-  private fun readGolden(relativeFilename: String) = File(Runfiles.create().rlocation("$BASE_GOLDEN_PATH/$relativeFilename")).readText()
+  private fun readGolden(relativeFilename: String) =
+      File(Runfiles.create().rlocation("$BASE_GOLDEN_PATH/$relativeFilename")).readText()
 
   companion object {
-    private const val BASE_GOLDEN_PATH = "io_jackbradshaw/javatests/io/jackbradshaw/otter/openxr/manifest/goldens"
+    private const val BASE_GOLDEN_PATH =
+        "io_jackbradshaw/javatests/io/jackbradshaw/otter/openxr/manifest/goldens"
   }
 }
 
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-annotation class TestScope
+@Scope @Retention(AnnotationRetention.RUNTIME) annotation class TestScope
 
 @TestScope
 @Component(dependencies = [OtterComponent::class])

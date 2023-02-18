@@ -19,7 +19,10 @@ import com.jme3.scene.Spatial
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.engine.core.EngineCore
 import io.jackbradshaw.otter.math.model.*
+<<<<<<< HEAD
 import io.jackbradshaw.otter.physics.model.Placement
+=======
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 import io.jackbradshaw.otter.physics.model.relativeTo
 import io.jackbradshaw.otter.physics.model.toJMonkeyTransform
 import io.jackbradshaw.otter.physics.model.toOtterPlacement
@@ -29,16 +32,27 @@ import io.jackbradshaw.otter.scene.item.SceneItem
 import javax.inject.Inject
 import io.jackbradshaw.otter.scene.primitive.ScenePrimitive
 import io.jackbradshaw.otter.timing.Clock
+import java.lang.Integer.MAX_VALUE
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.runBlocking
 import java.lang.Integer.MAX_VALUE
 
 /** A basic implementation of [SceneStage]. */
+<<<<<<< HEAD
 class SceneStageImpl @Inject internal constructor(
+=======
+class SceneStageImpl
+@Inject
+internal constructor(
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
     private val engine: EngineCore,
     @Rendering private val renderingDispatcher: CoroutineDispatcher,
     @Rendering private val renderingClock: Clock,
@@ -47,6 +61,7 @@ class SceneStageImpl @Inject internal constructor(
 
   // TODO: Add concurrency locks for concurrency safety if necessary.
 
+<<<<<<< HEAD
   private val itemsPendingIntegration = MutableSharedFlow<DescendantAndAncestor>(replay = 0, extraBufferCapacity = MAX_VALUE)
   private val itemsPendingDisintegration = MutableSharedFlow<SceneItem>(replay = 0, extraBufferCapacity = MAX_VALUE)
   private val elementsPendingIntegration = MutableSharedFlow<ElementAndItem>(replay = 0, extraBufferCapacity = MAX_VALUE)
@@ -57,6 +72,25 @@ class SceneStageImpl @Inject internal constructor(
   private val itemDisintegrationProcessingStarted = MutableSharedFlow<Boolean>(replay = 1).apply { tryEmit(false)}
   private val elementIntegrationProcessingStarted = MutableSharedFlow<Boolean>(replay = 1).apply { tryEmit(false)}
   private val elementDisintegrationProcessingStarted = MutableSharedFlow<Boolean>(replay = 1).apply { tryEmit(false)}
+=======
+  private val itemsPendingIntegration =
+      MutableSharedFlow<DescendantAndAncestor>(replay = 0, extraBufferCapacity = MAX_VALUE)
+  private val itemsPendingDisintegration =
+      MutableSharedFlow<SceneItem>(replay = 0, extraBufferCapacity = MAX_VALUE)
+  private val elementsPendingIntegration =
+      MutableSharedFlow<ElementAndItem>(replay = 0, extraBufferCapacity = MAX_VALUE)
+  private val elementsPendingDisintegration =
+      MutableSharedFlow<ScenePrimitive>(replay = 0, extraBufferCapacity = MAX_VALUE)
+
+  private val itemIntegrationProcessingStarted =
+      MutableSharedFlow<Boolean>(replay = 1).apply { tryEmit(false) }
+  private val itemDisintegrationProcessingStarted =
+      MutableSharedFlow<Boolean>(replay = 1).apply { tryEmit(false) }
+  private val elementIntegrationProcessingStarted =
+      MutableSharedFlow<Boolean>(replay = 1).apply { tryEmit(false) }
+  private val elementDisintegrationProcessingStarted =
+      MutableSharedFlow<Boolean>(replay = 1).apply { tryEmit(false) }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
   private val itemIntegrationJobs = mutableMapOf<SceneItem, Job>()
   private val elementIntegrationJobs = mutableMapOf<ScenePrimitive, Job>()
@@ -65,7 +99,16 @@ class SceneStageImpl @Inject internal constructor(
   private val itemsToAncestors = mutableMapOf<SceneItem, SceneItem>()
   private val elementsToItems = mutableMapOf<ScenePrimitive, SceneItem>()
 
+<<<<<<< HEAD
   private val rootStaticPositioningNode = Node().also { runBlocking { withContext(renderingDispatcher) { engine.extractGameNode().attachChild(it) } }}
+=======
+  private val rootStaticPositioningNode =
+      Node().also {
+        runBlocking {
+          withContext(renderingDispatcher) { engine.extractGameNode().attachChild(it) }
+        }
+      }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
   private val staticPositioningNodes = mutableMapOf<SceneItem, Node>()
   private val dynamicPositioningNodes = mutableMapOf<ScenePrimitive, Node>()
 
@@ -107,18 +150,35 @@ class SceneStageImpl @Inject internal constructor(
   override fun itemEnteredScene() = itemEnteredScene
   override fun itemExitedScene() = itemExitedScene
 
+<<<<<<< HEAD
   private suspend fun waitForProcessingToStart() = combine(
       itemIntegrationProcessingStarted,
       itemDisintegrationProcessingStarted,
       elementIntegrationProcessingStarted,
       elementDisintegrationProcessingStarted
   ) { a, b, c, d -> a && b && c && d }.filter { it }.first()
+=======
+  private suspend fun waitForProcessingToStart() =
+      combine(
+              itemIntegrationProcessingStarted,
+              itemDisintegrationProcessingStarted,
+              elementIntegrationProcessingStarted,
+              elementDisintegrationProcessingStarted) { a, b, c, d ->
+                a && b && c && d
+              }
+          .filter { it }
+          .first()
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
   private fun processItemsPendingIntegration() {
     engine.extractCoroutineScope().launch(engine.extractApplication().renderingDispatcher()) {
       itemsPendingIntegration
+<<<<<<< HEAD
           .onStart {
             itemIntegrationProcessingStarted.tryEmit(true) }
+=======
+          .onStart { itemIntegrationProcessingStarted.tryEmit(true) }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
           .onEach {
             it.descendant.checkNotAttached()
             it.saveAncestorRelationship()
@@ -139,8 +199,12 @@ class SceneStageImpl @Inject internal constructor(
   private fun processItemsPendingDisintegration() {
     engine.extractCoroutineScope().launch {
       itemsPendingDisintegration
+<<<<<<< HEAD
           .onStart {
             itemDisintegrationProcessingStarted.tryEmit(true) }
+=======
+          .onStart { itemDisintegrationProcessingStarted.tryEmit(true) }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
           .onEach {
             it.checkAttached()
             it.cancelIntegrationJob()
@@ -157,6 +221,7 @@ class SceneStageImpl @Inject internal constructor(
   private fun processElementsPendingIntegration() {
     engine.extractCoroutineScope().launch {
       elementsPendingIntegration
+<<<<<<< HEAD
           .onStart {
             elementIntegrationProcessingStarted.tryEmit(true) }
           .onEach {
@@ -166,6 +231,13 @@ class SceneStageImpl @Inject internal constructor(
               it.element.syncPlacement()
             }
             }
+=======
+          .onStart { elementIntegrationProcessingStarted.tryEmit(true) }
+          .onEach {
+            it.saveContainerRelationship()
+            it.element.attachToEngine()
+            elementIntegrationJobs[it] = launch { launch { it.element.syncPlacement() } }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
           }
           .collect()
     }
@@ -174,8 +246,12 @@ class SceneStageImpl @Inject internal constructor(
   private fun processElementsPendingDisintegration() {
     engine.extractCoroutineScope().launch {
       elementsPendingDisintegration
+<<<<<<< HEAD
           .onStart {
             elementDisintegrationProcessingStarted.tryEmit(true) }
+=======
+          .onStart { elementDisintegrationProcessingStarted.tryEmit(true) }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
           .onEach {
             it.detachFromEngine()
             it.cancelIntegrationJob()
@@ -195,6 +271,7 @@ class SceneStageImpl @Inject internal constructor(
       throw IllegalStateException("Item $this is already attached.")
   }
 
+<<<<<<< HEAD
   private suspend fun DescendantAndAncestor.connectStaticPositioningNodes() = withContext(renderingDispatcher){
     val ancestorNode = staticPositioningNodes[ancestor] ?: rootStaticPositioningNode
     val descendantNode = Node()
@@ -210,6 +287,26 @@ class SceneStageImpl @Inject internal constructor(
 
   private suspend fun SceneItem.disconnectStaticPositioningNodes() {
     val ancestorNode = itemsToAncestors[this]?.let { staticPositioningNodes[it] } ?: rootStaticPositioningNode
+=======
+  private suspend fun DescendantAndAncestor.connectStaticPositioningNodes() =
+      withContext(renderingDispatcher) {
+        val ancestorNode = staticPositioningNodes[ancestor] ?: rootStaticPositioningNode
+        val descendantNode =
+            Node()
+                .apply {
+                  val firstPlace = descendant.placement().first().position.toJMonkeyVector()
+                  println("first place $firstPlace")
+                  // setLocalTranslation(Vector3f(1f, 0f, 0f))
+                  setLocalTranslation(firstPlace)
+                }
+                .also { staticPositioningNodes[descendant] = it }
+        ancestorNode.attachChild(descendantNode)
+      }
+
+  private suspend fun SceneItem.disconnectStaticPositioningNodes() {
+    val ancestorNode =
+        itemsToAncestors[this]?.let { staticPositioningNodes[it] } ?: rootStaticPositioningNode
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
     val descendantNode = staticPositioningNodes[this]!!
     ancestorNode.detachChild(descendantNode)
     staticPositioningNodes.remove(this)
@@ -254,9 +351,13 @@ class SceneStageImpl @Inject internal constructor(
           .collect()
 
   private suspend fun SceneItem.queueRemovedDescendantsForDisintegration() =
+<<<<<<< HEAD
       descendantRemoved()
           .onEach { itemsPendingDisintegration.tryEmit(it) }
           .collect()
+=======
+      descendantRemoved().onEach { itemsPendingDisintegration.tryEmit(it) }.collect()
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
   private suspend fun SceneItem.queueCurrentDescendantsForDisintegration() {
     descendants.forEach { itemsPendingDisintegration.tryEmit(it) }
@@ -280,11 +381,18 @@ class SceneStageImpl @Inject internal constructor(
           .collect()
 
   private suspend fun SceneItem.queueCurrentElementsForDisintegration() {
+<<<<<<< HEAD
     elements.forEach { elementsPendingDisintegration.tryEmit(ElementAndItem(it, elementsToItems[it]!!)) }
+=======
+    elements.forEach {
+      elementsPendingDisintegration.tryEmit(ElementAndItem(it, elementsToItems[it]!!))
+    }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
   }
 
   private suspend fun ScenePrimitive.attachToEngine() {
     when (val element = this) {
+<<<<<<< HEAD
       is Light -> withContext(renderingDispatcher) {
             engine.extractGameNode().addLight(element)
       }
@@ -313,6 +421,20 @@ class SceneStageImpl @Inject internal constructor(
           engine.extractPhysics().physicsSpace.add(element)
         }
 
+=======
+      is Light -> withContext(renderingDispatcher) { engine.extractGameNode().addLight(element) }
+      is ParticleEmitter ->
+          withContext(renderingDispatcher) { engine.extractGameNode().attachChild(element) }
+      is Spatial ->
+          withContext(renderingDispatcher) { engine.extractGameNode().attachChild(element) }
+      is PhysicsControl ->
+          withContext(physicsDispatcher) {
+            element.newNode().apply { addControl(element) }
+            engine.extractPhysics().physicsSpace.add(element)
+          }
+      is PhysicsJoint ->
+          withContext(physicsDispatcher) { engine.extractPhysics().physicsSpace.add(element) }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
       else ->
         throw UnsupportedOperationException(
             "Cannot process $element. Type is currently unsupported.")
@@ -322,6 +444,7 @@ class SceneStageImpl @Inject internal constructor(
   private suspend fun ScenePrimitive.detachFromEngine() {
 
     when (val element = this) {
+<<<<<<< HEAD
       is Light -> withContext(renderingDispatcher) {
 
         engine.extractGameNode().removeLight(element)
@@ -354,6 +477,20 @@ class SceneStageImpl @Inject internal constructor(
           engine.extractPhysics().physicsSpace.remove(element)
         }
 
+=======
+      is Light -> withContext(renderingDispatcher) { engine.extractGameNode().removeLight(element) }
+      is ParticleEmitter ->
+          withContext(renderingDispatcher) { engine.extractGameNode().detachChild(element) }
+      is Spatial ->
+          withContext(renderingDispatcher) { engine.extractGameNode().detachChild(element) }
+      is PhysicsControl ->
+          withContext(physicsDispatcher) {
+            dynamicPositioningNodes[element]!!.removeControl(element)
+            engine.extractPhysics().physicsSpace.remove(element)
+          }
+      is PhysicsJoint ->
+          withContext(physicsDispatcher) { engine.extractPhysics().physicsSpace.remove(element) }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
       else ->
         throw UnsupportedOperationException(
             "Cannot process $element. Type is currently unsupported.")
@@ -363,6 +500,7 @@ class SceneStageImpl @Inject internal constructor(
   private suspend fun ScenePrimitive.newNode() =
       Node().also {
         dynamicPositioningNodes[this] = it
+<<<<<<< HEAD
         withContext(renderingDispatcher) {
 
           engine.extractGameNode().attachChild(it) }
@@ -386,6 +524,30 @@ class SceneStageImpl @Inject internal constructor(
           .collect()
     }
   }
+=======
+        withContext(renderingDispatcher) { engine.extractGameNode().attachChild(it) }
+      }
+
+  private suspend fun SceneItem.syncPlacement() =
+      withContext(renderingDispatcher) {
+        val itemNode = staticPositioningNodes[this@syncPlacement]!!
+        launch {
+          itemNode
+              .placement()
+              .onEach { println("need to move item to ${it.position.x}") }
+              .distinctUntilChanged()
+              // .onEach { placeAt(it) }
+              .collect()
+        }
+        launch {
+          placement()
+              .distinctUntilChanged()
+              .onEach { println("need to move node to ${it.position.x}") }
+              // .onEach { itemNode.localTransform = it.toJMonkeyTransform() }
+              .collect()
+        }
+      }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
   // TODO check this is the right vector to use for quaternion to direction
   private suspend fun ScenePrimitive.syncPlacement() {
@@ -393,6 +555,7 @@ class SceneStageImpl @Inject internal constructor(
     val itemNode = staticPositioningNodes[item]!!
     when (this) {
       is PointLight ->
+<<<<<<< HEAD
         withContext(renderingDispatcher) {
           itemNode
               .absolutePlacement()
@@ -445,13 +608,30 @@ class SceneStageImpl @Inject internal constructor(
           val physicsNode = dynamicPositioningNodes[this@syncPlacement]!!
           launch {
             physicsNode
+=======
+          withContext(renderingDispatcher) {
+            itemNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .onEach { position = it.position.toJMonkeyVector() }
+                .collect()
+          }
+      is DirectionalLight ->
+          withContext(renderingDispatcher) {
+            itemNode
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
                 .absolutePlacement()
                 .distinctUntilChanged()
                 .map { it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement()).toJMonkeyTransform() }
                 .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
                 .collect()
           }
+<<<<<<< HEAD
           launch {
+=======
+      is SpotLight ->
+          withContext(renderingDispatcher) {
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
             itemNode
                 .absolutePlacement()
                 .distinctUntilChanged()
@@ -461,6 +641,7 @@ class SceneStageImpl @Inject internal constructor(
                 }
                 .collect()
           }
+<<<<<<< HEAD
         }
 
       is GhostControl ->
@@ -473,6 +654,73 @@ class SceneStageImpl @Inject internal constructor(
                 .map { it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement()).toJMonkeyTransform() }
                 .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
                 .collect()
+=======
+      is ParticleEmitter ->
+          withContext(renderingDispatcher) {
+            itemNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .onEach { localTransform = it.toJMonkeyTransform() }
+                .collect()
+          }
+      is Spatial ->
+          withContext(renderingDispatcher) {
+            itemNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .onEach { localTransform = it.toJMonkeyTransform() }
+                .collect()
+          }
+      is RigidBodyControl ->
+          withContext(physicsDispatcher) {
+            val physicsNode = dynamicPositioningNodes[this@syncPlacement]!!
+            launch {
+              physicsNode
+                  .absolutePlacement()
+                  .distinctUntilChanged()
+                  .map {
+                    it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement())
+                        .toJMonkeyTransform()
+                  }
+                  .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
+                  .collect()
+            }
+            launch {
+              itemNode
+                  .absolutePlacement()
+                  .distinctUntilChanged()
+                  .onEach {
+                    this@syncPlacement.physicsLocation = it.position.toJMonkeyVector()
+                    this@syncPlacement.physicsRotation = it.rotation.toJMonkeyQuaternion()
+                  }
+                  .collect()
+            }
+          }
+      is GhostControl ->
+          withContext(physicsDispatcher) {
+            val physicsNode = dynamicPositioningNodes[this@syncPlacement]!!
+            launch {
+              physicsNode
+                  .absolutePlacement()
+                  .distinctUntilChanged()
+                  .map {
+                    it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement())
+                        .toJMonkeyTransform()
+                  }
+                  .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
+                  .collect()
+            }
+            launch {
+              itemNode
+                  .absolutePlacement()
+                  .distinctUntilChanged()
+                  .onEach {
+                    this@syncPlacement.physicsLocation = it.position.toJMonkeyVector()
+                    this@syncPlacement.physicsRotation = it.rotation.toJMonkeyQuaternion()
+                  }
+                  .collect()
+            }
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
           }
           launch {
             itemNode
@@ -499,7 +747,11 @@ class SceneStageImpl @Inject internal constructor(
       renderingClock
           .deltaSec()
           .map {
+<<<<<<< HEAD
             //println("world translation ${getWorldTranslation()}")
+=======
+            // println("world translation ${getWorldTranslation()}")
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
             worldTransform
           }
           .distinctUntilChanged()

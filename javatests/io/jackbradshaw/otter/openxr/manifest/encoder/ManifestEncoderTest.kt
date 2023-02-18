@@ -3,7 +3,10 @@ package io.jackbradshaw.otter.openxr.manifest.encoder
 import com.google.common.truth.Truth.assertThat
 import dagger.Component
 import io.jackbradshaw.otter.OtterComponent
+<<<<<<< HEAD
 import io.jackbradshaw.otter.otter
+=======
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 import io.jackbradshaw.otter.openxr.model.Input
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import io.jackbradshaw.otter.openxr.model.Output
@@ -41,17 +44,16 @@ class ManifestEncoderTest {
       for (input in profile.profile.inputList) {
         val encoding = encoder.encodeInput(profile.profile, input)!!
         encodingToEncoded[encoding] =
-          encodingToEncoded
-            .getOrPut(encoding) { mutableListOf() }
-            .also { it.add(Pair(profile.profile, input)) }
+            encodingToEncoded
+                .getOrPut(encoding) { mutableListOf() }
+                .also { it.add(Pair(profile.profile, input)) }
       }
     }
 
     for ((encoding, encoded) in encodingToEncoded) {
       if (encoded.size > 1) {
         fail(
-          "Expected unique encoding for all profile/input pairs, but found duplicates for $encoding ($encoded)."
-        )
+            "Expected unique encoding for all profile/input pairs, but found duplicates for $encoding ($encoded).")
       }
     }
   }
@@ -59,14 +61,12 @@ class ManifestEncoderTest {
   @Test
   fun encodeInput_nonStandardProfileInputCombination_returnsNull() {
     val encoding =
-      encoder.encodeInput(
-        StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.profile,
-        input(
-          StandardUser.TREADMILL,
-          StandardInputIdentifier.THUMBSTICK,
-          StandardInputComponent.CLICK
-        )
-      )
+        encoder.encodeInput(
+            StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.profile,
+            input(
+                StandardUser.TREADMILL,
+                StandardInputIdentifier.THUMBSTICK,
+                StandardInputComponent.CLICK))
 
     assertThat(encoding).isNull()
   }
@@ -96,17 +96,16 @@ class ManifestEncoderTest {
       for (output in profile.profile.outputList) {
         val encoding = encoder.encodeOutput(profile.profile, output)!!
         encodingToEncoded[encoding] =
-          encodingToEncoded
-            .getOrPut(encoding) { mutableListOf() }
-            .also { it.add(Pair(profile.profile, output)) }
+            encodingToEncoded
+                .getOrPut(encoding) { mutableListOf() }
+                .also { it.add(Pair(profile.profile, output)) }
       }
     }
 
     for ((encoding, encoded) in encodingToEncoded) {
       if (encoded.size > 1) {
         fail(
-          "Expected unique encoding for all profile/output pairs, but found duplicates for $encoding ($encoded)."
-        )
+            "Expected unique encoding for all profile/output pairs, but found duplicates for $encoding ($encoded).")
       }
     }
   }
@@ -114,10 +113,9 @@ class ManifestEncoderTest {
   @Test
   fun encodeOutput_nonStandardProfileOutputCombination_returnsNull() {
     val encoding =
-      encoder.encodeOutput(
-        StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.profile,
-        output(StandardUser.TREADMILL, StandardOutputIdentifier.HAPTIC)
-      )
+        encoder.encodeOutput(
+            StandardInteractionProfile.GOOGLE_DAYDREAM_CONTROLLER.profile,
+            output(StandardUser.TREADMILL, StandardOutputIdentifier.HAPTIC))
 
     assertThat(encoding).isNull()
   }

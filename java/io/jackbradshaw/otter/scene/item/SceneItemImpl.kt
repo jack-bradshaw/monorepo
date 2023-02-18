@@ -4,12 +4,15 @@ import io.jackbradshaw.otter.physics.model.Placement
 import io.jackbradshaw.otter.physics.model.placeZero
 import io.jackbradshaw.otter.scene.primitive.ScenePrimitive
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
+<<<<<<< HEAD
 /**
  * A basic implementation of [SceneItem] that can be customized by the constructor parameters.
  */
+=======
+/** A basic implementation of [SceneItem] that can be customized by the constructor parameters. */
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 abstract class SceneItemImpl : SceneItem {
 
   override val elements = mutableSetOf<ScenePrimitive>()

@@ -6,17 +6,23 @@ import com.jme3.app.VRAppState
 import com.jme3.app.VRConstants
 import com.jme3.app.VREnvironment
 import com.jme3.bullet.BulletAppState
-import com.jme3.scene.Node
 import com.jme3.system.AppSettings
 import com.jme3.system.JmeContext
 import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
+<<<<<<< HEAD
+=======
+import javax.inject.Inject
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+<<<<<<< HEAD
 import javax.inject.Inject
+=======
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
 @OtterScope
 class EngineCoreImpl
@@ -40,8 +46,13 @@ internal constructor(private val config: Config, private val manifestInstaller: 
   private val coroutineScopeJob = Job()
   private val coroutineScope = CoroutineScope(coroutineScopeJob)
 
+<<<<<<< HEAD
   private val frameworkNode = getRootNode()// Node("framework_root")
   private val gameNode = getRootNode()//Node("game_root")
+=======
+  private val frameworkNode = getRootNode() // Node("framework_root")
+  private val gameNode = getRootNode() // Node("game_root")
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
 
   private fun createVrAppState(): VRAppState {
     val environment =
@@ -60,7 +71,11 @@ internal constructor(private val config: Config, private val manifestInstaller: 
       setSettings(settings)
       setShowSettings(false)
       setLostFocusBehavior(LostFocusBehavior.Disabled)
+<<<<<<< HEAD
       //inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
+=======
+      // inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
       setDisplayFps(config.engineConfig.debugEnabled)
       if (config.engineConfig.headlessEnabled) start(JmeContext.Type.Headless) else start()
       blockUntilStarted()
@@ -71,6 +86,7 @@ internal constructor(private val config: Config, private val manifestInstaller: 
       stateManager.attach(physics)
       cam.frustumFar = Float.MAX_VALUE
 
+<<<<<<< HEAD
 
 
 
@@ -80,6 +96,12 @@ internal constructor(private val config: Config, private val manifestInstaller: 
 
       //getRootNode().attachChild(frameworkNode)
       //getRootNode().attachChild(gameNode)
+=======
+      // These two lines seem to be causing issues.
+
+      // getRootNode().attachChild(frameworkNode)
+      // getRootNode().attachChild(gameNode)
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
     }
   }
 
@@ -90,7 +112,11 @@ internal constructor(private val config: Config, private val manifestInstaller: 
   }
 
   override fun simpleUpdate(tpf: Float) = runBlocking {
+<<<<<<< HEAD
     //println("tick $tpf")
+=======
+    // println("tick $tpf")
+>>>>>>> 780513c7d14aae85c67b233f1c2667ee1e78f25b
     totalRuntimeSec = totalRuntimeSec + tpf
   }
 

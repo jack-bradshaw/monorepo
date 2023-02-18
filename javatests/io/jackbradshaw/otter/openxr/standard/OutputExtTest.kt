@@ -2,8 +2,6 @@ package io.jackbradshaw.otter.openxr.standard
 
 import com.google.common.truth.Truth.assertThat
 import io.jackbradshaw.otter.openxr.model.Output
-import io.jackbradshaw.otter.openxr.model.OutputIdentifier
-import io.jackbradshaw.otter.openxr.model.User
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
