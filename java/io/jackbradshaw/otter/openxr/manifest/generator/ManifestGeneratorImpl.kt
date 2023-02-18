@@ -9,13 +9,13 @@ import io.jackbradshaw.otter.openxr.model.Input
 import io.jackbradshaw.otter.openxr.model.InteractionProfile
 import io.jackbradshaw.otter.openxr.standard.StandardInputComponent
 import io.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
-import javax.inject.Inject
 
 @OtterScope
 class ManifestGeneratorImpl

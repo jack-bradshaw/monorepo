@@ -3,13 +3,13 @@ package io.jackbradshaw.otter.openxr.manifest.installer
 import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.config.Config
 import io.jackbradshaw.otter.openxr.manifest.generator.ManifestGenerator
-import kotlinx.coroutines.runBlocking
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.nio.file.Paths
 import javax.inject.Inject
+import kotlinx.coroutines.runBlocking
 
 @OtterScope
 class ManifestInstallerImpl

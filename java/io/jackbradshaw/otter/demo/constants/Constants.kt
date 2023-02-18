@@ -8,5 +8,5 @@ object Constants {
   const val ITEM_CHANNELS = 10
 
   /** The number of items in the swarm. */
-  const val SWARM_SIZE = 5000
+  const val SWARM_SIZE = 50
 }

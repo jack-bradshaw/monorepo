@@ -5,6 +5,5 @@ import dagger.Module
 
 @Module
 interface MaterialsModule {
-  @Binds
-  fun bindMaterials(impl: MaterialsImpl): Materials
+  @Binds fun bindMaterials(impl: MaterialsImpl): Materials
 }

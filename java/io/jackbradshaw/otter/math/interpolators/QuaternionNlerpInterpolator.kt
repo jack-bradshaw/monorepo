@@ -10,7 +10,7 @@ import io.jackbradshaw.otter.math.model.times
 
 @AutoFactory
 class QuaternionNlerpInterpolator(private val start: Quaternion, private val end: Quaternion) :
-  QuaternionInterpolator {
+    QuaternionInterpolator {
 
   private val dotProduct = start.dotProduct(end)
 
@@ -24,7 +24,7 @@ class QuaternionNlerpInterpolator(private val start: Quaternion, private val end
 }
 
 suspend fun singletonQuaternionNlerp(
-  start: Quaternion,
-  end: Quaternion,
-  proportion: Float
+    start: Quaternion,
+    end: Quaternion,
+    proportion: Float
 ): Quaternion = QuaternionNlerpInterpolator(start, end).at(proportion)

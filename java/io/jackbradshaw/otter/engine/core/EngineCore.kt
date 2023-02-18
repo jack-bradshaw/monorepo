@@ -59,17 +59,8 @@ interface EngineCore {
   /** Extracts the physics system. */
   fun extractPhysics(): BulletAppState
 
-  /**
-   * Extracts a node near the scene root for use by the framework internally. Framework consumers
-   * should not modify or use this node and should instead use [extractGameNode] as their root node.
-   */
-  fun extractFrameworkNode(): Node
-
-  /**
-   * Extracts a node near the scene root for use by framework consumers. Framework consumers should
-   * treat this as the root node in their games/applications.
-   */
-  fun extractGameNode(): Node
+  /** Extracts a node near the scene root. */
+  fun extractRootNode(): Node
 
   /**
    * Extracts a coroutine scope which tracks the engine state. When the engine stops, the scope is

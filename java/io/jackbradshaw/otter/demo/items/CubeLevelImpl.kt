@@ -1,20 +1,16 @@
 package io.jackbradshaw.otter.demo.items
 
-import com.jme3.bullet.collision.PhysicsCollisionObject
 import com.jme3.math.Vector3f
 import com.jme3.scene.Geometry
-import com.jme3.scene.Node
 import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
 import io.jackbradshaw.otter.demo.materials.Materials
 import io.jackbradshaw.otter.engine.core.EngineCore
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.merge
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import io.jackbradshaw.otter.scene.item.SceneItemImpl
 import javax.inject.Inject
 import javax.inject.Provider
-import io.jackbradshaw.otter.scene.item.SceneItemImpl
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class CubeLevelImpl
 @Inject
@@ -37,9 +33,9 @@ internal constructor(
       swarm = cubeSwarmProvider.get().also { addDescendant(it) }
 
       floor =
-          Geometry("cube_box", Box(2f, 0.2f, 2f)).apply {
-            setMaterial(materials.getRandomly())
-          }.also { addElement(it) }
+          Geometry("cube_box", Box(2f, 0.2f, 2f))
+              .apply { setMaterial(materials.getRandomly()) }
+              .also { addElement(it) }
     }
   }
 

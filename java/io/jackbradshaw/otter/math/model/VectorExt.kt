@@ -70,7 +70,8 @@ fun Vector.projectionOnto(other: Vector): Vector =
 fun Vector.angleTo(other: Vector): Float =
     acos(this.dotProduct(other) / (this.length() * other.length()))
 
-// TODO check this, based on https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
+// TODO check this, based on
+// https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
 fun Vector.rotateBy(quaternion: Quaternion): Vector {
   val quaternionVector = quaternion.vectorPart()
   val quaternionScalar = quaternion.scalar

@@ -1,7 +1,7 @@
 package io.jackbradshaw.otter.demo.support
 
-import dagger.Provides
 import dagger.Module
+import dagger.Provides
 import io.jackbradshaw.otter.demo.DemoScope
 import kotlin.random.Random
 

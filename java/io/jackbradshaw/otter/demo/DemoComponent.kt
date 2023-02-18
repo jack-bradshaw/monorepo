@@ -1,11 +1,11 @@
 package io.jackbradshaw.otter.demo
 
 import dagger.Component
+import io.jackbradshaw.otter.OtterComponent
 import io.jackbradshaw.otter.demo.items.CubeLevel
 import io.jackbradshaw.otter.demo.items.ItemsModule
 import io.jackbradshaw.otter.demo.materials.MaterialsModule
 import io.jackbradshaw.otter.demo.support.SupportModule
-import io.jackbradshaw.otter.OtterComponent
 
 @DemoScope
 @Component(
@@ -22,5 +22,4 @@ interface DemoComponent {
   }
 }
 
-fun demo(otter: OtterComponent) =
-    DaggerDemoComponent.builder().setOtterComponent(otter).build()
+fun demo(otter: OtterComponent) = DaggerDemoComponent.builder().setOtterComponent(otter).build()
