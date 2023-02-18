@@ -11,6 +11,7 @@ object CoroutinesModule {
   @Provides
   @Rendering
   fun provideRenderingDispatcher(engineCore: EngineCore) = engineCore.renderingDispatcher()
+
   @Provides
   @Physics
   fun providePhysicsDispatcher(engineCore: EngineCore) = engineCore.physicsDispatcher()
