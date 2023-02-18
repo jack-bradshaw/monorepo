@@ -26,6 +26,7 @@ internal constructor(
   private val size = random.nextFloat()
   private lateinit var shape: Mesh
   private lateinit var geometry: Spatial
+
   // private lateinit var collider: RigidBodyControl
 
   init {

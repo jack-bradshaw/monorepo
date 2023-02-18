@@ -33,7 +33,7 @@ class PhysicsClock @Inject internal constructor(private val engineCore: EngineCo
       val ghostNode = Node("physics_clock_ghost").apply { addControl(ghostControl) }
 
       withContext(engineCore.renderingDispatcher()) {
-        engineCore.extractFrameworkNode().attachChild(ghostNode)
+        engineCore.extractRootNode().attachChild(ghostNode)
       }
 
       engineCore.extractPhysics().getPhysicsSpace().add(ghostControl)

@@ -28,7 +28,6 @@ interface SceneStageServices {
 
 /** Mutations that can be performed on a [SceneStage]. */
 interface SceneStageMutations {
-
   /** Adds [item] and to the stage. */
   suspend fun addItem(item: SceneItem)
 

@@ -39,9 +39,6 @@ internal constructor(private val config: Config, private val manifestInstaller: 
   private val coroutineScopeJob = Job()
   private val coroutineScope = CoroutineScope(coroutineScopeJob)
 
-  private val frameworkNode = getRootNode() // Node("framework_root")
-  private val gameNode = getRootNode() // Node("game_root")
-
   private fun createVrAppState(): VRAppState {
     val environment =
         VREnvironment(settings).apply {
@@ -59,7 +56,6 @@ internal constructor(private val config: Config, private val manifestInstaller: 
       setSettings(settings)
       setShowSettings(false)
       setLostFocusBehavior(LostFocusBehavior.Disabled)
-      // inputManager.deleteMapping(INPUT_MAPPING_MEMORY) // Defaults are not required.
       setDisplayFps(config.engineConfig.debugEnabled)
       if (config.engineConfig.headlessEnabled) start(JmeContext.Type.Headless) else start()
       blockUntilStarted()
@@ -69,11 +65,6 @@ internal constructor(private val config: Config, private val manifestInstaller: 
       }
       stateManager.attach(physics)
       cam.frustumFar = Float.MAX_VALUE
-
-      // These two lines seem to be causing issues.
-
-      // getRootNode().attachChild(frameworkNode)
-      // getRootNode().attachChild(gameNode)
     }
   }
 
@@ -83,10 +74,7 @@ internal constructor(private val config: Config, private val manifestInstaller: 
     started.value = true
   }
 
-  override fun simpleUpdate(tpf: Float) = runBlocking {
-    // println("tick $tpf")
-    totalRuntimeSec = totalRuntimeSec + tpf
-  }
+  override fun simpleUpdate(tpf: Float) = runBlocking { totalRuntimeSec = totalRuntimeSec + tpf }
 
   override fun destroy() {
     coroutineScopeJob.cancel()
@@ -106,8 +94,7 @@ internal constructor(private val config: Config, private val manifestInstaller: 
   override fun extractDefaultViewPort() = viewPort
   override fun extractXr() = xr
   override fun extractPhysics() = physics
-  override fun extractFrameworkNode() = frameworkNode
-  override fun extractGameNode() = gameNode
+  override fun extractRootNode() = rootNode
   override fun extractCoroutineScope() = coroutineScope
   override fun extractTimer() = timer
   override fun extractTotalEngineRuntime() = totalRuntimeSec

@@ -10,15 +10,11 @@ import kotlinx.coroutines.runBlocking
 class MainKt {
   fun main() {
     runBlocking {
-      try {
-        val platform = otter(CONFIG)
-        val game = demo(platform)
-        platform.engine()
-        platform.stage().addItem(game.world())
-        suspendForever()
-      } catch (t: Throwable) {
-        t.printStackTrace()
-      }
+      val platform = otter(CONFIG)
+      val game = demo(platform)
+      platform.engine()
+      platform.stage().addItem(game.world())
+      suspendForever()
     }
   }
 

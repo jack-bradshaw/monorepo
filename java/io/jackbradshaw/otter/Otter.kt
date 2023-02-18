@@ -56,7 +56,9 @@ interface OtterComponent {
 
   @Component.Builder
   interface Builder {
+
     @BindsInstance fun setConfig(config: Config): Builder
+
     fun build(): OtterComponent
   }
 }
