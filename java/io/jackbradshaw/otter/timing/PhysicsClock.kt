@@ -7,12 +7,12 @@ import com.jme3.scene.Node
 import io.jackbradshaw.otter.OtterScope
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.engine.core.EngineCore
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 @OtterScope
 class PhysicsClock @Inject internal constructor(private val engineCore: EngineCore) : Clock {
@@ -33,7 +33,7 @@ class PhysicsClock @Inject internal constructor(private val engineCore: EngineCo
       val ghostNode = Node("physics_clock_ghost").apply { addControl(ghostControl) }
 
       withContext(engineCore.renderingDispatcher()) {
-        engineCore.extractFrameworkNode().attachChild(ghostNode)
+        engineCore.extractRootNode().attachChild(ghostNode)
       }
 
       engineCore.extractPhysics().getPhysicsSpace().add(ghostControl)

@@ -4,13 +4,13 @@ import com.jme3.bullet.PhysicsSpace
 import com.jme3.bullet.collision.PhysicsCollisionEvent
 import com.jme3.bullet.collision.PhysicsCollisionListener
 import io.jackbradshaw.otter.engine.core.EngineCore
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.shareIn
-import java.util.concurrent.ConcurrentHashMap
 
 private val COLLISION_EVENTS = ConcurrentHashMap<PhysicsSpace, SharedFlow<Collision>>()
 
