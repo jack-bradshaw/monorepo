@@ -14,6 +14,8 @@ import com.jme3.scene.Spatial
 import io.jackbradshaw.otter.coroutines.renderingDispatcher
 import io.jackbradshaw.otter.engine.core.EngineCore
 import io.jackbradshaw.otter.math.model.*
+import io.jackbradshaw.otter.math.model.vector
+import io.jackbradshaw.otter.physics.model.moveBy
 import io.jackbradshaw.otter.physics.model.relativeTo
 import io.jackbradshaw.otter.physics.model.toJMonkeyTransform
 import io.jackbradshaw.otter.physics.model.toOtterPlacement
@@ -26,12 +28,20 @@ import java.lang.Integer.MAX_VALUE
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+
+// This was working until I changed some stuff. Go through with a fine tooth comb. It's something
+// to do with coroutine context and setting the values on the nodes. Ugh. So annoying. Seriously
+// getting close to just using lwjgl.
+
+
+
 
 /** A basic implementation of [SceneStage]. */
 class SceneStageImpl
@@ -71,7 +81,7 @@ internal constructor(
   private val elementsToItems = mutableMapOf<ScenePrimitive, SceneItem>()
 
   private val rootStaticPositioningNode =
-      Node().also {
+      Node("root_static_positioning_node").also {
         runBlocking {
           withContext(renderingDispatcher) { engine.extractGameNode().attachChild(it) }
         }
@@ -129,7 +139,7 @@ internal constructor(
           .first()
 
   private fun processItemsPendingIntegration() {
-    engine.extractCoroutineScope().launch(engine.extractApplication().renderingDispatcher()) {
+    engine.extractCoroutineScope().launch {
       itemsPendingIntegration
           .onStart { itemIntegrationProcessingStarted.tryEmit(true) }
           .onEach {
@@ -142,7 +152,7 @@ internal constructor(
               launch { it.descendant.queueRemovedDescendantsForDisintegration() }
               launch { it.descendant.queueAddedElementsForIntegration() }
               launch { it.descendant.queueRemovedElementsForDisintegration() }
-              launch { it.descendant.syncPlacement() }
+              launch { it.descendant.syncItemPlacement() }
             }
           }
           .collect()
@@ -173,7 +183,7 @@ internal constructor(
           .onEach {
             it.saveContainerRelationship()
             it.element.attachToEngine()
-            elementIntegrationJobs[it] = launch { launch { it.element.syncPlacement() } }
+            elementIntegrationJobs[it] = launch { launch { it.element.syncElementPlacement() } }
           }
           .collect()
     }
@@ -206,11 +216,10 @@ internal constructor(
       withContext(renderingDispatcher) {
         val ancestorNode = staticPositioningNodes[ancestor] ?: rootStaticPositioningNode
         val descendantNode =
-            Node()
+            Node("a")
                 .apply {
                   val firstPlace = descendant.placement().first().position.toJMonkeyVector()
                   println("first place $firstPlace")
-                  // setLocalTranslation(Vector3f(1f, 0f, 0f))
                   setLocalTranslation(firstPlace)
                 }
                 .also { staticPositioningNodes[descendant] = it }
@@ -335,129 +344,145 @@ internal constructor(
   }
 
   private suspend fun ScenePrimitive.newNode() =
-      Node().also {
+      Node("b").also {
         dynamicPositioningNodes[this] = it
         withContext(renderingDispatcher) { engine.extractGameNode().attachChild(it) }
       }
 
-  private suspend fun SceneItem.syncPlacement() =
-      withContext(renderingDispatcher) {
-        val itemNode = staticPositioningNodes[this@syncPlacement]!!
-        launch {
-          itemNode
-              .placement()
-              .onEach { println("need to move item to ${it.position.x}") }
-              .distinctUntilChanged()
-              // .onEach { placeAt(it) }
-              .collect()
-        }
-        launch {
-          placement()
-              .distinctUntilChanged()
-              .onEach { println("need to move node to ${it.position.x}") }
-              // .onEach { itemNode.localTransform = it.toJMonkeyTransform() }
-              .collect()
-        }
+  private suspend fun SceneItem.syncItemPlacement() {
+    engine.extractCoroutineScope().launch {
+      val itemNode = staticPositioningNodes[this@syncItemPlacement]!!
+      launch {
+        itemNode
+            .placement()
+            .onEach { println("node moved to ${it.position.x}") }
+            .distinctUntilChanged()
+            .onEach { withContext(renderingDispatcher) { placeAt(it) } }
+            .collect()
       }
+      launch {
+        placement()
+            .distinctUntilChanged()
+            .onEach { println("placement moved to ${it.position.x}") }
+            .onEach {
+              withContext(renderingDispatcher) {
+                itemNode.setLocalTranslation(it.position.toJMonkeyVector())
+              }
+              println("new position of $itemNode ${itemNode.localTransform}")
+            }
+            .collect()
+      }
+    }
+  }
 
   // TODO check this is the right vector to use for quaternion to direction
-  private suspend fun ScenePrimitive.syncPlacement() {
-    val item = elementsToItems[this]!!
-    val itemNode = staticPositioningNodes[item]!!
-    when (this) {
-      is PointLight ->
-          withContext(renderingDispatcher) {
-            itemNode
-                .absolutePlacement()
-                .distinctUntilChanged()
-                .onEach { position = it.position.toJMonkeyVector() }
-                .collect()
-          }
-      is DirectionalLight ->
-          withContext(renderingDispatcher) {
-            itemNode
-                .absolutePlacement()
-                .distinctUntilChanged()
-                .onEach { direction = unitXVector.rotateBy(it.rotation).toJMonkeyVector() }
-                .collect()
-          }
-      is SpotLight ->
-          withContext(renderingDispatcher) {
+  private suspend fun ScenePrimitive.syncElementPlacement() {
+    engine.extractCoroutineScope().launch {
+      val item = elementsToItems[this@syncElementPlacement]!!
+      val itemNode = staticPositioningNodes[item]!!
+      when (this) {
+        is PointLight ->
             itemNode
                 .absolutePlacement()
                 .distinctUntilChanged()
                 .onEach {
-                  position = it.position.toJMonkeyVector()
-                  direction = unitXVector.rotateBy(it.rotation).toJMonkeyVector()
+                  withContext(renderingDispatcher) { position = it.position.toJMonkeyVector() }
+                }
+                .collect()
+        is DirectionalLight ->
+            itemNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .onEach {
+                  withContext(renderingDispatcher) {
+                    direction = unitXVector.rotateBy(it.rotation).toJMonkeyVector()
+                  }
+                }
+                .collect()
+        is SpotLight ->
+            itemNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .onEach {
+                  withContext(renderingDispatcher) {
+                    position = it.position.toJMonkeyVector()
+                    direction = unitXVector.rotateBy(it.rotation).toJMonkeyVector()
+                  }
+                }
+                .collect()
+        is ParticleEmitter ->
+            itemNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .onEach {
+                  withContext(renderingDispatcher) { localTransform = it.toJMonkeyTransform() }
+                }
+                .collect()
+        is Spatial ->
+            withContext(renderingDispatcher) {
+              itemNode
+                  .absolutePlacement()
+                  .distinctUntilChanged()
+                  .onEach {
+                    setLocalTranslation(it.position.toJMonkeyVector())//toJMonkeyTransform() // (it.position.toJMonkeyVector()) }
+                  }
+                  .collect()
+            }
+        is RigidBodyControl -> {
+          val physicsNode = dynamicPositioningNodes[this@syncElementPlacement]!!
+          launch {
+            physicsNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .map {
+                  it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement())
+                      .toJMonkeyTransform()
+                }
+                .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
+                .collect()
+          }
+          launch {
+            itemNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .onEach {
+                  withContext(physicsDispatcher) {
+                    //  this@syncElementPlacement.physicsLocation = it.position.toJMonkeyVector()
+                    //   this@syncElementPlacement.physicsRotation =
+                    // it.rotation.toJMonkeyQuaternion()
+                  }
                 }
                 .collect()
           }
-      is ParticleEmitter ->
-          withContext(renderingDispatcher) {
+        }
+        is GhostControl -> {
+          val physicsNode = dynamicPositioningNodes[this@syncElementPlacement]!!
+          launch {
+            physicsNode
+                .absolutePlacement()
+                .distinctUntilChanged()
+                .map {
+                  it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement())
+                      .toJMonkeyTransform()
+                }
+                .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
+                .collect()
+          }
+          launch {
             itemNode
                 .absolutePlacement()
                 .distinctUntilChanged()
-                .onEach { localTransform = it.toJMonkeyTransform() }
+                .onEach {
+                  withContext(physicsDispatcher) {
+                    //    this@syncElementPlacement.physicsLocation = it.position.toJMonkeyVector()
+                    //   this@syncElementPlacement.physicsRotation =
+                    // it.rotation.toJMonkeyQuaternion()
+                  }
+                }
                 .collect()
           }
-      is Spatial ->
-          withContext(renderingDispatcher) {
-            itemNode
-                .absolutePlacement()
-                .distinctUntilChanged()
-                .onEach { localTransform = it.toJMonkeyTransform() }
-                .collect()
-          }
-      is RigidBodyControl ->
-          withContext(physicsDispatcher) {
-            val physicsNode = dynamicPositioningNodes[this@syncPlacement]!!
-            launch {
-              physicsNode
-                  .absolutePlacement()
-                  .distinctUntilChanged()
-                  .map {
-                    it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement())
-                        .toJMonkeyTransform()
-                  }
-                  .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
-                  .collect()
-            }
-            launch {
-              itemNode
-                  .absolutePlacement()
-                  .distinctUntilChanged()
-                  .onEach {
-                    this@syncPlacement.physicsLocation = it.position.toJMonkeyVector()
-                    this@syncPlacement.physicsRotation = it.rotation.toJMonkeyQuaternion()
-                  }
-                  .collect()
-            }
-          }
-      is GhostControl ->
-          withContext(physicsDispatcher) {
-            val physicsNode = dynamicPositioningNodes[this@syncPlacement]!!
-            launch {
-              physicsNode
-                  .absolutePlacement()
-                  .distinctUntilChanged()
-                  .map {
-                    it.relativeTo(itemNode.parent.worldTransform.toOtterPlacement())
-                        .toJMonkeyTransform()
-                  }
-                  .onEach { withContext(renderingDispatcher) { itemNode.localTransform = it } }
-                  .collect()
-            }
-            launch {
-              itemNode
-                  .absolutePlacement()
-                  .distinctUntilChanged()
-                  .onEach {
-                    this@syncPlacement.physicsLocation = it.position.toJMonkeyVector()
-                    this@syncPlacement.physicsRotation = it.rotation.toJMonkeyQuaternion()
-                  }
-                  .collect()
-            }
-          }
+        }
+      }
     }
   }
 
@@ -471,10 +496,7 @@ internal constructor(
   private suspend fun Node.absolutePlacement() =
       renderingClock
           .deltaSec()
-          .map {
-            // println("world translation ${getWorldTranslation()}")
-            worldTransform
-          }
+          .map { worldTransform }
           .distinctUntilChanged()
           .map { it.toOtterPlacement() }
 
@@ -484,6 +506,20 @@ internal constructor(
 
   private suspend fun ScenePrimitive.cancelIntegrationJob() {
     elementIntegrationJobs.remove(this)?.also { it.cancel() }
+  }
+
+  init {
+    runBlocking {
+      engine.extractCoroutineScope().launch(renderingDispatcher) {
+        delay(10 * 1000L)
+        while (true) {
+          delay(1000L)
+          for (item in rootItems) {
+            item.updatePlace { it.moveBy(vector(100f, 0f, 0f)) }
+          }
+        }
+      }
+    }
   }
 }
 

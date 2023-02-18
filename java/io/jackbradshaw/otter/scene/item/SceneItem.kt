@@ -24,6 +24,8 @@ interface SceneItemMutations {
 
   suspend fun placeAt(place: Placement)
 
+  suspend fun updatePlace(update: (Placement) -> Placement)
+
   suspend fun addDescendant(descendant: SceneItem, relativePlacement: Placement = placeZero)
 
   suspend fun addElement(element: ScenePrimitive)
