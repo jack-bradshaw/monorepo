@@ -17,7 +17,6 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = [
-        "HostClock.kt",
         "PhysicsClock.kt",
         "RenderingClock.kt",
     ],
