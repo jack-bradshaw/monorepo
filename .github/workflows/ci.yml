@@ -20,4 +20,4 @@ jobs:
 
       # Check all Kotlin files are already formatted properly
       - name: check_format
-        run: presubmit/all_kotlin_files_formatted
+        run: presubmit/all_kotlin_files_formatted.sh
