@@ -1,4 +1,5 @@
 #!/bin/bash
+# Presubmit to make sure all Kotlin files are in their auto-formatted state.
 
 ktfmt java
 ktfmt javatests
