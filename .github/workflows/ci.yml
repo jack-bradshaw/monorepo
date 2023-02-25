@@ -12,4 +12,4 @@ jobs:
 
       # Defer to presubmits.
       - name: run_presubmits
-        run: bash presubmit/runner.sh
+        run: bash presubmit/manifest.sh
