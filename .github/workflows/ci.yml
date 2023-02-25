@@ -10,11 +10,6 @@ jobs:
       # Checkout repository as working directory.
       - uses: actions/checkout@v2
 
-      - name: all_targets_build
-        run: bash presubmit/all_targets_build.sh
-
-      - name: all_tests_pass
-        run: presubmit/all_tests_pass.sh
-
-      - name: all_kotlin_files_formatted
-        run: presubmit/all_kotlin_files_formatted.sh
+      # Run all presubmits
+      - name: run_presubmits
+        run: bash presubmit/runner.sh
