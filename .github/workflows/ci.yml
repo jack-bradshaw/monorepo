@@ -12,8 +12,12 @@ jobs:
 
       # Build all targets.
       - name: build_all
-        run: bazel build //...
+        run: bash presubmit/all_targets_build.sh
 
       # Test all applicable targets.
       - name: test_all
-        run: bazel test //...
+        run: presubmit/all_tests_pass.sh
+
+      # Check all Kotlin files are already formatted properly
+      - name: check_format
+        run: presubmit/all_kotlin_files_formatted
