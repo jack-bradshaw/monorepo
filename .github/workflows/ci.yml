@@ -10,10 +10,6 @@ jobs:
       # Checkout repository as working directory.
       - uses: actions/checkout@v2
 
-      # Build all targets.
-      - name: build_all
-        run: bazel build //...
-
-      # Test all applicable targets.
-      - name: test_all
-        run: bazel test //...
+      # Defer to presubmits.
+      - name: run_presubmits
+        run: bash presubmit/manifest.sh
