@@ -10,6 +10,6 @@ jobs:
       # Checkout repository as working directory.
       - uses: actions/checkout@v2
 
-      # Run all presubmits
+      # Defer to presubmits.
       - name: run_presubmits
         run: bash presubmit/runner.sh
