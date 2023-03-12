@@ -8,8 +8,8 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     exports = [
-        "//java/io/jackbradshaw/klu/collections",
         "//java/io/jackbradshaw/klu/concurrency",
+        "//java/io/jackbradshaw/klu/flow",
     ],
 )
 
@@ -27,7 +27,7 @@ java_binary(
 java_export(
     name = "release",
     srcs = ["Stub.java"],
-    maven_coordinates = "io.jackbradshaw:klu:0.1.1",
+    maven_coordinates = "io.jackbradshaw:klu:0.0.2",
     pom_template = "pom_template.xml",
     deps = [
         ":klu",
