@@ -153,6 +153,7 @@ class OnceTest {
         .isEqualTo("A once block was called multiple times.")
   }
 
+  // TODO(issues/110): Extract into a separate module.
   private suspend fun catching(operation: suspend () -> Any): Throwable? = try {
     operation()
     null
