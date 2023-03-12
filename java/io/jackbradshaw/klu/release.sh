@@ -9,5 +9,5 @@ bazel run --stamp \
     --define "maven_user=jackbradshaw" \
     --define "maven_password=$password" \
     --define gpg_sign=true \
-    //java/io/jackbradshaw/klu:klu_release.publish
+    //java/io/jackbradshaw/klu:release.publish
 
