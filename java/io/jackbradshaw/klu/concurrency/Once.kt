@@ -2,12 +2,12 @@ package io.jackbradshaw.klu.concurrency
 
 import java.util.concurrent.atomic.AtomicBoolean
 
-/** An operation that runs exactly once. */
+/** An operation that runs at most once. */
 interface Once {
-  /** Runs the block of code if not already run. */
+  /** Runs the operation if not already run (or running). */
   suspend operator fun invoke()
 
-  /** Whether the block of code has run (or is currently running). */
+  /** Whether the operation has run (or is running). */
   suspend fun hasRun(): Boolean
 }
 
@@ -20,8 +20,10 @@ interface Once {
  *   foo()
  *   println("completed setup")
  * }
+ *
  * setup() // prints "completed setup"
  * setup() // doesn't print anything
+ * ```
  */
 fun once(operation: suspend () -> Unit) =
     object : Once {
@@ -36,6 +38,17 @@ fun once(operation: suspend () -> Unit) =
 
 /**
  * Defines a [Once] that throws the error returned by [errorGenerator] when invoked more than once.
+ *
+ * Example:
+ * ```
+ * val setup = once {
+ *   foo()
+ *   println("completed setup")
+ * }.throwing { IllegalStateException("can't setup twice") }
+ *
+ * setup() // prints "completed setup"
+ * setup() // throws exception
+ * ```
  */
 fun Once.throwing(errorGenerator: suspend () -> Throwable) =
     object : Once {
@@ -48,14 +61,51 @@ fun Once.throwing(errorGenerator: suspend () -> Throwable) =
       override suspend fun hasRun() = hasRun.get()
     }
 
-/** Defines a [Once] that throws [error] when invoked more than once. */
+/**
+ * Defines a [Once] that throws [error] when invoked more than once.
+ *
+ * Example:
+ * ```
+ * val setup = once {
+ *   foo()
+ *   println("completed setup")
+ * }.throwing(IllegalStateException("can't setup twice"))
+ *
+ * setup() // prints "completed setup"
+ * setup() // throws exception
+ * ```
+ */
 fun Once.throwing(error: Throwable) = throwing { error }
 
 /**
  * Defines a [Once] that throws an IllegalStateException containing [message] when invoked more than
  * once.
+ *
+ * Example:
+ * ```
+ * val setup = once {
+ *   foo()
+ *   println("completed setup")
+ * }.throwing("can't setup twice")
+ *
+ * setup() // prints "completed setup"
+ * setup() // throws exception
+ * ```
  */
 fun Once.throwing(message: String) = throwing(IllegalStateException(message))
 
-/** Defines a [Once] that throws an IllegalStateException when invoked more than once. */
+/**
+ * Defines a [Once] that throws an IllegalStateException when invoked more than once.
+ *
+ * Example:
+ * ```
+ * val setup = once {
+ *   foo()
+ *   println("completed setup")
+ * }.throwing { IllegalStateException("can't setup twice") }
+ *
+ * setup() // prints "completed setup"
+ * setup() // throws exception
+ * ```
+ */
 fun Once.throwing() = throwing("A once block was called multiple times.")
