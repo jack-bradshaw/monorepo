@@ -37,7 +37,7 @@ fun once(operation: suspend () -> Unit) =
     }
 
 /**
- * Defines a [Once] that throws the error returned by [errorGenerator] when invoked more than once.
+ * Defines a [Once] that throws the error supplied by [errorGenerator] when invoked more than once.
  *
  * Example:
  * ```
