@@ -4,11 +4,6 @@ kt_jvm_library(
     name = "flow",
     srcs = [
         "Annotations.kt",
-        "BinaryDeltaFlow.kt",
-        "Flower.kt",
-        "MutableFlower.kt",
-        "NiceFlower.kt",
-        "Operators.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw:__subpackages__",
