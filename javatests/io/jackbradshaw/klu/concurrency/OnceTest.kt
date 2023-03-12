@@ -25,7 +25,7 @@ class OnceTest {
     // No setup.
 
     @Suppress("UNUSED_VARIABLE") // Needs to be assigned or the test won't compile.
-    val unused = once { /* no op */}.throwing()
+    val unused = once { /* no op */ }.throwing()
 
     // No assertion. Successful if here.
   }
@@ -68,7 +68,7 @@ class OnceTest {
 
   @Test
   fun invokeThrowingOnce_generatorVariant_oneTime_doesNotThrow() = runBlocking {
-    val once = once { /* no-op */}.throwing { RuntimeException() }
+    val once = once { /* no-op */ }.throwing { RuntimeException() }
 
     once.invoke()
 
@@ -77,7 +77,7 @@ class OnceTest {
 
   @Test
   fun invokeThrowingOnce_errorVariant_oneTime_doesNotThrow() = runBlocking {
-    val once = once { /* no-op */}.throwing(RuntimeException())
+    val once = once { /* no-op */ }.throwing(RuntimeException())
 
     once.invoke()
 
@@ -96,7 +96,7 @@ class OnceTest {
 
   @Test
   fun invokeThrowingOnce_noArgVariant_oneTime_doesNotThrow() = runBlocking {
-    val once = once { /* no-op */}.throwing()
+    val once = once { /* no-op */ }.throwing()
 
     once.invoke()
 
@@ -106,16 +106,10 @@ class OnceTest {
   @Test
   fun invokeThrowingOnce_generatorVariant_twoTimes_throwsOnSecondInvocation() = runBlocking {
     val customException = object : RuntimeException() {}
-    val once = once { /* no-op */}.throwing { customException }
+    val once = once { /* no-op */ }.throwing { customException }
 
     once.invoke()
-    val error: Throwable? =
-        try {
-          once.invoke()
-          null
-        } catch (all: Throwable) {
-          all
-        }
+    val error= catching { once.invoke() }
 
     assertThat(error).isNotNull()
     assertThat(error === customException).isTrue()
@@ -124,16 +118,10 @@ class OnceTest {
   @Test
   fun invokeThrowingOnce_errorVariant_twoTimes_throwsOnSecondInvocation() = runBlocking {
     val customException = object : RuntimeException() {}
-    val once = once { /* no-op */}.throwing(customException)
+    val once = once { /* no-op */ }.throwing(customException)
 
     once.invoke()
-    val error: Throwable? =
-        try {
-          once.invoke()
-          null
-        } catch (all: Throwable) {
-          all
-        }
+    val error= catching { once.invoke() }
 
     assertThat(error).isNotNull()
     assertThat(error === customException).isTrue()
@@ -142,16 +130,10 @@ class OnceTest {
   @Test
   fun invokeThrowingOnce_messageVariant_twoTimes_throwsOnSecondInvocation() = runBlocking {
     val text = "multiple invocations"
-    val once = once { /* no-op */}.throwing(text)
+    val once = once { /* no-op */ }.throwing(text)
 
     once.invoke()
-    val error: Throwable? =
-        try {
-          once.invoke()
-          null
-        } catch (all: Throwable) {
-          all
-        }
+    val error= catching { once.invoke() }
 
     assertThat(error).isNotNull()
     assertThat(error is IllegalStateException)
@@ -160,20 +142,21 @@ class OnceTest {
 
   @Test
   fun invokeThrowingOnce_noArgVariant_twoTimes_throwsOnSecondInvocation() = runBlocking {
-    val once = once { /* no-op */}.throwing()
+    val once = once { /* no-op */ }.throwing()
 
     once.invoke()
-    val error: Throwable? =
-        try {
-          once.invoke()
-          null
-        } catch (all: Throwable) {
-          all
-        }
+    val error = catching { once.invoke() }
 
     assertThat(error).isNotNull()
     assertThat(error is IllegalStateException)
     assertThat((error as IllegalStateException).message)
         .isEqualTo("A once block was called multiple times.")
+  }
+
+  private suspend fun catching(operation: suspend () -> Any): Throwable? = try {
+    operation()
+    null
+  } catch (all: Throwable) {
+    all
   }
 }
