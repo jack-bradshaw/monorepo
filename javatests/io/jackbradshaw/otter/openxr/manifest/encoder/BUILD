@@ -11,10 +11,10 @@ kt_jvm_test(
     deps = [
         ":dagger",
         "//java/io/jackbradshaw/otter:component",
+        "//java/io/jackbradshaw/otter/config:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/config:proto_extensions",
         "//java/io/jackbradshaw/otter/openxr/manifest/encoder",
         "//java/io/jackbradshaw/otter/openxr/standard",
-        "//java/io/jackbradshaw/otter/config:proto_extensions",
         "@maven//:com_google_protobuf_protobuf_kotlin_lite",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",

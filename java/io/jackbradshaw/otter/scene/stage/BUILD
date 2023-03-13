@@ -42,8 +42,8 @@ kt_jvm_library(
         "//java/io/jackbradshaw/otter/coroutines",
         "//java/io/jackbradshaw/otter/engine/core",
         "//java/io/jackbradshaw/otter/qualifiers",
-        "//java/io/jackbradshaw/otter/timing",
         "//java/io/jackbradshaw/otter/scene/item",
+        "//java/io/jackbradshaw/otter/timing",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
