@@ -61,7 +61,7 @@ KMonkey provides two utilities for using coroutines with JMonkey:
 - A rendering dispatcher that runs coroutines on the main thread.
 - A physics dispatcher that runs coroutines on the physics thread.
 
-For example, the following code will add an item to the scene graph and move by a small amount each second:
+For example, the following code will add an item to the scene graph and move it each second:
 
 ```
 import io.jackbradshaw.kmonkey.coroutines.renderingDispatcher
@@ -86,7 +86,7 @@ class MyApplication : SimpleApplication {
 }
 ```
 
-Similarly, the following code will add an item to the physics space and apply a small force to each second:
+Similarly, the following code will add an item to the physics space and apply a force each second:
 
 ```
 import io.jackbradshaw.kmonkey.coroutines.physicsDispatcher
