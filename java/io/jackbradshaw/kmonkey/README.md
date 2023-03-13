@@ -58,11 +58,8 @@ kt_jvm_library(
 
 KMonkey provides two utilities for using coroutines with JMonkey:
 
-- A rendering dispatcher that runs coroutines in the context of the main thread.
-- A physics dispatcher that runs coroutines in the context of the physics thread.
-
-These dispatchers make it easy to manipulate visual and physical properties from coroutines without running into
-wrong-thread errors.
+- A rendering dispatcher that runs coroutines on the main thread.
+- A physics dispatcher that runs coroutines on the physics thread.
 
 For example, the following code will add an item to the scene graph and move by a small amount for 100 seconds:
 
@@ -112,8 +109,7 @@ class MyApplication : SimpleApplication {
 }
 ```
 
-In case it's not obvious, you don't actually need to be in the SimpleApplication to use these dispatchers. So long as
-you have a reference to the application and the physics space you can get them. For example:
+You don't actually need to be in the SimpleApplication to use the dispatchers. For example:
 
 ```
 class SomeRandomClass(
@@ -128,4 +124,4 @@ class SomeRandomClass(
 
 ```
 
-Voilà! You can now use coroutines with JMonkey.
+Voilà! You can now use coroutines with JMonkey without the risk of wrong-thread exceptions.
