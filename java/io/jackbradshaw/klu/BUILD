@@ -27,7 +27,7 @@ java_binary(
 java_export(
     name = "release",
     srcs = ["Stub.java"],
-    maven_coordinates = "io.jackbradshaw:klu:0.0.2",
+    maven_coordinates = "io.jackbradshaw:klu:1.0.0",
     pom_template = "pom_template.xml",
     deps = [
         ":klu",
