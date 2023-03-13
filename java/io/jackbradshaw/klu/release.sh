@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to publish the KLU library to Maven Central.
+# Script to publish KLU to Maven Central.
 
 echo "Enter password for Sonatype."
 read -s password
