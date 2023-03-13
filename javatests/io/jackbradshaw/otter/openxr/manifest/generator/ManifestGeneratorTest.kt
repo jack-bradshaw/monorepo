@@ -3,7 +3,7 @@ package io.jackbradshaw.otter.openxr.manifest.generator
 import com.google.common.truth.Truth.assertThat
 import com.google.devtools.build.runfiles.Runfiles
 import dagger.Component
-import io.jackbradshaw.klu.flow.toMap
+import io.jackbradshaw.klu.flow.collectToMap
 import io.jackbradshaw.otter.OtterComponent
 import io.jackbradshaw.otter.openxr.manifest.goldens.goldenPrimaryManifest
 import io.jackbradshaw.otter.openxr.manifest.goldens.goldenSecondaryManifests
@@ -51,7 +51,7 @@ class ManifestGeneratorTest {
     val manifests = generator.generateManifests()
 
     val manifestsByProfile: Map<InteractionProfile, SecondaryManifest> =
-        manifests.secondaryManifests.asFlow().map { it.profile to it }.toMap()
+        manifests.secondaryManifests.asFlow().map { it.profile to it }.collectToMap()
 
     for (profile in StandardInteractionProfile.values()) {
       assertThat(manifestsByProfile[profile.profile]!!.content)
