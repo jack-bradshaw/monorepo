@@ -1,56 +1,50 @@
 # Kotlin Lightweight Upgrade (KLU)
 
-General helpers and utilities for Kotlin. Divided into:
+General helpers and utilities for Kotlin.
 
-- [Collections](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/collections)
-- [Concurrency](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency)
-- [Flows](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/flow)
+## Getting Access
 
-Follow the links for detailed documentation.
+There are three ways to include this library in your project:
 
-## Dependency
+1. Use the pre-built package.
+2. Build the package from source.
+3. Reference the source directly.
 
-There are multiple ways to include this library in your project:
+### Pre-built Package
 
-- Download the pre-built binaries.
-- Build the binaries from source.
-- Reference the source directly using Bazel.
-
-### Pre-built Binaries
-
-To use the pre-build binaries, include `io.jackbradshaw:klu:0.0.1` in your Maven dependencies. Visit
-[Maven Central](https://search.maven.org/artifact/io.jackbradshaw/klu) for build-tool specific instructions and links to
-previous versions.
+Add `io.jackbradshaw:klu:0.0.0` to your project to download the latest pre-built package. Older versions are
+available in the [Maven Repository](https://search.maven.org/artifact/io.jackbradshaw/klu).
 
 ### Building From Source
 
-To build the binary from source:
+To build the package from source:
 
 1. [Install Bazel](https://docs.bazel.build/versions/main/install.html).
 2. Clone the repository: `git clone https://github.com/jack-bradshaw/monorepo`
-3. Invoke the build: `bazel build //java/io/jackbradshaw/klu:binary.deploy`
+3. Start the build: `bazel build //java/io/jackbradshaw/klu:binary.deploy`
 
-This will produce a jar in the `monorepo/bazel-out` directory. The exact steps for including this jar in your project
-will vary depending on your setup.
+This will produce a jar in the `monorepo/bazel-out/java/io/jackbradshaw/klu` directory. Copy this Jar into your
+project as needed.
 
-### Referencing with Bazel
+### Referencing Directly
 
-To reference the library directly in another Bazel workspace:
+To reference the package directly in another Bazel workspace:
 
-1. Install this repository. In your WORKSPACE file add:
+1. Install this repository in your WORKSPACE.
+2. Reference the package in your target deps.
+
+For example:
 
 ```
+# In your WORKSPACE file
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "io_jackbradshaw",
     branch = "main",
     remote = "https://github.com/jack-bradshaw/monorepo",
 )
-```
 
-2. Reference the library. In your BUILD file:
-
-```
+# In your BUILD file
 kt_jvm_library(
     name = "hello_world",
     srcs = "HelloWorld.kt",
@@ -59,3 +53,12 @@ kt_jvm_library(
     ]
 )
 ```
+
+## Contents
+
+KLU contains various packages:
+
+- [Concurrency](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/concurrency)
+- [Flows](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/flow)
+
+Follow the links for more details and tutorials.
