@@ -13,7 +13,6 @@ kt_jvm_library(
         "//javatests:__subpackages__",
     ],
     deps = [
-        "//java/io/jackbradshaw/klu/collections",
         "//java/io/jackbradshaw/otter/engine/core",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@maven//:org_jmonkeyengine_jme3_core",

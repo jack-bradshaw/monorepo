@@ -4,6 +4,7 @@ kt_jvm_library(
     name = "flow",
     srcs = [
         "Annotations.kt",
+        "Operators.kt",
     ],
     visibility = [
         "//java/io/jackbradshaw:__subpackages__",
