@@ -9,7 +9,7 @@ kt_jvm_library(
         "Dispatchers.kt",
     ],
     visibility = [
-        "//java/io/jackbradshaw/otter:__subpackages__",
+        "//java/io/jackbradshaw:__subpackages__",
         "//javatests:__subpackages__",
     ],
     deps = [
