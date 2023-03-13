@@ -61,7 +61,7 @@ KMonkey provides two utilities for using coroutines with JMonkey:
 - A rendering dispatcher that runs coroutines on the main thread.
 - A physics dispatcher that runs coroutines on the physics thread.
 
-For example, the following code will add an item to the scene graph and move by a small amount for 100 seconds:
+For example, the following code will add an item to the scene graph and move by a small amount each second:
 
 ```
 import io.jackbradshaw.kmonkey.coroutines.renderingDispatcher
@@ -75,16 +75,18 @@ class MyApplication : SimpleApplication {
   init {
     renderingDispatcher().launch {
       rootNode.attachChild(worldItem)
-      for (i in 0..100) {
+      var index = 0
+      while(true) {
+        index += 1
         delay(1000L) // 1 second
-        worldItem.setLocalTranslation(Vecor3f(i * 10, 0, 0))
+        worldItem.setLocalTranslation(Vecor3f(index, 0, 0))
       }
     }
   }
 }
 ```
 
-Similarly, the following code will add an item to the physics space and apply a small force to it for 100 seconds:
+Similarly, the following code will add an item to the physics space and apply a small force to each second:
 
 ```
 import io.jackbradshaw.kmonkey.coroutines.physicsDispatcher
@@ -100,9 +102,9 @@ class MyApplication : SimpleApplication {
     val physicsSpace = bullet.getPhysicsSpace()
     physicsSpace.physicsDispatcher().launch { 
       physicsSpace.add(physicsItem)
-      for (i in 0..100) {
+      while(true) {
         delay(1000L) // 1 second
-        physicsItem.applyCentralForce(Vector3f(10, 0, 0))
+        physicsItem.applyCentralForce(Vector3f(1, 0, 0))
       }
     }
   }
