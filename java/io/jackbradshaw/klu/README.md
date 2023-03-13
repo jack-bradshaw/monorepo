@@ -12,8 +12,8 @@ There are three ways to include this library in your project:
 
 ### Pre-built Package
 
-Add `io.jackbradshaw:klu:0.0.0` to your project to download the latest pre-built package. Older versions are
-available in the [Maven Repository](https://search.maven.org/artifact/io.jackbradshaw/klu).
+To use the pre-built packages, just add `io.jackbradshaw:klu:0.0.0` to your project's Maven dependencies. Older versions
+are available in the [Maven Repository](https://search.maven.org/artifact/io.jackbradshaw/klu).
 
 ### Building From Source
 

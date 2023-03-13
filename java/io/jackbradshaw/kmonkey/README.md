@@ -12,8 +12,8 @@ There are three ways to include this library in your project:
 
 ### Pre-built Package
 
-Add `io.jackbradshaw:kmonkey:0.0.0` to your project to download the latest pre-built package. Older versions are
-available in the [Maven Repository](https://search.maven.org/artifact/io.jackbradshaw/kmonkey).
+To use the pre-built package, just add `io.jackbradshaw:kmonkey:0.0.0` to your project's Maven dependencies. Older
+versions are available in the [Maven Repository](https://search.maven.org/artifact/io.jackbradshaw/kmonkey).
 
 ### Building From Source
 
