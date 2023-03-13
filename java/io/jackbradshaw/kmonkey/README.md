@@ -77,7 +77,7 @@ class MyApplication : SimpleApplication {
       rootNode.attachChild(worldItem)
       for (i in 0..100) {
         delay(1000L) // 1 second
-        worldItem.setLocalTranslation(i * 10, 0, 0)
+        worldItem.setLocalTranslation(Vecor3f(i * 10, 0, 0))
       }
     }
   }
