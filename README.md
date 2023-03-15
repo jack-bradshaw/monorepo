@@ -1,47 +1,46 @@
 # Monorepo
 
-One Repo to rule them all, One Repo to find them, One Repo to bring them all and in the darkness bind them.
+*One Repo to rule them all, One Repo to find them, One Repo to bring them all and in the darkness bind them.*
 
-This repository contains all public code created by [Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards.
-The code is available for public and private use under the terms of the [MIT License](LICENSE). Please direct all
-questions and concerns to [jack@jackbradshaw.io](mailto:jack@jackbradshaw.io) or file a bug in
-the [issue tracker](https://github.com/jack-bradshaw/monorepo/issues).
+This repository contains all public code written by [Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards.
 
 ## Contents
 
-This repository is structured as a single monolithic codebase containing multiple libraries, applications, and
-packages. The important locations are:
+This repository is structured as a single monolithic codebase containing multiple packages, libraries and applications.
 
-- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu): General helpers and utilities for Kotlin.
-- [KMonkey](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/kmonkey): Kotlin tools for the JMonkey engine.
+The notable locations are:
 
-Follow the links for detailed documentation including release information and tutorials.
+- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu): General helpers and utilities for
+  Kotlin.
+- [KMonkey](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/kmonkey): Kotlin tools for the
+  JMonkey engine.
+
+Follow the links above for package-specific documentation.
 
 ## Building
 
-This repository uses the Bazel build system for all code. The only exceptions
-are release scripts and shell scripting.
+This repository uses the [Bazel build system](https://bazel.build) for all production code. Only release scripting and
+shell scripting is exempt.
 
 To build everything run:
 
 ```
-blaze build //...
+bazel build //...
 ```
 
 To test everything run:
 
 ```
-blaze test //...
+bazel test //...
 ```
 
-The Bazel docs contain detailed instructions for using the tool.
+The [Bazel docs](https://bazel.build/docs) contain further instructions.
 
 ## Presubmit
 
-Any code submitted to the main branch must pass the presubmit tests first.
-These tests check the correctness of the code and automate many parts of code
-review. They are currently integrated with GitHub CI and will run automatically
-on all PRs that target the main branch.
+Presubmit is a series of automated tests which check the code for correctness and formatting. All code submitted to the
+main branch must pass presubmit before being merged. The GitHub CI system will automatically run presubmits whenever
+a main branch PR is made.
 
 To manually invoke presubmit run:
 
@@ -49,5 +48,9 @@ To manually invoke presubmit run:
 bash presubmit/mainfest.sh
 ```
 
-Any unstaged files should be staged first since presubmit may modify the files
-in the working directory.
+Any unstaged files should be staged first since presubmit may modify the working directory.
+
+## LICENSE
+
+The contents of this repository and all derivative artifacts are owned by Jack Bradshaw and provided under the terms of
+the [MIT License](LICENSE), with the only exceptions being listed in the [third party manifest](THIRD_PARTY).

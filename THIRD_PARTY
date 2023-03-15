@@ -1,0 +1,4 @@
+This file is a manifest of all files in the repository that were sourced from a third party. It is written as a list of
+CSV pairs where the key is the repository path and the value is the source of the third party file.
+
+/tools/ktfmt-0.43-jar-with-dependencies.jar,https://github.com/facebook/ktfmt
