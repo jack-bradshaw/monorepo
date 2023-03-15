@@ -13,5 +13,5 @@ reload_shell() {
 # Clears the local shell setup and installs it again.
 reinstall_shell() {
   bash <(curl -s $REMOTE_SETUP_SCRIPT)
-  reinit
+  reload_shell
 }
