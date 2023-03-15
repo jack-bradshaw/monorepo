@@ -1,5 +1,7 @@
 # Monorepo
 
+One Repo to rule them all, One Repo to find them, One Repo to bring them all and in the darkness bind them.
+
 This repository contains all public code created by [Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards.
 The code is available for public and private use under the terms of the [MIT License](LICENSE). Please direct all
 questions and concerns to [jack@jackbradshaw.io](mailto:jack@jackbradshaw.io) or file a bug in
@@ -17,7 +19,8 @@ Follow the links for detailed documentation including release information and tu
 
 ## Building
 
-This repository uses the Bazel build system for all code with a few exceptions.
+This repository uses the Bazel build system for all code. The only exceptions
+are release scripts and shell scripting.
 
 To build everything run:
 
@@ -31,13 +34,20 @@ To test everything run:
 blaze test //...
 ```
 
+The Bazel docs contain detailed instructions for using the tool.
+
 ## Presubmit
 
-Any code submitted to the main branch must pass the presubmits. These checks
-assess accuracy and correctness, and are integrated into the GitHub CI system.
+Any code submitted to the main branch must pass the presubmit tests first.
+These tests check the correctness of the code and automate many parts of code
+review. They are currently integrated with GitHub CI and will run automatically
+on all PRs that target the main branch.
 
 To manually invoke presubmit run:
 
 ```
 bash presubmit/mainfest.sh
 ```
+
+Any unstaged files should be staged first since presubmit may modify the files
+in the working directory.
