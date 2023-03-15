@@ -14,3 +14,30 @@ packages. The important locations are:
 - [KMonkey](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/kmonkey): Kotlin tools for the JMonkey engine.
 
 Follow the links for detailed documentation including release information and tutorials.
+
+## Building
+
+This repository uses the Bazel build system for all code with a few exceptions.
+
+To build everything run:
+
+```
+blaze build //...
+```
+
+To test everything run:
+
+```
+blaze test //...
+```
+
+## Presubmit
+
+Any code submitted to the main branch must pass the presubmits. These checks
+assess accuracy and correctness, and are integrated into the GitHub CI system.
+
+To manually invoke presubmit run:
+
+```
+bash presubmit/mainfest.sh
+```
