@@ -139,7 +139,7 @@ bazel build :kmonkey
 To build the library with dependencies included:
 
 ```
-bazel build kmonkey:binary
+bazel build :binary
 ```
 
 To release the library with dependencies included to [sonatype](https://s01.oss.sonatype.org/#welcome):
