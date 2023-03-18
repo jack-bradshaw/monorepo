@@ -62,3 +62,23 @@ KLU contains various packages:
 - [Flows](https://github.com/jack-bradshaw/monorepo/blob/main/java/io/jackbradshaw/klu/flow)
 
 Follow the links for more details and tutorials.
+
+## Building
+
+The library without its dependencies can be built with:
+
+```
+bazel build :klu
+```
+
+To include the dependencies:
+
+```
+bazel build klu:binary
+```
+
+To release the library with its dependencies:
+
+```
+bash release.sh
+```
