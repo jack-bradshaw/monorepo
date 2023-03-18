@@ -4,40 +4,43 @@
 
 ## Contents
 
-This repository contains all public code written by [Jack Bradshaw](https://jackbradshaw.io) after 2021. It's structured
+This repository contains all public code written by [Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards. It's structured
 as a single monolithic codebase containing multiple packages, libraries, and applications.
 
-The notable locations are:
+The important locations are:
 
 - [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu): General helpers and utilities for
   Kotlin.
 - [KMonkey](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/kmonkey): Kotlin tools for the
   JMonkey engine.
 
-Follow the links above for package-specific documentation including release information and tutorials.
+Documentation is distributed throughout the repository to keep all documentation close to the relevant source.
 
 ## Building
 
 This repository uses [Bazel](https://bazel.build) as the primary build system for all production code.
 
-To build everything run:
+To build everything:
 
 ```
 bazel build //...
 ```
 
-To test everything run:
+To test everything:
 
 ```
 bazel test //...
 ```
 
+Granular build instructions are documentated throughout the repository.
+
 ## Presubmit
 
-Presubmit is a set of automated tests that run across the codebase. All code must pass presubmit before being submitted
-to the main branch. The GitHub CI system will automatically run presubmit whenever PR is opened on the main branch
+Presubmit is a set of automated tests that apply across the codebase. The GitHub CI system will
+automatically run presubmit whenever a PR is opened on the main branch and presubmit must pass
+before the code can be submitted.
 
-To manually start presubmit run:
+To manually run presubmit:
 
 ```
 bash presubmit/mainfest.sh
