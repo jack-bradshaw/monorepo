@@ -48,7 +48,7 @@ To manually run presubmit:
 bash presubmit/mainfest.sh
 ```
 
-Presubmit may modify the working directory so stage any changes before execution.
+Presubmit may modify the working directory so stage all changes before running presubmit to avoid lost work.
 
 ## LICENSE
 
