@@ -127,3 +127,23 @@ class SomeRandomClass(
 ```
 
 Voilà! You can now use coroutines with JMonkey without the risk of wrong-thread exceptions.
+
+## Building
+
+The library without its dependencies can be built with:
+
+```
+bazel build :kmonkey
+```
+
+To include the dependencies:
+
+```
+bazel build kmonkey:binary
+```
+
+To release the library with its dependencies:
+
+```
+bash release.sh
+```
