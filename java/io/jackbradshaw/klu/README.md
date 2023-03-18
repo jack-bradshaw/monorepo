@@ -31,7 +31,7 @@ project as needed.
 To reference the package directly in another Bazel workspace:
 
 1. Install this repository in your WORKSPACE.
-2. Reference the package in your target deps.
+2. Reference the library target in your deps.
 
 For example:
 
@@ -65,20 +65,21 @@ Follow the links for more details and tutorials.
 
 ## Building
 
-The library without its dependencies can be built with:
+To build the library with dependencies excluded:
 
 ```
 bazel build :klu
 ```
 
-To include the dependencies:
+To build the library with dependencies included:
 
 ```
 bazel build klu:binary
 ```
 
-To release the library with its dependencies:
+To release the library with dependencies included to [sonatype](https://s01.oss.sonatype.org/#welcome):
 
 ```
 bash release.sh
 ```
+
