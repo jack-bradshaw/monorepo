@@ -1,6 +1,6 @@
 workspace(name = "io_jackbradshaw")
 
-load("//:repositories-bazel.bzl", "io_jackbradshaw_bazel_repositories")
+load("//:bazel/repositories-bazel.bzl", "io_jackbradshaw_bazel_repositories")
 
 io_jackbradshaw_bazel_repositories()
 
@@ -12,7 +12,7 @@ load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
 
 rules_jvm_external_setup()
 
-load("//:repositories-maven.bzl", "io_jackbradshaw_maven_repositories")
+load("//:bazel/repositories-maven.bzl", "io_jackbradshaw_maven_repositories")
 
 io_jackbradshaw_maven_repositories()
 
