@@ -4,6 +4,11 @@ load("//:bazel/repositories-bazel.bzl", "io_jackbradshaw_bazel_repositories")
 
 io_jackbradshaw_bazel_repositories()
 
+load("@rules_java//java:repositories.bzl", "rules_java_dependencies", "rules_java_toolchains")
+
+rules_java_dependencies()
+rules_java_toolchains()
+
 load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
 
 rules_jvm_external_deps()
