@@ -1,3 +1,22 @@
+# AutoFactory Bazel integration.
+#
+# Usage example:
+#
+# ```
+# load("//:bazel/auto_factory.bzl", "auto_factory")
+# auto_factory()
+#
+# java_library(
+#   name = "some_lib",
+#   srcs = ["SomeClass.java"],
+#   deps = [
+#     ":auto_factory",
+#   ]
+# )
+# ```
+# 
+# See https://github.com/google/auto/tree/main/factory for context.
+
 def auto_factory():
     native.java_plugin(
         name = "auto_factory_processor",
