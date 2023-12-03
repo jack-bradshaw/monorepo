@@ -14,7 +14,7 @@
 #   ]
 # )
 # ```
-# 
+#
 # See https://github.com/google/auto/tree/main/factory for context.
 
 def auto_factory():
