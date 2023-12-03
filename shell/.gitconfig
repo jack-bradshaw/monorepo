@@ -1,7 +1,0 @@
-[user]
-	name = Jack Bradshaw
-	email = jack@jackbradshaw.io
-[pull]
-	rebase = false
-[push]
-    autoSetupRemote = true
