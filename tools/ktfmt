@@ -2,4 +2,4 @@
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
-java -jar $REPO_ROOT/tools/ktfmt-0.43-jar-with-dependencies.jar $1
+java -jar $REPO_ROOT/tools/ktfmt-0.46-jar-with-dependencies.jar $1
