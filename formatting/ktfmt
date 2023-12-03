@@ -1,3 +1,0 @@
-#!/bin/bash
-
-java -jar $HOME/HEAD/tools/ktfmt-0.43-jar-with-dependencies.jar $1
