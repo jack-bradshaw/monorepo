@@ -1,0 +1,7 @@
+bazel-*
+*.swp
+.DS_Store
+.vs/
+.iml
+.idea/*
+.ijwb/*
