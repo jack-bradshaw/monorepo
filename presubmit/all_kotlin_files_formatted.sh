@@ -4,7 +4,7 @@
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
 $REPO_ROOT/tools/ktfmt java
-$REPO_ROOT/ktfmt javatests
+$REPO_ROOT/tools/ktfmt javatests
 
 if [[ -z $(git status -s) ]]
 then
