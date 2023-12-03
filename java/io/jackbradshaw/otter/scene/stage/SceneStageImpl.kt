@@ -114,8 +114,11 @@ internal constructor(
   }
 
   override fun elementEnteredScene() = elementEnteredScene
+
   override fun elementExitedScene() = elementExitedScene
+
   override fun itemEnteredScene() = itemEnteredScene
+
   override fun itemExitedScene() = itemExitedScene
 
   private suspend fun waitForProcessingToStart() =

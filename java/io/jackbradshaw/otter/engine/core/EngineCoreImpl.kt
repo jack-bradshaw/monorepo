@@ -82,21 +82,37 @@ internal constructor(private val config: Config, private val manifestInstaller: 
   }
 
   override fun extractApplication() = this
+
   override fun extractContext() = context
+
   override fun extractAssetManager() = assetManager
+
   override fun extractStateManager() = stateManager
+
   override fun extractInputManager() = inputManager
+
   override fun extractRenderManager() = renderManager
+
   override fun extractVideoRenderer() = renderer
+
   override fun extractAudioRenderer() = audioRenderer
+
   override fun extractDefaultInGameCamera() = cam
+
   override fun extractDefaultInGameMicrophone() = listener
+
   override fun extractDefaultViewPort() = viewPort
+
   override fun extractXr() = xr
+
   override fun extractPhysics() = physics
+
   override fun extractRootNode() = rootNode
+
   override fun extractCoroutineScope() = coroutineScope
+
   override fun extractTimer() = timer
+
   override fun extractTotalEngineRuntime() = totalRuntimeSec
 
   companion object {

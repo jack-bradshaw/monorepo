@@ -11,6 +11,7 @@ enum class StandardOutputIdentifier(val identifier: OutputIdentifier) {
 
   companion object {
     private val reverse = StandardOutputIdentifier.values().map { it.identifier to it }.toMap()
+
     fun fromOutputIdentifer(identifier: OutputIdentifier): StandardOutputIdentifier? {
       return reverse[identifier]
     }

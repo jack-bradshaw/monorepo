@@ -15,6 +15,7 @@ enum class StandardUser(val user: User) {
 
   companion object {
     private val reverse = StandardUser.values().map { it.user to it }.toMap()
+
     fun fromUser(user: User): StandardUser? {
       return reverse[user]
     }

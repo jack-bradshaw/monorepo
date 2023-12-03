@@ -14,6 +14,7 @@ enum class StandardOutputLocation(val location: OutputLocation) {
 
   companion object {
     private val reverse = StandardOutputLocation.values().map { it.location to it }.toMap()
+
     fun fromOutputLocation(location: OutputLocation): StandardOutputLocation? {
       return reverse[location]
     }

@@ -14,6 +14,7 @@ abstract class SceneItemImpl : SceneItem {
   override val descendants = mutableSetOf<SceneItem>()
 
   private val placement = MutableStateFlow(placeZero)
+
   override fun placement() = placement
 
   override suspend fun placeAt(place: Placement) {
@@ -25,15 +26,19 @@ abstract class SceneItemImpl : SceneItem {
   }
 
   private val descendantAdded = MutableSharedFlow<SceneItem>(replay = 0)
+
   override fun descendantAdded() = descendantAdded
 
   private val elementAdded = MutableSharedFlow<ScenePrimitive>(replay = 0)
+
   override fun elementAdded() = elementAdded
 
   private val descendantRemoved = MutableSharedFlow<SceneItem>(replay = 0)
+
   override fun descendantRemoved() = descendantRemoved
 
   private val elementRemoved = MutableSharedFlow<ScenePrimitive>(replay = 0)
+
   override fun elementRemoved() = elementRemoved
 
   override suspend fun addDescendant(descendant: SceneItem, relativePlacement: Placement) {
