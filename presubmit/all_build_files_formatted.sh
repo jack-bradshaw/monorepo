@@ -1,9 +1,6 @@
 #!/bin/bash
-# Presubmit to make sure all BUILD files are in their auto-formatted state.
 
-
-
-buildifier -r .
+bazel run //:buildifier -- -r .
 
 if [[ -z $(git status -s) ]]
 then
