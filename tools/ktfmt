@@ -1,0 +1,5 @@
+#!/bin/bash
+# Executable for ktfmt
+# Arg 0: The full path to the file to fix.
+
+java -jar $HOME/HEAD/tools/ktfmt-0.43-jar-with-dependencies.jar $1
