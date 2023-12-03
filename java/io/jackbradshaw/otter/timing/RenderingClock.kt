@@ -23,5 +23,6 @@ class RenderingClock @Inject internal constructor(private val engineCore: Engine
   private val deltaFlow = MutableStateFlow<Double>(0.0)
 
   override fun totalSec() = totalFlow
+
   override fun deltaSec() = deltaFlow
 }

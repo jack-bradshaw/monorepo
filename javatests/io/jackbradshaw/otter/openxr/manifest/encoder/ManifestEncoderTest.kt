@@ -144,6 +144,7 @@ interface TestComponent {
   @Component.Builder
   interface Builder {
     fun setOtter(otter: OtterComponent): Builder
+
     fun build(): TestComponent
   }
 }

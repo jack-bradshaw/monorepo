@@ -18,6 +18,7 @@ interface DemoComponent {
   @Component.Builder
   interface Builder {
     fun setOtterComponent(otterComponent: OtterComponent): Builder
+
     fun build(): DemoComponent
   }
 }

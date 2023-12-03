@@ -284,6 +284,7 @@ enum class StandardInteractionProfile(val profile: InteractionProfile) {
 
   companion object {
     private val reverse = StandardInteractionProfile.values().map { it.profile to it }.toMap()
+
     fun fromInteractionProfile(profile: InteractionProfile): StandardInteractionProfile? {
       return reverse[profile]
     }

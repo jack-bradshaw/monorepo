@@ -17,9 +17,12 @@ class ManifestEncoderImpl @Inject internal constructor() : ManifestEncoder {
 
   override fun encodeInput(profile: InteractionProfile, input: Input) =
       inputEncoding[Pair(profile, input)]
+
   override fun decodeInput(encoded: String) = inputEncodingReverse[encoded]
+
   override fun encodeOutput(profile: InteractionProfile, output: Output) =
       outputEncoding[Pair(profile, output)]
+
   override fun decodeOutput(encoded: String) = outputEncodingReverse[encoded]
 
   private fun buildInputEncoding(): Map<Pair<InteractionProfile, Input>, String> {

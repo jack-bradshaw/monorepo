@@ -47,6 +47,7 @@ enum class StandardInputIdentifier(val identifier: InputIdentifier) {
 
   companion object {
     private val reverse = StandardInputIdentifier.values().map { it.identifier to it }.toMap()
+
     fun fromInputIdentifier(identifier: InputIdentifier): StandardInputIdentifier? {
       return reverse[identifier]
     }

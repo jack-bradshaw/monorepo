@@ -16,6 +16,7 @@ interface SceneItem :
 interface SceneItemSceneProperties {
   val elements: Set<ScenePrimitive>
   val descendants: Set<SceneItem>
+
   fun placement(): Flow<Placement>
 }
 
@@ -38,13 +39,17 @@ interface SceneItemMutations {
 /** Observable events emitted by a [SceneItem]. */
 interface SceneItemEvents {
   fun descendantAdded(): Flow<SceneItem>
+
   fun descendantRemoved(): Flow<SceneItem>
+
   fun elementAdded(): Flow<ScenePrimitive>
+
   fun elementRemoved(): Flow<ScenePrimitive>
 }
 
 /** The lifecycle of a [SceneItem]. */
 interface SceneItemLifecycle {
   suspend fun onEnterScene()
+
   suspend fun onExitScene()
 }

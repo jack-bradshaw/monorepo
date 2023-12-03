@@ -18,6 +18,7 @@ enum class StandardInputLocation(val location: InputLocation) {
 
   companion object {
     private val reverse = StandardInputLocation.values().map { it.location to it }.toMap()
+
     fun fromInputLocation(location: InputLocation): StandardInputLocation? {
       return reverse[location]
     }

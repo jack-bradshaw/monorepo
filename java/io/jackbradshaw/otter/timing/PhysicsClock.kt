@@ -28,6 +28,7 @@ class PhysicsClock @Inject internal constructor(private val engineCore: EngineCo
             override fun physicsTick(space: PhysicsSpace, tpf: Float) = runBlocking {
               totalRuntime += tpf
             }
+
             override fun prePhysicsTick(space: PhysicsSpace, tpf: Float) {}
           }
       val ghostNode = Node("physics_clock_ghost").apply { addControl(ghostControl) }
@@ -48,5 +49,6 @@ class PhysicsClock @Inject internal constructor(private val engineCore: EngineCo
   }
 
   override fun totalSec() = totalFlow
+
   override fun deltaSec() = deltaFlow
 }
