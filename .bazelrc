@@ -1,0 +1,6 @@
+# Don't store artifacts in the repository itself.
+startup --output_base=/tmp/bazel-out
+
+# Workaround for m1 build issues on macOS.
+# TODO(jack-bradshaw): Delete this when no longer required.
+build --host_conlyopt=-std=c90
