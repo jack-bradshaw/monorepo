@@ -1,7 +1,7 @@
 #!/bin/bash
 
 RESULT=$(bazel test //... --test_output=errors |\
-    grep "FAILED" && echo 1 || echo 0)
+    grep "FAILED" && echo 0 || echo 1)
 
 if [[ $RESULT ]]
 then
