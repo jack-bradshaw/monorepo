@@ -38,8 +38,7 @@ View the [Bazel docs](https://bazel.build) for more information.
 
 ## Presubmit
 
-Presubmit is a set of automated tests that must pass before code can be merged into the main
-branch.
+Presubmit is a set of automated checks that must pass before code can be merged into main.
 
 To run presubmit:
 
