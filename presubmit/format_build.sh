@@ -1,12 +1,16 @@
 #!/bin/bash
 
-bazel run //:buildifier -- -r .
+repo_root=$(git rev-parse --show-toplevel)
 
-if [[ -z $(git status -s) ]]
+$repo_root/formatting/buildifier -r $repo_root
+
+changed_files=$(git status -s)
+
+if [[ -z $changed_files ]]
 then
-  echo "Presubmit stage passed: All build files are formatted."
+  echo "Format BUILD files presubmit passed: All files are formatted."
   exit 0
 else
-  echo "Presubmit stage failed: Some build files are unformatted."
+  echo "Format BUILD files presubmit failed: Some files are unformatted."
   exit 1
 fi
