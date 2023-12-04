@@ -1,8 +1,6 @@
 #!/bin/bash
 
-failure_regex = "FAILED"
-
-tests_passed=$(bazel test //... | grep $failure_regex && echo 0 || echo 1)
+tests_passed=$(bazel test //... | grep $FAILED && echo 0 || echo 1)
 
 if [[ $tests_passed ]]
 then
