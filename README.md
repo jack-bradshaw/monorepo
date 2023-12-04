@@ -8,7 +8,7 @@ bind them.*
 This codebase is structured as a single monolithic repository. It contains:
 
 - All code written by [Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards.
-- Third party artifacts (isolated to [third_party](third_party)).
+- Various third party artifacts (isolated to [third_party](third_party)).
 
 View the README files distributed throughout the repository for package-specific documentation.
 
