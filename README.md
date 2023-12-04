@@ -1,20 +1,22 @@
 # Monorepo
 
-*One Repo to rule them all, One Repo to find them, One Repo to bring them all and in the darkness bind them.*
+*One Repo to rule them all, One Repo to find them, One Repo to bring them all and in the darkness
+bind them.*
 
 ## Contents
 
-This repository contains all public code written by [Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards. It's
-structured as a single monolithic codebase containing multiple packages, libraries, and applications.
+This codebase is structured as a single monolithic codebase. It contains all code written by
+[Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards. All third party code is kept isolated
+in [third_party](third_party) and is specifically exempt from the terms of the [LICENSE].
 
 The top-level projects are:
 
-- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu): General helpers and utilities for
-  Kotlin.
-- [KMonkey](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/kmonkey): Kotlin tools for the
-  JMonkey engine.
-- [Otter](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter): An experimental video game
-  framework.
+- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu): General
+  helpers and utilities for Kotlin.
+- [KMonkey](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/kmonkey):
+  Kotlin tools for the JMonkey engine.
+- [Otter](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter): An
+  experimental video game framework.
 
 Granular project documentation is distributed throughout the repository.
 
