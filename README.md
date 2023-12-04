@@ -54,5 +54,5 @@ presubmit is recommended to avoid lost work.
 ## LICENSE
 
 The contents of this repository are subject to the terms of the [LICENSE](LICENSE), except for
-files in [third_party](third_party) which are subject to the terms supplied by third parties.
-View the [third party README](/third_party/README.md) for more details.
+files in [third_party](third_party) which are subject to the licensing terms supplied by third
+parties. View the [third party README](/third_party/README.md) for more details.
