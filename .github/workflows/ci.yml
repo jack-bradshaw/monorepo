@@ -10,7 +10,5 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-	  fetch-depth: 1
       - name: run_presubmit
         run: bash presubmit/presubmit.sh
