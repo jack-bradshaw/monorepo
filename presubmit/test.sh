@@ -1,9 +1,11 @@
 #!/bin/bash
 
-test_output=$(bazel test //... --test_output=errors)
-all_tests_passed=grep "FAILED" && echo 0 || echo 1
+failure_regex = "FAILED"
 
-if [[ $all_tests_passed ]]
+test_log=$(bazel test //... --test_output=errors)
+test_passed=test_log | grep $failure_regex && echo 0 || echo 1
+
+if [[ $tests_passed ]]
 then
    echo "Test code presubmit passed. All tests passed."
    exit 0
