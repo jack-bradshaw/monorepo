@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
-cp REPO_ROOT
+cd $REPO_ROOT
 
 # Fail presubmit if even one check fails.
 set -e
