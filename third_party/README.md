@@ -1,14 +1,11 @@
 # Third party.
 
-This directory contains all files sourced from third parties. The contents are
-explicitly excluded from the terms of the [LICENSE](/LICENSE) and are
-subject to the licensing terms specified by the respective authors (included
-in subdirectories where necessary).
+This directory contains all files sourced from third parties.
 
 ## Manifest
 
-The following table lists all third_party content and provides a reference to
-the source of each item.
+The following table lists all third party content and links to the original
+source.
 
 | Directory | Source |
 | --------- | ------ |
