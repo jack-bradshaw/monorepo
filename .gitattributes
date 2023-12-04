@@ -1,7 +1,4 @@
-# Make sure the CRLF problem doesn't break things.
-
 * text=auto
-
 *.* text eol=lf
 
 *.png binary
@@ -30,3 +27,4 @@
 *.wav binary
 *.webp binary
 *.woff2 binary
+*.jar binary
