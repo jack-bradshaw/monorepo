@@ -10,6 +10,6 @@ then
    echo "Test code presubmit passed. All tests passed."
    exit 0
 else
-   echo "Test code presubmit failed. Some tests failed.
+   echo "Test code presubmit failed. Some tests failed."
    exit 1
 fi  
