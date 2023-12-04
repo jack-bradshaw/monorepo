@@ -20,7 +20,7 @@ Granular project documentation is distributed throughout the repository.
 
 ## Building
 
-This repository uses [Bazel](https://bazel.build) as the build system for all production code.
+This repository uses [Bazel](https://bazel.build) as the build system for all code.
 
 To build everything:
 
@@ -34,7 +34,7 @@ To test everything:
 bazel test //...
 ```
 
-Granular build instructions are distributed throughout the repository.
+View the [Bazel docs](https://bazel.build) for more information.
 
 ## Presubmit
 
@@ -47,12 +47,11 @@ To run presubmit:
 bash presubmit/presubmit.sh
 ```
 
-Presubmit may modify the working directory so stage all changes before running presubmit to avoid
-lost work.
+Presubmit may modify the working directory, so staging all changes before running presubmit
+is recommended to avoid lost work.
 
 ## LICENSE
 
-All contents of this repository are subject to the terms of the
-[LICENSE](LICENSE), excluding files in [third_party](third_party) which are
-subject to other terms. View the [third party README](/third_party/README.md)
-for more details.
+The contents of this repository are subject to the terms of the [LICENSE](LICENSE), except for
+files in [third_party](third_party) which are subject to other terms. View the
+[third party README](/third_party/README.md)for more details.
