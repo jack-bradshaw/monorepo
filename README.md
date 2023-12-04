@@ -38,17 +38,17 @@ Granular build instructions are distributed throughout the repository.
 
 ## Presubmit
 
-Presubmit is a set of automated tests that apply across the codebase. The GitHub CI system will
-automatically run presubmit whenever a PR is opened on the main branch and presubmit must pass
-before the code can be submitted.
+Presubmit is a set of automated tests that must pass before code can be merged into the main
+branch.
 
-To manually run presubmit:
+To run presubmit:
 
 ```
-bash presubmit/mainfest.sh
+bash presubmit/presubmit.sh
 ```
 
-Presubmit may modify the working directory so stage all changes before running presubmit to avoid lost work.
+Presubmit may modify the working directory so stage all changes before running presubmit to avoid
+lost work.
 
 ## LICENSE
 
