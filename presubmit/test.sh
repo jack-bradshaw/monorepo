@@ -1,13 +1,13 @@
 #!/bin/bash
 
-RESULT=$(bazel test //... --test_output=errors |\
-    grep "FAILED" && echo 0 || echo 1)
+test_output=$(bazel test //... --test_output=errors)
+all_tests_passed=grep "FAILED" && echo 0 || echo 1
 
-if [[ $RESULT ]]
+if [[ $all_tests_passed ]]
 then
-   echo "Presubmit stage passed: All tests pass."
+   echo "Test code presubmit passed. All tests passed."
    exit 0
 else
-   echo "Presubmit stage failed: Some tests fail."
+   echo "Test code presubmit failed. Some tests failed.
    exit 1
 fi  
