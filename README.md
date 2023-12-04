@@ -6,7 +6,7 @@ bind them.*
 ## Contents
 
 This codebase is structured as a single monolithic repository. It contains all code written by
-[Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards, along with some third party code
+[Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards, along with third party code/resources
 (isolated to [third_party](third_party)).
 
 The top-level projects are:
