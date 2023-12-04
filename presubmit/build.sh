@@ -1,6 +1,7 @@
 #!/bin/bash
 
-RESULT=$(bazel build //...)
+RESULT=$(bazel build //... |\
+    grep "Build completed successfully" && echo 1 || echo 0)
 
 if [[ $RESULT ]]
 then
