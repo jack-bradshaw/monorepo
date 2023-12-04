@@ -18,7 +18,7 @@ The top-level projects are:
 
 Granular project documentation is distributed throughout the repository.
 
-## Building
+## Build System
 
 This repository uses [Bazel](https://bazel.build) as the build system for all code.
 
