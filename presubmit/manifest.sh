@@ -1,12 +1,13 @@
 #!/bin/bash
 
-REPO_ROOT=$(git rev-parse --show-toplevel)
-cd $REPO_ROOT
-
-# Fail presubmit if even one check fails.
+# Set presubmit to fail if even one check fails.
 set -e
 
-bash presubmit/format_build.sh
-bash presubmit/format_kotlin.sh
-bash presubmit/build.sh
-bash presubmit/test.sh
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cd $REPO_ROOT/presubmit
+
+CHECKS=(format_build.sh format_kotlin.sh build.sh test.sh)
+for file in "${CHECKS[@]}";
+do
+  bash $file
+done
