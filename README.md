@@ -52,5 +52,6 @@ Presubmit may modify the working directory so stage all changes before running p
 
 ## LICENSE
 
-The contents of this repository and all derivative artifacts are owned by Jack Bradshaw and provided under the terms of
-the [MIT License](LICENSE), with all exceptions listed in the [third party manifest](THIRD_PARTY).
+All contents of this repository are subject to the terms of the [LICENSE],
+excluding files in [third_party] which are subject to other terms. View the
+[third party README](/third_party/README.md] for more details.
