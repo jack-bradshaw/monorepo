@@ -52,6 +52,6 @@ Presubmit may modify the working directory so stage all changes before running p
 
 ## LICENSE
 
-All contents of this repository are subject to the terms of the [LICENSE],
+All contents of this repository are subject to the terms of the [LICENSE](LICENSE),
 excluding files in [third_party] which are subject to other terms. View the
 [third party README](/third_party/README.md] for more details.
