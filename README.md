@@ -47,8 +47,8 @@ To run presubmit:
 bash presubmit/presubmit.sh
 ```
 
-Presubmit may modify the working directory, so staging all changes before running presubmit
-is recommended to avoid lost work.
+Presubmit may modify the working directory so committing/stashing all changes before running
+presubmit is recommended to avoid lost work.
 
 ## LICENSE
 
