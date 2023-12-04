@@ -18,7 +18,7 @@ The top-level projects are:
 - [Otter](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter): An
   experimental video game framework.
 
-For project documentation, view the granular README files distributed throughout the repository.
+View the README files distributed throughout the repository for package-specific documentation.
 
 ## Build System
 
