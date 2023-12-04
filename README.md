@@ -5,18 +5,10 @@ bind them.*
 
 ## Contents
 
-This codebase is structured as a single monolithic repository. It contains all code written by
-[Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards, along with third party code/resources
-(isolated to [third_party](third_party)).
+This codebase is structured as a single monolithic repository. It contains:
 
-The top-level projects are:
-
-- [KLU](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/klu): General
-  helpers and utilities for Kotlin.
-- [KMonkey](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/kmonkey):
-  Kotlin tools for the JMonkey engine.
-- [Otter](https://github.com/jack-bradshaw/monorepo/tree/main/java/io/jackbradshaw/otter): An
-  experimental video game framework.
+- All code written by [Jack Bradshaw](https://jackbradshaw.io) from 2022 onwards.
+- Third party code/resources (isolated to [third_party](third_party)).
 
 View the README files distributed throughout the repository for package-specific documentation.
 
