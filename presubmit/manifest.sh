@@ -11,3 +11,5 @@ for file in "${CHECKS[@]}";
 do
   bash $file
 done
+
+echo "Presubmit passed"
