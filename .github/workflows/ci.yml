@@ -1,3 +1,5 @@
+# Basic wrapper to start presubmit. All checks are handled there.
+
 name: CI
 
 on: [push, pull_request]
@@ -7,9 +9,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      # Checkout repository as working directory.
       - uses: actions/checkout@v2
-
-      # Defer to presubmits.
-      - name: run_presubmits
-        run: bash presubmit/manifest.sh
+      - name: run_presubmit
+        run: bash presubmit/presubmit.sh
