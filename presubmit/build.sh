@@ -2,7 +2,7 @@
 
 success_regex="Build completed successfully"
 
-build_passed=$(bazel build //...)  | grep $success_regex && echo 1 || echo 0
+build_passed=$(bazel build //... | grep $success_regex && echo 1 || echo 0)
 
 if [[ $build_passed ]]
 then
