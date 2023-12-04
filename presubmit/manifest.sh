@@ -1,10 +1,12 @@
 #!/bin/bash
-# Root manifest for other presubmits.
-# Should be run from the root monorepo directory.
 
-set -e # Fail if one check fails.
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cp REPO_ROOT
 
-bash presubmit/all_build_files_formatted.sh
-bash presubmit/all_kotlin_files_formatted.sh
-bash presubmit/all_targets_build.sh
-bash presubmit/all_tests_pass.sh
+# Fail presubmit if even one check fails.
+set -e
+
+bash presubmit/format_build.sh
+bash presubmit/format_kotlin.sh
+bash presubmit/build.sh
+bash presubmit/test.sh
