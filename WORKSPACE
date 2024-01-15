@@ -1,6 +1,6 @@
 workspace(name = "io_jackbradshaw")
 
-load("//:bazel/repositories-bazel.bzl", "io_jackbradshaw_bazel_repositories")
+load("//:bazel/external_deps/repositories-bazel.bzl", "io_jackbradshaw_bazel_repositories")
 
 io_jackbradshaw_bazel_repositories()
 
@@ -18,7 +18,7 @@ load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
 
 rules_jvm_external_setup()
 
-load("//:bazel/repositories-maven.bzl", "io_jackbradshaw_maven_repositories")
+load("//:bazel/external_deps/repositories-maven.bzl", "io_jackbradshaw_maven_repositories")
 
 io_jackbradshaw_maven_repositories()
 
@@ -40,3 +40,9 @@ load(
 kotlin_repositories()
 
 register_toolchains("//:kotlin_toolchain")
+
+register_toolchains(
+    "//bazel/swig:linux_toolchain",
+    "//bazel/swig:macos_toolchain",
+    "//bazel/swig:windows_toolchain",
+)
