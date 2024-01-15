@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Implementation-Title: jar
+Implementation-Version: 1.71.0
+
