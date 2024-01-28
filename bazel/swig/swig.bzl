@@ -12,9 +12,9 @@ def _swig_toolchain_impl(ctx):
     return [toolchain_info]
 
 swig_toolchain = rule(
-    implementation=_swig_toolchain_impl,
-    attrs= {
-        "executable": attr.label(mandatory = True, allow_single_file = True)
+    implementation = _swig_toolchain_impl,
+    attrs = {
+        "executable": attr.label(mandatory = True, allow_single_file = True, executable = True, cfg = "exec"),
     },
 )
 
@@ -25,29 +25,29 @@ def _swig_java_wrappers_impl(ctx):
     input_files.extend([dep.files for dep in ctx.attr.deps])
 
     output_dir = ctx.actions.declare_directory("generated_files")
-   
+
     ctx.actions.run(
-        inputs=input_files,
-        outputs=[output_dir],
+        inputs = input_files,
+        outputs = [output_dir],
         arguments = ["-java", ctx.file.interface.path],
-        executable = ctx.toolchains[":toolchain_type"].swiginfo.executable,
+        executable = ctx.toolchains[":toolchain_type"].swiginfo.executable.files.to_list()[0],
     )
 
-    return DefaultInfo(files = output_dir.files.to_list())
+    return [DefaultInfo(files = depset([output_dir]))]
 
 swig_java_wrappers = rule(
     implementation = _swig_java_wrappers_impl,
     attrs = {
         "interface": attr.label(
-            allow_single_file=[".i"],
+            allow_single_file = [".i"],
             mandatory = True,
         ),
         "srcs": attr.label_list(
             default = [],
-            allow_files=True
+            allow_files = True,
         ),
         "deps": attr.label_list(
-            default = []
+            default = [],
         ),
     },
     toolchains = [
