@@ -6,9 +6,9 @@ def io_jackbradshaw_bazel_repositories():
     maybe(
         http_archive,
         name = "rules_jvm_external",
-        sha256 = "cd1a77b7b02e8e008439ca76fd34f5b07aecb8c752961f9640dea15e9e5ba1ca",
-        strip_prefix = "rules_jvm_external-4.2",
-        url = "https://github.com/bazelbuild/rules_jvm_external/archive/4.2.zip",
+        sha256 = "42a6d48eb2c08089961c715a813304f30dc434df48e371ebdd868fc3636f0e82",
+        strip_prefix = "rules_jvm_external-6.1",
+        url = "https://github.com/bazelbuild/rules_jvm_external/archive/6.1.zip",
     )
 
     maybe(
@@ -66,9 +66,9 @@ def io_jackbradshaw_bazel_repositories():
         http_archive,
         name = "rules_java",
         urls = [
-            "https://github.com/bazelbuild/rules_java/releases/download/6.0.0/rules_java-6.0.0.tar.gz",
+            "https://github.com/bazelbuild/rules_java/releases/download/7.6.1/rules_java-7.6.1.tar.gz",
         ],
-        sha256 = "469b7f3b580b4fcf8112f4d6d0d5a4ce8e1ad5e21fee67d8e8335d5f8b3debab",
+        sha256 = "f8ae9ed3887df02f40de9f4f7ac3873e6dd7a471f9cddf63952538b94b59aeb3",
     )
 
     maybe(
@@ -82,8 +82,8 @@ def io_jackbradshaw_bazel_repositories():
     maybe(
         http_archive,
         name = "io_bazel_rules_kotlin",
-        sha256 = "fd92a98bd8a8f0e1cdcb490b93f5acef1f1727ed992571232d33de42395ca9b3",
-        url = "https://github.com/bazelbuild/rules_kotlin/releases/download/v1.7.1/rules_kotlin_release.tgz",
+        url = "https://github.com/bazelbuild/rules_kotlin/releases/download/v1.9.5/rules_kotlin-v1.9.5.tar.gz",
+        sha256 = "34e8c0351764b71d78f76c8746e98063979ce08dcf1a91666f3f3bc2949a533d",
     )
 
     maybe(
