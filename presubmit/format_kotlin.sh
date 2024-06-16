@@ -12,6 +12,7 @@ then
   exit 0
 else
   echo "Presubmit check failed: format_kotlin."
-  echo "Some Kotlin files are not formatted."
+  echo "The following files are not formatted correctly:"
+  echo $changed_files
   exit 1
 fi
