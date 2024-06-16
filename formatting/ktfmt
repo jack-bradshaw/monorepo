@@ -1,6 +1,0 @@
-#!/bin/bash
-
-REPO_ROOT=$(git rev-parse --show-toplevel)
-KTFMT_BIN=$REPO_ROOT/third_party/facebook/ktfmt/ktfmt-0.46-jar-with-dependencies.jar
-
-java -jar $KTFMT_BIN $1
