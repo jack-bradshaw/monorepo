@@ -10,10 +10,10 @@ changed_files=$(git status -s)
 if [[ -z $changed_files ]]
 then
   echo "Presubmit check passed: format_build."
-  exit 0
+  return 0
 else
   echo "Presubmit check failed: format_build."
   echo "The following files are not formatted correctly:"
   echo $changed_files
-  exit 1
+  return 1
 fi
