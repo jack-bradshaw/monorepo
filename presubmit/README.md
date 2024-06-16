@@ -1,9 +1,8 @@
 # Presubmit
 
-Automated checks that must pass before code can be merged into main.
-
-Run with:
+A series of formatting and correctness checks. Run with:
 
 ```
-bash presubmit.sh
+source presubmit.sh
+run_presubmit
 ```
