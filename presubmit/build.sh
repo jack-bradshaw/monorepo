@@ -1,4 +1,5 @@
 #!/bin/bash
+# Presubmit check to ensure all targets build.
 
 build_passed=$(bazel build //... |\
     grep "Build completed successfully" && echo 1 || echo 0)

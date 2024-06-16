@@ -1,4 +1,5 @@
 #!/bin/bash
+# Presubmit check to ensure all Kotlin files are formatted correctly.
 
 repo_root=$(git rev-parse --show-toplevel)
 source $repo_root/formatting.sh

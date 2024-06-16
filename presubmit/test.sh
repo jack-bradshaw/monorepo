@@ -1,4 +1,5 @@
 #!/bin/bash
+# Presubmit check to ensure all tests pass.
 
 tests_passed=$(bazel test //... | grep "FAILED" && echo 0 || echo 1)
 
