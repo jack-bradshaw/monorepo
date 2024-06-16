@@ -5,6 +5,9 @@ repo_root=$(git rev-parse --show-toplevel)
 source $repo_root/formatting.sh
 buildifier
 
+# This file is often formatted depending on the local machine, but it's not important so ignore it.
+git restore $repo_root/MODULE.bazel.lock
+
 changed_files=$(git status -s)
 
 if [[ -z $changed_files ]]
