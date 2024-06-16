@@ -3,7 +3,7 @@ load("@rules_jvm_external//:defs.bzl", "DEFAULT_REPOSITORY_NAME", "maven_install
 load("//bazel:robolectric.bzl", "ROBOLECTRIC_VERSION")
 
 # Versions to use when multiple artifacts must use the same version.
-ANDROIDX_COMPOSE_VERSION = "1.6.7"
+ANDROIDX_COMPOSE_VERSION = "1.7.1"
 AUTO_VALUE_VERSION = "1.9"
 DAGGER_VERSION = "2.42"
 FLOGGER_VERSION = "0.7.4"
@@ -24,9 +24,10 @@ PRIMARY_ARTIFACTS = [
     "androidx.compose.foundation:foundation-layout:%s" % ANDROIDX_COMPOSE_VERSION,
     "androidx.compose.material:material:%s" % ANDROIDX_COMPOSE_VERSION,
     "androidx.compose.runtime:runtime:%s" % ANDROIDX_COMPOSE_VERSION,
-    "androidx.compose.compiler:compiler:1.5.10",
+    "androidx.compose.compiler:compiler:1.5.15",
     "androidx.compose.ui:ui:%s" % ANDROIDX_COMPOSE_VERSION,
     "androidx.compose.ui:ui-tooling:%s" % ANDROIDX_COMPOSE_VERSION,
+    "androidx.compose.ui:ui-test-junit4:%s" % ANDROIDX_COMPOSE_VERSION,
     "androidx.test:runner:1.5.2",
     "androidx.test:core:1.5.0",
     "androidx.test.ext:junit:1.1.5",
@@ -119,11 +120,11 @@ CONFLICT_RESOLUTION_ARTIFACTS = [
     "androidx.collection:collection:1.4.0",
     "androidx.compose.animation:animation-core:1.6.7",
     "androidx.emoji2:emoji2:1.2.0",
-    "androidx.lifecycle:lifecycle-runtime:2.6.1",
+    "androidx.lifecycle:lifecycle-runtime:2.8.3",
     "androidx.test:monitor:1.6.1",
 ]
 
-def io_jackbradshaw_maven_repositories():
+def maven_repositories():
     maybe(
         maven_install,
         name = DEFAULT_REPOSITORY_NAME,
