@@ -18,9 +18,9 @@ load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
 
 rules_jvm_external_setup()
 
-load("//bazel:repositories-maven.bzl", "io_jackbradshaw_maven_repositories")
+load("//bazel:repositories-maven.bzl", "maven_repositories")
 
-io_jackbradshaw_maven_repositories()
+maven_repositories()
 
 load("@bazel_features//:deps.bzl", "bazel_features_deps")
 
@@ -43,9 +43,15 @@ protobuf_deps()
 load(
     "@io_bazel_rules_kotlin//kotlin:repositories.bzl",
     "kotlin_repositories",
+    "kotlinc_version",
 )
 
-kotlin_repositories()
+kotlin_repositories(
+    compiler_release = kotlinc_version(
+        release = "1.9.25",
+        sha256 = "6ab72d6144e71cbbc380b770c2ad380972548c63ab6ed4c79f11c88f2967332e"
+    )
+)
 
 register_toolchains("//:kotlin_toolchain")
 
