@@ -169,7 +169,5 @@ def io_jackbradshaw_bazel_repositories():
         name = "robolectric",
         sha256 = "f7b8e08f246f29f26fddd97b7ab5dfa01aaa6170ccc24b9b6a21931bde01ad6f",
         strip_prefix = "robolectric-bazel-%s" % ROBOLECTRIC_VERSION,
-        url = "https://github.com/robolectric/robolectric-bazel/releases/download/%s/robolectric-bazel-%s.tar.gz" % (ROBOLECTRIC_VERSION,ROBOLECTRIC_VERSION),
+        url = "https://github.com/robolectric/robolectric-bazel/releases/download/%s/robolectric-bazel-%s.tar.gz" % (ROBOLECTRIC_VERSION, ROBOLECTRIC_VERSION),
     )
-
-    
