@@ -11,4 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: presubmit
-        run: bash presubmit/presubmit.sh
+        run: |
+          source presubmit/presubmit.sh
+          run_presubmit

@@ -1,13 +1,11 @@
 #!/bin/bash
+# Presubmit check to ensure all targets build.
 
-build_passed=$(bazel build //... |\
-    grep "Build completed successfully" && echo 1 || echo 0)
-
-if [[ $build_passed ]]
-then
-   echo "Build code presubmit passed. All BUILD targets build."
-   exit 0
+if ! bazel build //...; then
+   echo "Presubmit check failed: build."
+   echo "Some targets did not build."
+   return 1
 else
-   echo "Build code presubmit failed. Some BUILD targets failed to build."
-   exit 1
-fi  
+   echo "Presubmit check passed: build."
+   return 0
+fi

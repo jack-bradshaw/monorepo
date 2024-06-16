@@ -3,7 +3,7 @@
 # Usage example:
 #
 # ```
-# load("//:bazel/auto_factory.bzl", "auto_factory")
+# load("//bazel:auto_factory.bzl", "auto_factory")
 # auto_factory()
 #
 # java_library(

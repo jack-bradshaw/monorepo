@@ -1,6 +1,7 @@
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("//bazel:robolectric.bzl", "ROBOLECTRIC_VERSION")
 
 def io_jackbradshaw_bazel_repositories():
     maybe(
@@ -22,9 +23,9 @@ def io_jackbradshaw_bazel_repositories():
     maybe(
         http_archive,
         name = "com_github_bazelbuild_buildtools",
-        sha256 = "b0769a4d485d9ba722c92c36e8a88379665adf073a789f8d00524876c3fc8c9c",
-        strip_prefix = "buildtools-23e2a9e4721aa4969503b2fdfe5ce9efa95b4259",
-        url = "https://github.com/bazelbuild/buildtools/archive/23e2a9e4721aa4969503b2fdfe5ce9efa95b4259.zip",
+        sha256 = "39c59cb5352892292cbe3174055aac187edcb5324c9b4e2d96cb6e40bd753877",
+        strip_prefix = "buildtools-7.1.2",
+        url = "https://github.com/bazelbuild/buildtools/archive/refs/tags/v7.1.2.tar.gz",
     )
 
     maybe(
@@ -55,10 +56,10 @@ def io_jackbradshaw_bazel_repositories():
     maybe(
         http_archive,
         name = "io_bazel_rules_go",
-        sha256 = "685052b498b6ddfe562ca7a97736741d87916fe536623afb7da2824c0211c369",
+        sha256 = "33acc4ae0f70502db4b893c9fc1dd7a9bf998c23e7ff2c4517741d4049a976f8",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.33.0/rules_go-v0.33.0.zip",
-            "https://github.com/bazelbuild/rules_go/releases/download/v0.33.0/rules_go-v0.33.0.zip",
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.48.0/rules_go-v0.48.0.zip",
+            "https://github.com/bazelbuild/rules_go/releases/download/v0.48.0/rules_go-v0.48.0.zip",
         ],
     )
 
@@ -117,10 +118,18 @@ def io_jackbradshaw_bazel_repositories():
 
     maybe(
         http_archive,
+        name = "bazel_features",
+        sha256 = "5d7e4eb0bb17aee392143cd667b67d9044c270a9345776a5e5a3cccbc44aa4b3",
+        strip_prefix = "bazel_features-1.13.0",
+        url = "https://github.com/bazel-contrib/bazel_features/releases/download/v1.13.0/bazel_features-v1.13.0.tar.gz",
+    )
+
+    maybe(
+        http_archive,
         name = "rules_proto",
-        sha256 = "7d05492099a4359a6006d1b89284d34b76390c3b67d08e30840299b045838e2d",
-        strip_prefix = "rules_proto-9cd4f8f1ede19d81c6d48910429fe96776e567b1",
-        url = "https://github.com/bazelbuild/rules_proto/archive/9cd4f8f1ede19d81c6d48910429fe96776e567b1.zip",
+        sha256 = "303e86e722a520f6f326a50b41cfc16b98fe6d1955ce46642a5b7a67c11c0f5d",
+        strip_prefix = "rules_proto-6.0.0",
+        url = "https://github.com/bazelbuild/rules_proto/releases/download/6.0.0/rules_proto-6.0.0.tar.gz",
     )
 
     maybe(
@@ -131,7 +140,8 @@ def io_jackbradshaw_bazel_repositories():
         url = "https://github.com/google/dagger/archive/dagger-2.41.zip",
     )
 
-    http_archive(
+    maybe(
+        http_archive,
         name = "io_grpc_grpc_java",
         sha256 = "2f2ca0701cf23234e512f415318bfeae00036a980f6a83574264f41c0201e5cd",
         strip_prefix = "grpc-java-1.46.0",
@@ -144,4 +154,20 @@ def io_jackbradshaw_bazel_repositories():
         remote = "https://github.com/grpc/grpc-kotlin",
         commit = "0681fc85677e2cca53bdf1cbf71f8d92d0355117",
         shallow_since = "1658949766 -0600",
+    )
+
+    maybe(
+        http_archive,
+        name = "rules_android",
+        urls = ["https://github.com/bazelbuild/rules_android/archive/v0.1.1.zip"],
+        sha256 = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806",
+        strip_prefix = "rules_android-0.1.1",
+    )
+
+    maybe(
+        http_archive,
+        name = "robolectric",
+        sha256 = "f7b8e08f246f29f26fddd97b7ab5dfa01aaa6170ccc24b9b6a21931bde01ad6f",
+        strip_prefix = "robolectric-bazel-%s" % ROBOLECTRIC_VERSION,
+        url = "https://github.com/robolectric/robolectric-bazel/releases/download/%s/robolectric-bazel-%s.tar.gz" % (ROBOLECTRIC_VERSION, ROBOLECTRIC_VERSION),
     )
