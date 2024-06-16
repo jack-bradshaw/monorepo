@@ -4,9 +4,10 @@ tests_passed=$(bazel test //... | grep "FAILED" && echo 0 || echo 1)
 
 if [[ $tests_passed ]]
 then
-   echo "Test code presubmit passed. All tests passed."
+   echo "Presubmit check passed: test."
    exit 0
 else
-   echo "Test code presubmit failed. Some tests failed."
+   echo "Presubmit check failed: test."
+   echo "Some tests did not pass."
    exit 1
 fi  

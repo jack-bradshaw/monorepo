@@ -1,14 +1,16 @@
 #!/bin/bash
 
-# Set presubmit to fail if even one check fails.
-set -e
+run_presubmit() {
+  # Fail the oveall presubmit if even one check fails.
+  set -e
 
-repo_root=$(git rev-parse --show-toplevel)
+  repo_root=$(git rev-parse --show-toplevel)
 
-presubmits=(format_build.sh format_kotlin.sh build.sh test.sh)
-for presubmit in "${presubmits[@]}";
-do
-  bash $repo_root/presubmit/$presubmit
-done
+  checks=(format_build.sh format_kotlin.sh build.sh test.sh)
+  for check in "${checks[@]}";
+  do
+    bash $repo_root/presubmit/$check
+  done
 
-echo "Presubmit passed!"
+  echo "All presubmit checks passed! 🐥"
+}

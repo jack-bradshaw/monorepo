@@ -1,17 +1,17 @@
 #!/bin/bash
 
 repo_root=$(git rev-parse --show-toplevel)
-
-$repo_root/formatting/ktfmt $repo_root/java
-$repo_root/formatting/ktfmt $repo_root/javatests
+source $repo_root/formatting.sh
+ktfmt
 
 changed_files=$(git status -s)
 
 if [[ -z $changed_files ]]
 then
-  echo "Format Kotlin files presubmit passed. All files are formatted."
+  echo "Presubmit check passed: format_kotlin."
   exit 0
 else
-  echo "Format Kotlin files presubmit failed. Some files are unformatted."
+  echo "Presubmit check failed: format_kotlin."
+  echo "Some Kotlin files are not formatted."
   exit 1
 fi

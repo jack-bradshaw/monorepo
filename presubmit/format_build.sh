@@ -1,16 +1,17 @@
 #!/bin/bash
 
 repo_root=$(git rev-parse --show-toplevel)
-
-$repo_root/formatting/buildifier -r $repo_root
+source $repo_root/formatting.sh
+buildifier
 
 changed_files=$(git status -s)
 
 if [[ -z $changed_files ]]
 then
-  echo "Format BUILD files presubmit passed: All files are formatted."
+  echo "Presubmit check passed: format_build."
   exit 0
 else
-  echo "Format BUILD files presubmit failed: Some files are unformatted."
+  echo "Presubmit check failed: format_build."
+  echo "Some Bazel files are not formatted."
   exit 1
 fi

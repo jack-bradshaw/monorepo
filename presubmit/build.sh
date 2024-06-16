@@ -5,9 +5,10 @@ build_passed=$(bazel build //... |\
 
 if [[ $build_passed ]]
 then
-   echo "Build code presubmit passed. All BUILD targets build."
+   echo "Presubmit check passed: build."
    exit 0
 else
-   echo "Build code presubmit failed. Some BUILD targets failed to build."
+   echo "Presubmit check failed: build."
+   echo "Some targets did not build."
    exit 1
 fi  
