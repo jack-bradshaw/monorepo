@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest
-  xmlns:android="http://schemas.android.com/api/res/android"
-  package="io.jackbradshaw.queen.foundation.android"
-  android:minSdkVersion="24"
-  android:targetSdkVersion="33" />
