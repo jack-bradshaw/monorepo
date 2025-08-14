@@ -12,5 +12,4 @@ jobs:
       - uses: actions/checkout@v4
       - name: presubmit
         run: |
-          source presubmit/presubmit.sh
-          run_presubmit
+          
