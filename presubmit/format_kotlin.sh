@@ -3,7 +3,8 @@
 
 repo_root=$(git rev-parse --show-toplevel)
 source $repo_root/formatting.sh
-ktfmt
+ktfmt java
+ktfmt javatests
 
 changed_files=$(git status -s)
 
@@ -14,6 +15,9 @@ then
 else
   echo "Presubmit check failed: format_kotlin."
   echo "The following files are not formatted correctly:"
-  echo $changed_files
+  for i in "$changed_files[@]"
+  do
+    echo ${changed_files[i]}
+  done
   return 1
 fi

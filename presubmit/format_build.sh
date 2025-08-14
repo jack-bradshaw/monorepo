@@ -2,7 +2,7 @@
 # Presubmit check to ensure all Bazel files are formatted correctly.
 
 repo_root=$(git rev-parse --show-toplevel)
-source $repo_root/formatting.sh
+source $repo_root/formatting/formatting.sh
 buildifier
 
 # This file is often formatted depending on the local machine, but it's not important so ignore it.
@@ -17,6 +17,9 @@ then
 else
   echo "Presubmit check failed: format_build."
   echo "The following files are not formatted correctly:"
-  echo $changed_files
+  for i in "$changed_files[@]"
+  do
+    echo ${changed_files[i]}
+  done
   return 1
 fi
