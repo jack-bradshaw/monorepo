@@ -1,9 +1,9 @@
 package com.jackbradshaw.otter.physics.collisions
 
+import com.jackbradshaw.otter.engine.core.EngineCore
 import com.jme3.bullet.PhysicsSpace
 import com.jme3.bullet.collision.PhysicsCollisionEvent
 import com.jme3.bullet.collision.PhysicsCollisionListener
-import com.jackbradshaw.otter.engine.core.EngineCore
 import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

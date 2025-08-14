@@ -1,10 +1,10 @@
 package com.jackbradshaw.otter.demo.materials
 
-import com.jme3.material.Material
-import com.jme3.math.ColorRGBA
 import com.jackbradshaw.otter.demo.DemoScope
 import com.jackbradshaw.otter.demo.config.Constants
 import com.jackbradshaw.otter.engine.core.EngineCore
+import com.jme3.material.Material
+import com.jme3.math.ColorRGBA
 import javax.inject.Inject
 import kotlin.random.Random
 

@@ -1,12 +1,12 @@
 package com.jackbradshaw.otter.timing
 
+import com.jackbradshaw.otter.OtterScope
+import com.jackbradshaw.otter.coroutines.renderingDispatcher
+import com.jackbradshaw.otter.engine.core.EngineCore
 import com.jme3.bullet.PhysicsSpace
 import com.jme3.bullet.PhysicsTickListener
 import com.jme3.bullet.control.GhostControl
 import com.jme3.scene.Node
-import com.jackbradshaw.otter.OtterScope
-import com.jackbradshaw.otter.coroutines.renderingDispatcher
-import com.jackbradshaw.otter.engine.core.EngineCore
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

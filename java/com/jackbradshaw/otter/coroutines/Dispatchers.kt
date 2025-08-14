@@ -1,8 +1,8 @@
 package com.jackbradshaw.otter.coroutines
 
+import com.jackbradshaw.otter.engine.core.EngineCore
 import com.jme3.app.Application
 import com.jme3.bullet.PhysicsSpace
-import com.jackbradshaw.otter.engine.core.EngineCore
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineDispatcher

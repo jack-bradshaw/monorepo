@@ -1,16 +1,5 @@
 package com.jackbradshaw.otter.scene.stage
 
-import com.jme3.bullet.control.GhostControl
-import com.jme3.bullet.control.PhysicsControl
-import com.jme3.bullet.control.RigidBodyControl
-import com.jme3.bullet.joints.PhysicsJoint
-import com.jme3.effect.ParticleEmitter
-import com.jme3.light.DirectionalLight
-import com.jme3.light.Light
-import com.jme3.light.PointLight
-import com.jme3.light.SpotLight
-import com.jme3.scene.Node
-import com.jme3.scene.Spatial
 import com.jackbradshaw.otter.coroutines.renderingDispatcher
 import com.jackbradshaw.otter.engine.core.EngineCore
 import com.jackbradshaw.otter.math.model.toJMonkeyQuaternion
@@ -23,6 +12,17 @@ import com.jackbradshaw.otter.qualifiers.Rendering
 import com.jackbradshaw.otter.scene.item.SceneItem
 import com.jackbradshaw.otter.scene.primitive.ScenePrimitive
 import com.jackbradshaw.otter.timing.Clock
+import com.jme3.bullet.control.GhostControl
+import com.jme3.bullet.control.PhysicsControl
+import com.jme3.bullet.control.RigidBodyControl
+import com.jme3.bullet.joints.PhysicsJoint
+import com.jme3.effect.ParticleEmitter
+import com.jme3.light.DirectionalLight
+import com.jme3.light.Light
+import com.jme3.light.PointLight
+import com.jme3.light.SpotLight
+import com.jme3.scene.Node
+import com.jme3.scene.Spatial
 import java.lang.Integer.MAX_VALUE
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher

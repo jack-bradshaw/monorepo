@@ -1,7 +1,5 @@
 package com.jackbradshaw.otter
 
-import dagger.BindsInstance
-import dagger.Component
 import com.jackbradshaw.otter.config.Config
 import com.jackbradshaw.otter.config.defaultConfig
 import com.jackbradshaw.otter.coroutines.CoroutinesModule
@@ -19,6 +17,8 @@ import com.jackbradshaw.otter.scene.stage.SceneStage
 import com.jackbradshaw.otter.scene.stage.SceneStageModule
 import com.jackbradshaw.otter.timing.Clock
 import com.jackbradshaw.otter.timing.TimingModule
+import dagger.BindsInstance
+import dagger.Component
 import kotlinx.coroutines.CoroutineDispatcher
 
 @OtterScope
