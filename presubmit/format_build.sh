@@ -8,7 +8,7 @@ source $repo_root/formatting/formatting.sh
 buildifier
 
 # This file is often formatted depending on the local machine, but it's not important so ignore it.
-git restore $repo_root/MODULE.bazel.lock
+#git restore $repo_root/MODULE.bazel.lock
 
 changed_files=$(git status -s)
 
