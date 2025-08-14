@@ -17,9 +17,9 @@ then
 else
   echo "Presubmit check failed: format_build."
   echo "The following files are not formatted correctly:"
-  for i in "$changed_files[@]"
+  for file in "${changed_files[@]}"
   do
-    echo ${changed_files[i]}
+    echo $file
   done
   return 1
 fi
