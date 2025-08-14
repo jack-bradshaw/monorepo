@@ -14,9 +14,9 @@ then
 else
   echo "Presubmit check failed: vendor."
   echo "Ensure all necessary dependencies are vendored and committed with \`bazel vendor //...\`"
-  for i in "$changed_files[@]"
+  for file in "$changed_files[@]"
   do
-    echo ${changed_files[i]}
+    echo $file
   done
   return 1
 fi
