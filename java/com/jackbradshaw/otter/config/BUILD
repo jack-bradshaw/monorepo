@@ -38,6 +38,6 @@ kt_jvm_library(
     deps = [
         ":kt_jvm_proto",
         "//java/com/jackbradshaw/otter/engine/config:proto_extensions",
-        "//java/com/jackbradshaw/otter/openxr/config:proto_extensions"
+        "//java/com/jackbradshaw/otter/openxr/config:proto_extensions",
     ],
 )

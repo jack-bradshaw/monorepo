@@ -85,7 +85,7 @@ bazel_dep(name = "rules_proto_grpc", version = VERSION_GRPC)
 bazel_dep(name = "rules_proto_grpc_java", version = VERSION_GRPC)
 
 # gRPC Kotlin is currently the best source for Kotlin proto/gRPC rules (as of 2025) since there is
-# no direct equivalent of rules_proto_grpc_java for Kotlin. 
+# no direct equivalent of rules_proto_grpc_java for Kotlin.
 bazel_dep(name = "grpc_kotlin", version = "2.1.0")
 git_override(
     module_name = "grpc_kotlin",
