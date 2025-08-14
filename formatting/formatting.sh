@@ -10,7 +10,7 @@ ktfmt() {
   java -jar $KTFMT_BIN "${1:-$REPO_ROOT}"
 }
 
-# Runs buildifier across the entire repository.
+# Runs buildifier across the entire repository with check mode.
 buildifier() {
   bazel run //:buildifier_fix
 }
