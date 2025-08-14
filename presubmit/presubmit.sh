@@ -1,6 +1,8 @@
 #!/bin/bash
 
 run_presubmit() {
+  echo "Starting presubmit"
+
   local repo_root=$(git rev-parse --show-toplevel)
   local checks=("format_build.sh" "format_kotlin.sh" "build.sh" "test.sh" "vendor.sh")
 
