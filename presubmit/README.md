@@ -16,7 +16,7 @@ The following checks are enabled:
 - All Bazel files must be formatted according to Buildifier.
 - All Kotlin files in java/ and javatest/ msut be formatted according to [ktfmt](https://github.com/facebook/ktfmt).
 - All Bazel targets must build.
-- All bazel test targets must pass.
+- All Bazel test targets must pass.
 
 ## Adding New Checks
 
