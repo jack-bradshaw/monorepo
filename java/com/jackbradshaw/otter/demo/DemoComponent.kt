@@ -1,11 +1,11 @@
 package com.jackbradshaw.otter.demo
 
-import dagger.Component
 import com.jackbradshaw.otter.OtterComponent
 import com.jackbradshaw.otter.demo.items.CubeLevel
 import com.jackbradshaw.otter.demo.items.ItemsModule
 import com.jackbradshaw.otter.demo.materials.MaterialsModule
 import com.jackbradshaw.otter.demo.support.SupportModule
+import dagger.Component
 
 @DemoScope
 @Component(

@@ -1,6 +1,5 @@
 package com.jackbradshaw.otter.physics.model
 
-import com.jme3.math.Transform as JmeTransform
 import com.jackbradshaw.otter.math.model.Point
 import com.jackbradshaw.otter.math.model.Quaternion
 import com.jackbradshaw.otter.math.model.Vector
@@ -16,6 +15,7 @@ import com.jackbradshaw.otter.math.model.toOtterPoint
 import com.jackbradshaw.otter.math.model.toOtterQuaternion
 import com.jackbradshaw.otter.math.model.toOtterVector
 import com.jackbradshaw.otter.math.model.zeroVector
+import com.jme3.math.Transform as JmeTransform
 
 fun placement(
     position: Point = originPoint,

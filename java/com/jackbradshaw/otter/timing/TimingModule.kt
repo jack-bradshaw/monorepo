@@ -1,9 +1,9 @@
 package com.jackbradshaw.otter.timing
 
-import dagger.Binds
-import dagger.Module
 import com.jackbradshaw.otter.qualifiers.Physics
 import com.jackbradshaw.otter.qualifiers.Rendering
+import dagger.Binds
+import dagger.Module
 
 @Module
 interface TimingModule {

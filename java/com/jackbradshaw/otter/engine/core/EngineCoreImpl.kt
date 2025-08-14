@@ -1,5 +1,8 @@
 package com.jackbradshaw.otter.engine.core
 
+import com.jackbradshaw.otter.OtterScope
+import com.jackbradshaw.otter.config.Config
+import com.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 import com.jme3.app.LostFocusBehavior
 import com.jme3.app.SimpleApplication
 import com.jme3.app.VRAppState
@@ -8,9 +11,6 @@ import com.jme3.app.VREnvironment
 import com.jme3.bullet.BulletAppState
 import com.jme3.system.AppSettings
 import com.jme3.system.JmeContext
-import com.jackbradshaw.otter.OtterScope
-import com.jackbradshaw.otter.config.Config
-import com.jackbradshaw.otter.openxr.manifest.installer.ManifestInstaller
 import javax.inject.Inject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow

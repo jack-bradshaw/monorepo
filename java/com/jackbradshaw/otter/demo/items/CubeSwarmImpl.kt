@@ -1,7 +1,5 @@
 package com.jackbradshaw.otter.demo.items
 
-import com.jme3.material.Material
-import com.jme3.math.ColorRGBA
 import com.jackbradshaw.otter.coroutines.renderingDispatcher
 import com.jackbradshaw.otter.demo.config.Constants
 import com.jackbradshaw.otter.demo.materials.Materials
@@ -12,6 +10,8 @@ import com.jackbradshaw.otter.physics.model.placement
 import com.jackbradshaw.otter.qualifiers.Rendering
 import com.jackbradshaw.otter.scene.item.SceneItemImpl
 import com.jackbradshaw.otter.timing.Clock
+import com.jme3.material.Material
+import com.jme3.math.ColorRGBA
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.math.acos

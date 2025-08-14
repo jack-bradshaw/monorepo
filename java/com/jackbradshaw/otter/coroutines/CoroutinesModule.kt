@@ -1,10 +1,10 @@
 package com.jackbradshaw.otter.coroutines
 
-import dagger.Module
-import dagger.Provides
 import com.jackbradshaw.otter.engine.core.EngineCore
 import com.jackbradshaw.otter.qualifiers.Physics
 import com.jackbradshaw.otter.qualifiers.Rendering
+import dagger.Module
+import dagger.Provides
 
 @Module
 object CoroutinesModule {

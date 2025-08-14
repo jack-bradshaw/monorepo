@@ -1,14 +1,14 @@
 package com.jackbradshaw.otter.demo.items
 
+import com.jackbradshaw.otter.coroutines.physicsDispatcher
+import com.jackbradshaw.otter.demo.materials.Materials
+import com.jackbradshaw.otter.engine.core.EngineCore
+import com.jackbradshaw.otter.scene.item.SceneItemImpl
 import com.jme3.math.Vector3f
 import com.jme3.scene.Geometry
 import com.jme3.scene.Mesh
 import com.jme3.scene.Spatial
 import com.jme3.scene.shape.Box
-import com.jackbradshaw.otter.coroutines.physicsDispatcher
-import com.jackbradshaw.otter.demo.materials.Materials
-import com.jackbradshaw.otter.engine.core.EngineCore
-import com.jackbradshaw.otter.scene.item.SceneItemImpl
 import javax.inject.Inject
 import kotlin.random.Random
 import kotlinx.coroutines.delay
