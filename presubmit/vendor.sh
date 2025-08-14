@@ -1,6 +1,8 @@
 #!/bin/bash
 # Presubmit check to ensure the dependencies needed to build all targets are vendored.
 
+echo "Starting check: vendor"
+
 bazel vendor //...
 
 changed_files=$(git status -s)
