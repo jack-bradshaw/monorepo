@@ -1,7 +1,6 @@
 package com.jackbradshaw.otter.openxr.manifest.installer
 
 import com.google.common.truth.Truth.assertThat
-import dagger.Component
 import com.jackbradshaw.otter.OtterComponent
 import com.jackbradshaw.otter.config.Config
 import com.jackbradshaw.otter.openxr.manifest.generator.ManifestGenerator
@@ -10,6 +9,7 @@ import com.jackbradshaw.otter.openxr.manifest.goldens.goldenSecondaryManifests
 import com.jackbradshaw.otter.openxr.model.InteractionProfile
 import com.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
 import com.jackbradshaw.otter.otter
+import dagger.Component
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Scope

@@ -1,7 +1,6 @@
 package com.jackbradshaw.otter.openxr.manifest.encoder
 
 import com.google.common.truth.Truth.assertThat
-import dagger.Component
 import com.jackbradshaw.otter.OtterComponent
 import com.jackbradshaw.otter.openxr.model.Input
 import com.jackbradshaw.otter.openxr.model.InteractionProfile
@@ -14,6 +13,7 @@ import com.jackbradshaw.otter.openxr.standard.StandardUser
 import com.jackbradshaw.otter.openxr.standard.input
 import com.jackbradshaw.otter.openxr.standard.output
 import com.jackbradshaw.otter.otter
+import dagger.Component
 import javax.inject.Inject
 import javax.inject.Scope
 import kotlin.test.fail
