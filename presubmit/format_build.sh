@@ -10,6 +10,11 @@ buildifier
 # This file is often formatted depending on the local machine, but it's not important so ignore it.
 #git restore $repo_root/MODULE.bazel.lock
 
+# For an unknown reason buildifier sometimes formats files in /third_party despite being set to
+# ignore that entire directory, so reset any changes there.
+
+git clean -fd $REPO_ROOT/third_party
+
 changed_files=$(git status -s)
 
 if [[ -z $changed_files ]]
