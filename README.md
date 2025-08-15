@@ -52,10 +52,6 @@ is released in any way.
 
 TODO(jack-bradshaw): Create an automatic version update system.
 
-## Vendoring
-
-All external dependencies are vendored for security and reliability.
-
 ## Releasing
 
 View the granular packages for further release information.
@@ -98,6 +94,19 @@ before running to avoid lost work.
 Store all important documentation in the repository itself to prevent code becoming detached from
 important documentation. This applies to design docs, one-pagers, and other ancillatory paperwork.
 Use markdown where possible.
+
+## Vendoring
+
+All external dependencies are vendored for security and reliability. If you change any deps then:
+
+1. Re-vendor all required dependencies using `bazel vendor //...`
+2. Find all large files using `find . -type f -size +100M -exec du -h {} + | sort -rh`.
+3. Track the large files with git LFS using `git lfs track <the file> ; git add <the file>`.
+4. Track all other files as usual.
+5. Commit everything, including the updated .gitattributes file (important for git LFS).
+
+If you experience permissions errors then run `sudo chmod -R 755 /third_party/bazel_vendor` between
+steps 2 and 3.
 
 ## Code of Conduct
 
