@@ -3,17 +3,14 @@
 
 echo "Starting check: format_build"
 
-repo_root=$(git rev-parse --show-toplevel)
-source $repo_root/formatting/formatting.sh
+REPO_ROOT=$(git rev-parse --show-toplevel)
+source $REPO_ROOT/formatting/formatting.sh
 buildifier
 
-# This file is often formatted depending on the local machine, but it's not important so ignore it.
-#git restore $repo_root/MODULE.bazel.lock
+THIRD_PARTY=$REPO_ROOT/third_party
 
-# For an unknown reason buildifier sometimes formats files in /third_party despite being set to
-# ignore that entire directory, so reset any changes there.
-
-git clean -fd $REPO_ROOT/third_party
+# Ignore all changes to third_party to prevent new deps and unformatted 3P code failing presubmit.
+sudo git clean -fd $THIRD_PARTY
 
 changed_files=$(git status -s)
 
