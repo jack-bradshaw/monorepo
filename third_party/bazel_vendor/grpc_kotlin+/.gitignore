@@ -1,0 +1,9 @@
+# Gradle
+build
+.gradle
+.idea
+local.properties
+*.iml
+/bazel-*
+MODULE.bazel.lock
+*/bin/*
