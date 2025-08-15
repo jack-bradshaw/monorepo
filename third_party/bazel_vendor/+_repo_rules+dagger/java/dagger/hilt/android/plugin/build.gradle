@@ -1,0 +1,41 @@
+buildscript {
+  ext {
+    kotlin_version = "2.2.0"
+    agp_version = System.getenv('AGP_VERSION') ?: "8.1.1"
+    ksp_version = "$kotlin_version-2.0.2"
+    pluginArtifactId = 'hilt-android-gradle-plugin'
+    pluginId = 'com.google.dagger.hilt.android'
+  }
+}
+
+plugins {
+  id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+  id 'java-gradle-plugin'
+  id 'maven-publish'
+  id 'com.github.johnrengelman.shadow' version '8.1.1'
+  id 'org.jetbrains.kotlin.android' version "$kotlin_version" apply false
+}
+
+allprojects {
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+// Avoids conflict with BUILD file
+project.buildDir = 'buildOut'
+
+subprojects {
+    project.buildDir = 'buildOut'
+    afterEvaluate {
+        dependencies {
+            // This is needed to align older versions of kotlin-stdlib.
+            // The main issue is that in v1.8.0 the jdk7 and jdk8 artifacts were
+            // merged into kotlin-stdlib, so without this alignment we end up
+            // getting duplicate classes by pulling in both artifacts.
+            // See: https://kotlinlang.org/docs/whatsnew18.html#usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies
+            implementation(platform("org.jetbrains.kotlin:kotlin-bom:$kotlin_version"))
+        }
+    }
+}
