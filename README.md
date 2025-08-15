@@ -17,6 +17,7 @@ After cloning the repository you must complete the following steps:
 1. Install the Android SDK (version specifics vary depending on which package is being built).
 1. Copy [local bazelrc](local_bazelrc) to your home directory and configure it according to the
    instructions in the file.
+1. Install git LFS with `git lfs install`.
 
 Once these steps are complete you will be able to build and test code on Windows, macOS, and Linux.
 
@@ -50,6 +51,10 @@ and since the repository contains multiple projects the version is updated whene
 is released in any way.
 
 TODO(jack-bradshaw): Create an automatic version update system.
+
+## Vendoring
+
+All external dependencies are vendored for security and reliability.
 
 ## Releasing
 
