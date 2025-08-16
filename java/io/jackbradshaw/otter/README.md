@@ -1,3 +1,0 @@
-# Otter
-
-Work in progress
