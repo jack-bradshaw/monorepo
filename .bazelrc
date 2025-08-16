@@ -1,6 +1,34 @@
-# Don't store artifacts in the repository itself.
+# Simplifies debugging.
+build --verbose_failures
+
+# Enables host-specific config lines in this fil (e.g. build:ios, build:linux)
+common --enable_platform_specific_config
+
+# C/CPP build configuration. Values chosen to be relatively modern as of 2025.
+build --cxxopt='-std=c++23'
+build --host_cxxopt='-std=c++23'
+
+# Java build configuration. Values chosen to be relatively modern as of 2025.
+build --java_language_version=11
+build --java_runtime_version=11
+
+# Store a copy of all external deps in /vendor for reproducibility and offline support.
+# If this is updated then also update bazel_vendoring.sh to match.
+common --vendor_dir=third_party/bazel_vendor
+
+# Store artifacts outside the repo to avoid accidental check-ins to VCS.
 startup --output_base=/tmp/bazel-out
 
-# Workaround for m1 build issues on macOS.
-# TODO(jack-bradshaw): Delete this when no longer required.
-build --host_conlyopt=-std=c90
+# Improve test result outputs.
+test --test_output=errors
+test --test_summary=terse
+test --test_verbose_timeout_warnings
+
+# Keep going with other tests if one test fails.
+test --keep_going
+
+# Android build defaults. Values chosen to reduce CLI verbosity.
+build:android_arm64 --crosstool_top=@rules_android//toolchains/ndk:toolchain_arm64-v8a
+build:android_arm64 --cpu=arm64-v8a
+build:android_arm64 --fat_apk_cpu=arm64-v8a
+build:android_arm64 --host_crosstool_top=@bazel_tools//tools/cpp:toolchain

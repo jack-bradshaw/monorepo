@@ -1,0 +1,2 @@
+rootProject.name = 'lazyclasskey'
+include('app')

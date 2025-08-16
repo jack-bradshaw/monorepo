@@ -1,0 +1,173 @@
+bazel_dep(name = "toolchains_protoc", version = "0.0.0")
+bazel_dep(name = "aspect_bazel_lib", version = "2.11.0")
+bazel_dep(name = "aspect_rules_js", version = "2.2.0")
+bazel_dep(name = "aspect_rules_py", version = "1.3.2")
+bazel_dep(name = "aspect_rules_ts", version = "3.5.1")
+bazel_dep(name = "platforms", version = "0.0.11")
+bazel_dep(name = "protobuf", version = "29.3")
+single_version_override(
+    module_name = "protobuf",
+    patch_strip = 1,
+    patches = [
+        "//third_party:protobuf/0001-bazel-Remove-hardcoded-dependency-on-protoc-from-lan.patch",
+        "//third_party:protobuf/0002-Switch-to-toolchains.patch",
+    ],
+    version = "29.3",
+)
+
+bazel_dep(name = "rules_java", version = "8.6.3")
+bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_python", version = "1.2.0")
+bazel_dep(name = "rules_rust", version = "0.59.1")
+bazel_dep(name = "rules_rust_prost", version = "0.59.1")
+bazel_dep(name = "rules_go", version = "0.53.0")
+bazel_dep(name = "rules_uv", version = "0.56.0")
+
+# This example is in the same repo with the ruleset, so we should point to the code at HEAD
+# rather than use any release on the Bazel Central Registry.
+local_path_override(
+    module_name = "toolchains_protoc",
+    path = "..",
+)
+
+####### PROTOBUF ##########
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
+protoc.toolchain(
+    google_protobuf = "com_google_protobuf",
+    # Demonstrate overriding the default version
+    version = "v28.0",
+)
+use_repo(protoc, "com_google_protobuf")
+
+# NB: the `:all` here is critical, because `proto_lang_toolchain` expands into two targets:
+# - proto_lang_toolchain rule [name]
+# - toolchain rule [name]_toolchain
+# and the second one is valid for registration.
+# Attempting to register a proto_lang_toolchain rule as a toolchain gives a baffling error like
+# Misconfigured toolchains: //tools:protoc_java_toolchain is declared as a toolchain but has inappropriate dependencies.
+# Declared toolchains should be created with the 'toolchain' rule and should not have dependencies that themselves require toolchains.
+register_toolchains("//tools/toolchains:all")
+
+####### PYTHON ##########
+# Shows how a typical Python user fetches all the dependencies of their app, including the protobuf runtime
+dev_pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+dev_pip.parse(
+    hub_name = "pypi",
+    python_version = "3.11",
+    requirements_lock = "//tools:requirements.txt",
+)
+use_repo(dev_pip, "pypi")
+
+####### JAVA ##########
+# Note: this is simpler than using rules_jvm_external with a maven installation,
+# however it can cause version skew on the classpath if Coursier resolves a different version
+# from the constraint solution.
+# Users with a maven.install should instead do something like
+# maven.install(
+#     artifacts = [
+#         "com.google.protobuf:protobuf-java:4.27.1",
+#         "io.grpc:grpc-all:1.51.1",
+#     ],
+#     lock_file = "//:maven_install.json",
+# )
+http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
+
+http_jar(
+    name = "protobuf-java",
+    integrity = "sha256-rSOIR3s7lplCQeZHMaE2iU3J/tbeufJ21ISosXGxRQw=",
+    urls = ["https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.28.0/protobuf-java-4.28.0.jar"],
+)
+
+####### RUST ##########
+RUST_EDITION = "2021"
+
+RUST_VERSION = "1.79.0"
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = RUST_EDITION,
+    versions = [RUST_VERSION],
+)
+use_repo(rust, "rust_toolchains")
+
+register_toolchains("@rust_toolchains//:all")
+
+# Proto toolchain
+
+crate = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
+
+# protobuf / gRPC dependencies
+crate.spec(
+    package = "prost",
+    version = "0.13.1",
+)
+crate.spec(
+    default_features = False,
+    package = "prost-types",
+    version = "0.13.1",
+)
+crate.spec(
+    features = ["transport"],
+    package = "tonic",
+    version = "0.12.1",
+)
+crate.spec(
+    package = "tonic-build",
+    version = "0.12.1",
+)
+crate.spec(
+    package = "protoc-gen-prost",
+    version = "0.4.0",
+)
+crate.annotation(
+    crate = "protoc-gen-prost",
+    gen_binaries = ["protoc-gen-prost"],
+)
+crate.spec(
+    package = "protoc-gen-tonic",
+    version = "0.4.0",
+)
+crate.annotation(
+    crate = "protoc-gen-tonic",
+    gen_binaries = ["protoc-gen-tonic"],
+)
+crate.spec(
+    default_features = False,
+    features = [
+        "macros",
+        "net",
+        "rt-multi-thread",
+        "signal",
+    ],
+    package = "tokio",
+    version = "1.38",
+)
+crate.from_specs()
+use_repo(crate, "crates")
+
+####### TYPESCRIPT ##########
+npm = use_extension(
+    "@aspect_rules_js//npm:extensions.bzl",
+    "npm",
+    dev_dependency = True,
+)
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+npm.npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+use_repo(pnpm, "pnpm")
+
+rules_ts_ext = use_extension(
+    "@aspect_rules_ts//ts:extensions.bzl",
+    "ext",
+    dev_dependency = True,
+)
+rules_ts_ext.deps(
+    ts_version_from = "//:package.json",
+)
+use_repo(rules_ts_ext, "npm_typescript")

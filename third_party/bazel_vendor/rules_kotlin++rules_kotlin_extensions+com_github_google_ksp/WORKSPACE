@@ -1,0 +1,1 @@
+workspace(name = "rules_kotlin++rules_kotlin_extensions+com_github_google_ksp")

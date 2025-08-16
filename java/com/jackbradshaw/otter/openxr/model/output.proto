@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.jackbradshaw.otter.openxr.model;
+
+import "java/com/jackbradshaw/otter/openxr/model/output_identifier.proto";
+import "java/com/jackbradshaw/otter/openxr/model/output_location.proto";
+import "java/com/jackbradshaw/otter/openxr/model/user.proto";
+
+option java_multiple_files = true;
+option java_package = "com.jackbradshaw.otter.openxr.model";
+option java_outer_classname = "OutputProto";
+
+message Output {
+  com.jackbradshaw.otter.openxr.model.User user = 1;
+  com.jackbradshaw.otter.openxr.model.OutputIdentifier identifier = 2;
+  com.jackbradshaw.otter.openxr.model.OutputLocation location = 3;
+}

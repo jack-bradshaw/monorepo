@@ -1,0 +1,40 @@
+load("@platforms//host:constraints.bzl", "HOST_CONSTRAINTS")
+load("@rules_rust//rust:defs.bzl", "rust_library_group")
+load("@rules_uv//uv:pip.bzl", "pip_compile")
+
+package(default_visibility = ["//tools/toolchains:__pkg__"])
+
+rust_library_group(
+    name = "prost_runtime",
+    deps = [
+        "@crates//:prost",
+    ],
+)
+
+rust_library_group(
+    name = "tonic_runtime",
+    deps = [
+        ":prost_runtime",
+        "@crates//:tonic",
+    ],
+)
+
+pip_compile(
+    name = "generate_requirements_txt",
+    requirements_in = "requirements.in",
+    requirements_txt = "requirements.txt",
+    target_compatible_with = select({
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
+)
+
+# Don't allow rules_go to compile the Go SDK with cgo enabled, as that
+# would cause a dependency on a functional C++ toolchain.
+# This value is referenced in the .bazelrc
+platform(
+    name = "no_cgo_host_platform",
+    constraint_values = HOST_CONSTRAINTS + [
+        "@rules_go//go/toolchain:cgo_off",
+    ],
+)

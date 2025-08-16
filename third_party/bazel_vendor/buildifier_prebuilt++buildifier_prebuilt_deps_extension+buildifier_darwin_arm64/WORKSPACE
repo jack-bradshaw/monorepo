@@ -1,0 +1,1 @@
+workspace(name = "buildifier_prebuilt++buildifier_prebuilt_deps_extension+buildifier_darwin_arm64")

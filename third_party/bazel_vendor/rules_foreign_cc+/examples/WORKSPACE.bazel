@@ -1,0 +1,135 @@
+workspace(name = "rules_foreign_cc_examples")
+
+local_repository(
+    name = "rules_foreign_cc",
+    path = "..",
+)
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies(register_built_pkgconfig_toolchain = True)
+
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
+bazel_skylib_workspace()
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+
+maybe(
+    http_archive,
+    name = "rules_cc",
+    sha256 = "4dccbfd22c0def164c8f47458bd50e0c7148f3d92002cdb459c2a96a68498241",
+    urls = ["https://github.com/bazelbuild/rules_cc/releases/download/0.0.1/rules_cc-0.0.1.tar.gz"],
+)
+
+load("//deps:repositories.bzl", "repositories")
+
+repositories()
+
+load("//deps:deps_android.bzl", "deps_android")
+
+deps_android()
+
+load("//deps:deps_jvm_external.bzl", "deps_jvm_external")
+
+deps_jvm_external()
+
+load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+
+python_register_toolchains(
+    name = "python3_9",
+    python_version = "3.9",
+)
+
+load("@python3_9//:defs.bzl", py3_interpreter = "interpreter")
+load("@rules_python//python:pip.bzl", "pip_parse")
+
+pip_parse(
+    name = "pip",
+    python_interpreter_target = py3_interpreter,
+    requirements_lock = "//:requirements_lock.txt",
+)
+
+load("@pip//:requirements.bzl", "install_deps")
+
+install_deps()
+
+local_repository(
+    name = "rules_foreign_cc_examples_third_party",
+    path = "third_party",
+)
+
+load("@rules_foreign_cc_examples_third_party//:repositories.bzl", examples_third_party_repositories = "repositories")
+
+examples_third_party_repositories()
+
+load("@rules_foreign_cc_examples_third_party//:setup.bzl", examples_third_party_setup = "setup")
+
+examples_third_party_setup()
+
+http_archive(
+    name = "bazelci_rules",
+    sha256 = "eca21884e6f66a88c358e580fd67a6b148d30ab57b1680f62a96c00f9bc6a07e",
+    strip_prefix = "bazelci_rules-1.0.0",
+    url = "https://github.com/bazelbuild/continuous-integration/releases/download/rules-1.0.0/bazelci_rules-1.0.0.tar.gz",
+)
+
+load("@bazelci_rules//:rbe_repo.bzl", "rbe_preconfig")
+
+# Creates a default toolchain config for RBE.
+# Use this as is if you are using the rbe_ubuntu16_04 container,
+# otherwise refer to RBE docs.
+rbe_preconfig(
+    name = "buildkite_config",
+    toolchain = "ubuntu1804-bazel-java11",
+)
+
+# TODO: Remove once bazel 4.x is no longer supported
+http_archive(
+    name = "rules_proto",
+    sha256 = "20b240eba17a36be4b0b22635aca63053913d5c1ee36e16be36499d167a2f533",
+    strip_prefix = "rules_proto-11bf7c25e666dd7ddacbcd4d4c4a9de7a25175f8",
+    urls = ["https://github.com/bazelbuild/rules_proto/archive/11bf7c25e666dd7ddacbcd4d4c4a9de7a25175f8.tar.gz"],
+)
+
+http_archive(
+    name = "build_bazel_apple_support",
+    patches = ["//deps:apple_support.patch"],
+    sha256 = "77a121a0f5d4cd88824429464ad2bfb54bdc8a3bccdb4d31a6c846003a3f5e44",
+    url = "https://github.com/bazelbuild/apple_support/releases/download/1.4.1/apple_support.1.4.1.tar.gz",
+)
+
+http_archive(
+    name = "build_bazel_rules_apple",
+    sha256 = "62b24b9c3c1eb5bdb6fe1a3f4bf541d6e61eac8997e87c25a50c821f85bf8ff2",
+    url = "https://github.com/bazelbuild/rules_apple/releases/download/3.0.0-rc1/rules_apple.3.0.0-rc1.tar.gz",
+)
+
+load(
+    "@build_bazel_rules_apple//apple:repositories.bzl",
+    "apple_rules_dependencies",
+)
+
+apple_rules_dependencies()
+
+load(
+    "@build_bazel_rules_swift//swift:repositories.bzl",
+    "swift_rules_dependencies",
+)
+
+swift_rules_dependencies()
+
+load(
+    "@build_bazel_rules_swift//swift:extras.bzl",
+    "swift_rules_extra_dependencies",
+)
+
+swift_rules_extra_dependencies()
+
+load(
+    "@build_bazel_apple_support//lib:repositories.bzl",
+    "apple_support_dependencies",
+)
+
+apple_support_dependencies()

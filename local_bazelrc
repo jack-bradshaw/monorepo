@@ -1,0 +1,8 @@
+# Copy this file to your home directory, update the TODO values, and rename it to .bazelrc
+
+# This must point to a full SDK including Python.h, not the stub installed on some systems (macOS).
+common --repo_env PYTHON_BIN_PATH=TODO
+
+# This must point to the Android SDK.
+build --action_env=ANDROID_HOME="/path/to/android/sdk"
+build --action_env=ANDROID_NDK_HOME="/path/to/android/ndk"

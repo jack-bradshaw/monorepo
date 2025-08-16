@@ -1,0 +1,13 @@
+{
+  "homepage": "https://github.com/aspect-build/toolchains_protoc",
+  "maintainers": [
+    {
+      "email": "alex@aspect.dev",
+      "github": "alexeagle",
+      "name": "Alex Eagle"
+    }
+  ],
+  "repository": ["github:aspect-build/toolchains_protoc"],
+  "versions": [],
+  "yanked_versions": {}
+}

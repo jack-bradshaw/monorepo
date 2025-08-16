@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
+}
+
+android {
+    compileSdkVersion 33
+    buildToolsVersion "33.0.1"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+    }
+    namespace "dagger.hilt.android.simpleKotlin.lib"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    flavorDimensions "tier", "processorConfig"
+    productFlavors {
+        free {
+            dimension "tier"
+        }
+        premium {
+            dimension "tier"
+        }
+        withKapt {
+            dimension "processorConfig"
+        }
+        withKsp {
+            dimension "processorConfig"
+        }
+    }
+}
+
+kotlin {
+    jvmToolchain(11)
+}
+
+dependencies {
+    implementation project(':deep-android-lib')
+    implementation project(':deep-kotlin-lib')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.google.dagger:hilt-android:LOCAL-SNAPSHOT'
+    kaptWithKapt 'com.google.dagger:hilt-compiler:LOCAL-SNAPSHOT'
+    kspWithKsp 'com.google.dagger:hilt-compiler:LOCAL-SNAPSHOT'
+}
