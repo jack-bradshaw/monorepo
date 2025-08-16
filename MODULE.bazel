@@ -1,6 +1,238 @@
-###############################################################################
-# Bazel now uses Bzlmod by default to manage external dependencies.
-# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
-#
-# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
-###############################################################################
+module(
+    name = "com_jackbradshaw",
+    version = "20250812",
+)
+
+# Section: Versions
+# Only include versions here if they are referenced in multiple places to balance brevity with
+# correctness.
+# If a version is only used for maven resolution then prefix it with VERSION_MAVEN_, but if a
+# version is used for both bazel-dep resolution and maven resolution then prefix it with VERSION_.
+
+VERSION_ROBOLECTRIC = "4.12.2"
+
+VERSION_DAGGER = "2.57"
+
+VERSION_GRPC = "5.6.0"
+
+VERSION_MAVEN_AUTO_VALUE = "1.11.0"
+
+VERSION_MAVEN_FLOGGER = "0.9"
+
+VERSION_MAVEN_J_MONKEY_ENGINE_MAIN = "3.7.0-stable"
+
+VERSION_MAVEN_J_MONKEY_ENGINE_BULLET = "3.3.2-stable"
+
+VERSION_MAVEN_GUAVA = "33.4.8-jre"
+
+VERSION_MAVEN_GOOGLE_HTTP_CLIENT = "1.47.1"
+
+VERSION_MAVEN_KTOR = "3.2.3"
+
+VERSION_MAVEN_LWJGL = "3.3.6"
+
+VERSION_MAVEN_PROTOBUF_JVM_VERSION = "4.32.0-RC2"
+
+# Section: Core tools for common tasks and repo maintenance
+bazel_dep(name = "bazel_skylib", version = "1.8.1")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "buildozer", version = "8.2.1")
+bazel_dep(name = "buildifier_prebuilt", version = "8.2.0.2")
+bazel_dep(name = "rules_pkg", version = "1.1.0")
+bazel_dep(name = "rules_testing", version = "0.9.0")
+
+# Section: C and C++ support
+bazel_dep(name = "rules_cc", version = "0.2.0")
+
+# Section: Java/Kotiln support
+bazel_dep(name = "rules_java", version = "8.15.1")
+bazel_dep(name = "rules_kotlin", version = "2.1.8")
+bazel_dep(name = "rules_jvm_external", version = "6.8")
+
+# Section: Go support
+bazel_dep(name = "rules_go", version = "0.56.1")
+
+# Section: Python support
+bazel_dep(name = "rules_python", version = "1.5.1")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    python_version = "3.13",
+)
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "pypi",
+    python_version = "3.13",
+    requirements_lock = "//:lock_pip_requirements.txt",
+)
+use_repo(pip, "pypi")
+
+# Section: Apple support
+bazel_dep(name = "rules_swift", version = "3.1.2")
+bazel_dep(name = "rules_apple", version = "4.1.2")
+bazel_dep(name = "rules_ios", version = "6.0.1")
+
+# Resolves conflict between rules_swift and rules_apple
+single_version_override(
+    module_name = "rules_swift",
+    version = "3.1.2",
+)
+
+# Section: Protobuf and gRPC
+bazel_dep(name = "protobuf", version = "31.1")
+bazel_dep(name = "rules_proto_grpc", version = VERSION_GRPC)
+bazel_dep(name = "rules_proto_grpc_java", version = VERSION_GRPC)
+
+# gRPC Kotlin is currently the best source for Kotlin proto/gRPC rules (as of 2025) since there is
+# no direct equivalent of rules_proto_grpc_java for Kotlin.
+bazel_dep(name = "grpc_kotlin", version = "2.1.0")
+git_override(
+    module_name = "grpc_kotlin",
+    commit = "d17a4ab",
+    remote = "https://github.com/duckladydinh/grpc-kotlin",
+)
+
+# Required since gRPC kotlin is not available via bzlmod and cannot resolve its own deps.
+# When any deps are updated, repin by running 'REPIN=1 bazelisk run @grpc_kotlin_maven//:pin'
+grpc_kotlin_maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+grpc_kotlin_maven.install(
+    name = "grpc_kotlin_maven",
+    artifacts = [
+        "com.google.jimfs:jimfs:1.3.0",
+        "com.google.truth:truth:1.4.2",
+        "com.google.truth.extensions:truth-proto-extension:1.4.2",
+        "com.google.protobuf:protobuf-java:4.30.2",
+        "com.google.protobuf:protobuf-kotlin:4.30.2",
+        "com.google.guava:guava:33.3.1-android",
+        "com.squareup:kotlinpoet:1.14.2",
+        "junit:junit:4.13.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.1",
+    ],
+    fetch_sources = False,
+    generate_compat_repositories = True,
+    known_contributing_modules = [
+        "grpc_kotlin",
+        "com_jackbradshaw",
+    ],
+    lock_file = "//:lock_maven_grpc_kotlin.json",
+    strict_visibility = True,
+)
+use_repo(grpc_kotlin_maven, "grpc_kotlin_maven")
+
+# Section: Android support
+bazel_dep(name = "rules_android", version = "0.6.5")
+
+# Section: Dagger
+# Sourced from github because Dagger uses bzlmod but is not present in the central registry.
+# The .gitignore is manually removed so it isn't picked up by this repository as a real .gitignore.
+# TODO migrate to a cental registry dependency when available.
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "dagger",
+    patch_cmds = ["rm .gitignore"],
+    strip_prefix = "dagger-dagger-%s" % VERSION_DAGGER,
+    urls = ["https://github.com/google/dagger/archive/dagger-%s.zip" % VERSION_DAGGER],
+)
+
+# Section: Maven Deps
+# When any deps are updated, repin by running 'REPIN=1 bazel run @com_jackbradshaw_maven//:pin'
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+use_repo(maven, "maven")
+
+com_jackbradshaw_maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+com_jackbradshaw_maven.install(
+    name = "com_jackbradshaw_maven",
+    artifacts = [
+        "com.google.auto.factory:auto-factory:1.1.0",
+        "com.google.auto.value:auto-value-annotations:%s" % VERSION_MAVEN_AUTO_VALUE,
+        "com.google.auto.value:auto-value:%s" % VERSION_MAVEN_AUTO_VALUE,
+        "com.google.auto:auto-common:1.2.2",
+        "com.google.code.findbugs:jsr305:3.0.2",
+        "com.google.code.gson:gson:2.13.1",
+        "com.google.dagger:dagger-compiler:%s" % VERSION_DAGGER,
+        "com.google.dagger:dagger-producers:%s" % VERSION_DAGGER,
+        "com.google.dagger:dagger:%s" % VERSION_DAGGER,
+        "com.google.flogger:flogger-system-backend:%s" % VERSION_MAVEN_FLOGGER,
+        "com.google.flogger:flogger:%s" % VERSION_MAVEN_FLOGGER,
+        "com.google.guava:failureaccess:1.0.3",
+        "com.google.guava:guava-testlib:%s" % VERSION_MAVEN_GUAVA,
+        "com.google.guava:guava:%s" % VERSION_MAVEN_GUAVA,
+        "com.google.http-client:google-http-client-gson:%s" % VERSION_MAVEN_GOOGLE_HTTP_CLIENT,
+        "com.google.http-client:google-http-client-test:%s" % VERSION_MAVEN_GOOGLE_HTTP_CLIENT,
+        "com.google.http-client:google-http-client:%s" % VERSION_MAVEN_GOOGLE_HTTP_CLIENT,
+        "com.google.protobuf:protobuf-java-util:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
+        "com.google.protobuf:protobuf-java:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
+        "com.google.protobuf:protobuf-javalite:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
+        "com.google.protobuf:protobuf-kotlin-lite:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
+        "com.google.protobuf:protobuf-kotlin:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
+        "com.google.protobuf:protobuf-lite:3.0.1",
+        "com.google.truth:truth:1.4.4",
+        "commons-codec:commons-codec:1.19.0",
+        "io.ktor:ktor-server-core:%s" % VERSION_MAVEN_KTOR,
+        "io.ktor:ktor-server-netty:%s" % VERSION_MAVEN_KTOR,
+        "javax.annotation:jsr250-api:1.0",
+        "javax.inject:javax.inject:1",
+        "junit:junit:4.13.2",
+        "org.jetbrains.kotlin:kotlin-test:2.2.0",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
+        "org.jmonkeyengine:jme3-bullet-native:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_BULLET,
+        "org.jmonkeyengine:jme3-bullet:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_BULLET,
+        "org.jmonkeyengine:jme3-core:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
+        "org.jmonkeyengine:jme3-desktop:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
+        "org.jmonkeyengine:jme3-lwjgl3:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
+        "org.jmonkeyengine:jme3-lwjgl:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
+        "org.jmonkeyengine:jme3-testdata:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
+        "org.jmonkeyengine:jme3-vr:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
+        "org.junit.jupiter:junit-jupiter-engine:5.13.4",
+        "org.lwjgl:lwjgl-assimp:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-bgfx:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-cuda:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-egl:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-glfw:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-jawt:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-jemalloc:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-libdivide:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-llvm:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-lmdb:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-lz4:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-meow:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-meshoptimizer:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-nanovg:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-nfd:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-nuklear:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-odbc:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-openal:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-opencl:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-opengl:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-opengles:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-openvr:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-openxr:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-opus:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-par:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-remotery:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-rpmalloc:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-shaderc:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-spvc:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-sse:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-stb:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-tinyexr:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-tootle:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-vma:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-vulkan:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-xxhash:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-yoga:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl-zstd:%s" % VERSION_MAVEN_LWJGL,
+        "org.lwjgl:lwjgl:%s" % VERSION_MAVEN_LWJGL,
+        "org.mockito:mockito-core:5.18.0",
+    ],
+    fetch_sources = True,
+    lock_file = "//:lock_maven_com_jackbradshaw.json",
+    repositories = [
+        "https://repo1.maven.org/maven2",
+        "https://repository.mulesoft.org/nexus/content/repositories/public/",
+    ],
+)
+use_repo(com_jackbradshaw_maven, "com_jackbradshaw_maven")
