@@ -132,9 +132,9 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 
 http_archive(
     name = "dagger",
+    patch_cmds = ["rm .gitignore"],
     strip_prefix = "dagger-dagger-%s" % VERSION_DAGGER,
     urls = ["https://github.com/google/dagger/archive/dagger-%s.zip" % VERSION_DAGGER],
-    patch_cmds = ["rm .gitignore"]
 )
 
 # Section: Maven Deps
