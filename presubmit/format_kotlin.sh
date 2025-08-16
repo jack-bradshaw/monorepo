@@ -8,11 +8,8 @@ source $REPO_ROOT/formatting/formatting.sh
 ktfmt java
 ktfmt javatests
 
-# Ignore all changes to third_party to prevent new deps and unformatted 3P code failing presubmit.
-THIRD_PARTY=$REPO_ROOT/third_party
-git clean -fd $THIRD_PARTY
-
-changed_files=$(git status -s)
+# Ignore changes to 3P to prevent new deps and 3P code from failing presubmit.
+changed_files=$(git status -s | grep -v "third_party")
 
 if [[ -z $changed_files ]]
 then
