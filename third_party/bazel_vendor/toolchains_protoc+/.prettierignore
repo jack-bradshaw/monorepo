@@ -1,0 +1,2 @@
+docs/*.md
+examples/**/*_pb.d.ts

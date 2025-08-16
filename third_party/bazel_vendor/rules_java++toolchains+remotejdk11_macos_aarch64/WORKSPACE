@@ -1,0 +1,1 @@
+workspace(name = "rules_java++toolchains+remotejdk11_macos_aarch64")
