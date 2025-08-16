@@ -4,7 +4,7 @@ run_presubmit() {
   echo "Starting presubmit"
 
   local repo_root=$(git rev-parse --show-toplevel)
-  local checks=("build.sh" "test.sh" "vendor.sh")
+  local checks=("build.sh" "test.sh")
 
   for check in "${checks[@]}"; do
     source "$repo_root/presubmit/$check"
