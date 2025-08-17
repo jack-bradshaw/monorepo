@@ -5,3 +5,7 @@ bazel-*
 .iml
 .idea/*
 .ijwb/*
+
+# These files are too large for GitHub (100MB max).
+third_party/bazel_vendor/rules_java++toolchains+remotejdk11_macos_aarch64/*
+third_party/bazel_vendor/rules_java++toolchains+remotejdk21_macos_aarch64/*
