@@ -5,7 +5,7 @@ bind them._
 
 This codebase contains all code written by Jack Bradshaw from 2022 onwards. It is structured as a
 monorepo and uses [Bazel](https://bazel.build) as the build tool. Everything is covered by the
-[LICENSE] except the contents of [third_party](third_party) which are explicitly exempt from the
+[LICENSE](LICENSE) except the contents of [third_party](third_party) which are explicitly exempt from the
 license and are provided according to the terms set forth by their authors.
 
 ## Setup
@@ -17,7 +17,6 @@ After cloning the repository you must complete the following steps:
 1. Install the Android SDK (version specifics vary depending on which package is being built).
 1. Copy [local bazelrc](local_bazelrc) to your home directory and configure it according to the
    instructions in the file.
-1. Install git LFS with `git lfs install`.
 
 Once these steps are complete you will be able to build and test code on Windows, macOS, and Linux.
 
@@ -97,16 +96,24 @@ Use markdown where possible.
 
 ## Vendoring
 
-All external dependencies are vendored for security and reliability. If you change any deps then:
+All external dependencies are vendored for hermetic security and reliability. When changing Bazel
+deps or package manager deps (maven etc) follow these steps before submission:
 
 1. Re-vendor all required dependencies using `bazel vendor //...`
-2. Find all large files using `find . -type f -size +100M -exec du -h {} + | sort -rh`.
-3. Track the large files with git LFS using `git lfs track <the file> ; git add <the file>`.
-4. Track all other files as usual.
-5. Commit everything, including the updated .gitattributes file (important for git LFS).
+2. Ignore any dependencies containing files exceeding 100MB (limitation imposed by GitHub).
+3. Commit the dependencies.
 
-If you experience permissions errors then run `sudo chmod -R 755 /third_party/bazel_vendor` between
-steps 2 and 3.
+TODO(jack-bradshaw): Write a presubmit to check all deps are vendored.
+TODO(jack-bradshaw): Migrate off GitHub and delete the large file limit.
+
+## Large Files
+
+All files must be stored directly in the repository and not in supplementary storage, meaning Git
+LFS, Git Annex, and all other such tools are banned. So far this has only results in two large
+vendored deps being ignored, and migration to a self-hosted Git repository is in progress to work
+around GitHub's 100MB limit.
+
+TODO(jack-bradshaw): Migrate off GitHub and delete the above comment.
 
 ## Code of Conduct
 
