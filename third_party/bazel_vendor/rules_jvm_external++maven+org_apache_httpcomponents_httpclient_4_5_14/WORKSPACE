@@ -1,0 +1,1 @@
+workspace(name = "rules_jvm_external++maven+org_apache_httpcomponents_httpclient_4_5_14")
