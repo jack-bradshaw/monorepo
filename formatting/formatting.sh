@@ -12,5 +12,5 @@ ktfmt() {
 
 # Runs buildifier across the entire repository with check mode.
 buildifier() {
-  bazel run //:buildifier_fix
+  bazel run //formatting:buildifier_fix
 }
