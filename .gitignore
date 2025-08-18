@@ -5,3 +5,8 @@ bazel-*
 .iml
 .idea/*
 .ijwb/*
+
+# These dependencies will be vendored by Bazel but are too large for GitHub, so ignore them.
+# TODO(jack-bradshaw): Migrate away from GitHub and check in all vendored deps.
+third_party/bazel_vendor/rules_java++toolchains+remotejdk11_macos_aarch64
+third_party/bazel_vendor/rules_java++toolchains+remotejdk21_macos_aarch64
