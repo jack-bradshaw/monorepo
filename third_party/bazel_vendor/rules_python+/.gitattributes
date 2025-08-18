@@ -1,2 +1,0 @@
-python/features.bzl export-subst
-tools/publish/*.txt linguist-generated=true

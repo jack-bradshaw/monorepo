@@ -1,6 +1,0 @@
-manifest:
-  modules_mapping:
-    # Weird google.cloud.storage here on purpose to make normalization apparent
-    google.cloud.storage: google.cloud.storage
-  pip_repository:
-    name: gazelle_python_test

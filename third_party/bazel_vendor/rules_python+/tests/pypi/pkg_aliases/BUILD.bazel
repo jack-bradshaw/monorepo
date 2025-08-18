@@ -1,3 +1,0 @@
-load(":pkg_aliases_test.bzl", "pkg_aliases_test_suite")
-
-pkg_aliases_test_suite(name = "pkg_aliases_tests")
