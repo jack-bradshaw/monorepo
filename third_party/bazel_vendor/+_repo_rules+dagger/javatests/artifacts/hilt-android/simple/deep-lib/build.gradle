@@ -1,0 +1,14 @@
+plugins {
+    id 'java-library'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+dependencies {
+    implementation "com.google.dagger:hilt-core:$dagger_version"
+    annotationProcessor "com.google.dagger:hilt-compiler:$dagger_version"
+}
