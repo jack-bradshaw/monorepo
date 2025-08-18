@@ -1,0 +1,1 @@
+workspace(name = "rules_jvm_external++maven+org_bouncycastle_bcprov_jdk15on_1_68")
