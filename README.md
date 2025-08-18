@@ -114,9 +114,10 @@ This repository exclusively uses [trunk-based development](https://trunkbaseddev
 1. No collaborative branches: You may create private branches off main for your own work, but do not collaborate on them with others.
 1. Rebase don't merge: You should rebase onto HEAD locally to get updates from others, and when your code is ready for submission, rebase it onto HEAD (with a PR) instead of merging.
 1. Make small, atomic commits: Each commit must change only the files required for that change and nothing more. If multiple commits serve a shared purpose, link them together by tagging an issue in the commit description.
-1. Keep HEAD green: Only submit code when CI passes. Exemptions require approval from Jack Bradshaw directly. Every commit in a PR must pass presubmit, not just the final commit.
+1. Keep HEAD green: PRs may only be submitted when CI passes. This is enforced automatically.
 1. Integrate frequently: Submit your changes as soon as they are ready, and locally rebase your branches onto HEAD multiple times a day to reduce the severity of merge conflicts.
 1. Use feature flags: Incomplete features at HEAD are unavoidable with trunk-based development, so use feature flagging to guard production behavior.
+1. One commit per PR: Each PR must have exactly one commit to ensure code-review is focused, simplify CI, and create a 1:1 mapping between changes and review. This is enforced automatically.
 
 Overall this approach creates a single, shared, linear history in the main branch and creates an unambiguous shared HEAD.
 
