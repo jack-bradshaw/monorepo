@@ -21,6 +21,7 @@ buildifier(
     mode = "check",
 )
 
+# For compat with Jetpack Compose use Kotlin 1.7 and Java 1.8
 define_kt_toolchain(
     name = "kotlin_toolchain",
     api_version = "1.7",
