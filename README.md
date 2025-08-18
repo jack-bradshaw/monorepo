@@ -34,14 +34,16 @@ Various pieces of build/test infrastructure also exist including:
 1. [Presubmit](presubmit): System for continuous integration.
 1. [Formatting](formatting): Tools for keeping the codebase consistently formatted.
 1. [AutoFactory](autofactory): Integrates Google autofactory with Bazel.
-1. Bazel Config: These files are generally near the root of the project and make Bazel work.
 
 README files are distributed throughout the repository. View them for more granular information.
 
 ## Building/Testing
 
-Build all code by running `bazel build //...` and test all code by running `bazel test //...`. View
-the granular packages for further build/test information.
+Build all code by running `bazel build //...`.
+
+Test all code by running `bazel test //...`.
+
+View granular package documentation for more more specific build/test instructions.
 
 ## Versioning
 
