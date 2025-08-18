@@ -1,5 +1,0 @@
-genrule(
-    name = "others",  # same to directory name
-    outs = ["data.txt"],
-    cmd = "echo foo bar baz > $@",
-)

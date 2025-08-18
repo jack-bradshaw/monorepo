@@ -1,3 +1,0 @@
-load(":index_sources_tests.bzl", "index_sources_test_suite")
-
-index_sources_test_suite(name = "index_sources_tests")
