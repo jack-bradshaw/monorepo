@@ -79,7 +79,7 @@ now.
 
 TODO(jack-bradshaw): Explain what prioritising the user experience means.
 
-## Presubmit
+### Presubmit
 
 Submissions to main are automatically verified by a presubmit system which build all code and runs
 all tests. On Github it runs automatically when code is pushed and when PRs are opened/updated, and
@@ -90,13 +90,13 @@ granted only when the presubmit system itself is broken. Presubmit is started by
 WARNING: Presubmit may modify the working directory during execution, so commit/stash all changes
 before running to avoid lost work.
 
-## Documentation
+### Documentation
 
 Store all important documentation in the repository itself to prevent code becoming detached from
 important documentation. This applies to design docs, one-pagers, and other ancillatory paperwork.
 Use markdown where possible.
 
-## Vendoring
+### Vendoring
 
 All external dependencies are vendored for hermetic security and reliability, with the exception of
 any dep which cannot be uploaded to GitHub due to the 100MB file size limit. Whenever you change the
@@ -107,7 +107,20 @@ deps (including Bazel deps and package-manager deps), revendor by:
 
 TODO(jack-bradshaw): Migrate off GitHub and delete the large file limit.
 
-## Large Files
+### Branching Strategy
+
+This repository exclusively uses [trunk-based development](https://trunkbaseddevelopment.com) to the degree that all alternative forms of branch management are banned. This is essential for monorepo development and generally means:
+
+1. No collaborative branches: You may create private branches off main for your own work, but do not collaborate on them with others.
+1. Rebase don't merge: You should rebase onto HEAD locally to get updates from others, and when your code is ready for submission, rebase it onto HEAD (with a PR) instead of merging.
+1. Make small, atomic commits: Each commit must change only the files required for that change and nothing more. If multiple commits serve a shared purpose, link them together by tagging an issue in the commit description.
+1. Keep HEAD green: Only submit code when CI passes. Exemptions require approval from Jack Bradshaw directly. Every commit in a PR must pass presubmit, not just the final commit.
+1. Integrate frequently: Submit your changes as soon as they are ready, and locally rebase your branches onto HEAD multiple times a day to reduce the severity of merge conflicts.
+1. Use feature flags: Incomplete features at HEAD are unavoidable with trunk-based development, so use feature flagging to guard production behavior.
+
+Overall this approach creates a single, shared, linear history in the main branch and creates an unambiguous shared HEAD.
+
+### Large Files
 
 All files must be stored directly in the repository and not in supplementary storage, meaning Git
 LFS, Git Annex, and all other such tools are banned. So far this has only results in two large
@@ -116,14 +129,14 @@ around GitHub's 100MB limit.
 
 TODO(jack-bradshaw): Migrate off GitHub and delete the above comment.
 
-## Code of Conduct
+### Code of Conduct
 
 This repository does not have a code of conduct, but please do not behave in a way that warrants the
 creation of one. Regulating human behavior rarely ends well, and nothing can be said that isn't
 already covered by the principles of kindness and compassion. If you are unsure about an action or
 inaction, ask before acting.
 
-## Licensing Agreement
+### Licensing Agreement
 
 There is currently no CLA.
 
