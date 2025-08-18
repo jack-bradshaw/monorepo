@@ -1,2 +1,0 @@
-# gazelle:python_generation_mode file
-# gazelle:python_test_file_pattern foo_*_[A-Z]_test?.py

@@ -1,2 +1,0 @@
-# Required by abseil-cpp.
-common --cxxopt=-std=c++14

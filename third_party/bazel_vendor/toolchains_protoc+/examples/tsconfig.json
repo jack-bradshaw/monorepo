@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "lib": ["ES2018"],
-    "module": "ES2022",
-    "target": "ES2017",
-    "moduleResolution": "node"
-  }
-}
