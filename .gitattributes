@@ -27,3 +27,5 @@
 *.webp binary
 *.woff2 binary
 *.jar binary
+*.dylib binary
+*.exe binary
