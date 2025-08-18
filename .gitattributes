@@ -27,5 +27,3 @@
 *.webp binary
 *.woff2 binary
 *.jar binary
-third_party/bazel_vendor/rules_java++toolchains+remotejdk11_macos_aarch64/zulu-11.jdk/Contents/Home/lib/modules filter=lfs diff=lfs merge=lfs -text
-third_party/bazel_vendor/rules_java++toolchains+remotejdk21_macos_aarch64/zulu-21.jdk/Contents/Home/lib/modules filter=lfs diff=lfs merge=lfs -text
