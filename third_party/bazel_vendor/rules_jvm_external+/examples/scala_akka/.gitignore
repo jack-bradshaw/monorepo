@@ -1,6 +1,0 @@
-.ijwb
-bazel-bin
-bazel-genfiles
-bazel-out
-bazel-scala
-bazel-testlogs

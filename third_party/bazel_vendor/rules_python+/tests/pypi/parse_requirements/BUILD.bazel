@@ -1,3 +1,0 @@
-load(":parse_requirements_tests.bzl", "parse_requirements_test_suite")
-
-parse_requirements_test_suite(name = "parse_requirements_tests")

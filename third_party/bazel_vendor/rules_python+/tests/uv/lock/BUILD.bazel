@@ -1,5 +1,0 @@
-load(":lock_tests.bzl", "lock_test_suite")
-
-lock_test_suite(
-    name = "lock_tests",
-)

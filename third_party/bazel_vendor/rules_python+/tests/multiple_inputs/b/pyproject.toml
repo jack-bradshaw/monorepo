@@ -1,5 +1,0 @@
-[project]
-name = "multiple_inputs_2"
-version = "0.0.0"
-
-dependencies = ["attrs"]
