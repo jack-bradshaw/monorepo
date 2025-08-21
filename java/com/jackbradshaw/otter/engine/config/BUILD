@@ -9,7 +9,6 @@ proto_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
 )
 
@@ -17,7 +16,6 @@ kt_jvm_proto_library(
     name = "kt_jvm_proto",
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [":proto"],
 )
@@ -29,7 +27,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":kt_jvm_proto",

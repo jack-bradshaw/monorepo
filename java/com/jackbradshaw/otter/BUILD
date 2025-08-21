@@ -12,7 +12,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
@@ -26,7 +25,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
@@ -52,7 +50,6 @@ kt_jvm_library(
     name = "otter",
     visibility = [
         "//java/com/jackbradshaw:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     exports = [
         ":component",
@@ -64,7 +61,6 @@ java_binary(
     name = "binary",
     visibility = [
         "//java/com/jackbradshaw:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     runtime_deps = [
         ":otter",

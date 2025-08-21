@@ -33,5 +33,5 @@ private fun readGoldenFile(filename: String) =
     File(
             Runfiles.create()
                 .rlocation(
-                    "com_jackbradshaw/javatests/com/jackbradshaw/otter/openxr/manifest/goldens/$filename"))
+                    "com_jackbradshaw/java/com/jackbradshaw/otter/openxr/manifest/testgoldens/$filename"))
         .readText()

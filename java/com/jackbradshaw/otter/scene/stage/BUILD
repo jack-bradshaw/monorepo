@@ -13,7 +13,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         "//java/com/jackbradshaw/klu/flow",
@@ -34,7 +33,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":stage",
@@ -55,7 +53,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",

@@ -26,7 +26,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":core",
@@ -48,7 +47,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":core",

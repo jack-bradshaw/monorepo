@@ -11,7 +11,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter/demo:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         "@com_jackbradshaw_maven//:javax_inject_javax_inject",
@@ -27,7 +26,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter/demo:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":materials",
@@ -47,7 +45,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter/demo:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":impl",

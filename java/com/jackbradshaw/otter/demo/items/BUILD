@@ -13,7 +13,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter/demo:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         "//java/com/jackbradshaw/otter/scene/item",
@@ -30,7 +29,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter/demo:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":items",
@@ -58,7 +56,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter/demo:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",

@@ -64,7 +64,7 @@ class ManifestGeneratorTest {
 
   companion object {
     private const val BASE_GOLDEN_PATH =
-        "com_jackbradshaw/javatests/com/jackbradshaw/otter/openxr/manifest/goldens"
+        "com_jackbradshaw/java/com/jackbradshaw/otter/openxr/manifest/testgoldens"
   }
 }
 
