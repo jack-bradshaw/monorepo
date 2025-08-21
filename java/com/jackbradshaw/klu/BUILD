@@ -6,7 +6,6 @@ kt_jvm_library(
     name = "klu",
     visibility = [
         "//java/com/jackbradshaw:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     exports = [
         "//java/com/jackbradshaw/klu/concurrency",
@@ -18,7 +17,6 @@ java_binary(
     name = "binary",
     visibility = [
         "//java/com/jackbradshaw:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     runtime_deps = [
         "//java/com/jackbradshaw/klu",

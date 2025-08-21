@@ -6,7 +6,6 @@ echo "Starting check: format_kotlin"
 REPO_ROOT=$(git rev-parse --show-toplevel)
 source $REPO_ROOT/formatting/formatting.sh
 ktfmt java
-ktfmt javatests
 
 # Ignore changes to 3P to prevent new deps and 3P code from failing presubmit.
 changed_files=$(git status -s | grep -v "third_party")

@@ -1,5 +1,5 @@
 load("@dagger//:workspace_defs.bzl", "dagger_rules")
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 
 dagger_rules(repo_name = "@com_jackbradshaw_maven")
 
@@ -10,7 +10,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         "//java/com/jackbradshaw/klu/flow",
@@ -27,7 +26,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
@@ -47,11 +45,33 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
         ":impl",
         ":installer",
+    ],
+)
+
+kt_jvm_test(
+    name = "ManifestInstallerTest",
+    srcs = [
+        "ManifestInstallerTest.kt",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":dagger",
+        "//java/com/jackbradshaw/otter:component",
+        "//java/com/jackbradshaw/otter/config:proto_extensions",
+        "//java/com/jackbradshaw/otter/openxr/config:proto_extensions",
+        "//java/com/jackbradshaw/otter/openxr/manifest/encoder",
+        "//java/com/jackbradshaw/otter/openxr/manifest/installer",
+        "//java/com/jackbradshaw/otter/openxr/manifest/testgoldens",
+        "//java/com/jackbradshaw/otter/openxr/standard",
+        "@bazel_tools//tools/java/runfiles",
+        "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_kotlin_lite",
+        "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:junit_junit",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
