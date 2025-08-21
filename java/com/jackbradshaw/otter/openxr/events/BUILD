@@ -10,7 +10,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         "//java/com/jackbradshaw/otter/openxr/manifest/encoder",
@@ -27,7 +26,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",
@@ -44,7 +42,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",

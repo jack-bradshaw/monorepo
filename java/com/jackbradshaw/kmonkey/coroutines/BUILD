@@ -10,7 +10,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
