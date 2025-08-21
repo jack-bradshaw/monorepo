@@ -13,10 +13,10 @@ All checks must pass before code can be merged into main, unless presubmit itsel
 
 The following checks are enabled:
 
-- All Bazel files must be formatted according to Buildifier.
-- All Kotlin files in java/ and javatest/ msut be formatted according to [ktfmt](https://github.com/facebook/ktfmt).
-- All Bazel targets must build.
-- All Bazel test targets must pass.
+- All Bazel files in 1P must be formatted according to Buildifier.
+- All Kotlin files in 1P must be formatted according to [ktfmt](https://github.com/facebook/ktfmt).
+- All targets must build.
+- All tests must pass.
 
 ## Adding New Checks
 

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package com.jackbradshaw.otter.physics.model;
+
+import "first_party/com/jackbradshaw/otter/physics/model/placement.proto";
+
+option java_multiple_files = true;
+option java_package = "com.jackbradshaw.otter.physics.model";
+option java_outer_classname = "StaticsProto";
+
+/**
+ * The static properties of a body at a point in time.
+ */
+message Statics {
+  /**
+   * The translation component.
+   */
+  com.jackbradshaw.otter.physics.model.Placement placement = 1;
+}
