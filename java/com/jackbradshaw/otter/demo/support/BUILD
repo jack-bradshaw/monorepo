@@ -11,7 +11,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter/demo:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":dagger",

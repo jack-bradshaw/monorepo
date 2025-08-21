@@ -6,7 +6,6 @@ kt_jvm_library(
     name = "kmonkey",
     visibility = [
         "//java/com/jackbradshaw:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     exports = [
         "//java/com/jackbradshaw/kmonkey/coroutines",
@@ -17,7 +16,6 @@ java_binary(
     name = "binary",
     visibility = [
         "//java/com/jackbradshaw:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     runtime_deps = [
         "//java/com/jackbradshaw/kmonkey",

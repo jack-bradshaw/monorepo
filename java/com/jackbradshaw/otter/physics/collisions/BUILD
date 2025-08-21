@@ -9,7 +9,6 @@ proto_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         "//java/com/jackbradshaw/otter/graphics/model:proto",
@@ -21,7 +20,6 @@ kt_jvm_proto_library(
     name = "interaction_kt_jvm_proto",
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [":interaction_proto"],
 )
@@ -33,7 +31,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//java/com/jackbradshaw/otter:__subpackages__",
-        "//javatests:__subpackages__",
     ],
     deps = [
         ":interaction_kt_jvm_proto",

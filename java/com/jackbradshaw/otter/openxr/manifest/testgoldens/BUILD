@@ -2,6 +2,7 @@ load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 filegroup(
     name = "manifest_files",
+    testonly = True,
     srcs = [
         "google_daydream_controller.json",
         "htc_vive_controller.json",
@@ -14,16 +15,18 @@ filegroup(
         "primary_manifest.json",
         "valve_index_controller.json",
     ],
+    visibility = ["//visibility:private"],
 )
 
 kt_jvm_library(
-    name = "goldens",
+    name = "testgoldens",
+    testonly = True,
     srcs = [
         "Goldens.kt",
     ],
     data = [":manifest_files"],
     visibility = [
-        "//javatests/com/jackbradshaw/otter/openxr/manifest:__subpackages__",
+        "//java/com/jackbradshaw/otter/openxr/manifest:__subpackages__",
     ],
     deps = [
         "//java/com/jackbradshaw/otter/openxr/manifest/encoder",
