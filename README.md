@@ -120,15 +120,25 @@ list, and use it by adding `@com_jackbradshaw_maven//:com_google_flogger_flogger
 
 ### NPM
 
-NPM deps are declared in [package.json](package.json). egister deps by adding them to the
+NPM deps are declared in [package.json](package.json). Register deps by adding them to the
 `dependencies` property. After registering a dep (or removing/updating one), run
 `bazel run -- @pnpm//:pnpm --dir . install --lockfile-only` to regenerate the lock file. Once
 registered and locked, deps can be accessed in targets as `//:node_modules/$name`, where the name is
 the full name of the dep.
 
 Example: babel-plugin-minify-infinity. Register it by adding
-`"babel-plugin-minify-infinity": "0.4.3"` to the dependencies list , and use it by adding
+`"babel-plugin-minify-infinity": "0.4.3"` to the dependencies list, and use it by adding
 `//:node_modules/babel-plugin-minify-infinity` to the `data` attribute of any `js_library`.
+
+### PyPI
+
+PyPI deps are declared in [pip_requirements.in](pip_requirements.in). Register deps by adding them
+to the file as top-level entries. After registering a dep (or removing/updating one), run
+`bazel run :requirements.update` to regenerate the lock file. Once registered and locked, deps can
+be accessed in targets as `@pypi//$name`, where the name is the full name of the dep.
+
+Example: mdformat. Register it by adding `mdformat==0.7.22` to the dependencies list, and use it by
+adding `@pypi//mdformat` to the `deps` attribute of any `py_library`.
 
 ## Contributing
 

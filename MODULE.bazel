@@ -56,9 +56,9 @@ bazel_dep(name = "rules_go", version = "0.56.1")
 bazel_dep(name = "rules_python", version = "1.5.1")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
-python.toolchain(
-    python_version = "3.13",
-)
+python.defaults(python_version = "3.12")
+python.toolchain(python_version = "3.12")
+use_repo(python, "python_3_12")
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
