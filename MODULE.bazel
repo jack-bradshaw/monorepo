@@ -79,6 +79,21 @@ single_version_override(
     version = "3.1.2",
 )
 
+# Section: Javascript
+bazel_dep(name = "aspect_rules_js", version = "2.5.0")
+bazel_dep(name = "rules_nodejs", version = "6.3.0")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
 # Section: Protobuf and gRPC
 bazel_dep(name = "protobuf", version = "31.1")
 bazel_dep(name = "rules_proto_grpc", version = VERSION_GRPC)
