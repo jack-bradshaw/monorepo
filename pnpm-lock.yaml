@@ -1,0 +1,16 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  babel-plugin-minify-infinity:
+    specifier: 0.4.3
+    version: 0.4.3
+
+packages:
+
+  /babel-plugin-minify-infinity@0.4.3:
+    resolution: {integrity: sha512-X0ictxCk8y+NvIf+bZ1HJPbVZKMlPku3lgYxPmIp62Dp8wdtbMLSekczty3MzvUOlrk5xzWYpBpQprXUjDRyMA==}
+    dev: false

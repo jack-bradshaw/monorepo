@@ -98,6 +98,38 @@ View the granular packages for further release information.
 
 TODO(jack-bradshaw) create a repository wide release system.
 
+## Package Managers
+
+External package managers are used for external deps since building everything from source is
+infeasible with current staffing. In general, deps are declared once to make them available across
+the repo, then referenced in various build targets as needed. Every package manager is different
+though, and instructions are provided for those currently in use.
+
+### Maven
+
+Maven deps are declared in [MODULES.bazel](MODULES.bazel). Register deps by adding them to the
+`artefacts` attribute of the `com_jackbradshaw_maven` repo. After registering a dep (or
+removing/updating one), run `REPIN=1 bazel run @com_jackbradshaw_maven//:pin` to regenerate the lock
+file. Once registered and locked, deps can be accessed in targets as
+`@com_jackbradshaw_maven//:$name`, where the name is `$groupId_artefactId`, with all
+non-alphanumeric characters replaced with `_`.
+
+Example: Google Flogger. Register it by adding `com.google.flogger:flogger:1.0.0` to the artefacts
+list, and use it by adding `@com_jackbradshaw_maven//:com_google_flogger_flogger` to the 
+`deps` attribute of any `java_library`.
+
+### NPM
+
+NPM deps are declared in [package.json](package.json). egister deps by adding them to the
+`dependencies` property. After registering a dep (or removing/updating one), run
+`bazel run -- @pnpm//:pnpm --dir . install --lockfile-only` to regenerate the lock file. Once
+registered and locked, deps can be accessed in targets as `//:node_modules/$name`, where the name is
+the full name of the dep.
+
+Example: babel-plugin-minify-infinity. Register it by adding
+`"babel-plugin-minify-infinity": "0.4.3"` to the dependencies list , and use it by adding
+`//:node_modules/babel-plugin-minify-infinity` to the `data` attribute of any `js_library`.
+
 ## Contributing
 
 Please read and follow these guidelines if you wish to make contributions.

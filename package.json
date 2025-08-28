@@ -1,0 +1,8 @@
+{
+  "name": "monorepo",
+  "version": "0.0.0",
+  "_comment": "Use dependencies only. Never use dev_dependencies. Let Bazel manage where deps go.",
+  "dependencies": {
+    "babel-plugin-minify-infinity": "0.4.3"
+  }
+}
