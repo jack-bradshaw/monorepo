@@ -82,4 +82,3 @@ To release the library with dependencies included to [sonatype](https://s01.oss.
 ```
 bash release.sh
 ```
-

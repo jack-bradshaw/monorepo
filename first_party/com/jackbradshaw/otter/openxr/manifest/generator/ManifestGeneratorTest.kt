@@ -20,6 +20,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.skyscreamer.jsonassert.JSONAssert
 
 @RunWith(JUnit4::class)
 class ManifestGeneratorTest {
@@ -35,7 +36,7 @@ class ManifestGeneratorTest {
   fun generateManifest_primaryManifest_isGolden() = runBlocking {
     val manifests = generator.generateManifests()
 
-    assertThat(manifests.primaryManifest).isEqualTo(goldenPrimaryManifest)
+    JSONAssert.assertEquals(manifests.primaryManifest, goldenPrimaryManifest, /* strict= */ true)
   }
 
   @Test
@@ -54,8 +55,10 @@ class ManifestGeneratorTest {
         manifests.secondaryManifests.asFlow().map { it.profile to it }.collectToMap()
 
     for (profile in StandardInteractionProfile.values()) {
-      assertThat(manifestsByProfile[profile.profile]!!.content)
-          .isEqualTo(goldenSecondaryManifests[profile]!!)
+      JSONAssert.assertEquals(
+          manifestsByProfile[profile.profile]!!.content,
+          goldenSecondaryManifests[profile]!!,
+          /* strict= */ true)
     }
   }
 
