@@ -67,11 +67,11 @@ For example, the following code will add an item to the scene graph and move it 
 import com.jackbradshaw.kmonkey.coroutines.renderingDispatcher
 
 class MyApplication : SimpleApplication {
-  
+
   /* Snip: All the usual setup stuff. */
-  
+
   private val worldItem by lazy { SomeWorldItem() }
-  
+
   init {
     renderingDispatcher().launch {
       rootNode.attachChild(worldItem)
@@ -92,15 +92,15 @@ Similarly, the following code will add an item to the physics space and apply a 
 import com.jackbradshaw.kmonkey.coroutines.physicsDispatcher
 
 class MyApplication : SimpleApplication {
-  
+
   /* Snip: All the usual setup stuff. */
-  
+
   private val physicsItem by lazy { SomePhysicsItem() }
-  
+
   init {
     val bullet = BulletAppState().apply { stateManager.attach(it) }
     val physicsSpace = bullet.getPhysicsSpace()
-    physicsSpace.physicsDispatcher().launch { 
+    physicsSpace.physicsDispatcher().launch {
       physicsSpace.add(physicsItem)
       while(true) {
         delay(1000L) // 1 second

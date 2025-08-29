@@ -1,21 +1,84 @@
-load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
+load("@npm//:prettier/package_json.bzl", prettier = "bin")
+load("@rules_java//java:defs.bzl", "java_binary")
 
-buildifier(
-    name = "buildifier_fix",
-    exclude_patterns = [
-        "./.git/*",
-        "./third_party/*",
+package(default_visibility = ["//:__subpackages__"])
+
+js_library(
+    name = "prettierrc",
+    srcs = ["prettier.config.cjs"],
+    deps = [
+        "//:node_modules/@prettier/plugin-xml",
+        "//:node_modules/prettier-plugin-gherkin",
+        "//:node_modules/prettier-plugin-sql",
     ],
-    lint_mode = "fix",
-    mode = "fix",
 )
 
-buildifier(
-    name = "buildifier_check",
-    exclude_patterns = [
-        "./.git/*",
-        "./third_party/*",
+prettier.prettier_binary(
+    name = "prettier",
+    data = [":prettierrc"],
+    # Suppresses errors that are not relevant to formatting
+    env = {"BAZEL_BINDIR": "."},
+    fixed_args = [
+        # Ensures hermeticity by using the runfiles version not the source version.
+        "--config=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath :prettierrc)",
+        # Suppressess unnecessary success logs.
+        "--loglevel=warn",
     ],
-    lint_mode = "warn",
-    mode = "check",
+)
+
+java_binary(
+    name = "java-format",
+    jvm_flags = [
+        "--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
+    ],
+    main_class = "com.google.googlejavaformat.java.Main",
+    runtime_deps = ["@google-java-format//jar"],
+)
+
+java_binary(
+    name = "ktfmt",
+    main_class = "com.facebook.ktfmt.cli.Main",
+    runtime_deps = ["@ktfmt//jar"],
+)
+
+alias(
+    name = "swiftformat",
+    actual = select({
+        "@bazel_tools//src/conditions:linux": "@swiftformat",
+        "@bazel_tools//src/conditions:darwin": "@swiftformat_mac",
+    }),
+)
+
+format_multirun(
+    name = "autoformat",
+    c = "@llvm_toolchain_llvm//:bin/clang-format",
+    cc = "@llvm_toolchain_llvm//:bin/clang-format",
+    css = ":prettier",
+    cuda = "@llvm_toolchain_llvm//:bin/clang-format",
+    gherkin = ":prettier",
+    go = "@aspect_rules_lint//format:gofumpt",
+    graphql = ":prettier",
+    html = ":prettier",
+    java = ":java-format",
+    javascript = ":prettier",
+    jsonnet = "@aspect_rules_lint//format:jsonnetfmt",
+    kotlin = ":ktfmt",
+    markdown = ":prettier",
+    protocol_buffer = "@rules_buf_toolchains//:buf",
+    python = "@aspect_rules_lint//format:ruff",
+    shell = "@aspect_rules_lint//format:shfmt",
+    sql = ":prettier",
+    starlark = "@buildifier_prebuilt//:buildifier",
+    swift = ":swiftformat",
+    terraform = "@aspect_rules_lint//format:terraform",
+    visibility = ["//visibility:private"],
+    xml = ":prettier",
+    yaml = "@aspect_rules_lint//format:yamlfmt",
 )

@@ -2,14 +2,14 @@ syntax = "proto3";
 
 package com.jackbradshaw.otter.openxr.model;
 
-import "first_party/com/jackbradshaw/otter/openxr/model/input_identifier.proto";
 import "first_party/com/jackbradshaw/otter/openxr/model/input_component.proto";
+import "first_party/com/jackbradshaw/otter/openxr/model/input_identifier.proto";
 import "first_party/com/jackbradshaw/otter/openxr/model/input_location.proto";
 import "first_party/com/jackbradshaw/otter/openxr/model/user.proto";
 
 option java_multiple_files = true;
-option java_package = "com.jackbradshaw.otter.openxr.model";
 option java_outer_classname = "InputProto";
+option java_package = "com.jackbradshaw.otter.openxr.model";
 
 message Input {
   com.jackbradshaw.otter.openxr.model.User user = 1;
