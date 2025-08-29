@@ -3,11 +3,12 @@ module(
     version = "20250812",
 )
 
-# Section: Versions
-# Only include versions here if they are referenced in multiple places to balance brevity with
-# correctness.
-# If a version is only used for maven resolution then prefix it with VERSION_MAVEN_, but if a
-# version is used for both bazel-dep resolution and maven resolution then prefix it with VERSION_.
+# Versions
+#
+# Guidelines:
+# - Only include versions that are referenced in multiple places.
+# - Deps that are used in bazel-deps are prefixed with 'VERSION_'.
+# - Deps that are used in maven only are prefixed with 'VERSION_MAVEN_'.
 
 VERSION_ROBOLECTRIC = "4.12.2"
 
@@ -33,7 +34,7 @@ VERSION_MAVEN_LWJGL = "3.3.6"
 
 VERSION_MAVEN_PROTOBUF_JVM_VERSION = "4.32.0-RC2"
 
-# Section: Core tools for common tasks and repo maintenance
+# Core Build Tools
 bazel_dep(name = "bazel_skylib", version = "1.8.1")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "buildozer", version = "8.2.1")
@@ -41,121 +42,15 @@ bazel_dep(name = "buildifier_prebuilt", version = "8.2.0.2")
 bazel_dep(name = "rules_pkg", version = "1.1.0")
 bazel_dep(name = "rules_testing", version = "0.9.0")
 
-# Section: C and C++ support
+# C and C++
 bazel_dep(name = "rules_cc", version = "0.2.0")
 
-# Section: Java/Kotiln support
+# JVM (Java + Kotlin)
 bazel_dep(name = "rules_java", version = "8.15.1")
 bazel_dep(name = "rules_kotlin", version = "2.1.8")
 bazel_dep(name = "rules_jvm_external", version = "6.8")
 
-# Section: Go support
-bazel_dep(name = "rules_go", version = "0.56.1")
-
-# Section: Python support
-bazel_dep(name = "rules_python", version = "1.5.1")
-
-python = use_extension("@rules_python//python/extensions:python.bzl", "python")
-python.defaults(python_version = "3.12")
-python.toolchain(python_version = "3.12")
-use_repo(python, "python_3_12")
-
-pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
-pip.parse(
-    hub_name = "pypi",
-    python_version = "3.13",
-    requirements_lock = "//:lock_pip_requirements.txt",
-)
-use_repo(pip, "pypi")
-
-# Section: Apple support
-bazel_dep(name = "rules_swift", version = "3.1.2")
-bazel_dep(name = "rules_apple", version = "4.1.2")
-bazel_dep(name = "rules_ios", version = "6.0.1")
-
-# Resolves conflict between rules_swift and rules_apple
-single_version_override(
-    module_name = "rules_swift",
-    version = "3.1.2",
-)
-
-# Section: Javascript
-bazel_dep(name = "aspect_rules_js", version = "2.5.0")
-bazel_dep(name = "rules_nodejs", version = "6.3.0")
-
-pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
-use_repo(pnpm, "pnpm")
-
-npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
-npm.npm_translate_lock(
-    name = "npm",
-    npmrc = "//:.npmrc",
-    pnpm_lock = "//:pnpm-lock.yaml",
-)
-use_repo(npm, "npm")
-
-# Section: Protobuf and gRPC
-bazel_dep(name = "protobuf", version = "31.1")
-bazel_dep(name = "rules_proto_grpc", version = VERSION_GRPC)
-bazel_dep(name = "rules_proto_grpc_java", version = VERSION_GRPC)
-
-# gRPC Kotlin is currently the best source for Kotlin proto/gRPC rules (as of 2025) since there is
-# no direct equivalent of rules_proto_grpc_java for Kotlin.
-bazel_dep(name = "grpc_kotlin", version = "2.1.0")
-git_override(
-    module_name = "grpc_kotlin",
-    commit = "d17a4ab",
-    remote = "https://github.com/duckladydinh/grpc-kotlin",
-)
-
-# Required since gRPC kotlin is not available via bzlmod and cannot resolve its own deps.
-# When any deps are updated, repin by running 'REPIN=1 bazelisk run @grpc_kotlin_maven//:pin'
-grpc_kotlin_maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
-grpc_kotlin_maven.install(
-    name = "grpc_kotlin_maven",
-    artifacts = [
-        "com.google.jimfs:jimfs:1.3.0",
-        "com.google.truth:truth:1.4.2",
-        "com.google.truth.extensions:truth-proto-extension:1.4.2",
-        "com.google.protobuf:protobuf-java:4.30.2",
-        "com.google.protobuf:protobuf-kotlin:4.30.2",
-        "com.google.guava:guava:33.3.1-android",
-        "com.squareup:kotlinpoet:1.14.2",
-        "junit:junit:4.13.2",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.1",
-    ],
-    fetch_sources = False,
-    generate_compat_repositories = True,
-    known_contributing_modules = [
-        "grpc_kotlin",
-        "com_jackbradshaw",
-    ],
-    lock_file = "//:lock_maven_grpc_kotlin.json",
-    strict_visibility = True,
-)
-use_repo(grpc_kotlin_maven, "grpc_kotlin_maven")
-
-# Section: Android support
-bazel_dep(name = "rules_android", version = "0.6.5")
-
-# Section: Dagger
-# Sourced from github because Dagger uses bzlmod but is not present in the central registry.
-# The .gitignore is manually removed so it isn't picked up by this repository as a real .gitignore.
-# TODO migrate to a cental registry dependency when available.
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "dagger",
-    patch_cmds = ["rm .gitignore"],
-    strip_prefix = "dagger-dagger-%s" % VERSION_DAGGER,
-    urls = ["https://github.com/google/dagger/archive/dagger-%s.zip" % VERSION_DAGGER],
-)
-
-# Section: Maven Deps
-# When any deps are updated, repin by running 'REPIN=1 bazel run @com_jackbradshaw_maven//:pin'
-maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
-use_repo(maven, "maven")
+## Maven Deps
 
 com_jackbradshaw_maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 com_jackbradshaw_maven.install(
@@ -251,3 +146,105 @@ com_jackbradshaw_maven.install(
     ],
 )
 use_repo(com_jackbradshaw_maven, "com_jackbradshaw_maven")
+
+# Go
+bazel_dep(name = "rules_go", version = "0.56.1")
+
+# Python
+bazel_dep(name = "rules_python", version = "1.5.1")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.defaults(python_version = "3.12")
+python.toolchain(python_version = "3.12")
+use_repo(python, "python_3_12")
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "pypi",
+    python_version = "3.13",
+    requirements_lock = "//:lock_pip_requirements.txt",
+)
+use_repo(pip, "pypi")
+
+# Apple (Swift + Apple + iOS)
+bazel_dep(name = "rules_swift", version = "3.1.2")
+bazel_dep(name = "rules_apple", version = "4.1.2")
+bazel_dep(name = "rules_ios", version = "6.0.1")
+
+## Resolves conflict between rules_swift and rules_apple
+single_version_override(
+    module_name = "rules_swift",
+    version = "3.1.2",
+)
+
+# Javascript (Core JS + Node)
+bazel_dep(name = "aspect_rules_js", version = "2.5.0")
+bazel_dep(name = "rules_nodejs", version = "6.3.0")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+# Protobuf and gRPC
+bazel_dep(name = "protobuf", version = "31.1")
+bazel_dep(name = "rules_proto_grpc", version = VERSION_GRPC)
+bazel_dep(name = "rules_proto_grpc_java", version = VERSION_GRPC)
+
+## Not available in Bazel central repo yet.
+bazel_dep(name = "grpc_kotlin", version = "2.1.0")
+git_override(
+    module_name = "grpc_kotlin",
+    commit = "d17a4ab",
+    remote = "https://github.com/duckladydinh/grpc-kotlin",
+)
+
+## Required since gRPC kotlin is not available via bzlmod and cannot resolve its own deps.
+## When any deps are updated, repin by running 'REPIN=1 bazelisk run @grpc_kotlin_maven//:pin'
+grpc_kotlin_maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+grpc_kotlin_maven.install(
+    name = "grpc_kotlin_maven",
+    artifacts = [
+        "com.google.jimfs:jimfs:1.3.0",
+        "com.google.truth:truth:1.4.2",
+        "com.google.truth.extensions:truth-proto-extension:1.4.2",
+        "com.google.protobuf:protobuf-java:4.30.2",
+        "com.google.protobuf:protobuf-kotlin:4.30.2",
+        "com.google.guava:guava:33.3.1-android",
+        "com.squareup:kotlinpoet:1.14.2",
+        "junit:junit:4.13.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.1",
+    ],
+    fetch_sources = False,
+    generate_compat_repositories = True,
+    known_contributing_modules = [
+        "grpc_kotlin",
+        "com_jackbradshaw",
+    ],
+    lock_file = "//:lock_maven_grpc_kotlin.json",
+    strict_visibility = True,
+)
+use_repo(grpc_kotlin_maven, "grpc_kotlin_maven")
+
+# Android
+bazel_dep(name = "rules_android", version = "0.6.5")
+
+# Dagger
+# Sourced from github because Dagger uses bzlmod but is not present in the central registry.
+# The .gitignore is manually removed so it isn't picked up by this repository as a real .gitignore.
+# TODO migrate to a cental registry dependency when available.
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "dagger",
+    patch_cmds = ["rm .gitignore"],
+    strip_prefix = "dagger-dagger-%s" % VERSION_DAGGER,
+    urls = ["https://github.com/google/dagger/archive/dagger-%s.zip" % VERSION_DAGGER],
+)
