@@ -3,8 +3,8 @@ syntax = "proto3";
 package com.jackbradshaw.otter.math.model;
 
 option java_multiple_files = true;
-option java_package = "com.jackbradshaw.otter.math.model";
 option java_outer_classname = "PointProto";
+option java_package = "com.jackbradshaw.otter.math.model";
 
 /**
  * A point in 3 dimensional space (https://en.wikipedia.org/wiki/Three-dimensional_space) where the axes are oriented

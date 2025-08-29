@@ -3,8 +3,8 @@ syntax = "proto3";
 package com.jackbradshaw.otter.physics.collisions;
 
 option java_multiple_files = true;
-option java_package = "com.jackbradshaw.otter.physics.collisions";
 option java_outer_classname = "InteractionProto";
+option java_package = "com.jackbradshaw.otter.physics.collisions";
 
 message Interaction {
   float combined_coefficient_of_restitution = 1;
