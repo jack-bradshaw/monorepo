@@ -1025,12 +1025,8 @@
       "com.google.guava:guava",
       "com.squareup:javapoet"
     ],
-    "com.google.auto:auto-common": [
-      "com.google.guava:guava"
-    ],
-    "com.google.code.gson:gson": [
-      "com.google.errorprone:error_prone_annotations"
-    ],
+    "com.google.auto:auto-common": ["com.google.guava:guava"],
+    "com.google.code.gson:gson": ["com.google.errorprone:error_prone_annotations"],
     "com.google.dagger:dagger": [
       "jakarta.inject:jakarta.inject-api",
       "javax.inject:javax.inject",
@@ -1068,12 +1064,8 @@
       "com.squareup:javapoet",
       "javax.inject:javax.inject"
     ],
-    "com.google.devtools.ksp:symbol-processing-api": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
-    "com.google.flogger:flogger": [
-      "org.jspecify:jspecify"
-    ],
+    "com.google.devtools.ksp:symbol-processing-api": ["org.jetbrains.kotlin:kotlin-stdlib"],
+    "com.google.flogger:flogger": ["org.jspecify:jspecify"],
     "com.google.flogger:flogger-system-backend": [
       "com.google.flogger:flogger",
       "org.jspecify:jspecify"
@@ -1147,9 +1139,7 @@
       "org.jetbrains.kotlin:kotlin-reflect",
       "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     ],
-    "io.grpc:grpc-context": [
-      "io.grpc:grpc-api"
-    ],
+    "io.grpc:grpc-context": ["io.grpc:grpc-api"],
     "io.ktor:ktor-events": [
       "io.ktor:ktor-utils",
       "org.jetbrains.kotlin:kotlin-stdlib",
@@ -1204,39 +1194,25 @@
       "org.jetbrains.kotlin:kotlin-stdlib",
       "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     ],
-    "io.opencensus:opencensus-api": [
-      "io.grpc:grpc-context"
-    ],
+    "io.opencensus:opencensus-api": ["io.grpc:grpc-context"],
     "io.opencensus:opencensus-contrib-http-util": [
       "com.google.guava:guava",
       "io.opencensus:opencensus-api"
     ],
-    "junit:junit": [
-      "org.hamcrest:hamcrest-core"
-    ],
+    "junit:junit": ["org.hamcrest:hamcrest-core"],
     "org.apache.httpcomponents:httpclient": [
       "commons-codec:commons-codec",
       "org.apache.httpcomponents:httpcore"
     ],
-    "org.jetbrains.kotlin:kotlin-metadata-jvm": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
-    "org.jetbrains.kotlin:kotlin-reflect": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
-    "org.jetbrains.kotlin:kotlin-stdlib": [
-      "org.jetbrains:annotations"
-    ],
-    "org.jetbrains.kotlin:kotlin-stdlib-jdk7": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
+    "org.jetbrains.kotlin:kotlin-metadata-jvm": ["org.jetbrains.kotlin:kotlin-stdlib"],
+    "org.jetbrains.kotlin:kotlin-reflect": ["org.jetbrains.kotlin:kotlin-stdlib"],
+    "org.jetbrains.kotlin:kotlin-stdlib": ["org.jetbrains:annotations"],
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk7": ["org.jetbrains.kotlin:kotlin-stdlib"],
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8": [
       "org.jetbrains.kotlin:kotlin-stdlib",
       "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
     ],
-    "org.jetbrains.kotlin:kotlin-test": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
+    "org.jetbrains.kotlin:kotlin-test": ["org.jetbrains.kotlin:kotlin-stdlib"],
     "org.jetbrains.kotlinx:kotlinx-coroutines-core": [
       "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm"
     ],
@@ -1244,9 +1220,7 @@
       "org.jetbrains.kotlin:kotlin-stdlib",
       "org.jetbrains:annotations"
     ],
-    "org.jetbrains.kotlinx:kotlinx-io-bytestring": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
+    "org.jetbrains.kotlinx:kotlinx-io-bytestring": ["org.jetbrains.kotlin:kotlin-stdlib"],
     "org.jetbrains.kotlinx:kotlinx-io-core": [
       "org.jetbrains.kotlin:kotlin-stdlib",
       "org.jetbrains.kotlinx:kotlinx-io-bytestring"
@@ -1254,22 +1228,14 @@
     "org.jetbrains.kotlinx:kotlinx-serialization-core": [
       "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm"
     ],
-    "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
+    "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm": ["org.jetbrains.kotlin:kotlin-stdlib"],
     "org.jmonkeyengine:jme3-bullet": [
       "org.jmonkeyengine:jme3-core",
       "org.jmonkeyengine:jme3-terrain"
     ],
-    "org.jmonkeyengine:jme3-bullet-native": [
-      "org.jmonkeyengine:jme3-bullet"
-    ],
-    "org.jmonkeyengine:jme3-desktop": [
-      "org.jmonkeyengine:jme3-core"
-    ],
-    "org.jmonkeyengine:jme3-effects": [
-      "org.jmonkeyengine:jme3-core"
-    ],
+    "org.jmonkeyengine:jme3-bullet-native": ["org.jmonkeyengine:jme3-bullet"],
+    "org.jmonkeyengine:jme3-desktop": ["org.jmonkeyengine:jme3-core"],
+    "org.jmonkeyengine:jme3-effects": ["org.jmonkeyengine:jme3-core"],
     "org.jmonkeyengine:jme3-lwjgl": [
       "net.java.jinput:jinput",
       "net.java.jinput:jinput:jar:natives-all",
@@ -1324,9 +1290,7 @@
       "org.lwjgl:lwjgl:jar:natives-windows-x86",
       "org.lwjglx:lwjgl3-awt"
     ],
-    "org.jmonkeyengine:jme3-terrain": [
-      "org.jmonkeyengine:jme3-core"
-    ],
+    "org.jmonkeyengine:jme3-terrain": ["org.jmonkeyengine:jme3-core"],
     "org.jmonkeyengine:jme3-vr": [
       "com.nativelibs4java:jnaerator-runtime",
       "net.java.dev.jna:jna",
@@ -1357,231 +1321,84 @@
       "org.junit.jupiter:junit-jupiter-api",
       "org.junit.platform:junit-platform-engine"
     ],
-    "org.junit.platform:junit-platform-commons": [
-      "org.apiguardian:apiguardian-api"
-    ],
+    "org.junit.platform:junit-platform-commons": ["org.apiguardian:apiguardian-api"],
     "org.junit.platform:junit-platform-engine": [
       "org.apiguardian:apiguardian-api",
       "org.junit.platform:junit-platform-commons",
       "org.opentest4j:opentest4j"
     ],
-    "org.lwjgl:lwjgl-assimp": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-bgfx": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-cuda": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-egl": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw:jar:natives-linux": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw:jar:natives-linux-arm32": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw:jar:natives-linux-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw:jar:natives-macos": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw:jar:natives-macos-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw:jar:natives-windows": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-glfw:jar:natives-windows-x86": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jawt": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc:jar:natives-linux": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc:jar:natives-linux-arm32": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc:jar:natives-linux-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc:jar:natives-macos": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc:jar:natives-macos-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc:jar:natives-windows": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-jemalloc:jar:natives-windows-x86": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-libdivide": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-llvm": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-lmdb": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-lz4": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-meow": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-meshoptimizer": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-nanovg": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-nfd": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-nuklear": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-odbc": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal:jar:natives-linux": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal:jar:natives-linux-arm32": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal:jar:natives-linux-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal:jar:natives-macos": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal:jar:natives-macos-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal:jar:natives-windows": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openal:jar:natives-windows-x86": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opencl": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl:jar:natives-linux": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl:jar:natives-linux-arm32": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl:jar:natives-linux-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl:jar:natives-macos": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl:jar:natives-macos-arm64": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl:jar:natives-windows": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengl:jar:natives-windows-x86": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opengles": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openvr": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openvr:jar:natives-linux": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openvr:jar:natives-macos": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openvr:jar:natives-windows": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-openxr": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-opus": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-ovr": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-ovr:jar:natives-windows": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-par": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-remotery": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-rpmalloc": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-shaderc": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-spvc": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-sse": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-stb": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-tinyexr": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-tootle": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-vma": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-vulkan": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-xxhash": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-yoga": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjgl:lwjgl-zstd": [
-      "org.lwjgl:lwjgl"
-    ],
-    "org.lwjglx:lwjgl3-awt": [
-      "org.lwjgl:lwjgl",
-      "org.lwjgl:lwjgl-jawt"
-    ],
+    "org.lwjgl:lwjgl-assimp": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-bgfx": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-cuda": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-egl": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw:jar:natives-linux": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw:jar:natives-linux-arm32": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw:jar:natives-linux-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw:jar:natives-macos": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw:jar:natives-macos-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw:jar:natives-windows": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-glfw:jar:natives-windows-x86": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jawt": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc:jar:natives-linux": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc:jar:natives-linux-arm32": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc:jar:natives-linux-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc:jar:natives-macos": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc:jar:natives-macos-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc:jar:natives-windows": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-jemalloc:jar:natives-windows-x86": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-libdivide": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-llvm": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-lmdb": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-lz4": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-meow": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-meshoptimizer": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-nanovg": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-nfd": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-nuklear": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-odbc": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal:jar:natives-linux": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal:jar:natives-linux-arm32": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal:jar:natives-linux-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal:jar:natives-macos": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal:jar:natives-macos-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal:jar:natives-windows": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openal:jar:natives-windows-x86": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opencl": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl:jar:natives-linux": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl:jar:natives-linux-arm32": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl:jar:natives-linux-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl:jar:natives-macos": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl:jar:natives-macos-arm64": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl:jar:natives-windows": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengl:jar:natives-windows-x86": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opengles": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openvr": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openvr:jar:natives-linux": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openvr:jar:natives-macos": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openvr:jar:natives-windows": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-openxr": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-opus": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-ovr": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-ovr:jar:natives-windows": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-par": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-remotery": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-rpmalloc": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-shaderc": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-spvc": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-sse": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-stb": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-tinyexr": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-tootle": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-vma": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-vulkan": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-xxhash": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-yoga": ["org.lwjgl:lwjgl"],
+    "org.lwjgl:lwjgl-zstd": ["org.lwjgl:lwjgl"],
+    "org.lwjglx:lwjgl3-awt": ["org.lwjgl:lwjgl", "org.lwjgl:lwjgl-jawt"],
     "org.mockito:mockito-core": [
       "net.bytebuddy:byte-buddy",
       "net.bytebuddy:byte-buddy-agent",
@@ -1593,9 +1410,7 @@
       "com.google.auto.factory",
       "com.google.auto.factory.processor"
     ],
-    "com.google.auto.service:auto-service-annotations": [
-      "com.google.auto.service"
-    ],
+    "com.google.auto.service:auto-service-annotations": ["com.google.auto.service"],
     "com.google.auto.value:auto-value": [
       "autovalue.shaded.com.google.auto.common",
       "autovalue.shaded.com.google.auto.service",
@@ -1640,9 +1455,7 @@
       "com.google.auto.value.extension.serializable",
       "com.google.auto.value.extension.toprettystring"
     ],
-    "com.google.auto:auto-common": [
-      "com.google.auto.common"
-    ],
+    "com.google.auto:auto-common": ["com.google.auto.common"],
     "com.google.code.findbugs:jsr305": [
       "javax.annotation",
       "javax.annotation.concurrent",
@@ -1760,18 +1573,14 @@
       "com.google.common.flogger.parser",
       "com.google.common.flogger.util"
     ],
-    "com.google.flogger:flogger-system-backend": [
-      "com.google.common.flogger.backend.system"
-    ],
+    "com.google.flogger:flogger-system-backend": ["com.google.common.flogger.backend.system"],
     "com.google.googlejavaformat:google-java-format": [
       "com.google.googlejavaformat",
       "com.google.googlejavaformat.java",
       "com.google.googlejavaformat.java.filer",
       "com.google.googlejavaformat.java.javadoc"
     ],
-    "com.google.guava:failureaccess": [
-      "com.google.common.util.concurrent.internal"
-    ],
+    "com.google.guava:failureaccess": ["com.google.common.util.concurrent.internal"],
     "com.google.guava:guava": [
       "com.google.common.annotations",
       "com.google.common.base",
@@ -1820,26 +1629,15 @@
       "com.google.api.client.util.escape",
       "com.google.api.client.util.store"
     ],
-    "com.google.http-client:google-http-client-gson": [
-      "com.google.api.client.json.gson"
-    ],
+    "com.google.http-client:google-http-client-gson": ["com.google.api.client.json.gson"],
     "com.google.http-client:google-http-client-test": [
       "com.google.api.client.test.json",
       "com.google.api.client.test.util.store"
     ],
-    "com.google.j2objc:j2objc-annotations": [
-      "com.google.j2objc.annotations"
-    ],
-    "com.google.protobuf:protobuf-java": [
-      "com.google.protobuf",
-      "com.google.protobuf.compiler"
-    ],
-    "com.google.protobuf:protobuf-java-util": [
-      "com.google.protobuf.util"
-    ],
-    "com.google.protobuf:protobuf-javalite": [
-      "com.google.protobuf"
-    ],
+    "com.google.j2objc:j2objc-annotations": ["com.google.j2objc.annotations"],
+    "com.google.protobuf:protobuf-java": ["com.google.protobuf", "com.google.protobuf.compiler"],
+    "com.google.protobuf:protobuf-java-util": ["com.google.protobuf.util"],
+    "com.google.protobuf:protobuf-javalite": ["com.google.protobuf"],
     "com.google.protobuf:protobuf-kotlin": [
       "com.google.protobuf",
       "com.google.protobuf.compiler",
@@ -1849,12 +1647,8 @@
       "com.google.protobuf",
       "com.google.protobuf.kotlin"
     ],
-    "com.google.protobuf:protobuf-lite": [
-      "com.google.protobuf"
-    ],
-    "com.google.truth:truth": [
-      "com.google.common.truth"
-    ],
+    "com.google.protobuf:protobuf-lite": ["com.google.protobuf"],
+    "com.google.truth:truth": ["com.google.common.truth"],
     "com.nativelibs4java:jnaerator-runtime": [
       "com.ochafik.lang.jnaerator.runtime",
       "com.ochafik.lang.jnaerator.runtime.globals",
@@ -1873,9 +1667,7 @@
       "com.ochafik.util.string",
       "com.ochafik.xml"
     ],
-    "com.squareup:javapoet": [
-      "com.squareup.javapoet"
-    ],
+    "com.squareup:javapoet": ["com.squareup.javapoet"],
     "com.squareup:kotlinpoet": [
       "com.squareup.kotlinpoet",
       "com.squareup.kotlinpoet.jvm",
@@ -1890,9 +1682,7 @@
       "org.apache.commons.codec.language.bm",
       "org.apache.commons.codec.net"
     ],
-    "io.grpc:grpc-api": [
-      "io.grpc"
-    ],
+    "io.grpc:grpc-api": ["io.grpc"],
     "io.opencensus:opencensus-api": [
       "io.opencensus.common",
       "io.opencensus.internal",
@@ -1916,16 +1706,9 @@
       "io.opencensus.contrib.http",
       "io.opencensus.contrib.http.util"
     ],
-    "jakarta.inject:jakarta.inject-api": [
-      "jakarta.inject"
-    ],
-    "javax.annotation:jsr250-api": [
-      "javax.annotation",
-      "javax.annotation.security"
-    ],
-    "javax.inject:javax.inject": [
-      "javax.inject"
-    ],
+    "jakarta.inject:jakarta.inject-api": ["jakarta.inject"],
+    "javax.annotation:jsr250-api": ["javax.annotation", "javax.annotation.security"],
+    "javax.inject:javax.inject": ["javax.inject"],
     "junit:junit": [
       "junit.extensions",
       "junit.framework",
@@ -2016,9 +1799,7 @@
       "net.java.games.util",
       "net.java.games.util.plugins"
     ],
-    "net.ltgt.gradle.incap:incap": [
-      "net.ltgt.gradle.incap"
-    ],
+    "net.ltgt.gradle.incap:incap": ["net.ltgt.gradle.incap"],
     "org.apache.httpcomponents:httpclient": [
       "org.apache.http.auth",
       "org.apache.http.auth.params",
@@ -2064,17 +1845,11 @@
       "org.apache.http.ssl",
       "org.apache.http.util"
     ],
-    "org.apiguardian:apiguardian-api": [
-      "org.apiguardian.api"
-    ],
+    "org.apiguardian:apiguardian-api": ["org.apiguardian.api"],
     "org.checkerframework:checker-compat-qual": [
       "org.checkerframework.checker.nullness.compatqual"
     ],
-    "org.hamcrest:hamcrest-core": [
-      "org.hamcrest",
-      "org.hamcrest.core",
-      "org.hamcrest.internal"
-    ],
+    "org.hamcrest:hamcrest-core": ["org.hamcrest", "org.hamcrest.core", "org.hamcrest.internal"],
     "org.jetbrains.kotlin:kotlin-metadata-jvm": [
       "kotlin.metadata",
       "kotlin.metadata.internal",
@@ -2218,9 +1993,7 @@
       "kotlin.text.jdk8",
       "kotlin.time.jdk8"
     ],
-    "org.jetbrains.kotlin:kotlin-test": [
-      "kotlin.test"
-    ],
+    "org.jetbrains.kotlin:kotlin-test": ["kotlin.test"],
     "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm": [
       "_COROUTINE",
       "kotlinx.coroutines",
@@ -2245,10 +2018,7 @@
       "kotlinx.serialization.internal",
       "kotlinx.serialization.modules"
     ],
-    "org.jetbrains:annotations": [
-      "org.intellij.lang.annotations",
-      "org.jetbrains.annotations"
-    ],
+    "org.jetbrains:annotations": ["org.intellij.lang.annotations", "org.jetbrains.annotations"],
     "org.jmonkeyengine:jme3-bullet": [
       "com.jme3.bullet",
       "com.jme3.bullet.animation",
@@ -2429,9 +2199,7 @@
       "org.lwjgl.opengl",
       "org.lwjgl.opengles"
     ],
-    "org.jspecify:jspecify": [
-      "org.jspecify.annotations"
-    ],
+    "org.jspecify:jspecify": ["org.jspecify.annotations"],
     "org.junit.jupiter:junit-jupiter-api": [
       "org.junit.jupiter.api",
       "org.junit.jupiter.api.condition",
@@ -2484,129 +2252,46 @@
       "org.lwjgl.system.macosx",
       "org.lwjgl.system.windows"
     ],
-    "org.lwjgl:lwjgl-assimp": [
-      "org.lwjgl.assimp"
-    ],
-    "org.lwjgl:lwjgl-bgfx": [
-      "org.lwjgl.bgfx"
-    ],
-    "org.lwjgl:lwjgl-cuda": [
-      "org.lwjgl.cuda"
-    ],
-    "org.lwjgl:lwjgl-egl": [
-      "org.lwjgl.egl"
-    ],
-    "org.lwjgl:lwjgl-glfw": [
-      "org.lwjgl.glfw"
-    ],
-    "org.lwjgl:lwjgl-jawt": [
-      "org.lwjgl.system.jawt"
-    ],
-    "org.lwjgl:lwjgl-jemalloc": [
-      "org.lwjgl.system.jemalloc"
-    ],
-    "org.lwjgl:lwjgl-libdivide": [
-      "org.lwjgl.util.libdivide"
-    ],
-    "org.lwjgl:lwjgl-llvm": [
-      "org.lwjgl.llvm"
-    ],
-    "org.lwjgl:lwjgl-lmdb": [
-      "org.lwjgl.util.lmdb"
-    ],
-    "org.lwjgl:lwjgl-lz4": [
-      "org.lwjgl.util.lz4"
-    ],
-    "org.lwjgl:lwjgl-meow": [
-      "org.lwjgl.util.meow"
-    ],
-    "org.lwjgl:lwjgl-meshoptimizer": [
-      "org.lwjgl.util.meshoptimizer"
-    ],
-    "org.lwjgl:lwjgl-nanovg": [
-      "org.lwjgl.nanovg"
-    ],
-    "org.lwjgl:lwjgl-nfd": [
-      "org.lwjgl.util.nfd"
-    ],
-    "org.lwjgl:lwjgl-nuklear": [
-      "org.lwjgl.nuklear"
-    ],
-    "org.lwjgl:lwjgl-odbc": [
-      "org.lwjgl.odbc"
-    ],
-    "org.lwjgl:lwjgl-openal": [
-      "org.lwjgl.openal"
-    ],
-    "org.lwjgl:lwjgl-opencl": [
-      "org.lwjgl.opencl"
-    ],
-    "org.lwjgl:lwjgl-opengl": [
-      "org.lwjgl.opengl"
-    ],
-    "org.lwjgl:lwjgl-opengles": [
-      "org.lwjgl.opengles"
-    ],
-    "org.lwjgl:lwjgl-openvr": [
-      "org.lwjgl.openvr"
-    ],
-    "org.lwjgl:lwjgl-openxr": [
-      "org.lwjgl.openxr"
-    ],
-    "org.lwjgl:lwjgl-opus": [
-      "org.lwjgl.util.opus"
-    ],
-    "org.lwjgl:lwjgl-ovr": [
-      "org.lwjgl.ovr"
-    ],
-    "org.lwjgl:lwjgl-par": [
-      "org.lwjgl.util.par"
-    ],
-    "org.lwjgl:lwjgl-remotery": [
-      "org.lwjgl.util.remotery"
-    ],
-    "org.lwjgl:lwjgl-rpmalloc": [
-      "org.lwjgl.system.rpmalloc"
-    ],
-    "org.lwjgl:lwjgl-shaderc": [
-      "org.lwjgl.util.shaderc"
-    ],
-    "org.lwjgl:lwjgl-spvc": [
-      "org.lwjgl.util.spvc"
-    ],
-    "org.lwjgl:lwjgl-sse": [
-      "org.lwjgl.util.simd"
-    ],
-    "org.lwjgl:lwjgl-stb": [
-      "org.lwjgl.stb"
-    ],
-    "org.lwjgl:lwjgl-tinyexr": [
-      "org.lwjgl.util.tinyexr"
-    ],
-    "org.lwjgl:lwjgl-tootle": [
-      "org.lwjgl.util.tootle"
-    ],
-    "org.lwjgl:lwjgl-vma": [
-      "org.lwjgl.util.vma"
-    ],
-    "org.lwjgl:lwjgl-vulkan": [
-      "org.lwjgl.vulkan",
-      "org.lwjgl.vulkan.video"
-    ],
-    "org.lwjgl:lwjgl-xxhash": [
-      "org.lwjgl.util.xxhash"
-    ],
-    "org.lwjgl:lwjgl-yoga": [
-      "org.lwjgl.util.yoga"
-    ],
-    "org.lwjgl:lwjgl-zstd": [
-      "org.lwjgl.util.zstd"
-    ],
-    "org.lwjglx:lwjgl3-awt": [
-      "org.lwjgl.awthacks",
-      "org.lwjgl.opengl.awt",
-      "org.lwjgl.vulkan.awt"
-    ],
+    "org.lwjgl:lwjgl-assimp": ["org.lwjgl.assimp"],
+    "org.lwjgl:lwjgl-bgfx": ["org.lwjgl.bgfx"],
+    "org.lwjgl:lwjgl-cuda": ["org.lwjgl.cuda"],
+    "org.lwjgl:lwjgl-egl": ["org.lwjgl.egl"],
+    "org.lwjgl:lwjgl-glfw": ["org.lwjgl.glfw"],
+    "org.lwjgl:lwjgl-jawt": ["org.lwjgl.system.jawt"],
+    "org.lwjgl:lwjgl-jemalloc": ["org.lwjgl.system.jemalloc"],
+    "org.lwjgl:lwjgl-libdivide": ["org.lwjgl.util.libdivide"],
+    "org.lwjgl:lwjgl-llvm": ["org.lwjgl.llvm"],
+    "org.lwjgl:lwjgl-lmdb": ["org.lwjgl.util.lmdb"],
+    "org.lwjgl:lwjgl-lz4": ["org.lwjgl.util.lz4"],
+    "org.lwjgl:lwjgl-meow": ["org.lwjgl.util.meow"],
+    "org.lwjgl:lwjgl-meshoptimizer": ["org.lwjgl.util.meshoptimizer"],
+    "org.lwjgl:lwjgl-nanovg": ["org.lwjgl.nanovg"],
+    "org.lwjgl:lwjgl-nfd": ["org.lwjgl.util.nfd"],
+    "org.lwjgl:lwjgl-nuklear": ["org.lwjgl.nuklear"],
+    "org.lwjgl:lwjgl-odbc": ["org.lwjgl.odbc"],
+    "org.lwjgl:lwjgl-openal": ["org.lwjgl.openal"],
+    "org.lwjgl:lwjgl-opencl": ["org.lwjgl.opencl"],
+    "org.lwjgl:lwjgl-opengl": ["org.lwjgl.opengl"],
+    "org.lwjgl:lwjgl-opengles": ["org.lwjgl.opengles"],
+    "org.lwjgl:lwjgl-openvr": ["org.lwjgl.openvr"],
+    "org.lwjgl:lwjgl-openxr": ["org.lwjgl.openxr"],
+    "org.lwjgl:lwjgl-opus": ["org.lwjgl.util.opus"],
+    "org.lwjgl:lwjgl-ovr": ["org.lwjgl.ovr"],
+    "org.lwjgl:lwjgl-par": ["org.lwjgl.util.par"],
+    "org.lwjgl:lwjgl-remotery": ["org.lwjgl.util.remotery"],
+    "org.lwjgl:lwjgl-rpmalloc": ["org.lwjgl.system.rpmalloc"],
+    "org.lwjgl:lwjgl-shaderc": ["org.lwjgl.util.shaderc"],
+    "org.lwjgl:lwjgl-spvc": ["org.lwjgl.util.spvc"],
+    "org.lwjgl:lwjgl-sse": ["org.lwjgl.util.simd"],
+    "org.lwjgl:lwjgl-stb": ["org.lwjgl.stb"],
+    "org.lwjgl:lwjgl-tinyexr": ["org.lwjgl.util.tinyexr"],
+    "org.lwjgl:lwjgl-tootle": ["org.lwjgl.util.tootle"],
+    "org.lwjgl:lwjgl-vma": ["org.lwjgl.util.vma"],
+    "org.lwjgl:lwjgl-vulkan": ["org.lwjgl.vulkan", "org.lwjgl.vulkan.video"],
+    "org.lwjgl:lwjgl-xxhash": ["org.lwjgl.util.xxhash"],
+    "org.lwjgl:lwjgl-yoga": ["org.lwjgl.util.yoga"],
+    "org.lwjgl:lwjgl-zstd": ["org.lwjgl.util.zstd"],
+    "org.lwjglx:lwjgl3-awt": ["org.lwjgl.awthacks", "org.lwjgl.opengl.awt", "org.lwjgl.vulkan.awt"],
     "org.mockito:mockito-core": [
       "org.mockito",
       "org.mockito.configuration",
@@ -2686,13 +2371,8 @@
       "org.objenesis.instantiator.util",
       "org.objenesis.strategy"
     ],
-    "org.opentest4j:opentest4j": [
-      "org.opentest4j"
-    ],
-    "org.ow2.asm:asm": [
-      "org.objectweb.asm",
-      "org.objectweb.asm.signature"
-    ]
+    "org.opentest4j:opentest4j": ["org.opentest4j"],
+    "org.ow2.asm:asm": ["org.objectweb.asm", "org.objectweb.asm.signature"]
   },
   "repositories": {
     "https://repo1.maven.org/maven2/": [
@@ -3367,9 +3047,7 @@
       "com.google.devtools.ksp.processing.SymbolProcessorProvider": [
         "dagger.internal.codegen.KspComponentProcessor$Provider"
       ],
-      "javax.annotation.processing.Processor": [
-        "dagger.internal.codegen.ComponentProcessor"
-      ]
+      "javax.annotation.processing.Processor": ["dagger.internal.codegen.ComponentProcessor"]
     },
     "org.jetbrains.kotlin:kotlin-metadata-jvm": {
       "kotlin.metadata.internal.extensions.MetadataExtensions": [
@@ -3392,14 +3070,10 @@
       ]
     },
     "org.junit.jupiter:junit-jupiter-engine": {
-      "org.junit.platform.engine.TestEngine": [
-        "org.junit.jupiter.engine.JupiterTestEngine"
-      ]
+      "org.junit.platform.engine.TestEngine": ["org.junit.jupiter.engine.JupiterTestEngine"]
     },
     "org.junit.jupiter:junit-jupiter-engine:jar:sources": {
-      "org.junit.platform.engine.TestEngine": [
-        "org.junit.jupiter.engine.JupiterTestEngine"
-      ]
+      "org.junit.platform.engine.TestEngine": ["org.junit.jupiter.engine.JupiterTestEngine"]
     },
     "org.junit.platform:junit-platform-engine": {
       "org.junit.platform.engine.discovery.DiscoverySelectorIdentifierParser": [

@@ -163,9 +163,7 @@
       "com.google.j2objc:j2objc-annotations",
       "org.checkerframework:checker-qual"
     ],
-    "com.google.jimfs:jimfs": [
-      "com.google.guava:guava"
-    ],
+    "com.google.jimfs:jimfs": ["com.google.guava:guava"],
     "com.google.protobuf:protobuf-kotlin": [
       "com.google.protobuf:protobuf-java",
       "org.jetbrains.kotlin:kotlin-stdlib"
@@ -198,18 +196,10 @@
       "org.jetbrains.kotlin:kotlin-reflect",
       "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     ],
-    "junit:junit": [
-      "org.hamcrest:hamcrest-core"
-    ],
-    "org.jetbrains.kotlin:kotlin-reflect": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
-    "org.jetbrains.kotlin:kotlin-stdlib": [
-      "org.jetbrains:annotations"
-    ],
-    "org.jetbrains.kotlin:kotlin-stdlib-jdk7": [
-      "org.jetbrains.kotlin:kotlin-stdlib"
-    ],
+    "junit:junit": ["org.hamcrest:hamcrest-core"],
+    "org.jetbrains.kotlin:kotlin-reflect": ["org.jetbrains.kotlin:kotlin-stdlib"],
+    "org.jetbrains.kotlin:kotlin-stdlib": ["org.jetbrains:annotations"],
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk7": ["org.jetbrains.kotlin:kotlin-stdlib"],
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8": [
       "org.jetbrains.kotlin:kotlin-stdlib",
       "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
@@ -238,9 +228,7 @@
       "com.google.errorprone.annotations",
       "com.google.errorprone.annotations.concurrent"
     ],
-    "com.google.guava:failureaccess": [
-      "com.google.common.util.concurrent.internal"
-    ],
+    "com.google.guava:failureaccess": ["com.google.common.util.concurrent.internal"],
     "com.google.guava:guava": [
       "com.google.common.annotations",
       "com.google.common.base",
@@ -261,16 +249,9 @@
       "com.google.common.xml",
       "com.google.thirdparty.publicsuffix"
     ],
-    "com.google.j2objc:j2objc-annotations": [
-      "com.google.j2objc.annotations"
-    ],
-    "com.google.jimfs:jimfs": [
-      "com.google.common.jimfs"
-    ],
-    "com.google.protobuf:protobuf-java": [
-      "com.google.protobuf",
-      "com.google.protobuf.compiler"
-    ],
+    "com.google.j2objc:j2objc-annotations": ["com.google.j2objc.annotations"],
+    "com.google.jimfs:jimfs": ["com.google.common.jimfs"],
+    "com.google.protobuf:protobuf-java": ["com.google.protobuf", "com.google.protobuf.compiler"],
     "com.google.protobuf:protobuf-kotlin": [
       "com.google.protobuf",
       "com.google.protobuf.compiler",
@@ -282,9 +263,7 @@
     "com.google.truth.extensions:truth-proto-extension": [
       "com.google.common.truth.extensions.proto"
     ],
-    "com.google.truth:truth": [
-      "com.google.common.truth"
-    ],
+    "com.google.truth:truth": ["com.google.common.truth"],
     "com.squareup:kotlinpoet": [
       "com.squareup.kotlinpoet",
       "com.squareup.kotlinpoet.jvm",
@@ -356,11 +335,7 @@
       "org.checkerframework.dataflow.qual",
       "org.checkerframework.framework.qual"
     ],
-    "org.hamcrest:hamcrest-core": [
-      "org.hamcrest",
-      "org.hamcrest.core",
-      "org.hamcrest.internal"
-    ],
+    "org.hamcrest:hamcrest-core": ["org.hamcrest", "org.hamcrest.core", "org.hamcrest.internal"],
     "org.jetbrains.kotlin:kotlin-reflect": [
       "kotlin.reflect.full",
       "kotlin.reflect.jvm",
@@ -487,14 +462,8 @@
       "kotlinx.coroutines.sync",
       "kotlinx.coroutines.time"
     ],
-    "org.jetbrains:annotations": [
-      "org.intellij.lang.annotations",
-      "org.jetbrains.annotations"
-    ],
-    "org.ow2.asm:asm": [
-      "org.objectweb.asm",
-      "org.objectweb.asm.signature"
-    ]
+    "org.jetbrains:annotations": ["org.intellij.lang.annotations", "org.jetbrains.annotations"],
+    "org.ow2.asm:asm": ["org.objectweb.asm", "org.objectweb.asm.signature"]
   },
   "repositories": {
     "https://repo1.maven.org/maven2/": [
