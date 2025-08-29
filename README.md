@@ -132,8 +132,8 @@ registered as `com.google.flogger:flogger:1.0.0` and referenced as
 To manage NPM deps:
 
 - Declare in [package.json](package.json).
-- Lock by running `bazel run -- @pnpm//:pnpm --dir . install --lockfile-only` (pwd must be the repo
-root).
+- Lock by running `bazel run -- @pnpm//:pnpm --dir $(pwd) install --lockfile-only` (pwd must be the
+repo root).
 - Reference as `//:node_modules/$packageName`.
 
 Example: [babel-plugin-minify-infinity](https://www.npmjs.com/package/babel-plugin-minify-infinity)
