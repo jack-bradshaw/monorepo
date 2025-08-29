@@ -66,6 +66,15 @@ granted only when the presubmit system itself is broken. Presubmit is started by
 WARNING: Presubmit may modify the working directory during execution, so commit/stash all changes
 before running to avoid lost work.
 
+## Formatting
+
+Autoformatting is available across the repository.
+
+- Format all files by running `bazel run //formatting:autoformat`.
+- Format specific files by running `bazel run //formatting:autoformat -- path1 path2` etc.
+
+All files must be autoformatter before submission (enforced by presubmit).
+
 ## Versioning
 
 The repository is versioned by the current date, with the version defined in the
@@ -121,7 +130,7 @@ To manage Maven deps:
 - Declare in the JVM section of [MODULES.bazel](MODULES.bazel).
 - Lock by running `REPIN=1 bazel run @com_jackbradshaw_maven//:pin`.
 - Reference as `@com_jackbradshaw_maven//:$depGroupId_depArtefactId`, with all non-alphanumeric
-characters in the identifiers replaced with `_`.
+  characters in the identifiers replaced with `_`.
 
 Example: [Google Flogger](https://mvnrepository.com/artifact/com.google.flogger/flogger) is
 registered as `com.google.flogger:flogger:1.0.0` and referenced as
@@ -133,7 +142,7 @@ To manage NPM deps:
 
 - Declare in [package.json](package.json).
 - Lock by running `bazel run -- @pnpm//:pnpm --dir $(pwd) install --lockfile-only` (pwd must be the
-repo root).
+  repo root).
 - Reference as `//:node_modules/$packageName`.
 
 Example: [babel-plugin-minify-infinity](https://www.npmjs.com/package/babel-plugin-minify-infinity)

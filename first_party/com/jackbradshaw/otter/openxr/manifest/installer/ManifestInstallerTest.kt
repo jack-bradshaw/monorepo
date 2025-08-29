@@ -1,6 +1,5 @@
 package com.jackbradshaw.otter.openxr.manifest.installer
 
-import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.otter.OtterComponent
 import com.jackbradshaw.otter.config.Config
 import com.jackbradshaw.otter.openxr.manifest.generator.ManifestGenerator
@@ -18,6 +17,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.skyscreamer.jsonassert.JSONAssert
 
 @RunWith(JUnit4::class)
 class ManifestInstallerTest {
@@ -42,7 +42,7 @@ class ManifestInstallerTest {
             .bufferedReader()
             .readLines()[0]
 
-    assertThat(fileContents).isEqualTo(goldenPrimaryManifest)
+    JSONAssert.assertEquals(fileContents, goldenPrimaryManifest, /* strict= */ true)
   }
 
   @Test
@@ -52,9 +52,9 @@ class ManifestInstallerTest {
 
     for (profile in StandardInteractionProfile.values()) {
       val filename = profile.profile.expectedSecondaryManifestFilename()
-      val contents = File(config.openXrConfig.actionManifestDirectory, filename).readText()
+      val fileContents = File(config.openXrConfig.actionManifestDirectory, filename).readText()
 
-      assertThat(contents).isEqualTo(goldenSecondaryManifests[profile])
+      JSONAssert.assertEquals(fileContents, goldenSecondaryManifests[profile], /* strict= */ true)
     }
   }
 

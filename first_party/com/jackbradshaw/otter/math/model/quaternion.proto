@@ -3,8 +3,8 @@ syntax = "proto3";
 package com.jackbradshaw.otter.math.model;
 
 option java_multiple_files = true;
-option java_package = "com.jackbradshaw.otter.math.model";
 option java_outer_classname = "QuaternionProto";
+option java_package = "com.jackbradshaw.otter.math.model";
 
 /**
  * A quaternion (https://en.wikipedia.org/wiki/Quaternion) of the form k + ai + bj + ck where i, j and k conform to the

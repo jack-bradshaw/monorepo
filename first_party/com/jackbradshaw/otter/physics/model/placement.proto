@@ -2,13 +2,13 @@ syntax = "proto3";
 
 package com.jackbradshaw.otter.physics.model;
 
-import "first_party/com/jackbradshaw/otter/math/model/quaternion.proto";
 import "first_party/com/jackbradshaw/otter/math/model/point.proto";
+import "first_party/com/jackbradshaw/otter/math/model/quaternion.proto";
 import "first_party/com/jackbradshaw/otter/math/model/vector.proto";
 
 option java_multiple_files = true;
-option java_package = "com.jackbradshaw.otter.physics.model";
 option java_outer_classname = "PlacementProto";
+option java_package = "com.jackbradshaw.otter.physics.model";
 
 /**
  * The static properties of a body at a point in time.

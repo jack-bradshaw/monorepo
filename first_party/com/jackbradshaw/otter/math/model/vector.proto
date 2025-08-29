@@ -3,8 +3,8 @@ syntax = "proto3";
 package com.jackbradshaw.otter.math.model;
 
 option java_multiple_files = true;
-option java_package = "com.jackbradshaw.otter.math.model";
 option java_outer_classname = "VectorProto";
+option java_package = "com.jackbradshaw.otter.math.model";
 
 /**
  * A vector in 3 dimensional space (https://en.wikipedia.org/wiki/Euclidean_vector) where the axes are oriented using

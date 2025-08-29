@@ -75,5 +75,6 @@ kt_jvm_test(
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@com_jackbradshaw_maven//:org_skyscreamer_jsonassert",
     ],
 )

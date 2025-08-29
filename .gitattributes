@@ -28,3 +28,12 @@
 *.jar binary
 *.dylib binary
 *.exe binary
+
+# Exclude 3P from autoformat to avoid high churn and ensure the contents match the sources.
+third_party/** rules-lint-ignored=true
+
+# Exclude package manager lock files from autoformat since they are auto-generated.
+lock_maven_grpc_kotlin.json rules-lint-ignored=true
+lock_maven_com_jackbradshaw.json rules-lint-ignored=true
+pnpm-lock.yaml rules-lint-ignored=true
+lock_pip_requirements.txt rules-lint-ignored=true

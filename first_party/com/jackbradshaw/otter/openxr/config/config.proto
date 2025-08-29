@@ -3,8 +3,8 @@ syntax = "proto3";
 package com.jackbradshaw.otter.openxr.config;
 
 option java_multiple_files = true;
-option java_package = "com.jackbradshaw.otter.openxr.config";
 option java_outer_classname = "ConfigProto";
+option java_package = "com.jackbradshaw.otter.openxr.config";
 
 message Config {
   string action_manifest_directory = 1;

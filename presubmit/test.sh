@@ -4,10 +4,10 @@
 echo "Starting check: test"
 
 if ! bazel test //...; then
-   echo "Presubmit check failed: test."
-   echo "Some tests did not pass."
-   return 1
+	echo "Presubmit check failed: test."
+	echo "Some tests did not pass."
+	return 1
 else
-   echo "Presubmit check passed: test."
-   return 0
-fi  
+	echo "Presubmit check passed: test."
+	return 0
+fi
