@@ -57,8 +57,8 @@ bazel_dep(name = "rules_kotlin", version = "2.1.8")
 bazel_dep(name = "rules_jvm_external", version = "6.8")
 
 ## Maven Deps
-com_jackbradshaw_maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
-com_jackbradshaw_maven.install(
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
     name = "com_jackbradshaw_maven",
     artifacts = [
         "com.google.auto.factory:auto-factory:1.1.0",
@@ -151,7 +151,7 @@ com_jackbradshaw_maven.install(
         "https://repository.mulesoft.org/nexus/content/repositories/public/",
     ],
 )
-use_repo(com_jackbradshaw_maven, "com_jackbradshaw_maven")
+use_repo(maven, "com_jackbradshaw_maven")
 
 ## Formatting
 http_jar(
