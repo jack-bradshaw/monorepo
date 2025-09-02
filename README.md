@@ -11,10 +11,7 @@ as a monorepo and uses [Bazel](https://bazel.build) as the build tool. Everythin
 
 After cloning the repository you must complete the following steps:
 
-1. Install the JDK (version specifics in [bazelrc](.bazelrc)).
 1. Install the Android SDK (version specifics vary depending on which package is being built).
-1. Copy [local bazelrc](local_bazelrc) to your home directory and configure it according to the
-   instructions in the file.
 
 Once these steps are complete you will be able to build and test code on Windows, macOS, and Linux.
 
