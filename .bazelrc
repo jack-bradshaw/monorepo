@@ -8,9 +8,12 @@ common --enable_platform_specific_config
 build --cxxopt='-std=c++23'
 build --host_cxxopt='-std=c++23'
 
-# Java build configuration. Values chosen to be relatively modern as of 2025.
+# Java build configuration. Values chosen to be relatively modern as of 2025 and enable hermeticity.
 build --java_language_version=11
-build --java_runtime_version=11
+build --java_runtime_version=remotejdk_11
+build --tool_java_language_version=11
+build --tool_java_runtime_version=remotejdk_11
+
 
 # Store a copy of all external deps in /vendor for reproducibility and offline support.
 # If this is updated then also update bazel_vendoring.sh to match.
