@@ -12,6 +12,17 @@ const config = {
     require("@prettier/plugin-xml"),
     require("prettier-plugin-gherkin"),
   ],
+
+  overrides: [
+    {
+      // XML files don't format properly with a tab width of 2.
+      files: ["*.xml"],
+      options: {
+        tabWidth: 4,
+        xmlWhitespaceSensitivity: "strict",
+      },
+    },
+  ],
 };
 
 module.exports = config;
