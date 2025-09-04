@@ -1,0 +1,124 @@
+load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//js:defs.bzl", "js_binary")
+load(":asserts.bzl", "assert_checksum", "assert_js_image_layer_listings", "make_js_image_layer")
+
+npm_link_all_packages(name = "node_modules")
+
+js_binary(
+    name = "bin",
+    data = [
+        ":node_modules",
+    ],
+    entry_point = "main.js",
+)
+
+platform(
+    name = "linux_amd64",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    visibility = ["//js/private/test/image:__subpackages__"],
+)
+
+# All these golden files can be updated with
+# bazel run //js/private/test/image:default_test_update_all --enable_bzlmod
+# bazel run //js/private/test/image:custom_owner_test_update_all --enable_bzlmod
+# bazel run //js/private/test/image:default_test_update_all --noenable_bzlmod
+# bazel run //js/private/test/image:custom_owner_test_update_all --noenable_bzlmod
+
+# Case 0: reproducibility guarantees
+make_js_image_layer(
+    name = "cksum",
+    binary = ":bin",
+    # gzip compression embeds os information into the archive which is not okay from reproducibility standpoint.
+    # set it to none since uncompressed archive is always stable.
+    # more: https://stackoverflow.com/questions/26516369/zlib-gzip-produces-different-results-for-same-input-on-different-oses
+    compression = "none",
+    platform = ":linux_amd64",
+    # root = unset to use default
+)
+
+assert_checksum(
+    name = "checksum_test",
+    image_layer = ":cksum",
+)
+
+# Case 1: Defaults
+# bazel run :default_test_update_all
+make_js_image_layer(
+    name = "default",
+    binary = ":bin",
+    platform = ":linux_amd64",
+    root = "",  # blank
+)
+
+assert_js_image_layer_listings(
+    name = "default_test",
+    js_image_layer = ":default",
+)
+
+# Case 2: Change owner
+# bazel run :custom_owner_test_update_all
+make_js_image_layer(
+    name = "custom_owner",
+    binary = ":bin",
+    owner = "100:0",
+    platform = ":linux_amd64",
+    root = "/",  # root /
+)
+
+assert_js_image_layer_listings(
+    name = "custom_owner_test",
+    js_image_layer = ":custom_owner",
+)
+
+# Case 3: Change owner
+# bazel run :custom_owner_test_update_all
+make_js_image_layer(
+    name = "regex_edge_cases",
+    binary = ":bin",
+    layer_groups = {
+        # Odd characters to insert into js string/regex/backtick expressions
+        "odd_characters": "spaces quotes ' \" ` slashes / \\ | symbols \\{",
+    },
+    platform = ":linux_amd64",
+    preserve_symlinks = "node_modules|/foobar/\"'",
+    root = "./app",  # with './' prefix
+)
+
+assert_js_image_layer_listings(
+    name = "regex_edge_cases_test",
+    additional_layers = ["odd_characters"],
+    js_image_layer = ":regex_edge_cases",
+)
+
+# Case 4: overwrite layer so some files have no matches
+# bazel run :custom_owner_test_update_all
+make_js_image_layer(
+    name = "custom_layers_nomatch",
+    binary = ":bin",
+    layer_groups = {"app": "no app for you"},
+    platform = ":linux_amd64",
+    root = "/app",  # with /' prefix
+)
+
+assert_js_image_layer_listings(
+    name = "custom_layers_nomatch_test",
+    js_image_layer = ":custom_layers_nomatch",
+)
+
+# Case 5: transition the edge instead of just the binary
+# bazel run :custom_owner_test_update_all
+make_js_image_layer(
+    name = "js_image_layer_untransitioned",
+    binary = ":bin",
+)
+
+platform_transition_filegroup(
+    name = "transition_js_image_layer",
+    testonly = True,
+    srcs = [":js_image_layer_untransitioned"],
+    target_platform = ":linux_amd64",
+)

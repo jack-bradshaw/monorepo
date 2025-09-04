@@ -1,0 +1,18 @@
+{
+    "homepage": "https://registry.build/github/aspect-build/tools_telemetry",
+    "maintainers": [
+      {
+        "email": "alex@aspect.build",
+        "github": "alexeagle",
+        "name": "Alex Eagle"
+      },
+      {
+        "email": "reid@aspect.build",
+        "github": "arrdem",
+        "name": "Reid D McKenzie"
+      }
+    ],
+    "repository": ["github:aspect-build/tools_telemetry"],
+    "versions": [],
+    "yanked_versions": {}
+}

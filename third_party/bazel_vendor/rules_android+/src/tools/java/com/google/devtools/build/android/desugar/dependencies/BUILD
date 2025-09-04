@@ -6,10 +6,10 @@ load("@rules_java//java:defs.bzl", "java_library")
 
 package(
     default_visibility = [
-        "//src/test/java/com/google/devtools/build/android/desugar:__subpackages__",
         "//src/tools/java/com/google/devtools/build/android:__pkg__",
         "//src/tools/java/com/google/devtools/build/android/desugar:__pkg__",
         "//src/tools/java/com/google/devtools/build/android/r8:__pkg__",
+        "//src/tools/javatests/com/google/devtools/build/android/desugar:__subpackages__",
     ],
 )
 
@@ -18,7 +18,7 @@ java_library(
     srcs = glob(["*.java"]),
     deps = [
         "//src/tools/java/com/google/devtools/build/android/r8:deps_collector_api",
-        "@bazel_tools//src/main/protobuf:desugar_deps_java_proto",
+        "//third_party/bazel/src/main/protobuf:desugar_deps_java_proto",
         "@rules_android_maven//:com_google_code_findbugs_jsr305",
         "@rules_android_maven//:com_google_guava_guava",
     ],

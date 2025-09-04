@@ -1,0 +1,4 @@
+12acbe052f7f9e44f6cb33593bad4ebe75edd3340841e439810ac5d48bd825a9
+FILE:@@toolchains_llvm+//toolchain/BUILD.llvm_repo 4579531da0613bf789b7645da8a655f302d3d6631ce920a4f41c350a66440eb0
+REPO_MAPPING:toolchains_llvm+,bazel_skylib bazel_skylib+
+REPO_MAPPING:toolchains_llvm+,bazel_tools bazel_tools

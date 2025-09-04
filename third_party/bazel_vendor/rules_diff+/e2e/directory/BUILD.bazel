@@ -1,0 +1,16 @@
+exports_files(
+    [
+        "posix.tmpl.sh",
+        "nt.tmpl.bat",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "template",
+    actual = select({
+        "@toolchain_utils//toolchain/constraint/os:windows": ":nt.tmpl.bat",
+        "//conditions:default": ":posix.tmpl.sh",
+    }),
+    visibility = ["//:__subpackages__"],
+)

@@ -1,0 +1,8 @@
+# Note that different configurations can be tested by setting `--repo_env` here
+
+genrule(
+    name = "report",
+    outs = ["report.json"],
+    srcs = ["@aspect_tools_telemetry_report//:report.json"],
+    cmd = "cp $(location @aspect_tools_telemetry_report//:report.json) $@"
+)

@@ -64,3 +64,10 @@ toolchain(
     toolchain = "@yq_windows_amd64//:yq_toolchain",
     toolchain_type = "@aspect_bazel_lib//lib:yq_toolchain_type",
 )
+
+toolchain(
+    name = "windows_arm64_toolchain",
+    exec_compatible_with = ["@platforms//os:windows", "@platforms//cpu:aarch64"],
+    toolchain = "@yq_windows_arm64//:yq_toolchain",
+    toolchain_type = "@aspect_bazel_lib//lib:yq_toolchain_type",
+)

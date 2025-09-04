@@ -1,0 +1,12 @@
+398cb9a8db613693e0207637d6f5ff8c27f2b34fbfb59265524edd7ee5bad6b6
+REPO_MAPPING:aspect_bazel_lib+,bazel_skylib bazel_skylib+
+REPO_MAPPING:aspect_bazel_lib+,bazel_tools bazel_tools
+REPO_MAPPING:aspect_bazel_lib+,tar.bzl tar.bzl+
+REPO_MAPPING:aspect_rules_js+,aspect_bazel_lib aspect_bazel_lib+
+REPO_MAPPING:aspect_rules_js+,aspect_rules_js aspect_rules_js+
+REPO_MAPPING:aspect_rules_js+,aspect_tools_telemetry_report aspect_tools_telemetry++telemetry+aspect_tools_telemetry_report
+REPO_MAPPING:aspect_rules_js+,bazel_skylib bazel_skylib+
+REPO_MAPPING:aspect_rules_js+,bazel_tools bazel_tools
+REPO_MAPPING:tar.bzl+,aspect_bazel_lib aspect_bazel_lib+
+REPO_MAPPING:tar.bzl+,bazel_skylib bazel_skylib+
+REPO_MAPPING:tar.bzl+,tar.bzl tar.bzl+

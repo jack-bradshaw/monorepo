@@ -423,14 +423,27 @@ py_toolchain_suite(
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0027_python_3_12_aarch64-apple-darwin",
-    python_version = "3.12.11",
+    prefix = "_0027_python_3_13_aarch64-apple-darwin",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:macos",
         "@platforms//cpu:aarch64",
     ],
-    user_repository_name = "python_3_12_aarch64-apple-darwin",
+    user_repository_name = "python_3_13_aarch64-apple-darwin",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_yes"],
+    prefix = "_0028_python_3_13_aarch64-apple-darwin-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:macos",
+        "@platforms//cpu:aarch64",
+    ],
+    user_repository_name = "python_3_13_aarch64-apple-darwin-freethreaded",
 )
 
 py_toolchain_suite(
@@ -439,14 +452,30 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0028_python_3_12_aarch64-unknown-linux-gnu",
-    python_version = "3.12.11",
+    prefix = "_0029_python_3_13_aarch64-unknown-linux-gnu",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:aarch64",
     ],
-    user_repository_name = "python_3_12_aarch64-unknown-linux-gnu",
+    user_repository_name = "python_3_13_aarch64-unknown-linux-gnu",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = [
+        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
+        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
+    ],
+    prefix = "_0030_python_3_13_aarch64-unknown-linux-gnu-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:aarch64",
+    ],
+    user_repository_name = "python_3_13_aarch64-unknown-linux-gnu-freethreaded",
 )
 
 py_toolchain_suite(
@@ -455,14 +484,30 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0029_python_3_12_ppc64le-unknown-linux-gnu",
-    python_version = "3.12.11",
+    prefix = "_0031_python_3_13_ppc64le-unknown-linux-gnu",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:ppc",
     ],
-    user_repository_name = "python_3_12_ppc64le-unknown-linux-gnu",
+    user_repository_name = "python_3_13_ppc64le-unknown-linux-gnu",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = [
+        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
+        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
+    ],
+    prefix = "_0032_python_3_13_ppc64le-unknown-linux-gnu-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:ppc",
+    ],
+    user_repository_name = "python_3_13_ppc64le-unknown-linux-gnu-freethreaded",
 )
 
 py_toolchain_suite(
@@ -471,14 +516,30 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0030_python_3_12_riscv64-unknown-linux-gnu",
-    python_version = "3.12.11",
+    prefix = "_0033_python_3_13_riscv64-unknown-linux-gnu",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:riscv64",
     ],
-    user_repository_name = "python_3_12_riscv64-unknown-linux-gnu",
+    user_repository_name = "python_3_13_riscv64-unknown-linux-gnu",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = [
+        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
+        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
+    ],
+    prefix = "_0034_python_3_13_riscv64-unknown-linux-gnu-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:riscv64",
+    ],
+    user_repository_name = "python_3_13_riscv64-unknown-linux-gnu-freethreaded",
 )
 
 py_toolchain_suite(
@@ -487,40 +548,82 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0031_python_3_12_s390x-unknown-linux-gnu",
-    python_version = "3.12.11",
+    prefix = "_0035_python_3_13_s390x-unknown-linux-gnu",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:s390x",
     ],
-    user_repository_name = "python_3_12_s390x-unknown-linux-gnu",
+    user_repository_name = "python_3_13_s390x-unknown-linux-gnu",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = [
+        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
+        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
+    ],
+    prefix = "_0036_python_3_13_s390x-unknown-linux-gnu-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:s390x",
+    ],
+    user_repository_name = "python_3_13_s390x-unknown-linux-gnu-freethreaded",
 )
 
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0032_python_3_12_x86_64-apple-darwin",
-    python_version = "3.12.11",
+    prefix = "_0037_python_3_13_x86_64-apple-darwin",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:macos",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_12_x86_64-apple-darwin",
+    user_repository_name = "python_3_13_x86_64-apple-darwin",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_yes"],
+    prefix = "_0038_python_3_13_x86_64-apple-darwin-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:macos",
+        "@platforms//cpu:x86_64",
+    ],
+    user_repository_name = "python_3_13_x86_64-apple-darwin-freethreaded",
 )
 
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0033_python_3_12_x86_64-pc-windows-msvc",
-    python_version = "3.12.11",
+    prefix = "_0039_python_3_13_x86_64-pc-windows-msvc",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:windows",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_12_x86_64-pc-windows-msvc",
+    user_repository_name = "python_3_13_x86_64-pc-windows-msvc",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_yes"],
+    prefix = "_0040_python_3_13_x86_64-pc-windows-msvc-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:windows",
+        "@platforms//cpu:x86_64",
+    ],
+    user_repository_name = "python_3_13_x86_64-pc-windows-msvc-freethreaded",
 )
 
 py_toolchain_suite(
@@ -529,14 +632,30 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0034_python_3_12_x86_64-unknown-linux-gnu",
-    python_version = "3.12.11",
+    prefix = "_0041_python_3_13_x86_64-unknown-linux-gnu",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_12_x86_64-unknown-linux-gnu",
+    user_repository_name = "python_3_13_x86_64-unknown-linux-gnu",
+)
+
+py_toolchain_suite(
+    flag_values = {},
+    target_settings = [
+        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
+        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
+    ],
+    prefix = "_0042_python_3_13_x86_64-unknown-linux-gnu-freethreaded",
+    python_version = "3.13.4",
+    set_python_version_constraint = "False",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    user_repository_name = "python_3_13_x86_64-unknown-linux-gnu-freethreaded",
 )
 
 py_toolchain_suite(
@@ -545,20 +664,20 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_musl",
     ],
-    prefix = "_0035_python_3_12_x86_64-unknown-linux-musl",
-    python_version = "3.12.11",
+    prefix = "_0043_python_3_13_x86_64-unknown-linux-musl",
+    python_version = "3.13.4",
     set_python_version_constraint = "False",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_12_x86_64-unknown-linux-musl",
+    user_repository_name = "python_3_13_x86_64-unknown-linux-musl",
 )
 
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0036_python_3_8_aarch64-apple-darwin",
+    prefix = "_0044_python_3_8_aarch64-apple-darwin",
     python_version = "3.8.20",
     set_python_version_constraint = "False",
     target_compatible_with = [
@@ -574,7 +693,7 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0037_python_3_8_aarch64-unknown-linux-gnu",
+    prefix = "_0045_python_3_8_aarch64-unknown-linux-gnu",
     python_version = "3.8.20",
     set_python_version_constraint = "False",
     target_compatible_with = [
@@ -587,7 +706,7 @@ py_toolchain_suite(
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0038_python_3_8_x86_64-apple-darwin",
+    prefix = "_0046_python_3_8_x86_64-apple-darwin",
     python_version = "3.8.20",
     set_python_version_constraint = "False",
     target_compatible_with = [
@@ -600,7 +719,7 @@ py_toolchain_suite(
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0039_python_3_8_x86_64-pc-windows-msvc",
+    prefix = "_0047_python_3_8_x86_64-pc-windows-msvc",
     python_version = "3.8.20",
     set_python_version_constraint = "False",
     target_compatible_with = [
@@ -616,7 +735,7 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0040_python_3_8_x86_64-unknown-linux-gnu",
+    prefix = "_0048_python_3_8_x86_64-unknown-linux-gnu",
     python_version = "3.8.20",
     set_python_version_constraint = "False",
     target_compatible_with = [
@@ -629,27 +748,14 @@ py_toolchain_suite(
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0041_python_3_13_aarch64-apple-darwin",
-    python_version = "3.13.4",
+    prefix = "_0049_python_3_12_aarch64-apple-darwin",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:macos",
         "@platforms//cpu:aarch64",
     ],
-    user_repository_name = "python_3_13_aarch64-apple-darwin",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_yes"],
-    prefix = "_0042_python_3_13_aarch64-apple-darwin-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:macos",
-        "@platforms//cpu:aarch64",
-    ],
-    user_repository_name = "python_3_13_aarch64-apple-darwin-freethreaded",
+    user_repository_name = "python_3_12_aarch64-apple-darwin",
 )
 
 py_toolchain_suite(
@@ -658,30 +764,14 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0043_python_3_13_aarch64-unknown-linux-gnu",
-    python_version = "3.13.4",
+    prefix = "_0050_python_3_12_aarch64-unknown-linux-gnu",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:aarch64",
     ],
-    user_repository_name = "python_3_13_aarch64-unknown-linux-gnu",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = [
-        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
-        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
-    ],
-    prefix = "_0044_python_3_13_aarch64-unknown-linux-gnu-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:aarch64",
-    ],
-    user_repository_name = "python_3_13_aarch64-unknown-linux-gnu-freethreaded",
+    user_repository_name = "python_3_12_aarch64-unknown-linux-gnu",
 )
 
 py_toolchain_suite(
@@ -690,30 +780,14 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0045_python_3_13_ppc64le-unknown-linux-gnu",
-    python_version = "3.13.4",
+    prefix = "_0051_python_3_12_ppc64le-unknown-linux-gnu",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:ppc",
     ],
-    user_repository_name = "python_3_13_ppc64le-unknown-linux-gnu",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = [
-        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
-        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
-    ],
-    prefix = "_0046_python_3_13_ppc64le-unknown-linux-gnu-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:ppc",
-    ],
-    user_repository_name = "python_3_13_ppc64le-unknown-linux-gnu-freethreaded",
+    user_repository_name = "python_3_12_ppc64le-unknown-linux-gnu",
 )
 
 py_toolchain_suite(
@@ -722,30 +796,14 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0047_python_3_13_riscv64-unknown-linux-gnu",
-    python_version = "3.13.4",
+    prefix = "_0052_python_3_12_riscv64-unknown-linux-gnu",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:riscv64",
     ],
-    user_repository_name = "python_3_13_riscv64-unknown-linux-gnu",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = [
-        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
-        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
-    ],
-    prefix = "_0048_python_3_13_riscv64-unknown-linux-gnu-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:riscv64",
-    ],
-    user_repository_name = "python_3_13_riscv64-unknown-linux-gnu-freethreaded",
+    user_repository_name = "python_3_12_riscv64-unknown-linux-gnu",
 )
 
 py_toolchain_suite(
@@ -754,82 +812,40 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0049_python_3_13_s390x-unknown-linux-gnu",
-    python_version = "3.13.4",
+    prefix = "_0053_python_3_12_s390x-unknown-linux-gnu",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:s390x",
     ],
-    user_repository_name = "python_3_13_s390x-unknown-linux-gnu",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = [
-        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
-        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
-    ],
-    prefix = "_0050_python_3_13_s390x-unknown-linux-gnu-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:s390x",
-    ],
-    user_repository_name = "python_3_13_s390x-unknown-linux-gnu-freethreaded",
+    user_repository_name = "python_3_12_s390x-unknown-linux-gnu",
 )
 
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0051_python_3_13_x86_64-apple-darwin",
-    python_version = "3.13.4",
+    prefix = "_0054_python_3_12_x86_64-apple-darwin",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:macos",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_13_x86_64-apple-darwin",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_yes"],
-    prefix = "_0052_python_3_13_x86_64-apple-darwin-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:macos",
-        "@platforms//cpu:x86_64",
-    ],
-    user_repository_name = "python_3_13_x86_64-apple-darwin-freethreaded",
+    user_repository_name = "python_3_12_x86_64-apple-darwin",
 )
 
 py_toolchain_suite(
     flag_values = {},
     target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_no"],
-    prefix = "_0053_python_3_13_x86_64-pc-windows-msvc",
-    python_version = "3.13.4",
+    prefix = "_0055_python_3_12_x86_64-pc-windows-msvc",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:windows",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_13_x86_64-pc-windows-msvc",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = ["@@rules_python+//python/config_settings:_is_py_freethreaded_yes"],
-    prefix = "_0054_python_3_13_x86_64-pc-windows-msvc-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:windows",
-        "@platforms//cpu:x86_64",
-    ],
-    user_repository_name = "python_3_13_x86_64-pc-windows-msvc-freethreaded",
+    user_repository_name = "python_3_12_x86_64-pc-windows-msvc",
 )
 
 py_toolchain_suite(
@@ -838,30 +854,14 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
     ],
-    prefix = "_0055_python_3_13_x86_64-unknown-linux-gnu",
-    python_version = "3.13.4",
+    prefix = "_0056_python_3_12_x86_64-unknown-linux-gnu",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_13_x86_64-unknown-linux-gnu",
-)
-
-py_toolchain_suite(
-    flag_values = {},
-    target_settings = [
-        "@@rules_python+//python/config_settings:_is_py_freethreaded_yes",
-        "@@rules_python+//python/config_settings:_is_py_linux_libc_glibc",
-    ],
-    prefix = "_0056_python_3_13_x86_64-unknown-linux-gnu-freethreaded",
-    python_version = "3.13.4",
-    set_python_version_constraint = "True",
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-    user_repository_name = "python_3_13_x86_64-unknown-linux-gnu-freethreaded",
+    user_repository_name = "python_3_12_x86_64-unknown-linux-gnu",
 )
 
 py_toolchain_suite(
@@ -870,13 +870,13 @@ py_toolchain_suite(
         "@@rules_python+//python/config_settings:_is_py_freethreaded_no",
         "@@rules_python+//python/config_settings:_is_py_linux_libc_musl",
     ],
-    prefix = "_0057_python_3_13_x86_64-unknown-linux-musl",
-    python_version = "3.13.4",
+    prefix = "_0057_python_3_12_x86_64-unknown-linux-musl",
+    python_version = "3.12.11",
     set_python_version_constraint = "True",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    user_repository_name = "python_3_13_x86_64-unknown-linux-musl",
+    user_repository_name = "python_3_12_x86_64-unknown-linux-musl",
 )
 

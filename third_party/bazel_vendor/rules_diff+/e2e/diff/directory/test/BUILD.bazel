@@ -1,0 +1,8 @@
+load("@rules_diff//diff/directory/test:defs.bzl", "diff_directory_test")
+
+diff_directory_test(
+    name = "fixture",
+    size = "small",
+    a = "//fixture:directory",
+    b = "//fixture:directory",
+)

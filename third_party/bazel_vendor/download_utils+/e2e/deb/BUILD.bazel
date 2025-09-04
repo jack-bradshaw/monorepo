@@ -1,0 +1,15 @@
+load("//diff/file/test:defs.bzl", "diff_file_test")
+
+diff_file_test(
+    name = "fixture",
+    size = "small",
+    a = "@deb//:etc/test/fixture.txt",
+    b = ":fixture.txt",
+)
+
+diff_file_test(
+    name = "symlink",
+    size = "small",
+    a = "@deb//:symlink.txt",
+    b = ":fixture.txt",
+)

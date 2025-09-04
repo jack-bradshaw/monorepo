@@ -256,6 +256,13 @@ copy_file(
      visibility = ["//visibility:public"]
 )
 copy_file(
+     name = "com_vaadin_external_google_android_json_sources_0_0_20131108_vaadin1_extension",
+     src = "@com_vaadin_external_google_android_json_sources_0_0_20131108_vaadin1//file",
+     out = "com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1-sources.jar",
+     allow_symlink = True,
+     visibility = ["//visibility:public"]
+)
+copy_file(
      name = "commons_codec_commons_codec_sources_1_19_0_extension",
      src = "@commons_codec_commons_codec_sources_1_19_0//file",
      out = "commons-codec/commons-codec/1.19.0/commons-codec-1.19.0-sources.jar",
@@ -966,6 +973,13 @@ copy_file(
      name = "org_ow2_asm_asm_sources_9_7_extension",
      src = "@org_ow2_asm_asm_sources_9_7//file",
      out = "org/ow2/asm/asm/9.7/asm-9.7-sources.jar",
+     allow_symlink = True,
+     visibility = ["//visibility:public"]
+)
+copy_file(
+     name = "org_skyscreamer_jsonassert_sources_1_5_3_extension",
+     src = "@org_skyscreamer_jsonassert_sources_1_5_3//file",
+     out = "org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3-sources.jar",
      allow_symlink = True,
      visibility = ["//visibility:public"]
 )
@@ -2121,6 +2135,34 @@ copy_file(
      name = "com_squareup_kotlinpoet_1_11_0_extension",
      src = "@com_squareup_kotlinpoet_1_11_0//file",
      out = "com/squareup/kotlinpoet/1.11.0/kotlinpoet-1.11.0.jar",
+     allow_symlink = True,
+     visibility = ["//visibility:public"]
+)
+jvm_import(
+	name = "com_vaadin_external_google_android_json",
+	jar = "com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar",
+	srcjar = "com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1-sources.jar",
+	deps = [
+	],
+	tags = [
+		"maven_coordinates=com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+		"maven_url=https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar",
+		"maven_repository=https://repo1.maven.org/maven2",
+		"maven_sha256=dfb7bae2f404cfe0b72b4d23944698cb716b7665171812a0a4d0f5926c0fac79",
+	],
+	maven_coordinates = "com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+	maven_url = "https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar",
+	visibility = ["//visibility:public"],
+)
+alias(
+	name = "com_vaadin_external_google_android_json_0_0_20131108_vaadin1",
+	actual = "com_vaadin_external_google_android_json",
+	visibility = ["//visibility:public"],
+)
+copy_file(
+     name = "com_vaadin_external_google_android_json_0_0_20131108_vaadin1_extension",
+     src = "@com_vaadin_external_google_android_json_0_0_20131108_vaadin1//file",
+     out = "com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar",
      allow_symlink = True,
      visibility = ["//visibility:public"]
 )
@@ -6354,6 +6396,35 @@ copy_file(
      name = "org_ow2_asm_asm_9_7_extension",
      src = "@org_ow2_asm_asm_9_7//file",
      out = "org/ow2/asm/asm/9.7/asm-9.7.jar",
+     allow_symlink = True,
+     visibility = ["//visibility:public"]
+)
+jvm_import(
+	name = "org_skyscreamer_jsonassert",
+	jar = "org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar",
+	srcjar = "org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3-sources.jar",
+	deps = [
+		":com_vaadin_external_google_android_json",
+	],
+	tags = [
+		"maven_coordinates=org.skyscreamer:jsonassert:1.5.3",
+		"maven_url=https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar",
+		"maven_repository=https://repo1.maven.org/maven2",
+		"maven_sha256=719095c07d4203961320da593441d8b3b643c18eb1d81aa98ea933bb7eb351ba",
+	],
+	maven_coordinates = "org.skyscreamer:jsonassert:1.5.3",
+	maven_url = "https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar",
+	visibility = ["//visibility:public"],
+)
+alias(
+	name = "org_skyscreamer_jsonassert_1_5_3",
+	actual = "org_skyscreamer_jsonassert",
+	visibility = ["//visibility:public"],
+)
+copy_file(
+     name = "org_skyscreamer_jsonassert_1_5_3_extension",
+     src = "@org_skyscreamer_jsonassert_1_5_3//file",
+     out = "org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar",
      allow_symlink = True,
      visibility = ["//visibility:public"]
 )

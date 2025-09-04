@@ -1,0 +1,15 @@
+load(":versions.bzl", "VERSIONS")
+
+constraint_setting(
+    name = "linux",
+    visibility = ["//visibility:public"],
+)
+
+[
+    constraint_value(
+        name = version,
+        constraint_setting = ":linux",
+        visibility = ["//visibility:public"],
+    )
+    for version in VERSIONS
+]

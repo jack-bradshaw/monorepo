@@ -1,0 +1,31 @@
+name: Mirror Releases
+on:
+  # Trigger manually in the UI
+  workflow_dispatch:
+  # Trigger daily at 06:45 UTC
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "45 6 * * *"
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update ruff
+        run: |
+          ./lint/mirror_ruff.sh
+          npx @bazel/buildifier lint/ruff_versions.bzl
+          cd docs
+          bazel run update
+      - name: Download and Extract Latest Multitool
+        run: wget -O- https://github.com/theoremlp/multitool/releases/download/v0.4.0/multitool-x86_64-unknown-linux-gnu.tar.xz | tar --strip-components=1 -xJf -
+      - name: Find Updates and Render Lockfile
+        run: |
+          ./multitool --lockfile lint/multitool.lock.json update
+          ./multitool --lockfile format/multitool.lock.json update
+          rm multitool
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: mirror external releases"

@@ -500,6 +500,20 @@ def pinned_maven_install():
         downloaded_file_path = "v1/com/squareup/kotlinpoet/1.11.0/kotlinpoet-1.11.0-sources.jar",
     )
     http_file(
+        name = "com_vaadin_external_google_android_json_0_0_20131108_vaadin1",
+        sha256 = "dfb7bae2f404cfe0b72b4d23944698cb716b7665171812a0a4d0f5926c0fac79",
+        netrc = "../rules_jvm_external++maven+com_jackbradshaw_maven/netrc",
+        urls = ["https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar", "https://repository.mulesoft.org/nexus/content/repositories/public/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar"],
+        downloaded_file_path = "v1/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar",
+    )
+    http_file(
+        name = "com_vaadin_external_google_android_json_sources_0_0_20131108_vaadin1",
+        sha256 = "54c781eea645c450cbbc4a5a1b5a474745465452cec1354cb567b781ea6622c3",
+        netrc = "../rules_jvm_external++maven+com_jackbradshaw_maven/netrc",
+        urls = ["https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1-sources.jar", "https://repository.mulesoft.org/nexus/content/repositories/public/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1-sources.jar"],
+        downloaded_file_path = "v1/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1-sources.jar",
+    )
+    http_file(
         name = "commons_codec_commons_codec_1_19_0",
         sha256 = "5c3881e4f556855e9c532927ee0c9dfde94cc66760d5805c031a59887070af5f",
         netrc = "../rules_jvm_external++maven+com_jackbradshaw_maven/netrc",
@@ -2228,6 +2242,20 @@ def pinned_maven_install():
         urls = ["https://repo1.maven.org/maven2/org/ow2/asm/asm/9.7/asm-9.7-sources.jar", "https://repository.mulesoft.org/nexus/content/repositories/public/org/ow2/asm/asm/9.7/asm-9.7-sources.jar"],
         downloaded_file_path = "v1/org/ow2/asm/asm/9.7/asm-9.7-sources.jar",
     )
+    http_file(
+        name = "org_skyscreamer_jsonassert_1_5_3",
+        sha256 = "719095c07d4203961320da593441d8b3b643c18eb1d81aa98ea933bb7eb351ba",
+        netrc = "../rules_jvm_external++maven+com_jackbradshaw_maven/netrc",
+        urls = ["https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar", "https://repository.mulesoft.org/nexus/content/repositories/public/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar"],
+        downloaded_file_path = "v1/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar",
+    )
+    http_file(
+        name = "org_skyscreamer_jsonassert_sources_1_5_3",
+        sha256 = "a825c29f8cc40f85ea4e7a431a55d4278a785c34acdeef4cd1be7367f70ea6bb",
+        netrc = "../rules_jvm_external++maven+com_jackbradshaw_maven/netrc",
+        urls = ["https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3-sources.jar", "https://repository.mulesoft.org/nexus/content/repositories/public/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3-sources.jar"],
+        downloaded_file_path = "v1/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3-sources.jar",
+    )
 maven_artifacts = [
     "com.google.auto.factory:auto-factory:1.1.0",
     "com.google.auto.factory:auto-factory:1.1.0:sources",
@@ -2300,6 +2328,8 @@ maven_artifacts = [
     "com.squareup:javapoet:1.13.0:sources",
     "com.squareup:kotlinpoet:1.11.0",
     "com.squareup:kotlinpoet:1.11.0:sources",
+    "com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+    "com.vaadin.external.google:android-json:0.0.20131108.vaadin1:sources",
     "commons-codec:commons-codec:1.19.0",
     "commons-codec:commons-codec:1.19.0:sources",
     "io.grpc:grpc-api:1.70.0",
@@ -2546,5 +2576,7 @@ maven_artifacts = [
     "org.opentest4j:opentest4j:1.3.0",
     "org.opentest4j:opentest4j:1.3.0:sources",
     "org.ow2.asm:asm:9.7",
-    "org.ow2.asm:asm:9.7:sources"
+    "org.ow2.asm:asm:9.7:sources",
+    "org.skyscreamer:jsonassert:1.5.3",
+    "org.skyscreamer:jsonassert:1.5.3:sources"
 ]

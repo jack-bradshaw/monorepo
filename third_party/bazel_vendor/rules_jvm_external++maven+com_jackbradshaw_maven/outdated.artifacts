@@ -79,3 +79,4 @@ org.lwjgl:lwjgl-yoga:3.3.6
 org.lwjgl:lwjgl-zstd:3.3.6
 org.lwjgl:lwjgl:3.3.6
 org.mockito:mockito-core:5.18.0
+org.skyscreamer:jsonassert:1.5.3

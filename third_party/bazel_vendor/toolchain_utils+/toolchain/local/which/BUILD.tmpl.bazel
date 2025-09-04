@@ -1,0 +1,21 @@
+load("@toolchain_utils//toolchain/symlink/path:defs.bzl", "toolchain_symlink_path")
+load("@toolchain_utils//toolchain/info:defs.bzl", "toolchain_info")
+
+exports_files(
+    ["entrypoint"],
+    visibility = ["//visibility:public"],
+)
+
+toolchain_symlink_path(
+    name = "symlink",
+    basename = "{{basename}}",
+    path = "{{path}}",
+    tags = ["no-remote"],
+)
+
+toolchain_info(
+    name = "{{target}}",
+    target = ":symlink",
+    variable = "{{variable}}",
+    visibility = ["//visibility:public"],
+)

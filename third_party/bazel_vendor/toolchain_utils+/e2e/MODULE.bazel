@@ -1,0 +1,109 @@
+module(
+    name = "e2e",
+    bazel_compatibility = [
+        ">=7.0.0",
+    ],
+)
+
+bazel_dep(name = "platforms", version = "0.0.10")
+bazel_dep(name = "rules_go", version = "0.52.0")
+bazel_dep(name = "bazel_skylib", version = "1.4.2")
+
+bazel_dep(name = "hermetic_cc_toolchain", version = "3.1.0", dev_dependency = True)
+
+bazel_dep(name = "toolchain_utils")
+local_path_override(
+    module_name = "toolchain_utils",
+    path = "..",
+)
+
+which = use_repo_rule("@toolchain_utils//toolchain/local/which:defs.bzl", "toolchain_local_which")
+
+which(
+    name = "which-echo",
+)
+
+resolved = use_repo_rule("@toolchain_utils//toolchain/resolved:defs.bzl", "toolchain_resolved")
+
+resolved(
+    name = "resolved-echo",
+    toolchain_type = "//toolchain/echo:type",
+)
+
+resolved(
+    name = "resolved-runfiles",
+    toolchain_type = "//toolchain/runfiles:type",
+)
+
+resolved(
+    name = "resolved-symlink",
+    toolchain_type = "//toolchain/symlink:type",
+)
+
+register_toolchains("//toolchain/...")
+
+fixture = use_repo_rule("//test/fixture:repository.bzl", "fixture")
+
+fixture(
+    name = "fixture-amd64-linux-gnu",
+)
+
+fixture(
+    name = "fixture-arm64-linux-gnu",
+)
+
+fixture(
+    name = "fixture-arm-linux-musl",
+)
+
+fixture(
+    name = "fixture-amd64-linux-musl",
+)
+
+fixture(
+    name = "fixture-windows-ucrt",
+)
+
+fixture(
+    name = "fixture-windows-cygwin",
+)
+
+fixture(
+    name = "fixture-arm64-macos-darwin",
+)
+
+fixture(
+    name = "fixture-amd64-macos-darwin",
+)
+
+fixture(
+    name = "fixture-never",
+)
+
+select = use_repo_rule("@toolchain_utils//toolchain/local/select:defs.bzl", "toolchain_local_select")
+
+select(
+    name = "fixture",
+    map = {
+        "@fixture-amd64-linux-gnu": "amd64-linux-gnu",
+        "@fixture-arm64-linux-gnu": "arm64-linux-gnu",
+        "@fixture-arm-linux-musl": "arm-linux-musl",
+        "@fixture-amd64-linux-musl": "amd64-linux-musl",
+        "@fixture-windows-ucrt": "windows-ucrt",
+        "@fixture-windows-cygwin": "windows-cygwin",
+        "@fixture-arm64-macos-darwin": "arm64-macos-darwin",
+        "@fixture-amd64-macos-darwin": "amd64-macos-darwin",
+        "@fixture-never": "never",
+    },
+)
+
+export = use_extension("@toolchain_utils//toolchain/export:defs.bzl", "toolchain_export")
+export.symlink(
+    name = "export",
+    target = "@fixture",
+)
+export.symlink(
+    name = "export",
+    target = "@fixture",
+)
+use_repo(export, "export")

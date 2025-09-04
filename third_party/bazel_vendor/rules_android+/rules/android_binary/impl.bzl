@@ -79,6 +79,7 @@ def _process_manifest(ctx, **unused_ctxs):
         ctx,
         manifest = ctx.file.manifest,
         manifest_values = ctx.attr.manifest_values,
+        min_sdk_version = ctx.attr.min_sdk_version,
     )
 
     return ProviderInfo(
@@ -129,13 +130,13 @@ def _process_resources(ctx, manifest_ctx, java_package, **unused_ctxs):
         value = packaged_resources_ctx,
     )
 
-def _validate_manifest(ctx, packaged_resources_ctx, **unused_ctxs):
+def _validate_manifest(ctx, packaged_resources_ctx, manifest_ctx, **unused_ctxs):
     validation_outputs = []
 
     manifest_validation_output = _resources.validate_manifest(
         ctx,
         manifest = packaged_resources_ctx.processed_manifest,
-        min_sdk_version = ctx.attr.min_sdk_version,
+        min_sdk_version = manifest_ctx.processed_min_sdk_version,
         manifest_validation_tool = get_android_toolchain(ctx).manifest_validation_tool.files_to_run,
         toolchain_type = ANDROID_TOOLCHAIN_TYPE,
     )
@@ -262,7 +263,7 @@ def _process_build_info(_unused_ctx, **unused_ctxs):
         ),
     )
 
-def _process_dex(ctx, validation_ctx, packaged_resources_ctx, deploy_ctx, bp_ctx, optimize_ctx, **_unused_ctxs):
+def _process_dex(ctx, validation_ctx, packaged_resources_ctx, manifest_ctx, deploy_ctx, bp_ctx, optimize_ctx, **_unused_ctxs):
     if validation_ctx.use_r8:
         return ProviderInfo(
             name = "dex_ctx",
@@ -290,7 +291,9 @@ def _process_dex(ctx, validation_ctx, packaged_resources_ctx, deploy_ctx, bp_ctx
 
     #  Multidex mode: generate classes.dex.zip, where the zip contains
     #  [classes.dex, classes2.dex, ... classesN.dex]
-    if ctx.attr.multidex == "legacy":
+    #  We only generate a main_dex_list if the minSdkVersion floor is <= 21.
+    #  Above 21 it is not possible to pass a main_dex_list to the dexing actions.
+    if ctx.attr.multidex == "legacy" and _min_sdk_version.DEPOT_FLOOR <= 21:
         main_dex_list = _dex.generate_main_dex_list(
             ctx,
             jar = binary_jar,
@@ -361,7 +364,7 @@ def _process_dex(ctx, validation_ctx, packaged_resources_ctx, deploy_ctx, bp_ctx
             native_multidex = multidex == "native",
             runtime_jars = binary_runtime_jars,
             main_dex_list = main_dex_list,
-            min_sdk_version = _min_sdk_version.clamp(ctx.attr.min_sdk_version),
+            min_sdk_version = _min_sdk_version.clamp(manifest_ctx.processed_min_sdk_version),
             proguarded_jar = proguarded_jar,
             library_jar = optimize_ctx.proguard_output.library_jar,
             proguard_output_map = proguard_output_map,
@@ -386,7 +389,7 @@ def _process_dex(ctx, validation_ctx, packaged_resources_ctx, deploy_ctx, bp_ctx
             output = classes_dex_zip,
             input = binary_jar,
             dexopts = ctx.attr.dexopts,
-            min_sdk_version = ctx.attr.min_sdk_version,
+            min_sdk_version = manifest_ctx.processed_min_sdk_version,
             main_dex_list = main_dex_list,
             dexbuilder = get_android_sdk(ctx).dx,
             toolchain_type = ANDROID_TOOLCHAIN_TYPE,
@@ -400,7 +403,7 @@ def _process_dex(ctx, validation_ctx, packaged_resources_ctx, deploy_ctx, bp_ctx
             bootclasspath_jar = utils.only(common.get_java_toolchain(ctx)[java_common.JavaToolchainInfo].bootclasspath.to_list()),
             binary_jar = binary_jar,
             build_customized_files = is_binary_optimized,
-            min_sdk_version = _min_sdk_version.clamp(ctx.attr.min_sdk_version),
+            min_sdk_version = _min_sdk_version.clamp(manifest_ctx.processed_min_sdk_version),
         )
 
         if final_proguard_output_map:
@@ -452,7 +455,7 @@ def _process_dex(ctx, validation_ctx, packaged_resources_ctx, deploy_ctx, bp_ctx
         ),
     )
 
-def _process_deploy_jar(ctx, validation_ctx, stamp_ctx, packaged_resources_ctx, jvm_ctx, build_info_ctx, proto_ctx, **_unused_ctxs):
+def _process_deploy_jar(ctx, validation_ctx, stamp_ctx, manifest_ctx, packaged_resources_ctx, jvm_ctx, build_info_ctx, proto_ctx, **_unused_ctxs):
     if validation_ctx.use_r8:
         return ProviderInfo(
             name = "deploy_ctx",
@@ -494,7 +497,7 @@ def _process_deploy_jar(ctx, validation_ctx, stamp_ctx, packaged_resources_ctx, 
                 output = desugared_jar,
                 classpath = java_info.transitive_compile_time_jars,
                 bootclasspath = java_toolchain[java_common.JavaToolchainInfo].bootclasspath.to_list(),
-                min_sdk_version = _min_sdk_version.clamp(ctx.attr.min_sdk_version),
+                min_sdk_version = _min_sdk_version.clamp(manifest_ctx.processed_min_sdk_version),
                 desugar_exec = get_android_toolchain(ctx).desugar.files_to_run,
                 desugared_lib_config = ctx.file._desugared_lib_config,
                 toolchain_type = ANDROID_TOOLCHAIN_TYPE,

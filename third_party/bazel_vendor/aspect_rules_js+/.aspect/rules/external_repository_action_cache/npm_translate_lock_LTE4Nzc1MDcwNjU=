@@ -1,0 +1,36 @@
+# @generated
+# Input hashes for repository rule npm_translate_lock(name = "npm", pnpm_lock = "@@//:pnpm-lock.yaml").
+# This file should be checked into version control along with the pnpm-lock.yaml file.
+.npmrc=-2065072158
+examples/js_binary/package.json=-41174383
+examples/js_lib_pkg/a/package.json=740602849
+examples/js_lib_pkg/b/package.json=-1743538483
+examples/linked_consumer/package.json=-1109186228
+examples/linked_empty_node_modules/package.json=-1039372825
+examples/linked_lib/package.json=1590632845
+examples/linked_pkg/package.json=-726181961
+examples/macro/package.json=857146175
+examples/nextjs/package.json=-16321579
+examples/npm_deps/package.json=-929156430
+examples/npm_deps/patches/meaning-of-life@1.0.0-pnpm.patch=-442666336
+examples/npm_package/libs/lib_a/package.json=-1377103079
+examples/npm_package/packages/pkg_a/package.json=1006424040
+examples/npm_package/packages/pkg_b/package.json=1041247977
+examples/npm_package/packages/pkg_d/package.json=1110895851
+examples/npm_package/packages/pkg_e/package.json=-2145239245
+examples/runfiles/package.json=-1545884645
+examples/stack_traces/package.json=2011229626
+examples/webpack_cli/package.json=1911342006
+js/private/coverage/bundle/package.json=-1582937149
+js/private/test/image/package.json=1430754959
+js/private/test/js_run_devserver/package.json=-381403605
+js/private/worker/src/package.json=1450373252
+npm/private/test/npm_package/package.json=-1991705133
+npm/private/test/npm_package_publish/package.json=-646566766
+npm/private/test/package.json=606610593
+npm/private/test/vendored/is-odd/package.json=1041695223
+npm/private/test/vendored/lodash-4.17.21.tgz=-1206623349
+npm/private/test/vendored/semver-max/package.json=578664053
+package.json=1510979981
+pnpm-lock.yaml=-1402096931
+pnpm-workspace.yaml=854106668

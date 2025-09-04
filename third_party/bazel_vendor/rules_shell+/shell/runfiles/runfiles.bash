@@ -95,7 +95,7 @@ if [[ ! -d "${RUNFILES_DIR:-/dev/null}" && ! -f "${RUNFILES_MANIFEST_FILE:-/dev/
   fi
 fi
 
-case "$(uname -s | tr [:upper:] [:lower:])" in
+case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
 msys*|mingw*|cygwin*)
   # matches an absolute Windows path
   export _RLOCATION_ISABS_PATTERN="^[a-zA-Z]:[/\\]"
@@ -116,6 +116,13 @@ function __runfiles_maybe_grep() {
   grep $_RLOCATION_GREP_CASE_INSENSITIVE_ARGS "$@" || test $? = 1;
 }
 export -f __runfiles_maybe_grep
+
+# Escape the argument for use in a grep regex.
+# This is used to escape paths that may contain special characters.
+function __runfiles_escape_grep() {
+  echo -n "$1" | sed 's/[.[\*^$]/\\&/g'
+}
+export -f __runfiles_escape_grep
 
 # Prints to stdout the runtime location of a data-dependency.
 # The optional second argument can be used to specify the canonical name of the
@@ -148,7 +155,7 @@ function rlocation() {
 
   if [[ -f "$RUNFILES_REPO_MAPPING" ]]; then
     local -r target_repo_apparent_name=$(echo "$1" | cut -d / -f 1)
-     # Use -s to get an empty remainder if the argument does not contain a slash.
+    # Use -s to get an empty remainder if the argument does not contain a slash.
     # The repo mapping should not be applied to single segment paths, which may
     # be root symlinks.
     local -r remainder=$(echo "$1" | cut -s -d / -f 2-)
@@ -161,7 +168,21 @@ function rlocation() {
       if [[ "${RUNFILES_LIB_DEBUG:-}" == 1 ]]; then
         echo >&2 "INFO[runfiles.bash]: rlocation($1): looking up canonical name for ($target_repo_apparent_name) from ($source_repo) in ($RUNFILES_REPO_MAPPING)"
       fi
-      local -r target_repo=$(__runfiles_maybe_grep -m1 "^$source_repo,$target_repo_apparent_name," "$RUNFILES_REPO_MAPPING" | cut -d , -f 3)
+      # The repo mapping manifest may compactly represent the mapping for source
+      # repos of the form module++ext+<something> with rows of the form
+      # module++ext+*,module,module+. We don't want to rely on the particular
+      # separator char, but do assume that it is not a valid character in a
+      # user-specified repository name.
+      # If the source repo name does not match the sed pattern, then the
+      # alternative in the regex below will have identical branches, which is
+      # fine. The ^ is duplicated in each branch since grep doesn't support
+      # empty subexpressions.
+      local -r source_repo_prefix="$(echo -n "$source_repo" | sed 's/\(.*[^-a-zA-Z0-9_.]\)[-a-zA-Z0-9_.]\{1,\}/\1*/')"
+      local -r escaped_pattern="\(^$(__runfiles_escape_grep "$source_repo")\|^$(__runfiles_escape_grep "$source_repo_prefix")\),$(__runfiles_escape_grep "$target_repo_apparent_name"),"
+      if [[ "${RUNFILES_LIB_DEBUG:-}" == 1 ]]; then
+        echo >&2 "INFO[runfiles.bash]: rlocation($1): matching pattern on repo mapping manifest ($escaped_pattern)"
+      fi
+      local -r target_repo=$(__runfiles_maybe_grep -m1 "$escaped_pattern" "$RUNFILES_REPO_MAPPING" | cut -d , -f 3)
       if [[ "${RUNFILES_LIB_DEBUG:-}" == 1 ]]; then
         echo >&2 "INFO[runfiles.bash]: rlocation($1): canonical name of target repo is ($target_repo)"
       fi
@@ -226,6 +247,7 @@ export -f runfiles_export_envvars
 #
 # Note: This function only works correctly with Bzlmod enabled. Without Bzlmod,
 # its return value is ignored if passed to rlocation.
+# shellcheck disable=SC2001 # patterns are either too complex or contain slashes
 function runfiles_current_repository() {
   local -r idx=${1:-1}
   local -r raw_caller_path="${BASH_SOURCE[$idx]}"
@@ -234,7 +256,7 @@ function runfiles_current_repository() {
   if [[ "$raw_caller_path" =~ $_RLOCATION_ISABS_PATTERN ]]; then
     local -r caller_path="$raw_caller_path"
   else
-    local -r caller_path="$(cd $(dirname "$raw_caller_path"); pwd)/$(basename "$raw_caller_path")"
+    local -r caller_path="$(cd "$(dirname "$raw_caller_path")" || return 1; pwd)/$(basename "$raw_caller_path")"
   fi
   if [[ "${RUNFILES_LIB_DEBUG:-}" == 1 ]]; then
     echo >&2 "INFO[runfiles.bash]: runfiles_current_repository($idx): caller's path is ($caller_path)"
@@ -247,7 +269,7 @@ function runfiles_current_repository() {
     # Escape $caller_path for use in the grep regex below. Also replace \ with / since the manifest
     # uses / as the path separator even on Windows.
     local -r normalized_caller_path="$(echo "$caller_path" | sed 's|\\\\*|/|g')"
-    local -r escaped_caller_path="$(echo "$normalized_caller_path" | sed 's/[.[\*^$]/\\&/g')"
+    local -r escaped_caller_path="$(__runfiles_escape_grep "$normalized_caller_path")"
     rlocation_path=$(__runfiles_maybe_grep -m1 "^[^ ]* ${escaped_caller_path}$" "${RUNFILES_MANIFEST_FILE}" | cut -d ' ' -f 1)
     if [[ -z "$rlocation_path" ]]; then
       if [[ "${RUNFILES_LIB_DEBUG:-}" == 1 ]]; then
@@ -361,7 +383,8 @@ function runfiles_rlocation_checked() {
     # with a space and spaces, newlines, and backslashes have to be escaped as
     # \s, \n, and \b.
     if [[ "$1" == *" "* || "$1" == *$'\n'* ]]; then
-      local search_prefix=" $(echo -n "$1" | sed 's/\\/\\b/g; s/ /\\s/g')"
+      local search_prefix
+      search_prefix=" $(echo -n "$1" | sed 's/\\/\\b/g; s/ /\\s/g')"
       search_prefix="${search_prefix//$'\n'/\\n}"
       local escaped=true
       if [[ "${RUNFILES_LIB_DEBUG:-}" == 1 ]]; then
@@ -372,10 +395,12 @@ function runfiles_rlocation_checked() {
       local escaped=false
     fi
     # The extra space below is added because cut counts from 1.
-    local trim_length=$(echo -n "$search_prefix  " | wc -c | tr -d ' ')
+    local trim_length
+    trim_length=$(echo -n "$search_prefix  " | wc -c | tr -d ' ')
     # Escape the search prefix for use in the grep regex below *after*
     # determining the trim length.
-    local result=$(__runfiles_maybe_grep -m1 "^$(echo -n "$search_prefix" | sed 's/[.[\*^$]/\\&/g') " "${RUNFILES_MANIFEST_FILE}" | cut -b "${trim_length}-")
+    local result
+    result=$(__runfiles_maybe_grep -m1 "^$(__runfiles_escape_grep "$search_prefix") " "${RUNFILES_MANIFEST_FILE}" | cut -b "${trim_length}-")
     if [[ -z "$result" ]]; then
       # If path references a runfile that lies under a directory that itself
       # is a runfile, then only the directory is listed in the manifest. Look
@@ -403,8 +428,8 @@ function runfiles_rlocation_checked() {
           escaped=false
         fi
         # The extra space below is added because cut counts from 1.
-        trim_length=$(echo -n "$search_prefix  " | wc -c)
-        prefix_result=$(__runfiles_maybe_grep -m1 "$(echo -n "$search_prefix" | sed 's/[.[\*^$]/\\&/g') " "${RUNFILES_MANIFEST_FILE}" | cut -b ${trim_length}-)
+        trim_length=$(echo -n "$search_prefix  " | wc -c | tr -d ' ')
+        prefix_result=$(__runfiles_maybe_grep -m1 "^$(__runfiles_escape_grep "$search_prefix") " "${RUNFILES_MANIFEST_FILE}" | cut -b "${trim_length}"-)
         if [[ "$escaped" = true ]]; then
           prefix_result="${prefix_result//\\n/$'\n'}"
           prefix_result="${prefix_result//\\b/\\}"
@@ -465,4 +490,6 @@ function runfiles_rlocation_checked() {
 }
 export -f runfiles_rlocation_checked
 
-export RUNFILES_REPO_MAPPING=$(runfiles_rlocation_checked _repo_mapping 2> /dev/null)
+# The repo mapping manifest may not exist with old versions of Bazel.
+RUNFILES_REPO_MAPPING=$(runfiles_rlocation_checked _repo_mapping || echo "")
+export RUNFILES_REPO_MAPPING
