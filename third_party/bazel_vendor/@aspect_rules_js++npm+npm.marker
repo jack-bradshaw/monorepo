@@ -1,0 +1,16 @@
+2c91cdf19caf25f8992f201425d038e7c37981ce624ab6dad7a0e21c531614f0
+FILE:@@//.npmrc 5c116813757be5d068e8e9621140bc356f43dff1465fd391caed88599fe4b778
+FILE:@@//package.json cd60015e04f9908ab0660c1da9663fd90fff27c2c4477de64eb59e6bfd3098be
+FILE:@@//pnpm-lock.yaml 94f8b80c97c5404fe068b1e10b186c1c9765fd4e1823d2b6a54e64b21f941ffc
+REPO_MAPPING:aspect_bazel_lib+,bazel_skylib bazel_skylib+
+REPO_MAPPING:aspect_bazel_lib+,bazel_tools bazel_tools
+REPO_MAPPING:aspect_bazel_lib+,tar.bzl tar.bzl+
+REPO_MAPPING:aspect_rules_js+,aspect_bazel_lib aspect_bazel_lib+
+REPO_MAPPING:aspect_rules_js+,aspect_rules_js aspect_rules_js+
+REPO_MAPPING:aspect_rules_js+,aspect_tools_telemetry_report aspect_tools_telemetry++telemetry+aspect_tools_telemetry_report
+REPO_MAPPING:aspect_rules_js+,bazel_skylib bazel_skylib+
+REPO_MAPPING:aspect_rules_js+,bazel_tools bazel_tools
+REPO_MAPPING:aspect_rules_js+,yq_darwin_arm64 aspect_bazel_lib++toolchains+yq_darwin_arm64
+REPO_MAPPING:tar.bzl+,aspect_bazel_lib aspect_bazel_lib+
+REPO_MAPPING:tar.bzl+,bazel_skylib bazel_skylib+
+REPO_MAPPING:tar.bzl+,tar.bzl tar.bzl+

@@ -1,0 +1,168 @@
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
+load("@aspect_bazel_lib//lib:diff_test.bzl", "diff_test")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//js:defs.bzl", "js_library")
+load("//npm:defs.bzl", "npm_package")
+
+npm_link_all_packages(name = "node_modules")
+
+js_library(
+    name = "lib_a",
+    srcs = [
+        ":index.d.ts",
+        ":index.js",
+        ":package.json",
+    ],
+    deps = [
+        # 1. node_modules deps should be excluded from the contents of the npm_package
+        # 2. include 2 versions of chalk to test cases such as https://github.com/aspect-build/rules_js/issues/1110
+        ":node_modules/chalk",
+        "//:node_modules/chalk",
+    ],
+)
+
+# Wrap lib_a in another library to test transitive dependencies
+js_library(
+    name = "lib_a_a",
+    deps = [":lib_a"],
+)
+
+npm_package(
+    name = "pkg",
+    srcs = [":lib_a"],
+    visibility = ["//visibility:public"],
+)
+
+npm_package(
+    name = "pkg_2",
+    srcs = [
+        ":lib_a",
+        ":node_modules/chalk",  # should be excluded
+        "//:node_modules/chalk",  # should be excluded
+    ],
+    visibility = ["//visibility:public"],
+)
+
+copy_to_directory(
+    name = "expected_pkg",
+    srcs = [
+        "index.d.ts",
+        "index.js",
+        ":package.json",
+    ],
+)
+
+diff_test(
+    name = "test_pkg",
+    file1 = ":pkg",
+    file2 = ":expected_pkg",
+)
+
+diff_test(
+    name = "test_pkg_2",
+    file1 = ":pkg_2",
+    file2 = ":expected_pkg",
+)
+
+npm_package(
+    name = "pkg_3",
+    srcs = [
+        ":lib_a",
+    ],
+    include_transitive_types = False,
+    include_types = False,
+    visibility = ["//visibility:public"],
+)
+
+npm_package(
+    name = "pkg_4",
+    srcs = [
+        ":lib_a_a",
+    ],
+    include_transitive_types = False,
+    include_types = True,  # should not include transitive
+    visibility = ["//visibility:public"],
+)
+
+copy_to_directory(
+    name = "expected_no-types_pkg",
+    srcs = [
+        "index.js",
+        ":package.json",
+    ],
+)
+
+diff_test(
+    name = "test_pkg_3",
+    file1 = ":pkg_3",
+    file2 = ":expected_no-types_pkg",
+)
+
+diff_test(
+    name = "test_pkg_4",
+    file1 = ":pkg_4",
+    file2 = ":expected_no-types_pkg",
+)
+
+npm_package(
+    name = "pkg_5",
+    srcs = [
+        ":lib_a",
+    ],
+    include_sources = False,
+    include_transitive_sources = False,
+    visibility = ["//visibility:public"],
+)
+
+npm_package(
+    name = "pkg_6",
+    srcs = [
+        ":lib_a_a",
+    ],
+    include_sources = True,  # should not include transitive
+    include_transitive_sources = False,
+    visibility = ["//visibility:public"],
+)
+
+copy_to_directory(
+    name = "expected_no-sources_pkg",
+    srcs = [
+        "index.d.ts",
+        ":package.json",
+    ],
+)
+
+diff_test(
+    name = "test_pkg_5",
+    file1 = ":pkg_5",
+    file2 = ":expected_pkg",  # NOTE: includes everything because .js is in the DefaultInfo
+)
+
+diff_test(
+    name = "test_pkg_6",
+    file1 = ":pkg_6",
+    file2 = ":expected_no-sources_pkg",
+)
+
+npm_package(
+    name = "pkg_with_node_modules",
+    srcs = [":lib_a"],
+    exclude_srcs_patterns = [],
+    include_npm_sources = True,
+    visibility = ["//visibility:public"],
+)
+
+copy_to_directory(
+    name = "expected_pkg_with_node_modules",
+    srcs = [
+        "index.js",
+        ":node_modules/chalk",
+        ":package.json",
+    ],
+)
+
+diff_test(
+    name = "test_pkg_with_node_modules",
+    file1 = ":pkg",
+    file2 = ":expected_pkg",
+)

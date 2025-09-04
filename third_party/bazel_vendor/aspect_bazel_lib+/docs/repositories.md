@@ -120,7 +120,7 @@ Registers coreutils toolchain and repositories
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="register_coreutils_toolchains-name"></a>name |  override the prefix for the generated toolchain repositories   |  `"coreutils"` |
-| <a id="register_coreutils_toolchains-version"></a>version |  the version of coreutils to execute (see https://github.com/uutils/coreutils/releases)   |  `"0.0.27"` |
+| <a id="register_coreutils_toolchains-version"></a>version |  the version of coreutils to execute (see https://github.com/uutils/coreutils/releases)   |  `"0.1.0"` |
 | <a id="register_coreutils_toolchains-register"></a>register |  whether to call through to native.register_toolchains. Should be True for WORKSPACE users, but false when used under bzlmod extension   |  `True` |
 
 
@@ -206,7 +206,7 @@ Registers yq toolchain and repositories
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="register_yq_toolchains-name"></a>name |  override the prefix for the generated toolchain repositories   |  `"yq"` |
-| <a id="register_yq_toolchains-version"></a>version |  the version of yq to execute (see https://github.com/mikefarah/yq/releases)   |  `"4.45.1"` |
+| <a id="register_yq_toolchains-version"></a>version |  the version of yq to execute (see https://github.com/mikefarah/yq/releases)   |  `"4.45.2"` |
 | <a id="register_yq_toolchains-register"></a>register |  whether to call through to native.register_toolchains. Should be True for WORKSPACE users, but false when used under bzlmod extension   |  `True` |
 
 

@@ -1,0 +1,16 @@
+load("//toolchain/triplet:triplets.bzl", "TRIPLETS")
+
+[
+    config_setting(
+        name = t.value,
+        constraint_values = t.constraints,
+        visibility = ["//visibility:public"],
+    )
+    for t in TRIPLETS
+]
+
+alias(
+    name = "local",
+    actual = "//toolchain/local:constraint",
+    visibility = ["//visibility:public"],
+)

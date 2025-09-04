@@ -1,0 +1,4 @@
+exports_files(
+    srcs = glob(["**/*.h"]),
+    visibility = ["//visibility:public"],
+)
