@@ -1,0 +1,232 @@
+# Copyright 2022 The Bazel Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+workspace(name = "toolchains_llvm_tests")
+
+local_repository(
+    name = "toolchains_llvm",
+    path = "..",
+)
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@toolchains_llvm//toolchain:deps.bzl", "bazel_toolchain_dependencies")
+
+bazel_toolchain_dependencies()
+
+load("@toolchains_llvm//toolchain:rules.bzl", "llvm_toolchain")
+
+# When updating this version, also update the versions associated with
+# llvm_toolchain below, sys_paths_test in the workflows file, and xcompile_test
+# through the `llvm_toolchain_with_sysroot` toolchain.
+LLVM_VERSIONS = {
+    "": "16.0.0",
+    "darwin-aarch64": "16.0.5",
+    "darwin-x86_64": "15.0.7",
+}
+
+llvm_toolchain(
+    name = "llvm_toolchain",
+    llvm_versions = LLVM_VERSIONS,
+)
+
+# Example toolchain with user provided URLs.
+# TODO(siddharthab): Add test.
+llvm_toolchain(
+    name = "llvm_toolchain_with_urls",
+    llvm_versions = LLVM_VERSIONS,
+    sha256 = {
+        "": "38bc7f5563642e73e69ac5626724e206d6d539fbef653541b34cae0ba9c3f036",
+        "darwin-aarch64": "867c6afd41158c132ef05a8f1ddaecf476a26b91c85def8e124414f9a9ba188d",
+        "darwin-x86_64": "d16b6d536364c5bec6583d12dd7e6cf841b9f508c4430d9ee886726bd9983f1c",
+    },
+    strip_prefix = {
+        "": "clang+llvm-15.0.6-x86_64-linux-gnu-ubuntu-18.04",
+        "darwin-aarch64": "clang+llvm-15.0.7-arm64-apple-darwin22.0",
+        "darwin-x86_64": "clang+llvm-15.0.7-x86_64-apple-darwin21.0",
+    },
+    urls = {
+        "": ["https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.6/clang+llvm-15.0.6-x86_64-linux-gnu-ubuntu-18.04.tar.xz"],
+        "darwin-aarch64": ["https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/clang+llvm-15.0.7-arm64-apple-darwin22.0.tar.xz"],
+        "darwin-x86_64": ["https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/clang+llvm-15.0.7-x86_64-apple-darwin21.0.tar.xz"],
+    },
+)
+
+# This is the last known LLVM version with zlib support in ld.lld. Without zlib
+# support, if the installed gcc toolchain has compressed sections in its object
+# files, then ld.lld won't be able to process them. Example is archlinux docker
+# image base-devel as of the time of this writing (23 May 2022).
+llvm_toolchain(
+    name = "llvm_toolchain_13_0_0",
+    llvm_version = "13.0.0",
+)
+
+load("@llvm_toolchain//:toolchains.bzl", "llvm_register_toolchains")
+
+llvm_register_toolchains()
+
+## Toolchain example with absolute paths; tested in GitHub CI.
+llvm_toolchain(
+    name = "llvm_toolchain_with_absolute_paths",
+    absolute_paths = True,
+    llvm_versions = LLVM_VERSIONS,
+    # We can share the downloaded LLVM distribution with the first configuration.
+    toolchain_roots = {
+        "": "@llvm_toolchain_llvm//",
+    },
+)
+
+## Toolchain example with system LLVM; tested in GitHub CI.
+llvm_toolchain(
+    name = "llvm_toolchain_with_system_llvm",
+    llvm_versions = LLVM_VERSIONS,
+    # For this toolchain to work, the LLVM distribution archive would need to be unpacked here.
+    toolchain_roots = {"": "/opt/llvm-16"},
+)
+
+## Toolchain example with a sysroot.
+
+# This sysroot is used by github.com/vsco/bazel-toolchains.
+http_archive(
+    name = "org_chromium_sysroot_linux_x64",
+    build_file_content = """
+filegroup(
+  name = "sysroot",
+  srcs = glob(["*/**"]),
+  visibility = ["//visibility:public"],
+)
+""",
+    sha256 = "84656a6df544ecef62169cfe3ab6e41bb4346a62d3ba2a045dc5a0a2ecea94a3",
+    urls = ["https://commondatastorage.googleapis.com/chrome-linux-sysroot/toolchain/2202c161310ffde63729f29d27fe7bb24a0bc540/debian_stretch_amd64_sysroot.tar.xz"],
+)
+
+llvm_toolchain(
+    name = "llvm_toolchain_with_sysroot",
+    llvm_versions = LLVM_VERSIONS,
+    sysroot = {
+        "linux-x86_64": "@org_chromium_sysroot_linux_x64//:sysroot",
+    },
+    # We can share the downloaded LLVM distribution with the first configuration.
+    toolchain_roots = {
+        "": "@llvm_toolchain_llvm//",
+    },
+)
+
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
+bazel_skylib_workspace()
+
+llvm_toolchain(
+    name = "llvm_toolchain_linux_exec",
+    exec_arch = "amd64",
+    # Option 2:
+    # distribution = "clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
+    exec_os = "linux",
+    llvm_version = "17.0.6",
+    # Option 1:
+    sha256 = {"": "884ee67d647d77e58740c1e645649e29ae9e8a6fe87c1376be0f3a30f3cc9ab3"},
+    strip_prefix = {"": "clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04"},
+    urls = {"": ["https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.6/clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04.tar.xz"]},
+)
+
+## Test dependencies.
+
+# Well known repos; present here only for testing.
+
+http_archive(
+    name = "com_google_absl",
+    sha256 = "733726b8c3a6d39a4120d7e45ea8b41a434cdacde401cba500f14236c49b39dc",
+    strip_prefix = "abseil-cpp-20240116.2",
+    urls = ["https://github.com/abseil/abseil-cpp/releases/download/20240116.2/abseil-cpp-20240116.2.tar.gz"],
+)
+
+# As a test dep of com_google_absl.
+http_archive(
+    name = "com_google_googletest",
+    sha256 = "7b42b4d6ed48810c5362c265a17faebe90dc2373c885e5216439d37927f02926",
+    strip_prefix = "googletest-1.15.2",
+    urls = ["https://github.com/google/googletest/archive/v1.15.2.tar.gz"],
+)
+
+http_archive(
+    name = "openssl",
+    build_file = "//openssl:openssl.bazel",
+    sha256 = "f6fb3079ad15076154eda9413fed42877d668e7069d9b87396d0804fdb3f4c90",
+    strip_prefix = "openssl-1.1.1c",
+    urls = ["https://www.openssl.org/source/openssl-1.1.1c.tar.gz"],
+)
+
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "d93ef02f1e72c82d8bb3d5169519b36167b33cf68c252525e3b9d3d5dd143de7",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.49.0/rules_go-v0.49.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.49.0/rules_go-v0.49.0.zip",
+    ],
+)
+
+load("@io_bazel_rules_go//go:deps.bzl", "go_download_sdk", "go_rules_dependencies")
+
+go_rules_dependencies()
+
+go_download_sdk(
+    name = "go_sdk",
+    version = "1.21.0",
+)
+
+# For testing rules_rust.
+
+http_archive(
+    name = "rules_rust",
+    sha256 = "59e7afd6ecf6433b4194303cf095fa03537bd92b9c0f557c941b1a9623344d38",
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.48.0/rules_rust-v0.48.0.tar.gz"],
+)
+
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+
+rules_rust_dependencies()
+
+rust_register_toolchains()
+
+# For testing rules_foreign_cc.
+# See https://bazelbuild.github.io/rules_foreign_cc/0.6.0/cmake.html
+
+http_archive(
+    name = "rules_foreign_cc",
+    sha256 = "4b33d62cf109bcccf286b30ed7121129cc34cf4f4ed9d8a11f38d9108f40ba74",
+    strip_prefix = "rules_foreign_cc-0.11.1",
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/0.11.1.tar.gz",
+)
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies()
+
+_ALL_CONTENT = """\
+filegroup(
+    name = "all_srcs",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+"""
+
+http_archive(
+    name = "pcre",
+    build_file_content = _ALL_CONTENT,
+    sha256 = "0b8e7465dc5e98c757cc3650a20a7843ee4c3edf50aaf60bb33fd879690d2c73",
+    strip_prefix = "pcre-8.43",
+    urls = [
+        "https://mirror.bazel.build/ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz",
+        "https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz",
+    ],
+)

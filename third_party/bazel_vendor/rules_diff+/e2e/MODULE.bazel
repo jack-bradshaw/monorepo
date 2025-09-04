@@ -1,0 +1,18 @@
+module(
+    name = "e2e",
+    bazel_compatibility = [
+        ">=7.0.0",
+    ],
+)
+
+bazel_dep(name = "toolchain_utils", version = "1.0.2")
+bazel_dep(name = "rules_coreutils", version = "1.0.1")
+bazel_dep(name = "bazel_skylib", version = "1.5.0")
+bazel_dep(name = "rules_diff")
+local_path_override(
+    module_name = "rules_diff",
+    path = "..",
+)
+
+export = use_extension("@toolchain_utils//toolchain/export:defs.bzl", "toolchain_export")
+use_repo(export, "diff")

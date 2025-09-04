@@ -1,0 +1,8 @@
+load("@rules_diff//diff/file/test:defs.bzl", "diff_file_test")
+
+diff_file_test(
+    name = "fixture",
+    size = "small",
+    a = "//fixture:hello-world.txt",
+    b = "//fixture:hello-world.txt",
+)

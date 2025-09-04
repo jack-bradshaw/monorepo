@@ -1,0 +1,37 @@
+load("@aspect_bazel_lib//lib:utils.bzl", bazel_lib_utils = "utils")
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("//format/private:formatter_binary.bzl", "BUILTIN_TOOL_LABELS")
+
+package(default_visibility = ["//visibility:public"])
+
+exports_files(glob(["*.bzl"]))
+
+# Alias the multitools for strict repo visibility under bzlmod
+[
+    alias(
+        name = v.split("/")[-1],
+        actual = v,
+    )
+    for v in BUILTIN_TOOL_LABELS.values()
+]
+
+bzl_library(
+    name = "defs",
+    srcs = ["defs.bzl"],
+    deps = [
+        "//format/private:formatter_binary",
+        "@aspect_bazel_lib//lib:lists",
+        "@aspect_bazel_lib//lib:utils",
+        "@rules_multirun//:defs",
+        "@rules_shell//shell:rules_bzl",
+    ],
+)
+
+bzl_library(
+    name = "repositories",
+    srcs = ["repositories.bzl"],
+    deps = [
+        "@bazel_tools//tools/build_defs/repo:http.bzl",
+        "@bazel_tools//tools/build_defs/repo:utils.bzl",
+    ] + ["@bazel_tools//tools/build_defs/repo:cache.bzl"] if bazel_lib_utils.is_bazel_7_or_greater() else [],
+)

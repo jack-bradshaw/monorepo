@@ -1,0 +1,5 @@
+load(":flag_tests.bzl", flag_test_suite="test_suite")
+load(":sha1_tests.bzl", sha1_test_suite="test_suite")
+
+flag_test_suite()
+sha1_test_suite()

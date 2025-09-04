@@ -57,10 +57,6 @@ _IDL_SRC_FROM_DIFFERENT_PACKAGE_ERROR = (
     "package or depend on an appropriate rule there."
 )
 
-_IDL_USES_AOSP_COMPILER_ERROR = (
-    "Use of `idl_uses_aosp_compiler` is not allowed for %s."
-)
-
 _IDL_IDLOPTS_UNSUPPORTERD_ERROR = (
     "`idlopts` is supported only if `idl_uses_aosp_compiler` is set to true."
 )
@@ -114,11 +110,6 @@ def _validate_rule_context(ctx):
     for idl_src in ctx.attr.idl_srcs:
         if ctx.label.package != idl_src.label.package:
             log.error(_IDL_SRC_FROM_DIFFERENT_PACKAGE_ERROR % idl_src.label)
-
-    # Ensure that the AOSP AIDL compiler is used only in allowlisted packages
-    if (ctx.attr.idl_uses_aosp_compiler and
-        not acls.in_android_library_use_aosp_aidl_compiler_allowlist(str(ctx.label))):
-        log.error(_IDL_USES_AOSP_COMPILER_ERROR % ctx.label)
 
     # Check if idlopts is with idl_uses_aosp_compiler
     if ctx.attr.idlopts and not ctx.attr.idl_uses_aosp_compiler:
@@ -306,24 +297,31 @@ def _process_jvm(ctx, exceptions_ctx, resources_ctx, idl_ctx, db_ctx, **unused_s
         java_toolchain = _common.get_java_toolchain(ctx),
     )
 
-    providers = [java_info]
-
-    # Propagate Lint rule Jars from any exported AARs (b/229993446)
-    android_lint_rules = [info.lint_jars for info in utils.collect_providers(
-        AndroidLintRulesInfo,
-        ctx.attr.exports,
-    )]
-    if android_lint_rules:
-        providers.append(
-            AndroidLintRulesInfo(
-                lint_jars = depset(transitive = android_lint_rules),
-            ),
-        )
-
     return ProviderInfo(
         name = "jvm_ctx",
         value = struct(
             java_info = java_info,
+            providers = [java_info],
+        ),
+    )
+
+def _process_lint_rules(ctx, **unused_sub_ctxs):
+    providers = []
+    if acls.in_enable_exported_lint_checks(str(ctx.label)):
+        # Propagate Lint rule Jars from any exported AARs (b/229993446)
+        android_lint_rules = [info.lint_jars for info in utils.collect_providers(
+            AndroidLintRulesInfo,
+            ctx.attr.exports,
+        )]
+        if android_lint_rules:
+            providers.append(
+                AndroidLintRulesInfo(
+                    lint_jars = depset(transitive = android_lint_rules),
+                ),
+            )
+    return ProviderInfo(
+        name = "lint_rules_ctx",
+        value = struct(
             providers = providers,
         ),
     )
@@ -484,6 +482,7 @@ def _process_baseline_profiles(ctx, **unused_ctx):
 # insertion.
 PROCESSORS = dict(
     ExceptionsProcessor = _exceptions_processor,
+    LintRulesProcessor = _process_lint_rules,
     ManifestProcessor = _process_manifest,
     LocalizedResourcesProcessor = _process_localized_resources,
     ResourceProcessor = _process_resources,

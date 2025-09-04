@@ -1,0 +1,13 @@
+module(
+    name = "simple-example",
+    version = "0.0.0",
+)
+
+bazel_dep(name = "aspect_tools_telemetry", version = "0.0.0")
+local_path_override(
+    module_name = "aspect_tools_telemetry",
+    path = "../..",
+)
+
+tel = use_extension("@aspect_tools_telemetry//:extension.bzl", "telemetry")
+use_repo(tel, "aspect_tools_telemetry_report")
