@@ -1,0 +1,66 @@
+load("@bazel_skylib//lib:sets.bzl", "sets")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//format:defs.bzl", "format_multirun")
+load("//format/private:formatter_binary.bzl", "TOOLS")
+
+sh_test(
+    name = "ls-files_test",
+    srcs = ["ls-files_test.sh"],
+    data = ["//format/private:format"],
+)
+
+UNIQUE_TOOLS = sets.to_list(sets.make(TOOLS.values()))
+
+# Avoid depending on a bunch of actual tools in the root module.
+# That's the job of the example/ submodule.
+# Instead, just provide "recording mock" for each formatter we support.
+[
+    write_file(
+        name = "mock_{}_sh".format(t),
+        out = "mock_{}.sh".format(t),
+        content = [
+            "#!/usr/bin/env bash",
+            "echo + {} $*".format(t),
+        ],
+    )
+    for t in UNIQUE_TOOLS
+]
+
+[
+    sh_binary(
+        name = "mock_" + t,
+        srcs = ["mock_{}.sh".format(t)],
+    )
+    for t in UNIQUE_TOOLS
+]
+
+format_multirun(
+    name = "format",
+    cc = ":mock_clang-format.sh",
+    css = ":mock_prettier.sh",
+    cuda = ":mock_clang-format.sh",
+    gherkin = ":mock_prettier.sh",
+    go = ":mock_gofmt.sh",
+    graphql = ":mock_prettier.sh",
+    html = ":mock_prettier.sh",
+    java = ":mock_java-format.sh",
+    javascript = ":mock_prettier.sh",
+    jsonnet = ":mock_jsonnetfmt.sh",
+    kotlin = ":mock_ktfmt.sh",
+    markdown = ":mock_prettier.sh",
+    protocol_buffer = ":mock_buf.sh",
+    python = ":mock_ruff.sh",
+    rust = ":mock_rustfmt.sh",
+    scala = ":mock_scalafmt.sh",
+    shell = ":mock_shfmt.sh",
+    sql = ":mock_prettier.sh",
+    starlark = ":mock_buildifier.sh",
+    swift = ":mock_swiftformat.sh",
+    # TODO: this attribute should be renamed to hcl
+    terraform = ":mock_terraform-fmt.sh",
+    toml = ":mock_taplo.sh",
+    xml = ":mock_prettier.sh",
+    yaml = ":mock_yamlfmt.sh",
+)

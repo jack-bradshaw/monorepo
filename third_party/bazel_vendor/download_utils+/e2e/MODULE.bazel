@@ -1,0 +1,96 @@
+module(
+    name = "e2e",
+    bazel_compatibility = [
+        ">=7.0.0",
+    ],
+)
+
+bazel_dep(name = "download_utils", version = "0.0.0")
+local_path_override(
+    module_name = "download_utils",
+    path = "..",
+)
+
+bazel_dep(name = "toolchain_utils", version = "1.0.2")
+
+archive = use_repo_rule("@download_utils//download/archive:defs.bzl", "download_archive")
+
+archive(
+    name = "archive",
+    commands = {
+        "symlink": [
+            "$(location @coreutils)",
+            "ln",
+            "fixture.txt",
+            "symlink.txt",
+        ],
+    },
+    extension = ".tar.xz",
+    integrity = "sha256-PWscbDJ+esMLMe4/ix5LTP+lsR1piMNe7r9eHsx/KOg=",
+    patches = [
+        "//archive:fixture.patch",
+    ],
+    tools = [
+        "@coreutils",
+    ],
+    urls = ["file://%workspace%/archive.tar.xz"],
+)
+
+file = use_repo_rule("@download_utils//download/file:defs.bzl", "download_file")
+
+file(
+    name = "file",
+    integrity = "sha256-2QFMRiSESqW6wxR3PWtomtRn+k4dGlChuKmdWpX3L/U=",
+    output = "fixture.txt",
+    patches = [
+        "//file:fixture.patch",
+    ],
+    urls = ["file://%workspace%/fixture.txt"],
+)
+
+deb = use_repo_rule("@download_utils//download/deb:defs.bzl", "download_deb")
+
+deb(
+    name = "deb",
+    integrity = "sha256-vMiq8kFBwoSrVEE+Tcs08RvaiNp6MsboWlXS7p1clO0=",
+    links = {
+        "etc/test/fixture.txt": "symlink.txt",
+    },
+    patches = [
+        "//deb:fixture.patch",
+    ],
+    urls = ["file://%workspace%/test_1.0-1_all.deb"],
+)
+
+[
+    archive(
+        name = "coreutils-{}".format(triplet),
+        srcs = ["entrypoint"],
+        integrity = integrity,
+        links = {
+            "coreutils.exe" if "windows" in basename else "coreutils": "entrypoint",
+        },
+        strip_prefix = "coreutils-0.0.27-{}".format(basename.partition(".")[0]),
+        urls = ["https://github.com/uutils/coreutils/releases/download/0.0.27/coreutils-0.0.27-{}".format(basename)],
+    )
+    for triplet, basename, integrity in (
+        ("arm64-linux-musl", "aarch64-unknown-linux-musl.tar.gz", "sha256-doU+ZfTyA5I8RSwDAcsOkEI3BZXFuFwBfEbg+diS06g="),
+        ("amd64-linux-musl", "x86_64-unknown-linux-musl.tar.gz", "sha256-tM+hJd16cCjflJyMwsCaevPYZMiBkIKZJm7/XC+760w="),
+        ("amd64-windows-msvc", "x86_64-pc-windows-msvc.zip", "sha256-DC4H+hQX51aHoFudV39n7u217NDcNL9AiG4o4edboV0="),
+        ("arm64-macos-darwin", "aarch64-apple-darwin.tar.gz", "sha256-BjAeGgJ8+sLCIwmokCOkfelCCLtnNRH49QcFnrDq8a4="),
+        ("amd64-macos-darwin", "x86_64-apple-darwin.tar.gz", "sha256-1ivz4ue8/ROUYhPh22Bg2ASPgC6MKMulR52nLgZvTBo="),
+    )
+]
+
+select = use_repo_rule("@toolchain_utils//toolchain/local/select:defs.bzl", "toolchain_local_select")
+
+select(
+    name = "coreutils",
+    map = {
+        "@coreutils-arm64-linux-musl": "arm64-linux",
+        "@coreutils-amd64-linux-musl": "amd64-linux",
+        "@coreutils-amd64-windows-msvc": "amd64-windows",
+        "@coreutils-arm64-macos-darwin": "arm64-macos-darwin",
+        "@coreutils-amd64-macos-darwin": "amd64-macos-darwin",
+    },
+)

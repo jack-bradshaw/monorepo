@@ -1,0 +1,11 @@
+**/pnpm-lock.yaml
+docs/*_*.md
+docs/nextjs.md
+e2e/**/*-docs.md
+examples/**/*-docs.md
+js/private/coverage/coverage.js
+js/private/node-patches/fs.cjs
+min/
+npm/private/test/vendored/
+js/private/worker/worker.js
+js/private/worker/src/worker_protocol.ts

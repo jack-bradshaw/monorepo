@@ -1,0 +1,24 @@
+{
+  "tools_telemetry": {
+    "arch": "aarch64",
+    "bazel_version": "8.3.1",
+    "bazelisk": true,
+    "ci": false,
+    "counter": null,
+    "deps": {
+      "aspect_rules_js": "2.5.0",
+      "aspect_rules_lint": "1.6.0",
+      "aspect_tools_telemetry": "0.2.8"
+    },
+    "has_bazel_module": true,
+    "has_bazel_prelude": false,
+    "has_bazel_tool": false,
+    "has_bazel_workspace": true,
+    "id": "7b135ae10274a13aabbfc51dec3afd10290c249b",
+    "org": null,
+    "os": "mac os x",
+    "runner": null,
+    "shell": "/Users/jack/Desktop/Personal/Shell",
+    "user": "5e6d83a98723b1bb17c99ad8786608a99ceb2553"
+  }
+}

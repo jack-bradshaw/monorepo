@@ -1,0 +1,34 @@
+load("//toolchain/triplet:triplets.bzl", "TRIPLETS")
+
+[
+    platform(
+        name = t.value,
+        constraint_values = t.constraints,
+        visibility = ["//visibility:public"],
+    )
+    for t in TRIPLETS
+]
+
+[
+    platform(
+        name = "{}-{}".format(cpu, os),
+        constraint_values = [
+            "//toolchain/constraint/cpu:{}".format(cpu),
+            "//toolchain/constraint/os:{}".format(os),
+        ],
+    )
+    for cpu, os in (
+        ("amd64", "linux"),
+        ("arm64", "linux"),
+        ("amd64", "windows"),
+        ("arm64", "windows"),
+        ("amd64", "macos"),
+        ("arm64", "macos"),
+    )
+]
+
+alias(
+    name = "local",
+    actual = "//toolchain/local:platform",
+    visibility = ["//visibility:public"],
+)

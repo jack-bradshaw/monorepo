@@ -57,8 +57,8 @@ def rules_android_workspace():
             # These technically aren't needed, but the protobuf version pulled
             # in by these older deps has compatibility issues with the newer
             # protobuf runtimes.
-            "com.google.protobuf:protobuf-java:4.29.3",
-            "com.google.protobuf:protobuf-java-util:4.29.3",
+            "com.google.protobuf:protobuf-java:4.31.1",
+            "com.google.protobuf:protobuf-java-util:4.31.1",
         ],
         repositories = [
             "https://maven.google.com",
@@ -87,14 +87,15 @@ def rules_android_workspace():
             "org.hamcrest:hamcrest-core:2.2",
             "org.robolectric:robolectric:4.14.1",
             "com.google.flogger:flogger:0.8",
+            "com.google.flogger:flogger-system-backend:0.8",
             "com.google.guava:guava:32.1.2-jre",
-            "com.google.truth:truth:1.1.5",
+            "com.google.guava:failureaccess:1.0.1",
             "info.picocli:picocli:4.7.4",
             "jakarta.inject:jakarta.inject-api:2.0.1",
             "junit:junit:4.13.2",
             "com.beust:jcommander:1.82",
-            "com.google.protobuf:protobuf-java:4.29.3",
-            "com.google.protobuf:protobuf-java-util:4.29.3",
+            "com.google.protobuf:protobuf-java:4.31.1",
+            "com.google.protobuf:protobuf-java-util:4.31.1",
             "com.google.code.findbugs:jsr305:3.0.2",
             "androidx.databinding:databinding-compiler:8.7.0",
             "org.ow2.asm:asm:9.6",
@@ -116,6 +117,16 @@ def rules_android_workspace():
             "com.google.errorprone:error_prone_type_annotations:2.33.0",
             "com.google.errorprone:error_prone_check_api:2.33.0",
             "com.google.errorprone:error_prone_core:2.33.0",
+            # Test deps
+            "com.google.guava:guava-testlib:33.2.1-jre",
+            "com.google.jimfs:jimfs:1.2",
+            "com.google.testing.compile:compile-testing:0.18",
+            "com.google.testparameterinjector:test-parameter-injector:1.16",
+            "com.google.truth:truth:1.4.0",
+            "com.google.truth.extensions:truth-java8-extension:1.4.0",
+            "com.google.truth.extensions:truth-liteproto-extension:1.4.0",
+            "com.google.truth.extensions:truth-proto-extension:1.4.0",
+            "org.mockito:mockito-core:5.4.0",
         ],
         repositories = [
             "https://repo1.maven.org/maven2",

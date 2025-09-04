@@ -1,0 +1,7 @@
+bazel-*
+.bazelrc.user
+.idea/
+.ijwb/
+node_modules
+# Until it gets more stable
+MODULE.bazel.lock

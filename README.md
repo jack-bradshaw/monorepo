@@ -164,6 +164,8 @@ any dep which cannot be uploaded to GitHub due to the 100MB file size limit. Whe
 deps (including Bazel deps and package-manager deps), revendor by running `bazel vendor //...`. Any
 oversized deps are ignored via [.gitignore](.gitignore).
 
+Note: Large files can be found by running `find third_party/bazel_vendor -type f -size +100M`
+
 TODO(jack-bradshaw): Migrate off GitHub and delete the large file limit.
 
 ## Documentation

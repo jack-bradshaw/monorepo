@@ -1,0 +1,8 @@
+alias(
+    name = "template",
+    actual = select({
+        "@toolchain_utils//toolchain/constraint/os:windows": ":nt.tmpl.bat",
+        "//conditions:default": ":posix.tmpl.sh",
+    }),
+    visibility = ["//visibility:public"],
+)

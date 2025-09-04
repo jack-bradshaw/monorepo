@@ -1,0 +1,20 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["next.bazel.mjs"])
+
+exports_files(
+    glob(["*.bzl"]),
+)
+
+bzl_library(
+    name = "defs",
+    srcs = ["defs.bzl"],
+    deps = [
+        "//js:defs",
+        "@aspect_bazel_lib//lib:copy_file",
+        "@aspect_bazel_lib//lib:copy_to_directory",
+        "@aspect_bazel_lib//lib:directory_path",
+    ],
+)

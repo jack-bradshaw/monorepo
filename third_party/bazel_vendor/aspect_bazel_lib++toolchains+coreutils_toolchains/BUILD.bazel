@@ -43,3 +43,10 @@ toolchain(
     toolchain = "@coreutils_windows_amd64//:coreutils_toolchain",
     toolchain_type = "@aspect_bazel_lib//lib:coreutils_toolchain_type",
 )
+
+toolchain(
+    name = "windows_arm64_toolchain",
+    exec_compatible_with = ["@platforms//os:windows", "@platforms//cpu:aarch64"],
+    toolchain = "@coreutils_windows_arm64//:coreutils_toolchain",
+    toolchain_type = "@aspect_bazel_lib//lib:coreutils_toolchain_type",
+)
