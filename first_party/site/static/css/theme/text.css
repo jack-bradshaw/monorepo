@@ -1,0 +1,61 @@
+/** Semantically-named text properties. */
+:root {
+  /* Font Selection */
+  --font-primary: "Inter", sans-serif;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* Font Sizes */
+  --font-size-small: 0.9rem;
+  --font-size-medium: 1rem;
+  --font-size-large: 1.1rem;
+  --font-size-extra-large: 1.4rem;
+  --font-size-huge: 1.8rem;
+  --font-size-gigantic: 2.5rem;
+
+  /* Line Heights */
+  --line-height-small: 1.6;
+  --line-height-large: 1.2;
+
+  /* Letter Spacing */
+  --letter-spacing-small: 0;
+  --letter-spacing-large: 1px;
+
+  /* Text Colors (Dark Mode) */
+  --color-text-on-page: var(--color-grey-100);
+  --color-text-on-page-link: var(--color-blue-400);
+  --color-text-on-page-muted: var(--color-grey-400);
+  --color-text-on-page-muted-link: var(--color-muted-blue-400);
+
+  --color-text-on-surface: var(--color-grey-100);
+  --color-text-on-surface-link: var(--color-blue-400);
+  --color-text-on-surface-muted: var(--color-grey-400);
+  --color-text-on-surface-muted-link: var(--color-muted-blue-400);
+
+  --color-text-on-button: var(--color-grey-100);
+  --color-text-on-button-hover: var(--color-grey-100);
+  --color-text-on-button-active: var(--color-grey-950);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Text Colors (Light Mode) */
+    --color-text-on-page: var(--color-grey-850);
+    --color-text-on-page-link: var(--color-blue-500);
+    --color-text-on-page-muted: var(--color-grey-500);
+    --color-text-on-page-muted-link: var(--color-muted-blue-500);
+
+    --color-text-on-surface: var(--color-grey-850);
+    --color-text-on-surface-link: var(--color-blue-500);
+    --color-text-on-surface-muted: var(--color-grey-500);
+    --color-text-on-surface-muted-link: var(--color-muted-blue-500);
+
+    --color-text-on-button: var(--color-grey-850);
+    --color-text-on-button-hover: var(--color-grey-850);
+    --color-text-on-button-active: var(--color-grey-50);
+  }
+}

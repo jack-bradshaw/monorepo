@@ -1,0 +1,25 @@
+/** Styling for a card that displays a single network item. */
+
+.network-card .content-wrapper {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--gap-medium);
+  gap: var(--gap-small);
+}
+
+.network-card img {
+  width: var(--icon-large);
+  height: var(--icon-large);
+
+  display: block;
+  object-fit: contain;
+}
+
+.network-card h3 {
+  text-align: center;
+}

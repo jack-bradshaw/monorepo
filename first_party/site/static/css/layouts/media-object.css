@@ -1,0 +1,45 @@
+/** Styling for media objects (i.e. image and text). */
+:root {
+  /** Values chosen empirically. */
+  --media-object-image-size: 200px;
+  --media-object-text-min-width: 400px;
+}
+
+.media-object {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-medium);
+}
+
+.media-object .image-container {
+  flex: 0 0 var(--media-object-image-size);
+}
+
+.media-object .image-actual {
+  width: 100%;
+  border-radius: var(--shape-circle);
+}
+
+.media-object .text {
+  flex: 1;
+  min-width: var(--media-object-text-min-width);
+}
+
+@media (max-width: 600px) {
+  .media-object {
+    flex-direction: column;
+  }
+
+  .media-object .image-container {
+    width: var(--media-object-image-size);
+    height: var(--media-object-image-size);
+  }
+
+  .media-object .text {
+    flex: 0 1 auto;
+    min-width: 0px;
+  }
+}

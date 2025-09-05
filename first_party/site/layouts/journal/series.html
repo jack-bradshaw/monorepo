@@ -1,0 +1,75 @@
+{{/*
+Journal Series Layout
+
+Parameters:
+* key: "series" (implied)
+*/}}
+{{ define "main" }}
+
+{{ $itemMap := dict }}
+{{ range site.Data.journal.items }}
+{{ $itemMap = merge $itemMap (dict .key .) }}
+{{ end }}
+
+{{ $itemsInSeries := slice }}
+{{ $resolvedSeries := slice }}
+
+{{ range site.Data.journal.series }}
+{{ $series := . }}
+{{ $resolvedItems := slice }}
+{{ range $series.items }}
+{{ $itemsInSeries = $itemsInSeries | append . }}
+{{ $item := index $itemMap . }}
+
+{{ $monthInt := int $item.month }}
+{{ $yearInt := int $item.year }}
+{{ $monthName := partial "utils/get-month-name.html" $monthInt }}
+{{ $date := printf "%s %d" $monthName $yearInt }}
+{{ $link := printf "/journal/item/%s" $item.key }}
+
+{{ $resolvedItems = $resolvedItems | append (merge $item (dict "date" $date "link" $link)) }}
+{{ end }}
+{{ $resolvedSeries = $resolvedSeries | append (merge $series (dict "items" $resolvedItems)) }}
+{{ end }}
+
+{{/* Identify Standalone Items */}}
+{{ $standaloneItems := slice }}
+{{ range site.Data.journal.items }}
+{{ if not (in $itemsInSeries .key) }}
+{{ $item := . }}
+{{ $monthInt := int $item.month }}
+{{ $yearInt := int $item.year }}
+{{ $monthName := partial "utils/get-month-name.html" $monthInt }}
+{{ $date := printf "%s %d" $monthName $yearInt }}
+{{ $link := printf "/journal/item/%s" $item.key }}
+{{ $standaloneItems = $standaloneItems | append (merge $item (dict "date" $date "link" $link)) }}
+{{ end }}
+{{ end }}
+
+{{ if gt (len $standaloneItems) 0 }}
+{{ $desc := "Individual articles not part of a series." }}
+{{ $resolvedSeries = $resolvedSeries | append (dict "title" "Standalone" "description" $desc "items" $standaloneItems)
+}}
+{{ end }}
+
+<div class="content root wide-root">
+  {{ range $resolvedSeries }}
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range .items }}
+      <li>
+        {{ partial "card/composition/journal-card.html" (dict 
+          "title" .title
+          "description" .description
+          "link" .link)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,41 @@
+{{/*
+Journal Topics Layout
+
+Parameters:
+* key: "topics" (implied)
+*/}}
+{{ define "main" }}
+
+{{ $itemMap := dict }}
+{{ range site.Data.journal.items }}
+{{ $itemMap = merge $itemMap (dict .key .) }}
+{{ end }}
+
+<div class="content root wide-root">
+  {{ range site.Data.journal.topics }}
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range .items }}
+
+      {{ $item := index $itemMap . }}
+      {{ if $item }}
+      {{ $monthInt := int $item.month }}
+      {{ $yearInt := int $item.year }}
+      {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
+      {{ $date := printf "%s %d" $monthName $yearInt }}
+      
+      {{ partial "card/composition/journal-card.html" (dict 
+        "title" $item.title
+        "description" $item.description
+        "link" (printf "/journal/item/%s" $item.key))
+      }}
+      {{ end }}
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

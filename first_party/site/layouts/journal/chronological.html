@@ -1,0 +1,50 @@
+{{/*
+Journal Chronological Layout
+
+Parameters:
+* key: "chronological" (implied)
+*/}}
+{{ define "main" }}
+
+<div class="content root wide-root">
+  {{ $chronologicalMap := dict }}
+  {{ range site.Data.journal.items }}
+  {{ $year := printf "%d" (int .year) }}
+  {{ $itemsInYear := index $chronologicalMap $year | default slice }}
+  {{ $itemsInYear = $itemsInYear | append . }}
+  {{ $chronologicalMap = merge $chronologicalMap (dict $year $itemsInYear) }}
+  {{ end }}
+
+  {{/* Convert Map to Sorted List of Objects */}}
+  {{ $chronologicalList := slice }}
+  {{ range $year, $items := $chronologicalMap }}
+  {{ $chronologicalList = $chronologicalList | append (dict "year" $year "items" $items) }}
+  {{ end }}
+  {{/* Sort by year descending */}}
+  {{ $chronologicalList = sort $chronologicalList "year" "desc" }}
+
+  {{ range $chronologicalList }}
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict "title" .year "subtitle" (printf "All articles from %s" .year)) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range .items }}
+      <li>
+        {{ $monthInt := int .month }}
+        {{ $yearInt := int .year }}
+        {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
+        {{ $date := printf "%s %d" $monthName $yearInt }}
+        
+        {{ partial "card/composition/journal-card.html" (dict
+          "title" .title
+          "description" .description
+          "link" (printf "/journal/item/%s" .key))
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

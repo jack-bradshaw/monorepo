@@ -1,0 +1,13 @@
+/**
+ * Global styles for summary elements.
+ */
+summary {
+  cursor: pointer;
+  list-style: none;
+  /* Remove default triangle */
+}
+
+summary::-webkit-details-marker {
+  display: none;
+  /* Remove triangle in WebKit */
+}

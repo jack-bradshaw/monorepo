@@ -1,0 +1,74 @@
+/*
+ * Installs CSS files into layers.
+ *
+ * Layers:
+ *  1. Context: Device context (e.g. mobile vs. desktop).
+ *  2. Primitives: Literal design tokens without semantic meaning (color hex codes, etc.).
+ *  3. Theme: Semantic design tokens (background colors, shadow heights).
+ *  4. Base: Reset and normalization styles.
+ *  5. Elements: Styling for bare HTML elements (h1, p, etc.).
+ *  6. Layouts: Layout-specific styles (grid, flex structures).
+ *  7. Components: Reusable UI components (cards, nav, etc.).
+ *
+ * Lower-level layers are evaluated before higher-level layers; therefore, lower-level layers
+ * may not depend on higher-level layers, higher-level layers may depend on lower-level layers, and
+ * definitions in higher-level layers override definitions in lower-level layers.
+ 
+ * Layouts and components are differentiated by the presence of dedicated HTML files. Layout CSS
+ * rulesets may be applied to multiple elements across multiple HTML files, whereas component CSS
+ * rulesets may only be applied within a single HTML template file to create a fragment (i.e. a
+ * partial in Hugo terminology).
+ */
+@layer context, primitives, theme, base, elements, frame, layouts, components;
+
+@import url(/css/context/device.css) layer(context);
+
+@import url(/css/primitives/colors.css) layer(primitives);
+
+@import url(/css/theme/backgrounds.css) layer(theme);
+@import url(/css/theme/borders.css) layer(theme);
+@import url(/css/theme/dividers.css) layer(theme);
+@import url(/css/theme/durations.css) layer(theme);
+@import url(/css/theme/elevations.css) layer(theme);
+@import url(/css/theme/gaps.css) layer(theme);
+@import url(/css/theme/layers.css) layer(theme);
+@import url(/css/theme/shadows.css) layer(theme);
+@import url(/css/theme/sizes.css) layer(theme);
+@import url(/css/theme/text.css) layer(theme);
+
+@import url(/css/base/arrangement.css) layer(base);
+@import url(/css/base/text.css) layer(base);
+
+@import url(/css/layouts/button.css) layer(layouts);
+@import url(/css/layouts/card.css) layer(layouts);
+@import url(/css/layouts/media-object.css) layer(layouts);
+@import url(/css/layouts/panel.css) layer(layouts);
+@import url(/css/layouts/surface.css) layer(layouts);
+@import url(/css/layouts/text-flow.css) layer(layouts);
+
+@import url(/css/layouts/content.css) layer(frame);
+@import url(/css/layouts/root.css) layer(frame);
+
+@import url(/css/elements/h1.css) layer(elements);
+@import url(/css/elements/h2.css) layer(elements);
+@import url(/css/elements/h3.css) layer(elements);
+@import url(/css/elements/img.css) layer(elements);
+@import url(/css/elements/p.css) layer(elements);
+@import url(/css/elements/hr.css) layer(elements);
+@import url(/css/elements/summary.css) layer(elements);
+
+@import url(/css/components/card/composition/career-card.css) layer(components);
+@import url(/css/components/card/composition/gallery-card.css) layer(components);
+@import url(/css/components/card/composition/journal-card.css) layer(components);
+@import url(/css/components/card/composition/network-card.css) layer(components);
+@import url(/css/components/card/composition/repository-card.css) layer(components);
+@import url(/css/components/card/elements/card-banner.css) layer(components);
+@import url(/css/components/card/elements/card-details.css) layer(components);
+@import url(/css/components/card/elements/card-icons.css) layer(components);
+@import url(/css/components/content-block-header.css) layer(components);
+@import url(/css/components/navigation/nav-coordinator.css) layer(components);
+@import url(/css/components/navigation/nav.css) layer(components);
+@import url(/css/components/root/footer.css) layer(components);
+@import url(/css/components/root/header.css) layer(components);
+@import url(/css/components/root/skip-link.css) layer(components);
+@import url(/css/components/root/titlebar.css) layer(components);
