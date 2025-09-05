@@ -1,0 +1,20 @@
+/**
+ * Icon row component.
+ */
+.card-icons {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-medium);
+  align-items: center;
+}
+
+.card-icons img {
+  width: var(--icon-large);
+  height: var(--icon-large);
+
+  border-radius: var(--radius-medium);
+  border-color: var(--color-transparent);
+
+  display: block;
+  object-fit: contain;
+}

@@ -1,0 +1,226 @@
+[
+  {
+    "key": "autofactory",
+    "title": "Autofactory",
+    "description": "Bazel integration for the Google AutoFactory annotation processor.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/autofactory",
+    "technologies": ["bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "concurrency",
+    "title": "Concurrency",
+    "description": "Kotlin concurrency infrastructure, complete with test doubles and Dagger integration.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/concurrency",
+    "technologies": ["kotlin", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "coroutines",
+    "title": "Coroutines",
+    "description": "Kotlin coroutine infrastructure, complete with test doubles and Dagger integration.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/coroutines",
+    "technologies": ["kotlin", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "formatting",
+    "title": "Formatting",
+    "description": "Automated code formatting for a variety of languages and frameworks.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/formatting",
+    "technologies": ["java", "kotlin", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "klu",
+    "title": "Klu",
+    "description": "General-purpose Kotlin helpers and utilities, including concurrency primitives and Flow extensions.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/klu",
+    "technologies": ["kotlin", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "k_monkey",
+    "title": "KMonkey",
+    "description": "Kotlin coroutine support for the JMonkeyEngine game engine.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/kmonkey",
+    "technologies": ["kotlin", "jmonkey", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "model",
+    "title": "Model",
+    "description": "Data models that apply univerally across all domains.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/model",
+    "technologies": ["java", "kotlin", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "otter",
+    "title": "Otter",
+    "description": "An experimental coroutine-based framework for the JMonkeyEngine.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/otter",
+    "technologies": ["kotlin", "jmonkey", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "presubmit",
+    "title": "Presubmit",
+    "description": "A custom continuous integration system for Bazel.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/presubmit",
+    "technologies": ["bazel", "python", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "rules_hugo",
+    "title": "rules_hugo",
+    "description": "Bazel ruleset for the Hugo static site generator.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/rules_hugo",
+    "technologies": ["hugo", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "sasync",
+    "title": "Sasync",
+    "description": "Asynchronous stream manipulation for Kotlin with support for standard IO.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/sasync",
+    "technologies": ["kotlin", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "site",
+    "title": "Site",
+    "description": "The source code for this website.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/site",
+    "technologies": ["hugo", "bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "standards",
+    "title": "Standards",
+    "description": "Coding standards and documentation guidelines.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/standards",
+    "technologies": ["bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "rx_mvp_android",
+    "title": "RxMvpAndroid",
+    "description": "An framework for combining RxJava with the Model-View-Presenter architecture in Android applications.",
+    "link": "https://github.com/jack-bradshaw/RxMvpAndroid",
+    "technologies": ["android", "rxjava", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "sliding_intro_screen",
+    "title": "SlidingIntroScreen",
+    "description": "An Android library for customisable onboarding user interfaces.",
+    "link": "https://github.com/jack-bradshaw/SlidingIntroScreen",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "vertigo",
+    "title": "Vertigo",
+    "description": "An Android library for vertical pagination user interfaces.",
+    "link": "https://github.com/jack-bradshaw/Vertigo",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "spyglass",
+    "title": "Spyglass",
+    "description": "An Android annotation processor that uses code generation to reduce boilerplate code in custom views.",
+    "link": "https://github.com/jack-bradshaw/Spyglass",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "mixtape",
+    "title": "Mixtape",
+    "description": "An Android library for customisable media loading and playback, with support for automatic caching and background media loading.",
+    "link": "https://github.com/jack-bradshaw/Mixtape",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "forty_two",
+    "title": "FortyTwo",
+    "description": "An Android library for question/answer user interfaces.",
+    "link": "https://github.com/jack-bradshaw/FortyTwo",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "shamir",
+    "title": "Shamir",
+    "description": "A Java implementation of Shamir's Secret Sharing cryptography scheme, provides as an synchronous API, a reactive API, and a GUI application (for Mac, Windows, and Linux).",
+    "link": "https://github.com/jack-bradshaw/Shamir",
+    "technologies": ["java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "retrial",
+    "title": "Retrial",
+    "description": "A Gradle plugin that prevents supply chain attacks by cryptographically pinning dependencies and verifying their integrity.",
+    "link": "https://github.com/jack-bradshaw/Retrial",
+    "technologies": ["java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "lumberjack",
+    "title": "Lumberjack",
+    "description": "A logging framework for Java with zero dependencies.",
+    "link": "https://github.com/jack-bradshaw/Lumberjack",
+    "technologies": ["java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "sound_sword",
+    "title": "SoundSword",
+    "description": "An Android library for background audio playback and automatic playback state-tracking.",
+    "link": "https://github.com/jack-bradshaw/SoundSword",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "android_utilities",
+    "title": "AndroidUtilities",
+    "description": "General Android helper classes for common development tasks, including asset management, audio focus, and bitmap processing.",
+    "link": "https://github.com/jack-bradshaw/AndroidUtilities",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "java_utilities",
+    "title": "JavaUtilities",
+    "description": "General Java utilities for common operations, including callback execution, file tree traversal, and null safety.",
+    "link": "https://github.com/jack-bradshaw/JavaUtilities",
+    "technologies": ["java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "android_testing_tools",
+    "title": "AndroidTestingTools",
+    "description": "Testing tools for Android, including custom test harnesses, Espresso helpers for view interactions, and type-safe view actions/assertions.",
+    "link": "https://github.com/jack-bradshaw/AndroidTestingTools",
+    "technologies": ["android", "java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "avatar",
+    "title": "Avatar",
+    "description": "Generates Java source code elements to support annotation processor unit testing.",
+    "link": "https://github.com/jack-bradshaw/Avatar",
+    "technologies": ["java", "gradle"],
+    "repo": "secondary"
+  },
+  {
+    "key": "boggle_buster",
+    "title": "BoggleBuster",
+    "description": "Solves the game of Boggle.",
+    "link": "https://github.com/jack-bradshaw/BoggleBuster",
+    "technologies": ["java", "gradle"],
+    "repo": "secondary"
+  }
+]

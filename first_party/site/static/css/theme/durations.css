@@ -1,0 +1,5 @@
+:root {
+  /* Durations */
+  --transition-duration-short: 0.2s;
+  --transition-duration-medium: 0.3s;
+}

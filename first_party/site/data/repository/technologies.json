@@ -1,0 +1,47 @@
+[
+  {
+    "key": "bazel",
+    "name": "Bazel",
+    "link": "https://bazel.build"
+  },
+  {
+    "key": "kotlin",
+    "name": "Kotlin",
+    "link": "https://kotlinlang.org"
+  },
+  {
+    "key": "android",
+    "name": "Android",
+    "link": "https://developer.android.com"
+  },
+  {
+    "key": "java",
+    "name": "Java",
+    "link": "https://dev.java"
+  },
+  {
+    "key": "python",
+    "name": "Python",
+    "link": "https://www.python.org"
+  },
+  {
+    "key": "hugo",
+    "name": "Hugo",
+    "link": "https://gohugo.io"
+  },
+  {
+    "key": "jmonkey",
+    "name": "JMonkey",
+    "link": "https://jmonkeyengine.org"
+  },
+  {
+    "key": "rxjava",
+    "name": "RxJava",
+    "link": "https://github.com/ReactiveX/RxJava"
+  },
+  {
+    "key": "gradle",
+    "name": "Gradle",
+    "link": "https://gradle.org"
+  }
+]

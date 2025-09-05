@@ -1,0 +1,12 @@
+
+{{ range site.Data.network.items }}
+{{ $.AddPage (dict
+    "kind" "page"
+    "type" "network"
+    "layout" "item"
+    "path" .key
+    "title" .name
+
+    "params" .
+) }}
+{{ end }}

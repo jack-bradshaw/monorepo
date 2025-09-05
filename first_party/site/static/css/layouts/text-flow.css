@@ -1,0 +1,16 @@
+.text-flow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+  width: 100%;
+  cursor: text;
+}
+
+.text-flow ul,
+.text-flow ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+
+  padding-inline-start: 1.25rem;
+}
