@@ -1,0 +1,22 @@
+{{/*
+Gallery Item Layout
+
+Parameters: the item key of the item to display
+*/}}
+{{ define "main" }}
+
+<div class="content root wide-root">
+  <div class="panel">
+    {{ $item := dict }}
+    {{ range site.Data.gallery.items }}
+    {{ if eq .key $.Params.key }}
+    {{ $item = . }}
+    {{ end }}
+    {{ end }}
+    {{ $webPath := strings.TrimPrefix "/static" $item.file }}
+    <a href="{{ $webPath }}">
+      <img class="rounded" src="{{ $webPath }}" alt="{{ $item.title }}" />
+    </a>
+  </div>
+</div>
+{{ end }}

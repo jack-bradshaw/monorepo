@@ -1,0 +1,19 @@
+{{/*
+Gallery Card Component
+
+Params:
+* image: URL of the image
+* title: Title text
+* subtitle: Subtitle text (optional)
+* link: URL to link to
+*/}}
+<article class="card gallery-card">
+  <a href="{{ .link }}">
+    {{ if .image }}
+    {{ partial "card/elements/card-banner.html" (dict "image" .image "title" .title) }}
+    {{ end }}
+    <div class="details-wrapper">
+      {{ partial "card/elements/card-details.html" (dict "title" .title "subtitle" .subtitle) }}
+    </div>
+  </a>
+</article>

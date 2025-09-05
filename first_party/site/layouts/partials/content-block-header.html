@@ -1,0 +1,12 @@
+{{/*
+Content Section Header Component
+
+Parameters:
+* title: The main title of the section.
+* subtitle: Optional subtitle.
+*/}}
+<div class="content-block-header">
+  <h2>{{ .title }}</h2>
+  {{ if .subtitle }}<p>{{ .subtitle | safeHTML }}</p>{{ end }}
+  <hr />
+</div>

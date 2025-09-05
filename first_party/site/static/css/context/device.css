@@ -1,0 +1,10 @@
+:root:after {
+  content: "";
+  --device-profile: "desktop";
+}
+
+@media (max-width: 800px) {
+  :root:after {
+    --device-profile: "mobile";
+  }
+}

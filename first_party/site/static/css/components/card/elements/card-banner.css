@@ -1,0 +1,13 @@
+/**
+ * Banner component.
+ */
+.card-banner {
+  display: block;
+}
+
+.card-banner img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}

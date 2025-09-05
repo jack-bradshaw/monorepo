@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="content root narrow-root">
+  <article class="panel vertical-wrap media-object">
+    <div class="image-container">
+      <img src="/decorations/people/jack.png" alt="Jack Bradshaw" class="image-actual" />
+    </div>
+    <div class="text">
+      <div class="text-flow">{{ readFile "static/content/home.md" | markdownify }}</div>
+    </div>
+  </article>
+</div>
+{{ end }}

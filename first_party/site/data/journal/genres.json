@@ -1,0 +1,14 @@
+[
+  {
+    "key": "poetry",
+    "title": "Poetry",
+    "description": "Rhythmic and expressive verse",
+    "items": ["sports-bar"]
+  },
+  {
+    "key": "essays",
+    "title": "Essays",
+    "description": "Structured prose exploring specific topics",
+    "items": ["death-of-a-critic", "pragmatic-altruism", "challenge-of-monologue"]
+  }
+]
