@@ -1,0 +1,6 @@
+p {
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-small);
+  letter-spacing: var(--letter-spacing-small);
+}

@@ -1,0 +1,20 @@
+/** Common styling for surface-like elements (cards, panels). */
+:is(.card, .panel) {
+  background-color: var(--color-background-surface);
+  color: var(--color-text-on-surface);
+  overflow: hidden;
+}
+
+:is(.card, .panel) h1,
+:is(.card, .panel) h2,
+:is(.card, .panel) h3,
+:is(.card, .panel) h4,
+:is(.card, .panel) h5,
+:is(.card, .panel) h6,
+:is(.card, .panel) p {
+  color: var(--color-text-on-surface);
+}
+
+:is(.card, .panel) a {
+  color: var(--color-text-on-surface-link);
+}

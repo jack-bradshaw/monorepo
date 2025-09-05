@@ -1,0 +1,45 @@
+{{/* Generates the main journal pages under /journal */}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "layout" "highlights"
+    "path" "highlights"
+    "title" "Highlights"
+    "description" "Hand-picked highlights")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "topics"
+    "path" "topics"
+    "title" "Topics"
+    "description" "Articles grouped by topic")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "series"
+    "path" "series"
+    "title" "Series"
+    "description" "Articles grouped by series")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "genres"
+    "path" "genres"
+    "title" "Genres"
+    "description" "Articles grouped by genre")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "chronological"
+    "path" "chronological"
+    "title" "Chronological"
+    "description" "Articles grouped by production date")
+}}

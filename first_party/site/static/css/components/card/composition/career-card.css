@@ -1,0 +1,9 @@
+/** Styling for a card that displays a single career item. */
+
+.career-card .content-wrapper {
+  padding: var(--gap-medium);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--gap-medium);
+}

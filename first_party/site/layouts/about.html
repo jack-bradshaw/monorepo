@@ -1,0 +1,49 @@
+{{ define "main" }}
+<div class="content root wide-root">
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict
+        "title" "Network"
+        "subtitle" "Ways to connect")
+      }}
+    </summary>
+    <ol class="content items narrow-items" role="list">
+      {{ range site.Data.about.network }}
+      <li>
+        {{ $image := strings.TrimPrefix "/static" .icon }}
+        {{ partial "card/composition/network-card.html" (dict
+        "image" $image
+        "title" .name
+        "link" .link
+        ) }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict
+        "title" "Career"
+        "subtitle" "My working history")
+      }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range site.Data.about.career }}
+      <li>
+        {{ $images := slice }}
+        {{ if .image }}
+        {{ $images = slice (strings.TrimPrefix "/static" .image) }}
+        {{ end }}
+        {{ partial "card/composition/career-card.html" (dict
+        "images" $images
+        "title" .organisation
+        "subtitle" .overview
+        "link" (printf "/about/career/item/%s" .key)
+        ) }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+</div>
+{{ end }}
