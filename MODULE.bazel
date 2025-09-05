@@ -241,7 +241,7 @@ bazel_dep(name = "rules_proto_grpc_java", version = VERSION_GRPC)
 bazel_dep(name = "grpc_kotlin", version = "2.1.0")
 git_override(
     module_name = "grpc_kotlin",
-    commit = "d17a4ab",
+    commit = "eaea34d",
     remote = "https://github.com/duckladydinh/grpc-kotlin",
 )
 
@@ -314,3 +314,18 @@ llvm.toolchain(
     },
 )
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
+
+# HUGO
+
+rules_hugo = use_extension("rules_hugo.bzl", "rules_hugo")
+use_repo(rules_hugo, "rules_hugo")
+
+hugo = use_extension("hugo.bzl", "hugo")
+hugo.theme(
+    name="hugo_xmin",
+    commit_id = "c14ca049d0dd60386264ea68c91d8495809cc4c6",
+    repo_owner = "yihui",
+    repo_name = "hugo-xmin",
+)
+use_repo(hugo, "hugo")
+use_repo(hugo, "hugo_theme_hugo_xmin")
