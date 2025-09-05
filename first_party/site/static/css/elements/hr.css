@@ -1,0 +1,7 @@
+hr {
+  width: 100%;
+  height: var(--height-divider);
+
+  background-color: var(--color-divider);
+  border: none;
+}

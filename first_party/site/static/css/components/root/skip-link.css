@@ -1,0 +1,19 @@
+/** Styling for the accessibility skip-to-content link (usually hidden). */
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  z-index: var(--layer-skip-link);
+
+  padding: var(--gap-small);
+  text-decoration: none;
+
+  background: var(--color-pure-black);
+  color: var(--color-pure-white);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}

@@ -1,0 +1,46 @@
+{{/*
+Gallery Stylistic Layout
+
+Parameters: None
+*/}}
+{{ define "main" }}
+<div class="content root wide-root">
+  {{ range site.Data.gallery.palettes }}
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ $itemKeysToItems := dict }}
+      {{ range site.Data.gallery.items }}
+      {{ $itemKeysToItems = merge $itemKeysToItems (dict .key .) }}
+      {{ end }}
+
+      {{ range .items }}
+      {{ $item := index $itemKeysToItems . }}
+      {{ if $item }}
+      <li>
+        {{ $subtitle := "" }}
+        {{ if $item.year }}
+        {{ $subtitle = $item.year }}
+        {{ if $item.description }}
+        {{ $subtitle = printf "%s · %s" $subtitle $item.description }}
+        {{ end }}
+        {{ else if $item.description }}
+        {{ $subtitle = $item.description }}
+        {{ end }}
+        {{ $image := strings.TrimPrefix "/static" $item.file }}
+        {{ partial "card/composition/gallery-card.html" (dict
+          "image" $image
+          "title" $item.title
+          "subtitle" $subtitle
+          "link" (printf "/gallery/item/%s" $item.key))
+        }}
+      </li>
+      {{ end }}
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

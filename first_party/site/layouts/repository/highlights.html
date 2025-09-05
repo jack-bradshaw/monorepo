@@ -1,0 +1,43 @@
+{{/*
+Repository Highlights Layout
+
+Parameters:
+*/}}
+{{ define "main" }}
+<div class="content root wide-root">
+  <div class="content block">
+    <ol class="content items wide-items" role="list">
+      {{ range site.Data.repository.highlights }}
+      {{ $highlightKey := . }}
+      {{ range site.Data.repository.items }}
+      {{ if eq .key $highlightKey }}
+      <li>
+        {{ $icons := slice }}
+        {{ if .technologies }}
+
+        {{ range .technologies }}
+        {{ $iconName := . }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.png" $iconName }}
+        {{ $webPath := printf "/decorations/technologies/%s.png" $iconName }}
+        {{ if not (fileExists $staticPath) }}
+        {{ errorf "Icon not found for technology: %s" $iconName }}
+        {{ else }}
+        {{ $icons = $icons | append $webPath }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+
+        {{ partial "card/composition/repository-card.html" (dict
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link)
+        }}
+      </li>
+      {{ end }}
+      {{ end }}
+      {{ end }}
+    </ol>
+  </div>
+</div>
+{{ end }}

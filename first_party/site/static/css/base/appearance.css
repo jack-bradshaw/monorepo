@@ -1,0 +1,9 @@
+*,
+*:before,
+*:after {
+  border: none;
+}
+
+html {
+  background-color: var(--color-background-page);
+}

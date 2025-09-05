@@ -1,0 +1,36 @@
+{{/* Generates the main gallery pages under /gallery */}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "gallery"
+    "layout" "curated"
+    "path" "curated"
+    "title" "Curated"
+    "description" "Pieces grouped by theme and series")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "gallery"
+    "layout" "chronological"
+    "path" "chronological"
+    "title" "Chronological"
+    "description" "Pieces grouped by production date")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "layout" "highlights"
+    "path" "highlights"
+    "title" "Highlights"
+    "description" "Hand-picked highlights")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "gallery"
+    "layout" "palettes"
+    "path" "palettes"
+    "title" "Palettes"
+    "description" "Pieces grouped by palette")
+}}

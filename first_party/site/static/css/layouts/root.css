@@ -1,0 +1,44 @@
+/* Styling for root page elements.
+ *
+ * There are two base classes:
+ *
+ * - Root page: The entire webpage, excluding accessibility elements (e.g. skip-link).
+ * - Root main: The main content area of the page.
+*/
+.root.page {
+  min-width: 100vw;
+  min-height: 100vh;
+  padding: var(--gap-medium);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-extra-large);
+
+  background-color: var(--color-background-page);
+}
+
+.root.page h1,
+.root.page h2,
+.root.page h3,
+.root.page h4,
+.root.page h5,
+.root.page h6,
+.root.page p {
+  color: var(--color-text-on-page);
+}
+
+.root.page a {
+  color: var(--color-text-on-page-link);
+  display: inline;
+}
+
+.root.main {
+  width: 100%;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}

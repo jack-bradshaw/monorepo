@@ -1,0 +1,5 @@
+*,
+*:before,
+*:after {
+  font-family: var(--font-primary);
+}

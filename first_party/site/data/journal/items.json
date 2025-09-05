@@ -1,0 +1,73 @@
+[
+  {
+    "key": "death-of-a-critic",
+    "title": "Death of a Critic",
+    "description": "Reflects on the internal struggle against self-censorship and the debilitating voice of an inner critic. Chronicles the journey of dismantling this barrier to cultivate a mental space for free expression. Marks a pivotal decision to publish work in defiance of perfectionism and fear.",
+    "year": 2025,
+    "month": 4,
+    "file": "/static/content/journal/death_of_a_critic.md",
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/death-of-a-critic-1ab506093e5c"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/death-of-critic-127536512"
+      }
+    ]
+  },
+  {
+    "key": "pragmatic-altruism",
+    "title": "Pragmatic Altruism",
+    "description": "Examines the intersection of cynicism, pragmatism, and altruism as competing frameworks for navigating existence. Proposes a systematic application of science and engineering to transcend natural limitations and foster a more ethical world. Concludes that empowering others to determine their own moral direction is the optimal altruistic strategy.",
+    "year": 2025,
+    "month": 4,
+    "file": "/static/content/journal/pragmatic_altruism.md"
+  },
+  {
+    "key": "sports-bar",
+    "title": "Sports Bar",
+    "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms. Illustrates the often uncomfortable compromise required to maintain relationships across ideological divides.",
+    "year": 2025,
+    "month": 7,
+    "file": "/static/content/journal/sports_bar.md",
+    "original_publication": {
+      "publisher": "LitVegan",
+      "date": {
+        "year": 2025,
+        "month": 7,
+        "day": 5
+      },
+      "link": "https://www.litvegan.net/2025/07/poetry-by-jack-bradshaw.html"
+    },
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/sports-bar-238c1cfe5e35"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/sports-bar-133537844"
+      }
+    ]
+  },
+  {
+    "key": "challenge-of-monologue",
+    "title": "The Challenge of Monologue",
+    "description": "Investigates the inherent limitations of written monologue compared to the dynamic nature of interpersonal dialogue. Discusses the ethical risks of static publication, including potential misinterpretation and the inability to adapt to shifting cultural contexts. Frames the act of writing as a necessary leap of faith to foster connection across time and space.",
+    "year": 2025,
+    "month": 5,
+    "file": "/static/content/journal/challenge_of_monologue.md",
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/joy-over-fear-8f7e76ba6803"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/challenge-of-129070143"
+      }
+    ]
+  }
+]
