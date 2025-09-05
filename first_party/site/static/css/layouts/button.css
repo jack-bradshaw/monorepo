@@ -1,0 +1,42 @@
+/** Styling for buttons. */
+
+.button {
+  display: inline-block;
+
+  padding-top: var(--gap-small);
+  padding-right: var(--gap-medium);
+  padding-bottom: var(--gap-small);
+  padding-left: var(--gap-medium);
+
+  border-radius: var(--shape-pill);
+  border: var(--border-width-thin) solid transparent;
+
+  text-decoration: none;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  letter-spacing: var(--letter-spacing-small);
+  font-weight: 500;
+
+  transition: background-color var(--transition-duration-short),
+    color var(--transition-duration-short);
+}
+
+/* Unselected State: Clickable */
+.button.unselected {
+  cursor: pointer;
+  background-color: var(--color-background-button);
+  color: var(--color-text-on-button);
+}
+
+.button.unselected:hover {
+  background-color: var(--color-background-button-hover);
+  color: var(--color-text-on-button-hover);
+}
+
+/* Selected State: Non-clickable, active appearance */
+.button.selected {
+  cursor: default;
+  background-color: var(--color-background-button-active);
+  color: var(--color-text-on-button-active);
+  font-weight: 700;
+}

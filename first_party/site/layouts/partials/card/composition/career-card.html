@@ -1,0 +1,22 @@
+{{/*
+Career Card Component
+
+Params:
+* images: Slice of image URLs
+* title: Title text
+* subtitle: Subtitle text (optional)
+* description: Description text (optional)
+* link: URL to link to
+*/}}
+<article class="card career-card">
+  <a href="{{ .link }}" target="_blank" rel="author">
+    <div class="content-wrapper">
+      {{ partial "card/elements/card-icons.html" (dict "icons" .images) }}
+      {{ partial "card/elements/card-details.html" (dict
+      "title" .title
+      "subtitle" .subtitle
+      "description" .description
+      ) }}
+    </div>
+  </a>
+</article>

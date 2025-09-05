@@ -1,0 +1,49 @@
+{{/*
+Primary Navigation
+
+Params:
+* . (Page Context): The current page context.
+*/}}
+
+{{ $primaryPages := slice
+  (dict "name" "Home" "link" "/")
+  (dict "name" "Gallery" "link" "/gallery/highlights")
+  (dict "name" "Journal" "link" "/journal/highlights")
+  (dict "name" "Repository" "link" "/repository/highlights")
+  (dict "name" "About" "link" "/about")
+}}
+
+{{ $primaryActivePage := "" }}
+{{ if eq .RelPermalink "/" }}
+{{ $primaryActivePage = "Home" }}
+{{ else }}
+{{ if hasPrefix .RelPermalink "/gallery/" }}
+{{ $primaryActivePage = "Gallery" }}
+{{ end }}
+{{ if hasPrefix .RelPermalink "/journal/" }}
+{{ $primaryActivePage = "Journal" }}
+{{ end }}
+{{ if hasPrefix .RelPermalink "/repository/" }}
+{{ $primaryActivePage = "Repository" }}
+{{ end }}
+{{ if hasPrefix .RelPermalink "/about/" }}
+{{ $primaryActivePage = "About" }}
+{{ end }}
+{{ end }}
+
+<nav class="primary" aria-label="Menu navigation">
+  <details open>
+    <summary>Menu</summary>
+    <ol>
+      {{ range $primaryPages }}
+      <li>
+        {{ $state := cond (eq .name $primaryActivePage) "selected" "unselected" }}
+        <a href="{{ .link }}" class="button {{ $state }}"
+        {{ if eq $state "selected" }} aria-current="page" {{ end }}>
+          {{ .name }}
+        </a>
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+</nav>

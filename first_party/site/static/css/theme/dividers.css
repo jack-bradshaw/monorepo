@@ -1,0 +1,5 @@
+/** Semantically-named divider properties. */
+:root {
+  --color-divider: var(--color-grey-600);
+  --height-divider: 1px;
+}

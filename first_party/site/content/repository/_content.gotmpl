@@ -1,0 +1,25 @@
+{{/* Generates the main repository pages under /repository */}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "layout" "highlights"
+    "path" "highlights"
+    "title" "Highlights"
+    "description" "Hand-picked highlights")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "layout" "location"
+    "path" "locations"
+    "title" "Location"
+    "description" "Artefacts grouped by location")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "layout" "technology"
+    "path" "technologies"
+    "title" "Technology"
+    "description" "Artefacts grouped by technology")
+}}

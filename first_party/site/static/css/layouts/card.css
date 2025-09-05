@@ -1,0 +1,21 @@
+/** Styling for cards (i.e. a raised surface with clear bounding). */
+
+.card {
+  width: 100%;
+  height: 100%;
+
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-base);
+  transition: transform var(--transition-duration-short) ease,
+    box-shadow var(--transition-duration-short) ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(var(--elevation-raised));
+  box-shadow: var(--shadow-raised);
+}
+
+.card a {
+  text-decoration: none;
+}

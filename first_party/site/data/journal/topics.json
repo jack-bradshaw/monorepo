@@ -1,0 +1,20 @@
+[
+  {
+    "key": "philosophy-ethics",
+    "title": "Philosophy & Ethics",
+    "description": "Exploring ethics and morality from various perspectives",
+    "items": ["pragmatic-altruism"]
+  },
+  {
+    "key": "social-observation",
+    "title": "Social Observation",
+    "description": "Examining human interaction and societal norms",
+    "items": ["sports-bar"]
+  },
+  {
+    "key": "personal-growth",
+    "title": "Personal Growth",
+    "description": "Self-discovery and personal development",
+    "items": ["death-of-a-critic", "challenge-of-monologue"]
+  }
+]

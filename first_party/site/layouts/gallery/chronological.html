@@ -1,0 +1,56 @@
+{{/*
+Gallery Chronological Layout
+
+Parameters: None
+*/}}
+
+{{ define "main" }}
+
+{{ $itemsByYear := dict }}
+{{ range site.Data.gallery.items }}
+{{ $yearKey := printf "%v" .year }}
+{{ $items := index $itemsByYear $yearKey | default slice }}
+{{ $items = $items | append . }}
+{{ $itemsByYear = merge $itemsByYear (dict $yearKey $items) }}
+{{ end }}
+
+{{ $years := slice }}
+{{ range $k, $v := $itemsByYear }}
+{{ $years = $years | append $k }}
+{{ end }}
+{{ $yearsSorted := sort $years "value" "desc" }}
+
+<div class="content root wide-root">
+  {{ range $year := $yearsSorted }}
+  <details class="content block" open>
+    <summary>
+      {{ $subtitle := printf "All pieces from %s" $year }}
+      {{ partial "content-block-header.html" (dict "title" $year "subtitle" $subtitle) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range (index $itemsByYear $year) }}
+      <li>
+        {{ $subtitle := "" }}
+        {{ if .year }}
+        {{ $subtitle = .year }}
+        {{ if .description }}
+        {{ $subtitle = printf "%s - %s" $subtitle .description }}
+        {{ end }}
+        {{ else if .description }}
+        {{ $subtitle = .description }}
+        {{ end }}
+
+        {{ $image := strings.TrimPrefix "/static" .file }}
+        {{ partial "card/composition/gallery-card.html" (dict
+            "image" $image
+            "title" .title
+            "subtitle" $subtitle
+            "link" (printf "/gallery/item/%s" .key))
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

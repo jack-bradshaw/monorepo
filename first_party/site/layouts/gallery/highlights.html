@@ -1,0 +1,41 @@
+{{/*
+Gallery Highlights Layout
+
+Parameters: None
+*/}}
+{{ define "main" }}
+<div class="content root wide-root">
+  <div class="content block">
+    <ol class="content items wide-items" role="list">
+      {{ $itemMap := dict }}
+      {{ range site.Data.gallery.items }}
+      {{ $itemMap = merge $itemMap (dict .key .) }}
+      {{ end }}
+
+      {{ range site.Data.gallery.highlights }}
+      {{ $item := index $itemMap . }}
+      {{ if $item }}
+      <li>
+        {{ $subtitle := "" }}
+        {{ if $item.year }}
+        {{ $subtitle = $item.year }}
+        {{ if $item.description }}
+        {{ $subtitle = printf "%s · %s" $subtitle $item.description }}
+        {{ end }}
+        {{ else if $item.description }}
+        {{ $subtitle = $item.description }}
+        {{ end }}
+        {{ $image := strings.TrimPrefix "/static" $item.file }}
+        {{ partial "card/composition/gallery-card.html" (dict
+          "image" $image
+          "title" $item.title
+          "subtitle" $subtitle
+          "link" (printf "/gallery/item/%s" $item.key))
+        }}
+      </li>
+      {{ end }}
+      {{ end }}
+    </ol>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,12 @@
+{{/*
+Icon Row Component
+
+Params:
+* icons: Slice of image URLs
+*/}}
+<div class="card-icons">
+  {{ range .icons }}
+
+  <img src="{{ . }}" alt="" />
+  {{ end }}
+</div>

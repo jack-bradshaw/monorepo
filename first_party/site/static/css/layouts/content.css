@@ -1,0 +1,79 @@
+/** Styling for page content.
+ *
+ * There are three base classes:
+ *
+ * - Content root: Anchors the content in the center of the main block.
+ * - Content block: A section of content contained within the content root.
+ * - Content items: A collection of items displayed within a content block. 
+ *
+ * The root width is variable (set using narrow or wide subclasses), but the height always fills the
+ * available viewport. Each content block fills the root horizontally and wraps its content height.
+ * Items blocks apply a grid layout to content using a responsive layout, with wide and narrow
+ * subclass options.
+ *
+ * In summary each page has a content root, one or more content blocks, and one or more content
+ * items within each content block. Together they create the main content area of any page.
+ *
+ * Note: The content-block-header component is available to introduce the items in a content block.
+*/
+
+.content {
+  --content-root-narrow: 800px;
+  --content-root-wide: 1200px;
+  --content-item-narrow: 180px;
+  --content-item-wide: 300px;
+}
+
+/* Root container */
+.content.root {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--gap-extra-large);
+}
+
+.content.root.narrow-root {
+  max-width: var(--content-root-narrow);
+}
+
+.content.root.wide-root {
+  max-width: var(--content-root-wide);
+}
+
+/* A discrete unit of content displayed within the root content container. Multiple content blocks
+  may exist in one content container. */
+.content.block {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+  align-items: start;
+}
+
+/* A collection of items displayed within a content block. */
+.content.items {
+  width: 100%;
+  display: grid;
+  gap: var(--gap-medium);
+  list-style: none;
+}
+
+.content.items.narrow-items {
+  grid-template-columns: repeat(auto-fill, minmax(var(--content-item-narrow), 1fr));
+  justify-content: center;
+}
+
+.content.items.wide-items {
+  grid-template-columns: repeat(auto-fill, minmax(var(--content-item-wide), 1fr));
+  justify-content: center;
+}
+
+.content.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+  align-items: stretch;
+}

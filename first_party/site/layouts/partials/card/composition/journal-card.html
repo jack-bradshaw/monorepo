@@ -1,0 +1,20 @@
+{{/*
+Journal Card Component
+
+Params:
+* title: Title text
+* subtitle: Subtitle text (optional)
+* description: Description text (optional)
+* link: URL to link to
+*/}}
+<article class="card journal-card">
+  <a href="{{ .link }}">
+    <div class="content-wrapper">
+      {{ partial "card/elements/card-details.html" (dict
+      "title" .title
+      "subtitle" .subtitle
+      "description" .description
+      ) }}
+    </div>
+  </a>
+</article>

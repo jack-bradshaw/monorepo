@@ -1,0 +1,8 @@
+{{/* Generates the main pages under /, except for home, which is genearated by _index.md */}}
+
+{{ $.AddPage (dict
+    "kind" "page"
+    "path" "about"
+    "title" "About"
+    "layout" "about")
+}}

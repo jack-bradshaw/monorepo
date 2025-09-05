@@ -1,0 +1,22 @@
+/** Semantically-named background properties. */
+:root {
+  /* Backgrounds (Dark Mode) */
+  --color-background-page: var(--color-grey-950);
+  --color-background-surface: var(--color-grey-800);
+  --color-background-menu: var(--color-grey-900);
+  --color-background-button: var(--color-grey-600);
+  --color-background-button-hover: var(--color-grey-500);
+  --color-background-button-active: var(--color-grey-100);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Backgrounds (Light Mode) */
+    --color-background-page: var(--color-grey-50);
+    --color-background-surface: var(--color-pure-white);
+    --color-background-menu: var(--color-pure-white);
+    --color-background-button: var(--color-grey-100);
+    --color-background-button-hover: var(--color-grey-300);
+    --color-background-button-active: var(--color-grey-850);
+  }
+}

@@ -3,13 +3,16 @@
 # Two checks are enabled:
 # - single-commit-rule: Requires the branch to have exactly one commit.
 # - presubmit: Requires /presubmit/presubmit.sh to pass.
+#
+# Various other tasks run to perform supplementary operations, such as freeing up disk space before
+# the tests run, and uploading the test artefacts after test execution.
 name: CI
 on: [pull_request]
 jobs:
   single-commit-rule:
     runs-on: ubuntu-latest
     steps:
-      - name: single-commits-only
+      - name: Check Commit Count
         uses: actions/github-script@v7
         with:
           script: |
@@ -31,7 +34,7 @@ jobs:
   presubmit:
     runs-on: ubuntu-latest
     steps:
-      - name: "increase-disk-space"
+      - name: Delete Bloatware
         run: |
           echo "Disk space before cleanup:"
           df -h
@@ -46,7 +49,6 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/google
           sudo rm -rf /opt/google/chrome
-          sudo rm -rf /opt/hostedtoolcache
           sudo rm -rf /opt/hostedtoolcache/Ruby
           sudo rm -rf /opt/microsoft
           sudo rm -rf /opt/microsoft/msedge
@@ -56,7 +58,6 @@ jobs:
           sudo rm -rf /usr/lib/firefox
           sudo rm -rf /usr/lib/google-cloud-sdk
           sudo rm -rf /usr/lib/grub
-          sudo rm -rf /usr/lib/jvm
           sudo rm -rf /usr/lib/linux-azure-6.11-tools-6.11.0-1018
           sudo rm -rf /usr/lib/php
           sudo rm -rf /usr/lib/postgresql
@@ -86,6 +87,14 @@ jobs:
           echo "Disk space cleanup complete."
           echo "Disk space after cleanup:"
           df -h
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: |
+          npm install @playwright/test
+          npx playwright@1.49.0 install --with-deps
       - name: Cache Bazel Artifacts
         uses: actions/cache@v4
         with:
@@ -100,8 +109,15 @@ jobs:
           restore-keys: |
             bazel-cache-
       - uses: actions/checkout@v4
-      - name: run_presubmit_script
+      - name: Run Presubmit
         run: |
           source first_party/presubmit/presubmit.sh
           run_presubmit
         shell: bash
+      - name: Upload Bazel Test Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bazel-test-logs
+          path: |
+            bazel-testlogs/**/*.png

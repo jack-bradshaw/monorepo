@@ -1,0 +1,47 @@
+{{ define "main" }}
+{{ $item := dict }}
+{{ range site.Data.about.career }}
+{{ if eq .key $.Params.key }}
+{{ $item = . }}
+{{ end }}
+{{ end }}
+
+<div class="content root narrow-root">
+  <article class="panel vertical-wrap text-flow">
+    {{ if $item.roles }}
+    <h3>Roles</h3>
+    <ul>
+      {{ range $item.roles }}
+      <li>
+        {{ .title }}: ({{ .start_year }} - {{ .end_year }})
+      </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+
+    {{ if $item.products }}
+    <h3>Products</h3>
+    <ul>
+      {{ range $item.products }}
+      <li>
+        {{ if .link }}
+        <a href="{{ .link }}" target="_blank" rel="noopener noreferrer">{{ .name }}</a>
+        {{ else }}
+        {{ .name }}
+        {{ end }}
+      </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+
+    {{ if $item.highlights }}
+    <h3>Highlights</h3>
+    <ul>
+      {{ range $item.highlights }}
+      <li>{{ . }}</li>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </article>
+</div>
+{{ end }}

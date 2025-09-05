@@ -1,0 +1,56 @@
+{{/*
+Gallery Curated Layout
+
+Parameters: None
+*/}}
+
+{{ define "main" }}
+{{ $itemMap := dict }}
+{{ range site.Data.gallery.items }}
+{{ $itemMap = merge $itemMap (dict .key .) }}
+{{ end }}
+
+{{ $seriesMap := dict }}
+{{ range site.Data.gallery.series }}
+{{ $coverItem := index $itemMap .cover }}
+{{ $coverImage := "" }}
+{{ if $coverItem }}
+{{ $coverImage = $coverItem.file }}
+{{ end }}
+{{ $seriesLink := printf "/gallery/series/%s" .key }}
+{{ $resolvedSeries := merge . (dict "image" $coverImage "link" $seriesLink) }}
+{{ $seriesMap = merge $seriesMap (dict .key $resolvedSeries) }}
+{{ end }}
+<div class="content root wide-root">
+  {{ range site.Data.gallery.curated }}
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range .series }}
+      {{ $series := index $seriesMap . }}
+      <li>
+        {{ $subtitle := "" }}
+        {{ if $series.year }}
+        {{ $subtitle = $series.year }}
+        {{ if $series.description }}
+        {{ $subtitle = printf "%s · %s" $subtitle $series.description }}
+        {{ end }}
+        {{ else if $series.description }}
+        {{ $subtitle = $series.description }}
+        {{ end }}
+        {{ $image := strings.TrimPrefix "/static" $series.image }}
+        {{ partial "card/composition/gallery-card.html" (dict
+          "image" $image
+          "title" $series.title
+          "subtitle" $subtitle
+          "link" $series.link)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

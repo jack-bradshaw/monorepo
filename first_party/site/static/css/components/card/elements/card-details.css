@@ -1,0 +1,8 @@
+/** Styling for an text details section displayed in a card. */
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-extra-small);
+  flex: 1;
+}

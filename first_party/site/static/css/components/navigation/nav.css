@@ -1,0 +1,85 @@
+/** Styling for a single navigation menu. */
+
+nav {
+  width: fit-content;
+  position: relative;
+}
+
+nav summary {
+  display: none;
+}
+
+nav details {
+  display: block;
+  width: 100%;
+}
+
+nav ul,
+nav ol {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-small);
+  flex-wrap: wrap;
+
+  list-style: none;
+}
+
+nav li {
+  display: contents;
+}
+
+/** Max-width derived from device.css (variables not permitted in media queries. */
+@media (max-width: 800px) {
+  nav summary {
+    width: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-small);
+
+    padding: var(--gap-medium);
+    background-color: var(--color-background-button);
+    color: var(--color-text-on-button);
+    border-radius: var(--shape-pill);
+  }
+
+  nav ul,
+  nav ol {
+    width: max-content;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    margin-top: var(--gap-medium);
+    padding: var(--gap-medium);
+
+    border-radius: var(--gap-medium);
+    border: var(--border-width-thin) solid var(--color-border);
+
+    background-color: var(--color-background-menu);
+    box-shadow: var(--shadow-raised);
+
+    z-index: var(--layer-nav);
+  }
+
+  nav li {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  nav li a {
+    display: block;
+    width: 100%;
+  }
+}

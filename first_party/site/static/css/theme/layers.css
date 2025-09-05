@@ -1,0 +1,12 @@
+/** Semantically-named layer properties. */
+:root {
+  --layer-nav: 4;
+
+  --layer-skip-link: 3;
+
+  --layer-header: 2;
+
+  --layer-main: 1;
+
+  --layer-default: 0;
+}

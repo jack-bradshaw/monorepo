@@ -1,0 +1,723 @@
+[
+  {
+    "key": "genesis_ex_nihilo",
+    "title": "Genesis Ex Nihilo",
+    "description": "Tracing the path from pure nothingness to pure possibility.",
+    "items": [
+      "nothing_2022",
+      "singularity_2025",
+      "inflation_2025",
+      "condensation_2023",
+      "emergence_2023",
+      "cohesion_2023",
+      "intelligence_2023",
+      "awareness_2025",
+      "choice_2023",
+      "enlightenment_2024",
+      "transcendence_2024",
+      "everything_2025",
+      "anything_2025"
+    ],
+    "cover": "inflation_2025"
+  },
+  {
+    "key": "find_x",
+    "title": "Find X",
+    "description": "Following a hunt for answers through analysis, subjectivity, novelty, and integration into the self.",
+    "items": [
+      "startled_2022",
+      "analysis_2022",
+      "paradox_abundant_2022",
+      "subjectivity_encountered_2022",
+      "subjectivity_embraced_2022",
+      "subjectivity_explored_2022",
+      "a_deeper_problem_emerges_2022",
+      "a_novel_perspective_grows_2022",
+      "the_self_transformed_2022",
+      "a_final_answer_and_another_question_2022"
+    ],
+    "cover": "the_self_transformed_2022"
+  },
+  {
+    "key": "escape_of_the_heart",
+    "title": "Escape of the Heart",
+    "description": "Tracing a passionate heart as it breaks free.",
+    "items": [
+      "the_eternal_flame_within_2025",
+      "the_outwards_husk_2023",
+      "suffering_2023",
+      "straining_2023",
+      "the_breakthrough_2023",
+      "the_rupture_2023",
+      "clearing_the_debris_2025",
+      "free_expression_2023",
+      "relief_2023",
+      "cessation_2023"
+    ],
+    "cover": "the_eternal_flame_within_2025"
+  },
+  {
+    "key": "birth_of_the_mind",
+    "title": "Birth of the Mind",
+    "description": "Following an emergent consciousness as it discovers itself and searches for others.",
+    "items": [
+      "emergence_2022",
+      "first_barrier_2022",
+      "another_barrier_2022",
+      "enclosure_discovered_2022",
+      "sudden_realisation_2022",
+      "self_awareness_2022",
+      "social_awareness_2022",
+      "seeking_connection_2022"
+    ],
+    "cover": "seeking_connection_2022"
+  },
+  {
+    "key": "reconnection",
+    "title": "Reconnection",
+    "description": "Tracing the path from isolation and despair through to renewal and rejoining.",
+    "items": [
+      "isolated_and_weary_2022",
+      "languishing_in_defeat_2024",
+      "desparate_and_broken_2024",
+      "resolute_2024",
+      "courageous_and_defiant_2024",
+      "refocused_2022",
+      "determined_2022",
+      "unseen_but_returning_2022",
+      "adrift_and_alone_2024"
+    ],
+    "cover": "isolated_and_weary_2022"
+  },
+  {
+    "key": "sector_001",
+    "title": "Sector 001",
+    "description": "Charting our solar system from the center of the sun to the outer planets.",
+    "items": [
+      "sol_core_2022",
+      "sol_corona_2022",
+      "mercury_2025",
+      "venus_2022",
+      "earth_2022",
+      "mars_2025",
+      "asteroid_belt_2022",
+      "jupiter_2022",
+      "saturn_2025",
+      "uranus_2022",
+      "neptune_2022"
+    ],
+    "cover": "asteroid_belt_2022"
+  },
+  {
+    "key": "reorganisation",
+    "title": "Reorganisation",
+    "description": "Examining the ways the mind reorganises itself.",
+    "items": ["restructuring_2024", "integration_2024"],
+    "cover": "restructuring_2024"
+  },
+  {
+    "key": "fear_responses",
+    "title": "Fear Responses",
+    "description": "Examining the four major fear responses: fight, flight, freeze, and fawn.",
+    "items": ["fight_2024", "flight_2025", "freeze_2024", "fawn_2024"],
+    "cover": "fight_2024"
+  },
+  {
+    "key": "defence_mechanisms",
+    "title": "Defence Mechanisms",
+    "description": "Some of the unconscious defence mechanisms we use to maintain psychological safety.",
+    "items": [
+      "compartmentalization_2024",
+      "dissociation_2024",
+      "minimisation_2024",
+      "repression_2024"
+    ],
+    "cover": "dissociation_2024"
+  },
+  {
+    "key": "growth_mindset",
+    "title": "Growth Mindset",
+    "description": "Various components that together make up a growth mindset.",
+    "items": ["resilience_2024", "self_awareness_2024", "flexibility_2024"],
+    "cover": "resilience_2024"
+  },
+  {
+    "key": "obsessive_compulsive_disorder",
+    "title": "Obsessive-Compulsive Disorder",
+    "description": "A few of the processes that contribute to obsessive compulsive disorder.",
+    "items": ["obsession_2024", "compulsion_2024"],
+    "cover": "obsession_2024"
+  },
+  {
+    "key": "conflict_management",
+    "title": "Conflict Management",
+    "description": "Two approaches to conflict, one leading to forgiveness, one leading to resentment.",
+    "items": ["validation_2024", "invalidation_2024"],
+    "cover": "validation_2024"
+  },
+  {
+    "key": "wisdom",
+    "title": "Wisdom",
+    "description": "The components of wisdom and their integrated form.",
+    "items": ["components_reason_and_emotion_2024", "integration_wisdom_2024"],
+    "cover": "components_reason_and_emotion_2024"
+  },
+  {
+    "key": "3_bits",
+    "title": "3 bits",
+    "description": "Counting to 7 with three bits of information.",
+    "items": [
+      "000_2025",
+      "001_2025",
+      "010_2025",
+      "011_2025",
+      "100_2025",
+      "101_2025",
+      "110_2025",
+      "111_2025"
+    ],
+    "cover": "111_2025"
+  },
+  {
+    "key": "object_oriented_programming",
+    "title": "Object Oriented Programming",
+    "description": "Two of the most important techniques in object-oriented programming.",
+    "items": ["inheritance_2022", "composition_2022"],
+    "cover": "composition_2022"
+  },
+  {
+    "key": "stellar_bodies",
+    "title": "Stellar Bodies",
+    "description": "Damn, look at that sweet accretion disk.",
+    "items": ["white_dwarf_2022", "black_hole_2022"],
+    "cover": "white_dwarf_2022"
+  },
+  {
+    "key": "3_electro_magnetism",
+    "title": "3- Electro-Magnetism",
+    "description": "Various electro-magnetic phenomena.",
+    "items": ["wave_particle_duality_2022", "particle_trajectories_2024"],
+    "cover": "wave_particle_duality_2022"
+  },
+  {
+    "key": "hungarian_notation",
+    "title": "Hungarian Notation",
+    "description": "A wallpaper for a colleague at Google who liked the Borg and was a fan of Hungarian notation (gross!)",
+    "items": ["hungarian_notation_2023"],
+    "cover": "hungarian_notation_2023"
+  },
+  {
+    "key": "subtle_dynamics",
+    "title": "Subtle Dynamics",
+    "description": "Higher order dynamics can be hard to spot, but most real systems have them in some way.",
+    "items": ["subtle_dynamics_2022"],
+    "cover": "subtle_dynamics_2022"
+  },
+  {
+    "key": "modular_home",
+    "title": "Modular Home",
+    "description": "I dream of living in a home where the entire building is modular.",
+    "items": ["infrastructure_2022", "decor_2022"],
+    "cover": "decor_2022"
+  },
+  {
+    "key": "training",
+    "title": "Training",
+    "description": "Visualisation of supervised learning.",
+    "items": ["training_2022"],
+    "cover": "training_2022"
+  },
+  {
+    "key": "google",
+    "title": "Google",
+    "description": "A peek at the core principles that made Google a truly wonderful place to be an engineer.",
+    "items": [
+      "accessibility_first_2022",
+      "solve_for_scale_2022",
+      "collaborate_across_boundaries_2022",
+      "shower_in_ambiguity_2022",
+      "build_for_everyone_2022",
+      "keep_it_scrappy_2022",
+      "keep_it_simple_2022"
+    ],
+    "cover": "collaborate_across_boundaries_2022"
+  },
+  {
+    "key": "bureaucracy",
+    "title": "Bureaucracy",
+    "description": "Follow the rules, don't rock the boat, and most importantly, never ask questions.",
+    "items": ["bureaucracy_2025"],
+    "cover": "bureaucracy_2025"
+  },
+  {
+    "key": "crowds",
+    "title": "Crowds",
+    "description": "Groups of people form around all sorts of ideas and perspectives.",
+    "items": ["nuns_2022", "leos_2023"],
+    "cover": "nuns_2022"
+  },
+  {
+    "key": "startups",
+    "title": "Startups",
+    "description": "Open, messy, chaotic and unstructured.",
+    "items": ["startups_2022"],
+    "cover": "startups_2022"
+  },
+  {
+    "key": "cozy",
+    "title": "Cozy",
+    "description": "The warmth and comfort of a safe and a familiar environment.",
+    "items": ["version_1_2022", "version_2_2022", "version_3_2022", "version_4_2022"],
+    "cover": "version_1_2022"
+  },
+  {
+    "key": "intoxicated",
+    "title": "Intoxicated",
+    "description": "Drinking alcohol to inebriation appears to be a common human pastime.",
+    "items": ["intoxication_2022"],
+    "cover": "intoxication_2022"
+  },
+  {
+    "key": "uncertain",
+    "title": "Uncertain",
+    "description": "Finding uncertainty is beginning of all wisdom.",
+    "items": ["uncertain_2022"],
+    "cover": "uncertain_2022"
+  },
+  {
+    "key": "loving",
+    "title": "Loving",
+    "description": "The essence of intimate connection.",
+    "items": [
+      "first_2024_2024",
+      "second_2024",
+      "joining_2024",
+      "snuggling_2024",
+      "uniting_2024",
+      "one_2024"
+    ],
+    "cover": "uniting_2024"
+  },
+  {
+    "key": "confused",
+    "title": "Confused",
+    "description": "The experience of being disoriented or lacking understanding.",
+    "items": ["confused_2024"],
+    "cover": "confused_2024"
+  },
+  {
+    "key": "frustrated",
+    "title": "Frustrated",
+    "description": "We feel this when nothing seems to be working.",
+    "items": ["frustrated_2024"],
+    "cover": "frustrated_2024"
+  },
+  {
+    "key": "groggy",
+    "title": "Groggy",
+    "description": "The experience of being mentally tired and dazed.",
+    "items": ["groggy_2024"],
+    "cover": "groggy_2024"
+  },
+  {
+    "key": "relaxed",
+    "title": "Relaxed",
+    "description": "Two subtly different experiences of ease.",
+    "items": ["serenity_2022", "equanimity_2023"],
+    "cover": "equanimity_2023"
+  },
+  {
+    "key": "playful",
+    "title": "Playful",
+    "description": "Isn't he so cute?",
+    "items": ["playful_2022"],
+    "cover": "playful_2022"
+  },
+  {
+    "key": "curious",
+    "title": "Curious",
+    "description": "The beginning of all discovery.",
+    "items": ["part_1_2022_2", "part_2_2022_2", "part_3_2022_1", "part_4_2022_1", "part_5_2022_1"],
+    "cover": "part_2_2022_2"
+  },
+  {
+    "key": "distracted",
+    "title": "Distracted",
+    "description": "Following the path from blissful ignorance to focused analysis.",
+    "items": ["blissful_ignorance_2022", "an_odd_occurrence_2022", "analysis_engaged_2022"],
+    "cover": "blissful_ignorance_2022"
+  },
+  {
+    "key": "pink_triangle",
+    "title": "Pink Triangle",
+    "description": "Various alternative designs for my pride tattoo.",
+    "items": ["version_1_2024", "version_2_2024", "version_3_2024", "version_4_2024"],
+    "cover": "version_1_2024"
+  },
+  {
+    "key": "the_closet",
+    "title": "The Closet",
+    "description": "Exploration of LGBTQ experiences and sexuality in general",
+    "items": ["shame_2024", "fear_2023", "pretense_2024"],
+    "cover": "shame_2024"
+  },
+  {
+    "key": "pride",
+    "title": "Pride",
+    "description": "Various representations of LGBTQ pride.",
+    "items": [
+      "part_1_2023",
+      "part_2_2022_3",
+      "part_3_2023",
+      "part_4_2024",
+      "part_5_2024",
+      "part_6_2022_1"
+    ],
+    "cover": "part_1_2023"
+  },
+  {
+    "key": "24_7_365",
+    "title": "24-7-365",
+    "description": "Pride doesn't stop on August 1st.",
+    "items": ["pride_by_day_2023", "pride_by_night_2023"],
+    "cover": "pride_by_day_2023"
+  },
+  {
+    "key": "gay_men_s_group_psychotherapy",
+    "title": "Gay Men's Group Psychotherapy",
+    "description": "The members of my support group circa 2023.",
+    "items": ["kent_2023", "jon_2023", "brad_2023", "rajat_2023", "troy_2023", "steve_2023"],
+    "cover": "kent_2023"
+  },
+  {
+    "key": "menage_a_trois",
+    "title": "Menage A Trois",
+    "description": "An abstract threesome.",
+    "items": ["part_1_2023_1", "part_2_2023"],
+    "cover": "part_1_2023_1"
+  },
+  {
+    "key": "gpride",
+    "title": "gPride",
+    "description": "A reminder of the time Google tried to constrain pride.",
+    "items": ["google_pride_2018_2022", "google_pride_2019_2022"],
+    "cover": "google_pride_2018_2022"
+  },
+  {
+    "key": "x_ray",
+    "title": "X-Ray",
+    "description": "The best way to see a bone.",
+    "items": ["x_ray_2022"],
+    "cover": "x_ray_2022"
+  },
+  {
+    "key": "french_girl",
+    "title": "French Girl",
+    "description": "A man asked me draw him like one of my french girls.",
+    "items": ["french_girl_2021"],
+    "cover": "french_girl_2021"
+  },
+  {
+    "key": "the_void",
+    "title": "The Void",
+    "description": "Exploring and understanding the void of nothing.",
+    "items": ["it_stares_back_2024", "it_obeys_the_will_2024", "it_corrodes_everything_2023"],
+    "cover": "it_obeys_the_will_2024"
+  },
+  {
+    "key": "the_absurd",
+    "title": "The Absurd",
+    "description": "Examining and exploring absurdity.",
+    "items": ["the_tools_2024", "the_entrance_2024", "the_whispers_2024", "the_eldritch_2024"],
+    "cover": "the_tools_2024"
+  },
+  {
+    "key": "layering_experiments",
+    "title": "Layering Experiments",
+    "description": "Early experimentation with visual layering.",
+    "items": ["part_1_2024", "part_2_2022_4"],
+    "cover": "part_2_2022_4"
+  },
+  {
+    "key": "isometric_experiments",
+    "title": "Isometric Experiments",
+    "description": "Early experimentation with isometric guides.",
+    "items": ["impossible_2023", "flattened_2024"],
+    "cover": "flattened_2024"
+  },
+  {
+    "key": "smudging_experiments",
+    "title": "Smudging Experiments",
+    "description": "Early experimentation with smudging.",
+    "items": ["part_1_2023_2", "part_2_2023_1", "part_3_2022_2", "part_4_2022_2", "part_5_2023"],
+    "cover": "part_1_2023_2"
+  },
+  {
+    "key": "wrong_lever",
+    "title": "WRONG LEVER",
+    "description": "Why do we even have that lever!?",
+    "items": ["wrong_lever_2022"],
+    "cover": "wrong_lever_2022"
+  },
+  {
+    "key": "i_love_gooooooold",
+    "title": "I love GOOOOOOOLD",
+    "description": "Is it a gold flake or is it a skin flake? In any case, it's a keeper.",
+    "items": ["i_love_gooooooold_2022"],
+    "cover": "i_love_gooooooold_2022"
+  },
+  {
+    "key": "florals",
+    "title": "Florals",
+    "description": "In spring? Groundbreaking.",
+    "items": ["florals_2022"],
+    "cover": "florals_2022"
+  },
+  {
+    "key": "sweet_sweet_porcelain",
+    "title": "Sweet Sweet Porcelain",
+    "description": "I\u2019m so depressed I\u2019ve worn the same outfit twice this week.",
+    "items": ["sweet_sweet_porcelain_2022"],
+    "cover": "sweet_sweet_porcelain_2022"
+  },
+  {
+    "key": "the_seraph",
+    "title": "The Seraph",
+    "description": "Chasing him was like chasing a ghost.",
+    "items": ["the_seraph_2022"],
+    "cover": "the_seraph_2022"
+  },
+  {
+    "key": "memorial_to_courtney_gears",
+    "title": "Memorial to Courtney Gears",
+    "description": "No! My fans can't live without me!",
+    "items": ["memorial_to_mrs_courtney_gears_2022"],
+    "cover": "memorial_to_mrs_courtney_gears_2022"
+  },
+  {
+    "key": "we_are_the_borg",
+    "title": "We are the Borg",
+    "description": "You will be assimilated. Resistance is futile.",
+    "items": ["cube_2022", "central_plexus_2022"],
+    "cover": "central_plexus_2022"
+  },
+  {
+    "key": "brotherhood",
+    "title": "Brotherhood",
+    "description": "Kane Lives!",
+    "items": ["brotherhood_2022"],
+    "cover": "brotherhood_2022"
+  },
+  {
+    "key": "seven_days",
+    "title": "Seven Days",
+    "description": "Do you include the holidays?",
+    "items": ["seven_days_2022"],
+    "cover": "seven_days_2022"
+  },
+  {
+    "key": "x_the_y",
+    "title": "X The Y",
+    "description": "Various people, all named something the something.",
+    "items": ["bill_nye_the_science_guy_2022", "eddie_the_eagle_2022", "manny_the_mammoth_2022"],
+    "cover": "manny_the_mammoth_2022"
+  },
+  {
+    "key": "fuck_off_steve",
+    "title": "Fuck Off Steve",
+    "description": "An iPad wallpaper for people who don't like brands.",
+    "items": ["fuck_off_steve_2022"],
+    "cover": "fuck_off_steve_2022"
+  },
+  {
+    "key": "early_sketches",
+    "title": "Early Sketches",
+    "description": "Unrelated characters from various media, some of my earliest sketches.",
+    "items": [
+      "harold_finch_2022",
+      "sideshow_bob_2022",
+      "romulan_traitor_2022",
+      "cheshire_cat_2022"
+    ],
+    "cover": "romulan_traitor_2022"
+  },
+  {
+    "key": "harbour",
+    "title": "Harbour",
+    "description": "The city from the sea.",
+    "items": ["harbour_2022"],
+    "cover": "harbour_2022"
+  },
+  {
+    "key": "vacation",
+    "title": "Vacation",
+    "description": "A vacation from two perspectives.",
+    "items": ["plane_from_below_2022", "beach_from_above_2022"],
+    "cover": "beach_from_above_2022"
+  },
+  {
+    "key": "hillside",
+    "title": "Hillside",
+    "description": "A minimalist hillside somewhere, probably populated by Androids.",
+    "items": ["hillside_2022"],
+    "cover": "hillside_2022"
+  },
+  {
+    "key": "university_of_adelaide",
+    "title": "University of Adelaide",
+    "description": "Various locations from the University of Adelaide North Terrace Campus.",
+    "items": ["bar_smith_lawns_2022", "hub_central_2022"],
+    "cover": "hub_central_2022"
+  },
+  {
+    "key": "westminister_palace",
+    "title": "Westminister Palace",
+    "description": "It would be nice to see this one day.",
+    "items": ["westminister_palace_2022"],
+    "cover": "westminister_palace_2022"
+  },
+  {
+    "key": "crude",
+    "title": "Crude",
+    "description": "Various locations, and some of my earliest pieces.",
+    "items": ["restaurant_2022", "luna_2022", "beach_2022", "oil_rig_2022", "vesuvius_2022"],
+    "cover": "restaurant_2022"
+  },
+  {
+    "key": "squiggly_people",
+    "title": "Squiggly People",
+    "description": "Anthropomorphised squiggles.",
+    "items": [
+      "part_1_2022",
+      "part_2_2022",
+      "part_3_2022",
+      "part_4_2022",
+      "part_5_2022",
+      "part_6_2022",
+      "part_7_2022",
+      "part_8_2022"
+    ],
+    "cover": "part_1_2022"
+  },
+  {
+    "key": "greek_characters",
+    "title": "Greek Characters",
+    "description": "Literal and figurative Greek characters.",
+    "items": [
+      "alpha_2022",
+      "alpha_anthro_2022",
+      "beta_2022",
+      "beta_anthro_2022",
+      "gamma_2022",
+      "gamma_anthro_2022",
+      "delta_2022",
+      "delta_anthro_2022"
+    ],
+    "cover": "alpha_anthro_2022"
+  },
+  {
+    "key": "gerard",
+    "title": "Gerard",
+    "description": "My spouse.",
+    "items": ["happy_2022", "loving_2022"],
+    "cover": "loving_2022"
+  },
+  {
+    "key": "fear_and_friendliness",
+    "title": "Fear and Friendliness",
+    "description": "Perspectives on fear and friendliness.",
+    "items": ["the_friendly_frightened_man_2023", "the_frightened_friendly_man_2023"],
+    "cover": "the_friendly_frightened_man_2023"
+  },
+  {
+    "key": "fiery_little_friends",
+    "title": "Fiery Little Friends",
+    "description": "Friends who show up in my imagination from time to time.",
+    "items": ["fire_sprite_2022", "fire_spirit_2024", "phoenix_2024"],
+    "cover": "fire_spirit_2024"
+  },
+  {
+    "key": "the_lone_wolf",
+    "title": "The Lone Wolf",
+    "description": "Who does he howl for?",
+    "items": ["the_lone_wolf_2022"],
+    "cover": "the_lone_wolf_2022"
+  },
+  {
+    "key": "mr_insistent",
+    "title": "Mr Insistent",
+    "description": "I hadn't planned to share this, but he just wouldn't take no for an answer.",
+    "items": ["mr_insistent_2024"],
+    "cover": "mr_insistent_2024"
+  },
+  {
+    "key": "ball_of_yarn",
+    "title": "Ball of Yarn",
+    "description": "Cats love these.",
+    "items": ["ball_of_yarn_2022"],
+    "cover": "ball_of_yarn_2022"
+  },
+  {
+    "key": "ear",
+    "title": "Ear",
+    "description": "Abstractions and impressions of various objects",
+    "items": ["ear_2022"],
+    "cover": "ear_2022"
+  },
+  {
+    "key": "balloons",
+    "title": "Balloons",
+    "description": "From a birthday party, probably.",
+    "items": ["balloons_2022"],
+    "cover": "balloons_2022"
+  },
+  {
+    "key": "sushi",
+    "title": "Sushi",
+    "description": "An impression of sushi and an early experiment with blurring.",
+    "items": ["sushi_2022"],
+    "cover": "sushi_2022"
+  },
+  {
+    "key": "means_of_production",
+    "title": "Means of Production",
+    "description": "An impression of sushi and an early experiment with blurring.",
+    "items": ["means_of_production_2022"],
+    "cover": "means_of_production_2022"
+  },
+  {
+    "key": "mother_monster",
+    "title": "Mother Monster",
+    "description": "A woman who was always detached from reality and one egg shell away from disaster.",
+    "items": ["hostile_2024", "disturbed_2023", "blind_2024"],
+    "cover": "blind_2024"
+  },
+  {
+    "key": "father_failure",
+    "title": "Father Failure",
+    "description": "A man without a clue and no reason to care.",
+    "items": ["disapproving_2022", "disinterested_2022"],
+    "cover": "disinterested_2022"
+  },
+  {
+    "key": "sister_stolen",
+    "title": "Sister Stolen",
+    "description": "A sibling they tried to bury, always remembered for who she truly is.",
+    "items": ["part_1_2022_1", "part_2_2022_1"],
+    "cover": "part_1_2022_1"
+  },
+  {
+    "key": "scapegoat_self",
+    "title": "Scapegoat Self",
+    "description": "The role they forced me to play every day for two decades, but no more.",
+    "items": ["beaten_2022", "unhappy_2022"],
+    "cover": "beaten_2022"
+  },
+  {
+    "key": "light_rainbow_palette",
+    "title": "Light Rainbow Palette",
+    "description": "A palette of twelve light colours from across the spectrum.",
+    "items": ["light_rainbow_palette_2025"],
+    "cover": "light_rainbow_palette_2025"
+  }
+]

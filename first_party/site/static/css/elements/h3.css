@@ -1,0 +1,6 @@
+h3 {
+  font-size: var(--font-size-extra-large);
+  font-weight: var(--font-weight-light);
+  letter-spacing: var(--letter-spacing-large);
+  line-height: var(--line-height-large);
+}

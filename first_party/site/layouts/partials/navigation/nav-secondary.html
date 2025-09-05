@@ -1,0 +1,32 @@
+{{/*
+Secondary Navigation
+
+Params:
+* context: The current page context.
+* title: The title of the navigation section.
+* pages: A slice of maps, each containing "name" and "link" for a page.
+*/}}
+
+{{ $activePage := "" }}
+{{ range .pages }}
+{{ if eq $.context.RelPermalink .link }}
+{{ $activePage = .name }}
+{{ end }}
+{{ end }}
+
+<nav class="secondary" aria-label="{{ .title }} navigation">
+  <details open>
+    <summary>{{ .title }}</summary>
+    <ol>
+      {{ range .pages }}
+      <li>
+        {{ $state := cond (eq .name $activePage) "selected" "unselected" }}
+        <a href="{{ .link }}" class="button {{ $state }}"
+        {{ if eq $state "selected" }} aria-current="page" {{ end }}>
+          {{ .name }}
+        </a>
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+</nav>

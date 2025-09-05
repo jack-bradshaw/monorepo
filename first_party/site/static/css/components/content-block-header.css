@@ -1,0 +1,10 @@
+/** Styling for a section header that introduces the content in a content block. */
+
+.content-block-header {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--gap-small);
+}

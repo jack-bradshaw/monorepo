@@ -1,0 +1,4 @@
+/** Semantically-named elevation properties. */
+:root {
+  --elevation-raised: -2px;
+}

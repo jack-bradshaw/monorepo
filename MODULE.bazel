@@ -28,7 +28,7 @@ VERSION_MAVEN_GUAVA = "33.4.8-jre"
 
 VERSION_MAVEN_GOOGLE_HTTP_CLIENT = "1.47.1"
 
-VERSION_MAVEN_KTOR = "3.2.3"
+VERSION_MAVEN_KTOR = "2.3.12"
 
 VERSION_MAVEN_LWJGL = "3.3.6"
 
@@ -87,8 +87,10 @@ maven.install(
         "com.google.protobuf:protobuf-lite:3.0.1",
         "com.google.truth:truth:1.4.4",
         "commons-codec:commons-codec:1.19.0",
-        "io.ktor:ktor-server-core:%s" % VERSION_MAVEN_KTOR,
-        "io.ktor:ktor-server-netty:%s" % VERSION_MAVEN_KTOR,
+        "io.ktor:ktor-http-jvm:%s" % VERSION_MAVEN_KTOR,
+        "io.ktor:ktor-server-core-jvm:%s" % VERSION_MAVEN_KTOR,
+        "io.ktor:ktor-server-host-common-jvm:%s" % VERSION_MAVEN_KTOR,
+        "io.ktor:ktor-server-netty-jvm:%s" % VERSION_MAVEN_KTOR,
         "javax.annotation:jsr250-api:1.0",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13.2",
@@ -144,6 +146,7 @@ maven.install(
         "org.lwjgl:lwjgl:%s" % VERSION_MAVEN_LWJGL,
         "org.mockito:mockito-core:5.18.0",
         "org.skyscreamer:jsonassert:1.5.3",
+        "com.microsoft.playwright:playwright:1.49.0",
     ],
     fetch_sources = True,
     lock_file = "//:lock_maven_com_jackbradshaw.json",

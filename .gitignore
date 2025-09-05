@@ -5,6 +5,7 @@ bazel-*
 .iml
 .idea/*
 .ijwb/*
+.vscode
 
 # Bazel includes these repositories when running bazel vendor //... but they are too large for
 # GitHub, so they cannot be checked in.
