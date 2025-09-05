@@ -1,0 +1,142 @@
+[
+  {
+    "key": "waymo",
+    "organisation": "Waymo",
+    "url": "https://waymo.com",
+    "image": "/static/decorations/institutions/waymo.png",
+    "overview": "Expanded Waymo to San Francisco, Phoenix, and Los Angeles by delivering new rider features while modernizing the Android tech stack with Kotlin and custom infrastructure.",
+    "roles": [
+      {
+        "title": "Senior Software Engineer",
+        "start_year": 2023,
+        "end_year": 2024
+      }
+    ],
+    "products": [
+      {
+        "name": "Waymo Android App",
+        "link": "https://play.google.com/store/apps/details?id=com.waymo.carapp"
+      }
+    ],
+    "highlights": [
+      "Created a comprehensive library of reusable UI components to accelerate development velocity and ensure design consistency across Android and iOS platforms.",
+      "Built critical user-facing features, including an enhanced pickup/dropoff experience with multi-choice selection and improved visibility of key ride information.",
+      "Refactored bespoke features into generic, plug-and-play components, enabling reuse across diverse workflows without code/effort duplication.",
+      "Pioneered the adoption of Kotlin and Jetpack Compose through experimentation, comprehensive documentation, and direct mentorship, resulting in a measured improvement in team efficacy and developer satisfaction.",
+      "Architected custom testing infrastructure for Jetpack Compose that eliminated boilerplate and enabled deterministic testing, establishing the standard pattern for UI verification.",
+      "Modernized the broader testing ecosystem by upgrading APIs, optimizing performance, and introducing the team's first end-to-end UI screenshot testing infrastructure."
+    ]
+  },
+  {
+    "key": "google",
+    "organisation": "Google",
+    "url": "https://google.com",
+    "image": "/static/decorations/institutions/google.png",
+    "overview": "Built products that billions of people love, architected entire applications, created a supportive environment where engineers flourish, and pushed the envelope on technical excellence.",
+    "roles": [
+      {
+        "title": "Software Engineer",
+        "start_year": 2018,
+        "end_year": 2023
+      }
+    ],
+    "products": [
+      {
+        "name": "Google Messages Android Phone App",
+        "link": "https://play.google.com/store/apps/details?id=com.google.android.apps.messaging"
+      },
+      {
+        "name": "Google Messages Android Wear App",
+        "link": "https://play.google.com/store/apps/details?id=com.google.android.apps.messaging"
+      }
+    ],
+    "highlights": [
+      "Led the migration of Google Messages from Java to Kotlin by conducting feasibility studies, securing stakeholder approval, and training 300+ engineers. Established Kotlin as the standard language, modernizing the codebase and improving talent retention.",
+      "Re-architected the Google Messages for Wear application to support the Pixel Watch launch. Rebuilt the UX and infrastructure from scratch, delivering a competitive, polished experience that serves as the foundation for the platform's ongoing development.",
+      "Designed a scalable composition engine for rich media (GIFs, stickers, emojis) using functional programming techniques. Implemented support for diverse emoji variations to enhance inclusivity. This system powers the messaging experience for billions of users.",
+      "Built an automated system to identify and remediate technical debt from stale feature flags. This initiative prevented development stagnation and minimized the engineering effort required for dead code removal.",
+      "Developed the core infrastructure for Google Profiles integration, collaborating with and mentoring junior engineers to deliver the feature's technical foundation.",
+      "Created a series of reusable, accessible UI components to modernize the conversation screen, improving the user experience for the phone application.",
+      "Maintained defect rates significantly below nominal levels through rigorous integration testing while delivering features used by billions of monthly active users.",
+      "Organized cross-company LGBTQ+ networking events to foster a supportive and collaborative engineering culture.",
+      "Pioneered the adoption of Jetpack Compose in production features and experimented with novel Android architectures to improve development velocity and code quality."
+    ]
+  },
+  {
+    "key": "fusion",
+    "organisation": "Fusion",
+    "url": "https://fusion.com.au",
+    "image": "/static/decorations/institutions/fusion.png",
+    "overview": "Built mobile banking software for 19 different banks.",
+    "roles": [
+      {
+        "title": "Android Developer",
+        "start_year": 2018,
+        "end_year": 2018
+      }
+    ],
+    "products": [
+      {
+        "name": "Mobile Banking Apps for 19 Australian banks and credit unions",
+        "link": ""
+      }
+    ],
+    "highlights": [
+      "Developed features for 19 mobile banking apps.",
+      "Migrated from Parse to Firebase.",
+      "Created an RxJava based architecture .",
+      "Improved build automation"
+    ]
+  },
+  {
+    "key": "appvation",
+    "organisation": "Appvation",
+    "url": "https://www.facebook.com/appvation/",
+    "image": "/static/decorations/institutions/appvation.png",
+    "overview": "Developed the world's first official digital driver's license.",
+    "roles": [
+      {
+        "title": "Android Developer",
+        "start_year": 2017,
+        "end_year": 2018
+      }
+    ],
+    "products": [
+      {
+        "name": "EasyVote Election Assistant",
+        "link": "https://www.abc.net.au/news/2018-02-12/polling-booth-waits-to-be-eased-by-election-phone-app/9421576"
+      },
+      {
+        "name": "mySA GOV Android App",
+        "link": "https://play.google.com/store/apps/details?id=au.gov.sa.my&hl=en_AU"
+      }
+    ],
+    "highlights": [
+      "Developed the world's first official digital driver's license.",
+      "Designed and built the EasyVote election assistant.",
+      "Developed corporate mobile device management systems to prevent device use while driving.",
+      "Used Android Things to build a digital license scanner.",
+      "Ran daily stand-ups and biweekly client demos.",
+      "Created standards for Git, Java, Kotlin and Android."
+    ]
+  },
+  {
+    "key": "dhs",
+    "organisation": "Australian Government Department of Human Services",
+    "url": "https://www.servicesaustralia.gov.au",
+    "image": "/static/decorations/institutions/dhs.png",
+    "overview": "Developed new features and enhancements for Java backends.",
+    "roles": [
+      {
+        "title": "Software Developer and QA Engineer",
+        "start_year": 2016,
+        "end_year": 2017
+      }
+    ],
+    "products": [],
+    "highlights": [
+      "Performed QA on applications with millions of customers, ensuring a stable user experience.",
+      "Built an automation tool to generate executive reports from large datasets, reducing the turnaround time from weeks to seconds."
+    ]
+  }
+]

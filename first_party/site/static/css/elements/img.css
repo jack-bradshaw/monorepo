@@ -1,0 +1,9 @@
+img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
+img.rounded {
+  border-radius: var(--radius-medium);
+  border-color: var(--color-transparent);
+}

@@ -1,0 +1,11 @@
+/* Z-Index Layers */
+:root {
+  --layer-skip-link: 3;
+
+  --layer-nav: 4;
+  --layer-header: 2;
+
+  --layer-main: 1;
+
+  --layer-default: 0;
+}

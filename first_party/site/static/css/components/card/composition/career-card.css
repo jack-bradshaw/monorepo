@@ -1,0 +1,10 @@
+/**
+ * Career card component.
+ */
+.career-card .content-wrapper {
+  padding: var(--gap-medium);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--gap-medium);
+}

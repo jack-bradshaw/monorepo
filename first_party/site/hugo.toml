@@ -1,0 +1,15 @@
+baseURL = "https://jack-bradshaw.com/"
+languageCode = "en-us"
+title = "Jack Bradshaw"
+
+[[cascade]]
+  layout = "home"
+  [cascade._target]
+    path = "/"
+
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      # Allows line-breaks in markdown 
+      unsafe = true
