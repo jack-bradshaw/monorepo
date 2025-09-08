@@ -40,9 +40,6 @@ A few extraneous files exist outside 1P and 3P to support core workflows (build,
 VCS, formatting, etc). A few worth mentioning:
 
 - [everything.bazelproject](everything.bazelproject): Used to develop in Intellij.
-- [autofactory](autofactory): Integrates Google autofactory into Bazel.
-- [presubmit](presubmit): Automated checks that must pass before code submission.
-- [formatting](formatting): Automated formatting tools.
 
 ## Building/Testing
 
@@ -58,7 +55,7 @@ Submissions to main are automatically verified by a presubmit system which build
 all tests. On Github it runs automatically when code is pushed and when PRs are opened/updated, and
 under normal circumstances it absolutely must pass before any code can be merged. Exceptions are
 granted only when the presubmit system itself is broken. Presubmit is started by running
-`bashpresubmit/presubmit.sh`.
+`source first_party/presubmit/presubmit.sh; run_presubmit`.
 
 WARNING: Presubmit may modify the working directory during execution, so commit/stash all changes
 before running to avoid lost work.

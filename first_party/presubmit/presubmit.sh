@@ -10,7 +10,7 @@ run_presubmit() {
 	local checks=("formatting.sh" "build.sh" "test.sh")
 
 	for check in "${checks[@]}"; do
-		source "$repo_root/presubmit/$check"
+		source "$repo_root/first_party/presubmit/$check"
 		local check_result=$?
 		if [[ $check_result -ne 0 ]]; then
 			return 1
