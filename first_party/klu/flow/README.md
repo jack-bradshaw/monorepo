@@ -1,6 +1,7 @@
 # Flow
 
-The flow package contains utilities and helpers for working with [Kotlin Flows](https://kotlinlang.org/docs/flow.html).
+The flow package contains utilities and helpers for working with
+[Kotlin Flows](https://kotlinlang.org/docs/flow.html).
 
 ## Operators
 
@@ -8,8 +9,8 @@ These helpers are simple functions for manipulating Kotlin Flows. The available 
 
 ### collectToMap
 
-The `collectToMap()` operator takes a flow of pairs and produces a map containing the values. For example, the following
-code prints `{0=Hello, 1=World}`:
+The `collectToMap()` operator takes a flow of pairs and produces a map containing the values. For
+example, the following code prints `{0=Hello, 1=World}`:
 
 ```
 import com.jackbradshaw.klu.flow.collecToMap
@@ -26,11 +27,13 @@ println(map)
 
 ## Annotations
 
-These are metadata labels to make documenting flow-based code less work. The available annotations are:
+These are metadata labels to make documenting flow-based code less work. The available annotations
+are:
 
 - HotFlow
 - ColdFlow
 - IndefiniteFlow
 
-View the [KDoc](https://github.com/jack-bradshaw/monorepo/blob/main/first_party/klu/flow/Annotations.kt) for
+View the
+[KDoc](https://github.com/jack-bradshaw/monorepo/blob/main/first_party/klu/flow/Annotations.kt) for
 detailed information about them.
