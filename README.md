@@ -67,10 +67,13 @@ before running to avoid lost work.
 
 Autoformatting is available across the repository.
 
-- Format all files by running `bazel run //formatting:autoformat`.
-- Format specific files by running `bazel run //formatting:autoformat -- path1 path2` etc.
+- Format all files by running `bazel run //first_party/formatting:autoformat`.
+- Format specific files by running `bazel run //first_party/formatting:autoformat -- $paths`.
 
 All files must be autoformatter before submission (enforced by presubmit).
+
+TODO(jack-bradshaw): Add instructions for formatting only the files in the last commit / staging
+area.
 
 ## Versioning
 

@@ -3,7 +3,7 @@
 
 echo "Starting check: formatting"
 
-bazel run formatting:autoformat
+bazel run //first_party/formatting:autoformat
 
 # Ignore changes to 3P to prevent new deps and 3P code from failing presubmit.
 changed_files=$(git status -s)
