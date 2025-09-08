@@ -22,6 +22,13 @@ const config = {
         xmlWhitespaceSensitivity: "strict",
       },
     },
+    {
+      files: ["*.md"],
+      options: {
+        proseWrap: "always",
+        printWidth: 100,
+      },
+    },
   ],
 };
 
