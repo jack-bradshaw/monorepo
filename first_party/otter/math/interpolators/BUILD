@@ -1,10 +1,7 @@
 load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//autofactory:autofactory.bzl", "auto_factory")
 
 dagger_rules(repo_name = "@com_jackbradshaw_maven")
-
-auto_factory()
 
 kt_jvm_library(
     name = "interpolators",
@@ -17,7 +14,7 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":auto_factory",
+        "//first_party/autofactory",
         "//first_party/otter/math/model:kt_jvm_proto",
         "//first_party/otter/math/model:proto_extensions",
     ],
@@ -33,8 +30,8 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":auto_factory",
         ":interpolators",
+        "//first_party/autofactory",
         "//first_party/otter/math/model:kt_jvm_proto",
         "//first_party/otter/math/model:proto_extensions",
     ],

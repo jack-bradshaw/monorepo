@@ -2,11 +2,8 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//autofactory:autofactory.bzl", "auto_factory")
 
 dagger_rules(repo_name = "@com_jackbradshaw_maven")
-
-auto_factory()
 
 proto_library(
     name = "proto",
@@ -39,8 +36,8 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":auto_factory",
         ":kt_jvm_proto",
+        "//first_party/autofactory",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
     ],
 )

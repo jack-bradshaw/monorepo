@@ -1,10 +1,7 @@
 load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//autofactory:autofactory.bzl", "auto_factory")
 
 dagger_rules(repo_name = "@com_jackbradshaw_maven")
-
-auto_factory()
 
 kt_jvm_library(
     name = "item",
