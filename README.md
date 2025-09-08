@@ -191,13 +191,6 @@ around GitHub's 100MB limit.
 
 TODO(jack-bradshaw): Migrate off GitHub and delete the above comment.
 
-## Code of Conduct
-
-This repository does not have a code of conduct, but please do not behave in a way that warrants the
-creation of one. Regulating human behavior rarely ends well, and nothing can be said that isn't
-already covered by the principles of kindness and compassion. If you are unsure about an action or
-inaction, ask before acting.
-
 ## Licensing Agreement
 
 There is currently no CLA.
