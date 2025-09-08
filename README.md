@@ -11,65 +11,51 @@ as a monorepo and uses [Bazel](https://bazel.build) as the build tool. Everythin
 
 After cloning the repository you must complete the following steps:
 
-1. Install the Android SDK (version specifics vary depending on which package is being built).
+1. Install the latest version of the Android SDK and set `ANDROID_HOME` to point at it. More
+   detailed instructions are available in the [rules_android] repository.
+2. TODO(jack-bradshaw): Understand and document xcode setup requirements.
 
-Once these steps are complete you will be able to build and test code on Windows, macOS, and Linux.
+Once these steps are complete you will be able to build and test code on macOS, Linux, and Windows.
 
 ## Structure
 
-This codebase contains various projects with dependencies connecting them together, and it
-generally follows a flat hierarchy with minimal nesting. There are three main locations: first
-party (1P), third party (3P) and extraneous. All files and directories fit these three categories.
+All code is divided into two root directories, [1P](first_party) and [3P](third_party). All code
+originating from this repository lives in 1P, and all code belonging to another
+repository/person/organisation belongs in 3P. This maintains a clear and unambiguous divison for
+licensing and maintenance purposes. A few files exist outside these directories for core
+repository/build setup.
 
-### 1P
+## Build/Test
 
-All sources originating from this repository are contained in [first_party](first_paty). The
-[merged language tree](https://www.jack-bradshaw.com/technical-docs/the-case-for-one-unified-language-branch)
-model is used, meaning root-level branches are not used to divide code between languages or
-prod/test. View the [1P README](first_party/README.md) for details.
+Bazel is used as the build tool across the repository.
 
-### 3P
+- Build all code by running `bazel build //...`.
+- Test all code by running `bazel test //...`.
 
-All sources belonging to another person or organisation are contained in
-[third_party](third_party) without exception. View the [3P README](third_party/README.md)
-for details.
-
-### Extraneous
-
-A few extraneous files exist outside 1P and 3P to support core workflows (build,
-VCS, formatting, etc). A few worth mentioning:
-
-- [everything.bazelproject](everything.bazelproject): Used to develop in Intellij.
-
-## Building/Testing
-
-Build all code by running `bazel build //...`.
-
-Test all code by running `bazel test //...`.
-
-View granular package documentation for more more specific build/test instructions.
+View the granular package documentation for more more focused build/test instructions.
 
 ## Presubmit
 
-Submissions to main are automatically verified by a presubmit system which build all code and runs
-all tests. On Github it runs automatically when code is pushed and when PRs are opened/updated, and
-under normal circumstances it absolutely must pass before any code can be merged. Exceptions are
-granted only when the presubmit system itself is broken. Presubmit is started by running
-`source first_party/presubmit/presubmit.sh; run_presubmit`.
+Submissions to main are automatically checked by a presubmit system which build all code, runs all
+tests, and ensures all code is formatted correctly. On Github it automatically runs on each PR, and
+it must pass before code can be submitted. Exceptions are granted only when the presubmit system
+itself is broken.
+
+Presubmit is run locally with `source first_party/presubmit/presubmit.sh; run_presubmit`.
 
 WARNING: Presubmit may modify the working directory during execution, so commit/stash all changes
 before running to avoid lost work.
 
 ## Formatting
 
-Autoformatting is available across the repository.
+Autoformatting is available for all supported languages and file types with a single command.
 
 - Format all files by running `bazel run //first_party/formatting:autoformat`.
 - Format specific files by running `bazel run //first_party/formatting:autoformat -- $paths`.
 
-All files must be autoformatter before submission (enforced by presubmit).
+All files must be in their formatted state before submission (enforced by presubmit).
 
-TODO(jack-bradshaw): Add instructions for formatting only the files in the last commit / staging
+TODO(jack-bradshaw): Add instructions for formatting only the files in the last commit and staging
 area.
 
 ## Versioning
@@ -82,26 +68,25 @@ TODO(jack-bradshaw): Create an automatic version update system.
 
 ## Releasing
 
-View the granular packages for further release information.
+View the granular packages for release information.
 
 TODO(jack-bradshaw) create a repository wide release system.
 
 ## Package Managers
 
-Package managers make external deps available without building them from source (presently
-infeasible due to maintenance overhead). Various package managers and indexes are used in this repo,
-including Maven, NPM, and PyPI. All follow a general pattern for integration and use, with minor
-differences in the exact details.
+Package managers are used to manage external deps without building them from source. Various package
+managers and indexes are used across the repo, including Maven, NPM, and PyPI. They all follow a
+general pattern for integration and use, with minor differences in the exact details.
 
-### Common
+### General
 
 Each package manager has:
 
-- A registry where deps are declared.
-- A lock file where deps are secured.
-- A way to reference deps in targets.
+- A registry where deps are declared once for the entire repository.
+- A lock file where deps are secured against supply chain attacks.
+- A syntax for referencing deps across the entire repository.
 
-To add a new dep:
+To use a new dep:
 
 1. Declare it in the registry.
 2. Regenerate the lock file.
@@ -109,8 +94,8 @@ To add a new dep:
 
 To remove an existing dep:
 
-1. Delete build target usages.
-2. Remove the declaration in the registry.
+1. Delete references in build targets.
+2. Remove the declaration from the registry.
 3. Regenerate the lock file.
 
 To update an existing dep:
@@ -159,35 +144,43 @@ and referenced as `@pypi//mdformat`.
 
 ## Vendoring
 
-All external dependencies are vendored for hermetic security and reliability, with the exception of
-any dep which cannot be uploaded to GitHub due to the 100MB file size limit. Whenever you change the
-deps (including Bazel deps and package-manager deps), revendor by running `bazel vendor //...`. Any
-oversized deps are ignored via [.gitignore](.gitignore).
-
-Note: Large files can be found by running `find third_party/bazel_vendor -type f -size +100M`
+All required external dependencies are vendored for hermetic security and reliability, with the
+exception of all which cannot be uploaded to GitHub due to the 100MB file size limit. Whenever you
+change the deps (including Bazel deps and package-manager deps), revendor by running
+`bazel vendor //...`. Any oversized deps are ignored via [.gitignore](.gitignore), and large files
+can be found by running `find third_party/bazel_vendor -type f -size +100M`.
 
 TODO(jack-bradshaw): Migrate off GitHub and delete the large file limit.
 
 ## Documentation
 
-All documentation is stored in the repository itself, including design docs, one-pagers, guides,
-and all other ancillatory paperwork. This ensures the codebase itself is the authorative source of
-truth for all related materials, and ensures code does not become separted from related
-documentation.
+All documentation is stored in the repository itself, including design docs, one-pagers, guides, and
+all other ancillatory paperwork. This ensures the codebase itself is the authorative source of truth
+for all related materials, and ensures code does not become separted from related documentation.
 
 ## Branching Strategy
 
-This repository exclusively uses [trunk-based development](https://trunkbaseddevelopment.com) to the degree that all alternative forms of branch management are banned. This is essential for monorepo development and generally means:
+This repository exclusively uses [trunk-based development](https://trunkbaseddevelopment.com) to the
+degree that all alternative forms of branch management are banned. This is essential for monorepo
+development and generally means:
 
-1. No collaborative branches: You may create private branches off main for your own work, but do not collaborate on them with others.
-1. Rebase don't merge: You should rebase onto HEAD locally to get updates from others, and when your code is ready for submission, rebase it onto HEAD (with a PR) instead of merging.
-1. Make small, atomic commits: Each commit must change only the files required for that change and nothing more. If multiple commits serve a shared purpose, link them together by tagging an issue in the commit description.
+1. No collaborative branches: You may create private branches off main for your own work, but do not
+   collaborate on them with others.
+1. Rebase don't merge: You should rebase onto HEAD locally to get updates from others, and when your
+   code is ready for submission, rebase it onto HEAD (with a PR) instead of merging.
+1. Make small, atomic commits: Each commit must change only the files required for that change and
+   nothing more. If multiple commits serve a shared purpose, link them together by tagging an issue
+   in the commit description.
 1. Keep HEAD green: PRs may only be submitted when CI passes. This is enforced automatically.
-1. Integrate frequently: Submit your changes as soon as they are ready, and locally rebase your branches onto HEAD multiple times a day to reduce the severity of merge conflicts.
-1. Use feature flags: Incomplete features at HEAD are unavoidable with trunk-based development, so use feature flagging to guard production behavior.
-1. One commit per PR: Each PR must have exactly one commit to ensure code-review is focused, simplify CI, and create a 1:1 mapping between changes and review. This is enforced automatically.
+1. Integrate frequently: Submit your changes as soon as they are ready, and locally rebase your
+   branches onto HEAD multiple times a day to reduce the severity of merge conflicts.
+1. Use feature flags: Incomplete features at HEAD are unavoidable with trunk-based development, so
+   use feature flagging to guard production behavior.
+1. One commit per PR: Each PR must have exactly one commit to ensure code-review is focused,
+   simplify CI, and create a 1:1 mapping between changes and review. This is enforced automatically.
 
-Overall this approach creates a single, shared, linear history in the main branch and creates an unambiguous shared HEAD.
+Overall this approach creates a single, shared, linear history in the main branch and creates an
+unambiguous shared HEAD.
 
 ## Large Files
 
@@ -211,7 +204,13 @@ There is currently no CLA.
 
 TODO(jack-bradshaw): Create a CLA.
 
-## Priorities
+## Standards
+
+Bugs? Look mate, you know who has a lot of bugs? Blokes who bludgeon their products to death with
+vibe coding. Professionals have standards. Be polite. Be efficient. Have a plan to kill every bug
+you meet.
+
+TODO(jack-bradshaw): Formalise high level engineering standards.
 
 Prioritise the following:
 
@@ -220,9 +219,8 @@ Prioritise the following:
 
 Priorisiting code quality generally means providing documentation, optimising for maintainability
 and readability, always writing tests, taking time to refactor when code has grown beyond its
-original scope, following language/platform/framework conventions, and adhering to engineering
-best practices. If you are unsure about a change, simply consider the experience of the
-maintainer after you have moved on, and if you wouldn't want to be that person, improve the code
-now.
+original scope, following language/platform/framework conventions, and adhering to engineering best
+practices. If you are unsure about a change, simply consider the experience of the maintainer after
+you have moved on, and if you wouldn't want to be that person, improve the code now.
 
 TODO(jack-bradshaw): Explain what prioritising the user experience means.

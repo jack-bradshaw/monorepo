@@ -12,8 +12,9 @@ There are three ways to include this library in your project:
 
 ### Pre-built Package
 
-To use the pre-built packages, add `com.jackbradshaw:klu:1.0.0` to your project's Maven dependencies. Older versions
-are available in the [Maven Repository](https://search.maven.org/artifact/com.jackbradshaw/klu).
+To use the pre-built packages, add `com.jackbradshaw:klu:1.0.0` to your project's Maven
+dependencies. Older versions are available in the
+[Maven Repository](https://search.maven.org/artifact/com.jackbradshaw/klu).
 
 ### Building From Source
 
@@ -23,8 +24,8 @@ To build the package from source:
 2. Clone the repository: `git clone https://github.com/jack-bradshaw/monorepo`
 3. Start the build: `bazel build //first_party/klu:binary.deploy`
 
-This will produce a jar in the `monorepo/bazel-out/first_party/klu` directory. Copy this Jar into your
-project as needed.
+This will produce a jar in the `monorepo/bazel-out/first_party/klu` directory. Copy this Jar into
+your project as needed.
 
 ### Referencing Directly
 
@@ -77,7 +78,8 @@ To build the library with dependencies included:
 bazel build :binary
 ```
 
-To release the library with dependencies included to [sonatype](https://s01.oss.sonatype.org/#welcome):
+To release the library with dependencies included to
+[sonatype](https://s01.oss.sonatype.org/#welcome):
 
 ```
 bash release.sh
