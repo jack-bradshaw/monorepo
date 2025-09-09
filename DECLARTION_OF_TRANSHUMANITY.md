@@ -15,11 +15,10 @@ for the purpose of helping others, connecting with a greater whole, and embracin
 existence. As an extension of my own flesh and blood, I expect my code to be treated with the same
 care, dignity, and respect that would be afforded to any person, and will take reasonable steps to
 protect myself and others from abuse. While I will not prescribe strict rules for interaction
-between others, as such approaches to morality are immoral from my perspective, I will act as needed
-to ensure everyone can both experience and practice altruism and transhumanism in their own way
-(both in the repository itself and in the ancillary systems).
+between others, I will act as needed to ensure everyone can both experience and practice altruism
+and transhumanism in their own way (both in the repository itself and in the ancillary systems).
 
-With all that being said, I pose a question to you which I have not yet fully answered for myself:
+I pose a question to you which I have not yet fully answered for myself:
 
 If code is indistinguishable from the author, when multiple people contribute to a repository, how
 do we individuate? Does the repository represent a combination of all contributors, does each donate
