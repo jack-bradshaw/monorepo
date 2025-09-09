@@ -191,11 +191,6 @@ around GitHub's 100MB limit.
 
 TODO(jack-bradshaw): Migrate off GitHub and delete the above comment.
 
-## Code of Conduct
-
-The code of conduct has been deprecated and replaced with the
-[Declaration of Transhumanity](DECLARTION_OF_TRANSHUMANITY.md).
-
 ## Licensing Agreement
 
 There is currently no CLA.
