@@ -28,6 +28,7 @@
 *.jar binary
 *.dylib binary
 *.exe binary
+*.dem binary
 
 # Exclude 3P from autoformat to avoid high churn and ensure the contents match the sources.
 third_party/** rules-lint-ignored=true
