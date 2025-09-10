@@ -17,7 +17,7 @@ load("@rules_python_internal//:rules_python_config.bzl", "config")
 
 # This is a magic string expanded by `git archive`, as set by `.gitattributes`
 # See https://git-scm.com/docs/git-archive/2.29.0#Documentation/git-archive.txt-export-subst
-_VERSION_PRIVATE = "1.5.1"
+_VERSION_PRIVATE = "1.6.1"
 
 def _features_typedef():
     """Information about features rules_python has implemented.

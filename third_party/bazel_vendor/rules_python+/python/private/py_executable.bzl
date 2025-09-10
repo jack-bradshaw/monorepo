@@ -796,6 +796,7 @@ def _create_stage1_bootstrap(
         is_for_zip,
         runtime_details,
         venv = None):
+    """Create a legacy bootstrap script that is written in Python."""
     runtime = runtime_details.effective_runtime
 
     if venv:
@@ -805,8 +806,11 @@ def _create_stage1_bootstrap(
 
     python_binary_actual = venv.interpreter_actual_path if venv else ""
 
-    # Runtime may be None on Windows due to the --python_path flag.
-    if runtime and runtime.supports_build_time_venv:
+    # Guard against the following:
+    # * Runtime may be None on Windows due to the --python_path flag.
+    # * Runtime may not have 'supports_build_time_venv' if a really old version is autoloaded
+    #   on bazel 7.6.x.
+    if runtime and getattr(runtime, "supports_build_time_venv", False):
         resolve_python_binary_at_runtime = "0"
     else:
         resolve_python_binary_at_runtime = "1"
@@ -1574,7 +1578,11 @@ def _create_shared_native_deps_dso(
         feature_configuration,
         requested_features,
         cc_toolchain):
-    linkstamps = py_internal.linking_context_linkstamps(cc_info.linking_context)
+    linkstamps = [
+        py_internal.linkstamp_file(linkstamp)
+        for linker_input in cc_info.linking_context.linker_inputs.to_list()
+        for linkstamp in linker_input.linkstamps
+    ]
 
     partially_disabled_thin_lto = (
         cc_common.is_enabled(
@@ -1598,10 +1606,7 @@ def _create_shared_native_deps_dso(
             for input in cc_info.linking_context.linker_inputs.to_list()
             for flag in input.user_link_flags
         ],
-        linkstamps = [
-            py_internal.linkstamp_file(linkstamp)
-            for linkstamp in linkstamps.to_list()
-        ],
+        linkstamps = linkstamps,
         build_info_artifacts = _get_build_info(ctx, cc_toolchain) if linkstamps else [],
         features = requested_features,
         is_test_target_partially_disabled_thin_lto = is_test and partially_disabled_thin_lto,

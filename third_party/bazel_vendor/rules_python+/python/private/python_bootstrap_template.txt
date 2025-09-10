@@ -436,11 +436,11 @@ def _RunForCoverage(python_program, main_filename, args, env,
   unique_id = uuid.uuid4()
   rcfile_name = os.path.join(os.environ['COVERAGE_DIR'], ".coveragerc_{}".format(unique_id))
   with open(rcfile_name, "w") as rcfile:
-    rcfile.write(f'''[run]
+    rcfile.write('''[run]
 relative_files = True
 source =
 \t{source}
-''')
+'''.format(source=source))
   PrintVerboseCoverage('Coverage entrypoint:', coverage_entrypoint)
   # First run the target Python file via coveragepy to create a .coverage
   # database file, from which we can later export lcov.
@@ -457,6 +457,7 @@ source =
     env=env,
     cwd=workspace
   )
+  PrintVerboseCoverage('Return code of coverage run:', ret_code)
   output_filename = os.path.join(os.environ['COVERAGE_DIR'], 'pylcov.dat')
 
   PrintVerboseCoverage('Converting coveragepy database to lcov:', output_filename)
@@ -470,10 +471,12 @@ source =
     kparams['stdout'] = sys.stderr
     kparams['stderr'] = sys.stderr
 
-  ret_code = subprocess.call(
+  lcov_ret_code = subprocess.call(
     params,
     **kparams
-  ) or ret_code
+  )
+  PrintVerboseCoverage('Return code of coverage lcov:', lcov_ret_code)
+  ret_code = lcov_ret_code or ret_code
 
   try:
     os.unlink(rcfile_name)

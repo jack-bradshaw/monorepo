@@ -34,6 +34,7 @@ def _impl(rctx):
         },
         extra_hub_aliases = rctx.attr.extra_hub_aliases,
         requirement_cycles = rctx.attr.groups,
+        platform_config_settings = rctx.attr.platform_config_settings,
     )
     for path, contents in aliases.items():
         rctx.file(path, contents)
@@ -82,6 +83,10 @@ hub_repository = repository_rule(
             doc = """\
 The list of packages that will be exposed via all_*requirements macros. Defaults to whl_map keys.
 """,
+        ),
+        "platform_config_settings": attr.string_list_dict(
+            doc = "The constraint values for each platform name. The values are string canonical string Label representations",
+            mandatory = False,
         ),
         "repo_name": attr.string(
             mandatory = True,
@@ -137,10 +142,6 @@ def whl_config_settings_to_json(repo_mapping):
 
 def _whl_config_setting_dict(a):
     ret = {}
-    if a.config_setting:
-        ret["config_setting"] = a.config_setting
-    if a.filename:
-        ret["filename"] = a.filename
     if a.target_platforms:
         ret["target_platforms"] = a.target_platforms
     if a.version:

@@ -63,11 +63,16 @@ func (py *Configurer) KnownDirectives() []string {
 		pythonconfig.LibraryNamingConvention,
 		pythonconfig.BinaryNamingConvention,
 		pythonconfig.TestNamingConvention,
+		pythonconfig.ProtoNamingConvention,
 		pythonconfig.DefaultVisibilty,
 		pythonconfig.Visibility,
 		pythonconfig.TestFilePattern,
 		pythonconfig.LabelConvention,
 		pythonconfig.LabelNormalization,
+		pythonconfig.GeneratePyiDeps,
+		pythonconfig.ExperimentalAllowRelativeImports,
+		pythonconfig.GenerateProto,
+		pythonconfig.PythonResolveSiblingImports,
 	}
 }
 
@@ -176,6 +181,8 @@ func (py *Configurer) Configure(c *config.Config, rel string, f *rule.File) {
 			config.SetBinaryNamingConvention(strings.TrimSpace(d.Value))
 		case pythonconfig.TestNamingConvention:
 			config.SetTestNamingConvention(strings.TrimSpace(d.Value))
+		case pythonconfig.ProtoNamingConvention:
+			config.SetProtoNamingConvention(strings.TrimSpace(d.Value))
 		case pythonconfig.DefaultVisibilty:
 			switch directiveArg := strings.TrimSpace(d.Value); directiveArg {
 			case "NONE":
@@ -222,6 +229,31 @@ func (py *Configurer) Configure(c *config.Config, rel string, f *rule.File) {
 			default:
 				config.SetLabelNormalization(pythonconfig.DefaultLabelNormalizationType)
 			}
+		case pythonconfig.ExperimentalAllowRelativeImports:
+			v, err := strconv.ParseBool(strings.TrimSpace(d.Value))
+			if err != nil {
+				log.Printf("invalid value for gazelle:%s in %q: %q",
+					pythonconfig.ExperimentalAllowRelativeImports, rel, d.Value)
+			}
+			config.SetExperimentalAllowRelativeImports(v)
+		case pythonconfig.GeneratePyiDeps:
+			v, err := strconv.ParseBool(strings.TrimSpace(d.Value))
+			if err != nil {
+				log.Fatal(err)
+			}
+			config.SetGeneratePyiDeps(v)
+		case pythonconfig.GenerateProto:
+			v, err := strconv.ParseBool(strings.TrimSpace(d.Value))
+			if err != nil {
+				log.Fatal(err)
+			}
+			config.SetGenerateProto(v)
+		case pythonconfig.PythonResolveSiblingImports:
+			v, err := strconv.ParseBool(strings.TrimSpace(d.Value))
+			if err != nil {
+				log.Fatal(err)
+			}
+			config.SetResolveSiblingImports(v)
 		}
 	}
 
