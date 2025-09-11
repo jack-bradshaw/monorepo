@@ -240,7 +240,7 @@ bazel_dep(name = "rules_proto_grpc_java", version = VERSION_GRPC)
 bazel_dep(name = "grpc_kotlin", version = "2.1.0")
 git_override(
     module_name = "grpc_kotlin",
-    commit = "d17a4ab",
+    commit = "eaea34d",
     remote = "https://github.com/duckladydinh/grpc-kotlin",
 )
 
