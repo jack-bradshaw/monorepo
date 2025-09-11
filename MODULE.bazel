@@ -49,7 +49,7 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
 
 # C and C++
-bazel_dep(name = "rules_cc", version = "0.2.0")
+bazel_dep(name = "rules_cc", version = "0.2.5")
 
 # JVM (Java + Kotlin)
 bazel_dep(name = "rules_java", version = "8.15.1")
@@ -313,3 +313,20 @@ llvm.toolchain(
     },
 )
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
+
+# Rust
+bazel_dep(name = "rules_rust", version = "0.64.0")
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2024",
+    versions = ["1.85.0"],
+)
+
+crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+crate.spec(
+    package = "serde",
+    version = "1.0.219",
+)
+crate.from_specs()
+use_repo(crate, "crates")
