@@ -80,7 +80,7 @@ general pattern for integration and use, with minor differences in the exact det
 
 ### General
 
-Each package manager has:
+Each package managers generally has:
 
 - A registry where deps are declared once for the entire repository.
 - A lock file where deps are secured against supply chain attacks.
@@ -141,6 +141,25 @@ To manage PIP deps:
 
 Example: [mdformat](https://pypi.org/project/mdformat/0.7.22/) is registered as `mdformat==0.7.22`
 and referenced as `@pypi//mdformat`.
+
+### Crate
+
+To manage crate deps:
+
+- Declare in the Rust section of [MODULES.bazel](MODULES.bazel).
+- There is no locking.
+- Reference as `@crate//:$packageName`.
+
+Example: [serde](https://crates.io/crates/serde) is registered as:
+
+```starlark
+crate.spec(
+    package = "serde",
+    version = "1.0",
+)
+```
+
+and referenced as `@crate//:serde`
 
 ## Vendoring
 
