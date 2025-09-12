@@ -42,12 +42,6 @@ java_binary(
     runtime_deps = ["@google-java-format//jar"],
 )
 
-java_binary(
-    name = "ktfmt",
-    main_class = "com.facebook.ktfmt.cli.Main",
-    runtime_deps = ["@ktfmt//jar"],
-)
-
 alias(
     name = "swiftformat",
     actual = select({
@@ -69,7 +63,7 @@ format_multirun(
     java = ":java-format",
     javascript = ":prettier",
     jsonnet = "@aspect_rules_lint//format:jsonnetfmt",
-    kotlin = ":ktfmt",
+    kotlin = "//first_party/formatting/ktfmtwrapper:bin",
     markdown = ":prettier",
     protocol_buffer = "@rules_buf_toolchains//:buf",
     python = "@aspect_rules_lint//format:ruff",
