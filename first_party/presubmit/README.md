@@ -30,5 +30,5 @@ That's it.
 
 ## GitHub Integration
 
-GitHub integration is handled git the [.github](.github) directory. All checks check will run
-automatically on-push and on-PR.
+GitHub integration is handled by the [.github](.github) directory. All checks will run automatically
+on-push and on-PR.

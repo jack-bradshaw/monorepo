@@ -13,7 +13,7 @@ The `collectToMap()` operator takes a flow of pairs and produces a map containin
 example, the following code prints `{0=Hello, 1=World}`:
 
 ```
-import com.jackbradshaw.klu.flow.collecToMap
+import com.jackbradshaw.klu.flow.collectToMap
 
 val pairs = flow {
   emit(0 to "Hello")
