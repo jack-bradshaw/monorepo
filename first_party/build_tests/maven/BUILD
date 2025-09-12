@@ -48,7 +48,6 @@ java_library(
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_lwjgl3",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_testdata",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_vr",
-        "@com_jackbradshaw_maven//:org_junit_jupiter_junit_jupiter_engine",
         "@com_jackbradshaw_maven//:org_lwjgl_lwjgl",
         "@com_jackbradshaw_maven//:org_lwjgl_lwjgl_assimp",
         "@com_jackbradshaw_maven//:org_lwjgl_lwjgl_bgfx",
