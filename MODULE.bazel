@@ -102,7 +102,6 @@ maven.install(
         "org.jmonkeyengine:jme3-lwjgl:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
         "org.jmonkeyengine:jme3-testdata:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
         "org.jmonkeyengine:jme3-vr:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
-        "org.junit.jupiter:junit-jupiter-engine:5.13.4",
         "org.lwjgl:lwjgl-assimp:%s" % VERSION_MAVEN_LWJGL,
         "org.lwjgl:lwjgl-bgfx:%s" % VERSION_MAVEN_LWJGL,
         "org.lwjgl:lwjgl-cuda:%s" % VERSION_MAVEN_LWJGL,
