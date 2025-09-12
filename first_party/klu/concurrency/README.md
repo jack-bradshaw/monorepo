@@ -33,7 +33,7 @@ hello() // prints
 hello() // throws
 ```
 
-There are various overload functions to configure the exception, specifically `throwing(String)`
+There are various overloaded functions to configure the exception, specifically `throwing(String)`
 which allows you to set the message in the error, `throwing(Throwable)` which allows you to specify
 the exception entirely, and `throwing(() -> Throwable)` which allows you to specify the exception
 lazily.

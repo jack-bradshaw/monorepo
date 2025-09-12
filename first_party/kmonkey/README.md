@@ -80,7 +80,7 @@ class MyApplication : SimpleApplication {
       while(true) {
         index += 1
         delay(1000L) // 1 second
-        worldItem.setLocalTranslation(Vecor3f(index, 0, 0))
+        worldItem.setLocalTranslation(Vector3f(index, 0, 0))
       }
     }
   }
@@ -121,7 +121,7 @@ class SomeRandomClass(
 ) {
   init {
     application.renderingDispatcher().launch { /* rendering code */ }
-    physicsSpace.physicsDispatcer().launch { /* physics code */ }
+    physicsSpace.physicsDispatcher().launch { /* physics code */ }
   }
 }
 
