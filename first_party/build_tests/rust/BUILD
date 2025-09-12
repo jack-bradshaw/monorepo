@@ -32,9 +32,3 @@ rust_proc_macro(
     name = "rust_proc_macro_must_build",
     srcs = ["proc_macro.rs"],
 )
-
-rust_library(
-    name = "cargo_deps_must_resolve",
-    srcs = ["main.rs"],
-    deps = ["@crates//:serde"],
-)

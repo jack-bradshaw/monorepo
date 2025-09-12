@@ -1128,7 +1128,7 @@
     "@@rules_android+//bzlmod_extensions:com_android_dex.bzl%com_android_dex_extension": {
       "general": {
         "bzlTransitiveDigest": "aDSxoLkIA0GyiHP6VPgxLuAWEmulTMkYgxvB/P0Q42g=",
-        "usagesDigest": "1Qhk6tNnWxNqSDaiVmfYaqO16gBDhFUTC6GNXZ3YFbc=",
+        "usagesDigest": "toF8IFMu98H/VU2p1sfVC5fVXVYJunpbbmtM6tOsQXY=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

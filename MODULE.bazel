@@ -61,6 +61,7 @@ maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "com_jackbradshaw_maven",
     artifacts = [
+        "androidx.test.ext:junit:1.3.0",
         "com.google.auto.factory:auto-factory:1.1.0",
         "com.google.auto.value:auto-value-annotations:%s" % VERSION_MAVEN_AUTO_VALUE,
         "com.google.auto.value:auto-value:%s" % VERSION_MAVEN_AUTO_VALUE,
@@ -149,6 +150,7 @@ maven.install(
     repositories = [
         "https://repo1.maven.org/maven2",
         "https://repository.mulesoft.org/nexus/content/repositories/public/",
+        "https://maven.google.com/",
     ],
 )
 use_repo(maven, "com_jackbradshaw_maven")

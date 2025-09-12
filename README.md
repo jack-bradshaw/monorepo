@@ -21,7 +21,7 @@ Once these steps are complete you will be able to build and test code on macOS, 
 
 All code is divided into two root directories, [1P](first_party) and [3P](third_party). All code
 originating from this repository lives in 1P, and all code belonging to another
-repository/person/organisation belongs in 3P. This maintains a clear and unambiguous divison for
+repository/person/organisation belongs in 3P. This maintains a clear and unambiguous division for
 licensing and maintenance purposes. A few files exist outside these directories for core
 repository/build setup.
 
@@ -136,7 +136,7 @@ is registered as `"babel-plugin-minify-infinity": "0.4.3"` and referenced as
 To manage PIP deps:
 
 - Declare in [pip_requirements.in](pip_requirements.in).
-- Lock by running `bazel run :requirements.update`.
+- Lock by running `bazel run :requirements.update &> /dev/null`.
 - Reference as `@pypi//$packageName`.
 
 Example: [mdformat](https://pypi.org/project/mdformat/0.7.22/) is registered as `mdformat==0.7.22`
@@ -164,7 +164,7 @@ and referenced as `@crate//:serde`
 ## Vendoring
 
 All required external dependencies are vendored for hermetic security and reliability, with the
-exception of all which cannot be uploaded to GitHub due to the 100MB file size limit. Whenever you
+exception of all that cannot be uploaded to GitHub due to the 100MB file size limit. Whenever you
 change the deps (including Bazel deps and package-manager deps), revendor by running
 `bazel vendor //...`. Any oversized deps are ignored via [.gitignore](.gitignore), and large files
 can be found by running `find third_party/bazel_vendor -type f -size +100M`.
@@ -185,8 +185,8 @@ development and generally means:
 
 1. No collaborative branches: You may create private branches off main for your own work, but do not
    collaborate on them with others.
-1. Rebase don't merge: You should rebase onto HEAD locally to get updates from others, and when your
-   code is ready for submission, rebase it onto HEAD (with a PR) instead of merging.
+1. Rebase, don't merge: You should rebase onto HEAD locally to get updates from others, and when
+   your code is ready for submission, rebase it onto HEAD (with a PR) instead of merging.
 1. Make small, atomic commits: Each commit must change only the files required for that change and
    nothing more. If multiple commits serve a shared purpose, link them together by tagging an issue
    in the commit description.
@@ -222,14 +222,14 @@ Bugs? Look mate, you know who has a lot of bugs? Blokes who bludgeon their produ
 vibe coding. Professionals have standards. Be polite. Be efficient. Have a plan to kill every bug
 you meet.
 
-TODO(jack-bradshaw): Formalise high level engineering standards.
+TODO(jack-bradshaw): Formalize high level engineering standards.
 
 Prioritise the following:
 
 1. Code quality.
 2. User experience.
 
-Priorisiting code quality generally means providing documentation, optimising for maintainability
+Prioritizing code quality generally means providing documentation, optimising for maintainability
 and readability, always writing tests, taking time to refactor when code has grown beyond its
 original scope, following language/platform/framework conventions, and adhering to engineering best
 practices. If you are unsure about a change, simply consider the experience of the maintainer after
