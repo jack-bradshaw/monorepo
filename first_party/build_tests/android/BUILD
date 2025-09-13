@@ -6,6 +6,7 @@ load(
     "android_library",
     "android_local_test",
 )
+load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 
 package(default_visibility = ["//visibility:private"])
 
@@ -14,21 +15,27 @@ aar_import(
     aar = "dummy.aar",
 )
 
+kt_android_library(
+    name = "kt_android_library_must_build",
+    srcs = ["MainKotlin.kt"],
+    manifest = "Manifest.xml",
+)
+
 android_application(
     name = "android_application_must_build",
-    srcs = ["Main.java"],
+    srcs = ["MainJava.java"],
     manifest = "Manifest.xml",
 )
 
 android_library(
     name = "android_library_must_build",
-    srcs = ["Main.java"],
+    srcs = ["MainJava.java"],
     manifest = "Manifest.xml",
 )
 
 android_binary(
     name = "android_binary_must_build",
-    srcs = ["Main.java"],
+    srcs = ["MainJava.java"],
     manifest = "Manifest.xml",
 )
 
