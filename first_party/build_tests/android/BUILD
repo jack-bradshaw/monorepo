@@ -1,11 +1,24 @@
 load(
     "@rules_android//android:rules.bzl",
+    "aar_import",
+    "android_application",
     "android_binary",
     "android_library",
     "android_local_test",
 )
 
 package(default_visibility = ["//visibility:private"])
+
+aar_import(
+    name = "aar_import_must_build",
+    aar = "dummy.aar",
+)
+
+android_application(
+    name = "android_application_must_build",
+    srcs = ["Main.java"],
+    manifest = "Manifest.xml",
+)
 
 android_library(
     name = "android_library_must_build",
@@ -24,7 +37,6 @@ android_local_test(
     srcs = ["Testing.java"],
     test_class = "com.jackbradshaw.build_tests.Testing",
     deps = [
-        ":android_library_must_build",
         "@com_jackbradshaw_maven//:junit_junit",
     ],
 )
