@@ -9,6 +9,13 @@ run_presubmit() {
 	local repo_root=$(git rev-parse --show-toplevel)
 	local checks=("formatting.sh" "build.sh" "test.sh")
 
+	changed_files=$(git status -s)
+
+	if [[ $changed_files ]]; then
+		echo "Presubmit cannot start, there are changed files. Commit or stash changes first."
+		return 1
+	fi
+
 	for check in "${checks[@]}"; do
 		source "$repo_root/first_party/presubmit/$check"
 		local check_result=$?
