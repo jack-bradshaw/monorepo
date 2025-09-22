@@ -328,6 +328,7 @@
     "https://bcr.bazel.build/modules/rules_nodejs/6.3.0/MODULE.bazel": "45345e4aba35dd6e4701c1eebf5a4e67af4ed708def9ebcdc6027585b34ee52d",
     "https://bcr.bazel.build/modules/rules_nodejs/6.3.0/source.json": "1254ffd8d0d908a19c67add7fb5e2a1f604df133bc5d206425264293e2e537fc",
     "https://bcr.bazel.build/modules/rules_pkg/0.7.0/MODULE.bazel": "df99f03fc7934a4737122518bb87e667e62d780b610910f0447665a7e2be62dc",
+    "https://bcr.bazel.build/modules/rules_pkg/0.9.1/MODULE.bazel": "af00144208c4be503bc920d043ba3284fb37385b3f6160b4a4daf4df80b4b823",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/MODULE.bazel": "5b1df97dbc29623bccdf2b0dcd0f5cb08e2f2c9050aab1092fd39a41e82686ff",
     "https://bcr.bazel.build/modules/rules_pkg/1.1.0/MODULE.bazel": "9db8031e71b6ef32d1846106e10dd0ee2deac042bd9a2de22b4761b0c3036453",
     "https://bcr.bazel.build/modules/rules_pkg/1.1.0/source.json": "fef768df13a92ce6067e1cd0cdc47560dace01354f1d921cfb1d632511f7d608",
@@ -2093,6 +2094,69 @@
             "rules_rust+",
             "rules_rust",
             "rules_rust+"
+          ]
+        ]
+      }
+    },
+    "@@rules_tf+//tf:extensions.bzl%tf_repositories": {
+      "os:osx,arch:aarch64": {
+        "bzlTransitiveDigest": "jvXnIy1bwunXmHKBzTHzrWBPNzxh0Qimi93KV5SOA1c=",
+        "usagesDigest": "S/jhdpkl8LSbjr+Hj2WAtoQxaIFjDOhpfTxOpQoBZK4=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "com_jackbradshaw_20250812_download_tfdoc_0_darwin_arm64": {
+            "repoRuleId": "@@rules_tf+//tf/toolchains/tfdoc:toolchain.bzl%tfdoc_download",
+            "attributes": {
+              "version": "0.18.0",
+              "os": "darwin",
+              "arch": "arm64"
+            }
+          },
+          "com_jackbradshaw_20250812_download_tflint_0_darwin_arm64": {
+            "repoRuleId": "@@rules_tf+//tf/toolchains/tflint:toolchain.bzl%tflint_download",
+            "attributes": {
+              "version": "0.51.1",
+              "os": "darwin",
+              "arch": "arm64"
+            }
+          },
+          "com_jackbradshaw_20250812_download_tf_0_darwin_arm64": {
+            "repoRuleId": "@@rules_tf+//tf/toolchains/tofu:toolchain.bzl%tofu_download",
+            "attributes": {
+              "version": "1.6.0",
+              "os": "darwin",
+              "arch": "arm64",
+              "mirror": {
+                "random": "hashicorp/random:3.3.2",
+                "null": "hashicorp/null:3.1.1"
+              }
+            }
+          },
+          "tf_toolchains": {
+            "repoRuleId": "@@rules_tf+//tf:toolchains.bzl%tf_toolchains",
+            "attributes": {
+              "tflint_repos": [
+                "com_jackbradshaw_20250812_download_tflint_0_darwin_arm64"
+              ],
+              "tfdoc_repos": [
+                "com_jackbradshaw_20250812_download_tfdoc_0_darwin_arm64"
+              ],
+              "terraform_repos": [],
+              "tofu_repos": [
+                "com_jackbradshaw_20250812_download_tf_0_darwin_arm64"
+              ],
+              "os": "darwin",
+              "arch": "arm64"
+            }
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "rules_tf+",
+            "rules_tf",
+            "rules_tf+"
           ]
         ]
       }

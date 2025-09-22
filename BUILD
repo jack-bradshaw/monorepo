@@ -17,3 +17,8 @@ compile_pip_requirements(
     src = "pip_requirements.in",
     requirements_txt = "lock_pip_requirements.txt",
 )
+
+alias(
+    name = "opentofu",
+    actual = "@tf_toolchains//:tofu",
+)
