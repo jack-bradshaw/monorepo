@@ -12,9 +12,9 @@ module(
 
 VERSION_ROBOLECTRIC = "4.12.2"
 
-VERSION_DAGGER = "2.57"
+VERSION_DAGGER = "2.57.2"
 
-VERSION_GRPC = "5.6.0"
+VERSION_GRPC = "5.8.0"
 
 VERSION_MAVEN_AUTO_VALUE = "1.11.0"
 
@@ -94,6 +94,7 @@ maven.install(
         "junit:junit:4.13.2",
         "org.jetbrains.kotlin:kotlin-test:2.2.0",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2",
         "org.jmonkeyengine:jme3-bullet-native:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_BULLET,
         "org.jmonkeyengine:jme3-bullet:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_BULLET,
         "org.jmonkeyengine:jme3-core:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
@@ -233,7 +234,7 @@ npm.npm_translate_lock(
 use_repo(npm, "npm")
 
 # Protobuf and gRPC
-bazel_dep(name = "protobuf", version = "31.1")
+bazel_dep(name = "protobuf", version = "33.0")
 bazel_dep(name = "rules_proto_grpc", version = VERSION_GRPC)
 bazel_dep(name = "rules_proto_grpc_java", version = VERSION_GRPC)
 
