@@ -1,0 +1,17 @@
+message ProviderSourceAddress {
+  oneof source {
+    Registry registry = 1;
+    Ephemeral ephemeral = 2;
+  }
+
+  message Registry {
+    string host = 1;
+    string namespace = 2;
+    string name = 3;
+    string version = 4;
+  }
+
+  message Ephemeral {
+    string id = 1;
+  }
+}

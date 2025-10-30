@@ -1,0 +1,7 @@
+enum class Platform {
+  WINDOWS_X64_46,
+  LINUX_ARM64,
+  LINUX_X86_64,
+  MACOS_ARM64,
+  MACOS_X86_64
+}
