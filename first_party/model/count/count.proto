@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package com.jackbradshaw.model.count;
+
+option java_multiple_files = true;
+option java_outer_classname = "CountProto";
+option java_package = "com.jackbradshaw.model.count";
+
+// A discrete count of a quantity without dimensions.
+message Count {
+  oneof type {
+    // A count with a finite and specific value.
+    Bounded bounded = 1;
+
+    // A count without a finite value or upper bound.
+    Unbounded unbounded = 2;
+  }
+
+  // A count wiht a finite and specific value.
+  message Bounded {
+    // The frequency as an integer.
+    int64 value = 1;
+  }
+
+  // A count without a finite value or upper bound.
+  //
+  // The semantic meaning depends on the context in which this is. In a strictly mathematical sense,
+  // it can mean the limit as x approaches infinity, in a loop it can signal no exit criteria, and
+  // in other contexts it can mean a data structure that grows indefinitely.
+  message Unbounded {}
+}
