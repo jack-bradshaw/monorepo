@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package com.jackbradshaw.tofu.vegan.archive.model;
+
+import "first_party/tofu/vegan/archive/model/address/content_address.proto";
+
+option java_package = "com.jackbradshaw.tofu.vegan.archive.model.provider";
+option java_multiple_files = true;
+
+message Metadata {
+  repeated ContentAddress dependent_modules = 1;
+}

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package com.jackbradshaw.tofu.vegan.archive.model;
+
+import "first_party/tofu/vegan/archive/model/address/content_address.proto";
+import "first_party/tofu/vegan/archive/model/module/module_metadata.proto";
+import "first_party/tofu/vegan/archive/model/provider/provider_metadata.proto";
+
+option java_package = "com.jackbradshaw.tofu.vegan.archive.model.manifest";
+option java_multiple_files = true;
+
+message Metadata {
+    map<ModuleSourceAddress, ContentAddress> module_content_addresses_by_source_address = 1;
+    map<ContentAddress, ModuleSourceAddress> module_source_addresses_by_content_addresses = 2;
+    map<ProviderSourceAddress, ContentAddress> provider_content_addresses_by_source_address = 3;
+    map<ContentAddress, ProviderSourceAddress> provider_source_addresses_by_content_addresses = 4;
+  }
+
+  
+
+  
+
+  message ExternalModule {
+    ModuleSourceAddress external_address = 0;
+    ContentAddress content_address = 1;
+  }
+
+  message ExternalProvider {
+    ProviderSourceAddress external_address = 0;
+    ContentAddress content_address = 1;
+  }
+
+message ModuleSourceLookup {
+  ModuleSourceAddress module_source_address = 0;
+  ContentAddress address
+}

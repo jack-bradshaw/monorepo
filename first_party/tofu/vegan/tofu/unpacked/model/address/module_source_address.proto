@@ -1,0 +1,63 @@
+message ModuleSourceAddress {
+  oneof source {
+    Registry registry = 1;
+    GitHub github = 2;
+    Bitbucket bitbucket = 3;
+    Git git = 4;
+    Mercurial mercurial = 5;
+    Oci oci = 6;
+    Http http = 7;
+    AmazonS3 s3 = 8;
+    GoogleCloudStorage gcs = 9;
+    Ephemeral ephemeral = 10;
+  }
+
+  message Registry {
+    string host = 1;
+    string namespace = 2;
+    string target_provider = 3;
+    string version = 4;
+  }
+
+  message GitHub {
+    string owner = 1;
+    string repo = 2;
+    string ref = 3;
+  }
+
+  message Bitbucket {
+    string owner = 1;
+    string repo = 2;
+    string ref = 3;
+  }
+
+  message Git {
+    string url = 1;
+    string ref = 2;
+  }
+
+  message Mercurial {
+    string url = 1;
+    string rev = 2;
+  }
+
+  message Oci {
+    string url = 1;
+  }
+
+  message Http {
+    string url = 1;
+  }
+
+  message AmazonS3 {
+    string url = 1;
+  }
+
+  message GoogleCloudStorage {
+    string url = 1;
+  }
+
+  message Ephemeral {
+    string id = 1;
+  }
+}
