@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.jackbradshaw.sasync.transport.config;
+
+import "first_party/sasync/transport/inbound/config/config.proto";
+import "first_party/sasync/transport/outbound/config/config.proto";
+
+option java_multiple_files = true;
+option java_outer_classname = "ConfigProto";
+option java_package = "com.jackbradshaw.sasync.transport.config";
+
+message Config {
+  com.jackbradshaw.sasync.transport.inbound.config.Config inbound_config = 1;
+  com.jackbradshaw.sasync.transport.outbound.config.Config outbound_config = 2;
+}

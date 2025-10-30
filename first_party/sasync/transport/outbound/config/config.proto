@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package com.jackbradshaw.sasync.transport.outbound.config;
+
+import "first_party/model/count/count.proto";
+
+option java_multiple_files = true;
+option java_outer_classname = "ConfigProto";
+option java_package = "com.jackbradshaw.sasync.transport.outbound.config";
+
+message Config {
+  com.jackbradshaw.model.count.Count queue_size = 1;
+}
