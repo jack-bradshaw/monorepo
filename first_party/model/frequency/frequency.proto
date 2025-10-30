@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package com.jackbradshaw.model.frequency;
+
+option java_multiple_files = true;
+option java_outer_classname = "FrequencyProto";
+option java_package = "com.jackbradshaw.model.frequency";
+
+// The number of occurrences of some repeating event per unit of time.
+message Frequency {
+  oneof type {
+    // A frequency with a specific and finite value.
+    Bounded bounded = 1;
+    // A frequency without a finite value or upper bound.
+    Unbounded unbounded = 2;
+  }
+
+  // A frequency with a specific and finite value.
+  message Bounded {
+    oneof value {
+      // The frequency in hertz (cycles per second).
+      double hertz = 1;
+      // The frequency in radians per second.
+      double radians_per_second = 2;
+    }
+  }
+
+  // A frequency without a specific value or upper bound.
+  //
+  // The semantic meaning depends on the context in which this is. In a strictly mathematical sense
+  // it can mean the limit as x approaches infinity, in a loop it can signal a complete lack of
+  // delay between cycles, and in other contexts it can mean as fast as possible.
+  message Unbounded {}
+}
