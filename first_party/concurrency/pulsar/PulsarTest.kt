@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-/** Abstract tests for [Pulsar] that all implementation should pass. */
+/** Abstract tests for [Pulsar] that all implementations should pass. */
 abstract class PulsarTest {
 
   @Test
