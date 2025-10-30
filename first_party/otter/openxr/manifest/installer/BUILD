@@ -1,7 +1,4 @@
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
-
-dagger_rules(repo_name = "@com_jackbradshaw_maven")
 
 kt_jvm_library(
     name = "installer",
@@ -28,8 +25,8 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":dagger",
         ":installer",
+        "//:dagger",
         "//first_party/otter:scope",
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/openxr/manifest/generator",
@@ -47,9 +44,9 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":dagger",
         ":impl",
         ":installer",
+        "//:dagger",
     ],
 )
 
@@ -61,7 +58,7 @@ kt_jvm_test(
     test_class = "com.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerTest",
     visibility = ["//visibility:private"],
     deps = [
-        ":dagger",
+        "//:dagger",
         "//first_party/otter:component",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/openxr/config:proto_extensions",

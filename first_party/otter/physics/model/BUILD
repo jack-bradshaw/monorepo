@@ -1,9 +1,6 @@
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-
-dagger_rules(repo_name = "@com_jackbradshaw_maven")
 
 proto_library(
     name = "proto",

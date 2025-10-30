@@ -1,7 +1,4 @@
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-
-dagger_rules(repo_name = "@com_jackbradshaw_maven")
 
 kt_jvm_library(
     name = "coroutines",
@@ -28,7 +25,7 @@ kt_jvm_library(
     ],
     deps = [
         ":coroutines",
-        ":dagger",
+        "//:dagger",
         "//first_party/otter/engine/core",
         "//first_party/otter/qualifiers",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

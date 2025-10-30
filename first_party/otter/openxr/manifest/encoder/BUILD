@@ -1,7 +1,4 @@
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
-
-dagger_rules(repo_name = "@com_jackbradshaw_maven")
 
 kt_jvm_library(
     name = "encoder",
@@ -26,8 +23,8 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":dagger",
         ":encoder",
+        "//:dagger",
         "//first_party/otter:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
@@ -42,9 +39,9 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":dagger",
         ":encoder",
         ":impl",
+        "//:dagger",
     ],
 )
 
@@ -56,7 +53,7 @@ kt_jvm_test(
     test_class = "com.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoderTest",
     visibility = ["//visibility:private"],
     deps = [
-        ":dagger",
+        "//:dagger",
         "//first_party/otter:component",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/openxr/config:proto_extensions",

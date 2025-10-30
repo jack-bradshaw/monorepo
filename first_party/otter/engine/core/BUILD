@@ -1,7 +1,4 @@
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-
-dagger_rules(repo_name = "@com_jackbradshaw_maven")
 
 kt_jvm_library(
     name = "core",
@@ -10,7 +7,7 @@ kt_jvm_library(
     ],
     visibility = ["//first_party/otter:__subpackages__"],
     deps = [
-        ":dagger",
+        "//:dagger",
         "//first_party/otter:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_bullet",
@@ -29,7 +26,7 @@ kt_jvm_library(
     ],
     deps = [
         ":core",
-        ":dagger",
+        "//:dagger",
         "//first_party/otter:scope",
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/coroutines",
@@ -50,8 +47,8 @@ kt_jvm_library(
     ],
     deps = [
         ":core",
-        ":dagger",
         ":impl",
+        "//:dagger",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_vr",
