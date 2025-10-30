@@ -94,6 +94,7 @@ maven.install(
         "junit:junit:4.13.2",
         "org.jetbrains.kotlin:kotlin-test:2.2.0",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2",
         "org.jmonkeyengine:jme3-bullet-native:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_BULLET,
         "org.jmonkeyengine:jme3-bullet:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_BULLET,
         "org.jmonkeyengine:jme3-core:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
