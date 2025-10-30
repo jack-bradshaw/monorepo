@@ -1,8 +1,5 @@
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@rules_java//java:java_binary.bzl", "java_binary")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-
-dagger_rules(repo_name = "@com_jackbradshaw_maven")
 
 kt_jvm_library(
     name = "scope",
@@ -14,7 +11,7 @@ kt_jvm_library(
         "//first_party/otter/demo:__subpackages__",
     ],
     deps = [
-        ":dagger",
+        "//:dagger",
     ],
 )
 
@@ -28,8 +25,8 @@ kt_jvm_library(
         "//first_party/otter/demo:__subpackages__",
     ],
     deps = [
-        ":dagger",
         ":scope",
+        "//:dagger",
         "//first_party/otter",
         "//first_party/otter/demo/items",
         "//first_party/otter/demo/items:module",
