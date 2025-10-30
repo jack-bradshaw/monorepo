@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.jackbradshaw.sasync.transport.inbound.config;
+
+import "first_party/model/count/count.proto";
+import "first_party/model/frequency/frequency.proto";
+
+option java_multiple_files = true;
+option java_outer_classname = "ConfigProto";
+option java_package = "com.jackbradshaw.sasync.transport.inbound.config";
+
+message Config {
+  com.jackbradshaw.model.frequency.Frequency refresh_rate = 1;
+  com.jackbradshaw.model.count.Count.Bounded buffer_size = 2;
+}
