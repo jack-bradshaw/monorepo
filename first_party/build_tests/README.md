@@ -1,87 +1,37 @@
 # Build Tests
 
-Tests for the build system and its extensions.
+Tests for external build rules and package managers.
 
-TODO(jack-bradshaw): Add support for everything that was added before this package was created.
+## Release
+
+Not released to third party package managers.
 
 ## Purpose
 
-The build system is covered by prod/test code, but changes can create coverage gaps and
-opportunities for bugs. Adding tests which explicitly exercise the rules and package managers
-ensures the build system is tested in isolation of prod/test code.
+While the external build rules and package managers are tested by other packages, changes to those
+packages can create coverage gaps. This package ensures the build system remains tested, regardless
+of such changes, to prevent regressions and keep the build system functional.
 
-## Golden State
+## Contents
 
-The golden state describe the ideal state of this package.
+This package contains tests for the build rules of the following languages/platforms:
 
-- The main rules for each language are used at least once.
-- The declared deps for each package manager are used at least once.
+- [Android](/first_party/build_tests/android)
+- [C](/first_party/build_tests/c)
+- [C++](/first_party/build_tests/cpp)
+- [Go](/first_party/build_tests/go)
+- [Java](/first_party/build_tests/java)
+- [JavaScript](/first_party/build_tests/javascript)
+- [Kotlin](/first_party/build_tests/kotlin)
+- [Python](/first_party/build_tests/python)
+- [Rust](/first_party/build_tests/rust)
 
-To maintain this state:
+This package contains tests for the following external package managers:
 
-- Whenever a new language is supported, create targets that exercise the public language rules. Each
-  language has different rules, and what counts as a main rule is ambugious, so aim to cover the
-  library rules, the binary rules, the test rules, and any other supplementary rules that are an
-  essential part of the rule set in practice.
+- [Cargo](/first_party/build_tests/cargo)
+- [Maven](/first_party/build_tests/maven)
+- [PIP](/first_party/build_tests/pip)
 
-- Whenever a new package manager is supported, create a target that depends on all of its declared
-  deps, and whenever a new dep is added to an existing package manager, update the target to depend
-  on it.
+## Standard
 
-In this state the main rules for each language and the deps for each package manager are exercised
-by presubmit. Tests to verify deeper rule behaviors are not required, and its enough to simply use
-each rule and use each dep.
-
-## Standards
-
-Follow these standards for packages:
-
-- Place targets for each language in a separate package named `$languageName` without shortening
-  (e.g. `javascript` not `js`).
-- Place targets for each package manager in a separate packages (e.g. one package for all maven
-  deps, one package for all pip deps).
-
-Follow these standards for targets:
-
-- Name targets for language rules that must build as `$targetType_must_build`.
-- Name targets for language rules that must execute tests as `$targetType_must_pass`.
-- Name targets for package manager deps as `$packageManager_deps_must_resolve`.
-- Targets within a package must not depend on each other (to ensure tests are independent), but may
-  depend on core package manager deps for critical test infra (e.g. `junit` for java).
-- Targets must have private visibility (to avoid accidental use in prod and other tests).
-
-Follow these standards for sources:
-
-- Reuse source files where possible (e.g. `main.rs` in the [rust](/rust) directory).
-- Ensure source file contents are minimal by eliding comments/documentation/implementations where
-  possible.
-- In tests include a single empty test case only.
-
-## Example
-
-Here is a generic example for a hypothetical `rules_foo`
-
-In `first_party/build_tests/foo/BUILD`:
-
-```starlark
-load("@rules_foo//foo:defs.bzl", "foo_library", "foo_binary")
-
-package(default_visibility = ["//visibility:private"])
-
-foo_library(
-    name = "foo_library_must_build",
-    srcs = ["library.foo"],
-)
-
-foo_binary(
-    name = "foo_binary_must_build",
-    srcs = ["binary.foo"],
-    main = "binary.foo",
-)
-```
-
-In `first_party/build_tests/foo/library.foo`:
-
-```
-class Library {}
-```
+The standard for these tests is documented in the [Build Tests Standard](build_tests_standard.md).

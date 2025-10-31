@@ -1,7 +1,8 @@
 # Flow
 
-The flow package contains utilities and helpers for working with
-[Kotlin Flows](https://kotlinlang.org/docs/flow.html).
+Utilities for working with [Kotlin Flows](https://kotlinlang.org/docs/flow.html).
+
+TODO(jack-bradshaw): Merge into //first_party/coroutines.
 
 ## Operators
 
@@ -34,6 +35,4 @@ are:
 - ColdFlow
 - IndefiniteFlow
 
-View the
-[KDoc](https://github.com/jack-bradshaw/monorepo/blob/main/first_party/klu/flow/Annotations.kt) for
-detailed information about them.
+View the [KDoc](Annotations.kt) for detailed information about them.
