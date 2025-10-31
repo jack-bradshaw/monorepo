@@ -1,11 +1,11 @@
 # Standards
 
-The standards for contribution to this repository.
+The standards for contribution to this repository. These standards ensure the contents of the
+repository are universally accessible, useful, and consistent.
 
-## Purpose
+## Release
 
-These standards ensure the contents of the repository are universally accessible and useful. They
-must be satisfied prior to submission to the main branch.
+Not released to any third party package managers.
 
 ## Contents
 
@@ -18,6 +18,7 @@ This package contains the following standards:
 - [General Code Block Standard](/first_party/standards/general_code_block_standard.md)
 - [Shell Code Block Standard](/first_party/standards/shell_code_block_standard.md)
 - [Starlark Code Block Standard](/first_party/standards/starlark_code_block_standard.md)
+- [Dagger Standard](/first_party/standards/dagger_standard.md)
 - [TODO Standard](/first_party/standards/todo_standard.md)
 
 ## Usage

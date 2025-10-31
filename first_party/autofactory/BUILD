@@ -1,27 +1,3 @@
-# Makes [AutoFactory](https://github.com/google/auto/tree/main/factory) available to Bazel targets.
-#
-# Depending on :autofactory from a Java/Kotlin target adds all the necessary dependencies and
-# installs the compilation plugin that makes autofactory work.
-#
-# Example usage:
-#
-# ```bzl
-# java_library(
-#   name = "myclass",
-#   srcs = ["MyClass.java"],
-#   deps = [
-#     "//first_party/autofactory",
-#   ]
-# )
-# ```
-#
-# ```kotlin
-# @AutoFactory
-# class MyClass(
-#   @Provided private val myDep: myDep,
-# )
-# ```
-
 load("@rules_java//java:java_library.bzl", "java_library")
 load("@rules_java//java:java_plugin.bzl", "java_plugin")
 

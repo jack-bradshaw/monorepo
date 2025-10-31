@@ -20,7 +20,7 @@ All documentation in this repository must conform to this standard. The recursiv
 ## Impersonal
 
 Documentation must describe the contents of the repository without reference to the
-contributor/consumer; however, the contributor/consumer may be references in the third person when
+contributor/consumer; however, the contributor/consumer may be referenced in the third person when
 they are an integral part of the subject (e.g. when discussing readability/accessibility). This
 impersonal voice keeps the focus on the contents of the repository.
 
