@@ -12,5 +12,5 @@ interface Coroutines {
   @Io fun ioCoroutineScope(): CoroutineScope
 }
 
-/** Creates an instance of [Coroutines]. */
+/** Creates a default instance of [Coroutines]. */
 fun coroutines() = DaggerCoroutines.create()

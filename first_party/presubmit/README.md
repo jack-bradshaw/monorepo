@@ -1,34 +1,23 @@
 # Presubmit
 
-A series of formatting and correctness checks. Run with:
+Continuous integration infrastructure.
 
-```
-source presubmit.sh
-run_presubmit
-```
+## Release
 
-All checks must pass before code can be merged into main, unless presubmit itself is broken.
+Not released to third party package managers.
 
 ## Checks
 
-The following checks are enabled:
+This package contains the following checks:
 
-- All Bazel files in 1P must be formatted according to Buildifier.
-- All Kotlin files in 1P must be formatted according to [ktfmt](https://github.com/facebook/ktfmt).
-- All targets must build.
-- All tests must pass.
+- [build.sh](/first_party/presubmit/build.sh): Verifies that all targets build.
+- [formatting.sh](/first_party/presubmit/formatting.sh): Verifies that all sources are in their
+  [autoformatted](/first_party/formatting/README.md) state.
+- [test.sh](/first_party/presubmit/test.sh): Verifies that all test targets pass.
 
-## Adding New Checks
+All checks must pass for presubmit to pass.
 
-To add a new check:
+## Usage
 
-1. Write a bash script which performs the check logic.
-2. Add the bash script to this directory.
-3. Reference the new bash script in [presubmit.sh](presubmit.sh).
-
-That's it.
-
-## GitHub Integration
-
-GitHub integration is handled by the [.github](.github) directory. All checks will run automatically
-on-push and on-PR.
+Presubmit is run automatically whenever a PR is opened or updated on GitHub, and the bash command to
+run it locally is `source presubmit.sh; run_presubmit`.

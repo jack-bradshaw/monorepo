@@ -3,7 +3,7 @@ load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 kt_jvm_library(
     name = "pulsar",
     srcs = ["Pulsar.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
@@ -12,7 +12,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = ["PulsarImpl.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
         ":pulsar",
         "//:dagger",
@@ -25,7 +25,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     srcs = ["PulsarModule.kt"],
-    visibility = ["//first_party/concurrency:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
         ":impl",
         ":pulsar",
@@ -35,8 +35,9 @@ kt_jvm_library(
 
 kt_jvm_library(
     name = "test",
+    testonly = True,
     srcs = ["PulsarTest.kt"],
-    visibility = ["//first_party/concurrency:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
         ":pulsar",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
@@ -51,7 +52,7 @@ kt_jvm_test(
     name = "impl_test",
     srcs = ["PulsarImplTest.kt"],
     test_class = "com.jackbradshaw.concurrency.pulsar.PulsarImplTest",
-    visibility = ["//first_party/concurrency:__subpackages__"],
+    visibility = ["//visibility:private"],
     deps = [
         ":impl",
         ":pulsar",

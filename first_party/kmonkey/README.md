@@ -2,84 +2,38 @@
 
 Kotlin tools for the JMonkey engine.
 
-## Getting Access
+## Release
 
-There are three ways to include this library in your project:
+Released to [Maven Central](https://search.maven.org/artifact/com.jackbradshaw/kmonkey).
 
-1. Use the pre-built package.
-2. Build the package from source.
-3. Reference the source directly.
+## Utilities
 
-### Pre-built Package
+This package provides the following utilities:
 
-To use the pre-built package, add `com.jackbradshaw:kmonkey:1.0.0` to your project's Maven
-dependencies. Older versions are available in the
-[Maven Repository](https://search.maven.org/artifact/com.jackbradshaw/kmonkey).
+- [Coroutines](/first_party/kmonkey/coroutines): Coroutine dispatchers for the JMonkey engine.
 
-### Building From Source
+Dispatchers are provided for the rendering thread and the physics thread.
 
-To build the package from source:
+## Rendering
 
-1. [Install Bazel](https://docs.bazel.build/versions/main/install.html).
-2. Clone the repository: `git clone https://github.com/jack-bradshaw/monorepo`
-3. Start the build: `bazel build //first_party/kmonkey:binary.deploy`
+The rendering dispatcher executes coroutines on the JMonkey main rendering thread. It's provided as
+an extension function on the `SimpleApplication`. For example, the following code moves an item
+every second:
 
-This will produce a jar in the `monorepo/bazel-out/first_party/kmonkey` directory. Copy this Jar
-into your project as needed.
-
-### Referencing Directly
-
-To reference the package directly in another Bazel workspace:
-
-1. Install this repository in your WORKSPACE.
-2. Reference the library target in your deps.
-
-For example:
-
-```
-# In your WORKSPACE file
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-git_repository(
-    name = "com_jackbradshaw",
-    branch = "main",
-    remote = "https://github.com/jack-bradshaw/monorepo",
-)
-
-# In your BUILD file
-kt_jvm_library(
-    name = "hello_world",
-    srcs = "HelloWorld.kt",
-    deps = [
-        "@com_jackbradshaw//:first_party/kmonkey",
-    ]
-)
-```
-
-## Tutorial
-
-KMonkey provides two utilities for using coroutines with JMonkey:
-
-- A rendering dispatcher that runs coroutines on the main thread.
-- A physics dispatcher that runs coroutines on the physics thread.
-
-For example, the following code will add an item to the scene graph and move it each second:
-
-```
+```kotlin
 import com.jackbradshaw.kmonkey.coroutines.renderingDispatcher
 
 class MyApplication : SimpleApplication {
 
-  /* Snip: All the usual setup stuff. */
-
   private val worldItem by lazy { SomeWorldItem() }
 
   init {
-    renderingDispatcher().launch {
+    this.renderingDispatcher().launch {
       rootNode.attachChild(worldItem)
       var index = 0
       while(true) {
         index += 1
-        delay(1000L) // 1 second
+        delay(1000L)
         worldItem.setLocalTranslation(Vector3f(index, 0, 0))
       }
     }
@@ -87,14 +41,16 @@ class MyApplication : SimpleApplication {
 }
 ```
 
-Similarly, the following code will add an item to the physics space and apply a force each second:
+## Physics
 
-```
+The physics dispatcher executes coroutines on the JMonkey physics thread. It's provided as an
+extension function on the `PhysicsSpace`. For example, the following code applies a force every
+second:
+
+```kotlin
 import com.jackbradshaw.kmonkey.coroutines.physicsDispatcher
 
 class MyApplication : SimpleApplication {
-
-  /* Snip: All the usual setup stuff. */
 
   private val physicsItem by lazy { SomePhysicsItem() }
 
@@ -104,7 +60,7 @@ class MyApplication : SimpleApplication {
     physicsSpace.physicsDispatcher().launch {
       physicsSpace.add(physicsItem)
       while(true) {
-        delay(1000L) // 1 second
+        delay(1000L)
         physicsItem.applyCentralForce(Vector3f(1, 0, 0))
       }
     }
@@ -112,40 +68,10 @@ class MyApplication : SimpleApplication {
 }
 ```
 
-You don't actually need to be in the SimpleApplication to use the dispatchers. For example:
+## Issues
 
-```
-class SomeRandomClass(
-  private val application: SimpleApplication,
-  private val physicsSpace: PhysicsSpace
-) {
-  init {
-    application.renderingDispatcher().launch { /* rendering code */ }
-    physicsSpace.physicsDispatcher().launch { /* physics code */ }
-  }
-}
+Issues relating to this package and its subpackages are tagged with `kmonkey`.
 
-```
+## Contributions
 
-Voilà! You can now use coroutines with JMonkey without the risk of wrong-thread exceptions.
-
-## Building
-
-To build the library with dependencies excluded:
-
-```
-bazel build :kmonkey
-```
-
-To build the library with dependencies included:
-
-```
-bazel build :binary
-```
-
-To release the library with dependencies included to
-[sonatype](https://s01.oss.sonatype.org/#welcome):
-
-```
-bash release.sh
-```
+Third-party contributions are accepted.

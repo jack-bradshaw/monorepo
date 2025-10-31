@@ -4,9 +4,10 @@ The standard for READMEs in this repository.
 
 ## Scope
 
-All READMEs in this repository must conform to this standard. The root README is exempt as it
-functions as an introduction to the entire repository. The recursive contents of
-[third_party](/third_party) are excepted as the contents are sourced from third parties.
+All READMEs in this repository must conform to this standard. The [root README](/README.md) and the
+[first party README](/first_party/README.md) are exempt as they function as introductory pieces to
+the entire repository. The recursive contents of [third_party](/third_party) are excepted as the
+contents are sourced from third parties.
 
 ## Presence
 
@@ -23,6 +24,10 @@ READMEs must consist of the following elements, in order:
 - A body that provides release information, including API stability status, remote coordinates, and
   any other details required for third party access.
 - An arbitrary number of custom level-two headings with bodies and level-three/four subsections.
+- A level-two heading named "Issues".
+- A body that specifies the tag for issues relating to the package/subpackages.
+- A level-two heading named "Contributions".
+- A body that specifies whether contributions from third parties are accepted in the package.
 
 ## Contents
 

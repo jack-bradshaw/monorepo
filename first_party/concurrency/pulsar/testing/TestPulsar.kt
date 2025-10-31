@@ -6,15 +6,10 @@ import com.jackbradshaw.concurrency.pulsar.Pulsar
  * A controllable pulsar for use in tests.
  *
  * Each time [emit] is called, the pulsar emits one pulse to each existing flow. Pulses are not
- * emitted continuously as they are in the production implementation, and calling [emit] is the only
- * way to trigger a pulse.
- *
- * Using dependency injection in tests to substitute a production `Pulsar` with a `TestPulsar`
- * allows granular control over loops that would otherwise block the test forever and prevent an
- * idle state from being reached.
- *
- * Example usage showing a test of a service that routinely polls for new data on a background
- * thread:
+ * emitted continuously, as they would be in the production implementation, and calling [emit] is
+ * the only way to trigger a pulse. When combined with dependency injection, this allows infinite
+ * and long-running loops to be used without blocking tests. For example, consider a test that
+ * fetches data on a background thread repeatedly:
  * ```
  * @Inject lateinit var testPulsar: TestPulsar
  * @Inject lateinit var testScope: TestScope
@@ -27,14 +22,18 @@ import com.jackbradshaw.concurrency.pulsar.Pulsar
  *   testPulsar.emit()
  *   testScope.advanceUntilIdle()
  *
- *   assertThat(pollingService.latestData()).isEqualTo("hello world"")
+ *   assertThat(pollingService.latestData()).isEqualTo("hello world")
  * }
  * ```
+ *
+ * With a `while(true)` loop, the `advanceUntilIdle` call would never complete and the test would
+ * run indefinitely, but with a pulsar used internally, the loop can be controlled in tests and it
+ * only the desired cycles will be run.
  */
 interface TestPulsar : Pulsar {
   /**
-   * Sends a pulse to all existing [pulse] flows, and suspends until the emission has occurred (but
-   * does not wait for pulse flows to process the pulse).
+   * Sends a pulse to all existing [pulse] flows, suspending until the pulse has been delivered to
+   * all flows.
    */
   suspend fun emit()
 }

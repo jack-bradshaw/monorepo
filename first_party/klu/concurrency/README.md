@@ -1,6 +1,8 @@
 # Concurrency
 
-The concurrency package contains utilities and helpers for working with asynchronous Kotlin code.
+Helpers for working with asynchronous Kotlin code.
+
+TODO(jack-bradshaw): Merge into //first_party/concurrency.
 
 ## Once
 

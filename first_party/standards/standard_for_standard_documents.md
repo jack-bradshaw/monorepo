@@ -51,7 +51,7 @@ limitation, whereas "Packages may contain a single file" is an option.
 
 ## Examples
 
-Examples must be documented in proximity to the relevent requirement.
+Examples must be documented in proximity to the relevant requirement.
 
 ## Exceptions
 

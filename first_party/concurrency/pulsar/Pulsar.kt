@@ -5,23 +5,19 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Emits pulses indefinitely.
  *
- * Example usage:
+ * Pulsar allows kotlin flows to perform repeated tasks over time. For example:
  * ```
- * val pulsar = TODO() // inject etc
- * val dataSource = TODO() // inject etc
- * val dataFlow = pulsar
- *     .pulses()
- *     .map { dataSource.fetchData() }
- *     .collect { println(it) }
+ * class DataSource(pulsar: Pulsar) {
+ *   fun dataFlow(delayDuration: Duration) = pulsar
+ *       .pulses()
+ *       .map {
+ *         delay(delayDuration);
+ *         dataSource.fetchData()
+ *       }
+ * }
+ * ```
  *
- * val slowerDataFlow = pulsar
- *     .pulses()
- *     .map {
- *       delay(1000);
- *       dataSource.fetchData()
- *     }
- *     .collect { println(it) }
- * ```
+ * The above code emits the latest data repeatedly and indefinitely.
  */
 interface Pulsar {
   /** Creates a new cold flow which emits pulses indefinitely. */
