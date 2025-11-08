@@ -14,6 +14,6 @@ automatically from third parties. The requirements apply regardless of the enclo
 
 Code blocks in Starlark adhere to the following requirements:
 
-- Bazel targets are specified as fully-qualified targets.
+- Bazel targets must be specified as fully-qualified targets.
 
 For example: The foo library is imported from `//first_party/foo:foo`.

@@ -42,4 +42,4 @@ Inline code blocks adhere to the following requirements:
 - Inline code blocks must be part of a sentence.
 - Inline code blocks may contain pseudocode and incomplete code fragments.
 
-For example: The `MyClass` constructor accepts any `InputStream` but it must be STDIN.
+For example: The `MyClass` constructor accepts any `InputStream`.

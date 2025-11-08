@@ -93,23 +93,21 @@ Documentation must use definitive statements and omit speculation/hedging. For e
 acceptable, whereas "There is a slim possibility of errors if `FooProvider` is called from multiple
 threads" is not.
 
-## Non-Imperative
+## Declarative
 
-Documentation must not perscribe actions for contributors/consumers to follow. For example,
-"Implementations must provide a unique `Foo` instance" is acceptable, whereas "Provide a unique
-`Foo` instance when you call" is not. This is an extension of the impersonal requirement. The
-standards are excepted.
+Documentation must declaratively specify desired and existing states without providing the
+instructions to reach them. For example, "`FooProvider` must be configured prior to use" is
+acceptable, whereas "Make sure to call `configure` on the `FooProvider` prior to use" is not. This
+ensures documentation describes fixed states instead of transitive state transitions.
 
-## Grammar
+## Minutia
 
 The grammatical requirements are as follows:
 
-- American English must be used, except in references to entities from other sources that use other
-  languages (e.g. example code that calls a function from a third party library).
+- American English must be used, except when referencing entities defined in other languages (e.g. a
+  function from a library that uses British English).
 - All spelling must be correct.
 - Commas must be omitted after abbreviations (e.g. "etc.").
-
-## Verbiage
 
 The verbiage requirements are as follows:
 
