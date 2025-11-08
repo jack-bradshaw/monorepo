@@ -37,7 +37,7 @@ Lists adhere to the following requirements:
 - Lists must be preceeded by an introductory body line.
 - Lists must not contain blank lines between items.
 - Lists must not be empty but may contain only a single element if necessary.
-- Lists omit trailing punctuation when the items are sentence fragments.
+- Lists must omit trailing punctuation when the items are sentence fragments.
 
 This section contains an example of a standard-conformant list.
 

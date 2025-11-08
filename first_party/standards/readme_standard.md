@@ -39,4 +39,5 @@ exist.
 READMEs may contain details relating to the enclosing package and its subpackages, but must omit
 details relating to all other packages. For example, a readme in `/first_party/foo` may contain
 details for `/first_party/foo` and `/first_party/foo/bar` but not `/first_party` or
-`/first_party/baz`. Details from subpackage READMEs must not be duplicated in superpackage READMEs.
+`/first_party/baz`. Details from subpackage READMEs must not be duplicated in superpackage READMEs (
+and vice versa).

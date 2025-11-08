@@ -22,8 +22,7 @@ This package contains the following standards:
 
 ## Usage
 
-These standards can be passed to artificial intelligence for automated content generation and
-linting.
+The standards may be passed to artificial intelligence for automated content generation and linting.
 
 ## Issues
 
