@@ -12,8 +12,8 @@ party sources.
 
 TODOs adhere to the following requirements:
 
-- TODO items use the form `TODO($party): $message`.
-- The party is specified as a GitHub issue number (e.g. `#123`)
-- The message is specified as a sentence and follow all documentation standards.
+- TODO items must use the form `TODO($party): $message`.
+- The party must be specified as a GitHub issue number (e.g. `#123`)
+- The message must be specified as a sentence and follow all documentation standards.
 
 For example: `TODO(#123): The implementation is missing.`
