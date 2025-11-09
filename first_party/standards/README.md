@@ -11,7 +11,7 @@ must be satisfied prior to submission to the main branch.
 
 This package contains the following standards:
 
-- [Standard for Standard Documents](/first_party/standards/standard_for_standards.md)
+- [Standard for Standard Documents](/first_party/standards/standard_for_standard_documents.md)
 - [General Documentation Standard](/first_party/standards/general_documentation_standard.md)
 - [README Standard](/first_party/standards/readme_standard.md)
 - [Markdown Standard](/first_party/standards/markdown_standard.md)

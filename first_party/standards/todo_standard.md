@@ -4,16 +4,13 @@ The standard for TODOs in this repository.
 
 ## Scope
 
-This standard applies to all TODOs in this repository. The recursive contents of
-[third_party](/third_party) are excepted as the contents are populated automatically from third
-party sources.
+All TODOs in this repository must conform to this standard. The recursive contents of
+[third_party](/third_party) are excepted as the contents are sourced from third parties.
 
 ## Requirements
 
-TODOs adhere to the following requirements:
+TODOs must conform to the following requirements:
 
-- TODO items must use the form `TODO($party): $message`.
-- The party must be specified as a GitHub issue number (e.g. `#123`)
-- The message must be specified as a sentence and follow all documentation standards.
-
-For example: `TODO(#123): The implementation is missing.`
+- TODO items must be formatted as `TODO($tracker): $message`, where `$tracker` is a GitHub issue
+  number and `$message` follows all applicable documentation standards. For example:
+  `TODO(#123): The implementation.`
