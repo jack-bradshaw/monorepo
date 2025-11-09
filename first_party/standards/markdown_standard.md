@@ -21,7 +21,7 @@ Headings must adhere to the following requirements:
 - Headings must not increase by multiple levels in one step (e.g. a level two heading may be
   directly followed by level-three heading but not level four heading).
 
-## Bodies
+## Body Content
 
 Body content must adhere to the following requirements:
 
@@ -32,7 +32,7 @@ Body content must adhere to the following requirements:
 
 Lists must adhere to the following requirements:
 
-- Lists must be preceeded by an introductory body line.
+- Lists must be preceded by an introductory body line.
 - Lists must not contain blank lines between items.
 - Lists must not be empty but may contain only a single element if necessary.
 - Lists must omit trailing punctuation when the items are sentence fragments.

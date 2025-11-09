@@ -129,7 +129,7 @@ Verbiage must adhere to the following requirements:
 - README files must be referred to as "The README" (singular), "READMEs" (plural), or "README" when
   used as a proper noun (e.g. "README Standard").
 - The term "artificial intelligence" must be used instead of "AI", "machine learning", or any other
-  related term; howver, specific technologies and models may be referenced by name (e.g. computer
+  related term; however, specific technologies and models may be referenced by name (e.g. computer
   vision, Google Gemini Pro 2.5).
 - Zero-based indexing must be used, except in contexts where a different indexing convention is the
   domain convention (e.g. programming in R).
