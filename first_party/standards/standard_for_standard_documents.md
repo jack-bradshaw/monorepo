@@ -37,6 +37,13 @@ Each standard must cover a single domain/topic/entity, and standards must be dec
 multiple standards upon violation of this requirement; hence, overlap between standards is possible,
 and conflicts between them must be documented.
 
+## Location
+
+Standards that apply to the whole repository must be located in the
+[general standards](/first_party/standards/), and standards that apply to a specific set of packages
+must be located in the nearest common package (e.g. the
+[build-tests standard](/first_party/build_tests/build_tests_standard.md)).
+
 ## Contents
 
 The content of standards must adhere to the following requirements:
