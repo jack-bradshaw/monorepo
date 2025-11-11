@@ -6,7 +6,7 @@ The standard for standards in this repository.
 
 The following terms apply with specific meaning:
 
-- Requirement: The individual rules and expectations that constitute the standard.
+- Requirement: An individual rule.
 - Standard: An individual standard document in [standards](/first_party/standards).
 - Standards: The collective set of standards in [standards](/first_party/standards).
 

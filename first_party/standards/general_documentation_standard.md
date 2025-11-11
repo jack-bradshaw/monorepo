@@ -135,3 +135,7 @@ Verbiage must adhere to the following requirements:
   domain convention (e.g. programming in R).
 - Hierarchical relationships must be specified using super/sub terminology instead of parent/child
   (e.g. submodule and supermodule instead of child module and parent module).
+
+Miscellaneous requirements that all documentation must adhere to:
+
+- List items must not be bolded (e.g. `- ListItem1` not `- **ListItem1**`).

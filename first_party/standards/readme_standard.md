@@ -11,12 +11,20 @@ contents are sourced from third parties.
 
 ## Presence
 
-Every immediate directory in [first_party](/first_party) must contain a README. Presence in other
-directories is discretionary.
+Any package may contain a README.
 
-## Structure
+## Contents
 
-READMEs must consist of the following elements, in order:
+READMEs may contain details relating to the enclosing package and its subpackages, but they must
+omit details relating to superpackages and parallel packages. Furthermore, they must omit details
+covered in other READMEs. For example, a readme in `/first_party/foo` may contain details for
+`/first_party/foo` and `/first_party/foo/bar`, but not `/first_party` or `/first_party/baz`, and any
+details covered in the `/first_party/foo/bar` README must not be repeated.
+
+## Top Level First Party
+
+Every directory in [first_party](/first_party) must contain a READMEs consisting of the following
+elements, in order:
 
 - A level-one heading matching the name of the package.
 - A body introducing the contents of the package.
@@ -28,11 +36,3 @@ READMEs must consist of the following elements, in order:
 - A body that specifies the tag for issues relating to the package/subpackages.
 - A level-two heading named "Contributions".
 - A body that specifies whether contributions from third parties are accepted in the package.
-
-## Contents
-
-READMEs may contain details relating to the enclosing package and its subpackages, but they must
-omit details relating to superpackages and parallel packages, and they must omit details covered in
-other READMEs. For example, a readme in `/first_party/foo` may contain details for
-`/first_party/foo` and `/first_party/foo/bar`, but not `/first_party` or `/first_party/baz`, and any
-details covered in the `/first_party/foo/bar` README must not be repeated.

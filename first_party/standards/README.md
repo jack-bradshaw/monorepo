@@ -20,6 +20,7 @@ This package contains the following standards:
 - [Starlark Code Block Standard](/first_party/standards/starlark_code_block_standard.md)
 - [Dagger Standard](/first_party/standards/dagger_standard.md)
 - [TODO Standard](/first_party/standards/todo_standard.md)
+- [Git LFS Standard](/first_party/standards/git_lfs_standard.md)
 
 ## Usage
 
