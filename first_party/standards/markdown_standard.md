@@ -44,4 +44,5 @@ This section contains an example of a standard-conformant list.
 References must adhere to the following requirements:
 
 - Filesystem references must be referenced with square-bracket links (not backticks).
-- Links addresses must be absolute references (relative to the repository root).
+- Link addresses must be absolute references (relative to the repository root). Links to sections
+  within the same file are excepted and may use relative references.

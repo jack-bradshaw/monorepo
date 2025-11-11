@@ -1,18 +1,34 @@
 # Monorepo
 
-This repository contains all public code written by Jack Bradshaw from 2022 onwards. It is a
-monorepo which uses [Bazel](https://bazel.build) as the build tool. Everything is covered by the
-[LICENSE](LICENSE), except the contents of [third_party](third_party) which are explicitly exempt.
+This repository is structured as a tree of packages. It contains all code and content personally
+authored by Jack Bradshaw from 2022 onwards, with contributions from third parties in some packages.
+The various interconnected tools and systems it provides are documented in the READMEs distributed
+throughout the repository.
 
-## Structure
+## Release
 
-All code is divided into two root directories, [first_party](first_party) and
-[third_party](third_party). All code originating from this repository lives in the former, and all
-code belonging to another repository, person, or organisation belongs in the latter. This maintains
-a clear and unambiguous division for licensing and maintenance purposes. A few files exist outside
-these directories for core repository and build setup.
+The repository itself is not released to third party package managers; however, various subpackages
+are available from an assortment of package managers, with release details provided in the READMEs
+distributed throughout the repository. Furthermore, the repository itself is unversioned, and
+individual packages are versioned independently.
 
-First party contains the following packages:
+## Legal
+
+The contents of the repository are provided under the terms of various licenses. The LICENSE files
+distributed throughout the repository apply recursively down the file tree, meaning each license
+file applies to the content of the directory that contains it in addition to the contents of its
+subdirectories; however, only one license can apply to any given directory, and license files
+further down the directory tree override and anul license files further up. For example, given a
+LICENSE in `/example/foo/LICENSE` and a LICENSE in `/example/foo/bar/LICENSE`, all files in and
+under `foo` are subject to the `foo` license, except for the recursive contents of `bar`, which are
+subject to the `bar` LICENSE.
+
+## Contents
+
+The contents of the repository are divided into [first_party](/first_party), which contains all
+materials originating from this repository, and [third_party](/third_party), which contains vendored
+[external dependencies](/external_dependencies.md). First party contains the following top-level
+packages:
 
 - [autofactory](/first_party/autofactory): AutoFactory Bazel integration.
 - [build_tests](/first_party/build_tests): Build system tests.
@@ -29,162 +45,30 @@ First party contains the following packages:
 - [standards](/first_party/standards): Standards for contribution to this repository.
 - [writing](/first_party/writing): Creative and technical writing.
 
-## Building and Testing
+## Build System
 
-Bazel is used as the build tool across the repository.
+This repository uses [Bazel](https://bazel.build) exclusively and universally. The commands to build
+and test the entire repository are `bazel build //...` and `bazel test //...` respectively.
 
-- All code is built by running `bazel build //...`.
-- All code is tested by running `bazel test //...`.
+## Continuous Integration
 
-Granular package documentation contains more more focused build and test instructions.
-
-## Presubmit
-
-Submissions to the main branch are automatically checked by a presubmit system which builds all
-code, runs all tests, and ensures all code is formatted correctly. On Github it automatically runs
-on each pull request, and it must pass before code can be submitted. Exceptions are granted only
-when the presubmit system itself is broken.
-
-Presubmit is run locally with `source first_party/presubmit/presubmit.sh; run_presubmit`.
-
-WARNING: Presubmit may modify the working directory during execution. Commit or stash all changes
-before running to avoid lost work.
-
-## Formatting
-
-Auto-formatting is available for all supported languages and file types with a single command.
-
-- All files are formatted by running `bazel run //first_party/formatting:autoformat`.
-- Specific files are formatted by running `bazel run //first_party/formatting:autoformat -- $paths`.
-
-All files must be in their formatted state before submission, which is enforced by presubmit.
-
-## Versioning
-
-The repository is versioned by the current date, with the version defined in the
-[MODULE.bazel](MODULE.bazel) file. Since the repository contains multiple projects, the version is
-updated whenever any project is released in any way.
-
-## Releasing
-
-Granular packages contain release information.
-
-## Package Managers
-
-Package managers are used to manage external dependencies without building them from source. Various
-package managers and indexes are used across the repo, including Maven, NPM, and PyPI. They all
-follow a general pattern for integration and use, with minor differences in the exact details.
-
-### General
-
-Each package managers generally has:
-
-- A registry where dependencies are declared once for the entire repository.
-- A lock file where dependencies are secured against supply chain attacks.
-- A syntax for referencing dependencies across the entire repository.
-
-To use a new dependency:
-
-1. Declare it in the registry.
-2. Regenerate the lock file.
-3. Reference it in build targets.
-
-To remove an existing dependency:
-
-1. Delete references in build targets.
-2. Remove the declaration from the registry.
-3. Regenerate the lock file.
-
-To update an existing dependency:
-
-1. Update the version in the registry.
-2. Regenerate the lock file.
-
-The exact details for each package manger are provided below.
-
-### Maven
-
-To manage Maven dependencies:
-
-- Declare in the JVM section of [MODULES.bazel](MODULES.bazel).
-- Lock by running `REPIN=1 bazel run @com_jackbradshaw_maven//:pin`.
-- Reference as `@com_jackbradshaw_maven//:$depGroupId_depArtefactId`, with all non-alphanumeric
-  characters in the identifiers replaced with `_`.
-
-Example: [Google Flogger](https://mvnrepository.com/artifact/com.google.flogger/flogger) is
-registered as `com.google.flogger:flogger:1.0.0` and referenced as
-`@com_jackbradshaw_maven//:com_google_flogger_flogger`.
-
-### NPM
-
-To manage NPM dependencies:
-
-- Declare in [package.json](package.json).
-- Lock by running `bazel run -- @pnpm//:pnpm --dir $(pwd) install --lockfile-only` (pwd must be the
-  repo root).
-- Reference as `//:node_modules/$packageName`.
-
-Example: [babel-plugin-minify-infinity](https://www.npmjs.com/package/babel-plugin-minify-infinity)
-is registered as `"babel-plugin-minify-infinity": "0.4.3"` and referenced as
-`//:node_modules/babel-plugin-minify-infinity`.
-
-### PIP
-
-To manage PIP dependencies:
-
-- Declare in [pip_requirements.in](pip_requirements.in).
-- Lock by running `bazel run :requirements.update &> /dev/null`.
-- Reference as `@pypi//$packageName`.
-
-Example: [mdformat](https://pypi.org/project/mdformat/0.7.22/) is registered as `mdformat==0.7.22`
-and referenced as `@pypi//mdformat`.
-
-### Crate
-
-To manage crate dependencies:
-
-- Declare in the Rust section of [MODULES.bazel](MODULES.bazel).
-- There is no locking.
-- Reference as `@crate//:$packageName`.
-
-Example: [serde](https://crates.io/crates/serde) is registered as:
-
-```starlark
-crate.spec(
-    package = "serde",
-    version = "1.0",
-)
-```
-
-and referenced as `@crate//:serde`
-
-## Vendoring
-
-All required external dependencies are vendored for hermetic security and reliability, with the
-exception of all that cannot be uploaded to GitHub due to the 100MB file size limit. Whenever the
-dependencies change (including Bazel dependencies and package-manager dependencies), revendor by
-running `bazel vendor //...`. Any oversized dependencies are ignored via [.gitignore](.gitignore),
-and large files can be found by running `find third_party/bazel_vendor -type f -size +100M`.
-
-## Documentation
-
-All documentation is stored in the repository itself, including design docs, one-pagers, guides, and
-all other ancillatory paperwork. This ensures the codebase itself is the authorative source of truth
-for all related materials, and ensures code does not become separted from related documentation.
-
-## Branching Strategy
-
-This repository exclusively uses trunk-based development.
-
-## Large Files
-
-All files must be stored directly in the repository and not in supplementary storage, meaning Git
-LFS, Git Annex, and all other such tools are banned.
-
-## Licensing Agreement
-
-There is currently no CLA.
+Submission to the main branch is guarded by the [presubmit](/first_party/presubmit) continuous
+integration system. It runs automatically on GitHub and must pass before submission can proceed.
+Furthermore, trunk-based development is exclusively used, meaning rebasing onto main is the only
+acceptable method of submission, and all releases occur from main. GitFlow and other branch-based
+models are not used.
 
 ## Standards
 
-Code quality and user experience are prioritised.
+Various standards are distributed throughout the repository, with standards that apply across the
+entire repository contained in [standards](/first_party/standards).
+
+## Licensing Agreement
+
+There is no CLA.
+
+## Contributions
+
+Third-party contributions are accepted in some packages, as specified in the READMEs distributed
+throughout the repository. All contributions must conform to the repository-wide standards, and some
+packages provide package-scoped standards.
