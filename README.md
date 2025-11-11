@@ -58,11 +58,6 @@ Furthermore, trunk-based development is exclusively used, meaning rebasing onto 
 acceptable method of submission, and all releases occur from main. GitFlow and other branch-based
 models are not used.
 
-## Standards
-
-Various standards are distributed throughout the repository, with standards that apply across the
-entire repository contained in [standards](/first_party/standards).
-
 ## Licensing Agreement
 
 There is no CLA.
@@ -70,5 +65,6 @@ There is no CLA.
 ## Contributions
 
 Third-party contributions are accepted in some packages, as specified in the READMEs distributed
-throughout the repository. All contributions must conform to the repository-wide standards, and some
-packages provide package-scoped standards.
+throughout the repository. All contributions must conform to the
+[repository wide standards](/first_party/standards), and some packages provide package-scoped
+standards.
