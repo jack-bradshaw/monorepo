@@ -16,12 +16,12 @@ individual packages are versioned independently.
 
 The contents of the repository are provided under the terms of various licenses. The LICENSE files
 distributed throughout the repository apply recursively down the file tree, meaning each license
-file applies to the content of the directory that contains it in addition to the contents of its
-subdirectories; however, only one license can apply to any given directory, and license files
-further down the directory tree override and anul license files further up. For example, given a
-LICENSE in `/example/foo/LICENSE` and a LICENSE in `/example/foo/bar/LICENSE`, all files in and
-under `foo` are subject to the `foo` license, except for the recursive contents of `bar`, which are
-subject to the `bar` LICENSE.
+file applies to the content of the containing directory and the contents of its subdirectories;
+however, only one license can apply to any given directory, and license files further down the
+directory tree override and anul license files further up. For example, given a LICENSE in
+`/example/foo/LICENSE` and a LICENSE in `/example/foo/bar/LICENSE`, all files in and under `foo` are
+subject to the `foo` license, except for the recursive contents of `bar`, which are subject to the
+`bar` LICENSE.
 
 ## Contents
 
