@@ -1,8 +1,7 @@
 package com.jackbradshaw.sasync.standard.error
 
-import com.jackbradshaw.sasync.SasyncScope
-import com.jackbradshaw.sasync.transport.outbound.Outbound
-import com.jackbradshaw.sasync.transport.outbound.OutboundImplFactory
+import com.jackbradshaw.sasync.outbound.transport.OutboundTransport
+import com.jackbradshaw.sasync.standard.StandardScope
 import dagger.Module
 import dagger.Provides
 import java.io.OutputStream
@@ -12,11 +11,9 @@ object StandardErrorModule {
 
   @Provides
   @StandardError
-  @SasyncScope
+  @StandardScope
   fun provideOutbound(
       @StandardError stream: OutputStream,
-      outboundFactory: OutboundImplFactory
-  ): Outbound {
-    return outboundFactory.create(stream)
-  }
+      factory: OutboundTransport.Factory
+  ): OutboundTransport = factory.create(stream)
 }
