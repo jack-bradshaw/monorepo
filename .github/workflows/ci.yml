@@ -1,6 +1,8 @@
-# Starts two checks
-# single-commit-rule: checks that the PR has exactly one commit
-# presubmit: runs presubmit checks defined in /presubmit/presubmit.sh
+# Continuous Integration.
+#
+# Two checks are enabled:
+# - single-commit-rule: Requires the branch to have exactly one commit.
+# - presubmit: Requires /presubmit/presubmit.sh to pass.
 name: CI
 on: [pull_request]
 jobs:
@@ -29,8 +31,63 @@ jobs:
   presubmit:
     runs-on: ubuntu-latest
     steps:
+      - name: "increase-disk-space"
+        run: |
+          echo "Disk space before cleanup:"
+          df -h
+          echo "Disk disk cleanup starting."
+
+          sudo docker image prune --all --force
+          sudo docker builder prune -a
+
+          sudo rm -rf /opt/az
+          sudo rm -rf /opt/az/azcliextensions
+          sudo rm -rf /opt/az/lib
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/google
+          sudo rm -rf /opt/google/chrome
+          sudo rm -rf /opt/hostedtoolcache
+          sudo rm -rf /opt/hostedtoolcache/Ruby
+          sudo rm -rf /opt/microsoft
+          sudo rm -rf /opt/microsoft/msedge
+          sudo rm -rf /opt/microsoft/powershell
+          sudo rm -rf /opt/pipx
+          sudo rm -rf /opt/pipx/venvs
+          sudo rm -rf /usr/lib/firefox
+          sudo rm -rf /usr/lib/google-cloud-sdk
+          sudo rm -rf /usr/lib/grub
+          sudo rm -rf /usr/lib/jvm
+          sudo rm -rf /usr/lib/linux-azure-6.11-tools-6.11.0-1018
+          sudo rm -rf /usr/lib/php
+          sudo rm -rf /usr/lib/postgresql
+          sudo rm -rf /usr/lib/ruby
+          sudo rm -rf /usr/libexec/docker
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /usr/local/aws-cli
+          sudo rm -rf /usr/local/aws-sam-cli
+          sudo rm -rf /usr/local/julia*
+          sudo rm -rf /usr/local/share/chromium
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/share/apache-maven-3.9.11
+          sudo rm -rf /usr/share/az_*
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/share/fonts
+          sudo rm -rf /usr/share/gradle-*
+          sudo rm -rf /usr/share/i18n
+          sudo rm -rf /usr/share/icons
+          sudo rm -rf /usr/share/ieee-data
+          sudo rm -rf /usr/share/java
+          sudo rm -rf /usr/share/miniconda
+          sudo rm -rf /usr/share/mysql
+          sudo rm -rf /usr/share/perl
+          sudo rm -rf /usr/share/vim
+          sudo rm -rf /usr/src/linux-headers-6.11.0-1018-azure
+
+          echo "Disk space cleanup complete."
+          echo "Disk space after cleanup:"
+          df -h
       - uses: actions/checkout@v4
-      - name: presubmit
+      - name: run_presubmit_script
         run: |
           source first_party/presubmit/presubmit.sh
           run_presubmit
