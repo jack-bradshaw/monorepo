@@ -40,9 +40,9 @@ Component builders must adhere to the following requirements:
 
 - Component builders must be called `Builder`.
 - Component builders must be nested inside the component they build.
-- Component builder functions that bind instances must be called `binding`, with optional delimiters
-  appended when necessary to prevent collisions (e.g. `bindingIo(@Io scope: CoroutineScope)` and
-  `bindingMain(@Main scope: CoroutineScope`).
+- Component builder functions that bind instances must be called `binding`; however, when bindings
+  use qualifiers, the qualifier must be appended to prevent collisions (e.g.
+  `bindingIo(@Io scope: CoroutineScope)` and `bindingMain(@Main scope: CoroutineScope`).
 - Component builder functions that set component dependencies must be called `consuming` (e.g.
   `consuming(foo: Foo)`).
 
@@ -67,6 +67,9 @@ to the following requirements:
   components, testing components for testing components).
 - The function may supply default arguments for parameters that do not represent component
   dependencies.
+
+Components that are exclusively consumed in the containing file may exclude the factory function
+(e.g. components in tests).
 
 ## Modules
 
