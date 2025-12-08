@@ -1,8 +1,8 @@
 package com.jackbradshaw.sasync.inbound.transport
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.model.count.Count
-import com.jackbradshaw.model.count.CountKt
+import com.jackbradshaw.universal.count.Count
+import com.jackbradshaw.universal.count.CountKt
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

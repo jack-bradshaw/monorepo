@@ -1,8 +1,8 @@
 package com.jackbradshaw.sasync.inbound.config
 
-import com.jackbradshaw.model.count.CountKt.bounded
-import com.jackbradshaw.model.frequency.FrequencyKt.unbounded
-import com.jackbradshaw.model.frequency.frequency
+import com.jackbradshaw.universal.count.CountKt.bounded
+import com.jackbradshaw.universal.frequency.FrequencyKt.unbounded
+import com.jackbradshaw.universal.frequency.frequency
 
 val defaultConfig = config {
   refreshRate = frequency { unbounded = unbounded {} }

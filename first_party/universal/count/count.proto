@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package com.jackbradshaw.model.count;
+package com.jackbradshaw.universal.count;
 
 option java_multiple_files = true;
 option java_outer_classname = "CountProto";
-option java_package = "com.jackbradshaw.model.count";
+option java_package = "com.jackbradshaw.universal.count";
 
 // A discrete count of a quantity without dimensions.
 message Count {
