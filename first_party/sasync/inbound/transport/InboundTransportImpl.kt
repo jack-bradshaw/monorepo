@@ -2,9 +2,9 @@ package com.jackbradshaw.sasync.inbound.transport
 
 import com.jackbradshaw.concurrency.pulsar.Pulsar
 import com.jackbradshaw.coroutines.io.Io
-import com.jackbradshaw.model.frequency.Frequency
-import com.jackbradshaw.model.frequency.toHertz
 import com.jackbradshaw.sasync.inbound.config.Config
+import com.jackbradshaw.universal.frequency.Frequency
+import com.jackbradshaw.universal.frequency.toHertz
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

@@ -37,7 +37,7 @@ packages:
 - [formatting](/first_party/formatting): Automated formatting tools.
 - [klu](/first_party/klu): General helpers and utilities for Kotlin.
 - [kmonkey](/first_party/kmonkey): Kotlin support for the JMonkey video game engine.
-- [model](/first_party/model): Universal models that apply across all domains.
+- [universal](/first_party/universal): Universal models that apply across all domains.
 - [otter](/first_party/otter): An experimental and incomplete video game engine based on JMonkey.
 - [presubmit](/first_party/presubmit): Continuous integration infrastructure.
 - [sasync](/first_party/sasync): Tools for working with Java STDIO in Kotlin.

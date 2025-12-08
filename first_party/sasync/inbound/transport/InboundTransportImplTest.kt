@@ -5,13 +5,13 @@ import com.jackbradshaw.concurrency.testing.DaggerTestConcurrency
 import com.jackbradshaw.concurrency.testing.TestConcurrency
 import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
 import com.jackbradshaw.coroutines.testing.TestCoroutines
-import com.jackbradshaw.model.count.Count
-import com.jackbradshaw.model.frequency.Frequency
-import com.jackbradshaw.model.frequency.FrequencyKt
-import com.jackbradshaw.model.frequency.frequency
 import com.jackbradshaw.sasync.inbound.InboundScope
 import com.jackbradshaw.sasync.inbound.config.Config
 import com.jackbradshaw.sasync.inbound.config.config
+import com.jackbradshaw.universal.count.Count
+import com.jackbradshaw.universal.frequency.Frequency
+import com.jackbradshaw.universal.frequency.FrequencyKt
+import com.jackbradshaw.universal.frequency.frequency
 import dagger.BindsInstance
 import dagger.Component
 import java.io.InputStream

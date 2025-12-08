@@ -32,7 +32,7 @@ kt_jvm_library(
 kt_jvm_test(
     name = "kt_helpers_test",
     srcs = ["FrequencyHelpersTest.kt"],
-    test_class = "com.jackbradshaw.model.frequency.FrequencyHelpersTest",
+    test_class = "com.jackbradshaw.universal.frequency.FrequencyHelpersTest",
     visibility = ["//visibility:private"],
     deps = [
         ":kt_helpers",

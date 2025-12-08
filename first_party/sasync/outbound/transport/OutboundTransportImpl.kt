@@ -1,8 +1,8 @@
 package com.jackbradshaw.sasync.outbound.transport
 
 import com.jackbradshaw.coroutines.io.Io
-import com.jackbradshaw.model.count.Count
 import com.jackbradshaw.sasync.outbound.config.Config
+import com.jackbradshaw.universal.count.Count
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

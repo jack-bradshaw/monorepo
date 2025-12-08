@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package com.jackbradshaw.model.frequency;
+package com.jackbradshaw.universal.frequency;
 
 option java_multiple_files = true;
 option java_outer_classname = "FrequencyProto";
-option java_package = "com.jackbradshaw.model.frequency";
+option java_package = "com.jackbradshaw.universal.frequency";
 
 // The number of occurrences of some repeating event per unit of time.
 message Frequency {

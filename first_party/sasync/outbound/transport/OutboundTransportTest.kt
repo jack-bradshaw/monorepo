@@ -1,11 +1,11 @@
 package com.jackbradshaw.sasync.outbound.transport
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.model.count.CountKt.bounded
-import com.jackbradshaw.model.count.CountKt.unbounded
-import com.jackbradshaw.model.count.count
 import com.jackbradshaw.sasync.outbound.config.Config
 import com.jackbradshaw.sasync.outbound.config.config
+import com.jackbradshaw.universal.count.CountKt.bounded
+import com.jackbradshaw.universal.count.CountKt.unbounded
+import com.jackbradshaw.universal.count.count
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope

@@ -1,9 +1,9 @@
-package com.jackbradshaw.model.frequency
+package com.jackbradshaw.universal.frequency
 
-import com.jackbradshaw.model.frequency.Frequency.Bounded
-import com.jackbradshaw.model.frequency.Frequency.Bounded.ValueCase.HERTZ
-import com.jackbradshaw.model.frequency.Frequency.Bounded.ValueCase.RADIANS_PER_SECOND
-import com.jackbradshaw.model.frequency.Frequency.Bounded.ValueCase.VALUE_NOT_SET
+import com.jackbradshaw.universal.frequency.Frequency.Bounded
+import com.jackbradshaw.universal.frequency.Frequency.Bounded.ValueCase.HERTZ
+import com.jackbradshaw.universal.frequency.Frequency.Bounded.ValueCase.RADIANS_PER_SECOND
+import com.jackbradshaw.universal.frequency.Frequency.Bounded.ValueCase.VALUE_NOT_SET
 
 /** Gets this bounded frequency in units of Hz. Fails if the value oneof has no value. */
 fun Frequency.Bounded.toHertz(): Double =

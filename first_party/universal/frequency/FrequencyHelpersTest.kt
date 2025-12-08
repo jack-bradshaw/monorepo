@@ -1,7 +1,7 @@
-package com.jackbradshaw.model.frequency
+package com.jackbradshaw.universal.frequency
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.model.frequency.FrequencyKt.bounded
+import com.jackbradshaw.universal.frequency.FrequencyKt.bounded
 import kotlin.test.assertFailsWith
 import org.junit.Test
 import org.junit.runner.RunWith
