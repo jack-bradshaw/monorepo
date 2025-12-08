@@ -11,7 +11,7 @@ proto_library(
         "//visibility:public",
     ],
     deps = [
-        "//first_party/model/count",
+        "//first_party/universal/count",
     ],
 )
 
@@ -31,6 +31,6 @@ kt_jvm_library(
     ],
     deps = [
         ":kt_jvm_proto",
-        "//first_party/model/count:kt_jvm_proto",
+        "//first_party/universal/count:kt_jvm_proto",
     ],
 )
