@@ -332,3 +332,11 @@ crate.spec(
 )
 crate.from_specs()
 use_repo(crate, "crates")
+
+# HUGO
+
+fetch_rules_hugo = use_extension("//first_party/rules_hugo:fetch_external_repo.bzl", "fetch_rules_hugo")
+use_repo(fetch_rules_hugo, "external_rules_hugo")
+
+install_rules_hugo = use_extension("//first_party/rules_hugo:install_rules_hugo.bzl", "install_rules_hugo")
+use_repo(install_rules_hugo, "rules_hugo")
