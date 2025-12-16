@@ -4,9 +4,9 @@ Welcome to my website. It serves as a living archive of my work, thoughts, and c
 explorations.
 
 Feel free to explore my [gallery](/gallery/highlights) for my visual art, my
-[journal](/journal/highlights) for my written documents (just getting started), and my
-[repository](/repository/highlights) for my software projects. My social media presence and career
-history can be found in the [about](/about) section.
+[journal](/journal/highlights) for my written documents, and my [repository](/repository/highlights)
+for my open source software. You can also find my social media presence and work history on my
+[about](/about) page.
 
 I hope you enjoy exploring!
 

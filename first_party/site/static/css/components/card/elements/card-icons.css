@@ -1,6 +1,5 @@
-/**
- * Icon row component.
- */
+/** Styling for a series of icons displayed in a card. */
+
 .card-icons {
   display: flex;
   flex-direction: row;

@@ -5,19 +5,26 @@ set -e
 
 # Standard runfiles setup.
 # Based on https://github.com/bazelbuild/rules_shell/blob/main/shell/runfiles/runfiles.bash.
-set -uo pipefail; set +e; f=bazel_tools/tools/bash/runfiles/runfiles.bash
-source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null || \
-source "$(grep -sm1 "^$f " "${RUNFILES_MANIFEST_FILE:-/dev/null}" | cut -f2- -d' ')" 2>/dev/null || \
-source "$0.runfiles/$f" 2>/dev/null || \
-source "$(grep -sm1 "^$f " "$0.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null || \
-source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null || \
-{ echo>&2 "ERROR: cannot find $f"; exit 1; }; f=; set -e
+set -uo pipefail
+set +e
+f=bazel_tools/tools/bash/runfiles/runfiles.bash
+source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null ||
+	source "$(grep -sm1 "^$f " "${RUNFILES_MANIFEST_FILE:-/dev/null}" | cut -f2- -d' ')" 2>/dev/null ||
+	source "$0.runfiles/$f" 2>/dev/null ||
+	source "$(grep -sm1 "^$f " "$0.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null ||
+	source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null ||
+	{
+		echo >&2 "ERROR: cannot find $f"
+		exit 1
+	}
+f=
+set -e
 
 echo "Checking execution environment."
-if [[ -z "$(ls -A "$RUNFILES_DIR")" || -z "$RUNFILES_MANIFEST_FILE" ]]; then
-    echo "Error: Release script must be invoked via Bazel (`bazel run //first_party/site:release`)."
-    echo "Exiting."
-    exit 1
+if [[ -z "${RUNFILES_DIR:-}" && -z "${RUNFILES_MANIFEST_FILE:-}" ]]; then
+	echo "Error: Release script must be invoked via Bazel (bazel run //first_party/site:release)."
+	echo "Exiting."
+	exit 1
 fi
 echo "Execution environment verified."
 
@@ -28,13 +35,13 @@ PACKAGED_TAR=$(rlocation "_main/first_party/site/packaged.tar")
 FIREBASE_JSON=$(rlocation "_main/first_party/site/firebase.json")
 
 if [[ ! -f "$PACKAGED_TAR" ]]; then
-    echo "Error: Could not locate packaged.tar in runfiles. Exiting."
-    exit 1
+	echo "Error: Could not locate packaged.tar in runfiles. Exiting."
+	exit 1
 fi
 
 if [[ ! -f "$FIREBASE_JSON" ]]; then
-    echo "Error: Could not locate firebase.json in runfiles. Exiting."
-    exit 1
+	echo "Error: Could not locate firebase.json in runfiles. Exiting."
+	exit 1
 fi
 
 echo "Artefacts verified."
@@ -60,8 +67,8 @@ npx firebase-tools login
 echo "Enter the ID of the Firebase Project to deploy to."
 read -r PROJECT_ID
 if [[ -z "$PROJECT_ID" ]]; then
-    echo "Error: Project ID cannot be empty. Exiting."
-    exit 1
+	echo "Error: Project ID cannot be empty. Exiting."
+	exit 1
 fi
 
 echo "Firebase configured."

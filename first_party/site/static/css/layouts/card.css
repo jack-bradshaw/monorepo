@@ -1,8 +1,5 @@
-/**
- * Base card surface.
- * Provides the container, background, shadow, and rounded corners.
- * No inset padding (content goes to edge).
- */
+/** Styling for cards (i.e. a raised surface with clear bounding). */
+
 .card {
   width: 100%;
   height: 100%;

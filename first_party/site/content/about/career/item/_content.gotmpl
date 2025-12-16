@@ -1,3 +1,4 @@
+{{/* Generates a page under /career/item for each career item. */}}
 
 {{ range site.Data.about.career }}
 
@@ -7,6 +8,7 @@
     "layout" "career-item"
     "path" .key
     "title" .organisation
-    "params" (dict "key" .key)
-) }}
+    "params" (dict "key" .key))
+}}
+
 {{ end }}

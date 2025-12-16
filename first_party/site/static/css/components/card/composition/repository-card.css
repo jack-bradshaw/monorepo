@@ -1,6 +1,5 @@
-/**
- * Repository card component.
- */
+/** Styling for a card that displays a single repository item. */
+
 .repository-card .content-wrapper {
   padding: var(--gap-medium);
   display: flex;

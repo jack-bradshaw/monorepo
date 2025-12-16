@@ -1,18 +1,18 @@
-{{/* Generates a page for every item in data/gallery/items.json */}}
+{{/* Generates a page under /gallery/item for each gallery item. */}}
+
 {{ range site.Data.gallery.items }}
+
   {{ $title := .title }}
-  {{ $year := "" }}
   {{ if .year }}
-    {{ $year = printf "%.0f" .year }}
-    {{ $title = printf "%s (%s)" .title $year }}
+    {{ $title = printf "%s (%s)" .title (printf "%.0f" .year) }}
   {{ end }}
+
   {{ $.AddPage (dict
       "kind" "page"
       "type" "gallery"
       "layout" "item"
       "path" .key
       "title" $title
-
       "params" (dict "key" .key))
   }}
 {{ end }}

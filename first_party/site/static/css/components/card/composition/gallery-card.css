@@ -1,6 +1,5 @@
-/**
- * Gallery card arrangement.
- */
+/** Styling for a card that displays a single gallery item or series. */
+
 .gallery-card {
   display: flex;
   flex-direction: column;

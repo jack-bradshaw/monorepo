@@ -1,6 +1,5 @@
-/**
- * Journal card arrangement.
- */
+/** Styling for a card that displays a single journal item. */
+
 .journal-card {
   display: flex;
   flex-direction: column;

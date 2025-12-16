@@ -154,7 +154,7 @@ class ContentNavigationTest {
     harness.setup(ScreenWidth.MEDIUM)
     val page = harness.openPage(startPagePath)
 
-    harness.findElement("a:has-text('${itemLabel}')").click()
+    harness.findElement(page, "a:has-text('${itemLabel}')").click()
 
     assertThat(page).hasUri(harness.endpoint().resolve(expectedDestinationPagePath))
   }
@@ -169,7 +169,7 @@ class ContentNavigationTest {
     harness.setup(ScreenWidth.MEDIUM)
 
     val page = harness.openPage(startPagePath)
-    val locator = harness.findElement("a:has-text('${itemLabel}')")
+    val locator = harness.findElement(page, "a:has-text('${itemLabel}')")
     val popup = page.waitForPopup { locator.click() }
 
     assertWithMessage("Page URI").that(popup.url()).isEqualTo(destinationUri.toString())

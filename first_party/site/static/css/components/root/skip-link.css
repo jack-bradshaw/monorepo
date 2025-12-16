@@ -1,6 +1,5 @@
-/**
- * Hidden link that becomes visible on focus for accessibility.
- */
+/** Styling for the accessibility skip-to-content link (usually hidden). */
+
 .skip-link {
   position: absolute;
   top: 0;

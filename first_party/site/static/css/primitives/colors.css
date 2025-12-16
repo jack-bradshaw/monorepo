@@ -1,3 +1,4 @@
+/** Mapping from literal color hex codes to descriptive names. */
 :root {
   /* Primitives Colors (Pure Variations) */
   --color-pure-white: #fff;
@@ -7,6 +8,8 @@
   /* Primitive Colors (Shade Variations) */
   --color-blue-400: #60a5fa;
   --color-blue-500: #2563eb;
+  --color-muted-blue-400: #7a9cc6;
+  --color-muted-blue-500: #4a6fa5;
   --color-grey-50: #f5f5f5;
   --color-grey-100: #e0e0e0;
   --color-grey-200: #ddd;
@@ -19,9 +22,6 @@
   --color-grey-850: #222;
   --color-grey-900: #1e1e1e;
   --color-grey-950: #121212;
-
-  --color-muted-blue-400: #7a9cc6;
-  --color-muted-blue-500: #4a6fa5;
 
   /* Primitive Colors (Alpha Variations) */
   --color-black-alpha-10: color-mix(in srgb, var(--color-pure-black), transparent 90%);

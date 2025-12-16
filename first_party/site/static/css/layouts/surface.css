@@ -1,7 +1,4 @@
-/**
- * Common styles for surface elements (cards, panels).
- * Surfaces provide a background color and enforce text color contrast.
- */
+/** Common styling for surface-like elements (cards, panels). */
 :is(.card, .panel) {
   background-color: var(--color-background-surface);
   color: var(--color-text-on-surface);

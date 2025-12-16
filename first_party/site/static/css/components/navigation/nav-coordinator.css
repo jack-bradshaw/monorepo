@@ -1,3 +1,5 @@
+/** Styling for a coordinator that arranges multiple navigation menus. */
+
 .nav-coordinator {
   display: flex;
   flex-direction: column;

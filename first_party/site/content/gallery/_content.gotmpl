@@ -1,4 +1,4 @@
-{{/* Generates exhibitions and chronological pages under /gallery */}}
+{{/* Generates the main gallery pages under /gallery */}}
 
 {{ .AddPage (dict
     "kind" "page"
@@ -6,9 +6,8 @@
     "layout" "curated"
     "path" "curated"
     "title" "Curated"
-    "description" "Pieces grouped by theme and series"
-
-) }}
+    "description" "Pieces grouped by theme and series")
+}}
 
 {{ .AddPage (dict
     "kind" "page"
@@ -16,18 +15,16 @@
     "layout" "chronological"
     "path" "chronological"
     "title" "Chronological"
-    "description" "Pieces grouped by production date"
-
-) }}
+    "description" "Pieces grouped by production date")
+}}
 
 {{ .AddPage (dict
     "kind" "page"
     "layout" "highlights"
     "path" "highlights"
     "title" "Highlights"
-    "description" "Hand-picked highlights"
-
-) }}
+    "description" "Hand-picked highlights")
+}}
 
 {{ .AddPage (dict
     "kind" "page"
@@ -35,6 +32,5 @@
     "layout" "palettes"
     "path" "palettes"
     "title" "Palettes"
-    "description" "Pieces grouped by palette"
-
-) }}
+    "description" "Pieces grouped by palette")
+}}

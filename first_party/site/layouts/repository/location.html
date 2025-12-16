@@ -21,7 +21,10 @@ Parameters:
   <details class="content block" open>
     <summary>
       {{ $metadata := index site.Data.repository.location "monorepo" }}
-      {{ partial "content-block-header.html" (dict "title" $metadata.title "subtitle" $metadata.description) }}
+      {{ partial "content-block-header.html" (dict
+        "title" $metadata.title
+        "subtitle" $metadata.description)
+      }}
     </summary>
     <ol class="content items wide-items" role="list">
       {{ range $monorepoItems }}
@@ -40,8 +43,12 @@ Parameters:
         {{ end }}
         {{ end }}
         {{ end }}
-        {{ partial "card/composition/repository-card.html" (dict "images" $icons "title" .title "subtitle" .description
-        "link" .link) }}
+        {{ partial "card/composition/repository-card.html" (dict 
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link)
+        }}
       </li>
       {{ end }}
     </ol>
@@ -52,7 +59,10 @@ Parameters:
   <details class="content block" open>
     <summary>
       {{ $metadata := index site.Data.repository.location "secondary" }}
-      {{ partial "content-block-header.html" (dict "title" $metadata.title "subtitle" $metadata.description) }}
+      {{ partial "content-block-header.html" (dict
+        "title" $metadata.title
+        "subtitle" $metadata.description)
+      }}
     </summary>
     <ol class="content items wide-items" role="list">
       {{ range $secondaryRepoItems }}
@@ -71,8 +81,13 @@ Parameters:
         {{ end }}
         {{ end }}
         {{ end }}
-        {{ partial "card/composition/repository-card.html" (dict "images" $icons "title" .title "subtitle" .description
-        "link" .link) }}
+        {{ partial "card/composition/repository-card.html" (dict
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link
+          )
+        }}
       </li>
       {{ end }}
     </ol>

@@ -1,7 +1,5 @@
-/**
- * Network card component.
- * Centers content.
- */
+/** Styling for a card that displays a single network item. */
+
 .network-card .content-wrapper {
   width: 100%;
 

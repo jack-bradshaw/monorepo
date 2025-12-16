@@ -42,11 +42,11 @@ Parameters: None
         {{ end }}
         {{ $image := strings.TrimPrefix "/static" $series.image }}
         {{ partial "card/composition/gallery-card.html" (dict
-        "image" $image
-        "title" $series.title
-        "subtitle" $subtitle
-        "link" $series.link
-        ) }}
+          "image" $image
+          "title" $series.title
+          "subtitle" $subtitle
+          "link" $series.link)
+        }}
       </li>
       {{ end }}
     </ol>

@@ -19,18 +19,20 @@ Parameters:
         {{ $iconName := . }}
         {{ $staticPath := printf "/static/decorations/technologies/%s.png" $iconName }}
         {{ $webPath := printf "/decorations/technologies/%s.png" $iconName }}
-
         {{ if not (fileExists $staticPath) }}
         {{ errorf "Icon not found for technology: %s" $iconName }}
         {{ else }}
         {{ $icons = $icons | append $webPath }}
         {{ end }}
+        {{ end }}
+        {{ end }}
 
-        {{ end }}
-        {{ end }}
-        {{ partial "card/composition/repository-card.html" (dict "images" $icons "title" .title "subtitle"
-        .description
-        "link" .link) }}
+        {{ partial "card/composition/repository-card.html" (dict
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link)
+        }}
       </li>
       {{ end }}
       {{ end }}
