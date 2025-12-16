@@ -4,7 +4,7 @@ Tests for external build rules and package managers.
 
 ## Release
 
-Not released to third party package managers.
+Not released to third-party package managers.
 
 ## Purpose
 
@@ -31,6 +31,10 @@ This package contains tests for the following external package managers:
 - [Cargo](/first_party/build_tests/cargo)
 - [Maven](/first_party/build_tests/maven)
 - [PIP](/first_party/build_tests/pip)
+
+Tests for rules defined in this repository are not included in this package; instead, they are
+colocated with the code they exercise (e.g. [rules_hugo](/first_party/rules_hugo) and
+[rules_hugo/tests](/first_party/rules_hugo/tests)).
 
 ## Standard
 
