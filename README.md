@@ -40,6 +40,7 @@ packages:
 - [universal](/first_party/universal): Universal models that apply across all domains.
 - [otter](/first_party/otter): An experimental and incomplete video game engine based on JMonkey.
 - [presubmit](/first_party/presubmit): Continuous integration infrastructure.
+- [rules_hugo](/first_party/rules_hugo): Build rules for Hugo.
 - [sasync](/first_party/sasync): Tools for working with Java STDIO in Kotlin.
 - [tofu](/first_party/tofu): Tools for working with open-tofu.
 - [standards](/first_party/standards): Standards for contribution to this repository.
