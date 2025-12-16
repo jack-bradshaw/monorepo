@@ -418,35 +418,6 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//first_party/rules_hugo:fetch_external_repo.bzl%fetch_rules_hugo": {
-      "general": {
-        "bzlTransitiveDigest": "R+D1B+GsDYiLEL+olSYdEEeSUPNzkwbBo35S76lKihY=",
-        "usagesDigest": "FfKVNrYJd7VMiK8gFRW/5tOV8ypgMlAS4g2c8fuvpVY=",
-        "recordedFileInputs": {},
-        "recordedDirentsInputs": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "external_rules_hugo": {
-            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
-            "attributes": {
-              "url": "https://github.com/stackb/rules_hugo/archive/294a8ec626a394011d35397108c930be631ab9fa.zip",
-              "sha256": "8df370f374dc72701b65b7c8a8add8ccb8423a845e973993fa9c68f8b516c9be",
-              "strip_prefix": "rules_hugo-294a8ec626a394011d35397108c930be631ab9fa",
-              "patch_cmds": [
-                "find . -name hugo_repository.bzl -exec sed -i '' 's/macOS-64bit/darwin-universal/g' {} +"
-              ]
-            }
-          }
-        },
-        "recordedRepoMappingEntries": [
-          [
-            "",
-            "bazel_tools",
-            "bazel_tools"
-          ]
-        ]
-      }
-    },
     "@@apple_support+//crosstool:setup.bzl%apple_cc_configure_extension": {
       "general": {
         "bzlTransitiveDigest": "mmhYNTDXSgOxxt10eW/y1OjZejj+dhGDm+f1IMfBlzE=",

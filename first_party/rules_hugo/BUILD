@@ -1,4 +1,4 @@
 exports_files([
-    "hugo.bzl",
-    "rules_hugo.bzl",
+    "fetch_external_repo.bzl",
+    "install_rules_hugo.bzl",
 ])
