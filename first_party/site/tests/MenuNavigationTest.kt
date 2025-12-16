@@ -301,14 +301,14 @@ class MenuNavigationTest {
     harness.setup(ScreenWidth.MEDIUM)
     val page = harness.openPage(startPagePath)
 
-    harness.findElement("text=${menuItem.uiLabel}").click()
+    harness.findElement(page, "text=${menuItem.uiLabel}").click()
 
     assertThat(page).hasUri(harness.endpoint().resolve(destinationPagePath))
   }
 
   /**
-   * Opens [startPagePath] on a small screen, opens the primary navigation panel, clicks
-   * [menuItem], and verifies the browser opened [destinationPagePath].
+   * Opens [startPagePath] on a small screen, opens the primary navigation panel, clicks [menuItem],
+   * and verifies the browser opened [destinationPagePath].
    */
   private fun runCollapsiblePrimaryMenuItemTest(
       menuItem: MenuItem,
@@ -318,8 +318,8 @@ class MenuNavigationTest {
     harness.setup(ScreenWidth.SMALL)
     val page = harness.openPage(startPagePath)
 
-    harness.findElement("nav.primary summary").click()
-    harness.findElement("text=${menuItem.uiLabel}").click()
+    harness.findElement(page, "nav.primary summary").click()
+    harness.findElement(page, "text=${menuItem.uiLabel}").click()
 
     assertThat(page).hasUri(harness.endpoint().resolve(destinationPagePath))
   }
@@ -336,8 +336,8 @@ class MenuNavigationTest {
     harness.setup(ScreenWidth.SMALL)
     val page = harness.openPage(startPagePath)
 
-    harness.findElement("nav.secondary summary").click()
-    harness.findElement("text=${menuItem.uiLabel}").click()
+    harness.findElement(page, "nav.secondary summary").click()
+    harness.findElement(page, "text=${menuItem.uiLabel}").click()
 
     assertThat(page).hasUri(harness.endpoint().resolve(destinationPagePath))
   }

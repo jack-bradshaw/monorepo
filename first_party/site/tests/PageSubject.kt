@@ -35,7 +35,7 @@ private constructor(private val metadata: FailureMetadata, private val actual: P
      *
      * Example usage:
      * ```kotlin
-     * assertWithMessage("page uri is not foo").about(pages).that(page).hasUri(URI.create("http://foo.com"))
+     * assertWithMessage("uri not foo").about(pages).that(page).hasUri(URI.create("http://foo.com"))
      * ```
      */
     private val pages =

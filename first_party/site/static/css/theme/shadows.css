@@ -1,3 +1,4 @@
+/** Semantically-named shadow properties. */
 :root {
   /* Shadows */
   --shadow-offset-y: 4px;

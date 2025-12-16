@@ -1,6 +1,5 @@
-/**
- * Career card component.
- */
+/** Styling for a card that displays a single career item. */
+
 .career-card .content-wrapper {
   padding: var(--gap-medium);
   display: flex;

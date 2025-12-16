@@ -1,4 +1,10 @@
-/* The entire webpage, excluding accessibility elements (e.g. skip-link). */
+/* Styling for root page elements.
+ *
+ * There are two base classes:
+ *
+ * - Root page: The entire webpage, excluding accessibility elements (e.g. skip-link).
+ * - Root main: The main content area of the page.
+*/
 .root.page {
   min-width: 100vw;
   min-height: 100vh;

@@ -24,3 +24,13 @@ pkg_tar(
     name = "packaged",
     srcs = [":site"],
 )
+
+sh_binary(
+    name = "release",
+    srcs = ["release.sh"],
+    data = [
+        "firebase.json",
+        ":packaged",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)

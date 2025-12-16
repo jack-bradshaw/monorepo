@@ -6,11 +6,11 @@ Params:
 */}}
 
 {{ $primaryPages := slice
-(dict "name" "Home" "link" "/")
-(dict "name" "Gallery" "link" "/gallery/highlights")
-(dict "name" "Journal" "link" "/journal/highlights")
-(dict "name" "Repository" "link" "/repository/highlights")
-(dict "name" "About" "link" "/about")
+  (dict "name" "Home" "link" "/")
+  (dict "name" "Gallery" "link" "/gallery/highlights")
+  (dict "name" "Journal" "link" "/journal/highlights")
+  (dict "name" "Repository" "link" "/repository/highlights")
+  (dict "name" "About" "link" "/about")
 }}
 
 {{ $primaryActivePage := "" }}
@@ -38,7 +38,8 @@ Params:
       {{ range $primaryPages }}
       <li>
         {{ $state := cond (eq .name $primaryActivePage) "selected" "unselected" }}
-        <a href="{{ .link }}" class="button {{ $state }}" {{ if eq $state "selected" }} aria-current="page" {{ end }}>
+        <a href="{{ .link }}" class="button {{ $state }}"
+        {{ if eq $state "selected" }} aria-current="page" {{ end }}>
           {{ .name }}
         </a>
       </li>

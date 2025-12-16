@@ -1,10 +1,21 @@
-/**
- * Content Layouts
+/** Styling for page content.
  *
- * Defines the root container and block structure for content pages.
- */
-
-/* Base class for variable definitions */
+ * There are three base classes:
+ *
+ * - Content root: Anchors the content in the center of the main block.
+ * - Content block: A section of content contained within the content root.
+ * - Content items: A collection of items displayed within a content block. 
+ *
+ * The root width is variable (set using narrow or wide subclasses), but the height always fills the
+ * available viewport. Each content block fills the root horizontally and wraps its content height.
+ * Items blocks apply a grid layout to content using a responsive layout, with wide and narrow
+ * subclass options.
+ *
+ * In summary each page has a content root, one or more content blocks, and one or more content
+ * items within each content block. Together they create the main content area of any page.
+ *
+ * Note: The content-block-header component is available to introduce the items in a content block.
+*/
 
 .content {
   --content-root-narrow: 800px;

@@ -1,21 +1,18 @@
-{{/* Generates individual journal item pages under /journals/item */}}
+{{/* Generates a page under /journal/item for each journal item. */}}
 
 {{ range site.Data.journal.items }}
   {{ $itemData := . }}
 
   {{ $monthInt := int $itemData.month }}
-  {{ $yearInt := int $itemData.year }}
-  {{ $monthName := index (dict "1" "January" "2" "February" "3" "March" "4" "April" "5" "May" "6" "June" "7" "July" "8" "August" "9" "September" "10" "October" "11" "November" "12" "December") (printf "%d" $monthInt) }}
-  {{ $date := printf "%s %d" $monthName $yearInt }}
-
-  {{ $title := $itemData.title }}
+  {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
+  {{ $date := printf "%s %d" $monthName (int $itemData.year) }}
 
   {{ $.AddPage (dict
       "kind" "page"
       "type" "journal"
       "layout" "item"
       "path" .key
-      "title" $title
+      "title" $itemData.title
       "description" $date
       "params" (dict "key" .key))
   }}

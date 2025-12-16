@@ -1,4 +1,4 @@
+/** Semantically-named elevation properties. */
 :root {
-  /* Elevations (Interactables) */
   --elevation-raised: -2px;
 }

@@ -1,7 +1,5 @@
-/**
- * Header for content sections.
- * Displays title, subtitle, and optional item count.
- */
+/** Styling for a section header that introduces the content in a content block. */
+
 .content-block-header {
   width: 100%;
 

@@ -178,7 +178,6 @@
       "sol_core_2022",
       "sol_corona_2022",
       "fire_spirit_2024",
-      "first_2024_2024",
       "clearing_the_debris_2025",
       "free_expression_2023",
       "relief_2023",
@@ -190,7 +189,7 @@
     "key": "monochromatic-orange",
     "title": "Monochromatic (Orange)",
     "description": "Variations and tints of orange",
-    "items": ["saturn_2025", "part_3_2022", "beta_2022"]
+    "items": ["saturn_2025", "part_3_2022", "beta_2022", "first_2024_2024"]
   },
   {
     "key": "monochromatic-red",
@@ -244,7 +243,6 @@
       "it_stares_back_2024"
     ]
   },
-
   {
     "key": "magenta-violet-analogous",
     "title": "Magenta-Violet Analogous",
@@ -278,7 +276,6 @@
       "the_tools_2024"
     ]
   },
-
   {
     "key": "no-category",
     "title": "Uncategorized",

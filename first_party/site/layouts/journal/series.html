@@ -5,6 +5,7 @@ Parameters:
 * key: "series" (implied)
 */}}
 {{ define "main" }}
+
 {{ $itemMap := dict }}
 {{ range site.Data.journal.items }}
 {{ $itemMap = merge $itemMap (dict .key .) }}
@@ -22,8 +23,7 @@ Parameters:
 
 {{ $monthInt := int $item.month }}
 {{ $yearInt := int $item.year }}
-{{ $monthName := index (dict "1" "January" "2" "February" "3" "March" "4" "April" "5" "May" "6" "June" "7" "July" "8"
-"August" "9" "September" "10" "October" "11" "November" "12" "December") (printf "%d" $monthInt) }}
+{{ $monthName := partial "utils/get-month-name.html" $monthInt }}
 {{ $date := printf "%s %d" $monthName $yearInt }}
 {{ $link := printf "/journal/item/%s" $item.key }}
 
@@ -39,8 +39,7 @@ Parameters:
 {{ $item := . }}
 {{ $monthInt := int $item.month }}
 {{ $yearInt := int $item.year }}
-{{ $monthName := index (dict "1" "January" "2" "February" "3" "March" "4" "April" "5" "May" "6" "June" "7" "July" "8"
-"August" "9" "September" "10" "October" "11" "November" "12" "December") (printf "%d" $monthInt) }}
+{{ $monthName := partial "utils/get-month-name.html" $monthInt }}
 {{ $date := printf "%s %d" $monthName $yearInt }}
 {{ $link := printf "/journal/item/%s" $item.key }}
 {{ $standaloneItems = $standaloneItems | append (merge $item (dict "date" $date "link" $link)) }}
@@ -62,8 +61,10 @@ Parameters:
     <ol class="content items wide-items" role="list">
       {{ range .items }}
       <li>
-        {{ partial "card/composition/journal-card.html" (dict "title" .title "description" .description
-        "link" .link)
+        {{ partial "card/composition/journal-card.html" (dict 
+          "title" .title
+          "description" .description
+          "link" .link)
         }}
       </li>
       {{ end }}

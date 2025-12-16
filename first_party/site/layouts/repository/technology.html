@@ -42,9 +42,12 @@ Parameters:
         {{ end }}
         {{ end }}
         {{ end }}
-        {{ partial "card/composition/repository-card.html" (dict "images" $icons "title" .title "subtitle"
-        .description
-        "link" .link) }}
+        {{ partial "card/composition/repository-card.html" (dict 
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link)
+        }}
       </li>
       {{ end }}
     </ol>

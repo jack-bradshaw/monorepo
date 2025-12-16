@@ -21,7 +21,8 @@ Params:
       {{ range .pages }}
       <li>
         {{ $state := cond (eq .name $activePage) "selected" "unselected" }}
-        <a href="{{ .link }}" class="button {{ $state }}" {{ if eq $state "selected" }} aria-current="page" {{ end }}>
+        <a href="{{ .link }}" class="button {{ $state }}"
+        {{ if eq $state "selected" }} aria-current="page" {{ end }}>
           {{ .name }}
         </a>
       </li>

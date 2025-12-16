@@ -2,7 +2,6 @@ package com.jackbradshaw.site.tests
 
 import com.google.common.truth.Truth.assertWithMessage
 import com.microsoft.playwright.Page
-import com.microsoft.playwright.options.LoadState
 import com.microsoft.playwright.options.ScreenshotAnimations
 import com.microsoft.playwright.options.ScreenshotCaret
 import com.microsoft.playwright.options.ScreenshotType
@@ -261,8 +260,8 @@ class AppearanceTest {
     harness.setup(ScreenWidth.SMALL)
 
     val page = harness.openPage(URI.create("/"))
-    harness.findElement("nav.primary summary").click()
-    harness.findElement("nav.primary details[open]").waitFor()
+    harness.findElement(page, "nav.primary summary").click()
+    harness.findElement(page, "nav.primary details[open]").waitFor()
 
     performScreendiff(page)
   }
@@ -272,8 +271,8 @@ class AppearanceTest {
     harness.setup(ScreenWidth.SMALL)
 
     val page = harness.openPage(URI.create("/gallery/highlights"))
-    harness.findElement("nav.secondary summary").click()
-    harness.findElement("nav.secondary details[open]").waitFor()
+    harness.findElement(page, "nav.secondary summary").click()
+    harness.findElement(page, "nav.secondary details[open]").waitFor()
 
     performScreendiff(page)
   }
@@ -281,9 +280,9 @@ class AppearanceTest {
   /**
    * Verifies the page identified by [path] matches the golden screenshot.
    *
-   * Opens [path] on a screen widht width [size], captures a screenshot, and compares it to the golden
-   * screenshot. The test will fail if the golden file does not exist or if the screenshots do not
-   * match exactly (byte wise). Path must be relative to the root of the site.
+   * Opens [path] on a screen widht width [size], captures a screenshot, and compares it to the
+   * golden screenshot. The test will fail if the golden file does not exist or if the screenshots
+   * do not match exactly (byte wise). Path must be relative to the root of the site.
    */
   private fun runPageScreendiffTest(
       path: URI,
@@ -298,7 +297,7 @@ class AppearanceTest {
 
   /** Captures a screenshot of [page] and verifies it matches the golden screenshot. */
   private fun performScreendiff(page: Page) {
-   val screenshot = captureScreenshot(page)
+    val screenshot = captureScreenshot(page)
 
     val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     val goldenPath = harness.getRunfile(GOLDEN_DIR.resolve(goldenName))
@@ -323,10 +322,10 @@ class AppearanceTest {
               .setType(ScreenshotType.PNG)
               .setAnimations(ScreenshotAnimations.DISABLED)
               .setCaret(ScreenshotCaret.HIDE))
-  
+
   /**
-   * Saves [screenshot] to the during-test output directory in a file named [goldenName], and returns
-   * the absolute path to the file in the post-test output directory.
+   * Saves [screenshot] to the during-test output directory in a file named [goldenName], and
+   * returns the absolute path to the file in the post-test output directory.
    */
   private fun saveScreenshot(screenshot: ByteArray, goldenName: String): Path {
     val path = DURING_TEST_SCREENSHOT_OUTPUT_LOCATION.resolve(goldenName)
@@ -341,14 +340,13 @@ class AppearanceTest {
           check(it != null) { "TEST_UNDECLARED_OUTPUTS_DIR environmental variable not set." }
         }
 
-    /**
-     * There directory where Bazel moves test artefacts to after the test ends.
-     */
-    private val POST_TEST_SCREENSHOT_OUTPUT_LOCATION = Paths.get(
-        "bazel-testlogs/first_party/site/tests/appearance_test")
-        .resolve("shard_${System.getenv("TEST_SHARD_INDEX").toInt() + 1}" +
-        "_of_${System.getenv("TEST_TOTAL_SHARDS")}")
-        .resolve("test.outputs")
+    /** There directory where Bazel moves test artefacts to after the test ends. */
+    private val POST_TEST_SCREENSHOT_OUTPUT_LOCATION =
+        Paths.get("bazel-testlogs/first_party/site/tests/appearance_test")
+            .resolve(
+                "shard_${System.getenv("TEST_SHARD_INDEX").toInt() + 1}" +
+                    "_of_${System.getenv("TEST_TOTAL_SHARDS")}")
+            .resolve("test.outputs")
 
     /** The directory where screendiff goldens are stored, relative to the runfiles root. */
     private val GOLDEN_DIR = Paths.get("_main/first_party/site/tests/goldens")

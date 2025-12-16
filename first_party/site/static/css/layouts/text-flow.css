@@ -1,3 +1,4 @@
+/** Styling for a text flow (i.e. multiple text blocks arranged in a vertical stack). */
 .text-flow {
   display: flex;
   flex-direction: column;

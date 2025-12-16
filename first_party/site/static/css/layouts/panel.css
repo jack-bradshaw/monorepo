@@ -1,3 +1,4 @@
+/** Styling for panels (i.e. a non-raised surface with clear bounding). */
 .panel {
   width: 100%;
   padding: var(--gap-medium);

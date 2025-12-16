@@ -1,3 +1,4 @@
+/** Semantically-named background properties. */
 :root {
   /* Backgrounds (Dark Mode) */
   --color-background-page: var(--color-grey-950);

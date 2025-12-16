@@ -35,12 +35,13 @@ Parameters: the series key of the series to display
         {{ $subtitle = $item.description }}
         {{ end }}
         {{ $image := strings.TrimPrefix "/static" $item.file }}
+        
         {{ partial "card/composition/gallery-card.html" (dict
-        "image" $image
-        "title" $item.title
-        "subtitle" $subtitle
-        "link" (printf "/gallery/item/%s" $item.key)
-        ) }}
+          "image" $image
+          "title" $item.title
+          "subtitle" $subtitle
+          "link" (printf "/gallery/item/%s" $item.key))
+        }}
       </li>
       {{ end }}
       {{ end }}
