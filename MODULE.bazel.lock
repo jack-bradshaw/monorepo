@@ -418,6 +418,64 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
+    "//first_party/rules_hugo:fetch_hugo_executable.bzl%fetch_hugo_executable": {
+      "general": {
+        "bzlTransitiveDigest": "ZX8ZajeoxcZaLlZXMlrQTKEWltUD+2ru92WyP9y+9rc=",
+        "usagesDigest": "EExoLlt6ZkIgnD3Zs9fFAmnrLjqv3WZx1+rSL2XTLhQ=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "hugo": {
+            "repoRuleId": "@@+fetch_rules_hugo+rules_hugo//hugo:internal/hugo_repository.bzl%hugo_repository",
+            "attributes": {
+              "version": "0.152.2"
+            }
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "",
+            "rules_hugo",
+            "+fetch_rules_hugo+rules_hugo"
+          ],
+          [
+            "+fetch_rules_hugo+rules_hugo",
+            "bazel_tools",
+            "bazel_tools"
+          ]
+        ]
+      }
+    },
+    "//first_party/rules_hugo:fetch_rules_hugo.bzl%fetch_rules_hugo": {
+      "general": {
+        "bzlTransitiveDigest": "1ZztAMVy/5uroA/162bs5wnZ+pOnJnQ72Q2Lh5eRvEM=",
+        "usagesDigest": "GgT/aOvARS3B2bC2LsM0XIgptnP1NdCgXxrKarkvtjQ=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "rules_hugo": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+            "attributes": {
+              "url": "https://github.com/stackb/rules_hugo/archive/294a8ec626a394011d35397108c930be631ab9fa.zip",
+              "sha256": "8df370f374dc72701b65b7c8a8add8ccb8423a845e973993fa9c68f8b516c9be",
+              "strip_prefix": "rules_hugo-294a8ec626a394011d35397108c930be631ab9fa",
+              "patch_cmds": [
+                "if [[ \"$(uname)\" == \"Darwin\" ]];            then find . -name hugo_repository.bzl            -exec sed -i '' 's/macOS-64bit/darwin-universal/g' {} +; fi"
+              ]
+            }
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "",
+            "bazel_tools",
+            "bazel_tools"
+          ]
+        ]
+      }
+    },
     "@@apple_support+//crosstool:setup.bzl%apple_cc_configure_extension": {
       "general": {
         "bzlTransitiveDigest": "mmhYNTDXSgOxxt10eW/y1OjZejj+dhGDm+f1IMfBlzE=",

@@ -1,1 +1,0 @@
-filegroup(name = "swiftformat_mac", srcs=["swiftformat"], visibility=["//visibility:public"])

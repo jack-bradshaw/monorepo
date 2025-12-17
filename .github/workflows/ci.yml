@@ -86,6 +86,19 @@ jobs:
           echo "Disk space cleanup complete."
           echo "Disk space after cleanup:"
           df -h
+      - name: Cache Bazel Artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/bazel-disk-cache
+            ~/.cache/bazel-repo-cache
+          # 1. Primary Key: Unique per run (using github.run_id).
+          #    This forces a "cache miss" on the exact key, triggering a save at the end.
+          key: bazel-cache-${{ github.run_id }}
+          # 2. Restore Keys: Matches any key starting with "bazel-cache-".
+          #    This loads the most recent cache available (e.g., from the previous run).
+          restore-keys: |
+            bazel-cache-
       - uses: actions/checkout@v4
       - name: run_presubmit_script
         run: |

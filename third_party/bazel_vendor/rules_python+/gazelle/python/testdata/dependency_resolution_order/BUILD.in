@@ -1,2 +1,0 @@
-# gazelle:resolve py bar //somewhere/bar
-# gazelle:resolve py third_party.foo //third_party/foo

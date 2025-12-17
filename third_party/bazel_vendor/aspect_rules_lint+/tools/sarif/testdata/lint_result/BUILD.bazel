@@ -1,5 +1,0 @@
-filegroup(
-    name = "lint_result",
-    srcs = glob(["*.txt"]),
-    visibility = ["//tools/sarif:__pkg__"],
-)

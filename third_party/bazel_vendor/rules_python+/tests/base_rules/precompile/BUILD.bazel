@@ -1,3 +1,0 @@
-load(":precompile_tests.bzl", "precompile_test_suite")
-
-precompile_test_suite(name = "precompile_tests")

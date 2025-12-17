@@ -1,7 +1,0 @@
-load("//:resolved.bzl", "resolved")
-
-resolved(
-    name = "{{target}}",
-    toolchain_type = "{{toolchain_type}}",
-    visibility = ["//visibility:public"],
-)

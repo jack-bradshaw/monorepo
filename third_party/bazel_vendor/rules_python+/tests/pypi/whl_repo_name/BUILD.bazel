@@ -1,3 +1,0 @@
-load(":whl_repo_name_tests.bzl", "whl_repo_name_test_suite")
-
-whl_repo_name_test_suite(name = "whl_repo_name_tests")
