@@ -1,4 +1,0 @@
-exports_files(
-    ["hello-world.txt"],
-    visibility = ["//visibility:public"],
-)

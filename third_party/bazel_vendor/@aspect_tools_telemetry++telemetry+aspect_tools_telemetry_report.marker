@@ -1,4 +1,0 @@
-d9d8829a012f61113800b834e2c391d80a3a1e307bad7cab5b4d89747dd7c9d3
-FILE:@@//README.md 72367cb460691abc2432260041a42a8cd5d1c2f62e621714130635d8dee52bf9
-REPO_MAPPING:aspect_tools_telemetry+,aspect_bazel_lib aspect_bazel_lib+
-REPO_MAPPING:aspect_tools_telemetry+,bazel_skylib bazel_skylib+

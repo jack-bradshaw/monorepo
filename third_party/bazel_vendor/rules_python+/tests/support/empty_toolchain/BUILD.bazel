@@ -1,3 +1,0 @@
-load(":empty.bzl", "empty_toolchain")
-
-empty_toolchain(name = "empty")

@@ -14,9 +14,6 @@ build --java_runtime_version=remotejdk_11
 build --tool_java_language_version=11
 build --tool_java_runtime_version=remotejdk_11
 
-# Store a copy of all external deps in /vendor for reproducibility and offline support.
-common --vendor_dir=third_party/bazel_vendor
-
 # Store artifacts outside the repo to avoid accidental check-ins to VCS.
 startup --output_base=/tmp/bazel-out
 
@@ -33,3 +30,7 @@ build:android_arm64 --crosstool_top=@rules_android//toolchains/ndk:toolchain_arm
 build:android_arm64 --cpu=arm64-v8a
 build:android_arm64 --fat_apk_cpu=arm64-v8a
 build:android_arm64 --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+# Add these to .bazelrc to force Bazel to write to the paths the GitHub Action expects
+build --disk_cache=~/.cache/bazel-disk-cache
+common --repository_cache=~/.cache/bazel-repo-cache

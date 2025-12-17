@@ -1,6 +1,0 @@
-/.cache
-/bazel-bin
-/bazel-testlogs
-/bazel-e2e
-/bazel-out
-/.bazelrc.user

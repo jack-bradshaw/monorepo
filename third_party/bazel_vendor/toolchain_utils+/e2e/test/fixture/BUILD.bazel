@@ -1,4 +1,0 @@
-exports_files(
-    ["hello-world.txt"],
-    visibility = ["//:__subpackages__"],
-)

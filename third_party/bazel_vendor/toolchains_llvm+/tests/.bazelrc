@@ -1,2 +1,0 @@
-common --incompatible_disallow_empty_glob
-build --features=layering_check

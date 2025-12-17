@@ -1,2 +1,0 @@
-TELEMETRY = 1
-        

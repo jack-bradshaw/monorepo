@@ -26,9 +26,8 @@ subject to the `foo` license, except for the recursive contents of `bar`, which 
 ## Contents
 
 The contents of the repository are divided into [first_party](/first_party), which contains all
-materials originating from this repository, and [third_party](/third_party), which contains vendored
-[external dependencies](/external_dependencies.md). First party contains the following top-level
-packages:
+materials originating from this repository, and [third_party](/third_party), which contains
+everything else. First party contains the following top-level packages:
 
 - [autofactory](/first_party/autofactory): AutoFactory Bazel integration.
 - [build_tests](/first_party/build_tests): Build system tests.
@@ -46,6 +45,9 @@ packages:
 - [standards](/first_party/standards): Standards for contribution to this repository.
 - [writing](/first_party/writing): Creative and technical writing.
 
+Some files are contained in the root directory for integration with the build system and other
+tooling.
+
 ## Build System
 
 This repository uses [Bazel](https://bazel.build) exclusively and universally. The commands to build
@@ -58,6 +60,11 @@ integration system. It runs automatically on GitHub and must pass before submiss
 Furthermore, trunk-based development is exclusively used, meaning rebasing onto main is the only
 acceptable method of submission, and all releases occur from main. GitFlow and other branch-based
 models are not used.
+
+## External Dependencies
+
+Package managers are used to access external packages (details in
+[external dependencies](/external_dependencies.md)).
 
 ## Licensing Agreement
 

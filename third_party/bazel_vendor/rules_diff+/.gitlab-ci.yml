@@ -1,7 +1,0 @@
-include:
-  - component: "${CI_SERVER_HOST}/ci/component/bazelisk/ruleset@v1.2.1"
-
-default:
-  tags:
-    - arm64
-    - linux

@@ -1,3 +1,0 @@
-extends:
-  - "@semantic-release/config-release-channels"
-  - "@semantic-release/config-gitlab-bzlmod"
