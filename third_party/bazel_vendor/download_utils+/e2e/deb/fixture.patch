@@ -1,6 +1,0 @@
-diff '--color=auto' -aur a/etc/test/fixture.txt b/etc/test/fixture.txt
---- a/etc/test/fixture.txt	2023-09-22 09:19:24.894179455 +0100
-+++ b/etc/test/fixture.txt	2023-09-22 09:19:35.164080365 +0100
-@@ -1 +1,2 @@
- Hello, world!
-+Debian rules!

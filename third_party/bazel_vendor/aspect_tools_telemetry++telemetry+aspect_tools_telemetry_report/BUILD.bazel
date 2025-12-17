@@ -1,1 +1,0 @@
-exports_files(["report.json", "defs.bzl"], visibility = ["//visibility:public"])

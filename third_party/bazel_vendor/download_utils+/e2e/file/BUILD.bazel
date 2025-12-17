@@ -1,8 +1,0 @@
-load("//diff/file/test:defs.bzl", "diff_file_test")
-
-diff_file_test(
-    name = "fixture",
-    size = "small",
-    a = "@file//:fixture.txt",
-    b = ":fixture.txt",
-)
