@@ -73,5 +73,14 @@
         "link": "https://www.patreon.com/posts/challenge-of-129070143"
       }
     ]
+  },
+  {
+    "key": "cursed-cursor",
+    "title": "The Cursed Cursor",
+    "description": "Narrates the stream of consciousness of a Staff Software Engineer experiencing professional burnout. Juxtaposes the triviality of maintaining a text cursor against the corporate significance assigned to its implementation. Concludes with an existential reflection on the hollowness of modern technical labor.",
+    "is_draft": true,
+    "year": 2025,
+    "month": 12,
+    "file": "/static/content/journal/the_cursed_cursor.md"
   }
 ]
