@@ -116,7 +116,7 @@ jobs:
         with:
           name: bazel-test-logs
           path: |
-            bazel-testlogs/**/*.png
+            bazel-testlogs/**/*
       - name: Save Bazel Cache
         uses: actions/cache/save@v4
         if: always()
