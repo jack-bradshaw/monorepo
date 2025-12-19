@@ -95,17 +95,13 @@ jobs:
         run: |
           npm install @playwright/test
           npx playwright@1.49.0 install --with-deps
-      - name: Cache Bazel Artifacts
+      - name: Restore Bazel Cache
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/bazel-disk-cache
             ~/.cache/bazel-repo-cache
-          # 1. Primary Key: Unique per run (using github.run_id).
-          #    This forces a "cache miss" on the exact key, triggering a save at the end.
           key: bazel-cache-${{ github.run_id }}
-          # 2. Restore Keys: Matches any key starting with "bazel-cache-".
-          #    This loads the most recent cache available (e.g., from the previous run).
           restore-keys: |
             bazel-cache-
       - uses: actions/checkout@v4
@@ -121,3 +117,11 @@ jobs:
           name: bazel-test-logs
           path: |
             bazel-testlogs/**/*.png
+      - name: Save Bazel Cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            ~/.cache/bazel-disk-cache
+            ~/.cache/bazel-repo-cache
+          key: bazel-cache-${{ github.run_id }}
