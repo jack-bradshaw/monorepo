@@ -35,7 +35,7 @@
 
 /* Selected State: Non-clickable, active appearance */
 .button.selected {
-  cursor: default;
+  cursor: pointer;
   background-color: var(--color-background-button-active);
   color: var(--color-text-on-button-active);
   font-weight: 700;
