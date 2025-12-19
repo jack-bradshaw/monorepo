@@ -17,9 +17,9 @@ Parameters:
 {{ range site.Data.journal.series }}
 {{ $series := . }}
 {{ $resolvedItems := slice }}
-{{ range $series.items }}
-{{ $itemsInSeries = $itemsInSeries | append . }}
 {{ $item := index $itemMap . }}
+{{ if and $item (not $item.is_draft) }}
+{{ $itemsInSeries = $itemsInSeries | append . }}
 
 {{ $monthInt := int $item.month }}
 {{ $yearInt := int $item.year }}
@@ -35,7 +35,7 @@ Parameters:
 {{/* Identify Standalone Items */}}
 {{ $standaloneItems := slice }}
 {{ range site.Data.journal.items }}
-{{ if not (in $itemsInSeries .key) }}
+{{ if and (not (in $itemsInSeries .key)) (not .is_draft) }}
 {{ $item := . }}
 {{ $monthInt := int $item.month }}
 {{ $yearInt := int $item.year }}
@@ -61,10 +61,10 @@ Parameters:
     <ol class="content items wide-items" role="list">
       {{ range .items }}
       <li>
-        {{ partial "card/composition/journal-card.html" (dict 
-          "title" .title
-          "description" .description
-          "link" .link)
+        {{ partial "card/composition/journal-card.html" (dict
+        "title" .title
+        "description" .description
+        "link" .link)
         }}
       </li>
       {{ end }}
