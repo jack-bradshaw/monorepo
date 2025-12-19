@@ -30,7 +30,9 @@ Parameters:
     </summary>
     <ol class="content items wide-items" role="list">
       {{ range .items }}
+      {{ if and . (not .is_draft) }}
       <li>
+
         {{ $monthInt := int .month }}
         {{ $yearInt := int .year }}
         {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
@@ -42,6 +44,7 @@ Parameters:
           "link" (printf "/journal/item/%s" .key))
         }}
       </li>
+      {{ end }}
       {{ end }}
     </ol>
   </details>

@@ -20,18 +20,18 @@ Parameters:
       {{ end }}
 
       {{ range .items }}
-      
+
       {{ $item := index $itemMap . }}
-      {{ if $item }}
+      {{ if and $item (not $item.is_draft) }}
       {{ $monthInt := int $item.month }}
       {{ $yearInt := int $item.year }}
       {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
       {{ $date := printf "%s %d" $monthName $yearInt }}
-      
+
       {{ partial "card/composition/journal-card.html" (dict
-        "title" $item.title
-        "description" $item.description
-        "link" (printf "/journal/item/%s" $item.key))
+      "title" $item.title
+      "description" $item.description
+      "link" (printf "/journal/item/%s" $item.key))
       }}
 
       {{ end }}
