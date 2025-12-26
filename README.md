@@ -42,8 +42,7 @@ everything else. First party contains the following top-level packages:
 - [rules_hugo](/first_party/rules_hugo): Build rules for Hugo.
 - [sasync](/first_party/sasync): Tools for working with Java STDIO in Kotlin.
 - [tofu](/first_party/tofu): Tools for working with open-tofu.
-- [standards](/first_party/standards): Standards for contribution to this repository.
-- [writing](/first_party/writing): Creative and technical writing.
+- [contributing](/first_party/contributing): Contribution standards, practices, and guidelines.
 
 Some files are contained in the root directory for integration with the build system and other
 tooling.
@@ -72,7 +71,7 @@ There is no CLA.
 
 ## Contributions
 
-Third-party contributions are accepted in some packages, as specified in the READMEs distributed
-throughout the repository. All contributions must conform to the
-[repository wide standards](/first_party/standards), and some packages provide package-scoped
-standards.
+The READMEs throughout the repository specify which packages accept third-party contributions. All
+contributions must conform to the
+[repository wide contribution directives](/first_party/contributing), and some packages provide
+package-scoped contribution directives.
