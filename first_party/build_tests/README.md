@@ -36,6 +36,8 @@ Tests for rules defined in this repository are not included in this package; ins
 colocated with the code they exercise (e.g. [rules_hugo](/first_party/rules_hugo) and
 [rules_hugo/tests](/first_party/rules_hugo/tests)).
 
-## Standard
+## Contributions
 
-The standard for these tests is documented in the [Build Tests Standard](build_tests_standard.md).
+Accepting contributions from third parties. In addition to the repository-wide contribution
+directives, all contributions to this package and its subpackages must conform to the
+[Directives](directives.md).

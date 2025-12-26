@@ -7,11 +7,16 @@ py_library(
     srcs = ["library.py"],
 )
 
+py_library(
+    name = "lib",
+    srcs = ["library.py"],
+)
+
 py_binary(
     name = "py_binary_must_build",
     srcs = ["binary.py"],
     main = "binary.py",
-    deps = [":py_library_must_build"],
+    deps = [":lib"],
 )
 
 py_test(
