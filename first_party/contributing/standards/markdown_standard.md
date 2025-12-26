@@ -4,15 +4,14 @@ The standard for Markdown files in this repository.
 
 ## Scope
 
-All Markdown files in this repository must conform to this standard. The recursive contents of
-[third_party](/third_party) are excepted as the contents are sourced from third parties.
+All Markdown files in this repository must conform to this standard; however, the contents of
+[third_party](/third_party) are exempt as they originate from other repositories.
 
 ## Headings
 
 Headings must adhere to the following requirements:
 
 - Headings must use title case.
-- Headings may be sentence fragments.
 - Headings must fit on one line.
 - Headings must not exceed level four.
 - Headings must have at least one body line between them.
@@ -34,8 +33,7 @@ Lists must adhere to the following requirements:
 
 - Lists must be preceded by an introductory body line.
 - Lists must not contain blank lines between items.
-- Lists must not be empty but may contain only a single element if necessary.
-- Lists must omit trailing punctuation when the items are sentence fragments.
+- List items must not be bolded (e.g. `- ListItem` not `- **ListItem**`).
 
 This section contains an example of a standard-conformant list.
 
@@ -43,6 +41,6 @@ This section contains an example of a standard-conformant list.
 
 References must adhere to the following requirements:
 
-- Filesystem references must be referenced with square-bracket links (not backticks).
+- Filesystem references must use square-bracket links (not backticks).
 - Link addresses must be absolute references (relative to the repository root). Links to sections
   within the same file are excepted and may use relative references.

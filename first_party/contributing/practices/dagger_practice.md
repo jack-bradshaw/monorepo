@@ -1,6 +1,6 @@
-# Dagger Standard
+# Dagger Practice
 
-The standard for Dagger in this repository. It encodes a pattern for Dagger that scales to an
+The practice for Dagger in this repository. It encodes a pattern for Dagger that scales to an
 arbitrary number of modules/components, while reducing manual typing and avoiding Bazel integration
 antipatterns.
 
@@ -23,7 +23,7 @@ Components must adhere to the following general requirements:
 - Components must be bound to a custom Dagger scope (i.e. annotated with a custom Dagger scope
   annotation).
 - Components may include modules from their own package and its subpackages; however, components
-  must not include modules from subpackages if another component exists in a package between them. A
+  must not include modules from subpackages when another component exists in a package between them. A
   component dependency must be used in that case.
 - Components must each have a unique custom scope named `${componentName}Scope`, where
   `componentName` is the related component.
@@ -33,6 +33,7 @@ Components must adhere to the following general requirements:
 Component dependencies must adhere to the following requirements:
 
 - Components may depend on components from any package.
+- Subcomponents must not be used.
 
 ## Component Builders
 
