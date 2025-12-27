@@ -1,1 +1,0 @@
-- Lists must omit trailing punctuation when the items are sentence fragments.
