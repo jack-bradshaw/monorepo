@@ -13,29 +13,35 @@ Parameters:
 
 <div class="content root wide-root">
   {{ range site.Data.journal.topics }}
+  {{ $visibleItems := slice }}
+  {{ range .items }}
+    {{ $item := index $itemMap . }}
+    {{ if and $item (not $item.is_draft) }}
+      {{ $visibleItems = $visibleItems | append $item }}
+    {{ end }}
+  {{ end }}
+
+  {{ if gt (len $visibleItems) 0 }}
   <details class="content block" open>
     <summary>
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">
-      {{ range .items }}
-
-      {{ $item := index $itemMap . }}
-      {{ if and $item (not $item.is_draft) }}
-      {{ $monthInt := int $item.month }}
-      {{ $yearInt := int $item.year }}
+      {{ range $visibleItems }}
+      {{ $monthInt := int .month }}
+      {{ $yearInt := int .year }}
       {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
       {{ $date := printf "%s %d" $monthName $yearInt }}
       
       {{ partial "card/composition/journal-card.html" (dict 
-        "title" $item.title
-        "description" $item.description
-        "link" (printf "/journal/item/%s" $item.key))
+        "title" .title
+        "description" .description
+        "link" (printf "/journal/item/%s" .key))
       }}
-      {{ end }}
       {{ end }}
     </ol>
   </details>
+  {{ end }}
   {{ end }}
 </div>
 {{ end }}

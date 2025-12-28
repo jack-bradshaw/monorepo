@@ -67,8 +67,8 @@ class ContentNavigationTest {
   fun clickJournalItem_topicsPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/journal/topics"),
-        expectedDestinationPagePath = URI.create("/journal/item/pragmatic-altruism"),
-        itemLabel = "Pragmatic Altruism")
+        expectedDestinationPagePath = URI.create("/journal/item/sports-bar"),
+        itemLabel = "Sports Bar")
   }
 
   @Test
