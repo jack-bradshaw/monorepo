@@ -13,6 +13,8 @@ import com.jackbradshaw.otter.openxr.standard.StandardInteractionProfile.OCCULUS
 import com.jackbradshaw.otter.openxr.standard.StandardInteractionProfile.VALVE_INDEX_CONTROLLER
 import java.io.File
 
+private val runfiles = Runfiles.preload().unmapped()
+
 val goldenPrimaryManifest = readGoldenFile("primary_manifest.json")
 val goldenSecondaryManifests =
     buildMap<StandardInteractionProfile, String> {
@@ -30,8 +32,5 @@ val goldenSecondaryManifests =
     }
 
 private fun readGoldenFile(filename: String) =
-    File(
-            Runfiles.create()
-                .rlocation(
-                    "com_jackbradshaw/first_party/otter/openxr/manifest/testgoldens/$filename"))
+    File(runfiles.rlocation("_main/first_party/otter/openxr/manifest/testgoldens/$filename"))
         .readText()
