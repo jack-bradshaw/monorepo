@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# The ID of the Firebase project that hosts the website
+PROJECT_ID=websitejackbradshawcom
+
 # Fail fast to avoid breaking production.
 set -e
 
@@ -63,13 +66,6 @@ echo "Artefacts extracted."
 echo "Configuring Firebase."
 
 npx firebase-tools login
-
-echo "Enter the ID of the Firebase Project to deploy to."
-read -r PROJECT_ID
-if [[ -z "$PROJECT_ID" ]]; then
-	echo "Error: Project ID cannot be empty. Exiting."
-	exit 1
-fi
 
 echo "Firebase configured."
 

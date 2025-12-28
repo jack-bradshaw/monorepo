@@ -48,7 +48,7 @@ kt_jvm_test(
 )
 
 kt_jvm_test(
-    name = "item_navigation_test",
+    name = "content_navigation_test",
     size = "medium",
     srcs = ["ContentNavigationTest.kt"],
     shard_count = 14,
