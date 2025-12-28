@@ -31,8 +31,6 @@ val goldenSecondaryManifests =
 
 private fun readGoldenFile(filename: String) =
     File(
-            Runfiles.preload()
-                .unmapped()
-                .rlocation(
-                    "com_jackbradshaw/first_party/otter/openxr/manifest/testgoldens/$filename"))
+            Runfiles.preload().unmapped()
+                .rlocation("_main/first_party/otter/openxr/manifest/testgoldens/$filename"))
         .readText()
