@@ -63,7 +63,8 @@ class ManifestGeneratorTest {
   }
 
   private fun readGolden(relativeFilename: String) =
-      File(Runfiles.create().rlocation("$BASE_GOLDEN_PATH/$relativeFilename")).readText()
+      File(Runfiles.preload().unmapped().rlocation("$BASE_GOLDEN_PATH/$relativeFilename"))
+          .readText()
 
   companion object {
     private const val BASE_GOLDEN_PATH =
