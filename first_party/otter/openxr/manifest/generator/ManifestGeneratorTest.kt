@@ -63,11 +63,11 @@ class ManifestGeneratorTest {
   }
 
   private fun readGolden(relativeFilename: String) =
-      File(Runfiles.create().rlocation("$BASE_GOLDEN_PATH/$relativeFilename")).readText()
+      File(runfiles.rlocation("$BASE_GOLDEN_PATH/$relativeFilename")).readText()
 
   companion object {
-    private const val BASE_GOLDEN_PATH =
-        "com_jackbradshaw/first_party/otter/openxr/manifest/testgoldens"
+    private val runfiles = Runfiles.preload().unmapped()
+    private const val BASE_GOLDEN_PATH = "_main/first_party/otter/openxr/manifest/testgoldens"
   }
 }
 
