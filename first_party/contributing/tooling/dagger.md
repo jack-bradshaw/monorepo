@@ -82,13 +82,13 @@ Example:
 
 ```kotlin
 // Definition
-interface FooComponent
+interface FooComponent {
+  fun foo(): Foo
+}
 
 // Production Implementation
 @Component(modules = [FooModule::class])
-interface ProdFooComponent : FooComponent {
-  fun foo(): Foo
-}
+interface ProdFooComponent : FooComponent
 
 // Testing Implementation
 @Component(modules = [FakeFooModule::class])
@@ -97,7 +97,13 @@ interface TestFooComponent : FooComponent {
 }
 
 @Component(dependencies = [FooComponent::class])
-interface BarComponent
+interface BarComponent {
+  @Component.Builder
+  interface Builder {
+    fun consuming(fooComponent: FooComponent): Builder
+    fun build(): BarComponent
+  }
+}
 ```
 
 This ensures Dagger code follows general engineering principles (separation of interface and
