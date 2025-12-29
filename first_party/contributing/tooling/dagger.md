@@ -1,10 +1,15 @@
 # Dagger Directives
 
-Directives for Dagger in this repository.
+Directives for [Dagger](https://dagger.dev) in this repository.
 
-This document is extensive, and while the individual directives are simple, how they all fit
-together is non-trivial; therefore, an [end-to-end example](#end-to-end-example) is provided to aid
-comprehension.
+## Contents
+
+This document is extensive, and while each directive is simple, the broader architecture they
+promote may be unclear; therefore, an [end-to-end example](#end-to-end-example) is provided to aid
+comprehension, and the underlying architectural [rationale](#rationale) is provided to link the
+individual directives to broader engineering principles. The sections are presented for ease of
+reference, with directives first; however, readers are encouraged to begin with whichever section
+they find most helpful.
 
 ## Terminology
 
@@ -19,59 +24,9 @@ The following definitions apply throughout this document:
 
 ## Scope
 
-All Dagger components and modules in this repository must conform to these directives; however, the
-contents of [third_party](/third_party) are explicitly exempt, as they originate from external
-sources.
-
-## Rationale
-
-The directives in this document work together to promote an architectural pattern for Dagger that
-follows foundational engineering best practices and principles, which in turn supports sustainable
-development and improves the contributor experience. The core principles are:
-
-- Interface Segregation Principle (ISP): Downstream consumers should be able to depend on the
-  minimal API required for their task without being forced to consume/configure irrelevant objects.
-  This reduces cognitive overhead for both maintainers and consumers, and lowers computational costs
-  at build time and runtime. It's supported by directives such as the "Narrow Scoped Components"
-  practice, which calls for small granular components instead of large God Objects, and the
-  "Dependencies Over Subcomponents" practice, which encourages composition over inheritance.
-- Dependency Inversion Principle: High-level elements should not depend on low-level elements;
-  instead, both should depend on abstractions. This isolates implementation details in separate
-  build targets, ensuring that changes in one target only trigger the linking phase for consumers,
-  rather than a full recompilation. It's supported by the "Naked Component Interfaces" directive,
-  which forces dependencies on interfaces rather than implementations, and the "Module Inclusion
-  Restrictions" standard, which enforces strict architectural layering.
-- Abstraction and API Usability: Complex subsystems should expose simple, predictable interfaces
-  that hide their internal complexity and configuration requirements. This allows maintainers and
-  consumers to instantiate and integrate components without deep understanding of the
-  implementation. It's supported by the "Factory Function Required" standard, which provides a
-  simple entry point, and "Default Component Dependencies", which provides sensible defaults to
-  eliminate "Builder Hell".
-- Liskov Substitution Principle (LSP): Objects of a superclass must be replaceable with objects of
-  its subclasses without breaking the application. This ensures test doubles can be seamlessly
-  swapped in during tests, thereby improving testability without requiring changes to production
-  code, and ensuring as much production code is tested as possible. It's supported by the "Test
-  Component Extension" standard, which mandates that test components inherit from production
-  component interfaces.
-- Compile-Time Safety (Poka-Yoke): The system is designed to prevent misconfiguration errors
-  ("error-proofing"). By explicitly declaring component dependencies in the component interface,
-  Dagger enforces their presence at compile time, and fails if they are missing. This gives
-  consumers a clear, immediate signal of exactly what is missing or misconfigured, rather than
-  failing obscurely at runtime. It's supported by the "Library-Provided Components" practice, which
-  mandates fully declared dependencies, and the "Factory Function Required" standard, which
-  mechanically ensures all requirements are satisfied effectively.
-
-Overall, this architecture encourages and supports granular, maintainable components that can be
-evolved independently and composed together into complex structures. Components serve as both the
-public API for utilities, the integration system that ties elements together within utilities, and
-the composition system that combines utilities together. For upstream utility maintainers, this
-reduces boilerplate and reduces the risk of errors; for downstream utility consumers, this creates
-an unambiguous and self-documenting API that can be integrated without knowledge of implementation
-details; and for everyone it distributes complexity across the codebase and promotes high cohesion
-(i.e. components defined nearest to the objects they expose). All together, this fosters sustainable
-development by reducing cognitive and computational load.
-
-The disadvantages of this approach are discussed in the [future work](todo link) appendix.
+All non-Hilt Dagger components and modules in this repository must conform to these directives;
+however, the contents of [third_party](/third_party) are explicitly exempt, as they originate from
+external sources.
 
 ## Component Structure and Scoping
 
@@ -90,7 +45,7 @@ component, and requires downstream consumers to define modules and components to
 
 This approach transforms Dagger components from details of the downstream application into details
 of upstream libraries. Instead of forcing consumers to understand a library's internal structure
-(and figure out how to instantiate objects), library authors provide a complete, ready-to-use
+(and figure out how to instantiate objects), library authors provide complete, ready-to-use
 components that can be composed together and used to instantiate objects. This approach is analogous
 to plugging in a finished appliance instead of assembling a kit of parts: consumers just declare a
 dependency on the component (e.g. a fridge), supply the upstream components (e.g. electricity), and
@@ -175,8 +130,8 @@ preventing these issues.
 ### Standard: Module Inclusion Restrictions
 
 Components must only include modules defined within their own package or its subpackages; however,
-they must never include modules from a subpackage if another component is defined in a package
-between them.
+they must never include modules from a subpackage if another component is defined in an intervening
+package.
 
 Example:
 
@@ -456,6 +411,56 @@ Exposing test-specific bindings allows tests to inspect internal state or inject
 without compromising the public production API, thereby facilitating white-box testing where
 appropriate.
 
+## Rationale
+
+The directives in this document work together to promote an architectural pattern for Dagger that
+follows foundational engineering best practices and principles, which in turn supports sustainable
+development and improves the contributor experience. The core principles are:
+
+- Interface Segregation Principle (ISP): Downstream consumers should be able to depend on the
+  minimal API required for their task without being forced to consume/configure irrelevant objects.
+  This reduces cognitive overhead for both maintainers and consumers, and lowers computational costs
+  at build time and runtime. It's supported by directives such as the "Narrow Scoped Components"
+  practice, which calls for small granular components instead of large God Objects, and the
+  "Dependencies Over Subcomponents" practice, which encourages composition over inheritance.
+- Dependency Inversion Principle: High-level elements should not depend on low-level elements;
+  instead, both should depend on abstractions. This reduces the complexity and scope of changes by
+  allowing components to evolve independently and preventing unnecessary recompilation (in a complex
+  build system such as Bazel). It's supported by the "Naked Component Interfaces" directive, which
+  requires the use of interfaces rather than implementations, and the "Module Inclusion
+  Restrictions" standard, which enforces strict architectural layering.
+- Abstraction and API Usability: Complex subsystems should expose simple, predictable interfaces
+  that hide their internal complexity and configuration requirements. This allows maintainers and
+  consumers to use and integrate components without deep understanding of the implementation. It's
+  supported by the "Factory Function Required" standard, which encourages simple entry points, and
+  "Default Component Dependencies", which provides sensible defaults to eliminate "Builder Hell".
+- Liskov Substitution Principle (LSP): Objects of a superclass must be replaceable with objects of
+  its subclasses without breaking the application. This ensures test doubles can be seamlessly
+  swapped in during tests, thereby improving testability without requiring changes to production
+  code, and ensuring as much production code is tested as possible. It's supported by the "Test
+  Component Extension" standard, which mandates that test components inherit from production
+  component interfaces.
+- Compile-Time Safety (Poka-Yoke): The system is designed to prevent misconfiguration errors (i.e.
+  "error-proofing"). By explicitly declaring component dependencies in the component interface,
+  Dagger enforces their presence at compile time, and fails if they are missing. This gives
+  consumers a clear, immediate signal of exactly what is missing or misconfigured, rather than
+  failing obscurely at runtime. It's supported by the "Library-Provided Components" practice, which
+  mandates fully declared dependencies, and the "Factory Function Required" standard, which
+  mechanically ensures all requirements are satisfied effectively.
+
+Overall, this architecture encourages and supports granular, maintainable components that can be
+evolved independently and composed together into complex structures. Components serve as both the
+public API for utilities, the integration system that ties elements together within utilities, and
+the composition system that combines utilities together. For upstream utility maintainers, this
+reduces boilerplate and reduces the risk of errors; for downstream utility consumers, this creates
+an unambiguous and self-documenting API that can be integrated without knowledge of implementation
+details; and for everyone, it distributes complexity across the codebase and promotes high cohesion
+(i.e. components defined nearest to the objects they expose). All together, this fosters sustainable
+development by reducing cognitive and computational load.
+
+The disadvantages of this approach and a strategy for mitigation are discussed in the
+[future work](#future-work) appendix.
+
 ## End to End Example
 
 The following example demonstrates a complete Dagger setup and usage that adheres to all the
@@ -656,6 +661,32 @@ fun testProfileWithFakeUser() {
 ## Future Work
 
 The main disadvantage of the pattern this document encodes is the need for a final downstream
-assembly of components, which can become boilerplate heavy in deep graphs. A tool to reduce this
-boilerplate has been designed, and implementation is tracked by
+assembly of components, which can become boilerplate heavy in deep graphs. For example:
+
+```kotlin
+fun main() {
+  // Level 1: Base component
+  val core = coreComponent()
+
+  // Level 2: Depends on Core
+  val auth = authComponent(core = core)
+  val data = dataComponent(core = core)
+
+  // Level 3: Depends on Auth, Data, AND Core
+  val feature = featureComponent(
+    auth = auth,
+    data = data,
+    core = core
+  )
+
+  // Level 4: Depends on Feature, Auth, AND Core
+  val app = appComponent(
+    feature = feature,
+    auth = auth,
+    core = core
+  )
+}
+```
+
+A tool to reduce this boilerplate has been designed, and implementation is tracked by
 [issue 264](https://github.com/jackbradshaw/monorepo/issues/264).
