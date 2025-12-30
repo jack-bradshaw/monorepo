@@ -82,5 +82,14 @@
     "year": 2025,
     "month": 12,
     "file": "/static/content/journal/the_cursed_cursor.md"
+  },
+  {
+    "key": "the-lost-plot-chapter-1",
+    "title": "The Lost Plot: Chapter 1",
+    "description": "Rejects the plot of Lost and the hostile environment of the sun. Establishes 'Soup Physics' and 'Temporal Accords' to navigate a chaotic narrative before introducing 'The Box,' a vessel operating on detached timelines where events are ultimately pruned.",
+    "is_draft": true,
+    "year": 2025,
+    "month": 12,
+    "file": "/static/content/journal/the_lost_plot_chapter_1.md"
   }
 ]
