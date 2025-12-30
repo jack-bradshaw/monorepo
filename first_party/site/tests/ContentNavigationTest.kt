@@ -96,6 +96,14 @@ class ContentNavigationTest {
   }
 
   @Test
+  fun clickJournalItem_draftsPage_opensItem() {
+    runClickInternalLinkTest(
+        startPagePath = URI.create("/journal/drafts"),
+        expectedDestinationPagePath = URI.create("/journal/item/the-lost-plot-chapter-1"),
+        itemLabel = "The Lost Plot: Chapter 1")
+  }
+
+  @Test
   fun clickRepositoryItem_highlightsPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/highlights"),

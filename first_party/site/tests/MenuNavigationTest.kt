@@ -132,6 +132,14 @@ class MenuNavigationTest {
   }
 
   @Test
+  fun clickMenuItem_alwaysExpandedMenu_journalDrafts_opensJournalDrafts() {
+    runAlwaysExpandedMenuItemTest(
+        MenuItem.Journal.Drafts,
+        startPagePath = URI.create("/journal/highlights"),
+        destinationPagePath = URI.create("/journal/drafts"))
+  }
+
+  @Test
   fun clickMenuItem_alwaysExpandedMenu_repositoryHighlights_opensRepositoryHighlights() {
     runAlwaysExpandedMenuItemTest(
         MenuItem.Repository.Highlights,
@@ -266,6 +274,14 @@ class MenuNavigationTest {
   }
 
   @Test
+  fun clickMenuItem_collapsedSecondaryMenu_journalDrafts_opensJournalDrafts() {
+    runCollapsibleSecondaryMenuItemTest(
+        MenuItem.Journal.Drafts,
+        startPagePath = URI.create("/journal/highlights"),
+        destinationPagePath = URI.create("/journal/drafts"))
+  }
+
+  @Test
   fun clickMenuItem_collapsedSecondaryMenu_repositoryHighlights_opensRepositoryHighlights() {
     runCollapsibleSecondaryMenuItemTest(
         MenuItem.Repository.Highlights,
@@ -364,6 +380,8 @@ sealed class MenuItem(val uiLabel: String) {
     object Series : MenuItem("Series")
 
     object Genres : MenuItem("Genres")
+
+    object Drafts : MenuItem("Drafts")
 
     object Chronological : MenuItem("Chronological")
   }
