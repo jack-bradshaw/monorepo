@@ -17,9 +17,13 @@ Parameters:
 {{ range site.Data.journal.series }}
 {{ $series := . }}
 {{ $resolvedItems := slice }}
-{{ $item := index $itemMap . }}
+
+{{ range $series.items }}
+{{ $itemKey := . }}
+{{ $item := index $itemMap $itemKey }}
+
 {{ if and $item (not $item.is_draft) }}
-{{ $itemsInSeries = $itemsInSeries | append . }}
+{{ $itemsInSeries = $itemsInSeries | append $item.key }}
 
 {{ $monthInt := int $item.month }}
 {{ $yearInt := int $item.year }}
@@ -29,6 +33,8 @@ Parameters:
 
 {{ $resolvedItems = $resolvedItems | append (merge $item (dict "date" $date "link" $link)) }}
 {{ end }}
+{{ end }}
+
 {{ $resolvedSeries = $resolvedSeries | append (merge $series (dict "items" $resolvedItems)) }}
 {{ end }}
 

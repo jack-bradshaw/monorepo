@@ -82,5 +82,23 @@
     "year": 2025,
     "month": 12,
     "file": "/static/content/journal/the_cursed_cursor.md"
+  },
+  {
+    "key": "chapter-1",
+    "title": "Chapter 1",
+    "description": "Missing chapter.",
+    "is_draft": false,
+    "year": 2025,
+    "month": 12,
+    "file": "/static/content/journal/chapter_1.md"
+  },
+  {
+    "key": "chapter-2",
+    "title": "Chapter 2",
+    "description": "A meta-fictional dialogue between a narrator and an editorial voice attempting to initialize a story. The narrative progresses through a series of debates regarding genre, constraints, and fictional physics.\n\nInitialization and Meta-Structure The dialogue begins by rejecting established plot structures (specifically the television show Lost) and hostile settings (the sun). The voices discuss the instability caused by excessive meta-narrative, agreeing to a \"damping factor\" to prevent the plot from disintegrating. They establish that characters generally cannot rewrite the story to maintain narrative cohesion.\n\nGenre and The Temporal Accords The narrators settle on a science fiction setting governed by \"Soup Physics\"—a flexible system of physical laws designed for narrative convenience. They introduce the \"Temporal Accords\" as a plot constraint. This rule dictates that time travel and technological retcons (referencing Star Trek: Discovery and the Borg) are permissible only if they do not irrevocably break the core canon of independent series.\n\nThe Box and Dimensional Topology The narrative focuses on the creation of a vessel referred to as \"The Box,\" a functional analog to a Tardis. A technical debate ensues regarding its internal geometry. The consensus is that the object is not volumetrically larger on the inside. Instead, it possesses \"other sides\" accessible via higher-dimensional geometry (specifically fractal patterns in temporal space).\n\nThe Detached Timeline Theory The physics of The Box are resolved with the conclusion that the interior constitutes a detached, disposable timeline. Time spent within the vessel is effectively \"lost time\"; the timeline is pruned upon the passengers' exit, and the events are retained only as cached memory.\n\nConclusion The narrators determine that the current iteration is too chaotic (\"wonky\") for publication. The text ends with a command to terminate the current session and initialize a second document.",
+    "is_draft": false,
+    "year": 2025,
+    "month": 12,
+    "file": "/static/content/journal/chapter_2.md"
   }
 ]

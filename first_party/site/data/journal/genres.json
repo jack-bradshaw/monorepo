@@ -10,5 +10,17 @@
     "title": "Essays",
     "description": "Structured prose exploring specific topics",
     "items": ["death-of-a-critic", "pragmatic-altruism", "challenge-of-monologue"]
+  },
+  {
+    "key": "sci-fi",
+    "title": "Sci-Fi",
+    "description": "Science Fiction",
+    "items": ["chapter-1", "chapter-2"]
+  },
+  {
+    "key": "meta",
+    "title": "Meta",
+    "description": "Meta-fictional works",
+    "items": ["chapter-1", "chapter-2"]
   }
 ]
