@@ -181,6 +181,21 @@ class AppearanceTest {
   }
 
   @Test
+  fun journalDraftsPage_smallScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/journal/drafts"), ScreenWidth.SMALL)
+  }
+
+  @Test
+  fun journalDraftsPage_mediumScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/journal/drafts"), ScreenWidth.MEDIUM)
+  }
+
+  @Test
+  fun journalDraftsPage_largeScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/journal/drafts"), ScreenWidth.LARGE)
+  }
+
+  @Test
   fun journalItemPage_smallScreen_matchesGolden() {
     runPageScreendiffTest(URI.create("/journal/item/sports-bar"), ScreenWidth.SMALL)
   }
