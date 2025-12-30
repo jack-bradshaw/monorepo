@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "key": "the-lost-plot",
+    "title": "The Lost Plot",
+    "description": "A meta-fictional series exploring narrative constraints.",
+    "items": ["chapter-1", "chapter-2"]
+  }
+]
