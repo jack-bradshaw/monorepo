@@ -20,3 +20,7 @@ Issues relating to this package and its subpackages are tagged with `universal`.
 ## Contributions
 
 Third-party contributions are accepted.
+
+## Quote
+
+"these models are universal"
