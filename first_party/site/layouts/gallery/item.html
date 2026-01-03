@@ -15,7 +15,7 @@ Parameters: the item key of the item to display
     {{ end }}
     {{ $webPath := strings.TrimPrefix "/static" $item.file }}
     <a href="{{ $webPath }}">
-      <img class="rounded" src="{{ $webPath }}" alt="{{ $item.title }}" />
+      <img class="rounded fill-width" src="{{ $webPath }}" alt="{{ $item.title }}" />
     </a>
   </div>
 </div>
