@@ -9,8 +9,11 @@ Parameters: None
 {{ $itemsByYear := dict }}
 {{ range site.Data.gallery.items }}
 {{ $yearKey := printf "%v" .year }}
+{{ $dateStr := .date | default (printf "%d-01-01" .year) }}
+{{ $itemWithSort := merge . (dict "sortDate" $dateStr) }}
+
 {{ $items := index $itemsByYear $yearKey | default slice }}
-{{ $items = $items | append . }}
+{{ $items = $items | append $itemWithSort }}
 {{ $itemsByYear = merge $itemsByYear (dict $yearKey $items) }}
 {{ end }}
 
@@ -28,16 +31,22 @@ Parameters: None
       {{ partial "content-block-header.html" (dict "title" $year "subtitle" $subtitle) }}
     </summary>
     <ol class="content items wide-items" role="list">
-      {{ range (index $itemsByYear $year) }}
+      {{ range sort (index $itemsByYear $year) "sortDate" "desc" }}
       <li>
         {{ $subtitle := "" }}
-        {{ if .year }}
-        {{ $subtitle = .year }}
-        {{ if .description }}
-        {{ $subtitle = printf "%s - %s" $subtitle .description }}
-        {{ end }}
+        {{ if .date }}
+          {{ $t := time .date }}
+          {{ $subtitle = $t.Format "January 2006" }}
+          {{ if .description }}
+            {{ $subtitle = printf "%s - %s" $subtitle .description }}
+          {{ end }}
+        {{ else if .year }}
+          {{ $subtitle = .year }}
+          {{ if .description }}
+            {{ $subtitle = printf "%s - %s" $subtitle .description }}
+          {{ end }}
         {{ else if .description }}
-        {{ $subtitle = .description }}
+          {{ $subtitle = .description }}
         {{ end }}
 
         {{ $image := strings.TrimPrefix "/static" .file }}

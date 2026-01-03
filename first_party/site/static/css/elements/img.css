@@ -7,3 +7,7 @@ img.rounded {
   border-radius: var(--radius-medium);
   border-color: var(--color-transparent);
 }
+
+img.fill-width {
+  width: 100%;
+}
