@@ -246,10 +246,10 @@
     "file": "/static/content/gallery/seeking_connection_2022.jpg"
   },
   {
-    "key": "isolated_and_weary_2022",
+    "key": "isolated_and_weary_2023",
     "title": "Isolated and Weary",
-    "year": 2022,
-    "file": "/static/content/gallery/isolated_and_weary_2022.jpg"
+    "year": 2023,
+    "file": "/static/content/gallery/isolated_and_weary_2023.jpg"
   },
   {
     "key": "adrift_and_alone_2024",
@@ -276,22 +276,22 @@
     "file": "/static/content/gallery/resolute_2024.jpg"
   },
   {
-    "key": "courageous_and_defiant_2024",
+    "key": "courageous_and_defiant_2022",
     "title": "Courageous and Defiant",
-    "year": 2024,
-    "file": "/static/content/gallery/courageous_and_defiant_2024.jpg"
+    "year": 2022,
+    "file": "/static/content/gallery/courageous_and_defiant_2022.jpg"
   },
   {
-    "key": "refocused_2022",
+    "key": "refocused_2023",
     "title": "Refocused",
-    "year": 2022,
-    "file": "/static/content/gallery/refocused_2022.jpg"
+    "year": 2023,
+    "file": "/static/content/gallery/refocused_2023.jpg"
   },
   {
-    "key": "determined_2022",
+    "key": "determined_2023",
     "title": "Determined",
-    "year": 2022,
-    "file": "/static/content/gallery/determined_2022.jpg"
+    "year": 2023,
+    "file": "/static/content/gallery/determined_2023.jpg"
   },
   {
     "key": "unseen_but_returning_2022",
@@ -624,10 +624,10 @@
     "file": "/static/content/gallery/the_lone_wolf_2022.jpg"
   },
   {
-    "key": "mr_insistent_2024",
+    "key": "mr_insistent_2023",
     "title": "Mr Insistent",
-    "year": 2024,
-    "file": "/static/content/gallery/mr_insistent_2024.jpg"
+    "year": 2023,
+    "file": "/static/content/gallery/mr_insistent_2023.jpg"
   },
   {
     "key": "ball_of_yarn_2022",
@@ -660,10 +660,10 @@
     "file": "/static/content/gallery/means_of_production_2022.jpg"
   },
   {
-    "key": "blind_2024",
+    "key": "blind_2023",
     "title": "Blind",
-    "year": 2024,
-    "file": "/static/content/gallery/blind_2024.jpg"
+    "year": 2023,
+    "file": "/static/content/gallery/blind_2023.jpg"
   },
   {
     "key": "disturbed_2023",
@@ -804,10 +804,10 @@
     "file": "/static/content/gallery/particle_trajectories_2024.jpg"
   },
   {
-    "key": "hungarian_notation_2023",
+    "key": "hungarian_notation_2022",
     "title": "Hungarian Notation",
-    "year": 2023,
-    "file": "/static/content/gallery/hungarian_notation_2023.jpg"
+    "year": 2022,
+    "file": "/static/content/gallery/hungarian_notation_2022.jpg"
   },
   {
     "key": "subtle_dynamics_2022",
@@ -1122,10 +1122,10 @@
     "file": "/static/content/gallery/part_3_2023.jpg"
   },
   {
-    "key": "part_4_2024",
+    "key": "part_4_2023",
     "title": "Part 4",
-    "year": 2024,
-    "file": "/static/content/gallery/part_4_2024.jpg"
+    "year": 2023,
+    "file": "/static/content/gallery/part_4_2023.jpg"
   },
   {
     "key": "part_5_2024",
@@ -1218,10 +1218,10 @@
     "file": "/static/content/gallery/x_ray_2022.jpg"
   },
   {
-    "key": "french_girl_2021",
+    "key": "french_girl_2022",
     "title": "French Girl",
-    "year": 2021,
-    "file": "/static/content/gallery/french_girl_2021.jpg"
+    "year": 2022,
+    "file": "/static/content/gallery/french_girl_2022.jpg"
   },
   {
     "key": "it_stares_back_2024",
@@ -1242,10 +1242,10 @@
     "file": "/static/content/gallery/it_corrodes_everything_2023.jpg"
   },
   {
-    "key": "the_tools_2024",
+    "key": "the_tools_2022",
     "title": "The Tools",
-    "year": 2024,
-    "file": "/static/content/gallery/the_tools_2024.jpg"
+    "year": 2022,
+    "file": "/static/content/gallery/the_tools_2022.jpg"
   },
   {
     "key": "the_entrance_2024",
@@ -1254,10 +1254,10 @@
     "file": "/static/content/gallery/the_entrance_2024.jpg"
   },
   {
-    "key": "the_whispers_2024",
+    "key": "the_whispers_2023",
     "title": "The Whispers",
-    "year": 2024,
-    "file": "/static/content/gallery/the_whispers_2024.jpg"
+    "year": 2023,
+    "file": "/static/content/gallery/the_whispers_2023.jpg"
   },
   {
     "key": "the_eldritch_2024",
@@ -1498,5 +1498,12 @@
     "title": "Vesuvius",
     "year": 2022,
     "file": "/static/content/gallery/vesuvius_2022.jpg"
+  },
+  {
+    "key": "untitled_artwork_2025",
+    "title": "Untitled Artwork",
+    "year": 2025,
+    "date": "2025-09-01",
+    "file": "/static/content/gallery/untitled_artwork_2025.jpg"
   }
 ]
