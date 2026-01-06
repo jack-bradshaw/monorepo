@@ -1,20 +1,49 @@
 [
   {
-    "key": "philosophy-ethics",
-    "title": "Philosophy & Ethics",
-    "description": "Exploring ethics and morality from various perspectives",
-    "items": ["pragmatic-altruism"]
+    "key": "philosophy",
+    "title": "Philosophy",
+    "description": "Deep inquiries into existence, ethics, and metaphysics",
+    "items": [
+      "into-the-subverse",
+      "pragmatic-altruism",
+      "judgement-vs-understanding",
+      "meat-because-we-want-to",
+      "one-or-many"
+    ]
   },
   {
-    "key": "social-observation",
-    "title": "Social Observation",
-    "description": "Examining human interaction and societal norms",
-    "items": ["sports-bar"]
+    "key": "creativity",
+    "title": "Creativity",
+    "description": "Reflections on the artistic process, writing, and expression",
+    "items": ["death-of-a-critic", "challenge-of-monologue", "the-lost-plot-chapter-1"]
   },
   {
-    "key": "personal-growth",
-    "title": "Personal Growth",
-    "description": "Self-discovery and personal development",
-    "items": ["death-of-a-critic", "challenge-of-monologue"]
+    "key": "society",
+    "title": "Society",
+    "description": "Exploration of social norms, ethics, and human interaction",
+    "items": [
+      "sports-bar",
+      "meat-because-we-want-to",
+      "pragmatic-altruism",
+      "challenge-of-monologue"
+    ]
+  },
+  {
+    "key": "technology",
+    "title": "Technology",
+    "description": "Narratives and essays centered on tech culture and engineering",
+    "items": ["the-cursed-cursor", "pragmatic-altruism"]
+  },
+  {
+    "key": "psychology",
+    "title": "Psychology",
+    "description": "Introspection, mental states, and identity",
+    "items": ["death-of-a-critic", "one-or-many", "judgement-vs-understanding", "the-cursed-cursor"]
+  },
+  {
+    "key": "veganism",
+    "title": "Veganism",
+    "description": "Ethical considerations of animal rights and diet",
+    "items": ["meat-because-we-want-to", "sports-bar"]
   }
 ]

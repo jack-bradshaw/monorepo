@@ -91,5 +91,41 @@
     "year": 2025,
     "month": 12,
     "file": "/static/content/journal/the_lost_plot_chapter_1.md"
+  },
+  {
+    "key": "one-or-many",
+    "title": "One or Many",
+    "description": "Reflects on the decision to publish under a single, unified identity rather than using pseudonyms for different internal voices. Acknowledges the risks of vulnerability but prioritizes the integrity of a cohesive self, integrating professional, personal, and creative facets.",
+    "is_draft": true,
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/one_or_many.md"
+  },
+  {
+    "key": "into-the-subverse",
+    "title": "Into the Subverse",
+    "description": "Explores the fundamental nature of causality, structure, and the concept of 'nothingness'. Questions why the universe follows laws and investigates the paradoxical relationship between order and chaos, suggesting that true understanding requires letting go of the need for structure.",
+    "is_draft": true,
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/into_the_subverse.md"
+  },
+  {
+    "key": "judgement-vs-understanding",
+    "title": "Judgement vs Understanding",
+    "description": "Contrasts the inherent human tendency to judge with the conscious effort required to understand. Argues that while judgement provides stability and safety, understanding opens the door to new perspectives and deeper truths. Concludes that both are necessary but serve different roles in navigating existence.",
+    "is_draft": false,
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/judgement_vs_understanding.md"
+  },
+  {
+    "key": "meat-because-we-want-to",
+    "title": "Meat, Because We Want To",
+    "description": "Questions the underlying motivations for meat consumption, proposing that beyond cognitive dissonance and ideology, there may be a darker impulse to inflict suffering. Suggests that animals serve as convenient targets for human cruelty and that understanding this drive is key to preventing further abuse.",
+    "is_draft": false,
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/meat_because_we_want_to.md"
   }
 ]
