@@ -11,4 +11,7 @@ if [[ ! -z "$deps" ]]; then
 	echo "Violations found:"
 	echo "$deps"
 	exit 1
+else
+	echo "Presubmit check passed: check_experimental_deps."
+	return 0
 fi
