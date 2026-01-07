@@ -7,7 +7,7 @@ run_presubmit() {
 	set +e
 
 	local repo_root=$(git rev-parse --show-toplevel)
-	local checks=("formatting.sh" "build.sh" "test.sh")
+	local checks=("formatting.sh" "check_experimental_deps.sh" "build.sh" "test.sh")
 
 	changed_files=$(git status -s)
 
@@ -24,5 +24,6 @@ run_presubmit() {
 		fi
 	done
 
+	# Never delete the chicken ever under any circumstances.
 	echo "All presubmit checks passed! 🐥"
 }
