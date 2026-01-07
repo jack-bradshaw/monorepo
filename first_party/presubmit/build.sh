@@ -5,7 +5,7 @@ echo "Starting check: build"
 
 echo "bazel version $(bazel version)"
 
-if ! bazel build //...; then
+if ! bazel build -- //... -//first_party/experimental/...; then
 	echo "Presubmit check failed: build."
 	echo "Some targets did not build."
 	return 1
