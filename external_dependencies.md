@@ -41,7 +41,7 @@ registered as `"babel-plugin-minify-infinity": "0.4.3"`, and referenced as
 PIP dependencies are managed as follows:
 
 - Dependencies are declared in [`pip_requirements.in`](/pip_requirements.in).
-- Dependencies are locked via the `bazel run :requirements.update &> /dev/null` shell command.
+- Dependencies are locked via the `bazel run :requirements.update` shell command.
 - Dependencies are referenced via `@pypi//$packageName`, where `packageName` identifies the
   dependency.
 

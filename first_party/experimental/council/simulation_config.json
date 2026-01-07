@@ -1,0 +1,13 @@
+{
+  "scenario_file_docs": "Path to the scenario instructions file.",
+  "scenario_file": "instructions/dog_communication.md",
+  "active_agents_docs": "List of agent IDs (integers) to include in the simulation.",
+  "active_agents": [1, 2, 8, 14, 16, 19],
+  "vote_thresholds_docs": "Consensus percentages required for phase changes and interventions.",
+  "vote_thresholds": {
+    "phase_change_docs": "Percentage of agents required to agree to move to the next phase.",
+    "phase_change": 0.8,
+    "intervention_docs": "Percentage of agents required to agree to request human intervention.",
+    "intervention": 0.3
+  }
+}
