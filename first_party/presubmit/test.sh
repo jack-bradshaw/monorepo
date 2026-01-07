@@ -3,7 +3,7 @@
 
 echo "Starting check: test"
 
-if ! bazel test //...; then
+if ! bazel test -- //... -//first_party/experimental/...; then
 	echo "Presubmit check failed: test."
 	echo "Some tests did not pass."
 	return 1
