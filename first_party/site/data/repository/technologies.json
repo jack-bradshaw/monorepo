@@ -1,5 +1,10 @@
 [
   {
+    "key": "ai",
+    "name": "AI",
+    "link": "https://en.wikipedia.org/wiki/Artificial_intelligence"
+  },
+  {
     "key": "bazel",
     "name": "Bazel",
     "link": "https://bazel.build"
