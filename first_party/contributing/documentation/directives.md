@@ -125,27 +125,29 @@ understand the entire directive system, and prevents redundancy in the directive
 
 ### Guideline: Dialectical Structure for Guidelines
 
-Guidelines that balance competing concerns can be structured dialectically to make the tension
-explicit. A single-pole dialectic presents two opposing extremes (thesis and antithesis) followed by
-a synthesis. A multi-pole dialectic (trialectic or three-way balance) presents three or more
-competing forces before synthesizing them.
+Guidelines that balance competing concerns should be structured dialectically to make the tension
+explicit; specifically, guidelines should open with a thesis, then introduce an antithesis, and
+close with a synthesis balancing the extremes; furthermore, examples should include both ends of the
+spectrum and a balanced middle position.
 
-Single-pole example structure:
+The structure consists of four parts:
 
-1. Introduce first extreme with examples, e.g. call for objectivity
-2. "However," introduce opposing extreme with examples, e.g. make case for subjectivity
-3. Synthesis: balance between the two, e.g. call for a balance between them
+1. Opening statement: `"X should Y, as Z; however, W; therefore, V."`
+   - Thesis: State the primary concern with rationale
+   - Antithesis: Introduce the opposing concern with `"however"`
+   - Synthesis: Conclude with `"therefore"` and the balanced approach
+2. Negative examples: Two contrasting extremes
+   - `"Too [Extreme A]: (example) (description of problem)"`
+   - `"Too [Extreme B]: (example) (description of problem)"`
+3. Positive synthesis: Balanced example
+   - `"Just Right: (example demonstrating balance) (description of balance achieved)."`
+4. Closing statement: `"Striking a balance between X and Y ensures..."`
+   - Reinforces the dialectical relationship
+   - Explains the benefit of the balanced approach
 
-Multi-pole example structure:
-
-1. Introduce first extreme with examples, e.g. call for present tense
-2. "However," introduce second extreme with examples, e.g. make case for past tense
-3. "Furthermore," introduce third extreme with examples, e.g. make case for future tense
-4. Synthesis: balance between all forces, e.g. call for a balance between all three
-
-Example: In [style.md](/first_party/contributing/documentation/style.md), "Balance Confidence and
-Humility" uses a single-pole dialectic (confidence vs. humility) and "Balance Minimalism with
-Sufficiency" uses a multi-pole dialectic (too little, too much, obvious).
+Positive example: In [style.md](/first_party/contributing/documentation/style.md), "Balance
+Confidence and Humility" demonstrates this structure with "Too Hesitant" and "Too Confident"
+extremes, followed by a "Just Right" example that balances both concerns.
 
 This structure makes competing concerns explicit and helps contributors understand the nuanced
 balance being advocated rather than presenting a single prescriptive rule.

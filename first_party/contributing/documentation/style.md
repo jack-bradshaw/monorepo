@@ -33,322 +33,278 @@ disorder.
 ## Guideline: Reasoned Wisdom
 
 Repository documentation must be objective and fact-based, with references to the codebase and
-external sources provided where appropriate. Contributors are expected to provide technically sound
-information.
+external sources where appropriate; however, subjectivity in the form of hard earned experience is
+invaluable, as facts alone lack the context to be useful, and eschewing the unique
+experiences/perspectives of contributors does not create a supportive environment; therefore,
+documentation should contain a balance of objectivity with subjectivity.
 
-Positive Example: "The `FooSort` sorts a list of N items in O(NlogN) time (link to analysis)."
+Too Academic: "`FooSort` exhibits O(N log N) average-case computational complexity, as formally
+proven by Henderson (1984) via amortized analysis utilizing potential functions and aggregate
+methods. Empirical validation was conducted through Monte Carlo simulation across 10,000 uniformly
+distributed datasets, yielding a 95% confidence interval of [0.98N log N, 1.02N log N]. The
+algorithmic soundness has been peer-reviewed and published in ACM Transactions (DOI:
+10.1145/12345)." (Unnecessarily dense academic language)
 
-Negative Example: "The `FooSort` is beautiful and fast."
+Too Poetic: "`FooSort` dances through data like a graceful ballet, elegantly weaving elements into
+their rightful places. It whispers efficiency at every turn, a symphony of comparisons orchestrating
+order from chaos. Fast as lightning, beautiful as a sunset, it transforms your messy lists into
+pristine arrays of pure harmony." (Flowery metaphors obscure technical meaning)
 
-However, subjectivity in the form of hard-earned experience and sensible reasoning is invaluable.
-Facts alone often lack the context to be useful, and eschewing the unique experiences/perspectives
-of contributors does not create a supportive environment. By incorporating subjectivity,
-contributors are empowered to do their best work, while avoiding the unnecessary overhead of dry
-academic proofs for everything.
+Just Right: "`FooSort` sorts N items in O(N log N) average time, making it suitable for most use
+cases. However, it degrades to O(N²) on nearly-sorted data, which caused production issues at
+Company X when customer uploads were typically pre-sorted. For that reason, `MergeSort` is preferred
+for production workloads despite slightly worse constant factors." (Combines objective facts with
+subjective experience and reasoned conclusion).
 
-Positive Example: "`FooSort` provides better average case performance than `MergeSort` (link to
-analysis); however, it has a higher worst case performance, and the risk of production failure is
-difficult to justify given the stability requirements."
-
-Negative Example: "Production deployment of `FooSort` is not scalable, but there is no paper to back
-this claim; therefore, it remains in production."
-
-The pitfall of subjectivity is expecting trust from others without justification. No-one can be
-expected to place blind faith in others, and authority derives from openness to criticism, not
-social status or history. In pursuit of a balance between objectivity and subjectivity, contributors
-are encouraged to justify their claims by sharing the experience that led to their conclusions and
-combining it with reasoning.
-
-Positive Example: "`FooSort` was used in production at company X because it offers acceptable time
-complexity on paper, but customer data was often unstructured in practice, thus leading to `O(N^2)`
-performance when deployed at scale. Ultimately, the team at company X found that `FooSort` was
-inferior to a standard `MergeSort`, and switched to the latter." (Explains the experience and
-failure mode)
-
-Negative Example: "`FooSort` is not as fast as `MergeSort` in practice, trust me on this." (No
-context)
-
-True wisdom comes from combining accurate facts with meaningful experience. Contributors should
-strike a balance between objectivity (proof and evidence), subjectivity (perspective from
-experience), and wisdom (their synthesis), such that both pure formal proof and blind faith are
-unnecessary.
+Striking a balance between objectivity and subjectivity ensures documentation remains accurate and
+accessible, while creating an inclusive and supportive space for contributors.
 
 ## Guideline: Balance Minimalism with Sufficiency
 
-Contributors must include enough information to avoid the hidden costs of missing documentation. The
-cost of storing a few extra paragraphs (kilobytes) is far lower than the cost of missing context
-(e.g. hours of debugging, production failures, reinventing the wheel).
+Contributors must include enough information to avoid the hidden costs of missing documentation, as
+the cost of storing a few extra paragraphs (kilobytes) is far lower than the cost of missing context
+(e.g. hours of debugging, production failures, reinventing the wheel); however, unnecessary detail
+defeats the purpose by obscuring the truth under unnecessary detail; therefore, documentation should
+omit superfluous information.
 
-Positive Example: "The `delegate` method forwards the request to the upstream service and handles
-any timeout exceptions by retrying at total of five times." (Sufficient context)
+Too Minimal: "`FooProvider` caches values." (Insufficient context about behavior, expiry, or known
+issues)
 
-Negative Example: "Delegate handles requests." (Insufficient)
+Too Verbose: "`FooProvider` internally utilizes a `ConcurrentHashMap` instantiated with an initial
+capacity of 16 and a load factor of 0.75 to store the cached values, which are themselves wrapped in
+a custom `CacheEntry` object containing a 64-bit timestamp derived from `System.nanoTime()` for
+high-precision expiry calculations, and are evictable using a least-recently-used policy implemented
+via a synchronized doubly-linked list that is traversed in reverse order during cleanup cycles
+triggered by a `ScheduledExecutorService` running on a separate daemon thread. Side note: It
+commonly fails on Android devices due to OOM errors." (Excessive implementation detail buries the
+critical OOM failure)
 
-However, including unnecessary detail defeats the purpose of documentation by obscuring the truth
-under unnecessary detail.
+Just Right: "`FooProvider` caches values with a 60-second TTL using an LRU eviction policy. The
+cache runs on a background thread and may cause OOM errors on memory-constrained Android devices."
+(Sufficient context about behavior and known issues without unnecessary implementation detail).
 
-Negative Example: "The `FooProvider` internally utilizes a `ConcurrentHashMap` instantiated with an
-initial capacity of 16 and a load factor of 0.75 to store the cached values, which are themselves
-wrapped in a custom `CacheEntry` object containing a 64-bit timestamp derived from
-`System.nanoTime()` for high-precision expiry calculations, and are evictable using a
-least-recently-used policy implemented via a synchronized doubly-linked list that is traversed in
-reverse order during cleanup cycles triggered by a `ScheduledExecutorService` running on a separate
-daemon thread. Side note: It commonly fails on Android devices due to OOM errors." (Excessive
-Detail, hides critical OOM failure note)
-
-Furthermore, documentation should omit obvious information to avoid visual clutter and insults to
-the reader's intelligence. If a component's name is perfectly self-explanatory, it may not need
-documentation at all.
-
-Positive Example: "`FooProvider` provides a unique `Foo` instance on every call." (new information)
-
-Negative Example: "`NetworkScanner` scans the network." (Redundant, nothing new)
-
-Contributors should strike a balance between minimalism and sufficiency by ensuring meaningful
-information is documented, without burying the truth under excessive detail, and omitting
-self-explanatory aspects. Ensure that every sentence adds value in the context of the broader
-document.
+Striking a balance between minimalism (avoiding unnecessary detail) and sufficiency (providing
+adequate context) ensures documentation remains useful and accessible without obscuring critical
+information under excessive implementation detail.
 
 ## Guideline: Balance Past, Present, and Future
 
-Documentation should primarily describe the present state of the repository. Describing future plans
-can lead to inaccuracy when plans change, and describing past implementations adds irrelevant
-details. Keeping the focus on the present state of the repository anchors documentation to the
-subject.
+Documentation should relate to the present state of the repository, as documenting the future risks
+inaccuracy as plans change, and documenting the past can clutter the repository with obsolete
+information; however, historical context often justifies the present while guarding against history
+repeating itself, and acknowledging opportunities for future works highlights known deficiencies;
+therefore, the past and future should be referenced where helpful.
 
-Positive Example: "The framework has various concurrency issues." (Acknowledges limitation)
+Too Past-Focused: "Past implementations of this method used the standard math library. There were
+issues with the parser but they were fixed." (Irrelevant details without actionable context)
 
-Negative Example: "In Q4 we plan to rewrite the parser." (Specific future plan)
+Too Future-Focused: "In Q4 we plan to rewrite the parser. We will make this method asynchronous in
+v2.0." (Promises without context about current state)
 
-However, historical context is often vital for explaining why the current state exists. Use it to
-justify design decisions or warn against repeating past mistakes, but avoid documenting features
-that no longer exist purely for posterity.
+Just Right: "A custom parser is used because the standard library parser caused performance
+regressions in v1.2. This method is synchronous, but asynchronous support may be added in a future
+release (tracked by issue #123)." (Present state justified by historical context and known
+limitations acknowledged with tracking reference).
 
-Positive Example: "A custom parser is used because the standard library parser caused performance
-regressions in v1.2." (Useful)
+Striking a balance between stability (documenting what exists) and context (providing necessary
+background) ensures documentation remains accurate and helpful while preserving useful history and
+acknowledging known constraints.
 
-Negative Example: "There were issues with the parser but they were fixed." (Vague/Unhelpful)
+Note: Linking future plans to external tracking references gives readers a way to follow and get
+updates.
 
-Negative Example: "Past implementations of this method used the standards math library."
-(Irrelevant/Unhelpful)
+## Guideline: Balance Precision with Simplicity
 
-Furthermore, discussing future possibilities can explain current limitations. Include this context
-when it clarifies design constraints known during development, but avoid unfounded speculation.
-Including a link to an issue tracker when referencing future work helps readers learn about the
-current status.
+Documentation must be technically accurate and precise, as vague descriptions lead to
+misunderstanding and incorrect usage; however, excessive technical detail can obscure the core
+concept and overwhelm readers; therefore, contributors should provide precise explanations without
+unnecessary complexity.
 
-Positive Example: "This method is synchronous. Asynchronous support may be added in a future release
-(tracked by issue #123)." (Explains current limitation with tracking reference)
+Too Vague: "`FooProvider` makes objects when you need them." (Lacks technical precision about
+behavior)
 
-Negative Example: "We will make this method asynchronous in v2.0." (Promise without context)
+Too Detailed: "The `FooProvider` utilizes a factory pattern instantiation mechanism wherein each
+invocation of the accessor method triggers the allocation of heap memory via the `new` operator,
+resulting in the construction of a distinct `Foo` instance with its own memory address." (Excessive
+technical detail obscures simple behavior)
 
-Contributors should strike a balance between stability (documenting what exists) and context
-(providing necessary background). Use the past to justify the present, but avoid future speculation
-that may never come to pass.
+Just Right: "The `FooProvider` creates a new instance of `Foo` on every call." (Precise technical
+description without unnecessary complexity).
 
-## Guideline: Balance Precision with Accessibility
+Striking a balance between precision (being technically correct) and simplicity (being
+understandable) ensures documentation conveys accurate information without overwhelming readers with
+implementation minutiae.
 
-Contributors should act as guides, helping readers understand complex systems by writing with
-precision. Technical accuracy is the foundation of documentation, and statements must be technically
-correct to prevent misunderstanding.
+## Guideline: Balance Formality with Informality
 
-Positive Example: "The `FooProvider` creates a new instance of `Foo` on every call." (Precise)
+Documentation should use professional language that maintains credibility and clarity, as informal
+slang can alienate readers and reduce perceived authority; however, overly academic or formal
+phrasing creates cognitive barriers and distances readers; therefore, contributors should use clear,
+standard technical English.
 
-Negative Example: "`FooProvider` makes objects when you need them." (Too vague)
+Too Informal: "Kotlin's compiler is pretty cool and just turns your code into bytecode or whatever
+for different platforms like JVM and stuff." (Casual slang undermines credibility)
 
-However, precision should not come at the expense of accessibility. Documentation must remain
-understandable to general engineers. Avoid overly academic phrasing, obscure jargon, or casual slang
-that might alienate readers from different backgrounds.
+Too Formal: "Kotlin's compilation process culminates in the generation of bytecode for the Java
+Virtual Machine and analogous artifacts for alternative execution substrates." (Overly academic
+phrasing obscures meaning)
 
-Positive Example: "Kotlin compiles to the JVM and other platforms (e.g. JS, native)." (Accessible)
+Just Right: "Kotlin compiles to the JVM and other platforms (e.g. JS, native)." (Professional tone
+with clear, standard terminology).
 
-Negative Example: "Kotlin's compilation process culminates in the generation of bytecode for the
-Java Virtual Machine and analogous artifacts for alternative execution substrates." (Overly
-Academic)
+Striking a balance between formality (maintaining professionalism) and informality (being
+approachable) ensures documentation remains credible and authoritative while being accessible to
+general engineers.
 
-Contributors should strike a balance between precision (being technically correct) and accessibility
-(being easy to understand). Use standard industry terms where specific meaning is required, but
-explain them if they are niche; be as simple as possible, but no simpler.
+## Guideline: Specific Group References
 
-## Guideline: Collective Identity
+Documentation often requires referencing the people or teams behind decisions and actions, as
+attribution provides accountability and context; however, the personal pronouns ("we", "I", "us",
+etc.) are ambiguous; therefore, contributors should use specific individual/group names where
+possible.
 
-Documentation should reflect the collective nature of the repository. Avoid the use of singular
-pronouns like "I" or "my", which imply individual ownership of shared code. Instead, focus on the
-artifact itself or the collective effort.
+Too Vague: "The FooProvider is recommended." (Recommended by who?)
 
-Positive Example: "Foo was created to make working with Bar easier." (Focus on artifact)
+Too Vague: "We decided to remove the drivers." (Unclear who "we" refers to)
 
-Negative Example: "I created Foo to make it easier for me to use Bar." (Individual focus)
+Just Right: "The Kernel Team decided to remove the drivers for runtime performance." (Specific
+attribution with clear reasoning).
 
-However, avoid using the first-person plural "we" unless the group being referred to is strictly
-defined by the context. "We" is often ambiguous (does it mean the authors, the team, the company, or
-the industry?) and may imply greater agreement than is actually intended. Instead use explicit
-nouns.
+Striking a balance between attribution (providing accountability and context) and clarity (avoiding
+ambiguous pronouns) ensures clear communication by using specific group references (e.g., "The
+Maintainers", "The Compiler Team", "The Security Workgroup") rather than vague pronouns.
 
-Positive Example: "The Kernel Team decided to remove the drivers." (Specific)
-
-Negative Example: "We decided to remove the drivers." (Ambiguous)
-
-Contributors should strike a balance between communal voice (acknowledging the team) and unambiguous
-attribution (giving credit/responsibility where due). Use specific nouns (e.g., "The Maintainers",
-"The Compiler Team") to reflect communal ownership without the ambiguity of vague pronouns.
+Exception: Pronouns that refer to the user (e.g. "you") are acceptable (related to Balance
+Declarative and Imperative Tone).
 
 ## Guideline: Balance Declarative and Imperative Tone
 
-Documentation about the system itself is often clearest when it describes the state and behaviors of
-the system, or its requirements and expectations, rather than issuing commands to the reader. This
-focuses attention on the artifact itself preventing the documentation from becoming a list of
-chores.
+Documentation should describe the content of the repository by stating its behaviors and properties,
+as this keeps the focus on the artifacts it contains; however, procedures, tutorials, and guides can
+be clearer when written directly to the reader with imperative instructions; therefore, contributors
+should match tone to context.
 
-Positive Example: "`FooProvider` must be configured prior to use." (Declarative requirement)
+Too Imperative: "You must configure the `FooProvider` before you use it. You should call the
+`init()` method first." (Commands in reference documentation)
 
-Negative Example: "You must configure the `FooProvider` before you use it." (Imperative command)
+Too Declarative: "The `//foo:bar` target generates artifacts when executed." (Passive description in
+a tutorial where step-by-step guidance is needed)
 
-However, complex procedures, tutorials, and troubleshooting guides differ from reference
-documentation in that their primary goal is user guidance. In these contexts, imperative
-instructions are often clearer and more efficient than declarative descriptions.
+Just Right: "Reference documentation: `FooProvider` must be configured prior to use by calling
+`init()`. Tutorial: Generate the artifacts by running `bazel run //foo:bar`." (Declarative tone for
+system descriptions, imperative tone for procedural guidance).
 
-Positive Example: "Generate the artefacts by running `bazel run //foo:bar`." (Direct Command)
-
-Negative Example: "The `//foo:bar` target generates artefacts." (Burden on reader to interpret
-actions)
-
-Contributors should strike a balance between description (defining the system) and prescription
-(assigning tasks to the reader) by considering the ultimate use of the information. Consider whether
-the context calls for information about the system or guidance to the reader, and adjust the voice
-accordingly. Usually, reference documentation (e.g. Javadoc etc.) benefits from a descriptive tone,
-while guides and tutorials (e.g. READMEs etc.) benefit from imperative tone.
+Striking a balance between declarative (defining the system) and imperative (guiding the reader)
+ensures documentation provides appropriate information for its context, with reference documentation
+focusing on artifacts and tutorials providing clear actionable steps.
 
 ## Guideline: Balance Confidence and Humility
 
-Contributors should write with confidence about facts they are sure of. Avoid non-committal hedging
-(words like "probably", "possibly", "usually") when describing established system behaviors.
+Documentation should be written with confidence when the content is well-understood, as unnecessary
+hedging undermines authority and creates doubt where none should exist; however, speaking with
+excessive conviction when the truth is uncertain can detract from credibility; therefore,
+contributors should balance confidence with humility by acknowledging the limitations of knowledge
+and being transparent about their uncertainty.
 
-Positive Example: "`FooProvider` is not thread-safe." (Confident fact)
+Too Hesitant: "`FooProvider` is probably not thread-safe and there is a small risk of runtime
+failure." (Unnecessary hedging about known behavior)
 
-Negative Example: "`FooProvider` is probably not thread-safe and there is a small risk of runtime
-failure." (Unnecessary hedging)
+Too Confident: "`FooProvider` will definitely work under high memory pressure." (False certainty
+about untested behavior)
 
-However, contributors should demonstrate humility by acknowledging the limits of their knowledge. Do
-not feign certainty where it does not exist, and if a behavior is flaky, dependent on unknown
-factors, or poorly understood, document that uncertainty.
+Just Right: "`FooProvider` is not thread-safe. The behavior under high memory pressure is undefined
+and has not been tested." (Confident about known facts, honest about unknowns).
 
-Positive Example: "The behavior of `FooProvider` under high memory pressure is undefined and has not
-been tested." (Honest uncertainty)
-
-Negative Example: "`FooProvider` will definitely work under high memory pressure." (False certainty)
-
-Contributors should strike a balance between confidence (establishing authority) and humility
-(acknowledging limits) by prioritizing honesty. Do not minimize risks or benefits in an attempt to
-soften the message, but do not understate known issues or advantages. Determine your actual level of
-certainty, and match your tone to it.
+Striking a balance between confidence (establishing authority) and humility (acknowledging limits)
+ensures documentation maintains credibility without creating unnecessary doubt.
 
 ## Guideline: Balance Judgment with Neutrality
 
-Contributors should avoid judgmental language that attacks systems, platforms, or contributors.
-Focus on factual descriptions of limitations or issues without assigning blame or making sweeping
-negative characterizations.
+Contributors should exercise judgment to identify real issues, limitations, and constraints;
+however, judgmental language that attacks systems, platforms, or contributors is unhelpful;
+therefore, contributors should focus on factual descriptions without assigning blame or making
+sweeping negative characterizations.
 
-Positive Example: "The `Foo` implementation does not work on Android." (Neutral, factual)
+Too Neutral: "This implementation works everywhere." (Lacks judgment, ignores real constraints)
 
-Negative Example: "Android is such a crap operating system it cannot even run this, also who wrote
-this shit?" (Judgmental, personal attack on platform and people)
+Too Judgmental: "Android is such a crap operating system it cannot even run this, also who wrote
+this shit?" (Personal attack on platform and people)
 
-However, judgmentalism is distinct from judgment. The latter involves identifying real issues,
-limitations, and constraints based on evidence, reasoning and experience. Contributors should
-exercise judgment to provide accurate/useful information and improve quality.
+Just Right: "Android devices circa 2012 have memory limitations that prevent this implementation
+from working as intended. The `Foo` implementation does not work on Android." (Sound judgment with
+specific, informative, and factual descriptions).
 
-Positive Example: "Android devices circa 2012 have memory limitations that prevent this
-implementation from working as intended." (Sound judgment, specific, informative)
-
-Negative Example: "This implementation works everywhere." (Lacks judgment, ignores real constraints)
-
-Contributors should strike a balance between neutrality (avoiding personal attacks and blame) and
-judgment (identifying real issues and constraints). Use sound reasoning to assess systems and
-implementations without resorting to judgmentalism.
+Striking a balance between judgment (identifying real issues and constraints) and neutrality
+(avoiding personal attacks and blame) ensures documentation provides accurate and useful information
+without resorting to judgmentalism.
 
 ## Guideline: Balance Consideration with Respect
 
-Contributors should demonstrate consideration for the reader by acknowledging potential difficulties
-and offering supportive guidance. Use softening language to recognize that certain concepts or
-behaviors might be challenging without presuming the reader's experience.
+Contributors should show consideration for the reader by acknowledging potential difficulties and
+offering supportive guidance, with softening language used appropriately; however, assertions and
+assumptions about the reader's mental or physical capabilities can be counterproductive, as they
+cross a critical interpersonal boundary; therefore, documentation should offer options and advice,
+while giving the reader the benefit of the doubt and avoiding personal assessments.
 
-Positive Example: "This behavior might be unclear at first." (Acknowledges possibility)
+Too Dismissive: "This behavior is obvious and should be easy to understand." (Lacks consideration
+for reader's potential challenges)
 
-Positive Example: "If the configuration seems complex, consider starting with the default settings."
-(Offers option)
-
-Negative Example: "This behavior is obvious." (Dismissive, lacks consideration)
-
-However, avoid making assertions about the reader's mental, physical, or other capabilities. This
-respects psychological boundaries, gives the reader the benefit of the doubt, and creates an
-inclusive environment.
-
-Positive Example: "This object does not completely implement the interface contract and may throw
-errors in unexpected ways. Further documentation is provided in the troubleshooting guide."
-(Neutral, respectful)
-
-Negative Example: "You will probably find this object confusing, and you should probably read the
+Too Presumptuous: "You will probably find this object confusing, and you should probably read the
 troubleshooting guide when you get stuck." (Makes assertions about the reader's capabilities and
 experience)
 
-Contributors should strike a balance between consideration (acknowledging potential challenges) and
-respect (avoiding presumptions about the reader) by offering possibilities and options rather than
-making definitive statements about the reader.
+Just Right: "This object does not completely implement the interface contract, and may throw errors
+in unexpected ways. Callers may wish to use `Bar` instead for a production ready service. Full
+documentation is provided in the README." (Acknowledges limitations, offers options, remains neutral
+and respectful).
+
+Striking a balance between consideration (acknowledging potential challenges) and respect (avoiding
+presumptions about the reader) ensures documentation provides supportive guidance without crossing
+interpersonal boundaries or making assumptions about capabilities.
 
 ## Guideline: Balance Abstraction with Clarity
 
-Documentation should omit narrative and colorful language that obscures the truth under layers of
-conceptual indirection and abstraction. Focus on clear, direct descriptions of system behavior.
+Documentation should use appropriate abstractions that match the system's design, as abstraction
+hides unnecessary implementation details and aids understanding; however, narrative and colorful
+language can obscure the truth under layers of conceptual indirection; therefore, contributors
+should focus on clear, direct descriptions of system behavior.
 
-Positive Example: "`Foo` processes `Bar` objects using a FIFO queue, and idles while the queue is
-empty." (Clear, direct)
+Too Narrative: "`Foo` works like a conveyor belt, the first `Bar` on the belt gets processed, then
+the next, and so forth, until the belt is empty, and the operator goes to lunch when there's nothing
+to do." (Metaphor obscures meaning)
 
-Negative Example: "`Foo` works like a conveyor belt, the first `Bar` on the belt gets processed,
-then the next, and so forth, until the belt is empty, and the operator goes to lunch when there's
-nothing to do." (Narrative metaphor obscures meaning)
-
-However, abstraction is a meaningful and useful part of software design, and should be documented
-when it hides unnecessary implementation details. Contributors should use appropriate abstractions
-that match the system's design.
-
-Positive Example: "`Foo` uses the pub-sub pattern to process `Bar` objects asynchronously."
-(Appropriate abstraction)
-
-Negative Example: "`Foo` wraps each `Bar` object as a Node, each with a link to the next/previous
+Too Imperative: "`Foo` wraps each `Bar` object as a Node, each with a link to the next/previous
 node, and holds a reference to a node (marked root node), then recursively follows the links between
 nodes to process them in the order they were added. All this happens on a background thread for
-performance." (Too much implementation detail)
+performance." (Excessive implementation detail)
 
-Contributors should strike a balance between abstraction (hiding implementation details) and clarity
-(avoiding narrative weight). Use abstraction when it explains the implementation clearly and matches
-system abstractions, but avoid abstractions that detract from the meaning and add unnecessary
-narrative or conceptual weight.
+Just Right: "`Foo` processes `Bar` objects using a FIFO queue, and idles while the queue is empty.
+`Foo` uses the pub-sub pattern to process `Bar` objects asynchronously." (Clear, direct descriptions
+with appropriate abstraction).
+
+Striking a balance between abstraction (hiding implementation details) and clarity (avoiding
+narrative weight) ensures documentation explains the implementation clearly without unnecessary
+conceptual indirection.
 
 ## Guideline: Balance Documentation Proximity With Size
 
-Documentation should be distributed close to the artifacts it relates to, so that readers are not
-overwhelmed by monolithic documents, and can easily find the information they need without searching
-through large volumes of text.
+Documentation should be distributed close to the artifacts it relates to, as this prevents readers
+from being overwhelmed by monolithic documents and helps them find information easily; however,
+spreading information across too many documents obscures meaning and leaves readers without a
+cohesive picture; therefore, contributors should balance colocation with cohesion.
 
-Positive Example: A README in a package describing that package's functionality. (Colocated)
+Too Centralized: The root repository README containing documentation for the entire monorepo.
+(Overwhelming, difficult to navigate)
 
-Negative Example: The root repository README containing documentation for the entire monorepo.
-(Centralized, overwhelming)
+Too Fragmented: A README in every package with details of that package only, with no overview or
+context about how packages relate. (Lacks cohesion)
 
-However, spreading documentation between too many documents obscures meaning and leaves readers
-without a cohesive picture. Some separation between documents and artifacts is acceptable to provide
-context and overview.
+Just Right: A root README that introduces the repository structure and philosophy, with smaller
+granular READMEs for large packages. (Balanced distribution with both overview and detail).
 
-Positive Example: A root README that introduces the repository structure and philosophy, with
-smaller granular READMEs for individual packages. (Balanced distribution)
-
-Negative Example: A README in every package with details of that package only, with no overview or
-context about how packages relate. (Too fragmented)
-
-Contributors should strike a balance between colocation (keeping information close to where it
-matters) and cohesion (providing a unified picture). Avoid large centralized documents that contain
-everything, but also avoid excessive decomposition that fragments understanding.
+Striking a balance between colocation (keeping information close to where it matters) and cohesion
+(providing a unified picture) ensures documentation is accessible without being overwhelming or
+fragmented.
 
 Note: Splitting a document in a directory into multiple files can help when the information is in
 the right place but the document is becoming too large.
