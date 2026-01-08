@@ -1,0 +1,8 @@
+{
+  "id": "agent20_sille",
+  "name": "Sille",
+  "role": "The Mirror",
+  "color": "#8e44ad",
+  "number": 20,
+  "is_secret": true
+}
