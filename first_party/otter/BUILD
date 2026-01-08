@@ -45,7 +45,7 @@ kt_jvm_library(
 kt_jvm_library(
     name = "otter",
     visibility = [
-        "//first_party:__subpackages__",
+        "//first_party/otter:__subpackages__",
     ],
     exports = [
         ":component",

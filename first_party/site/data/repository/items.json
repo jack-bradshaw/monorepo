@@ -16,6 +16,14 @@
     "repo": "monorepo"
   },
   {
+    "key": "council",
+    "title": "Council",
+    "description": "An experimental multi-agent system where AI agents interact, debate, and vote on topics.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/council",
+    "technologies": ["ai", "python", "bazel"],
+    "repo": "monorepo"
+  },
+  {
     "key": "coroutines",
     "title": "Coroutines",
     "description": "Kotlin coroutine infrastructure, complete with test doubles and Dagger integration.",
