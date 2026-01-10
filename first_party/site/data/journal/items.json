@@ -127,5 +127,14 @@
     "year": 2026,
     "month": 1,
     "file": "/static/content/journal/meat_because_we_want_to.md"
+  },
+  {
+    "key": "about-wrong-perspectives-on-an-art-gallery",
+    "title": "About Wrong Perspectives on an Art Gallery",
+    "description": "Explores subjectivity through the metaphor of a bright red room as an inescapable reality. Examines how art becomes a coping mechanism for eternal conditions and demonstrates how perspective itself is fundamentally flawed through multiple visual metaphors of skewed angles, impossible arrangements, and inherent imperfections.",
+    "is_draft": false,
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/about_wrong_perspectives_on_an_art_gallery.md"
   }
 ]

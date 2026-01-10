@@ -190,13 +190,19 @@
     "key": "monochromatic-orange",
     "title": "Monochromatic (Orange)",
     "description": "Variations and tints of orange",
-    "items": ["saturn_2025", "part_3_2022", "beta_2022", "first_2024_2024"]
+    "items": ["asteroid_belt_2022", "saturn_2025", "part_3_2022", "beta_2022", "first_2024_2024"]
   },
   {
     "key": "monochromatic-red",
     "title": "Monochromatic (Red)",
     "description": "Variations and tints of red",
-    "items": ["asteroid_belt_2022", "flexibility_2024", "phoenix_2024", "frustrated_2024"]
+    "items": [
+      "multitude_wrong_perspectives_on_an_art_gallery_2_of_5_2026",
+      "multitude_wrong_perspectives_on_an_art_gallery_1_of_5_2026",
+      "flexibility_2024",
+      "phoenix_2024",
+      "frustrated_2024"
+    ]
   },
   {
     "key": "cool-temperature",
