@@ -1,6 +1,6 @@
 package com.jackbradshaw.coroutines.testing
 
-import com.jackbradshaw.coroutines.Coroutines
+import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.CoroutinesScope
 import com.jackbradshaw.coroutines.io.testing.TestIoModule
 import com.jackbradshaw.coroutines.testing.launcher.Launcher
@@ -11,8 +11,16 @@ import kotlinx.coroutines.test.TestScope
 
 @CoroutinesScope
 @Component(modules = [TestIoModule::class, ScopeModule::class, LauncherModule::class])
-interface TestCoroutines : Coroutines {
+interface TestCoroutinesComponent : CoroutinesComponent {
   fun testScope(): TestScope
 
   fun launcher(): Launcher
+
+  @Component.Builder
+  interface Builder {
+    fun build(): TestCoroutinesComponent
+  }
 }
+
+fun testCoroutinesComponent(): TestCoroutinesComponent =
+    DaggerTestCoroutinesComponent.builder().build()
