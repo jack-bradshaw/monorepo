@@ -1,7 +1,6 @@
 package com.jackbradshaw.sasync.standard
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
 import com.jackbradshaw.coroutines.testing.TestCoroutines
 import com.jackbradshaw.sasync.inbound.inbound
 import com.jackbradshaw.sasync.outbound.outbound
@@ -22,7 +21,7 @@ class StandardTest {
   @Test
   fun linksStandardInput(): Unit = runBlocking {
     val inputStream = ByteArrayInputStream(TEST_DATA)
-    val coroutines = DaggerTestCoroutines.create()
+    val coroutines = testCoroutines()
     val standard = createStandard(coroutines, input = inputStream)
 
     val collected = mutableListOf<Byte>()
@@ -37,7 +36,7 @@ class StandardTest {
   @Test
   fun linksStandardOutput(): Unit = runBlocking {
     val outputStream = ByteArrayOutputStream()
-    val coroutines = DaggerTestCoroutines.create()
+    val coroutines = testCoroutines()
     val standard =
         createStandard(
             coroutines,
@@ -59,7 +58,7 @@ class StandardTest {
   @Test
   fun linksStandardError(): Unit = runBlocking {
     val errorStream = ByteArrayOutputStream()
-    val coroutines = DaggerTestCoroutines.create()
+    val coroutines = testCoroutines()
     val standard = createStandard(coroutines, error = errorStream)
 
     standard.standardError().publishBytes(TEST_DATA)

@@ -206,8 +206,8 @@ Negative example:
 
 ```markdown
 1. First item
-2. Second item
-3. Third item
+1. Second item
+1. Third item
 ```
 
 This saves time when inserting new items or reordering the list, as renumbering is not required.
