@@ -1,6 +1,5 @@
 package com.jackbradshaw.sasync.outbound.transport
 
-import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
 import com.jackbradshaw.coroutines.testing.TestCoroutines
 import com.jackbradshaw.sasync.outbound.OutboundScope
 import com.jackbradshaw.sasync.outbound.config.Config
@@ -26,11 +25,7 @@ class OutboundTransportImplTest : OutboundTransportTest() {
   private lateinit var subject: OutboundTransport
 
   override fun setup(config: Config) {
-    DaggerTestComponent.builder()
-        .binding(config)
-        .consuming(DaggerTestCoroutines.create())
-        .build()
-        .inject(this)
+    DaggerTestComponent.builder().binding(config).consuming(testCoroutines()).build().inject(this)
 
     subject = subjectFactory.create(destination)
 

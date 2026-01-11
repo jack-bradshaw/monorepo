@@ -29,7 +29,7 @@ class ManifestEncoderTest {
 
   @Before
   fun setUp() {
-    DaggerTestComponent.builder().setOtter(otter()).build().inject(this)
+    DaggerTestComponent.builder().consuming(otter()).build().inject(this)
   }
 
   @Test
@@ -143,7 +143,7 @@ interface TestComponent {
 
   @Component.Builder
   interface Builder {
-    fun setOtter(otter: OtterComponent): Builder
+    fun consuming(otter: OtterComponent): Builder
 
     fun build(): TestComponent
   }

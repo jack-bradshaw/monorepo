@@ -1,10 +1,10 @@
 package com.jackbradshaw.sasync.standard
 
-import com.jackbradshaw.sasync.inbound.Inbound
-import com.jackbradshaw.sasync.inbound.inbound
+import com.jackbradshaw.sasync.inbound.InboundComponent
+import com.jackbradshaw.sasync.inbound.inboundComponent
 import com.jackbradshaw.sasync.inbound.transport.InboundTransport
-import com.jackbradshaw.sasync.outbound.Outbound
-import com.jackbradshaw.sasync.outbound.outbound
+import com.jackbradshaw.sasync.outbound.OutboundComponent
+import com.jackbradshaw.sasync.outbound.outboundComponent
 import com.jackbradshaw.sasync.outbound.transport.OutboundTransport
 import com.jackbradshaw.sasync.standard.config.Config
 import com.jackbradshaw.sasync.standard.config.ConfigModule
@@ -20,6 +20,15 @@ import dagger.Component
 import java.io.InputStream
 import java.io.OutputStream
 
+interface StandardComponent {
+
+  @StandardInput fun standardInput(): InboundTransport
+
+  @StandardOutput fun standardOutput(): OutboundTransport
+
+  @StandardError fun standardError(): OutboundTransport
+}
+
 @StandardScope
 @Component(
     modules =
@@ -29,14 +38,8 @@ import java.io.OutputStream
             StandardErrorModule::class,
             ConfigModule::class,
         ],
-    dependencies = [Inbound::class, Outbound::class])
-interface Standard {
-
-  @StandardInput fun standardInput(): InboundTransport
-
-  @StandardOutput fun standardOutput(): OutboundTransport
-
-  @StandardError fun standardError(): OutboundTransport
+    dependencies = [InboundComponent::class, OutboundComponent::class])
+interface ProdStandardComponent : StandardComponent {
 
   @Component.Builder
   interface Builder {
@@ -49,23 +52,23 @@ interface Standard {
 
     @BindsInstance fun bindingStandardError(@StandardError stream: OutputStream): Builder
 
-    fun consuming(inbound: Inbound): Builder
+    fun consuming(inbound: InboundComponent): Builder
 
-    fun consuming(outbound: Outbound): Builder
+    fun consuming(outbound: OutboundComponent): Builder
 
-    fun build(): Standard
+    fun build(): ProdStandardComponent
   }
 }
 
-fun standard(
+fun standardComponent(
     config: Config = defaultConfig,
-    inbound: Inbound = inbound(),
-    outbound: Outbound = outbound(),
+    inbound: InboundComponent = inboundComponent(),
+    outbound: OutboundComponent = outboundComponent(),
     input: InputStream = System.`in`,
     output: OutputStream = System.out,
     error: OutputStream = System.err
 ) =
-    DaggerStandard.builder()
+    DaggerProdStandardComponent.builder()
         .binding(config)
         .consuming(inbound)
         .consuming(outbound)

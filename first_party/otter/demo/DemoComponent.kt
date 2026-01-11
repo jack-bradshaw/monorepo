@@ -7,20 +7,22 @@ import com.jackbradshaw.otter.demo.materials.MaterialsModule
 import com.jackbradshaw.otter.demo.support.SupportModule
 import dagger.Component
 
+interface DemoComponent {
+  fun world(): CubeLevel
+}
+
 @DemoScope
 @Component(
     modules = [MaterialsModule::class, SupportModule::class, ItemsModule::class],
     dependencies = [OtterComponent::class])
-interface DemoComponent {
-
-  fun world(): CubeLevel
-
+interface ProdDemoComponent : DemoComponent {
   @Component.Builder
   interface Builder {
-    fun setOtterComponent(otterComponent: OtterComponent): Builder
+    fun consuming(otterComponent: OtterComponent): Builder
 
-    fun build(): DemoComponent
+    fun build(): ProdDemoComponent
   }
 }
 
-fun demo(otter: OtterComponent) = DaggerDemoComponent.builder().setOtterComponent(otter).build()
+fun demo(otter: OtterComponent): DemoComponent =
+    DaggerProdDemoComponent.builder().consuming(otter).build()

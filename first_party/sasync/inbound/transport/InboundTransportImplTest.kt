@@ -1,9 +1,7 @@
 package com.jackbradshaw.sasync.inbound.transport
 
 import com.jackbradshaw.concurrency.pulsar.testing.TestPulsar
-import com.jackbradshaw.concurrency.testing.DaggerTestConcurrency
 import com.jackbradshaw.concurrency.testing.TestConcurrency
-import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
 import com.jackbradshaw.coroutines.testing.TestCoroutines
 import com.jackbradshaw.sasync.inbound.InboundScope
 import com.jackbradshaw.sasync.inbound.config.Config
@@ -51,8 +49,8 @@ class InboundTransportImplTest : InboundTransportTest() {
 
     DaggerTestComponent.builder()
         .binding(config)
-        .consuming(DaggerTestCoroutines.create())
-        .consuming(DaggerTestConcurrency.create())
+        .consuming(testCoroutines())
+        .consuming(testConcurrency())
         .build()
         .inject(this)
 

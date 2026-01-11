@@ -21,17 +21,6 @@ import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.CoroutineDispatcher
 
-@OtterScope
-@Component(
-    modules =
-        [
-            EngineCoreModule::class,
-            TimingModule::class,
-            ManifestInstallerModule::class,
-            ManifestGeneratorModule::class,
-            ManifestEncoderModule::class,
-            CoroutinesModule::class,
-            SceneStageModule::class])
 interface OtterComponent {
 
   @Physics fun physicsDispatcher(): CoroutineDispatcher
@@ -53,15 +42,28 @@ interface OtterComponent {
   fun stage(): SceneStage
 
   fun config(): Config
+}
 
+@OtterScope
+@Component(
+    modules =
+        [
+            EngineCoreModule::class,
+            TimingModule::class,
+            ManifestInstallerModule::class,
+            ManifestGeneratorModule::class,
+            ManifestEncoderModule::class,
+            CoroutinesModule::class,
+            SceneStageModule::class])
+interface ProdOtterComponent : OtterComponent {
   @Component.Builder
   interface Builder {
 
-    @BindsInstance fun setConfig(config: Config): Builder
+    @BindsInstance fun binding(config: Config): Builder
 
-    fun build(): OtterComponent
+    fun build(): ProdOtterComponent
   }
 }
 
 fun otter(config: Config = defaultConfig): OtterComponent =
-    DaggerOtterComponent.builder().setConfig(config).build()
+    DaggerProdOtterComponent.builder().binding(config).build()
