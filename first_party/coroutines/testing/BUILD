@@ -1,11 +1,10 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-
 kt_jvm_library(
     name = "component",
     srcs = ["TestCoroutinesComponent.kt"],
     visibility = ["//visibility:public"],
     deps = [
         "//first_party/coroutines:component",
+        "//first_party/coroutines/testing/advancer:advancer",
         "//first_party/coroutines/testing/launcher",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_test",
     ],
@@ -20,6 +19,7 @@ kt_jvm_library(
         "//:dagger",
         "//first_party/coroutines:scope",
         "//first_party/coroutines/io/testing:module",
+        "//first_party/coroutines/testing/advancer:module",
         "//first_party/coroutines/testing/launcher:module",
         "//first_party/coroutines/testing/scope:module",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_test",
