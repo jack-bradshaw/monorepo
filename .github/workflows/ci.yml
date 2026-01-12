@@ -38,6 +38,13 @@ jobs:
         run: |
           echo "Disk space before cleanup:"
           df -h
+
+          # Install libtinfo5 manually since it's missing on Ubuntu 24.04
+          echo "Installing libtinfo5..."
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2_amd64.deb
+          sudo dpkg -i libtinfo5_6.3-2_amd64.deb
+          rm libtinfo5_6.3-2_amd64.deb
+
           echo "Disk disk cleanup starting."
 
           sudo docker image prune --all --force
