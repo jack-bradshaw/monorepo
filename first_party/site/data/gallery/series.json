@@ -1,13 +1,10 @@
 [
   {
     "key": "the_second_wind",
-    "title": "The Second Wind",
-    "description": "I'm sick of grand perspectives and the bigger picture. Back to basics. Raw materials. Message over form.",
-    "items": [
-      "multitude_wrong_perspectives_on_an_art_gallery_1_of_5_2026",
-      "multitude_wrong_perspectives_on_an_art_gallery_2_of_5_2026"
-    ],
-    "cover": "multitude_wrong_perspectives_on_an_art_gallery_1_of_5_2026"
+    "title": "The Red Room",
+    "description": "I'm tired of grand perspectives and the bigger picture. Back to basics. Raw materials. Message over form.",
+    "items": ["panic_2026", "multitude_wrong_perspectives_art_gallery_2026"],
+    "cover": "panic_2026"
   },
   {
     "key": "genesis_ex_nihilo",
