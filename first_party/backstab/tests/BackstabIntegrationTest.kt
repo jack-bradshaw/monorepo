@@ -2,18 +2,23 @@ package com.jackbradshaw.backstab.tests
 
 import org.junit.Test
 import org.junit.Assert.assertNotNull
-import kotlin.reflect.full.memberFunctions
+import org.junit.Assert.assertTrue
+import dagger.Module
 
 class BackstabIntegrationTest {
 
     @Test
-    fun `generated module exists`() {
-        // Check if SimpleComponentAutoModule class exists
-        val moduleClass = Class.forName("com.jackbradshaw.backstab.tests.SimpleComponentAutoModule")
-        assertNotNull(moduleClass)
+    fun `generated module exists and is usable`() {
+        // Direct reference proves it exists on classpath
+        val module = SimpleComponentAutoModule
+        assertNotNull(module)
         
-        // Check if provider method exists
-        val providerMethod = moduleClass.declaredMethods.find { it.name == "provideSimpleComponent" }
-        assertNotNull("Provider method should exist", providerMethod)
+        // precise class check
+        assertTrue("Should be an object", SimpleComponentAutoModule::class.objectInstance != null)
+        assertTrue("Should be annotated with @Module", SimpleComponentAutoModule::class.annotations.any { it is Module })
+        
+        // Check provider method via reflection (method name is stable)
+        val method = SimpleComponentAutoModule::class.java.getDeclaredMethod("provideSimpleComponent")
+        assertNotNull(method)
     }
 }
