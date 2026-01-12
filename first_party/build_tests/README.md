@@ -8,10 +8,8 @@ Not released to third-party package managers.
 
 ## Purpose
 
-While the external build rules and package managers are tested by other packages, changes to those
-packages can create coverage gaps. This package ensures the build system remains tested, regardless
-of such changes, to prevent regressions and keep the build system functional. This is supported by
-the various bugs that were found during their implementation.
+The build rules and package manager deps are exercised by other packages; however, changes to those
+packages can create coverage gaps; therefore, direct testing is necessary for guaranteed coverage; ergo, by testing the build rules and package manager deps directly, this package prevents regressions in the core infrastructure.
 
 ## Contents
 

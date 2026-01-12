@@ -5,10 +5,12 @@ module(
 
 # Versions
 #
-# Guidelines:
-# - Only include versions that are referenced in multiple places.
-# - Deps that are used in bazel-deps are prefixed with 'VERSION_'.
-# - Deps that are used in maven only are prefixed with 'VERSION_MAVEN_'.
+
+# - Versions defined here must be referenced in multiple locations; concordantly, versions
+#   referenced in only one location must be defined inline.
+# - Versions used in Bazel deps only must be prefixed with 'VERSION_'.
+# - Versions used in Maven artifacts only must be prefixed with 'VERSION_MAVEN_'.
+# - Versions used in Bazel deps and Maven artefacts must be prefixed with `VERSION_`.
 
 VERSION_ROBOLECTRIC = "4.12.2"
 
@@ -53,47 +55,84 @@ bazel_dep(name = "rules_cc", version = "0.2.5")
 
 # JVM (Java + Kotlin)
 bazel_dep(name = "rules_java", version = "8.15.1")
-bazel_dep(name = "rules_kotlin", version = "2.1.8")
-bazel_dep(name = "rules_jvm_external", version = "6.8")
+bazel_dep(name = "rules_kotlin", version = "2.2.1")
+bazel_dep(name = "rules_jvm_external", version = "6.9")
 
 ## Maven Deps
+VERSION_OVERRIDES = [
+    "androidx.activity:activity:1.12.2",
+    "androidx.activity:activity-compose:1.12.2",
+    "androidx.compose.animation:animation:1.10.0",
+    "androidx.compose.animation:animation-android:1.10.0",
+    "androidx.compose.animation:animation-core:1.10.0",
+    "androidx.compose.animation:animation-core-android:1.10.0",
+    "androidx.compose.foundation:foundation-android:1.10.0",
+    "androidx.compose.foundation:foundation-layout-android:1.10.0",
+    "androidx.compose.material:material-android:1.10.0",
+    "androidx.compose.material:material-ripple:1.10.0",
+    "androidx.compose.material:material-ripple-android:1.10.0",
+    "androidx.compose.runtime:runtime-android:1.10.0",
+    "androidx.compose.runtime:runtime-saveable:1.10.0",
+    "androidx.compose.runtime:runtime-saveable-android:1.10.0",
+    "androidx.compose.ui:ui-android:1.10.0",
+    "androidx.compose.ui:ui-graphics:1.10.0",
+    "androidx.compose.ui:ui-graphics-android:1.10.0",
+    "androidx.compose.ui:ui-text:1.10.0",
+    "androidx.compose.ui:ui-text-android:1.10.0",
+    "androidx.compose.ui:ui-unit:1.10.0",
+    "androidx.compose.ui:ui-unit-android:1.10.0",
+    "androidx.compose.ui:ui-util:1.10.0",
+    "androidx.compose.ui:ui-util-android:1.10.0",
+    "androidx.core:core-ktx:1.17.0",
+    "androidx.lifecycle:lifecycle-common:2.8.7",
+    "androidx.lifecycle:lifecycle-livedata-core:2.8.7",
+    "androidx.lifecycle:lifecycle-runtime:2.8.7",
+    "androidx.lifecycle:lifecycle-viewmodel:2.8.7",
+    "androidx.navigationevent:navigationevent-compose:1.0.1",
+    "androidx.savedstate:savedstate:1.4.0",
+    "androidx.savedstate:savedstate-compose:1.4.0",
+    "androidx.collection:collection:1.5.0",
+    "androidx.annotation:annotation:1.9.1",
+    "androidx.emoji2:emoji2:1.6.0",
+    "androidx.emoji2:emoji2-views-helper:1.6.0",
+    "androidx.collection:collection-jvm:1.5.0",
+]
+
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "com_jackbradshaw_maven",
     artifacts = [
-        "androidx.test.ext:junit:1.3.0",
+        "androidx.appcompat:appcompat:1.7.0",
+        "androidx.compose.foundation:foundation:1.10.0",
+        "androidx.compose.foundation:foundation-layout:1.10.0",
+        "androidx.compose.material:material:1.10.0",
+        "androidx.compose.runtime:runtime:1.10.0",
+        "androidx.compose.ui:ui:1.10.0",
+        "androidx.core:core:1.17.0",
+        "androidx.test:core:1.6.1",
+        "androidx.test.espresso:espresso-core:3.6.1",
+        "androidx.compose.ui:ui-test-junit4:1.10.0",
+        "androidx.compose.ui:ui-test-manifest:1.10.0",
         "com.google.auto.factory:auto-factory:1.1.0",
         "com.google.auto.value:auto-value-annotations:%s" % VERSION_MAVEN_AUTO_VALUE,
         "com.google.auto.value:auto-value:%s" % VERSION_MAVEN_AUTO_VALUE,
         "com.google.auto:auto-common:1.2.2",
-        "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.13.1",
         "com.google.dagger:dagger-compiler:%s" % VERSION_DAGGER,
         "com.google.dagger:dagger-producers:%s" % VERSION_DAGGER,
         "com.google.dagger:dagger:%s" % VERSION_DAGGER,
-        "com.google.flogger:flogger-system-backend:%s" % VERSION_MAVEN_FLOGGER,
-        "com.google.flogger:flogger:%s" % VERSION_MAVEN_FLOGGER,
-        "com.google.guava:failureaccess:1.0.3",
-        "com.google.guava:guava-testlib:%s" % VERSION_MAVEN_GUAVA,
         "com.google.guava:guava:%s" % VERSION_MAVEN_GUAVA,
-        "com.google.http-client:google-http-client-gson:%s" % VERSION_MAVEN_GOOGLE_HTTP_CLIENT,
-        "com.google.http-client:google-http-client-test:%s" % VERSION_MAVEN_GOOGLE_HTTP_CLIENT,
-        "com.google.http-client:google-http-client:%s" % VERSION_MAVEN_GOOGLE_HTTP_CLIENT,
-        "com.google.protobuf:protobuf-java-util:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
-        "com.google.protobuf:protobuf-java:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
-        "com.google.protobuf:protobuf-javalite:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
         "com.google.protobuf:protobuf-kotlin-lite:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
         "com.google.protobuf:protobuf-kotlin:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
         "com.google.protobuf:protobuf-lite:3.0.1",
         "com.google.truth:truth:1.4.4",
-        "commons-codec:commons-codec:1.19.0",
         "io.ktor:ktor-http-jvm:%s" % VERSION_MAVEN_KTOR,
         "io.ktor:ktor-server-core-jvm:%s" % VERSION_MAVEN_KTOR,
         "io.ktor:ktor-server-host-common-jvm:%s" % VERSION_MAVEN_KTOR,
         "io.ktor:ktor-server-netty-jvm:%s" % VERSION_MAVEN_KTOR,
-        "javax.annotation:jsr250-api:1.0",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13.2",
+        "org.jetbrains.kotlin:kotlin-compose-compiler-plugin:2.2.21",
         "org.jetbrains.kotlin:kotlin-test:2.2.0",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2",
@@ -102,53 +141,15 @@ maven.install(
         "org.jmonkeyengine:jme3-core:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
         "org.jmonkeyengine:jme3-desktop:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
         "org.jmonkeyengine:jme3-lwjgl3:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
-        "org.jmonkeyengine:jme3-lwjgl:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
-        "org.jmonkeyengine:jme3-testdata:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
         "org.jmonkeyengine:jme3-vr:%s" % VERSION_MAVEN_J_MONKEY_ENGINE_MAIN,
-        "org.lwjgl:lwjgl-assimp:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-bgfx:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-cuda:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-egl:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-glfw:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-jawt:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-jemalloc:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-libdivide:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-llvm:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-lmdb:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-lz4:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-meow:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-meshoptimizer:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-nanovg:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-nfd:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-nuklear:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-odbc:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-openal:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-opencl:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-opengl:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-opengles:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-openvr:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-openxr:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-opus:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-par:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-remotery:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-rpmalloc:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-shaderc:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-spvc:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-sse:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-stb:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-tinyexr:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-tootle:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-vma:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-vulkan:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-xxhash:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-yoga:%s" % VERSION_MAVEN_LWJGL,
-        "org.lwjgl:lwjgl-zstd:%s" % VERSION_MAVEN_LWJGL,
         "org.lwjgl:lwjgl:%s" % VERSION_MAVEN_LWJGL,
-        "org.mockito:mockito-core:5.18.0",
         "org.skyscreamer:jsonassert:1.5.3",
         "com.microsoft.playwright:playwright:1.49.0",
-    ],
-    fetch_sources = True,
+        "org.robolectric:robolectric:4.13",
+    ] + VERSION_OVERRIDES,
+    fetch_sources = False,
+    resolve_timeout = 600,
+    version_conflict_policy = "pinned",
     lock_file = "//:lock_maven_com_jackbradshaw.json",
     repositories = [
         "https://repo1.maven.org/maven2",
@@ -156,6 +157,7 @@ maven.install(
         "https://maven.google.com/",
     ],
 )
+
 use_repo(maven, "com_jackbradshaw_maven")
 
 ## Formatting
