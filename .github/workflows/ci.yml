@@ -90,6 +90,12 @@ jobs:
           sudo rm -rf /usr/share/perl
           sudo rm -rf /usr/share/vim
           sudo rm -rf /usr/src/linux-headers-6.11.0-1018-azure
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /opt/hostedtoolcache/go
+          sudo rm -rf /opt/hostedtoolcache/PyPy
+          sudo rm -rf /usr/share/kotlinc
 
           echo "Disk space cleanup complete."
           echo "Disk space after cleanup:"
