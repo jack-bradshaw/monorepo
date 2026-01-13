@@ -190,7 +190,7 @@ Negative example:
 
 This ensures consistency across all documentation and reduces visual clutter.
 
-## Standard: Uniform Ordered List Numbering
+## Automation: Ordered List Numbering
 
 Ordered lists must use `1.` for all items.
 
@@ -206,8 +206,8 @@ Negative example:
 
 ```markdown
 1. First item
-2. Second item
-3. Third item
+1. Second item
+1. Third item
 ```
 
 This saves time when inserting new items or reordering the list, as renumbering is not required.

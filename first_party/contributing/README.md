@@ -21,6 +21,7 @@ Throughout the documents in this package, the following terms are used with spec
 1. Directive: A standard, practice, or guideline.
 1. Standard: A directive that is an absolute requirement. Standards must all be satisfied prior to
    submission and are strictly enforced during code review (by automation where possible).
+1. Automation: A directive that is enforced by presubmit.
 1. Practice: A directive that is a widely accepted convention across the codebase. Practices should
    be followed to maintain consistency, but deviation is acceptable when justified by the context.
 1. Guideline: A directive that offers a perspective, mental model, or qualitative advice. Guidelines
