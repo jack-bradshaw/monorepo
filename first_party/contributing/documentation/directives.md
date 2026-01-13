@@ -59,12 +59,15 @@ This clarifies meaning and prevents ambiguity for readers unfamiliar with the do
 ### Guideline: Order by Importance
 
 Directives should be ordered in a way that presents the most important information first, and there
-is no need to group all standards together, all practices together, or all guidelines together.
+is no need to group all standards together, all practices together, or all guidelines together;
+however, all automation directives must be placed at the end of the containing section.
 
-Example: "1. Standard: No murdering. 2. Practice: Do no harm. 3. Guideline: Have Fun."
+Example: "1. Standard: No murdering. 2. Practice: Do no harm. 3. Guideline: Have Fun. 4. Automation:
+No GOTO statements."
 
 This helps readers quickly understand the key requirements without reading through less critical
-information, and allows the natural flow of information to take precedence over directive type.
+information, and allows the natural flow of information to take precedence over directive type;
+furthermore, it retains context for automations.
 
 NOTE: The above example is purely for instructional purposes, and the directives it contains are not
 actual directives that need to be followed.
@@ -136,12 +139,12 @@ The structure consists of four parts:
    - Thesis: State the primary concern with rationale
    - Antithesis: Introduce the opposing concern with `"however"`
    - Synthesis: Conclude with `"therefore"` and the balanced approach
-2. Negative examples: Two contrasting extremes
+1. Negative examples: Two contrasting extremes
    - `"Too [Extreme A]: (example) (description of problem)"`
    - `"Too [Extreme B]: (example) (description of problem)"`
-3. Positive synthesis: Balanced example
+1. Positive synthesis: Balanced example
    - `"Just Right: (example demonstrating balance) (description of balance achieved)."`
-4. Closing statement: `"Striking a balance between X and Y ensures..."`
+1. Closing statement: `"Striking a balance between X and Y ensures..."`
    - Reinforces the dialectical relationship
    - Explains the benefit of the balanced approach
 
