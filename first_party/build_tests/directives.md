@@ -4,16 +4,27 @@ Directives for build tests in this repository.
 
 ## Terminology
 
-The term "validation target" refers to a target that exists to verify that a build rule or package
-manager works as intended. Validation targets may be of any rule type and are not limited to "test"
-targets (e.g. `java_test` targets). Validation targets come in two varieties, build rule validation
-targets, which exercise build rules, and package manager validation targets, which exercise package
-managers. Support targets are private targets that exist to satisfy the attributes of validation
-targets, but are not themselves validation targets.
+The following definitions apply throughout this document:
+
+- Build rules: Rules for compiling, linking, or testing code for a specific language or platform.
+  Examples: `java_library`, `swift_binary`, `py_test`, `proto_library`.
+- Package managers: Systems that resolve and fetch external dependencies. Examples: Maven, NPM, PIP,
+  Cargo.
+- Validation targets: Targets that exist to verify build rules or package managers work as intended.
+- Support targets: Private targets that support validation targets but are not themselves validation
+  targets.
 
 ## Scope
 
 All build tests in `first_party/build_tests` must conform to these directives.
+
+## Practice: Coverage
+
+Validation targets should exist for all build rules and package managers installed in the
+repository.
+
+Rationale: Build rules and package managers produce artifacts that production code depends on, and
+must remain operational as the codebase evolves, even if that includes temporarily not using them.
 
 ## Build Rule Validation Target Directives
 
@@ -40,14 +51,6 @@ Java.
 
 This ensures tests are organized logically by domain.
 
-### Practice: Coverage
-
-Build rule validation targets should exist for every language/platform installed in the repository
-(defined in [MODULE.bazel](/MODULE.bazel)). This ensures all languages/platforms remain operational.
-
-NOTE: This directive is presently not satisfied. Tracked by
-[Issue 268](https://github.com/jack-bradshaw/monorepo/issues/268).
-
 ### Practice: Granularity
 
 Separate build rule validation targets should exist for the library, binary, and test rule types of
@@ -55,9 +58,20 @@ each language/platform.
 
 Example: The contents of the [Java Build Tests](/first_party/build_tests/java) directory.
 
+Rationale: This ensures comprehensive coverage of all rule types and catches issues specific to each
+build artifact type.
+
 ## Package Manager Validation Target Directives
 
 Directives for package manager validation targets (e.g. `maven`).
+
+### Practice: Coverage
+
+Package manager validation targets should exist for every package manager installed in the
+repository (defined in [MODULE.bazel](/MODULE.bazel)); furthermore, they should cover every declared
+dependency (but not transitive dependencies) by including them as a dep.
+
+This ensures all package managers remain operational and all declared dependencies are resolvable.
 
 ### Standard: Naming
 
@@ -75,12 +89,6 @@ Example: PIP tests in `first_party/build_tests/pip/` and NPM tests in
 `first_party/build_tests/npm/`.
 
 This ensures tests are organized logically by tool.
-
-### Practice: Coverage
-
-Package manager validation targets should exist for every package manager installed in the
-repository (defined in [MODULE.bazel](/MODULE.bazel)), and they should cover every declared
-dependency (but not transitive dependencies). This ensures all package managers remain operational.
 
 ### Practice: Granularity
 
@@ -123,7 +131,8 @@ Rationale: This ensures that each test can pass/fail independently.
 
 Source files must contain the minimal content required for build/test operations to succeed.
 
-Example: [Stub.java](/first_party/build_tests/java/Stub.java).
+Example: [Binary.java](/first_party/build_tests/java/Binary.java) contains only the minimal `main`
+method required for a Java binary.
 
 Rationale: This reduces clutter and keeps tests focused on the build system behavior (not code).
 
@@ -132,7 +141,7 @@ Rationale: This reduces clutter and keeps tests focused on the build system beha
 Targets should share source files when a single file can satisfy the requirements for multiple
 validation targets.
 
-Example: [Stub.java](/first_party/build_tests/java/Stub.java) is shared between `java_library` and
-`java_binary` validation targets.
+Example: [Library.java](/first_party/build_tests/java/Library.java) is shared between
+`java_library_must_build` and `java_binary_must_build` validation targets.
 
-This reduces clutter and maintenance overhead.
+Rationale: This reduces clutter and maintenance overhead.

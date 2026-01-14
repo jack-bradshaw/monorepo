@@ -8,6 +8,7 @@ java_library(
     name = "maven_deps_must_resolve",
     srcs = ["Deps.java"],
     deps = [
+        "@com_jackbradshaw_maven//:androidx_test_ext_junit",
         "@com_jackbradshaw_maven//:com_google_auto_auto_common",
         "@com_jackbradshaw_maven//:com_google_auto_factory_auto_factory",
         "@com_jackbradshaw_maven//:com_google_auto_value_auto_value",
@@ -32,6 +33,7 @@ java_library(
         "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_kotlin_lite",
         "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_lite",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:com_microsoft_playwright_playwright",
         "@com_jackbradshaw_maven//:commons_codec_commons_codec",
         "@com_jackbradshaw_maven//:io_ktor_ktor_http_jvm",
         "@com_jackbradshaw_maven//:io_ktor_ktor_server_core_jvm",
@@ -42,6 +44,7 @@ java_library(
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_test",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_bullet",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_bullet_native",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
