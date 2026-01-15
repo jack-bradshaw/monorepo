@@ -1,22 +1,29 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
-    name = "concurrency",
-    srcs = ["Concurrency.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    name = "scope",
+    srcs = ["ConcurrencyScope.kt"],
+    visibility = ["//visibility:public"],
+    deps = ["//:dagger"],
+)
+
+kt_jvm_library(
+    name = "component",
+    srcs = ["ConcurrencyComponent.kt"],
+    visibility = ["//visibility:public"],
     deps = [
-        ":scope",
-        "//:dagger",
         "//first_party/concurrency/pulsar",
-        "//first_party/concurrency/pulsar:module",
     ],
 )
 
 kt_jvm_library(
-    name = "scope",
-    srcs = ["ConcurrencyScope.kt"],
-    visibility = ["//visibility:public"],
+    name = "component_impl",
+    srcs = ["ConcurrencyComponentImpl.kt"],
+    visibility = ["//first_party:__subpackages__"],
     deps = [
+        ":component",
+        ":scope",
         "//:dagger",
+        "//first_party/concurrency/pulsar:module",
     ],
 )

@@ -17,15 +17,15 @@ This package provides the following utilities:
 The utilities are integrated/exposed using [Dagger](https://dagger.dev), and two components are
 provided:
 
-- The [production component](/first_party/concurrency/Concurrency.kt), which provides production
-  versions.
-- The [test component](/first_party/concurrency/testing/TestConcurrency.kt), which provides test
-  doubles.
+- The [production component](/first_party/concurrency/ConcurrencyComponent.kt), which provides
+  production versions.
+- The [test component](/first_party/concurrency/testing/TestConcurrencyComponent.kt), which provides
+  test doubles.
 
 The test component extends the production component; therefore, the test component can be
 substituted anywhere the production component is required. Furthermore, an equivalent Kotlin factory
-function is provided for each, specifically `com.jackbradshaw.concurrency.concurrency` for the
-former, and `com.jackbradshaw.concurrency.testing.testConcurrency` for the latter.
+function is provided for each, specifically `com.jackbradshaw.concurrency.concurrencyComponent` for
+the former, and `com.jackbradshaw.concurrency.testing.testConcurrencyComponent` for the latter.
 
 ## Example
 
@@ -36,14 +36,14 @@ infrastructure does not actually depend on it.
 
 ```kotlin
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.concurrency.Concurrency
-import com.jackbradshaw.concurrency.concurrency
+import com.jackbradshaw.concurrency.ConcurrencyComponent
+import com.jackbradshaw.concurrency.concurrencyComponent
 import com.jackbradshaw.concurrency.pulsar.Pulsar
-import com.jackbradshaw.concurrency.testing.pulsar.TestPulsar
-import com.jackbradshaw.concurrency.testing.testConcurrency
-import com.jackbradshaw.coroutines.Coroutines
+import com.jackbradshaw.concurrency.pulsar.testing.TestPulsar
+import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
+import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.testing.launcher.Launcher
-import com.jackbradshaw.coroutines.testing.testCoroutines
+import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
 import dagger.Component
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
@@ -70,31 +70,33 @@ class Foo @Inject constructor(private val pulsar: Pulsar) {
   }
 }
 
-@Component(dependencies = [Concurrency::class])
+@Component(dependencies = [ConcurrencyComponent::class])
 interface FooComponent {
 
   fun provideFoo(): Foo
 
   @Component.Builder
   interface Builder {
-    fun setConcurrency(concurrency: Concurrency): Builder
+    fun consuming(concurrency: ConcurrencyComponent): Builder
 
     fun build(): FooComponent
   }
 }
 
+fun fooComponent(concurrency: ConcurrencyComponent = concurrencyComponent()) =
+    DaggerFooComponent.builder().consuming(concurrency).build()
+
 class Main {
   fun main(args: Array<String>) {
     runBlocking {
-      val fooComponent = DaggerFooComponent.builder().setConcurrency(concurrency()).build()
-      val foo = fooComponent.provideFoo()
+      val foo = fooComponent().provideFoo()
       foo.doWork()
     }
   }
 }
 
 @RunWith(JUnit4::class)
-class Test {
+class FooTest {
 
   @Inject lateinit var testScope: TestScope
   @Inject lateinit var launcher: Launcher
@@ -103,15 +105,15 @@ class Test {
 
   @Before
   fun setup() {
-    DaggerTestComponent.builder()
-        .setFooComponent(DaggerFooComponent.builder().setConcurrency(testConcurrency()).build())
-        .setCoroutines(testCoroutines())
+    DaggerFooTestComponent.builder()
+        .consuming(fooComponent(concurrency = testConcurrencyComponent()))
+        .consuming(testCoroutinesComponent())
         .build()
         .inject(this)
   }
 
   @Test
-  fun eachLoopIncrementsCounter(): Unit = runBlocking {
+  fun eachLoopIncrementsCounter(): Unit = testScope.runTest {
     launcher.launchEagerly { foo.doWork() }
 
     repeat(3) {
@@ -122,17 +124,17 @@ class Test {
   }
 }
 
-@Component(dependencies = [FooComponent::class, Coroutines::class])
-interface TestComponent {
-  fun inject(target: Test)
+@Component(dependencies = [FooComponent::class, CoroutinesComponent::class])
+interface FooTestComponent {
+  fun inject(target: FooTest)
 
   @Component.Builder
   interface Builder {
-    fun setFooComponent(fooComponent: FooComponent): Builder
+    fun consuming(fooComponent: FooComponent): Builder
 
-    fun setCoroutines(coroutines: Coroutines): Builder
+    fun consuming(coroutines: CoroutinesComponent): Builder
 
-    fun build(): TestComponent
+    fun build(): FooTestComponent
   }
 }
 ```

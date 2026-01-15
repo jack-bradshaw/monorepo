@@ -70,7 +70,7 @@ kt_jvm_test(
         ":test",
         ":transport",
         "//:dagger",
-        "//first_party/coroutines/testing",
+        "//first_party/coroutines/testing:component_impl",
         "//first_party/sasync/outbound:scope",
         "//first_party/sasync/outbound/config:kt_jvm_proto",
         "//first_party/universal/count:kt_jvm_proto",

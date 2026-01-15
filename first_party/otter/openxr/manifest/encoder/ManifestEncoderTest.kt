@@ -12,7 +12,7 @@ import com.jackbradshaw.otter.openxr.standard.StandardOutputIdentifier
 import com.jackbradshaw.otter.openxr.standard.StandardUser
 import com.jackbradshaw.otter.openxr.standard.input
 import com.jackbradshaw.otter.openxr.standard.output
-import com.jackbradshaw.otter.otter
+import com.jackbradshaw.otter.otterComponent
 import dagger.Component
 import javax.inject.Inject
 import javax.inject.Scope
@@ -29,7 +29,7 @@ class ManifestEncoderTest {
 
   @Before
   fun setUp() {
-    DaggerTestComponent.builder().setOtter(otter()).build().inject(this)
+    DaggerTestComponent.builder().consuming(otterComponent()).build().inject(this)
   }
 
   @Test
@@ -143,7 +143,7 @@ interface TestComponent {
 
   @Component.Builder
   interface Builder {
-    fun setOtter(otter: OtterComponent): Builder
+    fun consuming(otter: OtterComponent): Builder
 
     fun build(): TestComponent
   }

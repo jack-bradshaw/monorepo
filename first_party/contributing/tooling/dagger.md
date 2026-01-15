@@ -7,20 +7,34 @@ Directives for [Dagger](https://dagger.dev) in this repository.
 This document is extensive, and while each directive is simple, the broader architecture they
 promote may be unclear; therefore, an [end-to-end example](#end-to-end-example) is provided to aid
 comprehension, and the underlying architectural [rationale](#rationale) is provided to link the
-individual directives to broader engineering principles. The sections are presented for ease of
-reference, with directives first; however, readers are encouraged to begin with whichever section
-they find most helpful.
+individual directives to broader engineering principles. The directives are presented first for ease
+of reference; however, first time readers may find the rationale and example more enlightening.
 
 ## Terminology
 
 The following definitions apply throughout this document:
 
-- Component: An interface annotated with
-  [`@Component`](https://dagger.dev/api/latest/dagger/Component.html).
+- Naked interface: An interface without Dagger annotations that defines provisioning functions
+  (effectively a Dagger component without the @Component annotation).
+- Component-annotated interface: An interface annotated with `@Component` that extends a naked
+  interface.
+- Dagger-generated component: The concrete component implementation generated when Dagger finds a
+  Component-annotated interface.
 - Module: A class or interface annotated with
   [`@Module`](https://dagger.dev/api/latest/dagger/Module.html).
 - Scope: A custom annotation meta-annotated with
   [`@Scope`](https://dagger.dev/api/latest/dagger/Scope.html).
+- Production Component: A component that is intended for non-test code.
+- Testing Component: A component provided by a library to offer test doubles for its production
+  components (e.g. `TestFooComponent` providing `FakeFoo`).
+- Private Test Component: A component that exists for a single test or a related set of tests.
+
+The distinction between testing components and private test components is subtle but critical. The
+former are provided by libraries for use in arbitrary tests; whereas, the latter exist entirely to
+service a specific set of tests, either as subjects or supporting systems. The difference is the
+coupling between the component and the test. When they are loosely coupled (component is provided
+independent of any specific test) it is a testing component; whereas, when they are highly coupled
+(component exists only for the specific test) it is a private test component.
 
 ## Scope
 
@@ -28,92 +42,389 @@ All non-Hilt Dagger components and modules in this repository must conform to th
 however, the contents of [third_party](/third_party) are explicitly exempt, as they originate from
 external sources.
 
-## Component Structure and Scoping
+## Component Definition
 
-Rules for how components are defined, scoped, and related to one another.
+Directives for how to define a single component correctly, focusing on structure, naming, and
+mechanical constraints.
+
+### Standard: Naked Interfaces
+
+Components must be defined as naked interfaces, then extended by Component-annotated interfaces to
+trigger Dagger-generated component creation.
+
+Example:
+
+```kotlin
+// Naked interface
+interface FooComponent {
+  fun foo(): Foo
+}
+
+// Component-annotated interface
+@Component(modules = [FooModule::class])
+interface FooComponentImpl : FooComponent
+```
+
+Dagger components are interfaces; however, the presence of a `@Component` annotation implicitly
+creates a Dagger-generated implementation in the same artifact; therefore, depending on a
+Component-annotated interface implicitly forces downstream consumers to include classes they may not
+need; consequently, separating naked interfaces from Component-annotated interfaces allows consumers
+to depend on the API (the naked interface) without including the implementation (the generated
+code).
+
+Exemption: Private test components may be defined directly as Component-annotated interfaces without
+a separate naked interface.
+
+### Standard: Tests Extend Production
+
+Testing components must be defined as naked interfaces that extend the naked interface of a
+Production Component, then extended by Component-annotated interfaces to trigger Dagger-generated
+component creation.
+
+Example:
+
+```kotlin
+// Production Component naked interface
+interface FooComponent {
+  fun foo(): Foo
+}
+
+// Testing Component naked interface
+interface TestFooComponent : FooComponent {
+  fun testScope(): TestScope
+  fun launcher(): Launcher
+}
+
+// Test Component-annotated interface
+@FooScope
+@Component(modules = [TestFooModule::class])
+interface TestFooComponentImpl : TestFooComponent
+```
+
+This allows testing components to be used interchangeably wherever production components are
+expected, while permitting the improved introspection and alternate functionality required for
+testing.
+
+### Practice: Additional Testing Component Bindings
+
+Testing components commonly export additional bindings.
+
+Example:
+
+```kotlin
+interface TestFooComponent : FooComponent {
+  fun testHelper(): TestHelper
+}
+```
+
+This allows tests to consume test-specific bindings without changing the public production API.
+
+### Practice: Component Naming
+
+Component names should follow three conventions:
+
+- Naked interfaces should have a `Component` suffix.
+- Component-annotated interfaces should have an `Impl` suffix.
+- Naked interfaces for testing components match the production interface name with a `Test` prefix.
+
+Example:
+
+```kotlin
+/** Production Component naked interface. */
+interface FooComponent { }
+
+/** Production Component Component-annotated interface. */
+interface FooComponentImpl : FooComponent { }
+
+/** Testing Component naked interface. */
+interface TestFooComponent : FooComponent { }
+
+/** Testing Component Component-annotated interface. */
+interface TestFooComponentImpl : TestFooComponent { }
+```
+
+These conventions clearly distinguish naked interfaces from component-annotated interfaces, and the
+`Test` prefix signals testing component variants; furthermore, like all naming conventions, this
+reduces mental overhead and aids discovery across the codebase.
+
+Exemption: Private test components may omit the `Impl` suffix (e.g. `TestComponent` instead of
+`TestComponentImpl`).
+
+### Standard: Scope Naming Convention
+
+The name of the custom scope associated with a component must inherit the name of the root naked
+interface, minus "Component", with "Scope" appended.
+
+Example:
+
+```kotlin
+/** Custom Scope */
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class FooScope
+
+/** Production Component Naked Interface */
+interface FooComponent { }
+
+/** Production Component Component-annotated Interface */
+@FooScope
+@Component
+interface FooComponentImpl : FooComponent { }
+
+/** Testing Component Naked Interface */
+interface TestFooComponent : FooComponent { }
+
+/** Testing Component Component-annotated Interface */
+@FooScope
+@Component
+interface TestFooComponentImpl : TestFooComponent { }
+```
+
+This associates a scope with its component, thereby preventing conflicts; furthermore, like all
+naming conventions, this reduces mental overhead and aids discovery across the codebase.
+
+### Standard: Builder Naming
+
+Component builders must be called `Builder`.
+
+Example:
+
+```kotlin
+@Component
+interface FooComponentImpl : FooComponent {
+  @Component.Builder
+  interface Builder {
+    @BindsInstance fun binding(bar: Bar): Builder
+    fun build(): FooComponentImpl
+  }
+}
+```
+
+This allows engineers to predict the API surface of any component; furthermore, like all naming
+conventions, this reduces mental overhead and aids discovery across the codebase.
+
+Exception: Private test components may be named arbitrarily, and are exempt from these naming
+standards. Often "TestComponent" is sufficient for readability and maintainability.
+
+### Standard: Binding Function Naming
+
+Component builder functions that bind instances must be called `binding`; however, when bindings use
+qualifiers, the qualifier must be appended.
+
+Example:
+
+```kotlin
+@Component
+interface ConcurrencyComponent {
+  @Component.Builder
+  interface Builder {
+    // Unqualified
+    @BindsInstance fun binding(bar: Bar): Builder
+
+    // Qualified
+    @BindsInstance fun bindingIo(@Io scope: CoroutineScope): Builder
+    @BindsInstance fun bindingMain(@Main scope: CoroutineScope): Builder
+
+    fun build(): ConcurrencyComponent
+  }
+}
+```
+
+This clarifies the mechanism of injection (instance binding vs component dependency) and prevents
+collisions when binding multiple instances of the same type; furthermore, like all naming
+conventions, this reduces mental overhead and aids discovery across the codebase.
+
+### Standard: Component Dependency Function Naming
+
+Component builder functions that set component dependencies must be called `consuming`.
+
+Example:
+
+```kotlin
+@Component(dependencies = [Bar::class])
+interface FooComponentImpl : FooComponent {
+  @Component.Builder
+  interface Builder {
+    fun consuming(bar: Bar): Builder
+    fun build(): FooComponentImpl
+  }
+}
+```
+
+This separates structural dependencies (consuming) from runtime data (binding), thereby making the
+component's initialization logic self-documenting; furthermore, like all naming conventions, this
+reduces mental overhead and aids discovery across the codebase.
+
+### Standard: Provisioning Function Naming
+
+Component provision functions must be named after the type they provide (in camelCase). However,
+when bindings use qualifiers, the qualifier must be prepended to the function name.
+
+Example:
+
+```kotlin
+@Component
+interface FooComponentImpl : FooComponent {
+  // Unqualified
+  fun bar(): Bar
+
+  // Qualified
+  @Io fun ioFoo(): Foo
+  @Main fun mainFoo(): Foo
+}
+```
+
+This enforces consistent naming across provision functions, immediately signaling what type is being
+provided and whether a qualifier is involved; furthermore, like all naming conventions, this reduces
+mental overhead and aids discovery across the codebase.
+
+### Standard: Injection Function Naming
+
+Component injection functions must be named "inject".
+
+Example:
+
+```kotlin
+@Component
+interface FooComponentImpl : FooComponent {
+  fun inject(bar: Bar)
+}
+```
+
+This standardizes the injection entry point; furthermore, like all naming conventions, this reduces
+mental overhead and aids discovery across the codebase.
+
+## Architectural Policy
+
+Directives for strategic decisions about granularity, lifecycle, coupling, and graph topology.
+
+### Guideline: Balanced Component Scope
+
+Component consumers should be able to use components without providing irrelevant configurations and
+dependencies, in accordance with the interface segregation principle; however, components are
+boilerplate-heavy, and maintaining a separate component for every interface/class is a significant
+burden; therefore, contributors should balance the scope of components with their cost, and choose
+boundaries that create logical groupings without excessive burden on the consumer; effectively,
+weighing the cost to the maintainer against the cost to the consumer.
+
+Too Granular: Defining a separate component for every single class (e.g. `UserCacheComponent`,
+`UserFetcherComponent`, `UserParserComponent`), as this forces consumers to manually wire together
+an excessive number of tiny components for every feature.
+
+Too Broad: A single monolithic `AppComponent` that provides every binding in the application,
+forcing every consumer (especially tests) to depend on (and potentially mock) the entire world, even
+for simple tasks.
+
+Just Right: A `UserComponent` that groups related functionality (Cache, Fetcher, Parser) and exposes
+the important high-level APIs, while keeping internal details hidden. This allows consumers to
+depend on the "User" subsystem as a single logical unit.
+
+Striking a balance between granularity (adhering to ISP) and convenience (reducing boilerplate)
+ensures components remain usable and maintainable without imposing excessive burden on either the
+maintainer or consumer.
 
 ### Practice: Library-Provided Components
 
-Libraries and generic utilities should provide components that expose their functionality and
-declare their component dependencies instead of only providing raw classes/interfaces.
+Libraries should provide components that expose their functionality and declare their component
+dependencies instead of only providing raw classes/interfaces.
 
 Positive Example: A `Networking` library provides a `NetworkingComponent` that exposes an
 `OkHttpClient` binding and depends on a `CoroutinesComponent`.
 
 Negative Example: A `Networking` library that provides various interfaces and classes, but no
-component, and requires downstream consumers to define modules and components to wire them together.
+component, thereby requiring downstream consumers to define modules and components to wire them
+together.
 
-This approach transforms Dagger components from details of the downstream application into details
-of upstream libraries. Instead of forcing consumers to understand a library's internal structure
-(and figure out how to instantiate objects), library authors provide complete, ready-to-use
-components that can be composed together and used to instantiate objects. This approach is analogous
-to plugging in a finished appliance instead of assembling a kit of parts: consumers just declare a
-dependency on the component (e.g. a fridge), supply the upstream components (e.g. electricity), and
-get the fully configured objects they need without ever seeing the wiring (e.g. cold drinks). This
-approach scales well, at the cost of more boilerplate.
+This allows consumers to use the library by simply declaring a dependency, rather than needing to
+understand its internal structure or mechanically wire together its classes.
 
-### Practice: Narrow Scoped Components
+### Standard: Depend on Naked Interfaces
 
-Components should export a minimal set of bindings, accept only the dependencies they require to
-operate (i.e. with `@BindsInstance`), and depend only on the components they require to operate.
+Component dependencies must reference naked interfaces, not Component-annotated interfaces or
+Dagger-generated components.
 
-Positive Example: A `Feature` component that depends only on `Network` and `Database` components,
-exposes only its public API (e.g. `FeatureUi`), and keeps its internal bindings hidden.
-
-Negative Example: A `Feature` component that depends on a monolithic `App` component (which itself
-goes against the practice), exposes various bindings that could exist in isolation (e.g.
-`FeatureUi`, `Clock`, `NetworkPorts` and `RpcBridge`, `IntegerUtil`), and exposes its internal
-bindings.
-
-This allows consumers to compose functionality with granular precision, reduces unnecessary
-configuration (i.e. passing instances/dependencies that are not used at runtime), and optimizes
-build times. This approach is consistent with the core tenets of the Interface Segregation Principle
-in that it ensures that downstream components can depend on the components they need, without being
-forced to depend on unnecessary components.
-
-### Practice: Naked Component Interfaces
-
-Components should be defined as plain interfaces ("naked interfaces") without Dagger annotations,
-and then extended by annotated interfaces for production, testing, and other purposes. Downstream
-components should target the naked interfaces in their component dependencies instead of the
-annotated interfaces.
-
-Example:
+Positive example:
 
 ```kotlin
-// Definition
-interface FooComponent {
-  fun foo(): Foo
-}
-
-// Production Implementation
-@Component(modules = [FooModule::class])
-interface ProdFooComponent : FooComponent
-
-// Testing Implementation
-@Component(modules = [FakeFooModule::class])
-interface TestFooComponent : FooComponent {
-  fun fakeFoo(): FakeFoo
-}
-
 @Component(dependencies = [FooComponent::class])
-interface BarComponent {
-  @Component.Builder
-  interface Builder {
-    fun consuming(fooComponent: FooComponent): Builder
-    fun build(): BarComponent
-  }
-}
+interface BarComponent { }
 ```
 
-This ensures Dagger code follows general engineering principles (separation of interface and
-implementation). While Dagger components are interfaces, the presence of a `@Component` annotation
-implicitly creates an associated implementation (the generated Dagger code); therefore, depending on
-an annotated component forces a dependency on its implementation (at the build system level), and
-implicitly forces test code to depend on production code. By separating them, consumers can depend
-on a pure interface without needing to include the Dagger implementation in their classpath, thereby
-preventing leaky abstractions, optimising build times, and directly separating production and test
-code into discrete branches.
+Negative example:
+
+```kotlin
+@Component(dependencies = [FooComponentImpl::class])
+interface BarComponent { }
+```
+
+Negative example:
+
+```kotlin
+@Component(dependencies = [DaggerFooComponentImpl::class])
+interface BarComponent { }
+```
+
+This maintains a clean separation between interfaces and implementations, thereby allowing alternate
+implementations to be switched out (e.g. in tests, and as the system evolves), all while optimizing
+build times. It follows from the SOLID principles (specifically, dependency inversion), which are
+the foundations of effective object-oriented programming.
+
+### Practice: Component Build Separation
+
+Naked interfaces and Component-annotated interfaces should be defined in separate files, each with
+their own build target.
+
+Example files:
+
+```text
+coroutines/
+├── CoroutinesComponent.kt      # Naked interface
+├── CoroutinesComponentImpl.kt  # Production Component
+└── ...
+```
+
+Example BUILD structure:
+
+```starlark
+kt_jvm_library(
+    name = "scope",
+    srcs = ["CoroutinesScope.kt"],
+    visibility = ["//visibility:public"],
+    deps = ["//:dagger"],
+)
+
+kt_jvm_library(
+    name = "component",
+    srcs = ["CoroutinesComponent.kt"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":scope",
+        # Minimal dependencies - no Dagger
+    ],
+)
+
+kt_jvm_library(
+    name = "component_impl",
+    srcs = ["CoroutinesComponentImpl.kt"],
+    visibility = ["//first_party:__subpackages__"],
+    deps = [
+        ":component",
+        ":scope",
+        "//:dagger",
+        # Other production dependencies
+    ],
+)
+```
+
+This is an extension of the granular target requirements in
+[bazel.md](/first_party/contributing/tooling/bazel.md). It creates classpath separation at the build
+system level, which allows consumers to depend on naked interface without also including the
+Dagger-generated code in the classpath, thereby improving build performance and supporting the
+dependency-inversion principle promoted by the naked interfaces directive.
+
+Exemption: Private test components may be defined in the test file, and thus, implicitly included in
+the test's build target. This is acceptable because tests are usually terminal nodes in the build
+graph (i.e. they have no dependents).
 
 ### Standard: Custom Scope Required
 
@@ -124,14 +435,17 @@ Example:
 ```kotlin
 @FooScope
 @Component
-interface FooComponent {
+interface FooComponentImpl : FooComponent {
   fun foo(): Foo
 }
 ```
 
 Unscoped bindings can lead to subtle bugs where expensive objects are recreated or shared state is
-lost. Explicit lifecycle management ensures objects are retained only as long as needed, thereby
-preventing these issues.
+lost; whereas, explicit lifecycle management ensures objects are retained only as long as needed,
+preventing these issues; furthermore, the granular component architecture promoted by this document
+relies on strict scoping to manage efficient resource usage.
+
+Exemption: Private test components may be unscoped since they are usually not shared or reused.
 
 ### Standard: Module Inclusion Restrictions
 
@@ -182,117 +496,31 @@ Components may depend on components from any package.
 
 Example: `Foo` in `a.b` can depend on `Bar` in `x.y.z`.
 
-Allowing components to depend on each other regardless of location promotes reuse, thereby fostering
-high cohesion within packages.
+Allowing components to depend on each other regardless of location promotes reuse and avoids
+excessive repository hierarchy.
 
-### Standard: Component Suffix
+### Practice: Component Target Naming
 
-Components must include the suffix `Component` in their name.
+Component BUILD targets should be named `component` for the interface and `component_impl` for the
+production implementation, but there is no need to include `test` in the name anywhere, as this is
+usually implied by the package path.
 
-Positive example: `ConcurrencyComponent`
+Example: `//first_party/coroutines:component` and `//first_party/coroutines:component_impl`.
 
-Negative example: `Concurrency`
+This communicates the purpose of each target while preventing naming collisions with general
+targets; furthermore, like all naming conventions, this reduces mental overhead and aids discovery
+across the codebase.
 
-This clearly distinguishes the component interface from the functionality it provides and prevents
-naming collisions.
+### Practice: Module Target Naming
 
-### Standard: Scope Naming Convention
+Module BUILD targets should be named `module`. When multiple modules exist, they may use any naming
+scheme desired to differentiate the targets so long as they begin or end with `module`.
 
-The name of the custom scope associated with a component must inherit the name of the component
-(minus "Component") with "Scope" appended.
+Example: `//first_party/coroutines:module` or `//first_party/coroutines:io_module`.
 
-Example: `FooComponent` is associated with `FooScope`.
-
-Consistent naming allows contributors to immediately associate a scope with its component, thereby
-preventing conflicts and reducing split-attention effects.
-
-### Standard: Builder Naming
-
-Component builders must be called `Builder`.
-
-Example:
-
-```kotlin
-@Component
-interface FooComponent {
-  @Component.Builder
-  interface Builder {
-    @BindsInstance fun binding(bar: Bar): Builder
-    fun build(): FooComponent
-  }
-}
-```
-
-Standardizing builder names allows engineers to predict the API surface of any component, thereby
-reducing the mental overhead when switching between components.
-
-### Standard: Binding Function Naming
-
-Component builder functions that bind instances must be called `binding`; however, when bindings use
-qualifiers, the qualifier must be appended.
-
-Example:
-
-```kotlin
-@Component
-interface ConcurrencyComponent {
-  @Component.Builder
-  interface Builder {
-    // Unqualified
-    @BindsInstance fun binding(bar: Bar): Builder
-
-    // Qualified
-    @BindsInstance fun bindingIo(@Io scope: CoroutineScope): Builder
-    @BindsInstance fun bindingMain(@Main scope: CoroutineScope): Builder
-
-    fun build(): ConcurrencyComponent
-  }
-}
-```
-
-Explicit naming immediately clarifies the mechanism of injection (instance binding vs component
-dependency), thereby preventing collisions when binding multiple instances of the same type.
-
-### Standard: Dependency Function Naming
-
-Component builder functions that set component dependencies must be called `consuming`.
-
-Example:
-
-```kotlin
-@Component(dependencies = [Bar::class])
-interface FooComponent {
-  @Component.Builder
-  interface Builder {
-    fun consuming(bar: Bar): Builder
-    fun build(): FooComponent
-  }
-}
-```
-
-Distinct naming clearly separates structural dependencies (consuming) from runtime data (binding),
-thereby making the component's initialization logic self-documenting.
-
-### Standard: Provision Function Naming
-
-Component provision functions must be named after the type they provide (in camelCase). However,
-when bindings use qualifiers, the qualifier must be appended to the function name.
-
-Example:
-
-```kotlin
-@Component
-interface FooComponent {
-  // Unqualified
-  fun bar(): Bar
-
-  // Qualified
-  @Io fun genericIo(): Generic
-  @Main fun genericMain(): Generic
-}
-```
-
-This ensures consistency and predictability in the component's public API.
+This communicates the purpose of each target while preventing naming collisions with general
+targets; furthermore, like all naming conventions, this reduces mental overhead and aids discovery
+across the codebase.
 
 ## Factory Functions
 
@@ -305,13 +533,13 @@ Components must have an associated factory function that instantiates the compon
 Example:
 
 ```kotlin
-@Component(dependencies = [Quux::class])
-interface FooComponent {
+@Component(dependencies = [QuuxComponent::class])
+interface FooComponentImpl : FooComponent {
   // ...
 }
 
-fun fooComponent(quux: Quux = DaggerQuux.create(), qux: Qux): FooComponent =
-  DaggerFooComponent.builder()
+fun fooComponent(quux: QuuxComponent = DaggerQuuxComponentImpl.create(), qux: Qux): FooComponent =
+  DaggerFooComponentImpl.builder()
     .consuming(quux)
     .binding(qux)
     .build()
@@ -320,15 +548,14 @@ fun fooComponent(quux: Quux = DaggerQuux.create(), qux: Qux): FooComponent =
 This integrates cleanly with Kotlin, thereby significantly reducing the amount of manual typing
 required to instantiate components.
 
-Exception: Components that are file private may exclude the factory function (e.g. components
-defined in tests for consumption in the test only).
+Exemption: Private test components may exclude the factory function.
 
 ### Standard: Default Component Dependencies
 
 Factory functions must supply default arguments for parameters that represent component
 dependencies.
 
-Example: `fun fooComponent(quux: Quux = DaggerQuux.create(), ...)`
+Example: `fun fooComponent(quux: QuuxComponent = DaggerQuuxComponentImpl.create(), ...)`
 
 Providing defaults for dependencies allows consumers to focus on the parameters that actually vary,
 thereby improving developer experience and reducing boilerplate.
@@ -336,11 +563,11 @@ thereby improving developer experience and reducing boilerplate.
 ### Practice: Production Defaults
 
 The default arguments for component dependency parameters in factory functions should be production
-components, even when the component being assembled is a test component.
+components, even when the component being assembled is a testing component.
 
-Example: `fun testFooComponent(quux: Quux = DaggerQuux.create(), ...)`
+Example: `fun testFooComponent(quux: QuuxComponent = DaggerQuuxComponentImpl.create(), ...)`
 
-This ensures tests exercise real production components and behaviours as much as possible, thereby
+This ensures tests exercise real production components and behaviors as much as possible, thereby
 reducing the risk of configuration drift between test and production environments.
 
 ### Practice: Factory Function Location
@@ -353,11 +580,29 @@ Co-locating the factory with the component improves discoverability.
 
 ### Practice: Factory Function Naming
 
-Factory function names should match the component, but in lower camel case.
+Factory function names should match the naked interface, but in lower camel case.
 
-Example: `FooComponent` component has `fun fooComponent(...)` factory function.
+Example: `FooComponent` is associated with `FooComponentImpl` which is instantiated by the
+`fun fooComponent(...)` factory function.
 
-This ensures factory functions can be matched to components easily.
+This matches the factory to the component; furthermore, like all naming conventions, this reduces
+mental overhead and aids discovery across the codebase.
+
+### Standard: Factory Function Return Types
+
+Factory functions must return the naked interface type rather than the Component-annotated interface
+type.
+
+Example:
+
+```kotlin
+fun fooComponent(...): FooComponent = DaggerFooComponentImpl.create()
+
+fun testFooComponent(...): TestFooComponent = DaggerTestFooComponentImpl.create()
+```
+
+This ensures callers interact only with the abstraction, hiding the `Dagger...Impl` detail from the
+call site.
 
 ### Practice: Default Non-Component Parameters
 
@@ -384,57 +629,65 @@ invalidating the cache of every consumer of the interface, thereby improving bui
 Additionally, it ensures consumers can depend on individual elements independently (crucial for
 Hilt) and allows granular binding overrides in tests.
 
+Exemption: Modules defined exclusively for private test components may be co-located in the test
+target/file.
+
 ### Standard: Dependency Interfaces
 
-Modules must depend on interfaces rather than implementations.
+Module function parameters must use abstractions rather than implementations.
 
-Example: `BarModule` depends on `Baz` interface, not `BazImpl`.
+Example: `BarModule` function accepts `Baz` interface, not `BazImpl`.
 
-This enforces consistency with the dependency inversion principle, thereby decoupling the module and
-its bindings from concrete implementations.
-
-## Testing Patterns
-
-Patterns for defining components used in testing to ensure testability.
-
-### Standard: Test Component Extension
-
-Test components must extend production components.
-
-Example: `interface TestFooComponent : FooComponent`
-
-Tests should operate on the same interface as production code (Liskov Substitution), thereby
-ensuring that the test environment accurately reflects production behavior.
-
-### Practice: Additional Test Bindings
-
-Test components should export additional bindings.
-
-Example: `TestFooComponent` component extends `FooComponent` and additionally exposes
-`fun testHelper(): TestHelper`.
-
-Exposing test-specific bindings allows tests to inspect internal state or inject test doubles
-without compromising the public production API, thereby facilitating white-box testing where
-appropriate.
+This decouples the module and its bindings from concrete implementations, thereby preventing
+circular dependencies, allowing implementations to be swapped, and supporting dependency inversion.
 
 ## Rationale
 
-The directives in this document work together to promote an architectural pattern for Dagger that
-follows foundational engineering best practices and principles, which in turn supports sustainable
-development and improves the contributor experience. The core principles are:
+The directives in this document are not arbitrary. They were meticulously crafted to make the most
+of Dagger, as it remains a powerful tool in any JVM application, while steering contributors away
+from the more unsustainable and unmaintainable patterns it can produce, and offering an approach
+that scales well as the codebase and organization grows in complexity. The justification for their
+design can be explained in terms of the architecture they promote, the engineering principles they
+satisfy, and the build-system improvements they offer.
+
+### Architecture
+
+The directives promote a pattern across the repository where libraries and other such upstream
+components expose fully-formed dagger components to downstream consumers, thereby allowing consumers
+to use upstream functionality without deep knowledge of the underlying system, specifically which
+classes to bind to which interfaces, and how components fit together. A consumer can simply find a
+component from a library, depend on it in their own component, supply the dependencies the upstream
+component explicitly requires, and use the provided functionality. Contrast this with the stock
+dagger approach, where components are exclusively defined by downstream consumers, thereby requiring
+consumers to have deep awareness of the bindings and dependencies of upstream libraries. In the
+architecture this document promotes, such implicit awareness is unnecessary, and the API contract of
+each component documents any transitive dependencies.
+
+Beyond improved discoverability, the architecture also promotes granular replacement of components
+for testability and flexibility. By leaning heavily into interface-based programming, and defining
+components as interfaces with dagger-generated implementations, it allows different functionality to
+be switched out without modifying the overall system architecture. This ensures tests can switch out
+critical pieces for observability and control, while still exercising the real system as much as
+possible. This is a foundational piece of testable architectures and is critical to ensuring tests
+prevent real failures (as opposed to being so artificial that they catch no real bugs).
+
+### Engineering Principles
+
+The directives are effectively expressions of the following foundational engineering principles:
 
 - Interface Segregation Principle (ISP): Downstream consumers should be able to depend on the
   minimal API required for their task without being forced to consume/configure irrelevant objects.
-  This reduces cognitive overhead for both maintainers and consumers, and lowers computational costs
-  at build time and runtime. It's supported by directives such as the "Narrow Scoped Components"
-  practice, which calls for small granular components instead of large God Objects, and the
-  "Dependencies Over Subcomponents" practice, which encourages composition over inheritance.
+  This reduces cognitive overhead for both maintainers and consumers, lowers computational costs at
+  build time and runtime, and reduces the scope of rework when APIs change. It's supported by
+  directives such as the "Narrow Scoped Components" practice, which calls for small granular
+  components instead of large God Objects, and the "Dependencies Over Subcomponents" practice, which
+  encourages composition over inheritance.
 - Dependency Inversion Principle: High-level elements should not depend on low-level elements;
   instead, both should depend on abstractions. This reduces the complexity and scope of changes by
   allowing components to evolve independently and preventing unnecessary recompilation (in a complex
-  build system such as Bazel). It's supported by the "Naked Component Interfaces" directive, which
-  requires the use of interfaces rather than implementations, and the "Module Inclusion
-  Restrictions" standard, which enforces strict architectural layering.
+  build system such as Bazel). It's supported by the "Naked Interfaces" directive, which requires
+  the use of interfaces rather than implementations, and the "Module Inclusion Restrictions"
+  standard, which enforces strict architectural layering.
 - Abstraction and API Usability: Complex subsystems should expose simple, predictable interfaces
   that hide their internal complexity and configuration requirements. This allows maintainers and
   consumers to use and integrate components without deep understanding of the implementation. It's
@@ -443,8 +696,8 @@ development and improves the contributor experience. The core principles are:
 - Liskov Substitution Principle (LSP): Objects of a superclass must be replaceable with objects of
   its subclasses without breaking the application. This ensures test doubles can be seamlessly
   swapped in during tests, thereby improving testability without requiring changes to production
-  code, and ensuring as much production code is tested as possible. It's supported by the "Test
-  Component Extension" standard, which mandates that test components inherit from production
+  code, and ensuring as much production code is tested as possible. It's supported by the "Testing
+  Component Extension" standard, which mandates that testing components inherit from production
   component interfaces.
 - Compile-Time Safety (Poka-Yoke): The system is designed to prevent misconfiguration errors (i.e.
   "error-proofing"). By explicitly declaring component dependencies in the component interface,
@@ -454,25 +707,29 @@ development and improves the contributor experience. The core principles are:
   mandates fully declared dependencies, and the "Factory Function Required" standard, which
   mechanically ensures all requirements are satisfied effectively.
 
-Overall, this architecture encourages and supports granular, maintainable components that can be
-evolved independently and composed together into complex structures. Components serve as both the
-public API for utilities, the integration system that ties elements together within utilities, and
-the composition system that combines utilities together. For upstream utility maintainers, this
-reduces boilerplate and reduces the risk of errors; for downstream utility consumers, this creates
-an unambiguous and self-documenting API that can be integrated without knowledge of implementation
-details; and for everyone, it distributes complexity across the codebase and promotes high cohesion
-(i.e. components defined nearest to the objects they expose). All together, this fosters sustainable
-development by reducing cognitive and computational load.
+Overall, this architecture distributes complexity across the codebase and promotes high cohesion by
+defining components nearest to the objects they expose, serving as both the public API and the
+integration layer for utilities. The disadvantages of this approach and a strategy for mitigation
+are discussed in the [future work](#future-work) appendix.
 
-The disadvantages of this approach and a strategy for mitigation are discussed in the
-[future work](#future-work) appendix.
+### Build Optimization
+
+The directives promote a repository structure which is well-suited to build optimization in two
+ways:
+
+1. Widespread dependency on interfaces instead of implementations reduces the scope of downstream
+   rebuilds when upstream components change.
+1. Segregating the build system into granular targets improves cache performance and minimizes the
+   need to rebuild unchanged code.
+
+Such optimizations are critical in monorepos at scale.
 
 ## End to End Example
 
 The following example demonstrates a complete Dagger setup and usage that adheres to all the
 directives in this document. It features upstream (User) and downstream (Profile) components,
 separate modules for production and testing (including fake implementations), and strict separation
-of interface and implementation via naked component interfaces.
+of interface and implementation via naked interfaces.
 
 ### User Feature
 
@@ -485,7 +742,7 @@ Common elements:
 /** Domain Interface */
 interface User
 
-/** Naked Component */
+/** Production Component Naked Interface */
 interface UserComponent {
   fun user(): User
 }
@@ -494,7 +751,7 @@ interface UserComponent {
 Production elements:
 
 ```kotlin
-/** Real Implementation */
+/** Production Component Implementation Class */
 @UserScope class RealUser @Inject constructor() : User
 
 /** Production Module */
@@ -507,18 +764,18 @@ interface UserModule {
   }
 }
 
-/** Production Component */
+/** Production Component Component-annotated Interface */
 @UserScope
 @Component(modules = [UserModule::class])
-interface ProdUserComponent : UserComponent {
+interface UserComponentImpl : UserComponent {
   @Component.Builder
   interface Builder {
-    fun build(): ProdUserComponent
+    fun build(): UserComponentImpl
   }
 }
 
 /** Production Factory Function */
-fun userComponent(): UserComponent = DaggerProdUserComponent.builder().build()
+fun userComponent(): UserComponent = DaggerUserComponentImpl.builder().build()
 ```
 
 Test elements:
@@ -533,20 +790,23 @@ interface FakeUserModule {
   @Binds fun bind(impl: FakeUser): User
 }
 
-/** Test Component */
-@UserScope
-@Component(modules = [FakeUserModule::class])
+/** Testing Component Naked Interface */
 interface TestUserComponent : UserComponent {
   fun fakeUser(): FakeUser
+}
 
+/** Testing Component Component-annotated Interface */
+@UserScope
+@Component(modules = [FakeUserModule::class])
+interface TestUserComponentImpl : TestUserComponent {
   @Component.Builder
   interface Builder {
-    fun build(): TestUserComponent
+    fun build(): TestUserComponentImpl
   }
 }
 
-/** Test Factory Function */
-fun testUserComponent(): TestUserComponent = DaggerTestUserComponent.builder().build()
+/** Testing Component Factory Function */
+fun testUserComponent(): TestUserComponent = DaggerTestUserComponentImpl.builder().build()
 ```
 
 ### Profile Feature
@@ -560,7 +820,7 @@ Common elements:
 /** Domain Interface */
 interface Profile
 
-/** Naked Component */
+/** Production Component Naked Interface */
 interface ProfileComponent {
   fun profile(): Profile
 }
@@ -583,15 +843,15 @@ interface ProfileModule {
   @Binds fun bind(impl: RealProfile): Profile
 }
 
-/** Production Component */
+/** Production Component @Component-annotated Interface */
 @ProfileScope
 @Component(dependencies = [UserComponent::class], modules = [ProfileModule::class])
-interface ProdProfileComponent : ProfileComponent {
+interface ProfileComponentImpl : ProfileComponent {
   @Component.Builder
   interface Builder {
     fun consuming(user: UserComponent): Builder
     @BindsInstance fun binding(id: ProfileId): Builder
-    fun build(): ProdProfileComponent
+    fun build(): ProfileComponentImpl
   }
 }
 
@@ -600,7 +860,7 @@ fun profileComponent(
   user: UserComponent = userComponent(),
   id: ProfileId = ProfileId("prod-id")
 ): ProfileComponent =
-  DaggerProdProfileComponent.builder()
+  DaggerProfileComponentImpl.builder()
     .consuming(user)
     .binding(id)
     .build()
@@ -609,24 +869,27 @@ fun profileComponent(
 Test elements:
 
 ```kotlin
-/** Test Component */
+/** Testing Component Naked Interface */
+interface TestProfileComponent : ProfileComponent
+
+/** Testing Component @Component-annotated Interface */
 @ProfileScope
 @Component(dependencies = [UserComponent::class], modules = [ProfileModule::class])
-interface TestProfileComponent : ProfileComponent {
+interface TestProfileComponentImpl : TestProfileComponent {
   @Component.Builder
   interface Builder {
     fun consuming(user: UserComponent): Builder
     @BindsInstance fun binding(id: ProfileId): Builder
-    fun build(): TestProfileComponent
+    fun build(): TestProfileComponentImpl
   }
 }
 
-/** Test Factory Function */
+/** Testing Component Factory Function */
 fun testProfileComponent(
   user: UserComponent = userComponent(),
   id: ProfileId = ProfileId("test-id")
 ): TestProfileComponent =
-  DaggerTestProfileComponent.builder()
+  DaggerTestProfileComponentImpl.builder()
     .consuming(user)
     .binding(id)
     .build()
@@ -651,15 +914,15 @@ Example of production profile component used with test user component in a test:
 ```kotlin
 @Test
 fun testProfileWithFakeUser() {
-  // 1. Setup: Create the upstream test component (provides FakeUser)
+  // Setup: Create the upstream testing component (provides FakeUser)
   val fakeUserComponent = testUserComponent()
   val fakeUser = fakeUserComponent.fakeUser()
 
-  // 2. Act: Inject it into the downstream test component
+  // Act: Inject it into the downstream component
   val prodProfileComponent = profileComponent(user = fakeUserComponent)
   val profile = prodProfileComponent.profile()
 
-  // 3. Assert: Verify integration
+  // Assert: Verify integration
   assertThat(profile.user).isEqualTo(fakeUser)
 }
 ```

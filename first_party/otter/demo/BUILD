@@ -4,31 +4,31 @@ load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 kt_jvm_library(
     name = "scope",
     testonly = True,
-    srcs = [
-        "DemoScope.kt",
-    ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
-    deps = [
-        "//:dagger",
-    ],
+    srcs = ["DemoScope.kt"],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
+    deps = ["//:dagger"],
 )
 
 kt_jvm_library(
     name = "component",
     testonly = True,
-    srcs = [
-        "DemoComponent.kt",
-    ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    srcs = ["DemoComponent.kt"],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     deps = [
+        "//first_party/otter/demo/items",
+    ],
+)
+
+kt_jvm_library(
+    name = "component_impl",
+    testonly = True,
+    srcs = ["DemoComponentImpl.kt"],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
+    deps = [
+        ":component",
         ":scope",
         "//:dagger",
-        "//first_party/otter",
-        "//first_party/otter/demo/items",
+        "//first_party/otter:component",
         "//first_party/otter/demo/items:module",
         "//first_party/otter/demo/materials:module",
         "//first_party/otter/demo/support:module",
@@ -42,14 +42,16 @@ kt_jvm_library(
         "Main.java",
         "MainKt.kt",
     ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     deps = [
         ":component",
+        ":component_impl",
+        "//first_party/otter:component_impl",
         "//first_party/otter/config:kt_jvm_proto",
+        "//first_party/otter/config:proto_extensions",
         "//first_party/otter/engine/config:kt_jvm_proto",
         "//first_party/otter/openxr/config:kt_jvm_proto",
+        "//first_party/otter/openxr/config:proto_extensions",
     ],
 )
 
@@ -57,9 +59,7 @@ java_binary(
     name = "demo",
     testonly = True,
     main_class = "com.jackbradshaw.otter.demo.Main",
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     runtime_deps = [
         ":main",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_bullet",
