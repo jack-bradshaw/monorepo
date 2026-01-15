@@ -1,34 +1,34 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
     name = "scope",
-    srcs = [
-        "InboundScope.kt",
-    ],
-    visibility = [
-        "//visibility:public",
-    ],
+    srcs = ["InboundScope.kt"],
+    visibility = ["//visibility:public"],
+    deps = ["//:dagger"],
+)
+
+kt_jvm_library(
+    name = "component",
+    srcs = ["InboundComponent.kt"],
+    visibility = ["//visibility:public"],
     deps = [
-        "//:dagger",
+        "//first_party/sasync/inbound/transport",
     ],
 )
 
 kt_jvm_library(
-    name = "inbound",
-    srcs = [
-        "Inbound.kt",
-    ],
-    visibility = [
-        "//visibility:public",
-    ],
+    name = "component_impl",
+    srcs = ["InboundComponentImpl.kt"],
+    visibility = ["//first_party:__subpackages__"],
     deps = [
+        ":component",
         ":scope",
         "//:dagger",
-        "//first_party/concurrency",
-        "//first_party/coroutines",
-        "//first_party/sasync/inbound/config:default",
+        "//first_party/concurrency:component",
+        "//first_party/concurrency:component_impl",
+        "//first_party/coroutines:component",
+        "//first_party/coroutines:component_impl",
         "//first_party/sasync/inbound/config:kt_jvm_proto",
-        "//first_party/sasync/inbound/transport",
         "//first_party/sasync/inbound/transport:module",
     ],
 )

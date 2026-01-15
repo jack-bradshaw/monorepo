@@ -17,27 +17,44 @@ kt_jvm_library(
 kt_jvm_library(
     name = "component",
     srcs = [
-        "Otter.kt",
+        "OtterComponent.kt",
     ],
     visibility = [
         "//first_party/otter:__subpackages__",
     ],
     deps = [
+        "//first_party/otter/config:kt_jvm_proto",
+        "//first_party/otter/engine/core",
+        "//first_party/otter/openxr/manifest/encoder",
+        "//first_party/otter/openxr/manifest/generator",
+        "//first_party/otter/openxr/manifest/installer",
+        "//first_party/otter/qualifiers",
+        "//first_party/otter/scene/stage",
+        "//first_party/otter/timing",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "component_impl",
+    srcs = [
+        "OtterComponentImpl.kt",
+    ],
+    visibility = [
+        "//first_party/otter:__subpackages__",
+    ],
+    deps = [
+        ":component",
         ":scope",
         "//:dagger",
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/coroutines:module",
-        "//first_party/otter/engine/core",
-        "//first_party/otter/engine/core:impl",
         "//first_party/otter/engine/core:module",
         "//first_party/otter/openxr/manifest/encoder:module",
         "//first_party/otter/openxr/manifest/generator:module",
         "//first_party/otter/openxr/manifest/installer:module",
-        "//first_party/otter/qualifiers",
         "//first_party/otter/scene/stage:module",
-        "//first_party/otter/timing",
-        "//first_party/otter/timing:impl",
         "//first_party/otter/timing:module",
     ],
 )
@@ -49,6 +66,7 @@ kt_jvm_library(
     ],
     exports = [
         ":component",
+        ":component_impl",
         ":scope",
     ],
 )

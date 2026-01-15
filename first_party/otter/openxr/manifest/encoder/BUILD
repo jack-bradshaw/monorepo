@@ -55,6 +55,7 @@ kt_jvm_test(
     deps = [
         "//:dagger",
         "//first_party/otter:component",
+        "//first_party/otter:component_impl",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/openxr/config:proto_extensions",
         "//first_party/otter/openxr/manifest/encoder",

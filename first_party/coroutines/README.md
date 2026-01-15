@@ -24,15 +24,15 @@ This package provides the following test utilities:
 The utilities are integrated/exposed using [Dagger](https://dagger.dev), and two components are
 provided:
 
-- The [production component](/first_party/coroutines/Coroutines.kt), which provides production
-  versions
-- The [test component](/first_party/coroutines/testing/TestCoroutines.kt), which provides test
-  doubles.
+- The [production component](/first_party/coroutines/CoroutinesComponent.kt), which provides
+  production versions
+- The [test component](/first_party/coroutines/testing/TestCoroutinesComponent.kt), which provides
+  test doubles.
 
 The test component extends the production component; therefore, the test component can be
 substituted anywhere the production component is required. Furthermore, an equivalent Kotlin factory
-function is provided for each, specifically `com.jackbradshaw.coroutines.coroutines` for the former,
-and `com.jackbradshaw.coroutines.testing.testCoroutines` for the latter.
+function is provided for each, specifically `com.jackbradshaw.coroutines.coroutinesComponent` for
+the former, and `com.jackbradshaw.coroutines.testing.testCoroutinesComponent` for the latter.
 
 ## Example
 
@@ -43,10 +43,11 @@ control virtual time and make the test deterministic.
 
 ```kotlin
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.coroutines.Coroutines
-import com.jackbradshaw.coroutines.coroutines
+import com.jackbradshaw.coroutines.CoroutinesComponent
+import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.coroutines.io.Io
-import com.jackbradshaw.coroutines.testing.testCoroutines
+import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.coroutines.testing.launcher.Launcher
 import dagger.Component
 import javax.inject.Inject
 import javax.inject.Scope
@@ -78,23 +79,24 @@ class FooRepository @Inject constructor(
 }
 
 @FooRepositoryScope
-@Component(dependencies = [Coroutines::class])
+@Component(dependencies = [CoroutinesComponent::class])
 interface FooRepositoryComponent {
   fun repository(): FooRepository
 
   @Component.Builder
   interface Builder {
-    fun consuming(coroutines: Coroutines): Builder
+    fun consuming(coroutines: CoroutinesComponent): Builder
     fun build(): FooRepositoryComponent
   }
 }
 
-fun fooRepository(coroutines: Coroutines = coroutines()) = DaggerFooRepositoryComponent.builder().consuming(coroutines).build()
+fun fooRepositoryComponent(coroutines: CoroutinesComponent = coroutinesComponent()) =
+    DaggerFooRepositoryComponent.builder().consuming(coroutines).build()
 
 class Main {
   fun main(args: Array<String>) {
     runBlocking {
-      val repository = fooRepository().repository()
+      val repository = fooRepositoryComponent().repository()
       val data = repository.fetchData()
       println("Fetched data: $data")
     }
@@ -102,18 +104,19 @@ class Main {
 }
 
 @FooRepositoryScope
-@Component(dependencies = [Coroutines::class])
+@Component(dependencies = [CoroutinesComponent::class])
 interface FooRepositoryTestComponent {
   fun inject(target: FooRepositoryTest)
 
   @Component.Builder
   interface Builder {
-    fun consuming(coroutines: Coroutines): Builder
+    fun consuming(coroutines: CoroutinesComponent): Builder
     fun build(): FooRepositoryTestComponent
   }
 }
 
-fun fooRepositoryTest(coroutines: Coroutines = testCoroutines()) = DaggerFooRepositoryTestComponent.builder().consuming(coroutines).build()
+fun fooRepositoryTestComponent(coroutines: CoroutinesComponent = testCoroutinesComponent()) =
+    DaggerFooRepositoryTestComponent.builder().consuming(coroutines).build()
 
 @RunWith(JUnit4::class)
 class FooRepositoryTest {
@@ -124,7 +127,7 @@ class FooRepositoryTest {
 
   @Before
   fun setup() {
-    fooRepositoryTest().inject(this)
+    fooRepositoryTestComponent().inject(this)
   }
 
   @Test
@@ -142,11 +145,14 @@ class FooRepositoryTest {
     assertThat(data).isEqualTo("foo")
   }
 }
-## Issues
+```
 
 Issues relating to this package and its subpackages are tagged with `coroutines`.
 
 ## Contributions
 
 Third-party contributions are accepted.
+
+```
+
 ```

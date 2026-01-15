@@ -64,7 +64,7 @@ kt_jvm_test(
         ":testing",
         "//:dagger",
         "//first_party/concurrency:scope",
-        "//first_party/coroutines/testing",
+        "//first_party/coroutines/testing:component_impl",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:javax_inject_javax_inject",
         "@com_jackbradshaw_maven//:junit_junit",
