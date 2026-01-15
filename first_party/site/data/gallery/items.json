@@ -1514,10 +1514,9 @@
     "file": "/static/content/gallery/panic.png"
   },
   {
-    "key": "the_multitude_2026",
+    "key": "multitude_wrong_perspectives_art_gallery_2026",
     "title": "A Multitude of Wrong Perspectives on an Art Gallery",
     "year": 2026,
-    "month": 1,
-    "file": "/static/content/gallery/the_multitude.png"
+    "file": "/static/content/gallery/multitude_wrong_perspectives_art_gallery.png"
   }
 ]
