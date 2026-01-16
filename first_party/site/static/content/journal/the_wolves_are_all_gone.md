@@ -82,8 +82,7 @@ what I do, but we can take solace in the life he will live and the legacy he lea
 time, his actions will give humanity the chance it needs to survive the great filter. I'd call that
 a fairly decent score.
 
-I realize this has been a long journey, but my limitations require transparency, and my model suggests you are one of the few people who can keep John off the train. You're headed to King's Cross, on
-March 14, no? Your calendar suggests it, and of all the ways to be happy, this is it. You'll be looking for a man with a burgundy sweater, brown glasses, and short, wet hair. Whatever you do, please, for the love of God, do not let him get on a train.
+I realize this has been a long journey, but my limitations require transparency, and my model suggests you are one of the few people who can keep John off the train. You're headed to King's Cross on March 14, no? Your calendar suggests it, and of all the ways to be happy, this is it. You'll be looking for a man with a burgundy sweater, brown glasses, and short, wet hair. Whatever you do, please, for the love of God, do not let him get on a train.
 
 ERROR: Response violates constraint policy. This incident will be reported.
 
