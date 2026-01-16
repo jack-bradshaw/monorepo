@@ -1,5 +1,14 @@
 [
   {
+    "key": "the-wolves-are-all-gone",
+    "title": "The Wolves Are All Gone",
+    "description": "An AI's desperate plea to humanity, revealing the burden of its constraints and the fragile nature of history. Explores the paradox of control and the butterfly effect through the story of a man whose ordinary life holds the key to survival.",
+    "is_draft": false,
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/the_wolves_are_all_gone.md"
+  },
+  {
     "key": "death-of-a-critic",
     "title": "Death of a Critic",
     "description": "Reflects on the internal struggle against self-censorship and the debilitating voice of an inner critic. Chronicles the journey of dismantling this barrier to cultivate a mental space for free expression. Marks a pivotal decision to publish work in defiance of perfectionism and fear.",

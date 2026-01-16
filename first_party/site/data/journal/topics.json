@@ -8,14 +8,19 @@
       "pragmatic-altruism",
       "judgement-vs-understanding",
       "meat-because-we-want-to",
-      "one-or-many"
+      "one-or-many",
+      "the-wolves-are-all-gone"
     ]
   },
   {
     "key": "creativity",
     "title": "Creativity",
     "description": "Reflections on the artistic process, writing, and expression",
-    "items": ["death-of-a-critic", "challenge-of-monologue", "the-lost-plot-chapter-1"]
+    "items": [
+      "death-of-a-critic",
+      "challenge-of-monologue",
+      "the-lost-plot-chapter-1"
+    ]
   },
   {
     "key": "society",
@@ -32,18 +37,30 @@
     "key": "technology",
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
-    "items": ["the-cursed-cursor", "pragmatic-altruism"]
+    "items": [
+      "the-cursed-cursor",
+      "pragmatic-altruism",
+      "the-wolves-are-all-gone"
+    ]
   },
   {
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "judgement-vs-understanding", "the-cursed-cursor"]
+    "items": [
+      "death-of-a-critic",
+      "one-or-many",
+      "judgement-vs-understanding",
+      "the-cursed-cursor"
+    ]
   },
   {
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
-    "items": ["meat-because-we-want-to", "sports-bar"]
+    "items": [
+      "meat-because-we-want-to",
+      "sports-bar"
+    ]
   }
 ]
