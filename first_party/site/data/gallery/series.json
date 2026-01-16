@@ -1,13 +1,10 @@
 [
   {
-    "key": "the_second_wind",
-    "title": "The Second Wind",
-    "description": "I'm sick of grand perspectives and the bigger picture. Back to basics. Raw materials. Message over form.",
-    "items": [
-      "multitude_wrong_perspectives_on_an_art_gallery_1_of_5_2026",
-      "multitude_wrong_perspectives_on_an_art_gallery_2_of_5_2026"
-    ],
-    "cover": "multitude_wrong_perspectives_on_an_art_gallery_1_of_5_2026"
+    "key": "red_space",
+    "title": "The Red Space",
+    "description": "Exploring a perfect, endless, shapeless, red void",
+    "items": ["panic_2026", "multitude_wrong_perspectives_art_gallery_2026"],
+    "cover": "multitude_wrong_perspectives_art_gallery_2026"
   },
   {
     "key": "genesis_ex_nihilo",
@@ -87,17 +84,17 @@
     "title": "Reconnection",
     "description": "Tracing the path from isolation and despair through to renewal and rejoining.",
     "items": [
-      "isolated_and_weary_2022",
+      "isolated_and_weary_2023",
       "languishing_in_defeat_2024",
       "desparate_and_broken_2024",
       "resolute_2024",
-      "courageous_and_defiant_2024",
-      "refocused_2022",
-      "determined_2022",
+      "courageous_and_defiant_2022",
+      "refocused_2023",
+      "determined_2023",
       "unseen_but_returning_2022",
       "adrift_and_alone_2024"
     ],
-    "cover": "isolated_and_weary_2022"
+    "cover": "isolated_and_weary_2023"
   },
   {
     "key": "sector_001",
@@ -213,8 +210,8 @@
     "key": "hungarian_notation",
     "title": "Hungarian Notation",
     "description": "A wallpaper for a colleague at Google who liked the Borg and was a fan of Hungarian notation (gross!)",
-    "items": ["hungarian_notation_2023"],
-    "cover": "hungarian_notation_2023"
+    "items": ["hungarian_notation_2022"],
+    "cover": "hungarian_notation_2022"
   },
   {
     "key": "subtle_dynamics",
@@ -379,7 +376,7 @@
       "part_1_2023",
       "part_2_2022_3",
       "part_3_2023",
-      "part_4_2024",
+      "part_4_2023",
       "part_5_2024",
       "part_6_2022_1"
     ],
@@ -424,8 +421,8 @@
     "key": "french_girl",
     "title": "French Girl",
     "description": "A man asked me draw him like one of my french girls.",
-    "items": ["french_girl_2021"],
-    "cover": "french_girl_2021"
+    "items": ["french_girl_2022"],
+    "cover": "french_girl_2022"
   },
   {
     "key": "the_void",
@@ -438,8 +435,8 @@
     "key": "the_absurd",
     "title": "The Absurd",
     "description": "Examining and exploring absurdity.",
-    "items": ["the_tools_2024", "the_entrance_2024", "the_whispers_2024", "the_eldritch_2024"],
-    "cover": "the_tools_2024"
+    "items": ["the_tools_2022", "the_entrance_2024", "the_whispers_2023", "the_eldritch_2024"],
+    "cover": "the_tools_2022"
   },
   {
     "key": "layering_experiments",
@@ -657,8 +654,8 @@
     "key": "mr_insistent",
     "title": "Mr Insistent",
     "description": "I hadn't planned to share this, but he just wouldn't take no for an answer.",
-    "items": ["mr_insistent_2024"],
-    "cover": "mr_insistent_2024"
+    "items": ["mr_insistent_2023"],
+    "cover": "mr_insistent_2023"
   },
   {
     "key": "ball_of_yarn",
@@ -699,8 +696,8 @@
     "key": "mother_monster",
     "title": "Mother Monster",
     "description": "A woman who was always detached from reality and one egg shell away from disaster.",
-    "items": ["hostile_2024", "disturbed_2023", "blind_2024"],
-    "cover": "blind_2024"
+    "items": ["hostile_2024", "disturbed_2023", "blind_2023"],
+    "cover": "blind_2023"
   },
   {
     "key": "father_failure",
