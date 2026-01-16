@@ -1507,17 +1507,17 @@
     "file": "/static/content/gallery/untitled_artwork_2025.jpg"
   },
   {
-    "key": "multitude_wrong_perspectives_on_an_art_gallery_1_of_5_2026",
-    "title": "Multitude Wrong Perspectives on an Art Gallery (1 of 5)",
+    "key": "panic_2026",
+    "title": "Panic",
     "year": 2026,
     "month": 1,
-    "file": "/static/content/gallery/multitude_wrong_perspectives_on_an_art_gallery_1_of_5.png"
+    "file": "/static/content/gallery/panic_2026.jpg"
   },
   {
-    "key": "multitude_wrong_perspectives_on_an_art_gallery_2_of_5_2026",
-    "title": "Multitude Wrong Perspectives on an Art Gallery (2 of 5)",
+    "key": "multitude_wrong_perspectives_art_gallery_2026",
+    "title": "A Multitude of Wrong Perspectives on an Art Gallery",
     "year": 2026,
     "month": 1,
-    "file": "/static/content/gallery/multitude_wrong_perspectives_on_an_art_gallery_2_of_5.png"
+    "file": "/static/content/gallery/multitude_wrong_perspectives_art_gallery.jpg"
   }
 ]

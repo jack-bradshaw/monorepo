@@ -1,5 +1,11 @@
 [
   {
+    "key": "new_direction",
+    "title": "A New Direction",
+    "description": "Back to basics. Raw materials. Message over form.",
+    "series": ["red_space"]
+  },
+  {
     "key": "the_bigger_picture",
     "title": "The Bigger Picture",
     "description": "Grant narratives, deep concepts, broad perspectives, and extreme scales.",
