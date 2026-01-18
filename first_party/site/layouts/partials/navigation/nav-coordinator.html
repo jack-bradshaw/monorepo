@@ -15,7 +15,7 @@ Params:
   {{ if hasPrefix .RelPermalink "/gallery/" }}
   {{ $subpages := slice
   (dict "name" "Highlights" "link" "/gallery/highlights/")
-  (dict "name" "Curated" "link" "/gallery/curated/")
+  (dict "name" "Subjects" "link" "/gallery/subjects/")
   (dict "name" "Palettes" "link" "/gallery/palettes/")
   (dict "name" "Chronological" "link" "/gallery/chronological/")
   }}
@@ -32,7 +32,7 @@ Params:
   (dict "name" "Topics" "link" "/journal/topics/")
   (dict "name" "Series" "link" "/journal/series/")
   (dict "name" "Genres" "link" "/journal/genres/")
-  (dict "name" "Drafts" "link" "/journal/drafts/")
+
   (dict "name" "Chronological" "link" "/journal/chronological/")
   }}
   {{ partial "navigation/nav-secondary.html" (dict
@@ -46,8 +46,8 @@ Params:
   {{ if hasPrefix .RelPermalink "/repository/" }}
   {{ $subpages := slice
   (dict "name" "Highlights" "link" "/repository/highlights/")
-  (dict "name" "Location" "link" "/repository/locations/")
-  (dict "name" "Technology" "link" "/repository/technologies/")
+  (dict "name" "Locations" "link" "/repository/locations/")
+  (dict "name" "Technologies" "link" "/repository/technologies/")
   }}
   {{ partial "navigation/nav-secondary.html" (dict
   "context" .

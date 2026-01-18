@@ -1062,12 +1062,6 @@
     "file": "/static/content/gallery/version_1_2024.jpg"
   },
   {
-    "key": "version_1_2024_1",
-    "title": "Version 1",
-    "year": 2024,
-    "file": "/static/content/gallery/version_1_2024_1.png"
-  },
-  {
     "key": "version_2_2024",
     "title": "Version 2",
     "year": 2024,
@@ -1500,11 +1494,11 @@
     "file": "/static/content/gallery/vesuvius_2022.jpg"
   },
   {
-    "key": "untitled_artwork_2025",
-    "title": "Untitled Artwork",
+    "key": "molecules_2025",
+    "title": "Molecules",
     "year": 2025,
     "date": "2025-09-01",
-    "file": "/static/content/gallery/untitled_artwork_2025.jpg"
+    "file": "/static/content/gallery/molecules_2025.jpg"
   },
   {
     "key": "panic_2026",
