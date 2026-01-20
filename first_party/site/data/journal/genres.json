@@ -9,6 +9,12 @@
     "key": "essays",
     "title": "Essays",
     "description": "Structured prose exploring specific topics",
-    "items": ["death-of-a-critic", "pragmatic-altruism", "challenge-of-monologue"]
+    "items": ["death-of-a-critic", "pragmatic-altruism", "challenge-of-monologue", "one-or-many"]
+  },
+  {
+    "key": "sci-fi",
+    "title": "Sci-Fi",
+    "description": "Speculative fiction exploring futuristic concepts",
+    "items": ["the-wolves-are-all-gone"]
   }
 ]

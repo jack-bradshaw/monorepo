@@ -3,4 +3,9 @@ p {
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-small);
   letter-spacing: var(--letter-spacing-small);
+  vertical-align: baseline;
+}
+
+p * {
+  vertical-align: baseline;
 }

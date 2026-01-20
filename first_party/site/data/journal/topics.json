@@ -8,14 +8,15 @@
       "pragmatic-altruism",
       "judgement-vs-understanding",
       "meat-because-we-want-to",
-      "one-or-many"
+      "one-or-many",
+      "the-wolves-are-all-gone"
     ]
   },
   {
     "key": "creativity",
     "title": "Creativity",
     "description": "Reflections on the artistic process, writing, and expression",
-    "items": ["death-of-a-critic", "challenge-of-monologue", "the-lost-plot-chapter-1"]
+    "items": ["death-of-a-critic", "challenge-of-monologue"]
   },
   {
     "key": "society",
@@ -25,14 +26,15 @@
       "sports-bar",
       "meat-because-we-want-to",
       "pragmatic-altruism",
-      "challenge-of-monologue"
+      "challenge-of-monologue",
+      "one-or-many"
     ]
   },
   {
     "key": "technology",
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
-    "items": ["the-cursed-cursor", "pragmatic-altruism"]
+    "items": ["the-cursed-cursor", "pragmatic-altruism", "the-wolves-are-all-gone"]
   },
   {
     "key": "psychology",

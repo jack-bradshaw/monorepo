@@ -25,7 +25,7 @@ truths and limitless possibility, and progress is found by suspending certainty 
 the ambiguous. It contrasts sharply with publication, which leaves the tentative world behind and
 forever raises some answers above others, even if stated as hypothetical. It all comes down to new
 information, and where conversation and meditation allow changes at will, putting ink to paper sets
-one path in stone forever more. All this to say, how can the flexibility of my process be honoured
+one path in stone forever more. All this to say, how can the flexibility of my process be honored
 when ink is indelible?
 
 This flexibility is essential because subjective meaning is not found in a library; it’s found in

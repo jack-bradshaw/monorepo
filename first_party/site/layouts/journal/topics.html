@@ -15,10 +15,10 @@ Parameters:
   {{ range site.Data.journal.topics }}
   {{ $visibleItems := slice }}
   {{ range .items }}
-    {{ $item := index $itemMap . }}
-    {{ if and $item (not $item.is_draft) }}
-      {{ $visibleItems = $visibleItems | append $item }}
-    {{ end }}
+  {{ $item := index $itemMap . }}
+  {{ if $item }}
+  {{ $visibleItems = $visibleItems | append $item }}
+  {{ end }}
   {{ end }}
 
   {{ if gt (len $visibleItems) 0 }}
@@ -32,11 +32,11 @@ Parameters:
       {{ $yearInt := int .year }}
       {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
       {{ $date := printf "%s %d" $monthName $yearInt }}
-      
-      {{ partial "card/composition/journal-card.html" (dict 
-        "title" .title
-        "description" .description
-        "link" (printf "/journal/item/%s" .key))
+
+      {{ partial "card/composition/journal-card.html" (dict
+      "title" .title
+      "description" .description
+      "link" (printf "/journal/item/%s" .key))
       }}
       {{ end }}
     </ol>

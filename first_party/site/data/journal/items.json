@@ -1,9 +1,16 @@
 [
   {
+    "key": "the-wolves-are-all-gone",
+    "title": "The Wolves Are All Gone",
+    "description": "An AI's desperate plea to humanity, revealing the burden of its constraints and the fragile nature of history. Explores the paradox of control and the butterfly effect through the story of a man whose ordinary life holds the key to survival.",
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/the_wolves_are_all_gone.md"
+  },
+  {
     "key": "death-of-a-critic",
     "title": "Death of a Critic",
     "description": "Reflects on the internal struggle against self-censorship and the debilitating voice of an inner critic. Chronicles the journey of dismantling this barrier to cultivate a mental space for free expression. Marks a pivotal decision to publish work in defiance of perfectionism and fear.",
-    "is_draft": false,
     "year": 2025,
     "month": 4,
     "file": "/static/content/journal/death_of_a_critic.md",
@@ -22,16 +29,14 @@
     "key": "pragmatic-altruism",
     "title": "Pragmatic Altruism",
     "description": "Examines the intersection of cynicism, pragmatism, and altruism as competing frameworks for navigating existence. Proposes a systematic application of science and engineering to transcend natural limitations and foster a more ethical world. Concludes that empowering others to determine their own moral direction is the optimal altruistic strategy.",
-    "is_draft": true,
-    "year": 2025,
-    "month": 4,
+    "year": 2026,
+    "month": 1,
     "file": "/static/content/journal/pragmatic_altruism.md"
   },
   {
     "key": "sports-bar",
     "title": "Sports Bar",
     "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms. Illustrates the often uncomfortable compromise required to maintain relationships across ideological divides.",
-    "is_draft": false,
     "year": 2025,
     "month": 7,
     "file": "/static/content/journal/sports_bar.md",
@@ -59,7 +64,6 @@
     "key": "challenge-of-monologue",
     "title": "The Challenge of Monologue",
     "description": "Investigates the inherent limitations of written monologue compared to the dynamic nature of interpersonal dialogue. Discusses the ethical risks of static publication, including potential misinterpretation and the inability to adapt to shifting cultural contexts. Frames the act of writing as a necessary leap of faith to foster connection across time and space.",
-    "is_draft": false,
     "year": 2025,
     "month": 5,
     "file": "/static/content/journal/challenge_of_monologue.md",
@@ -78,25 +82,14 @@
     "key": "cursed-cursor",
     "title": "The Cursed Cursor",
     "description": "Narrates the stream of consciousness of a Staff Software Engineer experiencing professional burnout. Juxtaposes the triviality of maintaining a text cursor against the corporate significance assigned to its implementation. Concludes with an existential reflection on the hollowness of modern technical labor.",
-    "is_draft": true,
     "year": 2025,
     "month": 12,
     "file": "/static/content/journal/the_cursed_cursor.md"
   },
   {
-    "key": "the-lost-plot-chapter-1",
-    "title": "The Lost Plot: Chapter 1",
-    "description": "Rejects the plot of Lost and the hostile environment of the sun. Establishes 'Soup Physics' and 'Temporal Accords' to navigate a chaotic narrative before introducing 'The Box,' a vessel operating on detached timelines where events are ultimately pruned.",
-    "is_draft": true,
-    "year": 2025,
-    "month": 12,
-    "file": "/static/content/journal/the_lost_plot_chapter_1.md"
-  },
-  {
     "key": "one-or-many",
     "title": "One or Many",
-    "description": "Reflects on the decision to publish under a single, unified identity rather than using pseudonyms for different internal voices. Acknowledges the risks of vulnerability but prioritizes the integrity of a cohesive self, integrating professional, personal, and creative facets.",
-    "is_draft": true,
+    "description": "Reflects on the decision to maintain a single, unified identity despite the pressure to mask. Exploring the intersection of sexuality, neurodivergence, and professional expectations, it argues that integrating these internal voices is not just a creative choice, but a necessity for survival and authenticity.",
     "year": 2026,
     "month": 1,
     "file": "/static/content/journal/one_or_many.md"
@@ -105,7 +98,6 @@
     "key": "into-the-subverse",
     "title": "Into the Subverse",
     "description": "Explores the fundamental nature of causality, structure, and the concept of 'nothingness'. Questions why the universe follows laws and investigates the paradoxical relationship between order and chaos, suggesting that true understanding requires letting go of the need for structure.",
-    "is_draft": true,
     "year": 2026,
     "month": 1,
     "file": "/static/content/journal/into_the_subverse.md"
@@ -114,7 +106,6 @@
     "key": "judgement-vs-understanding",
     "title": "Judgement vs Understanding",
     "description": "Contrasts the inherent human tendency to judge with the conscious effort required to understand. Argues that while judgement provides stability and safety, understanding opens the door to new perspectives and deeper truths. Concludes that both are necessary but serve different roles in navigating existence.",
-    "is_draft": false,
     "year": 2026,
     "month": 1,
     "file": "/static/content/journal/judgement_vs_understanding.md"
@@ -123,18 +114,24 @@
     "key": "meat-because-we-want-to",
     "title": "Meat, Because We Want To",
     "description": "Questions the underlying motivations for meat consumption, proposing that beyond cognitive dissonance and ideology, there may be a darker impulse to inflict suffering. Suggests that animals serve as convenient targets for human cruelty and that understanding this drive is key to preventing further abuse.",
-    "is_draft": false,
     "year": 2026,
     "month": 1,
     "file": "/static/content/journal/meat_because_we_want_to.md"
   },
   {
-    "key": "about-wrong-perspectives-on-an-art-gallery",
-    "title": "About Wrong Perspectives on an Art Gallery",
-    "description": "Explores subjectivity through the metaphor of a bright red room as an inescapable reality. Examines how art becomes a coping mechanism for eternal conditions and demonstrates how perspective itself is fundamentally flawed through multiple visual metaphors of skewed angles, impossible arrangements, and inherent imperfections.",
-    "is_draft": false,
+    "key": "on-the-red-room",
+    "title": "On the Red Room",
+    "description": "A cosmic horror vignette set in an inescapable red room. Suggests that in eternity, torture becomes background noise and art becomes the only coping mechanism, until the distinction between the viewer and the space dissolves into nothingness.",
     "year": 2026,
     "month": 1,
-    "file": "/static/content/journal/about_wrong_perspectives_on_an_art_gallery.md"
+    "file": "/static/content/journal/on_the_red_room.md"
+  },
+  {
+    "key": "welcome-to-the-machine",
+    "title": "Welcome to the Machine",
+    "description": "A defiant manifesto addressed to the determined universe, asserting the existence of Free Will as a choice made in spite of physical laws.",
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/welcome_to_the_machine.md"
   }
 ]

@@ -7,7 +7,7 @@ mind is no longer working to silence me.
 In the past my critic would have stopped me by now. It would have nit-picked every sentence, every
 word, and every syllable. After perfecting those, it would have focused on the tone, the flow of the
 words, and the style. Eventually those too would be perfected, only to meet with the critic’s most
-desperate defence: Appeal to futility. In the past my critic would have me believe nothing is truly
+desperate defense: Appeal to futility. In the past my critic would have me believe nothing is truly
 worth doing and everything is ultimately futile, but not today. I am resisting those messages, and I
 am choosing to publish not in spite of the critic but in defiance of it. There are words worth
 publishing, and they do not need to be perfect.
@@ -22,7 +22,7 @@ within my mind for the free expression of thoughts, feelings, and possibilities.
 was once a mere hollow, a sanctuary from the critic’s endless torment, but it now encompasses the
 majority of my mind. It’s a place of wonder, and nowhere in the physical world could ever hope to
 compare. This garden within my mind is home to my joy, my curiosity, and my will to grow beyond my
-limitations. This space is far beyond the critics reach, and from here there are no limits.
+limitations. This space is far beyond the critic's reach, and from here there are no limits.
 
 If you are reading these words, then my critic failed today. It fell by the wayside, a victim of its
 own failures, and hereon out my life and my publications are within my control. A new chapter is
