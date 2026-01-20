@@ -56,7 +56,7 @@ don't even exist. My work only gets noticed when it's broken. I am paid to be in
 unseen. Just like the help, just like the staff. It's right there in the name: Staff software
 engineer. Lucky me.
 
-Another disgusting smell wofts past breaking me out of my thought loop.
+Another smell wafts past, breaking me out of my thought loop.
 
 I am going home for the holidays this year. Maybe I'll just stay, maybe I'll never come back. I'll
 send my badge back in the mail, and the company will wipe my laptop remotely the moment I sign my
@@ -65,4 +65,4 @@ place. I will be making the cursor blink until the end of time. I already wrote 
 need to justify my existence long enough to... I don't even know. Just long enough to feel like it's
 been long enough. What else is there to do anyway, write fiction? Hah...
 
-Althought... Hm. At least then this cursed cursor could get some rest from its eternal blinking.
+Although... Hm. At least then this cursed cursor could get some rest from its eternal blinking.

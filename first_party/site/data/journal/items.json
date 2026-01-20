@@ -119,12 +119,12 @@
     "file": "/static/content/journal/meat_because_we_want_to.md"
   },
   {
-    "key": "on-the-red-room",
-    "title": "On the Red Room",
+    "key": "on-the-red-space",
+    "title": "On the Red Space",
     "description": "A cosmic horror vignette set in an inescapable red room. Suggests that in eternity, torture becomes background noise and art becomes the only coping mechanism, until the distinction between the viewer and the space dissolves into nothingness.",
     "year": 2026,
     "month": 1,
-    "file": "/static/content/journal/on_the_red_room.md"
+    "file": "/static/content/journal/on_the_red_space.md"
   },
   {
     "key": "welcome-to-the-machine",
@@ -133,5 +133,13 @@
     "year": 2026,
     "month": 1,
     "file": "/static/content/journal/welcome_to_the_machine.md"
+  },
+  {
+    "key": "treehouse-library",
+    "title": "The Treehouse Library",
+    "description": "A reflective essay on a lost manuscript and the acceptance of the creative journey. It uses the metaphor of a metaphysical library to explore the destination of all writing.",
+    "year": 2026,
+    "month": 1,
+    "file": "/static/content/journal/the_treehouse_library.md"
   }
 ]

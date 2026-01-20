@@ -9,12 +9,23 @@
     "key": "essays",
     "title": "Essays",
     "description": "Structured prose exploring specific topics",
-    "items": ["death-of-a-critic", "pragmatic-altruism", "challenge-of-monologue", "one-or-many"]
+    "items": [
+      "death-of-a-critic",
+      "pragmatic-altruism",
+      "challenge-of-monologue",
+      "one-or-many",
+      "judgement-vs-understanding",
+      "meat-because-we-want-to",
+      "into-the-subverse",
+      "cursed-cursor",
+      "welcome-to-the-machine",
+      "treehouse-library"
+    ]
   },
   {
     "key": "sci-fi",
     "title": "Sci-Fi",
     "description": "Speculative fiction exploring futuristic concepts",
-    "items": ["the-wolves-are-all-gone"]
+    "items": ["the-wolves-are-all-gone", "on-the-red-space"]
   }
 ]
