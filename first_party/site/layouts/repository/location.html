@@ -1,0 +1,103 @@
+{{/*
+Repository Locations Layout
+
+Parameters:
+* key: "locations" (implied)
+*/}}
+{{ define "main" }}
+<div class="content root wide-root">
+  {{ $monorepoItems := slice }}
+  {{ $secondaryRepoItems := slice }}
+
+  {{ range site.Data.repository.items }}
+  {{ if in .link "monorepo" }}
+  {{ $monorepoItems = $monorepoItems | append . }}
+  {{ else }}
+  {{ $secondaryRepoItems = $secondaryRepoItems | append . }}
+  {{ end }}
+  {{ end }}
+
+  {{ if gt (len $monorepoItems) 0 }}
+  {{ $expandByDefault := index site.Data.repository.behaviour "locations" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'locations' in Repository behaviour.json" }}{{ end
+  }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="monorepo">
+      {{ $metadata := index site.Data.repository.locations "monorepo" }}
+      {{ partial "content-block-header.html" (dict
+        "title" $metadata.title
+        "subtitle" $metadata.description)
+      }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range $monorepoItems }}
+      <li>
+        {{ $icons := slice }}
+        {{ if .technologies }}
+        {{ range .technologies }}
+        {{ $iconName := . }}
+        {{ $webPath := printf "/decorations/technologies/%s.webp" $iconName }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.webp" $iconName }}
+
+        {{ if not (fileExists $staticPath) }}
+        {{ errorf "Icon not found for technology: %s" $iconName }}
+        {{ else }}
+        {{ $icons = $icons | append $webPath }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ partial "card/composition/repository-card.html" (dict 
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+
+  {{ if gt (len $secondaryRepoItems) 0 }}
+  {{ $expandByDefault := index site.Data.repository.behaviour "locations" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'locations' in Repository behaviour.json" }}{{ end
+  }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="secondary">
+      {{ $metadata := index site.Data.repository.locations "secondary" }}
+      {{ partial "content-block-header.html" (dict
+        "title" $metadata.title
+        "subtitle" $metadata.description)
+      }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range $secondaryRepoItems }}
+      <li>
+        {{ $icons := slice }}
+        {{ if .technologies }}
+        {{ range .technologies }}
+        {{ $iconName := . }}
+        {{ $webPath := printf "/decorations/technologies/%s.webp" $iconName }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.webp" $iconName }}
+
+        {{ if not (fileExists $staticPath) }}
+        {{ errorf "Icon not found for technology: %s" $iconName }}
+        {{ else }}
+        {{ $icons = $icons | append $webPath }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ partial "card/composition/repository-card.html" (dict
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link
+          )
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

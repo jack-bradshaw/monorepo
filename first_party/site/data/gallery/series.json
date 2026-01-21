@@ -221,13 +221,6 @@
     "cover": "subtle_dynamics_2022"
   },
   {
-    "key": "molecules",
-    "title": "Molecules",
-    "description": "Visualizing molecular structures.",
-    "items": ["molecules_2025"],
-    "cover": "molecules_2025"
-  },
-  {
     "key": "modular_home",
     "title": "Modular Home",
     "description": "I dream of living in a home where the entire building is modular.",
@@ -700,30 +693,30 @@
     "cover": "means_of_production_2022"
   },
   {
-    "key": "borderline",
-    "title": "Borderline",
-    "description": "Examining elements of Borderline Personality Disorder.",
+    "key": "mother_monster",
+    "title": "Mother Monster",
+    "description": "A woman who was always detached from reality and one egg shell away from disaster.",
     "items": ["hostile_2024", "disturbed_2023", "blind_2023"],
     "cover": "blind_2023"
   },
   {
-    "key": "fixed_mindset",
-    "title": "Fixed Mindset",
-    "description": "A rigid perspective that refuses to change.",
+    "key": "father_failure",
+    "title": "Father Failure",
+    "description": "A man without a clue and no reason to care.",
     "items": ["disapproving_2022", "disinterested_2022"],
-    "cover": "disapproving_2022"
+    "cover": "disinterested_2022"
   },
   {
-    "key": "sister",
-    "title": "Sister",
-    "description": "My sister, Michaela",
+    "key": "sister_stolen",
+    "title": "Sister Stolen",
+    "description": "A sibling they tried to bury, always remembered for who she truly is.",
     "items": ["part_1_2022_1", "part_2_2022_1"],
     "cover": "part_1_2022_1"
   },
   {
-    "key": "hurt",
-    "title": "Hurt",
-    "description": "Pain and suffering.",
+    "key": "scapegoat_self",
+    "title": "Scapegoat Self",
+    "description": "The role they forced me to play every day for two decades, but no more.",
     "items": ["beaten_2022", "unhappy_2022"],
     "cover": "beaten_2022"
   },
