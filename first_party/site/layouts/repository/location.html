@@ -1,0 +1,97 @@
+{{/*
+Repository Locations Layout
+
+Parameters:
+* key: "locations" (implied)
+*/}}
+{{ define "main" }}
+<div class="content root wide-root">
+  {{ $monorepoItems := slice }}
+  {{ $secondaryRepoItems := slice }}
+
+  {{ range site.Data.repository.items }}
+  {{ if in .link "monorepo" }}
+  {{ $monorepoItems = $monorepoItems | append . }}
+  {{ else }}
+  {{ $secondaryRepoItems = $secondaryRepoItems | append . }}
+  {{ end }}
+  {{ end }}
+
+  {{ if gt (len $monorepoItems) 0 }}
+  <details class="content block" open>
+    <summary>
+      {{ $metadata := index site.Data.repository.location "monorepo" }}
+      {{ partial "content-block-header.html" (dict
+        "title" $metadata.title
+        "subtitle" $metadata.description)
+      }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range $monorepoItems }}
+      <li>
+        {{ $icons := slice }}
+        {{ if .technologies }}
+        {{ range .technologies }}
+        {{ $iconName := . }}
+        {{ $webPath := printf "/decorations/technologies/%s.png" $iconName }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.png" $iconName }}
+
+        {{ if not (fileExists $staticPath) }}
+        {{ errorf "Icon not found for technology: %s" $iconName }}
+        {{ else }}
+        {{ $icons = $icons | append $webPath }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ partial "card/composition/repository-card.html" (dict 
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+
+  {{ if gt (len $secondaryRepoItems) 0 }}
+  <details class="content block" open>
+    <summary>
+      {{ $metadata := index site.Data.repository.location "secondary" }}
+      {{ partial "content-block-header.html" (dict
+        "title" $metadata.title
+        "subtitle" $metadata.description)
+      }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range $secondaryRepoItems }}
+      <li>
+        {{ $icons := slice }}
+        {{ if .technologies }}
+        {{ range .technologies }}
+        {{ $iconName := . }}
+        {{ $webPath := printf "/decorations/technologies/%s.png" $iconName }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.png" $iconName }}
+
+        {{ if not (fileExists $staticPath) }}
+        {{ errorf "Icon not found for technology: %s" $iconName }}
+        {{ else }}
+        {{ $icons = $icons | append $webPath }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ partial "card/composition/repository-card.html" (dict
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link
+          )
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

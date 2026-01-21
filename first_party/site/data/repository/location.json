@@ -1,0 +1,10 @@
+{
+  "monorepo": {
+    "title": "Monorepo",
+    "description": "All development post 2022 occurs in a single monorepo"
+  },
+  "secondary": {
+    "title": "Secondary Repositories",
+    "description": "All development prior to 2022 occurred in multiple repositories"
+  }
+}

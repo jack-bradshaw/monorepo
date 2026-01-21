@@ -1,0 +1,58 @@
+{{/*
+Repository Technology Layout
+
+Parameters:
+* key: "technology" (implied)
+*/}}
+{{ define "main" }}
+<div class="content root wide-root">
+  {{ range site.Data.repository.technologies }}
+  {{ $techKey := .key }}
+  {{ $techName := .name }}
+  {{ $techLink := .link }}
+
+  {{ $items := slice }}
+  {{ range site.Data.repository.items }}
+  {{ if in .technologies $techKey }}
+  {{ $items = $items | append . }}
+  {{ end }}
+  {{ end }}
+
+  {{ if gt (len $items) 0 }}
+  {{ $subtitle := printf "All projects that use or target <a href=\"%s\">%s</a>" $techLink $techName }}
+  <details class="content block" open>
+    <summary>
+      {{ partial "content-block-header.html" (dict "title" $techName "subtitle" $subtitle) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range $items }}
+      <li>
+        {{ $icons := slice }}
+
+        {{ if .technologies }}
+        {{ range .technologies }}
+        {{ $iconName := . }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.png" $iconName }}
+        {{ $webPath := printf "/decorations/technologies/%s.png" $iconName }}
+
+        {{ if not (fileExists $staticPath) }}
+        {{ errorf "Icon not found for technology: %s" $iconName }}
+        {{ else }}
+        {{ $icons = $icons | append $webPath }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ partial "card/composition/repository-card.html" (dict 
+          "images" $icons
+          "title" .title
+          "subtitle" .description
+          "link" .link)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}
