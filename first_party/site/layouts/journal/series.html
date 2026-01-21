@@ -18,7 +18,7 @@ Parameters:
 {{ $series := . }}
 {{ $resolvedItems := slice }}
 {{ $item := index $itemMap . }}
-{{ if $item }}
+{{ if and $item (not $item.is_draft) }}
 {{ $itemsInSeries = $itemsInSeries | append . }}
 
 {{ $monthInt := int $item.month }}
@@ -35,7 +35,7 @@ Parameters:
 {{/* Identify Standalone Items */}}
 {{ $standaloneItems := slice }}
 {{ range site.Data.journal.items }}
-{{ if not (in $itemsInSeries .key) }}
+{{ if and (not (in $itemsInSeries .key)) (not .is_draft) }}
 {{ $item := . }}
 {{ $monthInt := int $item.month }}
 {{ $yearInt := int $item.year }}

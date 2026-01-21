@@ -16,7 +16,7 @@ Parameters:
 
       {{ range site.Data.journal.highlights }}
       {{ $item := index $itemMap . }}
-      {{ if $item }}
+      {{ if and $item (not $item.is_draft) }}
       {{ $monthInt := int $item.month }}
       {{ $yearInt := int $item.year }}
       {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
