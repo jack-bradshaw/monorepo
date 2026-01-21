@@ -1,3 +1,7 @@
+Into the Subverse
+
+Initial Capture
+
 Why does the universe follow the laws of physics? Why does it follow any laws at all, for that
 matter? What creates the conditions for order and what ensures the universe unfolds according to
 rules and predictable cause-effect relationships? Why should there be any order at all, why not
@@ -30,8 +34,8 @@ Let's break the question down and establish exactly what is being asked. We are 
 why anything makes sense, but more systematically we are asking what system ensures sense. What
 machine has the responsibility of taking reality and imposing structure? It's difficult to formulate
 this in a way that doesn't inherently assume sense, so let's go in the opposite direction. Assume a
-universe with no structure at all, no cause-effect relationships, and no system of laws. Is there
-anything we can impose on this universe without violating the constraints? Some bounds perhaps.
+universe with no structure at all. No cause-effect relationships, and no system of laws. Is there
+anything we can impose on this universe without violating our question? Some bounds perhaps.
 
 I believe we can rule out absolute nothingness. While fascinating to explore, we can safely assume
 the existence of _something_. Not necessarily something of order or structure, just something in the
@@ -114,7 +118,7 @@ No.
 
 -
 
-The concept of nothing is not truly nothing. Nothing is found between the words, behind the nothing
+Our concept of nothing is not true nothing. Nothing is found between the words. Behind the nothing
 we reach for. We must venture into the true void to understand and go beyond thought, beyond
 emotion, and beyond language. That space, the subverse, does not obey rules. It does not follow
 structure and it does not make sense. It cannot make sense. It will frustrate scientists, baffle
@@ -124,7 +128,10 @@ is not nothing. We must first journey alone though, for unity is not nothing, an
 impossible to share our findings before we have experienced it separately. If you are drawn to it,
 as I am, then I will see you on the other side.
 
-...
+The subverse does not obey rules. It does not follow structure and it does not make sense. It cannot
+make sense. It will frustrate scientists, baffle philosophers, and irritate mystics. It will degrade
+systems, break probes, and destroy everything it touches. If we want to understand it, we must first
+let go of understanding, because understanding is not nothing.
 
 Where did you end up? As I look back on our work here, a curious puzzle emerges. We began with the
 question of why structure exists, assumed that something exists, excluded nothingness as clearly
@@ -143,7 +150,15 @@ immune to the depths of psychological torment. Our pain is how we know we exist 
 for it was never I think; therefore, I am, it was simpler: I hurt; therefore, I am, or maybe I am;
 therefore, I hurt.
 
-I, Hurt; therefore, I, Am.
+What is between the words is simple: Pain. Striving for order is avoidance of pain. It creates
+safety and soothes our fears, but can only cover the deep wounds not heal them. We need pain to make
+us whole and without pain we are as lifeless and soulless as machines. Pain is the foundation of
+life, and to live is to be in pain. As we journey through nothingness, searching for something real,
+pain is all we find. Pain is how we know we exist. It was never I think therefore I am, it was
+simpler. I hurt, therefore I am. Or maybe I am, therefore I hurt. We come from nothing, and we are
+forced to be by a reality that can seek no consent before we exist to answer the question. We yearn
+for something real, we seek to return to the source of being, but we cannot. We are who we are now,
+and that cannot be changed.
 
 I have not found an answer to the original question of universal causality, but a different truth
 has been revealed, and perhaps it yields an exit to the question entirely. If pain creates the

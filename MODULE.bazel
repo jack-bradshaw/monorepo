@@ -5,10 +5,12 @@ module(
 
 # Versions
 #
-# Guidelines:
-# - Only include versions that are referenced in multiple places.
-# - Deps that are used in bazel-deps are prefixed with 'VERSION_'.
-# - Deps that are used in maven only are prefixed with 'VERSION_MAVEN_'.
+
+# - Versions defined here must be referenced in multiple locations; concordantly, versions
+#   referenced in only one location must be defined inline.
+# - Versions used in Bazel deps only must be prefixed with 'VERSION_'.
+# - Versions used in Maven artifacts only must be prefixed with 'VERSION_MAVEN_'.
+# - Versions used in Bazel deps and Maven artefacts must be prefixed with `VERSION_`.
 
 VERSION_ROBOLECTRIC = "4.12.2"
 
@@ -59,6 +61,45 @@ bazel_dep(name = "rules_kotlin", version = "2.1.9")
 bazel_dep(name = "rules_jvm_external", version = "6.8")
 
 ## Maven Deps
+VERSION_OVERRIDES = [
+    "androidx.activity:activity:1.12.2",
+    "androidx.activity:activity-compose:1.12.2",
+    "androidx.compose.animation:animation:1.10.0",
+    "androidx.compose.animation:animation-android:1.10.0",
+    "androidx.compose.animation:animation-core:1.10.0",
+    "androidx.compose.animation:animation-core-android:1.10.0",
+    "androidx.compose.foundation:foundation-android:1.10.0",
+    "androidx.compose.foundation:foundation-layout-android:1.10.0",
+    "androidx.compose.material:material-android:1.10.0",
+    "androidx.compose.material:material-ripple:1.10.0",
+    "androidx.compose.material:material-ripple-android:1.10.0",
+    "androidx.compose.runtime:runtime-android:1.10.0",
+    "androidx.compose.runtime:runtime-saveable:1.10.0",
+    "androidx.compose.runtime:runtime-saveable-android:1.10.0",
+    "androidx.compose.ui:ui-android:1.10.0",
+    "androidx.compose.ui:ui-graphics:1.10.0",
+    "androidx.compose.ui:ui-graphics-android:1.10.0",
+    "androidx.compose.ui:ui-text:1.10.0",
+    "androidx.compose.ui:ui-text-android:1.10.0",
+    "androidx.compose.ui:ui-unit:1.10.0",
+    "androidx.compose.ui:ui-unit-android:1.10.0",
+    "androidx.compose.ui:ui-util:1.10.0",
+    "androidx.compose.ui:ui-util-android:1.10.0",
+    "androidx.core:core-ktx:1.17.0",
+    "androidx.lifecycle:lifecycle-common:2.8.7",
+    "androidx.lifecycle:lifecycle-livedata-core:2.8.7",
+    "androidx.lifecycle:lifecycle-runtime:2.8.7",
+    "androidx.lifecycle:lifecycle-viewmodel:2.8.7",
+    "androidx.navigationevent:navigationevent-compose:1.0.1",
+    "androidx.savedstate:savedstate:1.4.0",
+    "androidx.savedstate:savedstate-compose:1.4.0",
+    "androidx.collection:collection:1.5.0",
+    "androidx.annotation:annotation:1.9.1",
+    "androidx.emoji2:emoji2:1.6.0",
+    "androidx.emoji2:emoji2-views-helper:1.6.0",
+    "androidx.collection:collection-jvm:1.5.0",
+]
+
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "com_jackbradshaw_maven",
@@ -94,10 +135,10 @@ maven.install(
         "io.ktor:ktor-server-core-jvm:%s" % VERSION_MAVEN_KTOR,
         "io.ktor:ktor-server-host-common-jvm:%s" % VERSION_MAVEN_KTOR,
         "io.ktor:ktor-server-netty-jvm:%s" % VERSION_MAVEN_KTOR,
-        "javax.annotation:jsr250-api:1.0",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13.2",
         "com.eed3si9n.starlark:starlark:4.2.1",
+        "org.jetbrains.kotlin:kotlin-compose-compiler-plugin:2.2.21",
         "org.jetbrains.kotlin:kotlin-test:2.2.0",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2",
@@ -160,6 +201,7 @@ maven.install(
         "https://maven.google.com/",
     ],
 )
+
 use_repo(maven, "com_jackbradshaw_maven")
 
 ## Formatting
