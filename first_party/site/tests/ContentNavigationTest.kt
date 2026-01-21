@@ -32,7 +32,7 @@ class ContentNavigationTest {
   }
 
   @Test
-  fun clickGalleryItem_subjectsPage_opensItem() {
+  fun clickGalleryItem_curatedPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/gallery/subjects"),
         itemLabel = "Genesis Ex Nihilo",
@@ -96,6 +96,14 @@ class ContentNavigationTest {
   }
 
   @Test
+  fun clickJournalItem_draftsPage_opensItem() {
+    runClickInternalLinkTest(
+        startPagePath = URI.create("/journal/drafts"),
+        expectedDestinationPagePath = URI.create("/journal/item/the-lost-plot-chapter-1"),
+        itemLabel = "The Lost Plot: Chapter 1")
+  }
+
+  @Test
   fun clickRepositoryItem_highlightsPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/highlights"),
@@ -105,7 +113,7 @@ class ContentNavigationTest {
   }
 
   @Test
-  fun clickRepositoryItem_locationsPage_opensItem() {
+  fun clickRepositoryItem_locationPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/locations"),
         itemLabel = "AutoFactory",
@@ -115,7 +123,7 @@ class ContentNavigationTest {
   }
 
   @Test
-  fun clickRepositoryItem_technologiesPage_opensItem() {
+  fun clickRepositoryItem_technologyPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/technologies"),
         itemLabel = "AutoFactory",

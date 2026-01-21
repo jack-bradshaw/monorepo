@@ -92,11 +92,11 @@ try:
         )
     )
 
-    # Check subjects
-    subjects = load_json(os.path.join(base_path, "subjects.json"))
+    # Check curated
+    curated = load_json(os.path.join(base_path, "curated.json"))
     broken_refs.extend(
         check_refs(
-            "subjects.json", subjects, valid_item_keys, valid_series_keys, "dict_items"
+            "curated.json", curated, valid_item_keys, valid_series_keys, "dict_items"
         )
     )
 
