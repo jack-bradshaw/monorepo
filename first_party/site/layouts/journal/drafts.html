@@ -1,0 +1,25 @@
+{{/*
+Journal Drafts Layout
+
+Parameters:
+* key: "drafts" (implied)
+*/}}
+{{ define "main" }}
+
+<div class="content root wide-root">
+  <div class="content block">
+    <ol class="content items wide-items" role="list">
+      {{ range site.Data.journal.items }}
+      {{ if .is_draft }}
+      <li>
+        {{ partial "card/composition/journal-card.html" (dict "title" .title "description"
+          .description "link"
+          (printf
+          "/journal/item/%s" .key)) }}
+      </li>
+      {{ end }}
+      {{ end }}
+    </ol>
+  </div>
+</div>
+{{ end }}

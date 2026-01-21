@@ -61,18 +61,18 @@ class AppearanceTest {
   }
 
   @Test
-  fun gallerySubjectsPage_smallScreen_matchesGolden() {
-    runPageScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.SMALL)
+  fun galleryCuratedPage_smallScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/gallery/curated"), ScreenWidth.SMALL)
   }
 
   @Test
-  fun gallerySubjectsPage_mediumScreen_matchesGolden() {
-    runPageScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.MEDIUM)
+  fun galleryCuratedPage_mediumScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/gallery/curated"), ScreenWidth.MEDIUM)
   }
 
   @Test
-  fun gallerySubjectsPage_largeScreen_matchesGolden() {
-    runPageScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.LARGE)
+  fun galleryCuratedPage_largeScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/gallery/curated"), ScreenWidth.LARGE)
   }
 
   @Test
@@ -178,6 +178,21 @@ class AppearanceTest {
   @Test
   fun journalChronologicalPage_largeScreen_matchesGolden() {
     runPageScreendiffTest(URI.create("/journal/chronological"), ScreenWidth.LARGE)
+  }
+
+  @Test
+  fun journalDraftsPage_smallScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/journal/drafts"), ScreenWidth.SMALL)
+  }
+
+  @Test
+  fun journalDraftsPage_mediumScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/journal/drafts"), ScreenWidth.MEDIUM)
+  }
+
+  @Test
+  fun journalDraftsPage_largeScreen_matchesGolden() {
+    runPageScreendiffTest(URI.create("/journal/drafts"), ScreenWidth.LARGE)
   }
 
   @Test

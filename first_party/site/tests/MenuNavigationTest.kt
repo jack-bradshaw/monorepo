@@ -63,16 +63,16 @@ class MenuNavigationTest {
   fun clickMenuItem_alwaysExpandedMenu_galleryHighlights_opensGalleryHighlights() {
     runAlwaysExpandedMenuItemTest(
         MenuItem.Gallery.Highlights,
-        startPagePath = URI.create("/gallery/subjects"),
+        startPagePath = URI.create("/gallery/curated"),
         destinationPagePath = URI.create("/gallery/highlights"))
   }
 
   @Test
-  fun clickMenuItem_alwaysExpandedMenu_gallerySubjects_opensGallerySubjects() {
+  fun clickMenuItem_alwaysExpandedMenu_galleryCurated_opensGalleryCurated() {
     runAlwaysExpandedMenuItemTest(
-        MenuItem.Gallery.Subjects,
+        MenuItem.Gallery.Curated,
         startPagePath = URI.create("/gallery/highlights"),
-        destinationPagePath = URI.create("/gallery/subjects"))
+        destinationPagePath = URI.create("/gallery/curated"))
   }
 
   @Test
@@ -132,6 +132,14 @@ class MenuNavigationTest {
   }
 
   @Test
+  fun clickMenuItem_alwaysExpandedMenu_journalDrafts_opensJournalDrafts() {
+    runAlwaysExpandedMenuItemTest(
+        MenuItem.Journal.Drafts,
+        startPagePath = URI.create("/journal/highlights"),
+        destinationPagePath = URI.create("/journal/drafts"))
+  }
+
+  @Test
   fun clickMenuItem_alwaysExpandedMenu_repositoryHighlights_opensRepositoryHighlights() {
     runAlwaysExpandedMenuItemTest(
         MenuItem.Repository.Highlights,
@@ -140,17 +148,17 @@ class MenuNavigationTest {
   }
 
   @Test
-  fun clickMenuItem_alwaysExpandedMenu_repositoryLocations_opensRepositoryLocations() {
+  fun clickMenuItem_alwaysExpandedMenu_repositoryLocation_opensRepositoryLocations() {
     runAlwaysExpandedMenuItemTest(
-        MenuItem.Repository.Locations,
+        MenuItem.Repository.Location,
         startPagePath = URI.create("/repository/highlights"),
         destinationPagePath = URI.create("/repository/locations"))
   }
 
   @Test
-  fun clickMenuItem_alwaysExpandedMenu_repositoryTechnologies_opensRepositoryTechnologies() {
+  fun clickMenuItem_alwaysExpandedMenu_repositoryTechnology_opensRepositoryTechnologies() {
     runAlwaysExpandedMenuItemTest(
-        MenuItem.Repository.Technologies,
+        MenuItem.Repository.Technology,
         startPagePath = URI.create("/repository/highlights"),
         destinationPagePath = URI.create("/repository/technologies"))
   }
@@ -197,16 +205,16 @@ class MenuNavigationTest {
   fun clickMenuItem_collapsedSecondaryMenu_galleryHighlights_opensGalleryHighlights() {
     runCollapsibleSecondaryMenuItemTest(
         MenuItem.Gallery.Highlights,
-        startPagePath = URI.create("/gallery/subjects"),
+        startPagePath = URI.create("/gallery/curated"),
         destinationPagePath = URI.create("/gallery/highlights"))
   }
 
   @Test
-  fun clickMenuItem_collapsedSecondaryMenu_gallerySubjects_opensGallerySubjects() {
+  fun clickMenuItem_collapsedSecondaryMenu_galleryCurated_opensGalleryCurated() {
     runCollapsibleSecondaryMenuItemTest(
-        MenuItem.Gallery.Subjects,
+        MenuItem.Gallery.Curated,
         startPagePath = URI.create("/gallery/highlights"),
-        destinationPagePath = URI.create("/gallery/subjects"))
+        destinationPagePath = URI.create("/gallery/curated"))
   }
 
   @Test
@@ -266,6 +274,14 @@ class MenuNavigationTest {
   }
 
   @Test
+  fun clickMenuItem_collapsedSecondaryMenu_journalDrafts_opensJournalDrafts() {
+    runCollapsibleSecondaryMenuItemTest(
+        MenuItem.Journal.Drafts,
+        startPagePath = URI.create("/journal/highlights"),
+        destinationPagePath = URI.create("/journal/drafts"))
+  }
+
+  @Test
   fun clickMenuItem_collapsedSecondaryMenu_repositoryHighlights_opensRepositoryHighlights() {
     runCollapsibleSecondaryMenuItemTest(
         MenuItem.Repository.Highlights,
@@ -274,17 +290,17 @@ class MenuNavigationTest {
   }
 
   @Test
-  fun clickMenuItem_collapsedSecondaryMenu_repositoryLocations_opensRepositoryLocations() {
+  fun clickMenuItem_collapsedSecondaryMenu_repositoryLocation_opensRepositoryLocations() {
     runCollapsibleSecondaryMenuItemTest(
-        MenuItem.Repository.Locations,
+        MenuItem.Repository.Location,
         startPagePath = URI.create("/repository/highlights"),
         destinationPagePath = URI.create("/repository/locations"))
   }
 
   @Test
-  fun clickMenuItem_collapsedSecondaryMenu_repositoryTechnologies_opensRepositoryTechnologies() {
+  fun clickMenuItem_collapsedSecondaryMenu_repositoryTechnology_opensRepositoryTechnologies() {
     runCollapsibleSecondaryMenuItemTest(
-        MenuItem.Repository.Technologies,
+        MenuItem.Repository.Technology,
         startPagePath = URI.create("/repository/highlights"),
         destinationPagePath = URI.create("/repository/technologies"))
   }
@@ -349,7 +365,7 @@ sealed class MenuItem(val uiLabel: String) {
   object Gallery : MenuItem("Gallery") {
     object Highlights : MenuItem("Highlights")
 
-    object Subjects : MenuItem("Subjects")
+    object Curated : MenuItem("Curated")
 
     object Palettes : MenuItem("Palettes")
 
@@ -365,15 +381,17 @@ sealed class MenuItem(val uiLabel: String) {
 
     object Genres : MenuItem("Genres")
 
+    object Drafts : MenuItem("Drafts")
+
     object Chronological : MenuItem("Chronological")
   }
 
   object Repository : MenuItem("Repository") {
     object Highlights : MenuItem("Highlights")
 
-    object Locations : MenuItem("Locations")
+    object Location : MenuItem("Location")
 
-    object Technologies : MenuItem("Technologies")
+    object Technology : MenuItem("Technology")
   }
 
   object About : MenuItem("About")
