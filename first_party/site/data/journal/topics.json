@@ -6,17 +6,23 @@
     "items": [
       "into-the-subverse",
       "pragmatic-altruism",
-      "judgement-vs-understanding",
-      "meat-because-we-want-to",
-      "one-or-many",
-      "the-wolves-are-all-gone"
+      "illumination",
+      "the-answer",
+      "hermeticity",
+      "the-artificial-man"
     ]
   },
   {
     "key": "creativity",
     "title": "Creativity",
     "description": "Reflections on the artistic process, writing, and expression",
-    "items": ["death-of-a-critic", "challenge-of-monologue"]
+    "items": [
+      "death-of-a-critic",
+      "challenge-of-monologue",
+      "five-stages-of-writing",
+      "the-tao-of-the-pen",
+      "a-writers-dilemma"
+    ]
   },
   {
     "key": "society",
@@ -27,7 +33,8 @@
       "meat-because-we-want-to",
       "pragmatic-altruism",
       "challenge-of-monologue",
-      "one-or-many"
+      "one-or-many",
+      "hermeticity"
     ]
   },
   {
@@ -40,7 +47,7 @@
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "judgement-vs-understanding", "the-cursed-cursor"]
+    "items": ["death-of-a-critic", "one-or-many", "humanity-loop"]
   },
   {
     "key": "veganism",

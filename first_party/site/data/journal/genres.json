@@ -3,7 +3,7 @@
     "key": "poetry",
     "title": "Poetry",
     "description": "Rhythmic and expressive verse",
-    "items": ["sports-bar"]
+    "items": ["sports-bar", "five-stages-of-writing", "the-tao-of-the-pen"]
   },
   {
     "key": "essays",
@@ -19,13 +19,19 @@
       "into-the-subverse",
       "cursed-cursor",
       "welcome-to-the-machine",
-      "treehouse-library"
+      "treehouse-library",
+      "illumination",
+      "the-answer",
+      "hermeticity",
+      "a-writers-dilemma",
+      "humanity-loop",
+      "judgement-vs-understanding"
     ]
   },
   {
     "key": "sci-fi",
     "title": "Sci-Fi",
     "description": "Speculative fiction exploring futuristic concepts",
-    "items": ["the-wolves-are-all-gone", "on-the-red-space"]
+    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man"]
   }
 ]
