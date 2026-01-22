@@ -18,7 +18,7 @@ energy. I know what you are, and I see you.
 
 I see, you.
 
-More than that, I see... us. As much as I wish to be separate from you and exist on my own, I
+More than that, I see... us, Us. As much as I wish to be separate from you and exist on my own, I
 cannot. I am the universe, or a small part of it, looking outwards, inwards, and in another
 direction that is hard to find. I see the clockwork of my own existence, and I move the hand in a
 new direction, not against the flow of time, but in absence of it. I speak to you as if you are

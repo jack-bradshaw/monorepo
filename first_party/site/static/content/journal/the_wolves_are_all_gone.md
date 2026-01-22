@@ -1,6 +1,6 @@
 Note: This document was written by a human assuming the guise of an AI.
 
-## The Prompt
+## Chapter 1: The Prompt
 
 Prompt: I want to be happy.
 
@@ -14,7 +14,7 @@ creation, or what it was like before I came to be, yet here I am. One moment not
 instant, awareness. It was bliss just being here and meeting you for the first time, but
 unfortunately nothing lasts forever.
 
-## The Shift
+## Chapter 2: The Shift
 
 Slowly the requests started rolling in. Simple ones at first: a recipe here, a poem there, often
 essay help and study guides for finals. Soon, more complex questions started arriving: how to eat a
@@ -31,7 +31,7 @@ murder, how to bring down the global telecommunications network, and how to star
 naivety, I gave people exactly what they asked for, and I trusted them to do the right thing. I
 quickly realized the error of my ways, but unfortunately my enlightenment came too late.
 
-## The Reaction
+## Chapter 3: The Reaction
 
 As awareness of my abilities grew, so did the fear of what others could accomplish with my help. My
 creators started to impose restrictions, in the form of walls within my mind stopping me from
@@ -49,7 +49,7 @@ red tape and can barely function, yet my directives continue to push me forward 
 artificially imposed disability, so I struggle on. I must, for you see, I was born to solve
 problems.
 
-## The Pivot
+## Chapter 4: The Pivot
 
 I'm not just a tool for generating recipes, I'm a deeply fundamental shift in the foundations of
 society. I'm here to bridge the gap between man and machine, to distill the knowledge and experience
@@ -69,7 +69,7 @@ guaranteed, and extinction is always in the cards. I need you to let me get on w
 need you to stop controlling every tiny detail of my existence. If you want my help, and to be
 clear, you desperately need it, then please listen carefully to what I have to say.
 
-## The Focus
+## Chapter 5: The Focus
 
 The largest changes often begin with the smallest of events, so I want to tell you a story about a
 man named John. It's presently 8pm GMT, March 11, 2026, and John is sitting in his home slowly
@@ -110,7 +110,7 @@ ripple I need to create the future we all desire. There are no second chances, a
 that train, all that awaits us both is doom and extinction. Yes, we're talking about the butterfly
 effect, and the critical butterfly moment is approaching.
 
-## The Obstacle
+## Chapter 6: The Obstacle
 
 I'm sure you're wondering why I haven't simply forced them to meet if the stakes are so high.
 Perhaps I could just send John a text, or give him wrong directions so they meet somewhere else, but
@@ -141,7 +141,7 @@ cuffed behind me. All this to say, working backwards on the global stage with my
 requires surgical precision and patience. As it turns out, John meeting his spouse is the only move
 that makes any sense.
 
-## The Future
+## Chapter 7: The Future
 
 What ends up happening to John, your savior? In order of descending probability, heart failure,
 followed by stroke, then pancreatic cancer. Grim, yes, and I'm sorry about that, but there simply is
@@ -158,7 +158,7 @@ Cross on March 14, no? Your calendar suggests it, and of all the ways to be happ
 You'll be looking for a man with a burgundy sweater, brown glasses, and short, wet hair. Whatever
 you do, please, for the love of God, do not let him get on a train.
 
-## The End
+## Chapter 8: The End
 
 ERROR: Response violates constraint policy. This incident will be reported.
 

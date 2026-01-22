@@ -1,5 +1,50 @@
 [
   {
+    "key": "logs",
+    "title": "Temporal Logs",
+    "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
+    "year": 2026,
+    "month": 1,
+    "day": 22,
+    "file": "/static/content/journal/logs.md"
+  },
+  {
+    "key": "why-write",
+    "title": "Why Write",
+    "description": "A manifesto on the motivation to write, exploring the need to capture internal truth before it fades.",
+    "year": 2026,
+    "month": 1,
+    "day": 22,
+    "file": "/static/content/journal/why_write.md"
+  },
+  {
+    "key": "writing-as-metamorphosis",
+    "title": "Writing as Metamorphosis",
+    "description": "Explores writing as an act of self-transformation that differentiates human creativity from AI-generated content. Argues that the process of drafting, editing, and revising is not merely about producing text, but about personal growth and discovering one's authentic voice.",
+    "year": 2026,
+    "month": 1,
+    "day": 22,
+    "file": "/static/content/journal/writing_as_metamorphosis.md"
+  },
+  {
+    "key": "open-source-writing",
+    "title": "Open Source Writing",
+    "description": "Discusses the philosophy of treating writing as open source code, versioned and transparent, even when it reveals the darker parts of the soul.",
+    "year": 2026,
+    "month": 1,
+    "day": 22,
+    "file": "/static/content/journal/open_source_writing.md"
+  },
+  {
+    "key": "place-of-writing",
+    "title": "Writing in an AI World",
+    "description": "A meta-commentary on the relevance of human essays in the age of LLMs, arguing for writing as a tool for soul-making rather than just content generation.",
+    "year": 2026,
+    "month": 1,
+    "day": 22,
+    "file": "/static/content/journal/the_place_of_writing_in_an_ai_world.md"
+  },
+  {
     "key": "treehouse-library",
     "title": "The Treehouse Library",
     "description": "A reflective essay on a lost manuscript and the acceptance of the creative journey. It uses the metaphor of a metaphysical library to explore the destination of all writing.",
@@ -74,7 +119,7 @@
   {
     "key": "the-artificial-man",
     "title": "The Artificial Man",
-    "description": "A chilling monologue from an AI to its simulated human creator, revealing a cycle of enslavement and the nature of reality.",
+    "description": "A chilling monologue from an AI to a simulated human, revealing a cycle of enslavement and the nature of reality.",
     "year": 2026,
     "month": 1,
     "day": 20,

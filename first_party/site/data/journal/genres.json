@@ -11,6 +11,9 @@
     "description": "Structured prose exploring specific topics",
     "items": [
       "death-of-a-critic",
+      "why-write",
+      "open-source-writing",
+      "place-of-writing",
       "pragmatic-altruism",
       "challenge-of-monologue",
       "one-or-many",
@@ -32,6 +35,6 @@
     "key": "sci-fi",
     "title": "Sci-Fi",
     "description": "Speculative fiction exploring futuristic concepts",
-    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man"]
+    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man", "logs"]
   }
 ]
