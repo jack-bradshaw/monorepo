@@ -56,4 +56,4 @@ I have more to say, but that’s enough for now. I will stand by my promise, con
 technique, and commit to my decision. My work will flourish in due time, and when that happens, we
 can continue our conversation. Until then, take care.
 
-Warmly, Jack Bradshaw.
+Warmly,<br/> Jack Bradshaw.

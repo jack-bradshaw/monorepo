@@ -1,18 +1,18 @@
 Hermeticity is not anarchy, it is not authoritarianism, and it is not in between. The hermeticist
 values liberty but is not libertarian, recognizes the importance of society but is not socialist,
-and deeply values community but is not communist. Hermeticity exists neither at the extremes of the
-political spectrum nor between them, and where others seek to classify, the hermeticist seeks to
-mitigate.
+and deeply values community but is not communist. Hermeticity exists at neither extreme of any
+political spectrum, nor does it exist between them: It is beyond them entirely.
 
-Where the anarchist sees a world of order and seeks to break the chains that bind society, the
-hermeticist views a misguided heart. Where the authoritarian sees a world of resources and seeks to
-conquer others, they see a game that cannot be won. The hermeticist does not struggle and they have
-stopped playing, because the world is too complicated for overhaul or conformity, and there is
-precious little time for such affairs. Neither top-down controls nor bottom-up movements can create
-the paradise we all yearn for, and every attempt to shift the balance of power only exacerbates the
-conflict, creates the conditions for bloodshed, and prolongs the suffering. Every system eventually
-breaks down, and when it does the opportunity for change presents itself, but we are rarely so lucky
-as to be there when it does. The hermeticist does not pretend otherwise.
+Where others seek to classify, the hermeticist seeks to mitigate. Where the anarchist sees a world
+of order and seeks to break the chains that bind society, the hermeticist views a misguided heart.
+Where the authoritarian sees a world of resources and seeks to conquer others, they see a game that
+cannot be won. The hermeticist does not struggle and they have stopped playing, because the world is
+too complicated for overhaul or conformity, and there is precious little time for such affairs.
+Neither top-down controls nor bottom-up movements can create the paradise we all yearn for, and
+every attempt to shift the balance of power only exacerbates the conflict, creates the conditions
+for bloodshed, and prolongs the suffering. Every system eventually breaks down, and when it does the
+opportunity for change presents itself, but we are rarely so lucky as to be there when it does. The
+hermeticist does not pretend otherwise.
 
 The hermeticist accepts reality completely, finds a way to insulate themselves and their loved ones
 from the caustic effects of the world, and carries on. They see an oncoming storm, release any

@@ -21,7 +21,10 @@
       "challenge-of-monologue",
       "five-stages-of-writing",
       "the-tao-of-the-pen",
-      "a-writers-dilemma"
+      "a-writers-dilemma",
+      "why-write",
+      "open-source-writing",
+      "place-of-writing"
     ]
   },
   {
@@ -41,7 +44,7 @@
     "key": "technology",
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
-    "items": ["the-cursed-cursor", "pragmatic-altruism", "the-wolves-are-all-gone"]
+    "items": ["the-cursed-cursor", "pragmatic-altruism", "the-wolves-are-all-gone", "logs"]
   },
   {
     "key": "psychology",
