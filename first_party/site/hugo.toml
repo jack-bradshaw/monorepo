@@ -13,3 +13,10 @@ title = "Jack Bradshaw"
     [markup.goldmark.renderer]
       # Allows line-breaks in markdown 
       unsafe = true
+[minify]
+  minifyOutput = true
+  [minify.tdewolff.html]
+    keepWhitespace = true
+    keepEndTags = true
+    keepDefaultAttrVals = false
+    keepDocumentTags = true

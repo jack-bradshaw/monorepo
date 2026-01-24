@@ -32,8 +32,8 @@ Parameters:
         {{ if .technologies }}
         {{ range .technologies }}
         {{ $iconName := . }}
-        {{ $staticPath := printf "/static/decorations/technologies/%s.png" $iconName }}
-        {{ $webPath := printf "/decorations/technologies/%s.png" $iconName }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.webp" $iconName }}
+        {{ $webPath := printf "/decorations/technologies/%s.webp" $iconName }}
 
         {{ if not (fileExists $staticPath) }}
         {{ errorf "Icon not found for technology: %s" $iconName }}

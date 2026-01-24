@@ -17,8 +17,8 @@ Parameters:
 
         {{ range .technologies }}
         {{ $iconName := . }}
-        {{ $staticPath := printf "/static/decorations/technologies/%s.png" $iconName }}
-        {{ $webPath := printf "/decorations/technologies/%s.png" $iconName }}
+        {{ $staticPath := printf "/static/decorations/technologies/%s.webp" $iconName }}
+        {{ $webPath := printf "/decorations/technologies/%s.webp" $iconName }}
         {{ if not (fileExists $staticPath) }}
         {{ errorf "Icon not found for technology: %s" $iconName }}
         {{ else }}
@@ -28,10 +28,10 @@ Parameters:
         {{ end }}
 
         {{ partial "card/composition/repository-card.html" (dict
-          "images" $icons
-          "title" .title
-          "subtitle" .description
-          "link" .link)
+        "images" $icons
+        "title" .title
+        "subtitle" .description
+        "link" .link)
         }}
       </li>
       {{ end }}
