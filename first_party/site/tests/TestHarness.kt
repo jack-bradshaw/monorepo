@@ -2,6 +2,7 @@ package com.jackbradshaw.site.tests
 
 import com.google.devtools.build.runfiles.Runfiles
 import com.microsoft.playwright.Browser
+import com.microsoft.playwright.BrowserContext
 import com.microsoft.playwright.BrowserType
 import com.microsoft.playwright.Locator
 import com.microsoft.playwright.Page
@@ -92,8 +93,7 @@ class TestHarness {
     browserContext =
         browser.newContext(
             Browser.NewContextOptions().setViewportSize(width.asPixels, VIEW_PORT_HEIGHT_PX))
-    browserContext.setDefaultNavigationTimeout(TimeUnit.SECONDS.toMillis(60).toDouble())
-    browserContext.setDefaultTimeout(TimeUnit.SECONDS.toMillis(60).toDouble())
+    browserContext.setupTimeouts()
   }
 
   /** Initializes [server] and assigns its port to [port]. */
@@ -139,11 +139,7 @@ class TestHarness {
 
   /** Opens a new browser page at [page] (relative to the site root). */
   fun openPage(page: URI): Page =
-      browserContext.newPage().apply {
-        navigate(endpoint().resolve(page).toString())
-        waitForFunction(
-            "document.fonts.status === 'loaded' && Array.from(document.images).every(img => img.complete)")
-      }
+      browserContext.newPage().apply { navigate(endpoint().resolve(page).toString()) }
 
   /** Returns the runfile at [path] (relative to the runfiles root). */
   fun getRunfile(path: Path): Path = Paths.get(runfiles.rlocation(path.toString()))
@@ -164,6 +160,15 @@ class TestHarness {
     val location = File(site, path)
 
     return if (location.isDirectory) File(location, "index.html") else location
+  }
+
+  /**
+   * Sets the default navigation and timeout for this context to 60 seconds to prevent tests from
+   * running indefinitely when blocked.
+   */
+  private fun BrowserContext.setupTimeouts() {
+    setDefaultNavigationTimeout(TimeUnit.SECONDS.toMillis(60).toDouble())
+    setDefaultTimeout(TimeUnit.SECONDS.toMillis(60).toDouble())
   }
 
   companion object {

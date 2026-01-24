@@ -35,26 +35,24 @@ Parameters: None
       <li>
         {{ $subtitle := "" }}
         {{ if .date }}
-          {{ $t := time .date }}
-          {{ $subtitle = $t.Format "January 2006" }}
-          {{ if .description }}
-            {{ $subtitle = printf "%s - %s" $subtitle .description }}
-          {{ end }}
+        {{ $subtitle = (time .date).Format "January 2006" }}
+        {{ if .description }}
+        {{ $subtitle = printf "%s - %s" $subtitle .description }}
+        {{ end }}
         {{ else if .year }}
-          {{ $subtitle = .year }}
-          {{ if .description }}
-            {{ $subtitle = printf "%s - %s" $subtitle .description }}
-          {{ end }}
+        {{ $subtitle = .year }}
+        {{ if .description }}
+        {{ $subtitle = printf "%s - %s" $subtitle .description }}
+        {{ end }}
         {{ else if .description }}
-          {{ $subtitle = .description }}
+        {{ $subtitle = .description }}
         {{ end }}
 
-        {{ $image := strings.TrimPrefix "/static" .file }}
         {{ partial "card/composition/gallery-card.html" (dict
-            "image" $image
-            "title" .title
-            "subtitle" $subtitle
-            "link" (printf "/gallery/item/%s" .key))
+        "image" (strings.TrimPrefix "/static" .thumbnail)
+        "title" .title
+        "subtitle" $subtitle
+        "link" (printf "/gallery/item/%s" .key))
         }}
       </li>
       {{ end }}

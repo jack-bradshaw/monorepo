@@ -27,118 +27,116 @@ class ContentNavigationTest {
   fun clickGalleryItem_highlightsPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/gallery/highlights"),
-        expectedDestinationPagePath = URI.create("/gallery/item/restructuring_2024"),
-        itemLabel = "Restructuring")
+        itemLabel = "Restructuring",
+        expectedDestinationPagePath = URI.create("/gallery/item/restructuring_2024"))
   }
 
   @Test
   fun clickGalleryItem_subjectsPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/gallery/subjects"),
-        expectedDestinationPagePath = URI.create("/gallery/series/genesis_ex_nihilo"),
-        itemLabel = "Genesis Ex Nihilo")
+        itemLabel = "Genesis Ex Nihilo",
+        expectedDestinationPagePath = URI.create("/gallery/series/genesis_ex_nihilo"))
   }
 
   @Test
   fun clickGalleryItem_palettesPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/gallery/palettes"),
-        expectedDestinationPagePath = URI.create("/gallery/item/singularity_2025"),
-        itemLabel = "Singularity")
+        itemLabel = "Singularity",
+        expectedDestinationPagePath = URI.create("/gallery/item/singularity_2025"))
   }
 
   @Test
   fun clickGalleryItem_chronologicalPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/gallery/chronological"),
-        expectedDestinationPagePath = URI.create("/gallery/item/singularity_2025"),
-        itemLabel = "Singularity")
+        itemLabel = "Singularity",
+        expectedDestinationPagePath = URI.create("/gallery/item/singularity_2025"))
   }
 
   @Test
   fun clickJournalItem_highlightsPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/journal/highlights"),
-        expectedDestinationPagePath = URI.create("/journal/item/the-artificial-man"),
-        itemLabel = "The Artificial Man")
+        itemLabel = "Into the Subverse",
+        expectedDestinationPagePath = URI.create("/journal/item/into-the-subverse"))
   }
 
   @Test
   fun clickJournalItem_topicsPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/journal/topics"),
-        expectedDestinationPagePath = URI.create("/journal/item/sports-bar"),
-        itemLabel = "Sports Bar")
+        itemLabel = "Into the Subverse",
+        expectedDestinationPagePath = URI.create("/journal/item/into-the-subverse"))
   }
 
   @Test
   fun clickJournalItem_seriesPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/journal/series"),
-        expectedDestinationPagePath = URI.create("/journal/item/death-of-a-critic"),
-        itemLabel = "Death of a Critic")
+        itemLabel = "Death of a Critic",
+        expectedDestinationPagePath = URI.create("/journal/item/death-of-a-critic"))
   }
 
   @Test
   fun clickJournalItem_genresPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/journal/genres"),
-        expectedDestinationPagePath = URI.create("/journal/item/sports-bar"),
-        itemLabel = "Sports Bar")
+        itemLabel = "Sports Bar",
+        expectedDestinationPagePath = URI.create("/journal/item/sports-bar"))
   }
 
   @Test
   fun clickJournalItem_chronologicalPage_opensItem() {
     runClickInternalLinkTest(
         startPagePath = URI.create("/journal/chronological"),
-        expectedDestinationPagePath = URI.create("/journal/item/death-of-a-critic"),
-        itemLabel = "Death of a Critic")
+        itemLabel = "Death of a Critic",
+        expectedDestinationPagePath = URI.create("/journal/item/death-of-a-critic"))
   }
 
   @Test
   fun clickRepositoryItem_highlightsPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/highlights"),
+        itemLabel = "KMonkey",
         destinationUri =
-            URI.create("https://github.com/jack-bradshaw/monorepo/tree/main/first_party/kmonkey"),
-        itemLabel = "KMonkey")
+            URI.create("https://github.com/jack-bradshaw/main/tree/main/first_party/kmonkey"))
   }
 
   @Test
   fun clickRepositoryItem_locationsPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/locations"),
+        itemLabel = "AutoFactory",
         destinationUri =
-            URI.create(
-                "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/autofactory"),
-        itemLabel = "AutoFactory")
+            URI.create("https://github.com/jack-bradshaw/main/tree/main/first_party/autofactory"))
   }
 
   @Test
   fun clickRepositoryItem_technologiesPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/technologies"),
+        itemLabel = "AutoFactory",
         destinationUri =
-            URI.create(
-                "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/autofactory"),
-        itemLabel = "AutoFactory")
+            URI.create("https://github.com/jack-bradshaw/main/tree/main/first_party/autofactory"))
   }
 
   @Test
   fun clickAboutItem_networkItem_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/about"),
-        destinationUri = URI.create("https://bsky.app/profile/jack-bradshaw.com"),
-        itemLabel = "Bluesky")
+        itemLabel = "Bluesky",
+        destinationUri = URI.create("https://bsky.app/profile/jack-bradshaw.com"))
   }
 
   @Test
   fun clickAboutItem_careerItem_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/about/career/item/waymo"),
+        itemLabel = "Waymo",
         destinationUri =
-            URI.create("https://play.google.com/store/apps/details?id=com.waymo.carapp"),
-        itemLabel = "Waymo")
+            URI.create("https://play.google.com/store/apps/details?id=com.waymo.carapp"))
   }
 
   /**
@@ -148,8 +146,8 @@ class ContentNavigationTest {
    */
   private fun runClickInternalLinkTest(
       startPagePath: URI,
-      expectedDestinationPagePath: URI,
-      itemLabel: String
+      itemLabel: String,
+      expectedDestinationPagePath: URI
   ) {
     harness.setup(ScreenWidth.MEDIUM)
     val page = harness.openPage(startPagePath)
@@ -165,7 +163,7 @@ class ContentNavigationTest {
    * Start page path must be relative to the root of the site, and destination path must be
    * absolute.
    */
-  private fun runClickExternalLinkTest(startPagePath: URI, destinationUri: URI, itemLabel: String) {
+  private fun runClickExternalLinkTest(startPagePath: URI, itemLabel: String, destinationUri: URI) {
     harness.setup(ScreenWidth.MEDIUM)
 
     val page = harness.openPage(startPagePath)

@@ -15,7 +15,7 @@ Parameters: None
 {{ $coverItem := index $itemMap .cover }}
 {{ $coverImage := "" }}
 {{ if $coverItem }}
-{{ $coverImage = $coverItem.file }}
+{{ $coverImage = strings.TrimPrefix "/static" $coverItem.thumbnail }}
 {{ end }}
 {{ $seriesLink := printf "/gallery/series/%s" .key }}
 {{ $resolvedSeries := merge . (dict "image" $coverImage "link" $seriesLink) }}
@@ -32,6 +32,7 @@ Parameters: None
       {{ $series := index $seriesMap . }}
       <li>
         {{ $subtitle := "" }}
+
         {{ if $series.year }}
         {{ $subtitle = $series.year }}
         {{ if $series.description }}
@@ -40,9 +41,9 @@ Parameters: None
         {{ else if $series.description }}
         {{ $subtitle = $series.description }}
         {{ end }}
-        {{ $image := strings.TrimPrefix "/static" $series.image }}
+
         {{ partial "card/composition/gallery-card.html" (dict
-        "image" $image
+        "image" $series.image
         "title" $series.title
         "subtitle" $subtitle
         "link" $series.link)

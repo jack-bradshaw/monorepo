@@ -290,14 +290,14 @@ class AppearanceTest {
   ) {
     harness.setup(size)
 
-    val page = harness.openPage(path)
+    val page = harness.openPage(path).also { it.waitForLoad() }
 
     performScreendiff(page)
   }
 
   /** Captures a screenshot of [page] and verifies it matches the golden screenshot. */
   private fun performScreendiff(page: Page) {
-    val screenshot = captureScreenshot(page)
+    val screenshot = page.captureScreenshot()
 
     val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     val goldenPath = harness.getRunfile(GOLDEN_DIR.resolve(goldenName))
@@ -314,9 +314,16 @@ class AppearanceTest {
     }
   }
 
-  /** Captures a screenshot of [page] and returns the bytes of the image (in PNG format). */
-  fun captureScreenshot(page: Page): ByteArray =
-      page.screenshot(
+  /** Blocks until this [Page] has loaded all assets (fonts and images). */
+  private fun Page.waitForLoad() {
+    evaluate("document.querySelectorAll('img').forEach(img => img.loading = 'eager')")
+    waitForFunction("document.fonts.status === 'loaded'")
+    waitForFunction("Array.from(document.images).every(img => img.complete)")
+  }
+
+  /** Captures a screenshot of this [Page] and returns the bytes of the image (in PNG format). */
+  private fun Page.captureScreenshot(): ByteArray =
+      screenshot(
           Page.ScreenshotOptions()
               .setFullPage(true)
               .setType(ScreenshotType.PNG)
