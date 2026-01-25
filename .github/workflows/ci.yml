@@ -41,25 +41,23 @@ jobs:
         run: |
           echo "Installing dependencies..."
 
-          # Install libtinfo5 (missing on Ubuntu 24.04)
+          # Install libtinfo5 (required for Clang/LLVM toolchains)
           wget -q http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2_amd64.deb
           sudo dpkg -i libtinfo5_6.3-2_amd64.deb
           rm libtinfo5_6.3-2_amd64.deb
 
           # Install lld linker (required for Rust builds)
           sudo apt-get update -qq
-          sudo apt-get install -y -qq lld
+
+          # Install webp (required for webp_converter)
+          sudo apt-get install -y -qq lld webp
 
           # Install Swift (required for swiftformat)
           wget -q https://download.swift.org/swift-5.9.2-release/ubuntu2204/swift-5.9.2-RELEASE/swift-5.9.2-RELEASE-ubuntu22.04.tar.gz
           sudo tar -xzf swift-5.9.2-RELEASE-ubuntu22.04.tar.gz -C /usr/local
           rm swift-5.9.2-RELEASE-ubuntu22.04.tar.gz
-
-          # Configure Swift environment
           echo "/usr/local/swift-5.9.2-RELEASE-ubuntu22.04/usr/bin" >> $GITHUB_PATH
           echo "LD_LIBRARY_PATH=/usr/local/swift-5.9.2-RELEASE-ubuntu22.04/usr/lib/swift/linux:$LD_LIBRARY_PATH" >> $GITHUB_ENV
-
-          # Verify installations
           /usr/local/swift-5.9.2-RELEASE-ubuntu22.04/usr/bin/swift --version
           ld.lld --version
       - name: Delete Bloatware
