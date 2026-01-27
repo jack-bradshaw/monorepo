@@ -102,7 +102,11 @@
     "key": "geometry_and_colour",
     "title": "Geometry and Colour",
     "description": "Lines, transparency, layers, fills, and other explorations of pure geometry and color",
-    "series": ["layering_experiments", "isometric_experiments", "smudging_experiments"]
+    "series": [
+      "layering_experiments",
+      "isometric_experiments",
+      "smudging_experiments"
+    ]
   },
   {
     "key": "pop_culture",
@@ -155,7 +159,13 @@
     "key": "objects",
     "title": "Objects",
     "description": "Abstractions and impressions of various objects",
-    "series": ["ball_of_yarn", "ear", "balloons", "sushi", "means_of_production"]
+    "series": [
+      "ball_of_yarn",
+      "ear",
+      "balloons",
+      "sushi",
+      "means_of_production"
+    ]
   },
   {
     "key": "raw_materials",

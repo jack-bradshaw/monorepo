@@ -281,7 +281,12 @@
     "key": "cozy",
     "title": "Cozy",
     "description": "The warmth and comfort of a safe and a familiar environment.",
-    "items": ["version_1_2022", "version_2_2022", "version_3_2022", "version_4_2022"],
+    "items": [
+      "version_1_2022",
+      "version_2_2022",
+      "version_3_2022",
+      "version_4_2022"
+    ],
     "cover": "version_1_2022"
   },
   {
@@ -351,21 +356,36 @@
     "key": "curious",
     "title": "Curious",
     "description": "The beginning of all discovery.",
-    "items": ["part_1_2022_2", "part_2_2022_2", "part_3_2022_1", "part_4_2022_1", "part_5_2022_1"],
+    "items": [
+      "part_1_2022_2",
+      "part_2_2022_2",
+      "part_3_2022_1",
+      "part_4_2022_1",
+      "part_5_2022_1"
+    ],
     "cover": "part_2_2022_2"
   },
   {
     "key": "distracted",
     "title": "Distracted",
     "description": "Following the path from blissful ignorance to focused analysis.",
-    "items": ["blissful_ignorance_2022", "an_odd_occurrence_2022", "analysis_engaged_2022"],
+    "items": [
+      "blissful_ignorance_2022",
+      "an_odd_occurrence_2022",
+      "analysis_engaged_2022"
+    ],
     "cover": "blissful_ignorance_2022"
   },
   {
     "key": "pink_triangle",
     "title": "Pink Triangle",
     "description": "Various alternative designs for my pride tattoo.",
-    "items": ["version_1_2024", "version_2_2024", "version_3_2024", "version_4_2024"],
+    "items": [
+      "version_1_2024",
+      "version_2_2024",
+      "version_3_2024",
+      "version_4_2024"
+    ],
     "cover": "version_1_2024"
   },
   {
@@ -400,7 +420,14 @@
     "key": "gay_men_s_group_psychotherapy",
     "title": "Gay Men's Group Psychotherapy",
     "description": "The members of my support group circa 2023.",
-    "items": ["kent_2023", "jon_2023", "brad_2023", "rajat_2023", "troy_2023", "steve_2023"],
+    "items": [
+      "kent_2023",
+      "jon_2023",
+      "brad_2023",
+      "rajat_2023",
+      "troy_2023",
+      "steve_2023"
+    ],
     "cover": "kent_2023"
   },
   {
@@ -435,14 +462,23 @@
     "key": "the_void",
     "title": "The Void",
     "description": "Exploring and understanding the void of nothing.",
-    "items": ["it_stares_back_2024", "it_obeys_the_will_2024", "it_corrodes_everything_2023"],
+    "items": [
+      "it_stares_back_2024",
+      "it_obeys_the_will_2024",
+      "it_corrodes_everything_2023"
+    ],
     "cover": "it_obeys_the_will_2024"
   },
   {
     "key": "the_absurd",
     "title": "The Absurd",
     "description": "Examining and exploring absurdity.",
-    "items": ["the_tools_2022", "the_entrance_2024", "the_whispers_2023", "the_eldritch_2024"],
+    "items": [
+      "the_tools_2022",
+      "the_entrance_2024",
+      "the_whispers_2023",
+      "the_eldritch_2024"
+    ],
     "cover": "the_tools_2022"
   },
   {
@@ -463,7 +499,13 @@
     "key": "smudging_experiments",
     "title": "Smudging Experiments",
     "description": "Early experimentation with smudging.",
-    "items": ["part_1_2023_2", "part_2_2023_1", "part_3_2022_2", "part_4_2022_2", "part_5_2023"],
+    "items": [
+      "part_1_2023_2",
+      "part_2_2023_1",
+      "part_3_2022_2",
+      "part_4_2022_2",
+      "part_5_2023"
+    ],
     "cover": "part_1_2023_2"
   },
   {
@@ -533,7 +575,11 @@
     "key": "x_the_y",
     "title": "X The Y",
     "description": "Various people, all named something the something.",
-    "items": ["bill_nye_the_science_guy_2022", "eddie_the_eagle_2022", "manny_the_mammoth_2022"],
+    "items": [
+      "bill_nye_the_science_guy_2022",
+      "eddie_the_eagle_2022",
+      "manny_the_mammoth_2022"
+    ],
     "cover": "manny_the_mammoth_2022"
   },
   {
@@ -594,7 +640,13 @@
     "key": "crude",
     "title": "Crude",
     "description": "Various locations, and some of my earliest pieces.",
-    "items": ["restaurant_2022", "luna_2022", "beach_2022", "oil_rig_2022", "vesuvius_2022"],
+    "items": [
+      "restaurant_2022",
+      "luna_2022",
+      "beach_2022",
+      "oil_rig_2022",
+      "vesuvius_2022"
+    ],
     "cover": "restaurant_2022"
   },
   {
@@ -640,7 +692,10 @@
     "key": "fear_and_friendliness",
     "title": "Fear and Friendliness",
     "description": "Perspectives on fear and friendliness.",
-    "items": ["the_friendly_frightened_man_2023", "the_frightened_friendly_man_2023"],
+    "items": [
+      "the_friendly_frightened_man_2023",
+      "the_frightened_friendly_man_2023"
+    ],
     "cover": "the_friendly_frightened_man_2023"
   },
   {

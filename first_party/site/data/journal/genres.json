@@ -35,6 +35,11 @@
     "key": "sci-fi",
     "title": "Sci-Fi",
     "description": "Speculative fiction exploring futuristic concepts",
-    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man", "logs"]
+    "items": [
+      "the-wolves-are-all-gone",
+      "on-the-red-space",
+      "the-artificial-man",
+      "logs"
+    ]
   }
 ]

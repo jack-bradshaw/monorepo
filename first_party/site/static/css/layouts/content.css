@@ -62,12 +62,18 @@
 }
 
 .content.items.narrow-items {
-  grid-template-columns: repeat(auto-fill, minmax(var(--content-item-narrow), 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--content-item-narrow), 1fr)
+  );
   justify-content: center;
 }
 
 .content.items.wide-items {
-  grid-template-columns: repeat(auto-fill, minmax(var(--content-item-wide), 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--content-item-wide), 1fr)
+  );
   justify-content: center;
 }
 

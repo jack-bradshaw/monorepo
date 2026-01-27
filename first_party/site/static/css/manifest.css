@@ -61,7 +61,8 @@
 @import url(/css/components/card/composition/gallery-card.css) layer(components);
 @import url(/css/components/card/composition/journal-card.css) layer(components);
 @import url(/css/components/card/composition/network-card.css) layer(components);
-@import url(/css/components/card/composition/repository-card.css) layer(components);
+@import url(/css/components/card/composition/repository-card.css)
+layer(components);
 @import url(/css/components/card/elements/card-banner.css) layer(components);
 @import url(/css/components/card/elements/card-details.css) layer(components);
 @import url(/css/components/card/elements/card-icons.css) layer(components);

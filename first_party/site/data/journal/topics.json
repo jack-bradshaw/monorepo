@@ -44,7 +44,12 @@
     "key": "technology",
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
-    "items": ["the-cursed-cursor", "pragmatic-altruism", "the-wolves-are-all-gone", "logs"]
+    "items": [
+      "the-cursed-cursor",
+      "pragmatic-altruism",
+      "the-wolves-are-all-gone",
+      "logs"
+    ]
   },
   {
     "key": "psychology",

@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Council Simulation</title>
     <style>
       /* ... existing styles ... */
@@ -454,7 +451,10 @@
     <div id="apiKeyModal">
       <div class="modal-content">
         <h2>Enter Google API Key</h2>
-        <p>This experimental application requires a Google Gemini API Key to function.</p>
+        <p>
+          This experimental application requires a Google Gemini API Key to
+          function.
+        </p>
         <input
           type="password"
           id="apiKeyInput"
@@ -462,10 +462,11 @@
         />
         <button onclick="submitApiKey()">Confirm & Start</button>
         <div class="disclaimer">
-          <strong>Disclaimer:</strong> This is an experimental service. The API key is used solely
-          for integration with Google APIs and is not shared or persisted beyond this session. By
-          using this software, you acknowledge its experimental nature and waive any liability
-          associated with its use.
+          <strong>Disclaimer:</strong> This is an experimental service. The API
+          key is used solely for integration with Google APIs and is not shared
+          or persisted beyond this session. By using this software, you
+          acknowledge its experimental nature and waive any liability associated
+          with its use.
         </div>
       </div>
     </div>
@@ -473,34 +474,27 @@
     <!-- Menu Overlay Removed -->
 
     <!-- Solution Popup -->
-    <div
-      id="solutionPopup"
-      class="modal"
-    >
-      <div
-        class="modal-content"
-        style="max-width: 800px; text-align: left"
-      >
+    <div id="solutionPopup" class="modal">
+      <div class="modal-content" style="max-width: 800px; text-align: left">
         <div style="text-align: right">
-          <button
-            class="close-btn"
-            onclick="closeSolutionPopup()"
-          >
-            ×
-          </button>
+          <button class="close-btn" onclick="closeSolutionPopup()">×</button>
         </div>
-        <h2 style="text-align: center; color: #4caf50">🎉 Council Approved Solution</h2>
+        <h2 style="text-align: center; color: #4caf50">
+          🎉 Council Approved Solution
+        </h2>
         <div
           id="solutionContent"
-          style="margin-top: 20px; line-height: 1.6; max-height: 60vh; overflow-y: auto"
+          style="
+            margin-top: 20px;
+            line-height: 1.6;
+            max-height: 60vh;
+            overflow-y: auto;
+          "
         >
           <!-- Content will be injected here -->
         </div>
         <div style="text-align: center; margin-top: 20px">
-          <button
-            onclick="closeSolutionPopup()"
-            class="btn-primary"
-          >
+          <button onclick="closeSolutionPopup()" class="btn-primary">
             Close
           </button>
         </div>
@@ -522,29 +516,18 @@
       >
         <div style="display: flex; justify-content: space-between">
           <span>Total Tokens:</span>
-          <span
-            id="total-tokens"
-            style="color: #4caf50"
-            >0</span
-          >
+          <span id="total-tokens" style="color: #4caf50">0</span>
         </div>
         <div style="display: flex; justify-content: space-between">
           <span>Est. Cost:</span>
-          <span
-            id="total-cost"
-            style="color: #ff9800"
-            >$0.0000</span
-          >
+          <span id="total-cost" style="color: #ff9800">$0.0000</span>
         </div>
       </div>
       <div id="connection-status">Connecting...</div>
       <h3>Active Agents</h3>
       <div class="status-bar">
         <div id="postGameStatus">Simulation is RUNNING.</div>
-        <div
-          id="currentPhase"
-          style="margin-left: 20px; color: #aaa"
-        >
+        <div id="currentPhase" style="margin-left: 20px; color: #aaa">
           Phase: OBJECTIVE
         </div>
         <div id="agentCount">Active Agents: 0/0</div>
@@ -579,11 +562,7 @@
         >
           Waiting for Agents (0/20)...
         </button>
-        <button
-          id="btn-pause"
-          onclick="togglePause()"
-          style="display: none"
-        >
+        <button id="btn-pause" onclick="togglePause()" style="display: none">
           Pause Simulation
         </button>
         <button
@@ -598,12 +577,7 @@
           href="mailto:jack@jack-bradshaw.com?subject=AI Council Feedback"
           style="text-decoration: none; display: block"
         >
-          <button
-            class="btn-secondary"
-            style="width: 100%"
-          >
-            Feedback
-          </button>
+          <button class="btn-secondary" style="width: 100%">Feedback</button>
         </a>
       </div>
     </div>
@@ -614,7 +588,11 @@
         <div class="chat-column">
           <div
             class="chat-header"
-            style="display: flex; justify-content: space-between; align-items: center"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
           >
             <span>Group Chat (All)</span>
             <div style="position: relative">
@@ -667,17 +645,18 @@
               </div>
             </div>
           </div>
-          <div
-            class="messages"
-            id="group-messages"
-          ></div>
+          <div class="messages" id="group-messages"></div>
         </div>
 
         <!-- 1:1 & Thoughts Stream -->
         <div class="chat-column">
           <div
             class="chat-header"
-            style="display: flex; justify-content: space-between; align-items: center"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
           >
             <span>Private Chats & Thoughts</span>
             <div style="position: relative">
@@ -730,20 +709,14 @@
               </div>
             </div>
           </div>
-          <div
-            class="messages"
-            id="private-messages"
-          ></div>
+          <div class="messages" id="private-messages"></div>
         </div>
       </div>
     </div>
 
     <!-- Post-Game Modal -->
     <!-- Pause Menu Modal -->
-    <div
-      id="postGameModal"
-      class="modal"
-    >
+    <div id="postGameModal" class="modal">
       <div class="modal-content">
         <div
           style="
@@ -763,10 +736,7 @@
           </button>
         </div>
 
-        <div
-          id="postGameStatus"
-          style="color: #ff9800; margin-bottom: 10px"
-        >
+        <div id="postGameStatus" style="color: #ff9800; margin-bottom: 10px">
           Menu opened.
         </div>
 
@@ -788,14 +758,16 @@
             />
             Include Private Messages
           </label>
-          <div
-            id="agentFilterDiv"
-            style="display: none; margin-left: 20px"
-          >
+          <div id="agentFilterDiv" style="display: none; margin-left: 20px">
             <label>Filter by Agent (Optional):</label>
             <select
               id="filterAgent"
-              style="padding: 5px; background: #333; color: white; border: 1px solid #555"
+              style="
+                padding: 5px;
+                background: #333;
+                color: white;
+                border: 1px solid #555;
+              "
             >
               <option value="all">All Agents</option>
               <!-- Populated dynamically -->
@@ -804,22 +776,13 @@
         </div>
 
         <div class="post-game-options">
-          <button
-            onclick="toggleInterject()"
-            class="btn-primary"
-          >
+          <button onclick="toggleInterject()" class="btn-primary">
             Interject
           </button>
-          <button
-            onclick="exitSimulation(false)"
-            class="btn-danger"
-          >
+          <button onclick="exitSimulation(false)" class="btn-danger">
             Exit (No History)
           </button>
-          <button
-            onclick="exitSimulation(true)"
-            class="btn-primary"
-          >
+          <button onclick="exitSimulation(true)" class="btn-primary">
             Exit (Save History)
           </button>
           <button
@@ -872,29 +835,18 @@
             placeholder="Enter your directive..."
             style="width: 100%; height: 60px; margin-bottom: 10px"
           ></textarea>
-          <button
-            onclick="submitInterjection()"
-            class="btn-primary"
-          >
+          <button onclick="submitInterjection()" class="btn-primary">
             Send Directive
           </button>
         </div>
 
-        <div
-          id="querySection"
-          style="display: none; margin-top: 20px"
-        >
+        <div id="querySection" style="display: none; margin-top: 20px">
           <textarea
             id="queryInput"
             placeholder="Ask a question about the conversation..."
             style="width: 100%; height: 80px; margin-bottom: 10px"
           ></textarea>
-          <button
-            onclick="submitQuery()"
-            class="btn-primary"
-          >
-            Ask
-          </button>
+          <button onclick="submitQuery()" class="btn-primary">Ask</button>
           <div
             id="queryResult"
             style="
@@ -911,16 +863,9 @@
     </div>
 
     <!-- Report Modal -->
-    <div
-      id="reportModal"
-      class="modal"
-    >
+    <div id="reportModal" class="modal">
       <div class="modal-content">
-        <span
-          class="close-btn"
-          onclick="closeReport()"
-          >&times;</span
-        >
+        <span class="close-btn" onclick="closeReport()">&times;</span>
         <h2>Final Report</h2>
         <button
           onclick="copyReport()"
@@ -939,10 +884,7 @@
       class="modal"
       style="background: rgba(50, 0, 0, 0.9)"
     >
-      <div
-        class="modal-content"
-        style="border: 2px solid #f44336"
-      >
+      <div class="modal-content" style="border: 2px solid #f44336">
         <h2 style="color: #f44336">⚠️ Council Requesting Intervention</h2>
         <p>The agents have voted (50%+) to pause and request your guidance.</p>
         <label>Your Guidance:</label>
@@ -1017,7 +959,8 @@
           addSystemMessage(data.content);
 
           if (data.content.includes("Reporter Connected")) {
-            document.getElementById("postGameStatus").textContent = "Reporter Ready.";
+            document.getElementById("postGameStatus").textContent =
+              "Reporter Ready.";
             document.getElementById("postGameStatus").style.color = "#4caf50";
             document.getElementById("btn-query").disabled = false;
             document.getElementById("btn-query").style.opacity = "1";
@@ -1025,7 +968,10 @@
             document.getElementById("btn-summary").style.opacity = "1";
           }
 
-          if (data.content.includes("connected") && !data.content.includes("UI")) {
+          if (
+            data.content.includes("connected") &&
+            !data.content.includes("UI")
+          ) {
             const agentName = data.content.split(" ")[1];
             if (data.content.includes("disconnected")) {
               removeAgent(agentName);
@@ -1039,12 +985,27 @@
             addMessage(privateMessages, data);
           }
 
-          updateAgentStatus(data.sender, data.status, data.sentiment, data.tokens);
+          updateAgentStatus(
+            data.sender,
+            data.status,
+            data.sentiment,
+            data.tokens
+          );
         } else if (data.type === "thought") {
           addThought(data);
-          updateAgentStatus(data.sender, data.status, data.sentiment, data.tokens);
+          updateAgentStatus(
+            data.sender,
+            data.status,
+            data.sentiment,
+            data.tokens
+          );
         } else if (data.type === "status") {
-          updateAgentStatus(data.sender, data.status, data.sentiment, data.tokens);
+          updateAgentStatus(
+            data.sender,
+            data.status,
+            data.sentiment,
+            data.tokens
+          );
         } else if (data.type === "phase_update") {
           currentPhase = data.phase;
           updateMenuStatus();
@@ -1062,13 +1023,18 @@
               .then((response) => response.json())
               .then(() => {
                 isPaused = true;
-                document.getElementById("btn-pause").textContent = "Resume Simulation";
+                document.getElementById("btn-pause").textContent =
+                  "Resume Simulation";
                 openMenu();
-                alert("⚠️ Agent Vote Triggered: The council requests your intervention.");
+                alert(
+                  "⚠️ Agent Vote Triggered: The council requests your intervention."
+                );
               });
           } else {
             openMenu();
-            alert("⚠️ Agent Vote Triggered: The council requests your intervention.");
+            alert(
+              "⚠️ Agent Vote Triggered: The council requests your intervention."
+            );
           }
         }
       };
@@ -1094,7 +1060,10 @@
           return "Gemini 2.0 Flash Exp";
         } else if (modelName === "gemini-exp-1206") {
           return "Gemini Exp 1206 (Thinking)";
-        } else if (modelName === "gemini-3.0-pro-preview" || modelName === "gemini-3-pro-preview") {
+        } else if (
+          modelName === "gemini-3.0-pro-preview" ||
+          modelName === "gemini-3-pro-preview"
+        ) {
           return "Gemini 3.0 Pro";
         } else if (modelName === "gemini-1.5-pro") {
           return "Gemini 1.5 Pro";
@@ -1109,7 +1078,11 @@
       function addAgent(name) {
         if (name.toLowerCase() === "system") return;
 
-        const details = agents.get(name) || { display: name, role: "Connecting...", model: "" };
+        const details = agents.get(name) || {
+          display: name,
+          role: "Connecting...",
+          model: "",
+        };
         let li = document.getElementById(`agent-${name}`);
 
         // Create if not exists
@@ -1136,7 +1109,9 @@
           let inserted = false;
           for (let i = 0; i < agentList.children.length; i++) {
             const child = agentList.children[i];
-            const childName = child.querySelector(".agent-name").textContent.toLowerCase();
+            const childName = child
+              .querySelector(".agent-name")
+              .textContent.toLowerCase();
             if (currentName < childName) {
               agentList.insertBefore(li, child);
               inserted = true;
@@ -1149,7 +1124,9 @@
         // Update content (always update to ensure latest details)
         li.querySelector(".agent-name").textContent = details.display;
         li.querySelector(".agent-role").textContent = details.role;
-        li.querySelector(".agent-model").textContent = getModelLabel(details.model);
+        li.querySelector(".agent-model").textContent = getModelLabel(
+          details.model
+        );
 
         checkStartButton();
       }
@@ -1202,7 +1179,9 @@
 
         if (sentimentEl && sentiment) {
           // Extract emoji if present, or use full text
-          const emojiMatch = sentiment.match(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u);
+          const emojiMatch = sentiment.match(
+            /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u
+          );
           if (emojiMatch) {
             sentimentEl.textContent = emojiMatch[0];
           } else {
@@ -1283,7 +1262,9 @@
                         <span>${senderName} ➔ ${recipientName}</span>
                         <span class="timestamp">${new Date().toLocaleTimeString()}</span>
                     </div>
-                    <div class="message-content">${marked.parse(data.content)}</div>
+                    <div class="message-content">${marked.parse(
+                      data.content
+                    )}</div>
                 `;
           privateMessages.appendChild(div);
 
@@ -1407,7 +1388,9 @@
           div.style.marginBottom = "5px";
           div.innerHTML = `
                     <label style="cursor: pointer;">
-                        <input type="checkbox" ${!hiddenAgents.has(id) ? "checked" : ""} 
+                        <input type="checkbox" ${
+                          !hiddenAgents.has(id) ? "checked" : ""
+                        } 
                             onchange="toggleAgentVisibility('${id}')">
                         ${details.display}
                     </label>
@@ -1418,7 +1401,8 @@
         // Update "Select All" checkbox
         const allCheckbox = document.getElementById("filter-all");
         allCheckbox.checked = hiddenAgents.size === 0;
-        allCheckbox.indeterminate = hiddenAgents.size > 0 && hiddenAgents.size < agents.size;
+        allCheckbox.indeterminate =
+          hiddenAgents.size > 0 && hiddenAgents.size < agents.size;
       }
 
       function updateGroupFilterList() {
@@ -1435,7 +1419,9 @@
           div.style.marginBottom = "5px";
           div.innerHTML = `
                     <label style="cursor: pointer;">
-                        <input type="checkbox" ${!hiddenGroupAgents.has(id) ? "checked" : ""} 
+                        <input type="checkbox" ${
+                          !hiddenGroupAgents.has(id) ? "checked" : ""
+                        } 
                             onchange="toggleGroupAgentVisibility('${id}')">
                         ${details.display}
                     </label>
@@ -1491,7 +1477,10 @@
         ) {
           document.getElementById("thoughtFilterMenu").style.display = "none";
         }
-        if (!event.target.matches("#groupFilterBtn") && !event.target.closest("#groupFilterMenu")) {
+        if (
+          !event.target.matches("#groupFilterBtn") &&
+          !event.target.closest("#groupFilterMenu")
+        ) {
           document.getElementById("groupFilterMenu").style.display = "none";
         }
       };
@@ -1519,7 +1508,9 @@
         }
 
         const autoScroll = sidebar.checked;
-        document.getElementById("btn-scroll").style.display = autoScroll ? "none" : "block";
+        document.getElementById("btn-scroll").style.display = autoScroll
+          ? "none"
+          : "block";
       }
 
       function stopSimulation() {
@@ -1554,7 +1545,8 @@
             .then((data) => {
               console.log("Agents resumed.");
               isPaused = false;
-              document.getElementById("btn-pause").textContent = "Pause Simulation";
+              document.getElementById("btn-pause").textContent =
+                "Pause Simulation";
               const menuBtn = document.getElementById("menuPauseBtn");
               if (menuBtn) {
                 menuBtn.textContent = "Pause Simulation";
@@ -1569,7 +1561,8 @@
             .then((data) => {
               console.log("Agents paused.");
               isPaused = true;
-              document.getElementById("btn-pause").textContent = "Resume Simulation";
+              document.getElementById("btn-pause").textContent =
+                "Resume Simulation";
               const menuBtn = document.getElementById("menuPauseBtn");
               if (menuBtn) {
                 menuBtn.textContent = "Resume Simulation";
@@ -1668,7 +1661,11 @@
 
           // Show if "All" is checked OR sender is selected OR recipient is selected (for 1:1 context)
           // Simplified: Show if sender is in selected list
-          if (allChecked || selectedAgents.has(sender) || selectedAgents.has(recipient)) {
+          if (
+            allChecked ||
+            selectedAgents.has(sender) ||
+            selectedAgents.has(recipient)
+          ) {
             msg.style.display = "block";
           } else {
             msg.style.display = "none";
@@ -1703,7 +1700,8 @@
 
             if (data.saved_file) {
               document.getElementById("savedLocation").style.display = "block";
-              document.getElementById("savedPath").textContent = data.saved_file;
+              document.getElementById("savedPath").textContent =
+                data.saved_file;
             }
           })
           .catch((err) => {
@@ -1722,7 +1720,8 @@
         const query = input.value;
         if (!query) return;
 
-        const includePrivate = document.getElementById("includePrivate").checked;
+        const includePrivate =
+          document.getElementById("includePrivate").checked;
         const filterAgent = document.getElementById("filterAgent").value;
 
         document.getElementById("queryResult").textContent = "Analyzing...";
@@ -1740,12 +1739,14 @@
             document.getElementById("queryResult").textContent = data.answer;
           })
           .catch((err) => {
-            document.getElementById("queryResult").textContent = "Error: " + err;
+            document.getElementById("queryResult").textContent =
+              "Error: " + err;
           });
       }
 
       function requestSummary() {
-        const includePrivate = document.getElementById("includePrivate").checked;
+        const includePrivate =
+          document.getElementById("includePrivate").checked;
         const filterAgent = document.getElementById("filterAgent").value;
 
         socket.send(
