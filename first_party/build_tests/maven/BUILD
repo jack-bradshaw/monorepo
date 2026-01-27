@@ -97,20 +97,3 @@ java_library(
         "@com_jackbradshaw_maven//:org_skyscreamer_jsonassert",
     ],
 )
-
-java_library(
-    name = "grpc_kotlin_maven_deps_must_resolve",
-    srcs = ["Deps.java"],
-    deps = [
-        "@grpc_kotlin_maven//:com_google_guava_guava",
-        "@grpc_kotlin_maven//:com_google_jimfs_jimfs",
-        "@grpc_kotlin_maven//:com_google_protobuf_protobuf_java",
-        "@grpc_kotlin_maven//:com_google_protobuf_protobuf_kotlin",
-        "@grpc_kotlin_maven//:com_google_truth_extensions_truth_proto_extension",
-        "@grpc_kotlin_maven//:com_google_truth_truth",
-        "@grpc_kotlin_maven//:com_squareup_kotlinpoet",
-        "@grpc_kotlin_maven//:junit_junit",
-        "@grpc_kotlin_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@grpc_kotlin_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm",
-    ],
-)

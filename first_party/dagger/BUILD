@@ -21,6 +21,7 @@ genrule(
     name = "dagger_compiler_shaded_generated",
     srcs = [":dagger_compiler_original_deploy.jar"],
     outs = ["dagger_compiler_shaded.jar"],
+    visibility = ["//visibility:private"],
     cmd = """
         # Rewrite `com.google.common.**` classes to `dagger.shaded.com.google.common.@1`
         echo "rule com.google.common.** dagger.shaded.com.google.common.@1" > rules.txt
@@ -32,6 +33,7 @@ genrule(
 
 java_import(
     name = "dagger_compiler_shaded",
+    visibility = ["//visibility:private"],
     jars = [":dagger_compiler_shaded_generated"],
 )
 

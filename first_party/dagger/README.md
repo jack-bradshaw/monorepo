@@ -9,7 +9,8 @@ There are two ways to use this package: The macros and the plugin.
 ### Macros
 
 The `kt_jvm_library_with_dagger`, `kt_jvm_test_with_dagger`, and `kt_jvm_binary_with_dagger` macros
-are provided to ease the process of using Dagger. Examples:
+are provided to ease the process of using Dagger. The run the Dagger compiler on their sources using
+KSP and otherwise function like their non-Dagger counterparts. Examples:
 
 ```starlark
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
@@ -42,12 +43,11 @@ kt_jvm_binary_with_dagger(
 )
 ```
 
-There is no need to add Dagger dependencies or plugins, they are added automatically by the macros.
-Simply compile Dagger Kotlin sources with the macros and they will work.
+There is no need to declare Dagger dependencies or plugins, they are added automatically by the macros. Simply compile Dagger Kotlin sources with the macros and they will work.
 
 ### Plugin
 
-For cases where the Dagger plugin is required, the `dagger_ksp_plugin` target can be referenced
+For cases where the Dagger plugin is required directly, the `dagger_ksp_plugin` target can be referenced
 directly in Kotlin targets. KSP will not trigger Java compilation though unless a Java source is
 provided, therefore the target using the plugin will need to add a stub Java source. Example:
 
@@ -91,9 +91,9 @@ kt_jvm_library(
 
 ## Rationale
 
-Running Dagger with KSP presents a challenge colloquially known as "Jar Hell", meaning the
-Dagger compiler and KSP depend on different versions of [Guava](https://github.com/google/guava),
-which leads to conflicts at build-time. The [implementation](/first_party/dagger/BUILD) compiles the
+Running Dagger with KSP presents a challenge colloquially known as "Jar Hell", meaning the Dagger
+compiler and KSP depend on different versions of [Guava](https://github.com/google/guava), which
+leads to conflicts at build-time. The [implementation](/first_party/dagger/BUILD) compiles the
 Dagger compiler and its dependencies into a single jar, then uses
 [Jar Jar](https://github.com/pantsbuild/jarjar) to rename all Guava classes for consistency (a
 process known as "shading"). This allows the Dagger compiler and KSP to coexist without conflict.

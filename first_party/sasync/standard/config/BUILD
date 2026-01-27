@@ -1,7 +1,7 @@
-load("//first_party/dagger:defs.bzl", 'kt_jvm_library_with_dagger')
 load("@grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 proto_library(
     name = "config",

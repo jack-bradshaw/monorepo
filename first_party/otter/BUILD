@@ -1,6 +1,6 @@
-load("//first_party/dagger:defs.bzl", 'kt_jvm_library_with_dagger')
 load("@rules_jvm_external//:defs.bzl", "java_export")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 kt_jvm_library_with_dagger(
     name = "scope",
