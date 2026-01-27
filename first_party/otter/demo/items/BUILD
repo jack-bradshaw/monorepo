@@ -1,3 +1,4 @@
+load("//first_party/dagger:defs.bzl", 'kt_jvm_library_with_dagger')
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
@@ -45,7 +46,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     testonly = True,
     srcs = [
@@ -57,7 +58,5 @@ kt_jvm_library(
     deps = [
         ":impl",
         ":items",
-        "//:dagger",
-        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
     ],
 )

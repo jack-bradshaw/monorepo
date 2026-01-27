@@ -1,30 +1,21 @@
+load("//first_party/dagger:defs.bzl", 'kt_jvm_library_with_dagger')
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "scope",
     srcs = ["CoroutinesScope.kt"],
-    visibility = ["//first_party:__subpackages__"],
-    deps = ["//:dagger"],
-)
-
-kt_jvm_library(
-    name = "component",
-    srcs = ["CoroutinesComponent.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
-        "//first_party/coroutines/io",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
-kt_jvm_library(
-    name = "component_impl",
-    srcs = ["CoroutinesComponentImpl.kt"],
+kt_jvm_library_with_dagger(
+    name = "coroutines",
+    srcs = ["Coroutines.kt"],
     visibility = ["//first_party:__subpackages__"],
     deps = [
-        ":component",
         ":scope",
-        "//:dagger",
+        "//first_party/coroutines/io",
         "//first_party/coroutines/io:module",
     ],
 )

@@ -1,4 +1,5 @@
-load("@dagger//:workspace_defs.bzl", "dagger_rules")
+package(default_visibility = ["//visibility:public"])
+
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
@@ -19,4 +20,3 @@ compile_pip_requirements(
     requirements_txt = "lock_pip_requirements.txt",
 )
 
-dagger_rules(repo_name = "@com_jackbradshaw_maven")
