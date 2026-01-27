@@ -93,6 +93,7 @@ java_library(
         "@com_jackbradshaw_maven//:org_lwjgl_lwjgl_yoga",
         "@com_jackbradshaw_maven//:org_lwjgl_lwjgl_zstd",
         "@com_jackbradshaw_maven//:org_mockito_mockito_core",
+        "@com_jackbradshaw_maven//:org_pantsbuild_jarjar",
         "@com_jackbradshaw_maven//:org_skyscreamer_jsonassert",
     ],
 )
