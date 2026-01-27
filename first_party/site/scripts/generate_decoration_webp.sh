@@ -12,10 +12,12 @@
 # Library Dependencies:
 # - webp_converter.sh
 
+{{RUNFILES_BOILERPLATE}}
+
 set -e
 
 SIZE_PX=400
 QUALITY_PERCENT=90
 
-source "first_party/site/scripts/webp_converter.sh"
+source "$(rlocation "_main/first_party/site/scripts/webp_converter.sh")"
 optimize_image "$1" "$SIZE_PX" "$QUALITY_PERCENT" ""

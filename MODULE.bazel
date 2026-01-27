@@ -174,6 +174,10 @@ http_jar(
 # Go
 bazel_dep(name = "rules_go", version = "0.56.1")
 
+# Shell
+bazel_dep(name = "rules_shell", version = "0.6.1")
+bazel_dep(name = "bazel_bats", version = "0.37.0")
+
 # Python
 bazel_dep(name = "rules_python", version = "1.6.1")
 

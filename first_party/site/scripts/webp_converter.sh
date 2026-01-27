@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Shared utilities for image optimization scripts.
-
 # Optimizes an image to WebP format.
 #
 # Arguments:

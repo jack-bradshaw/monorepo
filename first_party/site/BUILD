@@ -1,6 +1,7 @@
 load("@rules_hugo//hugo:rules.bzl", "hugo_serve", "hugo_site")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_test")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//first_party/bash_runfiles:shell.bzl", "sh_binary_with_runfiles")
 
 hugo_site(
     name = "site",
@@ -25,12 +26,11 @@ pkg_tar(
     srcs = [":site"],
 )
 
-sh_binary(
+sh_binary_with_runfiles(
     name = "release",
-    srcs = ["release.sh"],
+    src = "release.sh",
     data = [
         "firebase.json",
         ":packaged",
     ],
-    deps = ["@bazel_tools//tools/bash/runfiles"],
 )

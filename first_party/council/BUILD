@@ -1,5 +1,6 @@
 load("@pypi//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_binary")
+load("//first_party/bash_runfiles:shell.bzl", "sh_binary_with_runfiles", "sh_library_with_runfiles")
 
 package(default_visibility = ["//first_party/council:__subpackages__"])
 
@@ -38,12 +39,11 @@ py_binary(
     ],
 )
 
-sh_binary(
+sh_binary_with_runfiles(
     name = "council",
-    srcs = ["start.sh"],
+    src = "start.sh",
     data = [
         ":server_bin",
         ":simulation_bin",
     ],
-    deps = ["@bazel_tools//tools/bash/runfiles"],
 )
