@@ -1,4 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 kt_jvm_library(
     name = "stage",
@@ -40,7 +41,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = [
         "SceneStageModule.kt",
@@ -51,6 +52,5 @@ kt_jvm_library(
     deps = [
         ":impl",
         ":stage",
-        "//:dagger",
     ],
 )

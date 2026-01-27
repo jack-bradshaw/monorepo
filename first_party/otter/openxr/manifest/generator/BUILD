@@ -1,4 +1,5 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 
 kt_jvm_library(
     name = "generator",
@@ -15,7 +16,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "impl",
     srcs = [
         "ManifestGeneratorImpl.kt",
@@ -25,7 +26,6 @@ kt_jvm_library(
     ],
     deps = [
         ":generator",
-        "//:dagger",
         "//first_party/klu/flow",
         "//first_party/otter:scope",
         "//first_party/otter/config:kt_jvm_proto",
@@ -37,7 +37,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = [
         "ManifestGeneratorModule.kt",
@@ -48,11 +48,10 @@ kt_jvm_library(
     deps = [
         ":generator",
         ":impl",
-        "//:dagger",
     ],
 )
 
-kt_jvm_test(
+kt_jvm_test_with_dagger(
     name = "test",
     srcs = [
         "ManifestGeneratorTest.kt",
@@ -60,7 +59,6 @@ kt_jvm_test(
     test_class = "com.jackbradshaw.otter.openxr.manifest.generator.ManifestGeneratorTest",
     visibility = ["//visibility:private"],
     deps = [
-        "//:dagger",
         "//first_party/otter:component",
         "//first_party/otter:component_impl",
         "//first_party/otter/config:proto_extensions",

@@ -1,4 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 kt_jvm_library(
     name = "coroutines",
@@ -15,7 +16,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = [
         "CoroutinesModule.kt",
@@ -25,7 +26,6 @@ kt_jvm_library(
     ],
     deps = [
         ":coroutines",
-        "//:dagger",
         "//first_party/otter/engine/core",
         "//first_party/otter/qualifiers",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

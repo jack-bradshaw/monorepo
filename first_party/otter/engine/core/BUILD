@@ -1,13 +1,12 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "core",
     srcs = [
         "EngineCore.kt",
     ],
     visibility = ["//first_party/otter:__subpackages__"],
     deps = [
-        "//:dagger",
         "//first_party/otter:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_bullet",
@@ -16,7 +15,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "impl",
     srcs = [
         "EngineCoreImpl.kt",
@@ -26,7 +25,6 @@ kt_jvm_library(
     ],
     deps = [
         ":core",
-        "//:dagger",
         "//first_party/otter:scope",
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/coroutines",
@@ -37,7 +35,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = [
         "EngineCoreModule.kt",
@@ -48,7 +46,6 @@ kt_jvm_library(
     deps = [
         ":core",
         ":impl",
-        "//:dagger",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_vr",

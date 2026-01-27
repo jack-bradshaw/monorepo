@@ -1,12 +1,12 @@
 load("@rules_java//java:java_binary.bzl", "java_binary")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "scope",
     testonly = True,
     srcs = ["DemoScope.kt"],
     visibility = ["//first_party/otter/demo:__subpackages__"],
-    deps = ["//:dagger"],
 )
 
 kt_jvm_library(
@@ -19,7 +19,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "component_impl",
     testonly = True,
     srcs = ["DemoComponentImpl.kt"],
@@ -27,7 +27,6 @@ kt_jvm_library(
     deps = [
         ":component",
         ":scope",
-        "//:dagger",
         "//first_party/otter:component",
         "//first_party/otter/demo/items:module",
         "//first_party/otter/demo/materials:module",

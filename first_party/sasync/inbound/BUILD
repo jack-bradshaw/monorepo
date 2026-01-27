@@ -1,10 +1,10 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "scope",
     srcs = ["InboundScope.kt"],
     visibility = ["//visibility:public"],
-    deps = ["//:dagger"],
 )
 
 kt_jvm_library(
@@ -16,14 +16,13 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = ["InboundComponentImpl.kt"],
     visibility = ["//first_party:__subpackages__"],
     deps = [
         ":component",
         ":scope",
-        "//:dagger",
         "//first_party/concurrency:component",
         "//first_party/concurrency:component_impl",
         "//first_party/coroutines:component",
