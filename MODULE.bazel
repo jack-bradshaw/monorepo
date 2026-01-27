@@ -145,8 +145,13 @@ maven.install(
         "org.lwjgl:lwjgl-zstd:%s" % VERSION_MAVEN_LWJGL,
         "org.lwjgl:lwjgl:%s" % VERSION_MAVEN_LWJGL,
         "org.mockito:mockito-core:5.18.0",
+        "org.pantsbuild:jarjar:1.7.2",
         "org.skyscreamer:jsonassert:1.5.3",
+        "org.pantsbuild:jarjar:1.7.2",
         "com.microsoft.playwright:playwright:1.49.0",
+        "com.squareup:kotlinpoet:1.14.2",
+        "com.google.devtools.ksp:symbol-processing-api:2.1.0-1.0.29",
+        "org.jetbrains.kotlin:kotlin-reflect:2.2.0",
     ],
     fetch_sources = True,
     lock_file = "//:lock_maven_com_jackbradshaw.json",
@@ -173,10 +178,6 @@ http_jar(
 
 # Go
 bazel_dep(name = "rules_go", version = "0.56.1")
-
-# Shell
-bazel_dep(name = "rules_shell", version = "0.6.1")
-bazel_dep(name = "bazel_bats", version = "0.37.0")
 
 # Python
 bazel_dep(name = "rules_python", version = "1.6.1")
