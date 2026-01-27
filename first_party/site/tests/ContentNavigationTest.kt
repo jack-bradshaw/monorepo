@@ -101,7 +101,7 @@ class ContentNavigationTest {
         startPagePath = URI.create("/repository/highlights"),
         itemLabel = "KMonkey",
         destinationUri =
-            URI.create("https://github.com/jack-bradshaw/main/tree/main/first_party/kmonkey"))
+            URI.create("https://github.com/jack-bradshaw/monorepo/tree/main/first_party/kmonkey"))
   }
 
   @Test
@@ -110,7 +110,8 @@ class ContentNavigationTest {
         startPagePath = URI.create("/repository/locations"),
         itemLabel = "AutoFactory",
         destinationUri =
-            URI.create("https://github.com/jack-bradshaw/main/tree/main/first_party/autofactory"))
+            URI.create(
+                "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/autofactory"))
   }
 
   @Test
@@ -119,7 +120,8 @@ class ContentNavigationTest {
         startPagePath = URI.create("/repository/technologies"),
         itemLabel = "AutoFactory",
         destinationUri =
-            URI.create("https://github.com/jack-bradshaw/main/tree/main/first_party/autofactory"))
+            URI.create(
+                "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/autofactory"))
   }
 
   @Test

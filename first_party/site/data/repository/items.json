@@ -3,7 +3,7 @@
     "key": "autofactory",
     "title": "Autofactory",
     "description": "Bazel integration for the Google AutoFactory annotation processor.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/autofactory",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/autofactory",
     "technologies": ["bazel"],
     "repo": "monorepo"
   },
@@ -11,7 +11,7 @@
     "key": "concurrency",
     "title": "Concurrency",
     "description": "Kotlin concurrency infrastructure, complete with test doubles and Dagger integration.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/concurrency",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/concurrency",
     "technologies": ["kotlin", "bazel"],
     "repo": "monorepo"
   },
@@ -19,7 +19,7 @@
     "key": "council",
     "title": "Council",
     "description": "An experimental multi-agent system where AI agents interact, debate, and vote on topics.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/council",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/council",
     "technologies": ["ai", "python", "bazel"],
     "repo": "monorepo"
   },
@@ -27,7 +27,7 @@
     "key": "coroutines",
     "title": "Coroutines",
     "description": "Kotlin coroutine infrastructure, complete with test doubles and Dagger integration.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/coroutines",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/coroutines",
     "technologies": ["kotlin", "bazel"],
     "repo": "monorepo"
   },
@@ -35,7 +35,7 @@
     "key": "formatting",
     "title": "Formatting",
     "description": "Automated code formatting for a variety of languages and frameworks.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/formatting",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/formatting",
     "technologies": ["java", "kotlin", "bazel"],
     "repo": "monorepo"
   },
@@ -43,7 +43,7 @@
     "key": "klu",
     "title": "Klu",
     "description": "General-purpose Kotlin helpers and utilities, including concurrency primitives and Flow extensions.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/klu",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/klu",
     "technologies": ["kotlin", "bazel"],
     "repo": "monorepo"
   },
@@ -51,7 +51,7 @@
     "key": "k_monkey",
     "title": "KMonkey",
     "description": "Kotlin coroutine support for the JMonkeyEngine game engine.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/kmonkey",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/kmonkey",
     "technologies": ["kotlin", "jmonkey", "bazel"],
     "repo": "monorepo"
   },
@@ -59,7 +59,7 @@
     "key": "model",
     "title": "Model",
     "description": "Data models that apply univerally across all domains.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/model",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/model",
     "technologies": ["java", "kotlin", "bazel"],
     "repo": "monorepo"
   },
@@ -67,7 +67,7 @@
     "key": "otter",
     "title": "Otter",
     "description": "An experimental coroutine-based framework for the JMonkeyEngine.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/otter",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/otter",
     "technologies": ["kotlin", "jmonkey", "bazel"],
     "repo": "monorepo"
   },
@@ -75,7 +75,7 @@
     "key": "presubmit",
     "title": "Presubmit",
     "description": "A custom continuous integration system for Bazel.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/presubmit",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/presubmit",
     "technologies": ["bazel", "python", "bazel"],
     "repo": "monorepo"
   },
@@ -83,7 +83,7 @@
     "key": "rules_hugo",
     "title": "rules_hugo",
     "description": "Bazel ruleset for the Hugo static site generator.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/rules_hugo",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/rules_hugo",
     "technologies": ["hugo", "bazel"],
     "repo": "monorepo"
   },
@@ -91,7 +91,7 @@
     "key": "sasync",
     "title": "Sasync",
     "description": "Asynchronous stream manipulation for Kotlin with support for standard IO.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/sasync",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/sasync",
     "technologies": ["kotlin", "bazel"],
     "repo": "monorepo"
   },
@@ -99,7 +99,7 @@
     "key": "site",
     "title": "Site",
     "description": "The source code for this website.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/site",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/site",
     "technologies": ["hugo", "bazel"],
     "repo": "monorepo"
   },
@@ -107,7 +107,7 @@
     "key": "standards",
     "title": "Contributing",
     "description": "Directives for contributing to this repository.",
-    "link": "https://github.com/jack-bradshaw/main/tree/main/first_party/contributing",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/contributing",
     "technologies": ["bazel"],
     "repo": "monorepo"
   },
