@@ -4,6 +4,6 @@
 echo "bazel version $(bazel version)"
 
 if ! bazel build //...; then
-	echo "Some targets did not build."
-	return 1
+  echo "Some targets did not build."
+  return 1
 fi
