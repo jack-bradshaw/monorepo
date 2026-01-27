@@ -1,7 +1,8 @@
 load("@rules_jvm_external//:defs.bzl", "java_export")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "scope",
     srcs = [
         "OtterScope.kt",
@@ -10,7 +11,6 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        "//:dagger",
     ],
 )
 
@@ -35,7 +35,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = [
         "OtterComponentImpl.kt",
@@ -46,7 +46,6 @@ kt_jvm_library(
     deps = [
         ":component",
         ":scope",
-        "//:dagger",
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/coroutines:module",

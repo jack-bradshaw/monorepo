@@ -1,4 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 kt_jvm_library(
     name = "component",
@@ -11,13 +12,12 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = ["TestCoroutinesComponentImpl.kt"],
     visibility = ["//visibility:public"],
     deps = [
         ":component",
-        "//:dagger",
         "//first_party/coroutines:scope",
         "//first_party/coroutines/io/testing:module",
         "//first_party/coroutines/testing/launcher:module",

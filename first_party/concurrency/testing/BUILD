@@ -1,4 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 kt_jvm_library(
     name = "component",
@@ -10,13 +11,12 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = ["TestConcurrencyComponentImpl.kt"],
     visibility = ["//visibility:public"],
     deps = [
         ":component",
-        "//:dagger",
         "//first_party/concurrency:scope",
         "//first_party/concurrency/pulsar/testing:module",
     ],

@@ -1,6 +1,6 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     testonly = True,
     srcs = [
@@ -10,8 +10,6 @@ kt_jvm_library(
         "//first_party/otter/demo:__subpackages__",
     ],
     deps = [
-        "//:dagger",
         "//first_party/otter/demo:scope",
-        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
     ],
 )

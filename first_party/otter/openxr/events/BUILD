@@ -1,4 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 kt_jvm_library(
     name = "events",
@@ -16,7 +17,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "impl",
     srcs = [
         "EventsImpl.kt",
@@ -26,13 +27,12 @@ kt_jvm_library(
     ],
     deps = [
         ":events",
-        "//:dagger",
         "//first_party/otter:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = [
         "EventsModule.kt",
@@ -43,6 +43,5 @@ kt_jvm_library(
     deps = [
         ":events",
         ":impl",
-        "//:dagger",
     ],
 )
