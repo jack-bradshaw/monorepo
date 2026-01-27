@@ -5,6 +5,8 @@
   --shadow-blur: 6px;
 
   /* Semantic Shadows */
-  --shadow-base: 0 var(--shadow-offset-y) var(--shadow-blur) var(--color-black-alpha-10);
-  --shadow-raised: 0 var(--shadow-offset-y) var(--shadow-blur) var(--color-black-alpha-30);
+  --shadow-base: 0 var(--shadow-offset-y) var(--shadow-blur)
+    var(--color-black-alpha-10);
+  --shadow-raised: 0 var(--shadow-offset-y) var(--shadow-blur)
+    var(--color-black-alpha-30);
 }

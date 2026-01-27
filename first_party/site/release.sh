@@ -11,7 +11,7 @@ set -e
 
 echo "Checking execution environment."
 if [[ -z "${RUNFILES_DIR:-}" && -z "${RUNFILES_MANIFEST_FILE:-}" ]]; then
-  echo "Error: Release script must be invoked via Bazel (bazel run //first_party/site:release)."
+  echo "Error: Release script must be invoked via Bazel (bazelisk run //first_party/site:release)."
   echo "Exiting."
   exit 1
 fi

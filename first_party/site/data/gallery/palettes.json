@@ -190,7 +190,13 @@
     "key": "monochromatic-orange",
     "title": "Monochromatic (Orange)",
     "description": "Variations and tints of orange",
-    "items": ["asteroid_belt_2022", "saturn_2025", "part_3_2022", "beta_2022", "first_2024_2024"]
+    "items": [
+      "asteroid_belt_2022",
+      "saturn_2025",
+      "part_3_2022",
+      "beta_2022",
+      "first_2024_2024"
+    ]
   },
   {
     "key": "monochromatic-red",

@@ -4,8 +4,21 @@ The personal [website](https://www.jack-bradshaw.com) of Jack Bradshaw.
 
 ## Release
 
-Hosted on [Firebase](https://firebase.google.com). The release process is not automated and must be
-run manually via `bazel run //first_party/site:release`.
+Hosted on [Firebase](https://firebase.google.com) and deployed by running `bazelisk run //first_party/site:deploy`.
+
+### Usage
+
+To build the site:
+
+```bash
+bazelisk build //first_party/site
+```
+
+To run the local development server:
+
+```bash
+bazelisk run //first_party/site:local
+```
 
 ## User Experience
 

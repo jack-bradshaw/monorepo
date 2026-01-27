@@ -18,6 +18,7 @@ const config = {
       // XML files don't format properly with a tab width of 2.
       files: ["*.xml"],
       options: {
+        parser: "xml",
         tabWidth: 4,
         xmlWhitespaceSensitivity: "strict",
       },

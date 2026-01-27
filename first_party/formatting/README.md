@@ -16,12 +16,19 @@ This package uses the following formatting tools:
 
 The configurations are distributed throughout the package in various files/subpackages.
 
-## Functionality
+## Usage
 
-The `//first_party/formatting:autoformat` target formats all files in the repository. Execution can
-be confined to a particular file/directory by passing it as an argument (e.g.
-`bazel run //first_party/formatting:autoformat -- /first_party/concurrency` will format all
-files/directories contained under `concurrency` recursively, but leave all other files unchanged).
+To format all files in the repository:
+
+```bash
+bazelisk run //first_party/formatting:autoformat
+```
+
+To format all files in a particular file/directory:
+
+```bash
+bazelisk run //first_party/formatting:autoformat -- /path/to/directory
+```
 
 ## Issues
 

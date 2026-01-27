@@ -24,6 +24,14 @@
   --color-grey-950: #121212;
 
   /* Primitive Colors (Alpha Variations) */
-  --color-black-alpha-10: color-mix(in srgb, var(--color-pure-black), transparent 90%);
-  --color-black-alpha-30: color-mix(in srgb, var(--color-pure-black), transparent 70%);
+  --color-black-alpha-10: color-mix(
+    in srgb,
+    var(--color-pure-black),
+    transparent 90%
+  );
+  --color-black-alpha-30: color-mix(
+    in srgb,
+    var(--color-pure-black),
+    transparent 70%
+  );
 }
