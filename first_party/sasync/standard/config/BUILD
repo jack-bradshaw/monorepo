@@ -1,3 +1,4 @@
+load("//first_party/dagger:defs.bzl", 'kt_jvm_library_with_dagger')
 load("@grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
@@ -37,7 +38,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["ConfigModule.kt"],
     visibility = [
@@ -45,7 +46,6 @@ kt_jvm_library(
     ],
     deps = [
         ":kt_jvm_proto",
-        "//:dagger",
         "//first_party/sasync/standard:scope",
     ],
 )

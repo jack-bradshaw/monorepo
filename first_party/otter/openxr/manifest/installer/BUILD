@@ -1,3 +1,4 @@
+load("//first_party/dagger:defs.bzl", 'kt_jvm_library_with_dagger', 'kt_jvm_test_with_dagger')
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 
 kt_jvm_library(
@@ -16,7 +17,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "impl",
     srcs = [
         "ManifestInstallerImpl.kt",
@@ -26,7 +27,6 @@ kt_jvm_library(
     ],
     deps = [
         ":installer",
-        "//:dagger",
         "//first_party/otter:scope",
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/openxr/manifest/generator",
@@ -35,7 +35,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = [
         "ManifestInstallerModule.kt",
@@ -46,11 +46,10 @@ kt_jvm_library(
     deps = [
         ":impl",
         ":installer",
-        "//:dagger",
     ],
 )
 
-kt_jvm_test(
+kt_jvm_test_with_dagger(
     name = "test",
     srcs = [
         "ManifestInstallerTest.kt",
@@ -58,9 +57,7 @@ kt_jvm_test(
     test_class = "com.jackbradshaw.otter.openxr.manifest.installer.ManifestInstallerTest",
     visibility = ["//visibility:private"],
     deps = [
-        "//:dagger",
         "//first_party/otter:component",
-        "//first_party/otter:component_impl",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/openxr/config:proto_extensions",
         "//first_party/otter/openxr/manifest/encoder",

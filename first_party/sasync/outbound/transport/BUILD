@@ -1,3 +1,4 @@
+load("//first_party/dagger:defs.bzl", 'kt_jvm_library_with_dagger', 'kt_jvm_test_with_dagger')
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 
 kt_jvm_library(
@@ -11,7 +12,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["OutboundTransportImpl.kt"],
     visibility = [
@@ -19,7 +20,6 @@ kt_jvm_library(
     ],
     deps = [
         ":transport",
-        "//:dagger",
         "//first_party/coroutines/io",
         "//first_party/sasync/outbound/config:kt_jvm_proto",
         "//first_party/universal/count:kt_jvm_proto",
@@ -27,7 +27,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["OutboundTransportModule.kt"],
     visibility = [
@@ -36,7 +36,6 @@ kt_jvm_library(
     deps = [
         "impl",
         ":transport",
-        "//:dagger",
         "//first_party/sasync/outbound:scope",
     ],
 )
@@ -57,7 +56,7 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_test(
+kt_jvm_test_with_dagger(
     name = "impl_test",
     testonly = True,
     srcs = ["OutboundTransportImplTest.kt"],
@@ -69,12 +68,10 @@ kt_jvm_test(
         ":impl",
         ":test",
         ":transport",
-        "//:dagger",
-        "//first_party/coroutines/testing:component_impl",
+        "//first_party/coroutines/testing",
         "//first_party/sasync/outbound:scope",
         "//first_party/sasync/outbound/config:kt_jvm_proto",
         "//first_party/universal/count:kt_jvm_proto",
-        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
