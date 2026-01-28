@@ -3,7 +3,7 @@
     "key": "waymo",
     "organisation": "Waymo",
     "url": "https://waymo.com",
-    "image": "/static/decorations/institutions/waymo.png",
+    "image": "/static/decorations/institutions/waymo.webp",
     "overview": "Expanded Waymo to San Francisco, Phoenix, and Los Angeles by delivering new rider features while modernizing the Android tech stack with Kotlin and custom infrastructure.",
     "roles": [
       {
@@ -31,7 +31,7 @@
     "key": "google",
     "organisation": "Google",
     "url": "https://google.com",
-    "image": "/static/decorations/institutions/google.png",
+    "image": "/static/decorations/institutions/google.webp",
     "overview": "Built products that billions of people love, architected entire applications, created a supportive environment where engineers flourish, and pushed the envelope on technical excellence.",
     "roles": [
       {
@@ -66,7 +66,7 @@
     "key": "fusion",
     "organisation": "Fusion",
     "url": "https://fusion.com.au",
-    "image": "/static/decorations/institutions/fusion.png",
+    "image": "/static/decorations/institutions/fusion.webp",
     "overview": "Built mobile banking software for 19 different banks.",
     "roles": [
       {
@@ -92,7 +92,7 @@
     "key": "appvation",
     "organisation": "Appvation",
     "url": "https://www.facebook.com/appvation/",
-    "image": "/static/decorations/institutions/appvation.png",
+    "image": "/static/decorations/institutions/appvation.webp",
     "overview": "Developed the world's first official digital driver's license.",
     "roles": [
       {
@@ -124,7 +124,7 @@
     "key": "dhs",
     "organisation": "Australian Government Department of Human Services",
     "url": "https://www.servicesaustralia.gov.au",
-    "image": "/static/decorations/institutions/dhs.png",
+    "image": "/static/decorations/institutions/dhs.webp",
     "overview": "Developed new features and enhancements for Java backends.",
     "roles": [
       {

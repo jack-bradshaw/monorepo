@@ -1,10 +1,10 @@
 package com.jackbradshaw.site.tests
 
+import com.google.common.truth.Truth.assertWithMessage
 import com.google.devtools.build.runfiles.Runfiles
 import com.microsoft.playwright.Browser
 import com.microsoft.playwright.BrowserContext
 import com.microsoft.playwright.BrowserType
-import com.microsoft.playwright.Locator
 import com.microsoft.playwright.Page
 import com.microsoft.playwright.Playwright
 import io.ktor.http.ContentType
@@ -42,7 +42,7 @@ class TestHarness {
 
   /**
    * The port the server is running on, assigned a meaningful value once the [server] has been
-   * started.
+   * started (-1 until then).
    */
   private var port: Int = -1
 
@@ -55,11 +55,63 @@ class TestHarness {
   /** The context associated with [browser]. */
   private lateinit var browserContext: com.microsoft.playwright.BrowserContext
 
-  /** Starts the server and sets the browser screen width to [screenWidth]. */
-  fun setup(screenWidth: ScreenWidth = ScreenWidth.MEDIUM) {
+  /**
+   * Starts the server, sets the browser screen width to [screenWidth], and optionally grants cookie
+   * consent.
+   */
+  fun setup(screenWidth: ScreenWidth = ScreenWidth.MEDIUM, cookieConsentGranted: Boolean = true) {
     setupSite()
     setupInstrumentation(screenWidth)
     setupServer()
+
+    if (cookieConsentGranted) grantCookieConsent()
+  }
+
+  /**
+   * Releases the resources used by this harness. This function is safe to call even if [setup] was
+   * never called.
+   */
+  fun tearDown() {
+    if (::browserContext.isInitialized) browserContext.close()
+    if (::browser.isInitialized) browser.close()
+    if (::playwright.isInitialized) playwright.close()
+    if (::server.isInitialized) server.stop(0, 0)
+  }
+
+  /** Opens a new browser page at [page] (relative to the site root). */
+  fun openPage(page: URI): Page =
+      browserContext.newPage().apply { navigate(getServerEndpoint().resolve(page).toString()) }
+
+  /** Returns the runfile at [path] (relative to the runfiles root). */
+  fun getRunfile(path: Path): Path = Paths.get(runfiles.rlocation(path.toString()))
+
+  /** Returns the endpoint of the server, as a URI containing protocol, host, and port. */
+  fun getServerEndpoint(): URI = URI("http", null, HOSTNAME, port, null, null, null)
+
+  /**
+   * Captures a screenshot of [page] and verifies it matches the golden screenshot.
+   *
+   * If the comparison fails, the new screenshot is saved to the test outputs (details in logs).
+   *
+   * Expects to be run in a sharded test (i.e. shard_count set in Bazel test rule) and fails if not.
+   *
+   * @param page The page to screenshot.
+   * @param goldenName The unique name of the golden file (e.g., "TestClass_testMethod.png").
+   */
+  fun checkScreendiff(page: Page, goldenName: String) {
+    val screenshot = page.captureScreenshot()
+    val goldenPath = getRunfile(GOLDEN_DIR.resolve(goldenName))
+    val goldenFile = goldenPath.toFile()
+
+    check(goldenFile.exists()) {
+      val savePath = saveScreenshot(screenshot, goldenName)
+      "Golden file $goldenPath does not exist. Latest saved to $savePath"
+    }
+
+    if (!goldenFile.readBytes().contentEquals(screenshot)) {
+      val savePath = saveScreenshot(screenshot, goldenName)
+      assertWithMessage("Screenshot and golden do not match. Latest saved to $savePath").fail()
+    }
   }
 
   /** Loads [site]. */
@@ -126,33 +178,11 @@ class TestHarness {
     runBlocking { port = server.resolvedConnectors().first().port }
   }
 
-  /**
-   * Releases the resources used by this harness. This function is safe to call even if [setup] was
-   * never called.
-   */
-  fun tearDown() {
-    if (::browserContext.isInitialized) browserContext.close()
-    if (::browser.isInitialized) browser.close()
-    if (::playwright.isInitialized) playwright.close()
-    if (::server.isInitialized) server.stop(0, 0)
+  /** Sets the cookie consent state to `true`. */
+  private fun grantCookieConsent() {
+    browserContext.addInitScript(
+        "window.localStorage.setItem('analytics_consent_granted', 'true');")
   }
-
-  /** Opens a new browser page at [page] (relative to the site root). */
-  fun openPage(page: URI): Page =
-      browserContext.newPage().apply { navigate(endpoint().resolve(page).toString()) }
-
-  /** Returns the runfile at [path] (relative to the runfiles root). */
-  fun getRunfile(path: Path): Path = Paths.get(runfiles.rlocation(path.toString()))
-
-  /** Returns the endpoint of the server, as a URI containing protocol, host, and port. */
-  fun endpoint(): URI = URI("http", null, HOSTNAME, port, null, null, null)
-
-  /**
-   * Finds the first element in [page] that matches [locator], scrolls it into view (if necessary),
-   * and returns it.
-   */
-  fun findElement(page: Page, locator: String): Locator =
-      page.locator(locator).first().also { it.scrollIntoViewIfNeeded() }
 
   /** Resolves the file in [site] that satisfies this request. */
   private fun ApplicationRequest.toSiteFile(): File {
@@ -171,6 +201,57 @@ class TestHarness {
     setDefaultTimeout(TimeUnit.SECONDS.toMillis(60).toDouble())
   }
 
+  /**
+   * Saves [screenshot] to the during-test output directory in a file named [goldenName], and
+   * returns the absolute path to the file in the post-test output directory.
+   */
+  private fun saveScreenshot(screenshot: ByteArray, goldenName: String): Path {
+    getDuringTestScreenshotOutputLocation(goldenName).toFile().writeBytes(screenshot)
+    return getPostTestScreenshotOutputLocation(goldenName)
+  }
+
+  /**
+   * The directory where [goldenName] can be saved during test execution to keep it after the test
+   * completes.
+   */
+  private fun getDuringTestScreenshotOutputLocation(goldenName: String): Path =
+      Paths.get(System.getenv("TEST_UNDECLARED_OUTPUTS_DIR"))
+          .also {
+            check(it != null) { "TEST_UNDECLARED_OUTPUTS_DIR environmental variable not set." }
+          }
+          .resolve(goldenName)
+
+  /**
+   * Gets the path to the test output directory where Bazel moves the screenshot named [goldenName]
+   * after the test completes.
+   */
+  private fun getPostTestScreenshotOutputLocation(goldenName: String): Path =
+      Paths.get("bazel-testlogs/first_party/site/tests")
+          .resolve(generateTestShardPathString())
+          .resolve("test.outputs")
+          .resolve(goldenName)
+
+  /**
+   * Generates a path string for the current test shard (e.g. "shard_1_of_2").
+   *
+   * Throws an [IllegalStateException] if the TEST_SHARD_INDEX or TEST_TOTAL_SHARDS environment
+   * variables are not set.
+   */
+  private fun generateTestShardPathString(): String {
+    val shardIndexEnv = System.getenv("TEST_SHARD_INDEX")
+    val shardCountEnv = System.getenv("TEST_TOTAL_SHARDS")
+
+    if (shardIndexEnv == null || shardCountEnv == null) {
+      return "shard_1_of_1"
+    }
+
+    // Add 1 because the index is 0-based, but the test output dir is named using a 1-based index.
+    val shardIndex = shardIndexEnv.toInt().plus(1)
+    val shardCount = shardCountEnv.toInt()
+
+    return "shard_${shardIndex}_of_${shardCount}"
+  }
+
   companion object {
     /** Files from Bazel dependencies. */
     private val runfiles = Runfiles.preload().unmapped()
@@ -183,6 +264,9 @@ class TestHarness {
 
     /** The height of the browser viewport, measured in pixels. */
     private const val VIEW_PORT_HEIGHT_PX = 1080
+
+    /** The directory where screendiff goldens are stored, relative to the runfiles root. */
+    private val GOLDEN_DIR = Paths.get("_main/first_party/site/tests/goldens")
   }
 }
 

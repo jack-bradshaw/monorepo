@@ -71,4 +71,5 @@
 @import url(/css/components/root/footer.css) layer(components);
 @import url(/css/components/root/header.css) layer(components);
 @import url(/css/components/root/skip-link.css) layer(components);
+@import url(/css/components/root/consent-banner.css) layer(components);
 @import url(/css/components/root/titlebar.css) layer(components);
