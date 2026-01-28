@@ -142,6 +142,8 @@ class ContentNavigationTest {
   }
 
   /**
+   * Verifies the link of the item with [itemLabel] opens the right destination.
+   *
    * Opens [startPagePath] in a browser, scrolls until the item with [itemLabel] is visible in the
    * window, clicks the item, then verifies the URL of the opened page matches
    * [expectedDestinationPagePath]. Both paths must be relative to the root of the site.
@@ -152,14 +154,16 @@ class ContentNavigationTest {
       expectedDestinationPagePath: URI
   ) {
     harness.setup(ScreenWidth.MEDIUM)
+
     val page = harness.openPage(startPagePath)
+    page.findElement("a:has-text('${itemLabel}')").click()
 
-    harness.findElement(page, "a:has-text('${itemLabel}')").click()
-
-    assertThat(page).hasUri(harness.endpoint().resolve(expectedDestinationPagePath))
+    assertThat(page).hasUri(harness.getServerEndpoint().resolve(expectedDestinationPagePath))
   }
 
   /**
+   * Verifies the link of the item with [itemLabel] opens the right destination.
+   *
    * Opens [startPagePath] in a browser, scrolls until the item with [itemLabel] is visible in the
    * window, clicks the item, then verifies the URL of the opened page matches [destinationUri].
    * Start page path must be relative to the root of the site, and destination path must be
@@ -169,7 +173,7 @@ class ContentNavigationTest {
     harness.setup(ScreenWidth.MEDIUM)
 
     val page = harness.openPage(startPagePath)
-    val locator = harness.findElement(page, "a:has-text('${itemLabel}')")
+    val locator = page.findElement("a:has-text('${itemLabel}')")
     val popup = page.waitForPopup { locator.click() }
 
     assertWithMessage("Page URI").that(popup.url()).isEqualTo(destinationUri.toString())

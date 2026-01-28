@@ -1,6 +1,8 @@
 # Goldens
 
-The canonical source of truth for the [AppearanceTest](first_party/site/tests/AppearanceTest.kt).
+The canonical source of truth for the appearance of the site. These are used by
+[ContentAppearanceTest](first_party/site/tests/ContentAppearanceTest.kt) and
+[MenuTest](first_party/site/tests/MenuTest.kt) for screendiff testing.
 
 ## Source
 

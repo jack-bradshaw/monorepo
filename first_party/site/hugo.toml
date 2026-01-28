@@ -2,17 +2,20 @@ baseURL = "https://jack-bradshaw.com/"
 languageCode = "en-us"
 title = "Jack Bradshaw"
 
+[params]
+  googleAnalytics = "G-3LQFSGQLVV"
+
 [[cascade]]
   layout = "home"
   [cascade._target]
     path = "/"
-
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       # Allows line-breaks in markdown 
       unsafe = true
+
 [minify]
   minifyOutput = true
   [minify.tdewolff.html]

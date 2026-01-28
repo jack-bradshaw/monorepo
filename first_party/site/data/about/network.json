@@ -2,50 +2,49 @@
   {
     "key": "bluesky",
     "name": "Bluesky",
-    "icon": "/static/decorations/platforms/bluesky.png",
+    "icon": "/static/decorations/platforms/bluesky.webp",
     "link": "https://bsky.app/profile/jack-bradshaw.com"
   },
   {
     "key": "mastodon",
     "name": "Mastodon",
-    "icon": "/static/decorations/platforms/mastodon.png",
+    "icon": "/static/decorations/platforms/mastodon.webp",
     "link": "https://mastodon.social/@jackbradshaw"
   },
   {
     "key": "deviant-art",
     "name": "DeviantArt",
-    "icon": "/static/decorations/platforms/deviant_art.png",
+    "icon": "/static/decorations/platforms/deviant_art.webp",
     "link": "https://www.deviantart.com/jackjbradshaw"
   },
   {
     "key": "github",
     "name": "GitHub",
-    "icon": "/static/decorations/platforms/github.png",
+    "icon": "/static/decorations/platforms/github.webp",
     "link": "https://github.com/jack-bradshaw"
   },
   {
     "key": "linkedin",
     "name": "LinkedIn",
-    "icon": "/static/decorations/platforms/linkedin.png",
+    "icon": "/static/decorations/platforms/linkedin.webp",
     "link": "https://www.linkedin.com/in/jack-bradshaw-33a94a323/"
   },
-
   {
     "key": "telegram",
     "name": "Telegram",
-    "icon": "/static/decorations/platforms/telegram.png",
+    "icon": "/static/decorations/platforms/telegram.webp",
     "link": "https://t.me/jackbradshaw01"
   },
   {
     "key": "discord",
     "name": "Discord",
-    "icon": "/static/decorations/platforms/discord.png",
+    "icon": "/static/decorations/platforms/discord.webp",
     "link": "https://discord.gg/Az9cGnuv"
   },
   {
     "key": "email",
     "name": "Newsletter",
-    "icon": "/static/decorations/platforms/email.png",
+    "icon": "/static/decorations/platforms/email.webp",
     "link": "https://docs.google.com/forms/d/e/1FAIpQLSdWyblZ_0ji7WQcjOzSt5ycstPrr_71BVsuk_EWbilQjtoh7g/viewform?usp=header"
   }
 ]

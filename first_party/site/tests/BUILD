@@ -3,6 +3,16 @@ load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 package(default_visibility = ["//visibility:public"])
 
 kt_jvm_library(
+    name = "page_extensions",
+    testonly = True,
+    srcs = ["Page.kt"],
+    deps = [
+        "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:com_microsoft_playwright_playwright",
+    ],
+)
+
+kt_jvm_library(
     name = "test_harness",
     testonly = True,
     srcs = ["TestHarness.kt"],
@@ -10,6 +20,7 @@ kt_jvm_library(
         "//first_party/site",
     ],
     deps = [
+        ":page_extensions",
         "@bazel_tools//tools/java/runfiles",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:com_microsoft_playwright_playwright",
@@ -32,12 +43,15 @@ kt_jvm_library(
 )
 
 kt_jvm_test(
-    name = "menu_navigation_test",
+    name = "menu_test",
     size = "medium",
-    srcs = ["MenuNavigationTest.kt"],
+    srcs = ["MenuTest.kt"],
+    data = [
+        "//first_party/site/tests/goldens",
+    ],
     shard_count = 34,
     tags = ["requires-network"],
-    test_class = "com.jackbradshaw.site.tests.MenuNavigationTest",
+    test_class = "com.jackbradshaw.site.tests.MenuTest",
     deps = [
         ":page_subject",
         ":test_harness",
@@ -64,15 +78,32 @@ kt_jvm_test(
 )
 
 kt_jvm_test(
-    name = "appearance_test",
+    name = "content_appearance_test",
     size = "medium",
-    srcs = ["AppearanceTest.kt"],
+    srcs = ["ContentAppearanceTest.kt"],
     data = [
         "//first_party/site/tests/goldens",
     ],
-    shard_count = 47,
+    shard_count = 15,
     tags = ["requires-network"],
-    test_class = "com.jackbradshaw.site.tests.AppearanceTest",
+    test_class = "com.jackbradshaw.site.tests.ContentAppearanceTest",
+    deps = [
+        ":test_harness",
+        "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:com_microsoft_playwright_playwright",
+        "@com_jackbradshaw_maven//:junit_junit",
+    ],
+)
+
+kt_jvm_test(
+    name = "cookie_consent_test",
+    size = "medium",
+    srcs = ["CookieConsentTest.kt"],
+    data = [
+        "//first_party/site/tests/goldens",
+    ],
+    tags = ["requires-network"],
+    test_class = "com.jackbradshaw.site.tests.CookieConsentTest",
     deps = [
         ":test_harness",
         "@com_jackbradshaw_maven//:com_google_truth_truth",

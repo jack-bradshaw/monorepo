@@ -10,9 +10,12 @@
 
   <link rel="icon" type="image/x-icon" href="/decorations/people/jack.png">
   <link rel="stylesheet" href="/css/manifest.css" />
+
+  {{ partial "root/analytics.html" . }}
 </head>
 
 <body>
+  {{ partial "root/consent-banner.html" . }}
   {{ partial "root/skip-link.html" . }}
 
   <div class="root page">

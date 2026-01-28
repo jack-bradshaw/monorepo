@@ -1,5 +1,7 @@
 /** Semantically-named layer properties. */
 :root {
+  --layer-snackbar: 5;
+
   --layer-nav: 4;
 
   --layer-skip-link: 3;
