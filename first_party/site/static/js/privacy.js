@@ -1,5 +1,5 @@
 /**
- * @fileoverview Handles the cookie consent banner logic.
+ * @fileoverview Handles the privacy notice banner logic.
  *
  * The banner is shown by default and hidden when the user accepts or declines consent. The user's
  * consent/denial is saved to local storage and used to determine whether to show the banner on
@@ -9,14 +9,14 @@
 (function () {
   "use strict";
 
-  const banner = document.getElementById("analytics-consent-banner");
+  const banner = document.getElementById("privacy-notice");
 
-  /** Shows the consent banner. Safe to call and has no effect if banner is already shown. */
+  /** Shows the privacy notice. Safe to call and has no effect if banner is already shown. */
   function showBanner() {
     banner.style.display = "flex";
   }
 
-  /** Hides the consent banner. Safe to call and has no effect if banner is already hidden. */
+  /** Hides the privacy notice. Safe to call and has no effect if banner is already hidden. */
   function hideBanner() {
     banner.style.display = "none";
   }
@@ -46,11 +46,11 @@
     onResponse(savedConsent === "true");
   }
 
-  document.getElementById("accept-analytics-consent").addEventListener("click", function () {
+  document.getElementById("accept-privacy").addEventListener("click", function () {
     onResponse(true);
   });
 
-  document.getElementById("decline-analytics-consent").addEventListener("click", function () {
+  document.getElementById("decline-privacy").addEventListener("click", function () {
     onResponse(false);
   });
 })();
