@@ -12,7 +12,7 @@
   border: var(--border-width-thin) solid transparent;
 
   text-decoration: none;
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-0);
   line-height: var(--line-height-small);
   letter-spacing: var(--letter-spacing-small);
   font-weight: 500;
