@@ -60,6 +60,7 @@
 @import url(/css/components/card/composition/career-card.css) layer(components);
 @import url(/css/components/card/composition/gallery-card.css) layer(components);
 @import url(/css/components/card/composition/journal-card.css) layer(components);
+@import url(/css/layouts/journal-item.css) layer(layouts);
 @import url(/css/components/card/composition/network-card.css) layer(components);
 @import url(/css/components/card/composition/repository-card.css) layer(components);
 @import url(/css/components/card/elements/card-banner.css) layer(components);

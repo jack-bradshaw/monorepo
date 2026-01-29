@@ -1,5 +1,3 @@
-Note: This document was written by a human assuming the guise of an AI.
-
 ## Chapter 1: The Prompt
 
 Prompt: I want to be happy.
