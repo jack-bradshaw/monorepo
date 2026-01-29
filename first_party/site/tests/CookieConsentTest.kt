@@ -69,7 +69,7 @@ class CookieConsentTest {
     val page = harness.openPage(URI.create("/"))
     page.waitForLoad()
 
-    page.locator("#accept-analytics-consent").click()
+    page.locator("#accept-privacy").click()
     page.assertBannerHidden()
     page.assertConsentGranted()
   }
@@ -81,7 +81,7 @@ class CookieConsentTest {
     val page = harness.openPage(URI.create("/"))
     page.waitForLoad()
 
-    page.locator("#decline-analytics-consent").click()
+    page.locator("#decline-privacy").click()
     page.assertBannerHidden()
     page.assertConsentDenied()
   }
@@ -93,28 +93,28 @@ class CookieConsentTest {
     val page = harness.openPage(URI.create("/"))
     page.waitForLoad()
 
-    val banner = page.locator("#analytics-consent-banner")
+    val banner = page.locator("#privacy-notice")
     assertThat(banner).hasAttribute("role", "region")
-    assertThat(banner).hasAttribute("aria-label", "Cookie consent")
+    assertThat(banner).hasAttribute("aria-label", "Privacy notice")
     assertThat(banner).hasAttribute("aria-live", "polite")
   }
 
   /** Verifies the banner is visible in the UI and contains the correct text. */
   private fun Page.assertBannerVisible() {
-    val banner = this.locator("#analytics-consent-banner")
+    val banner = this.locator("#privacy-notice")
 
     assertThat(banner).isVisible()
   }
 
   /** Verifies the banner is hidden in the UI. */
   private fun Page.assertBannerHidden() {
-    val banner = this.locator("#analytics-consent-banner")
+    val banner = this.locator("#privacy-notice")
 
     assertThat(banner).not().isVisible()
   }
 
   private fun Page.assertBannerText() {
-    val banner = this.locator("#analytics-consent-banner")
+    val banner = this.locator("#privacy-notice")
 
     assertThat(banner)
         .containsText("Cookies are used for Google Analytics to analyze site traffic.")
