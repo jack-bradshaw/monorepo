@@ -5,6 +5,11 @@
     "link": "https://en.wikipedia.org/wiki/Artificial_intelligence"
   },
   {
+    "key": "bash",
+    "name": "Bash",
+    "link": "https://www.gnu.org/software/bash/"
+  },
+  {
     "key": "bazel",
     "name": "Bazel",
     "link": "https://bazel.build"
