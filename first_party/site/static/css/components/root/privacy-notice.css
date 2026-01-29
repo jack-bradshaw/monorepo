@@ -1,5 +1,5 @@
-.analytics-consent-banner {
-  /* Display is toggled between none and flex in consent.js to hide/show the banner */
+.privacy-notice {
+  /* Display is toggled between none and flex in privacy.js to hide/show the banner */
   display: none;
   flex-direction: column;
   align-items: center;
@@ -17,7 +17,7 @@
   text-align: center;
 }
 
-.analytics-consent-actions {
+.privacy-notice-actions {
   display: flex;
   flex-direction: row;
   justify-content: center;
