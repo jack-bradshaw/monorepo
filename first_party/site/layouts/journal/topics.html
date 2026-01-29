@@ -23,7 +23,7 @@ Parameters:
 
   {{ if gt (len $visibleItems) 0 }}
   <details class="content block" open>
-    <summary>
+    <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">

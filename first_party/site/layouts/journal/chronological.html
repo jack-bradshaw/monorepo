@@ -25,7 +25,7 @@ Parameters:
 
   {{ range $chronologicalList }}
   <details class="content block" open>
-    <summary>
+    <summary id="{{ .year }}">
       {{ partial "content-block-header.html" (dict "title" .year "subtitle" (printf "All articles from %s" .year)) }}
     </summary>
     <ol class="content items wide-items" role="list">
