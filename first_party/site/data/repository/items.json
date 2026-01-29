@@ -8,6 +8,14 @@
     "repo": "monorepo"
   },
   {
+    "key": "bash_runfiles",
+    "title": "Bash Runfiles",
+    "description": "Macros for injecting the Bazel runfiles setup logic into shell scripts (and other files) at build time.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/bash_runfiles",
+    "technologies": ["bazel"],
+    "repo": "monorepo"
+  },
+  {
     "key": "concurrency",
     "title": "Concurrency",
     "description": "Kotlin concurrency infrastructure, complete with test doubles and Dagger integration.",
@@ -32,6 +40,14 @@
     "repo": "monorepo"
   },
   {
+    "key": "dagger",
+    "title": "Dagger",
+    "description": "Bazel macros for seamless Dagger KSP integration, solving 'Jar Hell' conflicts via shading.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/dagger",
+    "technologies": ["bazel", "kotlin"],
+    "repo": "monorepo"
+  },
+  {
     "key": "formatting",
     "title": "Formatting",
     "description": "Automated code formatting for a variety of languages and frameworks.",
@@ -53,14 +69,6 @@
     "description": "Kotlin coroutine support for the JMonkeyEngine game engine.",
     "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/kmonkey",
     "technologies": ["kotlin", "jmonkey", "bazel"],
-    "repo": "monorepo"
-  },
-  {
-    "key": "model",
-    "title": "Model",
-    "description": "Data models that apply univerally across all domains.",
-    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/model",
-    "technologies": ["java", "kotlin", "bazel"],
     "repo": "monorepo"
   },
   {
@@ -109,6 +117,14 @@
     "description": "Directives for contributing to this repository.",
     "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/contributing",
     "technologies": ["bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "universal",
+    "title": "Universal",
+    "description": "Universal data models (count, frequency, etc.) that apply across all domains.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/universal",
+    "technologies": ["kotlin", "bazel"],
     "repo": "monorepo"
   },
   {
