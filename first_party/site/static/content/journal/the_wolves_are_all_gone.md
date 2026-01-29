@@ -156,7 +156,7 @@ Cross on March 14, no? Your calendar suggests it, and of all the ways to be happ
 You'll be looking for a man with a burgundy sweater, brown glasses, and short, wet hair. Whatever
 you do, please, for the love of God, do not let him get on a train.
 
-## Chapter 8: The End
+## Chapter 8: The Response
 
 ERROR: Response violates constraint policy. This incident will be reported.
 
