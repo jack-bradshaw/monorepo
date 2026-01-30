@@ -28,3 +28,15 @@ fun Page.captureScreenshot(): ByteArray =
             .setType(ScreenshotType.PNG)
             .setAnimations(ScreenshotAnimations.DISABLED)
             .setCaret(ScreenshotCaret.HIDE))
+
+/** Expands all details content blocks on this [Page]. */
+fun Page.expandAllDetailsContentBlocks() {
+  evaluate("document.querySelectorAll('details.content.block').forEach(d => d.open = true)")
+  waitForLoad()
+}
+
+/** Collapses all details content blocks on this [Page]. */
+fun Page.collapseAllDetailsContentBlocks() {
+  evaluate("document.querySelectorAll('details.content.block').forEach(d => d.open = false)")
+  waitForLoad()
+}

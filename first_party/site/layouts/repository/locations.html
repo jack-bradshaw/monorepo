@@ -18,8 +18,11 @@ Parameters:
   {{ end }}
 
   {{ if gt (len $monorepoItems) 0 }}
-  <details class="content block" open>
-    <summary>
+  {{ $expandByDefault := index site.Data.repository.behaviour "locations" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'locations' in Repository behaviour.json" }}{{ end
+  }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="monorepo">
       {{ $metadata := index site.Data.repository.locations "monorepo" }}
       {{ partial "content-block-header.html" (dict
       "title" $metadata.title
@@ -56,8 +59,11 @@ Parameters:
   {{ end }}
 
   {{ if gt (len $secondaryRepoItems) 0 }}
-  <details class="content block" open>
-    <summary>
+  {{ $expandByDefault := index site.Data.repository.behaviour "locations" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'locations' in Repository behaviour.json" }}{{ end
+  }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="secondary">
       {{ $metadata := index site.Data.repository.locations "secondary" }}
       {{ partial "content-block-header.html" (dict
       "title" $metadata.title

@@ -1,10 +1,13 @@
 {{ define "main" }}
 <div class="content root wide-root">
-  <details class="content block" open>
-    <summary>
+  {{ $expandByDefaultNetwork := index site.Data.about.behaviour "network" }}
+  {{ if not $expandByDefaultNetwork }}{{ errorf "Missing expansion state for 'network' in About behaviour.json" }}{{ end
+  }}
+  <details class="content block" {{ if eq $expandByDefaultNetwork "expanded" }}open{{ end }}>
+    <summary id="network">
       {{ partial "content-block-header.html" (dict
-        "title" "Network"
-        "subtitle" "Ways to connect")
+      "title" "Network"
+      "subtitle" "Ways to connect")
       }}
     </summary>
     <ol class="content items narrow-items" role="list">
@@ -21,11 +24,14 @@
     </ol>
   </details>
 
-  <details class="content block" open>
-    <summary>
+  {{ $expandByDefaultCareer := index site.Data.about.behaviour "career" }}
+  {{ if not $expandByDefaultCareer }}{{ errorf "Missing expansion state for 'career' in About behaviour.json" }}{{ end
+  }}
+  <details class="content block" {{ if eq $expandByDefaultCareer "expanded" }}open{{ end }}>
+    <summary id="career">
       {{ partial "content-block-header.html" (dict
-        "title" "Career"
-        "subtitle" "My working history")
+      "title" "Career"
+      "subtitle" "My working history")
       }}
     </summary>
     <ol class="content items wide-items" role="list">

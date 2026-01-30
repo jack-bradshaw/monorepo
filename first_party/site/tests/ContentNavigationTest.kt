@@ -155,8 +155,11 @@ class ContentNavigationTest {
   ) {
     harness.setup(ScreenWidth.MEDIUM)
 
-    val page = harness.openPage(startPagePath)
-    page.findElement("a:has-text('${itemLabel}')").click()
+    val page =
+        harness.openPage(startPagePath).also {
+          it.expandAllDetailsContentBlocks()
+          it.findElement("a:has-text('${itemLabel}')").click()
+        }
 
     assertThat(page).hasUri(harness.getServerEndpoint().resolve(expectedDestinationPagePath))
   }
@@ -172,7 +175,7 @@ class ContentNavigationTest {
   private fun runClickExternalLinkTest(startPagePath: URI, itemLabel: String, destinationUri: URI) {
     harness.setup(ScreenWidth.MEDIUM)
 
-    val page = harness.openPage(startPagePath)
+    val page = harness.openPage(startPagePath).also { it.expandAllDetailsContentBlocks() }
     val locator = page.findElement("a:has-text('${itemLabel}')")
     val popup = page.waitForPopup { locator.click() }
 

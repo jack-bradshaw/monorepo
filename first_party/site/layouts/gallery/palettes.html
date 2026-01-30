@@ -6,8 +6,10 @@ Parameters: None
 {{ define "main" }}
 <div class="content root wide-root">
   {{ range site.Data.gallery.palettes }}
-  <details class="content block" open>
-    <summary>
+  {{ $expandByDefault := index site.Data.gallery.behaviour "palettes" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'palettes' in Gallery behaviour.json" }}{{ end }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">
@@ -21,7 +23,7 @@ Parameters: None
       {{ if $item }}
       <li>
         {{ $subtitle := "" }}
-        
+
         {{ if $item.year }}
         {{ $subtitle = $item.year }}
         {{ if $item.description }}
@@ -30,7 +32,7 @@ Parameters: None
         {{ else if $item.description }}
         {{ $subtitle = $item.description }}
         {{ end }}
-        
+
         {{ partial "card/composition/gallery-card.html" (dict
         "image" (strings.TrimPrefix "/static" $item.thumbnail)
         "title" $item.title
