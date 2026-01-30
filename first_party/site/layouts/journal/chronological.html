@@ -24,7 +24,10 @@ Parameters:
   {{ $chronologicalList = sort $chronologicalList "year" "desc" }}
 
   {{ range $chronologicalList }}
-  <details class="content block" open>
+  {{ $expandByDefault := index site.Data.journal.behaviour "chronological" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'chronological' in Journal behaviour.json" }}{{
+  end }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
     <summary id="{{ .year }}">
       {{ partial "content-block-header.html" (dict "title" .year "subtitle" (printf "All articles from %s" .year)) }}
     </summary>

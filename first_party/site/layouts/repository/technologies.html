@@ -20,8 +20,11 @@ Parameters:
 
   {{ if gt (len $items) 0 }}
   {{ $subtitle := printf "All projects that use or target <a href=\"%s\">%s</a>" $techLink $techName }}
-  <details class="content block" open>
-    <summary>
+  {{ $expandByDefault := index site.Data.repository.behaviour "technologies" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'technologies' in Repository behaviour.json" }}{{
+  end }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" $techName "subtitle" $subtitle) }}
     </summary>
     <ol class="content items wide-items" role="list">

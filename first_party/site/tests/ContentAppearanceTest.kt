@@ -9,7 +9,7 @@ import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-/** These tests verify the site appearance using screendiffing. */
+/** These tests verify the appearance of the site content using screendiffing. */
 @RunWith(JUnit4::class)
 class ContentAppearanceTest {
 
@@ -39,231 +39,217 @@ class ContentAppearanceTest {
   }
 
   @Test
-  fun galleryHighlightsPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/highlights"), ScreenWidth.SMALL)
-  }
-
-  @Test
-  fun galleryHighlightsPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/highlights"), ScreenWidth.MEDIUM)
-  }
-
-  @Test
-  fun galleryHighlightsPage_largeScreen_matchesGolden() {
+  fun galleryHighlightsPage_matchesGolden() {
     runScreendiffTest(URI.create("/gallery/highlights"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun gallerySubjectsPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.SMALL)
-  }
-
-  @Test
-  fun gallerySubjectsPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.MEDIUM)
-  }
-
-  @Test
-  fun gallerySubjectsPage_largeScreen_matchesGolden() {
+  fun gallerySubjectsPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun galleryPalettesPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/palettes"), ScreenWidth.SMALL)
+  fun gallerySubjectsPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun galleryPalettesPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/palettes"), ScreenWidth.MEDIUM)
+  fun gallerySubjectsPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(URI.create("/gallery/subjects"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun galleryPalettesPage_largeScreen_matchesGolden() {
+  fun galleryPalettesPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/gallery/palettes"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun galleryChronologicalPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/chronological"), ScreenWidth.SMALL)
+  fun galleryPalettesPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(URI.create("/gallery/palettes"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun galleryChronologicalPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/chronological"), ScreenWidth.MEDIUM)
+  fun galleryPalettesPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(URI.create("/gallery/palettes"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun galleryChronologicalPage_largeScreen_matchesGolden() {
+  fun galleryChronologicalPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/gallery/chronological"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun galleryItemPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/item/restructuring_2024"), ScreenWidth.SMALL)
+  fun galleryChronologicalPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(
+        URI.create("/gallery/chronological"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun galleryItemPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/item/restructuring_2024"), ScreenWidth.MEDIUM)
+  fun galleryChronologicalPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(
+        URI.create("/gallery/chronological"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun galleryItemPage_largeScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/gallery/item/restructuring_2024"), ScreenWidth.LARGE)
-  }
-
-  @Test
-  fun journalHighlightsPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/highlights"), ScreenWidth.SMALL)
-  }
-
-  @Test
-  fun journalHighlightsPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/highlights"), ScreenWidth.MEDIUM)
-  }
-
-  @Test
-  fun journalHighlightsPage_largeScreen_matchesGolden() {
+  fun journalHighlightsPage_matchesGolden() {
     runScreendiffTest(URI.create("/journal/highlights"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun journalTopicsPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/topics"), ScreenWidth.SMALL)
-  }
-
-  @Test
-  fun journalTopicsPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/topics"), ScreenWidth.MEDIUM)
-  }
-
-  @Test
-  fun journalTopicsPage_largeScreen_matchesGolden() {
+  fun journalTopicsPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/journal/topics"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun journalSeriesPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/series"), ScreenWidth.SMALL)
+  fun journalTopicsPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(URI.create("/journal/topics"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun journalSeriesPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/series"), ScreenWidth.MEDIUM)
+  fun journalTopicsPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(URI.create("/journal/topics"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun journalSeriesPage_largeScreen_matchesGolden() {
+  fun journalSeriesPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/journal/series"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun journalChronologicalPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/chronological"), ScreenWidth.SMALL)
+  fun journalSeriesPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(URI.create("/journal/series"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun journalChronologicalPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/chronological"), ScreenWidth.MEDIUM)
+  fun journalSeriesPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(URI.create("/journal/series"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun journalChronologicalPage_largeScreen_matchesGolden() {
+  fun journalGenresPage_largeScreen_defaultExpansion_matchesGolden() {
+    runScreendiffTest(URI.create("/journal/genres"), ScreenWidth.LARGE)
+  }
+
+  @Test
+  fun journalGenresPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(URI.create("/journal/genres"), ScreenWidth.LARGE, ExpansionState.EXPAND)
+  }
+
+  @Test
+  fun journalGenresPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(URI.create("/journal/genres"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
+  }
+
+  @Test
+  fun journalChronologicalPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/journal/chronological"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun journalItemPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/item/sports-bar"), ScreenWidth.SMALL)
+  fun journalChronologicalPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(
+        URI.create("/journal/chronological"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun journalItemPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/item/sports-bar"), ScreenWidth.MEDIUM)
+  fun journalChronologicalPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(
+        URI.create("/journal/chronological"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun journalItemPage_largeScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/journal/item/sports-bar"), ScreenWidth.LARGE)
-  }
-
-  @Test
-  fun repositoryHighlightsPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/repository/highlights"), ScreenWidth.SMALL)
-  }
-
-  @Test
-  fun repositoryHighlightsPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/repository/highlights"), ScreenWidth.MEDIUM)
-  }
-
-  @Test
-  fun repositoryHighlightsPage_largeScreen_matchesGolden() {
+  fun repositoryHighlightsPage_matchesGolden() {
     runScreendiffTest(URI.create("/repository/highlights"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun repositoryLocationsPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/repository/locations"), ScreenWidth.SMALL)
-  }
-
-  @Test
-  fun repositoryLocationsPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/repository/locations"), ScreenWidth.MEDIUM)
-  }
-
-  @Test
-  fun repositoryLocationsPage_largeScreen_matchesGolden() {
+  fun repositoryLocationsPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/repository/locations"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun repositoryTechnologiesPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/repository/technologies"), ScreenWidth.SMALL)
+  fun repositoryLocationsPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(URI.create("/repository/locations"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun repositoryTechnologiesPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/repository/technologies"), ScreenWidth.MEDIUM)
+  fun repositoryLocationsPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(
+        URI.create("/repository/locations"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun repositoryTechnologiesPage_largeScreen_matchesGolden() {
+  fun repositoryTechnologiesPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/repository/technologies"), ScreenWidth.LARGE)
   }
 
   @Test
-  fun aboutPage_smallScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/about"), ScreenWidth.SMALL)
+  fun repositoryTechnologiesPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(
+        URI.create("/repository/technologies"), ScreenWidth.LARGE, ExpansionState.EXPAND)
   }
 
   @Test
-  fun aboutPage_mediumScreen_matchesGolden() {
-    runScreendiffTest(URI.create("/about"), ScreenWidth.MEDIUM)
+  fun repositoryTechnologiesPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(
+        URI.create("/repository/technologies"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   @Test
-  fun aboutPage_largeScreen_matchesGolden() {
+  fun aboutPage_largeScreen_defaultExpansion_matchesGolden() {
     runScreendiffTest(URI.create("/about"), ScreenWidth.LARGE)
+  }
+
+  @Test
+  fun aboutPage_largeScreen_expanded_matchesGolden() {
+    runScreendiffTest(URI.create("/about"), ScreenWidth.LARGE, ExpansionState.EXPAND)
+  }
+
+  @Test
+  fun aboutPage_largeScreen_collapsed_matchesGolden() {
+    runScreendiffTest(URI.create("/about"), ScreenWidth.LARGE, ExpansionState.COLLAPSE)
   }
 
   /**
    * Verifies the page at [path] matches the golden screenshot.
    *
-   * Opens [path] on a screen widht width [size], captures a screenshot, and compares it to a golden
-   * screenshot. The test will fail if the golden file does not exist, or if the screenshots do not
-   * match exactly (byte wise). The [path] must be relative to the root of the site.
+   * Opens [path] on a screen width of [size], adjusts the expanded state to [expansionState] (if
+   * necessary), captures a screenshot, and compares the screenshot to a golden. The test fails if
+   * the golden file does not exist or if the screenshots do not match exactly (byte wise).
+   *
+   * The [path] value must be relative to the root of the site.
    */
   private fun runScreendiffTest(
       path: URI,
-      size: ScreenWidth = ScreenWidth.LARGE /* Default for legacy tests if any */
+      size: ScreenWidth = ScreenWidth.LARGE,
+      expansionState: ExpansionState = ExpansionState.DEFAULT
   ) {
     harness.setup(size)
 
     val page = harness.openPage(path).also { it.waitForLoad() }
 
+    when (expansionState) {
+      ExpansionState.EXPAND -> page.expandAllDetailsContentBlocks()
+      ExpansionState.COLLAPSE -> page.collapseAllDetailsContentBlocks()
+      ExpansionState.DEFAULT -> {
+        /* Already in default state by definition. Nothing to do. */
+      }
+    }
+    page.waitForLoad()
+
     val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     harness.checkScreendiff(page, goldenName)
+  }
+
+  /** Defines the intended expansion state of collapsible sections during a test. */
+  enum class ExpansionState {
+    /** All sections assume the default expansion state defined in the site configuration. */
+    DEFAULT,
+
+    /** All sections forced to expand. */
+    EXPAND,
+
+    /** All sections forced to collapse. */
+    COLLAPSE
   }
 }

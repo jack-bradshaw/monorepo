@@ -25,8 +25,11 @@ Parameters: None
 
 <div class="content root wide-root">
   {{ range $year := $yearsSorted }}
-  <details class="content block" open>
-    <summary>
+  {{ $expandByDefault := index site.Data.gallery.behaviour "chronological" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'chronological' in Gallery behaviour.json" }}{{
+  end }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ $year }}">
       {{ $subtitle := printf "All pieces from %s" $year }}
       {{ partial "content-block-header.html" (dict "title" $year "subtitle" $subtitle) }}
     </summary>

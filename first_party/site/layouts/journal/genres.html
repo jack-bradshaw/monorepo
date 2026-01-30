@@ -9,7 +9,9 @@ Parameters:
 
 <div class="content root wide-root">
   {{ range site.Data.journal.genres }}
-  <details class="content block" open>
+  {{ $expandByDefault := index site.Data.journal.behaviour "genres" }}
+  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'genres' in Journal behaviour.json" }}{{ end }}
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
     <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
