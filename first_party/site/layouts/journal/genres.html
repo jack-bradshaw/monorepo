@@ -10,7 +10,7 @@ Parameters:
 <div class="content root wide-root">
   {{ range site.Data.journal.genres }}
   <details class="content block" open>
-    <summary>
+    <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">

@@ -59,5 +59,6 @@ Parameters:
     <p>{{ $publicationInformation | safeHTML }}</p>
     {{ end }}
   </article>
+  {{ partial "journal/related-chips.html" (dict "key" $item.key "year" $item.year) }}
 </div>
 {{ end }}

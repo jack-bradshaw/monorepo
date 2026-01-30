@@ -1,0 +1,51 @@
+{{/*
+Journal Related Chips Partial
+
+Parameters:
+* key: The article key to find relationships for.
+* year: The article's publication year (int).
+*/}}
+
+{{ $itemKey := .key }}
+{{ $itemYear := .year }}
+{{ $chips := slice }}
+
+{{/* Series */}}
+{{ range site.Data.journal.series }}
+{{ if in .items $itemKey }}
+{{ $chips = $chips | append (dict "text" (printf "View more from %s" .title) "link" (printf "/journal/series#%s" (.key |
+urlize))) }}
+{{ end }}
+{{ end }}
+
+{{/* Topics */}}
+{{ range site.Data.journal.topics }}
+{{ if in .items $itemKey }}
+{{ $chips = $chips | append (dict "text" (printf "View more %s" .title) "link" (printf "/journal/topics#%s" (.key |
+urlize))) }}
+{{ end }}
+{{ end }}
+
+{{/* Genres */}}
+{{ range site.Data.journal.genres }}
+{{ if in .items $itemKey }}
+{{ $chips = $chips | append (dict "text" (printf "View more %s" .title) "link" (printf "/journal/genres#%s" (.key |
+urlize))) }}
+{{ end }}
+{{ end }}
+
+{{/* Chronology */}}
+{{ if $itemYear }}
+{{ $chips = $chips | append (dict "text" (printf "View more from %d" $itemYear) "link" (printf
+"/journal/chronological#%d" $itemYear)) }}
+{{ end }}
+
+{{ if gt (len $chips) 0 }}
+<div class="related-chips" style="margin-top: var(--spacing-4); display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+  {{ range $chips }}
+  <a href="{{ .link }}" class="button unselected" style="text-decoration: none;">
+    {{ .text }}
+  </a>
+  {{ end }}
+</div>
+{{ end }}
