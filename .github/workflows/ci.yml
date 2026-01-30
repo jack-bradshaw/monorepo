@@ -4,14 +4,22 @@
 # - single-commit-rule: Requires the branch to have exactly one commit.
 # - presubmit: Requires /presubmit/presubmit.sh to pass.
 #
-# Various other tasks run to perform supplementary operations, such as freeing up disk space before
-# the tests run, and uploading the test artefacts after test execution.
 name: CI
 on: [pull_request]
 jobs:
   single-commit-rule:
     runs-on: ubuntu-latest
     steps:
+      - name: Print Debug Info
+        run: |
+          echo "GitHub Run ID: ${{ github.run_id }}"
+          echo "GitHub Run Number: ${{ github.run_number }}"
+          echo "GitHub SHA: ${{ github.sha }}"
+          echo "GitHub Ref: ${{ github.ref }}"
+          echo "GitHub Actor: ${{ github.actor }}"
+          echo "GitHub Event Name: ${{ github.event_name }}"
+          echo "Runner OS: ${{ runner.os }}"
+        shell: bash
       - name: Check Commit Count
         uses: actions/github-script@v7
         with:
@@ -27,133 +35,39 @@ jobs:
             });
 
             if (commits.length > 1) {
-              core.setFailed('PR has multiple commits. Every PR must have exactly one commit.');
+              core.setFailed('Every PR must have exactly one commit.');
             } else {
-              console.log(`PR has exactly one commit, check passed.`);
+              console.log(`This PR has exactly one commit. Single commit check passed.`);
             }
   presubmit:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      # ORDERING: Install software dependencies first, then delete bloatware.
-      # Preinstalled tools needed for installation (e.g. wget, apt-get) can be deleted after
-      # installation completes. Post-cleanup state is irrelevant since the runner is discarded.
-      - name: Install Software
+      - name: Print Debug Info
         run: |
-          echo "Installing dependencies..."
-
-          # Install libtinfo5 (required for Clang/LLVM toolchains)
-          wget -q http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2_amd64.deb
-          sudo dpkg -i libtinfo5_6.3-2_amd64.deb
-          rm libtinfo5_6.3-2_amd64.deb
-
-          # Install lld linker (required for Rust builds)
-          sudo apt-get update -qq
-
-          # Install webp (required for webp_converter)
-          sudo apt-get install -y -qq lld webp
-
-          # Install Swift (required for swiftformat)
-          wget -q https://download.swift.org/swift-5.9.2-release/ubuntu2204/swift-5.9.2-RELEASE/swift-5.9.2-RELEASE-ubuntu22.04.tar.gz
-          sudo tar -xzf swift-5.9.2-RELEASE-ubuntu22.04.tar.gz -C /usr/local
-          rm swift-5.9.2-RELEASE-ubuntu22.04.tar.gz
-          echo "/usr/local/swift-5.9.2-RELEASE-ubuntu22.04/usr/bin" >> $GITHUB_PATH
-          echo "LD_LIBRARY_PATH=/usr/local/swift-5.9.2-RELEASE-ubuntu22.04/usr/lib/swift/linux:$LD_LIBRARY_PATH" >> $GITHUB_ENV
-          /usr/local/swift-5.9.2-RELEASE-ubuntu22.04/usr/bin/swift --version
-          ld.lld --version
-      - name: Delete Bloatware
-        run: |
-          echo "Disk space before cleanup:"
-          df -h
-
-          echo "Disk disk cleanup starting."
-
-          sudo docker image prune --all --force
-          sudo docker builder prune -a
-
-          sudo rm -rf /opt/az
-          sudo rm -rf /opt/az/azcliextensions
-          sudo rm -rf /opt/az/lib
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/google
-          sudo rm -rf /opt/google/chrome
-          sudo rm -rf /opt/hostedtoolcache/Ruby
-          sudo rm -rf /opt/microsoft
-          sudo rm -rf /opt/microsoft/msedge
-          sudo rm -rf /opt/microsoft/powershell
-          sudo rm -rf /opt/pipx
-          sudo rm -rf /opt/pipx/venvs
-          sudo rm -rf /usr/lib/firefox
-          sudo rm -rf /usr/lib/google-cloud-sdk
-          sudo rm -rf /usr/lib/grub
-          sudo rm -rf /usr/lib/linux-azure-6.11-tools-6.11.0-1018
-          sudo rm -rf /usr/lib/php
-          sudo rm -rf /usr/lib/postgresql
-          sudo rm -rf /usr/lib/ruby
-          sudo rm -rf /usr/libexec/docker
-          sudo rm -rf /usr/local/.ghcup
-          sudo rm -rf /usr/local/aws-cli
-          sudo rm -rf /usr/local/aws-sam-cli
-          sudo rm -rf /usr/local/julia*
-          sudo rm -rf /usr/local/share/chromium
-          sudo rm -rf /usr/local/share/powershell
-          sudo rm -rf /usr/share/apache-maven-3.9.11
-          sudo rm -rf /usr/share/az_*
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/share/fonts
-          sudo rm -rf /usr/share/gradle-*
-          sudo rm -rf /usr/share/i18n
-          sudo rm -rf /usr/share/icons
-          sudo rm -rf /usr/share/ieee-data
-          sudo rm -rf /usr/share/java
-          sudo rm -rf /usr/share/miniconda
-          sudo rm -rf /usr/share/mysql
-          sudo rm -rf /usr/share/perl
-          sudo rm -rf /usr/share/vim
-          sudo rm -rf /usr/src/linux-headers-6.11.0-1018-azure
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          sudo rm -rf /opt/hostedtoolcache/go
-          sudo rm -rf /opt/hostedtoolcache/PyPy
-          sudo rm -rf /usr/share/kotlinc
-
-          echo "Disk space cleanup complete."
-          echo "Disk space after cleanup:"
-          df -h
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Install Playwright
-        run: |
-          npm install @playwright/test
-          npx playwright@1.49.0 install --with-deps
-      - name: Restore Bazel Cache
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            ~/.cache/bazel-disk-cache
-            ~/.cache/bazel-repo-cache
-          key: bazel-cache-${{ github.run_id }}
-          restore-keys: |
-            bazel-cache-
+          echo "GitHub Run ID: ${{ github.run_id }}"
+          echo "GitHub Run Number: ${{ github.run_number }}"
+          echo "GitHub SHA: ${{ github.sha }}"
+          echo "GitHub Ref: ${{ github.ref }}"
+          echo "GitHub Actor: ${{ github.actor }}"
+          echo "GitHub Event Name: ${{ github.event_name }}"
+          echo "Runner OS: ${{ runner.os }}"
+        shell: bash
       - uses: actions/checkout@v4
       - name: Run Presubmit
         run: |
           source first_party/presubmit/presubmit.sh
           run_presubmit
         shell: bash
-      - name: Upload Bazel Test Logs
+      - name: Save Presubmit Results
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: bazel-test-logs
-          path: |
-            bazel-testlogs/**/*
-      - name: Save Bazel Cache
-        uses: actions/cache/save@v4
-        if: always()
-        with:
-          path: |
-            ~/.cache/bazel-disk-cache
-            ~/.cache/bazel-repo-cache
-          key: bazel-cache-${{ github.run_id }}
+        run: |
+          # Move logs to a location that can be accessed after presubmit finishes
+          # Useful for debugging, accessing golden files, etc.
+          STAGING_DIR="/tmp/ci_logs_${{ github.run_id }}"
+          mkdir -p "$STAGING_DIR"
+          if [ -d "bazel-testlogs" ]; then
+             cp -rL bazel-testlogs "$STAGING_DIR/"
+             echo "Staged logs to $STAGING_DIR"
+          fi
+          echo "Presubmit results saved to $STAGING_DIR"
+        shell: bash
