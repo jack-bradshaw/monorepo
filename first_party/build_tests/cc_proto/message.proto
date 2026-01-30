@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package first_party.build_tests.proto;
+
+message Message {
+  string text = 1;
+}

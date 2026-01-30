@@ -1,0 +1,19 @@
+{{/*
+Details Component
+
+Params:
+* title: Title text
+* subtitle: Subtitle text (optional)
+* description: Description text (optional)
+*/}}
+<div class="card-details">
+  <h3 class="title">{{ .title }}</h2>
+
+  {{ if .subtitle }}
+  <p class="subtitle">{{ .subtitle }}</p>
+  {{ end }}
+  
+  {{ if .description }}
+  <p class="body">{{ .description }}</p>
+  {{ end }}
+</div>

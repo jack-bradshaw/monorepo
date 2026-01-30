@@ -1,0 +1,35 @@
+{{/*
+Journal Highlights Layout
+
+Parameters:
+* key: "highlights" (implied)
+*/}}
+{{ define "main" }}
+
+<div class="content root wide-root">
+  <div class="content block">
+    <ol class="content items wide-items" role="list">
+      {{ $itemMap := dict }}
+      {{ range site.Data.journal.items }}
+      {{ $itemMap = merge $itemMap (dict .key .) }}
+      {{ end }}
+
+      {{ range site.Data.journal.highlights }}
+      {{ $item := index $itemMap . }}
+      {{ if $item }}
+      {{ $monthInt := int $item.month }}
+      {{ $yearInt := int $item.year }}
+      {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
+      {{ $date := printf "%s %d" $monthName $yearInt }}
+      <li>
+        {{ partial "card/composition/journal-card.html" (dict "title" $item.title "description"
+        $item.description "link"
+        (printf
+        "/journal/item/%s" $item.key)) }}
+      </li>
+      {{ end }}
+      {{ end }}
+    </ol>
+  </div>
+</div>
+{{ end }}

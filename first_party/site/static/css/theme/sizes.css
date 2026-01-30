@@ -1,0 +1,17 @@
+/** Semantically-named size properties. */
+:root {
+  /* Border Radii */
+  --radius-none: 0;
+  --radius-small: 4px;
+  --radius-medium: 8px;
+  --radius-large: 12px;
+
+  /* Border Shapes (specified as border radii) */
+  --shape-circle: 50%;
+  --shape-pill: 9999px;
+
+  /* Icons */
+  --icon-small: 16px;
+  --icon-medium: 32px;
+  --icon-large: 48px;
+}

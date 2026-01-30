@@ -1,0 +1,40 @@
+[
+  {
+    "key": "poetry",
+    "title": "Poetry",
+    "description": "Rhythmic and expressive verse",
+    "items": ["sports-bar", "five-stages-of-writing", "the-tao-of-the-pen"]
+  },
+  {
+    "key": "essays",
+    "title": "Essays",
+    "description": "Structured prose exploring specific topics",
+    "items": [
+      "death-of-a-critic",
+      "why-write",
+      "open-source-writing",
+      "place-of-writing",
+      "pragmatic-altruism",
+      "challenge-of-monologue",
+      "one-or-many",
+      "judgement-vs-understanding",
+      "meat-because-we-want-to",
+      "into-the-subverse",
+      "cursed-cursor",
+      "welcome-to-the-machine",
+      "treehouse-library",
+      "illumination",
+      "the-answer",
+      "hermeticity",
+      "a-writers-dilemma",
+      "humanity-loop",
+      "judgement-vs-understanding"
+    ]
+  },
+  {
+    "key": "sci-fi",
+    "title": "Sci-Fi",
+    "description": "Speculative fiction exploring futuristic concepts",
+    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man", "logs"]
+  }
+]

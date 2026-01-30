@@ -1,0 +1,13 @@
+{{/* Generates a page under /gallery/series for each gallery series. */}}
+
+{{ range site.Data.gallery.series }}
+  {{ $.AddPage (dict
+      "kind" "page"
+      "type" "gallery"
+      "layout" "series"
+      "path" .key
+      "title" .title
+      "description" .description
+      "params" (dict "key" .key))
+  }}
+{{ end }}
