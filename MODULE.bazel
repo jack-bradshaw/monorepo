@@ -16,6 +16,8 @@ VERSION_DAGGER = "2.57"
 
 VERSION_GRPC = "5.6.0"
 
+VERSION_PLAYWRIGHT = "1.49.0"
+
 VERSION_MAVEN_AUTO_VALUE = "1.11.0"
 
 VERSION_MAVEN_FLOGGER = "0.9"
@@ -35,7 +37,7 @@ VERSION_MAVEN_LWJGL = "3.3.6"
 VERSION_MAVEN_PROTOBUF_JVM_VERSION = "4.32.0-RC2"
 
 # Core Tools
-bazel_dep(name = "bazel_skylib", version = "1.8.1")
+bazel_dep(name = "bazel_skylib", version = "1.8.2")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "buildozer", version = "8.2.1")
 bazel_dep(name = "buildifier_prebuilt", version = "8.2.0.2")
@@ -49,11 +51,11 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
 
 # C and C++
-bazel_dep(name = "rules_cc", version = "0.2.5")
+bazel_dep(name = "rules_cc", version = "0.2.14")
 
 # JVM (Java + Kotlin)
 bazel_dep(name = "rules_java", version = "8.15.1")
-bazel_dep(name = "rules_kotlin", version = "2.1.8")
+bazel_dep(name = "rules_kotlin", version = "2.1.9")
 bazel_dep(name = "rules_jvm_external", version = "6.8")
 
 ## Maven Deps
@@ -86,7 +88,7 @@ maven.install(
         "com.google.protobuf:protobuf-kotlin-lite:%s" % VERSION_MAVEN_PROTOBUF_JVM_VERSION,
         "com.google.protobuf:protobuf-lite:3.0.1",
         "com.google.truth:truth:1.4.4",
-        "com.microsoft.playwright:playwright:1.49.0",
+        "com.microsoft.playwright:playwright:%s" % VERSION_PLAYWRIGHT,
         "commons-codec:commons-codec:1.19.0",
         "io.ktor:ktor-http-jvm:%s" % VERSION_MAVEN_KTOR,
         "io.ktor:ktor-server-core-jvm:%s" % VERSION_MAVEN_KTOR,
@@ -348,3 +350,14 @@ use_repo(rules_hugo, "rules_hugo")
 
 hugo_executable = use_extension("//first_party/rules_hugo:fetch_hugo_executable.bzl", "fetch_hugo_executable")
 use_repo(hugo_executable, "hugo")
+
+# Playwright
+
+bazel_dep(name = "rules_playwright", version = "0.5.3")
+
+playwright = use_extension("@rules_playwright//playwright:extensions.bzl", "playwright")
+playwright.repo(
+    name = "playwright",
+    playwright_version = VERSION_PLAYWRIGHT,
+)
+use_repo(playwright, "playwright")

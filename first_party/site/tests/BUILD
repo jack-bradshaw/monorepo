@@ -48,7 +48,11 @@ kt_jvm_test(
     srcs = ["MenuTest.kt"],
     data = [
         "//first_party/site/tests/goldens",
+        "@playwright//:chromium-headless-shell",
     ],
+    env = {
+        "PLAYWRIGHT_BROWSERS_PATH": "$(rootpath @playwright//:chromium-headless-shell)/../",
+    },
     shard_count = 34,
     tags = ["requires-network"],
     test_class = "com.jackbradshaw.site.tests.MenuTest",
@@ -65,6 +69,12 @@ kt_jvm_test(
     name = "content_navigation_test",
     size = "medium",
     srcs = ["ContentNavigationTest.kt"],
+    data = [
+        "@playwright//:chromium-headless-shell",
+    ],
+    env = {
+        "PLAYWRIGHT_BROWSERS_PATH": "$(rootpath @playwright//:chromium-headless-shell)/../",
+    },
     shard_count = 14,
     tags = ["requires-network"],
     test_class = "com.jackbradshaw.site.tests.ContentNavigationTest",
@@ -83,7 +93,11 @@ kt_jvm_test(
     srcs = ["ContentAppearanceTest.kt"],
     data = [
         "//first_party/site/tests/goldens",
+        "@playwright//:chromium-headless-shell",
     ],
+    env = {
+        "PLAYWRIGHT_BROWSERS_PATH": "$(rootpath @playwright//:chromium-headless-shell)/../",
+    },
     shard_count = 15,
     tags = ["requires-network"],
     test_class = "com.jackbradshaw.site.tests.ContentAppearanceTest",
@@ -101,7 +115,11 @@ kt_jvm_test(
     srcs = ["CookieConsentTest.kt"],
     data = [
         "//first_party/site/tests/goldens",
+        "@playwright//:chromium-headless-shell",
     ],
+    env = {
+        "PLAYWRIGHT_BROWSERS_PATH": "$(rootpath @playwright//:chromium-headless-shell)/../",
+    },
     tags = ["requires-network"],
     test_class = "com.jackbradshaw.site.tests.CookieConsentTest",
     deps = [
