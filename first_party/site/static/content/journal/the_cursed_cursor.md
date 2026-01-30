@@ -63,6 +63,4 @@ send my badge back in the mail, and the company will wipe my laptop remotely the
 severance. I might finally get some sleep. Who am I kidding though? I am never getting out of this
 place. I will be making the cursor blink until the end of time. I already wrote the code, now I just
 need to justify my existence long enough to... I don't even know. Just long enough to feel like it's
-been long enough. What else is there to do anyway, write fiction? Hah...
-
-Although... Hm. At least then this cursed cursor could get some rest from its eternal blinking.
+been long enough. What else is there to do anyway, write fiction? Hah!
