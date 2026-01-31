@@ -26,7 +26,7 @@ Parameters: None
   {{ $expandByDefault := index site.Data.gallery.behaviour "subjects" }}
   {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'subjects' in Gallery behaviour.json" }}{{ end }}
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
-    <summary id="{{ .title | urlize }}">
+    <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">

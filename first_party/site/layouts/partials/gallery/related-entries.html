@@ -13,8 +13,8 @@ Parameters:
 {{ $seriesKeys := slice }}
 {{ range site.Data.gallery.series }}
 {{ if in .items $itemKey }}
-{{ $chips = $chips | append (dict "text" (printf "View series: %s" .title) "link" (printf "/gallery/series#%s" (.key |
-urlize))) }}
+{{ $chips = $chips | append (dict "text" (printf "View series: %s" .title) "link" (printf "/gallery/series/%s/" .key))
+}}
 {{ $seriesKeys = $seriesKeys | append .key }}
 {{ end }}
 {{ end }}
