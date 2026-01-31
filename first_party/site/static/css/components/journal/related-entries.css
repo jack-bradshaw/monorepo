@@ -1,0 +1,6 @@
+.related-entries {
+  margin-top: var(--gap-large);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-small);
+}

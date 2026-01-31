@@ -1,13 +1,12 @@
 {{/*
-Journal Related Chips Partial
+Related Journal Entries Partial
 
 Parameters:
-* key: The article key to find relationships for.
-* year: The article's publication year (int).
+* entry: The journal entry object.
 */}}
 
-{{ $itemKey := .key }}
-{{ $itemYear := .year }}
+{{ $itemKey := .entry.key }}
+{{ $itemYear := .entry.year }}
 {{ $chips := slice }}
 
 {{/* Series */}}
@@ -41,11 +40,9 @@ urlize))) }}
 {{ end }}
 
 {{ if gt (len $chips) 0 }}
-<div class="related-chips" style="margin-top: var(--spacing-4); display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+<div class="related-entries journal-related-entries">
   {{ range $chips }}
-  <a href="{{ .link }}" class="button unselected" style="text-decoration: none;">
-    {{ .text }}
-  </a>
+  {{ partial "components/chip.html" . }}
   {{ end }}
 </div>
 {{ end }}

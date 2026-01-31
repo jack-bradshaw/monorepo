@@ -1,0 +1,48 @@
+{{/*
+Related Gallery Entries Partial
+
+Parameters:
+* entry: The gallery entry object.
+*/}}
+
+{{ $itemKey := .entry.key }}
+{{ $itemYear := .entry.year }}
+{{ $chips := slice }}
+
+{{/* Series */}}
+{{ $seriesKeys := slice }}
+{{ range site.Data.gallery.series }}
+{{ if in .items $itemKey }}
+{{ $chips = $chips | append (dict "text" (printf "View series: %s" .title) "link" (printf "/gallery/series#%s" (.key |
+urlize))) }}
+{{ $seriesKeys = $seriesKeys | append .key }}
+{{ end }}
+{{ end }}
+
+{{/* Subjects (via Series) */}}
+{{ range site.Data.gallery.subjects }}
+{{ $found := false }}
+{{ range .series }}
+{{ if in $seriesKeys . }}
+{{ $found = true }}
+{{ end }}
+{{ end }}
+{{ if $found }}
+{{ $chips = $chips | append (dict "text" (printf "View subject: %s" .title) "link" (printf "/gallery/subjects#%s" (.key
+| urlize))) }}
+{{ end }}
+{{ end }}
+
+{{/* Chronology */}}
+{{ if $itemYear }}
+{{ $chips = $chips | append (dict "text" (printf "View more from %d" $itemYear) "link" (printf
+"/gallery/chronological#%d" $itemYear)) }}
+{{ end }}
+
+{{ if gt (len $chips) 0 }}
+<div class="related-entries gallery-related-entries">
+  {{ range $chips }}
+  {{ partial "components/chip.html" . }}
+  {{ end }}
+</div>
+{{ end }}
