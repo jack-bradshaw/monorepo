@@ -28,7 +28,7 @@ Parameters:
   {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'chronological' in Journal behaviour.json" }}{{
   end }}
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
-    <summary id="{{ .year }}">
+    <summary id="{{ .year | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .year "subtitle" (printf "All articles from %s" .year)) }}
     </summary>
     <ol class="content items wide-items" role="list">

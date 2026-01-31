@@ -6,10 +6,15 @@ Parameters: None
 
 {{ define "main" }}
 
+{{ $itemMap := dict }}
+{{ range site.Data.gallery.items }}
+{{ $itemMap = merge $itemMap (dict .key .) }}
+{{ end }}
+
 {{ $itemsByYear := dict }}
 {{ range site.Data.gallery.items }}
-{{ $yearKey := printf "%v" .year }}
-{{ $dateStr := .date | default (printf "%d-01-01" .year) }}
+{{ $yearKey := printf "%v" (int .year) }}
+{{ $dateStr := .date | default (printf "%d-01-01" (int .year)) }}
 {{ $itemWithSort := merge . (dict "sortDate" $dateStr) }}
 
 {{ $items := index $itemsByYear $yearKey | default slice }}
@@ -29,7 +34,7 @@ Parameters: None
   {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'chronological' in Gallery behaviour.json" }}{{
   end }}
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
-    <summary id="{{ $year }}">
+    <summary id="{{ $year | urlize }}">
       {{ $subtitle := printf "All pieces from %s" $year }}
       {{ partial "content-block-header.html" (dict "title" $year "subtitle" $subtitle) }}
     </summary>
@@ -43,9 +48,9 @@ Parameters: None
         {{ $subtitle = printf "%s - %s" $subtitle .description }}
         {{ end }}
         {{ else if .year }}
-        {{ $subtitle = .year }}
+        {{ $subtitle = int .year }}
         {{ if .description }}
-        {{ $subtitle = printf "%s - %s" $subtitle .description }}
+        {{ $subtitle = printf "%d - %s" (int $subtitle) .description }}
         {{ end }}
         {{ else if .description }}
         {{ $subtitle = .description }}

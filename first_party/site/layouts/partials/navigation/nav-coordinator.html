@@ -10,8 +10,10 @@ Params:
 
   {{ partial "navigation/nav-primary.html" . }}
 
+  {{ if eq .Layout "item" }}
+  {{ partial "navigation/nav-contextual.html" (dict "context" .) }}
+  {{ else }}
   {{/* Gallery Sub-navigation */}}
-
   {{ if hasPrefix .RelPermalink "/gallery/" }}
   {{ $subpages := slice
   (dict "name" "Highlights" "link" "/gallery/highlights/")
@@ -19,10 +21,7 @@ Params:
   (dict "name" "Palettes" "link" "/gallery/palettes/")
   (dict "name" "Chronological" "link" "/gallery/chronological/")
   }}
-  {{ partial "navigation/nav-secondary.html" (dict
-  "context" . "title"
-  "Gallery" "pages" $subpages)
-  }}
+  {{ partial "navigation/nav-secondary.html" (dict "context" . "title" "Gallery" "pages" $subpages) }}
   {{ end }}
 
   {{/* Journal Sub-navigation */}}
@@ -32,14 +31,9 @@ Params:
   (dict "name" "Topics" "link" "/journal/topics/")
   (dict "name" "Series" "link" "/journal/series/")
   (dict "name" "Genres" "link" "/journal/genres/")
-
   (dict "name" "Chronological" "link" "/journal/chronological/")
   }}
-  {{ partial "navigation/nav-secondary.html" (dict
-  "context" .
-  "title" "Journal"
-  "pages" $subpages)
-  }}
+  {{ partial "navigation/nav-secondary.html" (dict "context" . "title" "Journal" "pages" $subpages) }}
   {{ end }}
 
   {{/* Repository Sub-navigation */}}
@@ -49,14 +43,9 @@ Params:
   (dict "name" "Locations" "link" "/repository/locations/")
   (dict "name" "Technologies" "link" "/repository/technologies/")
   }}
-  {{ partial "navigation/nav-secondary.html" (dict
-  "context" .
-  "title" "Repository"
-  "pages" $subpages)
-  }}
+  {{ partial "navigation/nav-secondary.html" (dict "context" . "title" "Repository" "pages" $subpages) }}
   {{ end }}
-
-
+  {{ end }}
 
   <script src="/js/navigation.js"></script>
 </div>

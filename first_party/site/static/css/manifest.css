@@ -66,10 +66,7 @@
 @import url(/css/components/card/elements/card-banner.css) layer(components);
 @import url(/css/components/card/elements/card-details.css) layer(components);
 @import url(/css/components/card/elements/card-icons.css) layer(components);
-@import url(/css/components/chip.css) layer(components);
 @import url(/css/components/content-block-header.css) layer(components);
-@import url(/css/components/journal/related-entries.css) layer(components);
-@import url(/css/components/gallery/related-entries.css) layer(components);
 @import url(/css/components/navigation/nav-coordinator.css) layer(components);
 @import url(/css/components/navigation/nav.css) layer(components);
 @import url(/css/components/root/footer.css) layer(components);
