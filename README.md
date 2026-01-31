@@ -8,9 +8,17 @@ throughout the repository.
 ## Release
 
 The repository itself is not released to third party package managers; however, various subpackages
-are available from an assortment of package managers, with release details provided in the READMEs
-distributed throughout the repository. Furthermore, the repository itself is unversioned, and
-individual packages are versioned independently.
+originated here are mirrored to standalone GitHub repositories for independent discovery and
+publication.
+
+- **[klu](https://github.com/jack-bradshaw/klu)**: General helpers and utilities for Kotlin.
+- **[otter](https://github.com/jack-bradshaw/otter)**: Experimental game engine.
+- **[concurrency](https://github.com/jack-bradshaw/concurrency)**: Kotlin concurrency infrastructure.
+- **[coroutines](https://github.com/jack-bradshaw/coroutines)**: Kotlin coroutine infrastructure.
+
+Release details and independent publication status are provided in the READMEs of both this
+repository and their respective standalone mirrors. The monorepo itself remains unversioned,
+while individual packages are versioned independently.
 
 ## Legal
 

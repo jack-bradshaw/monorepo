@@ -24,7 +24,7 @@ def sh_library_with_runfiles(name, srcs = [], src = None, suffix = None, include
     validate_sources(src, srcs, "sh")
     merged_srcs = srcs if srcs else [src]
 
-    processed_files = inject_runfiles(name, merged_srcs, suffix)
+    processed_files = inject_runfiles(name, merged_srcs, suffix, visibility = kwargs.get("visibility"))
 
     deps = kwargs.pop("deps", [])
     if include_runfiles_dep:
@@ -58,7 +58,7 @@ def sh_binary_with_runfiles(name, srcs = [], src = None, suffix = None, include_
     validate_sources(src, srcs, "sh")
     merged_srcs = srcs if srcs else [src]
 
-    processed_files = inject_runfiles(name, merged_srcs, suffix)
+    processed_files = inject_runfiles(name, merged_srcs, suffix, visibility = kwargs.get("visibility"))
 
     deps = kwargs.pop("deps", [])
     if include_runfiles_dep:
@@ -92,7 +92,7 @@ def sh_test_with_runfiles(name, srcs = [], src = None, suffix = None, include_ru
     validate_sources(src, srcs, "sh")
     merged_srcs = srcs if srcs else [src]
 
-    processed_files = inject_runfiles(name, merged_srcs, suffix)
+    processed_files = inject_runfiles(name, merged_srcs, suffix, visibility = kwargs.get("visibility"))
 
     deps = kwargs.pop("deps", [])
     if include_runfiles_dep:
