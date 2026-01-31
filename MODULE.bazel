@@ -36,6 +36,8 @@ VERSION_MAVEN_LWJGL = "3.3.6"
 
 VERSION_MAVEN_PROTOBUF_JVM_VERSION = "4.32.0-RC2"
 
+VERSION_MAVEN_COPYBARA = "0.22.0"
+
 # Core Tools
 bazel_dep(name = "bazel_skylib", version = "1.8.2")
 bazel_dep(name = "platforms", version = "1.0.0")
@@ -172,6 +174,12 @@ http_jar(
     name = "google-java-format",
     sha256 = "33068bbbdce1099982ec1171f5e202898eb35f2919cf486141e439fc6e3a4203",
     url = "https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar",
+)
+
+http_jar(
+    name = "copybara",
+    sha256 = "d1a43707446e1335a9cb015769e55d086a1954ee2abd0f8bf8187b4b5566241f",
+    url = "https://github.com/google/copybara/releases/download/v20260119/copybara_deploy.jar",
 )
 
 # Go

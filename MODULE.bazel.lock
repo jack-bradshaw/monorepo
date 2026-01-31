@@ -432,7 +432,7 @@
   "moduleExtensions": {
     "//first_party/rules_hugo:fetch_hugo_executable.bzl%fetch_hugo_executable": {
       "general": {
-        "bzlTransitiveDigest": "8+ad/bV1VcyPVT3VF6lDwpg9ckUZkIx6vYZP0aT2iHM=",
+        "bzlTransitiveDigest": "ZX8ZajeoxcZaLlZXMlrQTKEWltUD+2ru92WyP9y+9rc=",
         "usagesDigest": "EExoLlt6ZkIgnD3Zs9fFAmnrLjqv3WZx1+rSL2XTLhQ=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},

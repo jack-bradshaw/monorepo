@@ -1,4 +1,4 @@
-load("@rules_jvm_external//:defs.bzl", "java_export")
+load("//first_party/releasing/maven:defs.bzl", "maven_release")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
@@ -11,12 +11,12 @@ kt_jvm_library(
     ],
 )
 
-java_export(
+maven_release(
     name = "release",
-    srcs = ["Stub.java"],
-    maven_coordinates = "com.jackbradshaw:kmonkey:1.0.0",
-    pom_template = "pom_template.xml",
+    coordinates = "com.jackbradshaw:kmonkey:1.0.0",
     deps = [
         ":kmonkey",
     ],
+    project_description = "Kotlin support for the JMonkey video game engine.",
+    project_name = "Kotlin JMonkey (KMonkey)",
 )

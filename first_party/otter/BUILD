@@ -1,6 +1,13 @@
-load("@rules_jvm_external//:defs.bzl", "java_export")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/releasing/maven:defs.bzl", "maven_release")
+load("//first_party/releasing/copybara:defs.bzl", "copybara_release")
+
+copybara_release(
+    name = "mirror",
+    destination_url = "https://github.com/jack-bradshaw/otter.git",
+    source_dir = "first_party/otter",
+)
 
 kt_jvm_library_with_dagger(
     name = "scope",
@@ -70,13 +77,13 @@ kt_jvm_library(
     ],
 )
 
-java_export(
+maven_release(
     name = "release",
-    srcs = ["Stub.java"],
-    maven_coordinates = "com.jackbradshaw:otter:0.0.0",
-    pom_template = "pom_template.xml",
+    coordinates = "com.jackbradshaw:otter:20260131.103100",
     deps = [
         ":otter",
         "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_kotlin",
     ],
+    project_description = "A experimental and incomplete video game engine based on JMonkey.",
+    project_name = "Otter Game Engine",
 )

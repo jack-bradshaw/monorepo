@@ -31,8 +31,11 @@ def inject_runfiles(name, srcs, suffix, visibility = None):
 
         processed_files.append(output_file)
 
+        # Sanitize the source label for use in a target name
+        sanitized_src = src.replace("//", "").replace("/", "_").replace(":", "_").replace(".", "_")
+
         native.genrule(
-            name = "{}_{}_generator".format(name, src),
+            name = "{}_{}_generator".format(name, sanitized_src),
             srcs = [src, _boilerplate()],
             outs = [output_file],
             cmd = """
