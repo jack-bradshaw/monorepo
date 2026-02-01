@@ -10,8 +10,10 @@ Params:
 
   {{ partial "navigation/nav-primary.html" . }}
 
+  {{ if or (eq .Layout "item") (eq .Layout "series") }}
   {{ if eq .Layout "item" }}
   {{ partial "navigation/nav-contextual.html" (dict "context" .) }}
+  {{ end }}
   {{ else }}
   {{/* Gallery Sub-navigation */}}
   {{ if hasPrefix .RelPermalink "/gallery/" }}
