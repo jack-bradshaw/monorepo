@@ -12,41 +12,52 @@ Parameters:
 {{ if hasPrefix $context.RelPermalink "/gallery/" }}{{ $type = "gallery" }}{{ end }}
 {{ if hasPrefix $context.RelPermalink "/journal/" }}{{ $type = "journal" }}{{ end }}
 
-{{ $pages := slice }}
-{{ $title := "Context" }}
+{{ $context.Scratch.Set "nav_pages" slice }}
+{{ $context.Scratch.Set "nav_title" "Context" }}
 
 {{ if eq $type "gallery" }}
 {{/* Gallery Series Logic */}}
 {{ range site.Data.gallery.series }}
 {{ if in .items $itemKey }}
-{{ $title = .title }}
+{{ $.context.Scratch.Set "nav_title" .title }}
 {{ $items := .items }}
-{{ $index := -1 }}
+
+{{ $.context.Scratch.Set "temp_index" -1 }}
 {{ range $i, $k := $items }}
-{{ if eq $k $itemKey }}{{ $index = $i }}{{ end }}
+{{ if eq $k $itemKey }}
+{{ $.context.Scratch.Set "temp_index" $i }}
 {{ end }}
+{{ end }}
+{{ $index := $.context.Scratch.Get "temp_index" }}
 
 {{ if gt $index 0 }}
 {{ $prev := index $items (sub $index 1) }}
-{{ $pages = $pages | append (dict "name" "< Previous" "link" (printf "/gallery/item/%s" $prev)) }} {{ end }} {{
-  $pages=$pages | append (dict "name" "Full Series" "link" (printf "/gallery/series/%s/" .key)) }} {{ if lt $index (sub
-  (len $items) 1) }} {{ $next :=index $items (add $index 1) }} {{ $pages=$pages | append (dict "name" "Next >" "link"
-  (printf "/gallery/item/%s" $next)) }} {{ end }} {{ end }} {{ end }} {{/* Standalone Gallery Logic (if no series found)
-  */}} {{ if eq (len $pages) 0 }} {{ range site.Data.gallery.subjects }} {{ if eq (len $pages) 0 }} {{ $found :=false }}
-  {{ range .series }} {{ $sKey :=. }} {{ range site.Data.gallery.series }} {{ if and (eq .key $sKey) (in .items
-  $itemKey) }} {{ $found=true }} {{ end }} {{ end }} {{ end }} {{ if $found }} {{ $title=.title }} {{ $pages=$pages |
-  append (dict "name" (printf "More in %s" .title) "link" (printf "/gallery/subjects#%s" (.key | urlize))) }} {{ end }}
-  {{ end }} {{ end }} {{ end }} {{ else if eq $type "journal" }} {{/* Journal Series Logic */}} {{ range
-  site.Data.journal.series }} {{ if in .items $itemKey }} {{ $title=.title }} {{ $items :=.items }} {{ $index :=-1 }} {{
-  range $i, $k :=$items }} {{ if eq $k $itemKey }}{{ $index=$i }}{{ end }} {{ end }} {{ if gt $index 0 }} {{ $prev
-  :=index $items (sub $index 1) }} {{ $pages=$pages | append (dict "name" "< Previous" "link" (printf "/journal/item/%s"
-  $prev)) }} {{ end }} {{ $pages=$pages | append (dict "name" "Full Series" "link" (printf "/journal/series#%s" (.key |
-  urlize))) }} {{ if lt $index (sub (len $items) 1) }} {{ $next :=index $items (add $index 1) }} {{ $pages=$pages |
-  append (dict "name" "Next >" "link" (printf "/journal/item/%s" $next)) }} {{ end }} {{ end }} {{ end }} {{/*
-  Standalone Journal Logic (Topics/Genres) */}} {{ if eq (len $pages) 0 }} {{ range site.Data.journal.topics }} {{ if
-  and (eq (len $pages) 0) (in .items $itemKey) }} {{ $title=.title }} {{ $pages=$pages | append (dict "name"
-  (printf "More %s" .title) "link" (printf "/journal/topics#%s" (.key | urlize))) }} {{ end }} {{ end }} {{ range
-  site.Data.journal.genres }} {{ if and (eq (len $pages) 0) (in .items $itemKey) }} {{ $title=.title }} {{ $pages=$pages
-  | append (dict "name" (printf "More %s" .title) "link" (printf "/journal/genres#%s" (.key | urlize))) }} {{ end }} {{
-  end }} {{ end }} {{ end }} {{ if gt (len $pages) 0 }} {{ partial "navigation/nav-secondary.html" (dict "context"
-  $context "title" $title "pages" $pages) }} {{ end }}
+{{ $.context.Scratch.Add "nav_pages" (dict "name" "< Previous" "link" (printf "/gallery/item/%s" $prev)) }} {{ end }} {{
+  $.context.Scratch.Add "nav_pages" (dict "name" "Full Series" "link" (printf "/gallery/series/%s/" .key)) }} {{ if lt
+  $index (sub (len $items) 1) }} {{ $next :=index $items (add $index 1) }} {{ $.context.Scratch.Add "nav_pages"
+  (dict "name" "Next >" "link" (printf "/gallery/item/%s" $next)) }} {{ end }} {{ end }} {{ end }} {{/* Standalone
+  Gallery Logic (if no series found) */}} {{ if eq (len ($context.Scratch.Get "nav_pages" )) 0 }} {{ range
+  site.Data.gallery.subjects }} {{ if eq (len ($.context.Scratch.Get "nav_pages" )) 0 }} {{
+  $.context.Scratch.Set "found_in_subject" false }} {{ range .series }} {{ $sKey :=. }} {{ range
+  site.Data.gallery.series }} {{ if and (eq .key $sKey) (in .items $itemKey) }} {{
+  $.context.Scratch.Set "found_in_subject" true }} {{ end }} {{ end }} {{ end }} {{ if
+  $.context.Scratch.Get "found_in_subject" }} {{ $.context.Scratch.Set "nav_title" .title }} {{
+  $.context.Scratch.Add "nav_pages" (dict "name" (printf "More in %s" .title) "link" (printf "/gallery/subjects#%s"
+  (.key | urlize))) }} {{ end }} {{ end }} {{ end }} {{ end }} {{ else if eq $type "journal" }} {{/* Journal Series
+  Logic */}} {{ range site.Data.journal.series }} {{ if in .items $itemKey }} {{ $.context.Scratch.Set "nav_title"
+  .title }} {{ $items :=.items }} {{ $.context.Scratch.Set "temp_index" -1 }} {{ range $i, $k :=$items }} {{ if eq $k
+  $itemKey }} {{ $.context.Scratch.Set "temp_index" $i }} {{ end }} {{ end }} {{ $index
+  :=$.context.Scratch.Get "temp_index" }} {{ if gt $index 0 }} {{ $prev :=index $items (sub $index 1) }} {{
+  $.context.Scratch.Add "nav_pages" (dict "name" "< Previous" "link" (printf "/journal/item/%s" $prev)) }} {{ end }} {{
+  $.context.Scratch.Add "nav_pages" (dict "name" "Full Series" "link" (printf "/journal/series#%s" (.key | urlize))) }}
+  {{ if lt $index (sub (len $items) 1) }} {{ $next :=index $items (add $index 1) }} {{ $.context.Scratch.Add "nav_pages"
+  (dict "name" "Next >" "link" (printf "/journal/item/%s" $next)) }} {{ end }} {{ end }} {{ end }} {{/* Standalone
+  Journal Logic (Topics/Genres) */}} {{ if eq (len ($context.Scratch.Get "nav_pages" )) 0 }} {{ range
+  site.Data.journal.topics }} {{ if and (eq (len ($.context.Scratch.Get "nav_pages" )) 0) (in .items $itemKey) }} {{
+  $.context.Scratch.Set "nav_title" .title }} {{ $.context.Scratch.Add "nav_pages" (dict "name" (printf "More %s"
+  .title) "link" (printf "/journal/topics#%s" (.key | urlize))) }} {{ end }} {{ end }} {{ range site.Data.journal.genres
+  }} {{ if and (eq (len ($.context.Scratch.Get "nav_pages" )) 0) (in .items $itemKey) }} {{
+  $.context.Scratch.Set "nav_title" .title }} {{ $.context.Scratch.Add "nav_pages" (dict "name" (printf "More %s"
+  .title) "link" (printf "/journal/genres#%s" (.key | urlize))) }} {{ end }} {{ end }} {{ end }} {{ end }} {{ $pages
+  :=$context.Scratch.Get "nav_pages" }} {{ $title :=$context.Scratch.Get "nav_title" }} {{ if gt (len $pages) 0 }} {{
+  partial "navigation/nav-secondary.html" (dict "context" $context "title" $title "pages" $pages) }} {{ end }}
