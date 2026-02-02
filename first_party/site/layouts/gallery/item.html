@@ -1,22 +1,15 @@
-{{/*
-Gallery Item Layout
-
-Parameters: the item key of the item to display
-*/}}
-{{ define "main" }}
+{{/* Gallery Item Layout Parameters: the item key of the item to display */}} {{ define "main" }}
 
 <div class="content root wide-root">
   <div class="panel">
-    {{ $item := dict }}
-    {{ range site.Data.gallery.items }}
-    {{ if eq .key $.Params.key }}
-    {{ $item = . }}
-    {{ end }}
-    {{ end }}
-    
-    {{ $webPath := strings.TrimPrefix "/static" $item.full_size }}
+    {{ $item := dict }} {{ range site.Data.gallery.items }} {{ if eq .key $.Params.key }} {{ $item =
+    . }} {{ end }} {{ end }} {{ $webPath := strings.TrimPrefix "/static" $item.full_size }}
     <a href="{{ $webPath }}">
-      <img class="rounded fill-width" src="{{ $webPath }}" alt="{{ $item.title }}" />
+      <img
+        class="rounded fill-width"
+        src="{{ $webPath }}"
+        alt="{{ $item.title }}"
+      />
     </a>
   </div>
 </div>

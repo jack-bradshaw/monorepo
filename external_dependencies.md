@@ -11,8 +11,9 @@ manager and the vendoring system.
 
 Maven dependencies are managed as follows:
 
-- Dependencies are declared in the JVM section of [MODULES.bazel](/MODULES.bazel).
-- Dependencies are locked via the `REPIN=1 bazel run @com_jackbradshaw_maven//:pin` shell command.
+- Dependencies are declared in the JVM section of [MODULE.bazel](/MODULE.bazel).
+- Dependencies are locked via the `REPIN=1 bazelisk run @com_jackbradshaw_maven//:pin` shell
+  command.
 - Dependencies are referenced via `@com_jackbradshaw_maven//:${groupId}_{artefactId}`, where
   `groupId` and `artefactId` identifies the dependency, after all non-alphanumeric characters have
   been replaced with `_`.
@@ -26,8 +27,9 @@ registered as `com.google.flogger:flogger:1.0.0`, and referenced as
 NPM dependencies are managed as follows:
 
 - Dependencies are declared in [`package.json`](/package.json).
-- Dependencies are locked via the `bazel run -- @pnpm//:pnpm --dir $(pwd) install --lockfile-only`
-  shell command (the working directory must be the repository root when run).
+- Dependencies are locked via the
+  `bazelisk run -- @pnpm//:pnpm --dir $(pwd) install --lockfile-only` shell command (the working
+  directory must be the repository root when run).
 - Dependencies are referenced via `//:node_modules/$packageName`, where `packageName` identifies the
   dependency.
 
@@ -41,7 +43,7 @@ registered as `"babel-plugin-minify-infinity": "0.4.3"`, and referenced as
 PIP dependencies are managed as follows:
 
 - Dependencies are declared in [`pip_requirements.in`](/pip_requirements.in).
-- Dependencies are locked via the `bazel run :requirements.update` shell command.
+- Dependencies are locked via the `bazelisk run :requirements.update` shell command.
 - Dependencies are referenced via `@pypi//$packageName`, where `packageName` identifies the
   dependency.
 
@@ -52,9 +54,9 @@ For example, [mdformat](https://pypi.org/project/mdformat/0.7.22/) is registered
 
 Crate dependencies are managed as follows:
 
-- Dependencies are declared in the Rust section of [`MODULES.bazel`](/MODULES.bazel).
+- Dependencies are declared in the Rust section of [`MODULE.bazel`](/MODULE.bazel).
 - Dependencies are not locked as locking not supported by the package manager.
-- Dependencies are referenced via `@crate//:$packageName`.
+- Dependencies are referenced via `@crates//:$packageName`.
 
 For example, [serde](https://crates.io/crates/serde) is registered as:
 
@@ -65,7 +67,7 @@ crate.spec(
 )
 ```
 
-After registration it is referenced as `@crate//:serde`.
+After registration it is referenced as `@crates//:serde`.
 
 ## Vendoring Dependencies
 
@@ -73,7 +75,7 @@ External dependencies that are used in the build are vendored for hermeticity; h
 dependency that contains at least one file over 100MB is excluded, as the GitHub file size limit
 prevents the dependency from being pushed. Pushing the smaller files of the oversized dependency is
 not possible as that interferes with Bazel operations, so the entire dependency must be excluded.
-The shell command to vendor such dependencies is `bazel vendor //...`, and the shell command to
+The shell command to vendor such dependencies is `bazelisk vendor //...`, and the shell command to
 identify oversized dependencies is `find third_party/bazel_vendor -type f -size +100M`. Oversized
 dependencies are ignored via [`/.gitignore`](/.gitignore).
 

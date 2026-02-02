@@ -43,8 +43,7 @@ physics-enabled cubes that interact in a 3D space. The demo showcases:
 - Material application and rendering.
 - General engine approach.
 
-Run the demo with `bazel run //first_party/otter/demo` and view the [demo](/first_party/otter/demo)
-package for further details.
+Run the [demo](/first_party/otter/demo) with `bazelisk run //first_party/otter/demo`.
 
 ## Discontinuation
 

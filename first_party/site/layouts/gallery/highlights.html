@@ -1,40 +1,22 @@
-{{/*
-Gallery Highlights Layout
-
-Parameters: None
-*/}}
-{{ define "main" }}
+{{/* Gallery Highlights Layout Parameters: None */}} {{ define "main" }}
 <div class="content root wide-root">
   <div class="content block">
-    <ol class="content items wide-items" role="list">
-      {{ $itemMap := dict }}
-      {{ range site.Data.gallery.items }}
-      {{ $itemMap = merge $itemMap (dict .key .) }}
-      {{ end }}
-
-      {{ range site.Data.gallery.highlights }}
-      {{ $item := index $itemMap . }}
+    <ol
+      class="content items wide-items"
+      role="list"
+    >
+      {{ $itemMap := dict }} {{ range site.Data.gallery.items }} {{ $itemMap = merge $itemMap (dict
+      .key .) }} {{ end }} {{ range site.Data.gallery.highlights }} {{ $item := index $itemMap . }}
       {{ if $item }}
       <li>
-        {{ $subtitle := "" }}
-        {{ if $item.year }}
-        {{ $subtitle = $item.year }}
-        {{ if $item.description }}
-        {{ $subtitle = printf "%s · %s" $subtitle $item.description }}
-        {{ end }}
-        {{ else if $item.description }}
-        {{ $subtitle = $item.description }}
-        {{ end }}
-
-        {{ partial "card/composition/gallery-card.html" (dict
-        "image" (strings.TrimPrefix "/static" $item.thumbnail)
-        "title" $item.title
-        "subtitle" $subtitle
-        "link" (printf "/gallery/item/%s" $item.key))
-        }}
+        {{ $subtitle := "" }} {{ if $item.year }} {{ $subtitle = $item.year }} {{ if
+        $item.description }} {{ $subtitle = printf "%s · %s" $subtitle $item.description }} {{ end
+        }} {{ else if $item.description }} {{ $subtitle = $item.description }} {{ end }} {{ partial
+        "card/composition/gallery-card.html" (dict "image" (strings.TrimPrefix "/static"
+        $item.thumbnail) "title" $item.title "subtitle" $subtitle "link" (printf "/gallery/item/%s"
+        $item.key)) }}
       </li>
-      {{ end }}
-      {{ end }}
+      {{ end }} {{ end }}
     </ol>
   </div>
 </div>

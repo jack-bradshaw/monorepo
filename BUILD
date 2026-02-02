@@ -20,3 +20,5 @@ compile_pip_requirements(
 )
 
 dagger_rules(repo_name = "@com_jackbradshaw_maven")
+
+exports_files([".prettierignore"])

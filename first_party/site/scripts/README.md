@@ -9,13 +9,13 @@ costs. Different configurations exist for converting different image types.
 To convert a gallery content item to a thumbnail:
 
 ```shell
-bazel run first_party/site/scripts:generate_gallery_item_webp -- absolute_path_to_image
+bazelisk run first_party/site/scripts:generate_gallery_item_webp -- absolute_path_to_image
 ```
 
 To convert a decoration item to a thumbnail:
 
 ```shell
-bazel run first_party/site/scripts:generate_decoration_webp -- absolute_path_to_image
+bazelisk run first_party/site/scripts:generate_decoration_webp -- absolute_path_to_image
 ```
 
 The difference between the two scripts is the quality and size of the resulting thumbnail.

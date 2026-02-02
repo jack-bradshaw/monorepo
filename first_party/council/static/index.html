@@ -1109,7 +1109,11 @@
       function addAgent(name) {
         if (name.toLowerCase() === "system") return;
 
-        const details = agents.get(name) || { display: name, role: "Connecting...", model: "" };
+        const details = agents.get(name) || {
+          display: name,
+          role: "Connecting...",
+          model: "",
+        };
         let li = document.getElementById(`agent-${name}`);
 
         // Create if not exists

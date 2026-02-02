@@ -6,11 +6,5 @@ bazel-*
 .idea/*
 .ijwb/*
 .vscode
-
-# Bazel includes these repositories when running bazel vendor //... but they are too large for
-# GitHub, so they cannot be checked in.
-# TODO(jack-bradshaw): Migrate away from GitHub and check in all vendored deps.
-third_party/bazel_vendor/rules_java++toolchains+remotejdk11_macos_aarch64
-third_party/bazel_vendor/rules_java++toolchains+remotejdk21_macos_aarch64
-third_party/bazel_vendor/toolchains_llvm++llvm+llvm_toolchain_llvm
-third_party/bazel_vendor/rules_rust++rust+rust_macos_aarch64__aarch64-apple-darwin__stable_tools
+.aspect/
+!.aspect/rules/external_repository_action_cache/

@@ -1,14 +1,13 @@
 load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
-load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
-load("@npm//:prettier/package_json.bzl", prettier = "bin")
 load("@rules_java//java:defs.bzl", "java_binary")
 
 package(default_visibility = ["//:__subpackages__"])
 
 js_library(
     name = "prettierrc",
-    srcs = ["prettier.config.cjs"],
+    srcs = ["//first_party/formatting/prettier:prettier.config.cjs"],
     deps = [
         "//:node_modules/@prettier/plugin-xml",
         "//:node_modules/prettier-plugin-gherkin",
@@ -16,17 +15,9 @@ js_library(
     ],
 )
 
-prettier.prettier_binary(
+alias(
     name = "prettier",
-    data = [":prettierrc"],
-    # Suppresses errors that are not relevant to formatting
-    env = {"BAZEL_BINDIR": "."},
-    fixed_args = [
-        # Ensures hermeticity by using the runfiles version not the source version.
-        "--config=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath :prettierrc)",
-        # Suppressess unnecessary success logs.
-        "--loglevel=warn",
-    ],
+    actual = "//first_party/formatting/prettier:prettier_binary",
 )
 
 java_binary(

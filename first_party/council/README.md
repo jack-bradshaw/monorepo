@@ -16,13 +16,16 @@ posterity.
 
 ## Usage
 
-Start the system by running `bazel run //first_party/council`, and configure it with the following
-options:
+The server can be started locally using:
 
-- api_key: A Google Gemini API key. If present, skips the UI prompt to set the key.
-- port: The port for the web server. If absent, automatically selected.
+```bash
+bazelisk run //first_party/council:council -- --api_key=YOUR_KEY [--port=PORT]
+```
 
-Example: `bazel run //first_party/council -- --api_key=abcdef --port=8080`.
+Where:
+
+- `api_key` is a Google Gemini API key, optional, if absent, the UI will prompt for it.
+- `port` is the port for the web server, optional, if absent, automatically selected.
 
 The web UI will open automatically when the server starts.
 

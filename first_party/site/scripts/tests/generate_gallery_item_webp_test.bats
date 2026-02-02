@@ -1,5 +1,6 @@
 setup() {
   {{RUNFILES_BOILERPLATE}}
+  source "$(rlocation "_main/first_party/dr_bashir/strings/trim_indent_with_runfiles.sh")"
 }
 
 @test "generate_gallery_item_webp__generated_image_matches_golden" {
@@ -31,12 +32,11 @@ setup() {
   run cmp "$output_file_path" "$golden_file_path"
 
   if [ "$status" -ne 0 ]; then
-    cp "$output_file_path" \
-      "$TEST_UNDECLARED_OUTPUTS_DIR/generate_gallery_item_webp_test___generate_gallery_item_webp__generated_image_matches_golden.webp"
+    cp "$output_file_path" "$TEST_UNDECLARED_OUTPUTS_DIR/actual.webp"
+    cp "$golden_file_path" "$TEST_UNDECLARED_OUTPUTS_DIR/expected.webp"
     echo "Output image does not match golden."
-    echo "New image saved to \
-		    bazel-testlogs/first_party/site/scripts/tests/generate_gallery_item_webp_test/test.outputs"
-    echo "Test failed."
+    echo "Actual image:   $TEST_UNDECLARED_OUTPUTS_DIR/actual.webp"
+    echo "Expected image: $TEST_UNDECLARED_OUTPUTS_DIR/expected.webp"
     return 1
   fi
 }
