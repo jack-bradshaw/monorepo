@@ -130,9 +130,14 @@ class TestHarness {
     // Find the browser executable to use it directly, bypassing Playwright's internal
     // browser resolution which often fails in hermetic Bazel environments.
     // The path below is derived from the rules_playwright bzlmod canonical name.
-    val browserExecutable = runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-arm64/chromium_headless_shell-1148/chrome-mac/headless_shell")
-        ?: runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-x64/chromium_headless_shell-1148/chrome-mac/headless_shell")
-        ?: runfiles.rlocation("rules_playwright++playwright+playwright/browsers/linux-x64/chromium_headless_shell-1148/headless_shell")
+    val os = System.getProperty("os.name").lowercase()
+    val browserExecutable =
+        if (os.contains("mac")) {
+          runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-arm64/chromium_headless_shell-1148/chrome-mac/headless_shell")
+              ?: runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-x64/chromium_headless_shell-1148/chrome-mac/headless_shell")
+        } else {
+          runfiles.rlocation("rules_playwright++playwright+playwright/browsers/linux-x64/chromium_headless_shell-1148/headless_shell")
+        }
 
     val env = System.getenv().toMutableMap()
     if (browserExecutable != null) {
