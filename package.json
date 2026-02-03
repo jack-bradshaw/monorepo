@@ -1,7 +1,7 @@
 {
   "name": "monorepo",
   "version": "0.0.0",
-  "_comment": "Use dependencies only. Never use dev_dependencies. Let Bazel manage where deps go.",
+  "_comment": "The concept of dev dependencies is meaningless in this repo. A dep can be referenced in multiple places, and the concept of prod/dev is not well defined. Only production deps are used to avoid creating the illusion of a strong separation between prod and dev where none exists.",
   "dependencies": {
     "@eslint/js": "^9.16.0",
     "@types/node": "^18",

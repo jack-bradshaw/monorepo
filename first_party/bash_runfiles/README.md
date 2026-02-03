@@ -81,7 +81,7 @@ bats_test_with_runfiles(
 ```
 
 The `my_test` macro generates a target named `my_test`, which provides the processed file as
-`my_test_with_runfiles.bats`, and can be run with `bazelisk test :my_test`.
+`my_test_with_runfiles.bats`, and can be run with `bazel test :my_test`.
 
 ### Generic Rules
 

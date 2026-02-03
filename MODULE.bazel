@@ -201,12 +201,6 @@ bazel_dep(name = "rules_swift", version = "3.1.2")
 bazel_dep(name = "rules_apple", version = "4.1.2")
 bazel_dep(name = "rules_ios", version = "6.0.1")
 
-## Resolves conflict between rules_swift and rules_apple
-single_version_override(
-    module_name = "rules_swift",
-    version = "3.1.2",
-)
-
 ## Formatting
 http_archive(
     name = "swiftformat",
@@ -257,17 +251,17 @@ git_override(
 )
 
 ## Required since gRPC kotlin is not available via bzlmod and cannot resolve its own deps.
-## When any deps are updated, repin by running 'REPIN=1 bazelisk run @grpc_kotlin_maven//:pin'
+## When any deps are updated, repin by running 'REPIN=1 bazel run @grpc_kotlin_maven//:pin'
 grpc_kotlin_maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 grpc_kotlin_maven.install(
     name = "grpc_kotlin_maven",
     artifacts = [
         "com.google.guava:guava:33.3.1-android",
         "com.google.jimfs:jimfs:1.3.0",
+        "com.google.truth:truth:1.4.4",
+        "com.google.truth.extensions:truth-proto-extension:1.4.4",
         "com.google.protobuf:protobuf-java:4.30.2",
         "com.google.protobuf:protobuf-kotlin:4.30.2",
-        "com.google.truth.extensions:truth-proto-extension:1.4.2",
-        "com.google.truth:truth:1.4.2",
         "com.squareup:kotlinpoet:1.14.2",
         "junit:junit:4.13.2",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.1",
@@ -292,7 +286,7 @@ buf.toolchains(version = "v1.57.0")
 use_repo(buf, "rules_buf_toolchains")
 
 # Android
-bazel_dep(name = "rules_android", version = "0.6.6")
+bazel_dep(name = "rules_android", version = "0.7.1")
 
 remote_android_extensions = use_extension(
     "@rules_android//bzlmod_extensions:android_extensions.bzl",
