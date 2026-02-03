@@ -87,8 +87,8 @@ These rules are followed universally across the site.
 
 ## Formatting
 
-HTML files in this package and its subpackages are not autoformatted because the autoformatter is
-unable to correctly process HTML files with Go templating.
+HTML files in this package and its subpackages are not autoformatted because the formatter is unable
+to correctly process HTML files with Go templating.
 
 ## Issues
 

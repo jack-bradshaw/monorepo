@@ -75,6 +75,7 @@ java_export(
     srcs = ["Stub.java"],
     maven_coordinates = "com.jackbradshaw:otter:0.0.0",
     pom_template = "pom_template.xml",
+    tags = ["no-javadocs"],
     deps = [
         ":otter",
         "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_kotlin",

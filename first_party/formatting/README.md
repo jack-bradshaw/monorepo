@@ -16,12 +16,50 @@ This package uses the following formatting tools:
 
 The configurations are distributed throughout the package in various files/subpackages.
 
-## Functionality
+## Usage
 
-The `//first_party/formatting:autoformat` target formats all files in the repository. Execution can
-be confined to a particular file/directory by passing it as an argument (e.g.
-`bazel run //first_party/formatting:autoformat -- /first_party/concurrency` will format all
-files/directories contained under `concurrency` recursively, but leave all other files unchanged).
+To format all files in the repository:
+
+```bash
+bazel run //first_party/formatting:formatting
+```
+
+To format a particular file or all files in a directory (recursively):
+
+```bash
+bazel run //first_party/formatting:formatting -- /path/to/file/or/directory
+```
+
+To format only the files that have been modified (relative to main):
+
+```bash
+bazel run //first_party/formatting:formatting -- $(git diff --name-only main)
+```
+
+To format only the files in the present commit:
+
+```bash
+bazel run //first_party/formatting:formatting -- $(git diff-tree --no-commit-id --name-only -r HEAD)
+```
+
+To format only the files with uncommitted changes (index or working tree):
+
+```bash
+bazel run //first_party/formatting:formatting -- $(git diff --name-only)
+```
+
+## Limitations
+
+The HTML formatter does not handle HTML go-template files properly due to an upstream error. It is
+presently disabled on such files via [.prettierignore](.prettierignore).
+
+## Future Work
+
+The [ignore file](.prettierignore) must exist in the root directory because prettier interprets its
+contents as relative file paths. Future work may involve synthesizing the ignore file at runtime
+from various smaller ignore files distributed throughout the repository, so that individual packages
+can define their rules without overloading the main ignore file. The repository is presently small
+enough for this to be a non-issue.
 
 ## Issues
 
