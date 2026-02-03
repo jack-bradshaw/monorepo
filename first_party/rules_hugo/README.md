@@ -38,7 +38,9 @@ hugo_site(
 )
 ```
 
-Version information is hardcoded in [fetch_hugo_executable.bzl](fetch_hugo_executable.bzl) and
+## Versions
+
+Versions are hardcoded in [fetch_hugo_executable.bzl](fetch_hugo_executable.bzl) and
 [fetch_rules_hugo.bzl](fetch_rules_hugo.bzl).
 
 ## Issues

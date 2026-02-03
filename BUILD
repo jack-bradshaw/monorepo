@@ -20,3 +20,9 @@ compile_pip_requirements(
 )
 
 dagger_rules(repo_name = "@com_jackbradshaw_maven")
+
+filegroup(
+    name = "prettierignore",
+    srcs = [".prettierignore"],
+    visibility = ["//visibility:public"],
+)

@@ -55,6 +55,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Presubmit
         run: |
+          source third_party/bazelisk/setup.sh
           source first_party/presubmit/presubmit.sh
           run_presubmit
         shell: bash

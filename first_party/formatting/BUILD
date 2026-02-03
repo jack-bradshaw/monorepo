@@ -1,32 +1,12 @@
-load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
-load("@aspect_rules_js//js:defs.bzl", "js_library")
-load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
-load("@npm//:prettier/package_json.bzl", prettier = "bin")
+load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("@rules_java//java:defs.bzl", "java_binary")
 
 package(default_visibility = ["//:__subpackages__"])
 
-js_library(
-    name = "prettierrc",
-    srcs = ["prettier.config.cjs"],
-    deps = [
-        "//:node_modules/@prettier/plugin-xml",
-        "//:node_modules/prettier-plugin-gherkin",
-        "//:node_modules/prettier-plugin-sql",
-    ],
-)
-
-prettier.prettier_binary(
+# Referenced repeatedly in formatting target. Alias improves readability.
+alias(
     name = "prettier",
-    data = [":prettierrc"],
-    # Suppresses errors that are not relevant to formatting
-    env = {"BAZEL_BINDIR": "."},
-    fixed_args = [
-        # Ensures hermeticity by using the runfiles version not the source version.
-        "--config=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath :prettierrc)",
-        # Suppressess unnecessary success logs.
-        "--loglevel=warn",
-    ],
+    actual = "//first_party/formatting/prettier:binary",
 )
 
 java_binary(
@@ -51,7 +31,7 @@ alias(
 )
 
 format_multirun(
-    name = "autoformat",
+    name = "formatting",
     c = "@llvm_toolchain_llvm//:bin/clang-format",
     cc = "@llvm_toolchain_llvm//:bin/clang-format",
     css = ":prettier",
