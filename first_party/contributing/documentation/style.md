@@ -191,8 +191,8 @@ Too Declarative: "The `//foo:bar` target generates artifacts when executed." (Pa
 a tutorial where step-by-step guidance is needed)
 
 Just Right: "Reference documentation: `FooProvider` must be configured prior to use by calling
-`init()`. Tutorial: Generate the artifacts by running `bazel run //foo:bar`." (Declarative tone for
-system descriptions, imperative tone for procedural guidance).
+`init()`. Tutorial: Generate the artifacts by running `bazelisk run //foo:bar`." (Declarative tone
+for system descriptions, imperative tone for procedural guidance).
 
 Striking a balance between declarative (defining the system) and imperative (guiding the reader)
 ensures documentation provides appropriate information for its context, with reference documentation

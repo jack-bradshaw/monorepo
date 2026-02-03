@@ -3,7 +3,7 @@
 
 echo "bazel version $(bazel version)"
 
-if ! bazel build //...; then
+if ! bazelisk build //...; then
   echo "Some targets did not build."
   return 1
 fi

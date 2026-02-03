@@ -1,25 +1,5 @@
-{{/*
-Transforms a month index to a UI label (e.g. 1 -> January, 2 -> February, etc.)
-
-Parameters:
-* month: The index of he month, as an int or string, using 1-indexing.
-
-Returns:
-* The full English name of the month.
-*/}}
-{{ $month := . }}
-{{ $monthNames := dict
-"1" "January"
-"2" "February"
-"3" "March"
-"4" "April"
-"5" "May"
-"6" "June"
-"7" "July"
-"8" "August"
-"9" "September"
-"10" "October"
-"11" "November"
-"12" "December"
-}}
-{{ return (index $monthNames (printf "%d" (int $month))) }}
+{{/* Transforms a month index to a UI label (e.g. 1 -> January, 2 -> February, etc.) Parameters: *
+month: The index of he month, as an int or string, using 1-indexing. Returns: * The full English
+name of the month. */}} {{ $month := . }} {{ $monthNames := dict "1" "January" "2" "February" "3"
+"March" "4" "April" "5" "May" "6" "June" "7" "July" "8" "August" "9" "September" "10" "October" "11"
+"November" "12" "December" }} {{ return (index $monthNames (printf "%d" (int $month))) }}

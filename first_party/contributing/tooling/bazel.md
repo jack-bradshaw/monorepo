@@ -7,9 +7,13 @@ Directives for [Bazel](https://bazel.build) build in this repository.
 All BUILD files in this repository must conform to these directives; however, the contents of
 [third_party](/third_party) are explicitly exempt, as they originate from external sources.
 
-## Build Targets
+## Documentation
 
-Directives for organizing code into build targets.
+Directives for documentation related to the build system.
+
+## Build Files
+
+Directives for BUILD files.
 
 ### Practice: Granular Targets
 

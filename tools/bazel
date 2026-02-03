@@ -1,0 +1,4 @@
+#!/bin/bash
+# Wrapper script for Bazelisk
+# This ensures that all bazel invocations use the hermetic bazelisk binary
+exec "$(dirname "$0")/../third_party/bazelisk/bazelisk" "$@"

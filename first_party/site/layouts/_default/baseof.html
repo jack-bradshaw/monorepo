@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="{{ .Description | default .Site.Params.description }}"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="{{ .Description | default .Site.Params.description }}" />
+    <title>{{ .Site.Title }} | {{ .Title }}</title>
 
-  <title>{{ .Site.Title }} | {{ .Title }}</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/decorations/people/jack.png"
+    />
+    <link
+      rel="stylesheet"
+      href="/css/manifest.css"
+    />
 
-  <link rel="icon" type="image/x-icon" href="/decorations/people/jack.png">
-  <link rel="stylesheet" href="/css/manifest.css" />
+    {{ partial "root/analytics.html" . }}
+  </head>
 
-  {{ partial "root/analytics.html" . }}
-</head>
+  <body>
+    {{ partial "root/privacy-notice.html" . }} {{ partial "root/skip-link.html" . }}
 
-<body>
-  {{ partial "root/privacy-notice.html" . }}
-  {{ partial "root/skip-link.html" . }}
+    <div class="root page">
+      {{ partial "root/header.html" . }}
 
-  <div class="root page">
-    {{ partial "root/header.html" . }}
+      <main
+        class="root main"
+        id="main"
+      >
+        {{ block "main" . }} {{ end }}
+      </main>
 
-    <main class="root main" id="main">{{ block "main" . }} {{ end }}</main>
-
-    {{ partial "root/footer.html" . }}
-  </div>
-</body>
-
+      {{ partial "root/footer.html" . }}
+    </div>
+  </body>
 </html>

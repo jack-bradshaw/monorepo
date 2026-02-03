@@ -25,7 +25,7 @@ done
 
 # if [[ -z "$API_KEY" ]]; then
 #     echo "Error: --api_key argument is required."
-#     echo "Usage: bazel run //first_party/experimental/council:council -- --api_key=YOUR_KEY [--port=PORT]"
+#     echo "Usage: bazelisk run //first_party/experimental/council -- --api_key=YOUR_KEY [--port=PORT]"
 #     exit 1
 # fi
 

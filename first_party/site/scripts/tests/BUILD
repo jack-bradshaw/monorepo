@@ -8,6 +8,7 @@ bats_test_with_runfiles(
     args = [],
     data = [
         "input_image.jpg",
+        "//first_party/dr_bashir/strings",
         "//first_party/site/scripts:webp_converter",
         "//first_party/site/scripts/tests/goldens",
     ],
@@ -19,6 +20,7 @@ bats_test_with_runfiles(
     args = [],
     data = [
         "input_image.jpg",
+        "//first_party/dr_bashir/strings",
         "//first_party/site/scripts:generate_gallery_item_webp",
         "//first_party/site/scripts:webp_converter",
         "//first_party/site/scripts/tests/goldens",
@@ -31,6 +33,7 @@ bats_test_with_runfiles(
     args = [],
     data = [
         "input_image.jpg",
+        "//first_party/dr_bashir/strings",
         "//first_party/site/scripts:generate_decoration_webp",
         "//first_party/site/scripts:webp_converter",
         "//first_party/site/scripts/tests/goldens",

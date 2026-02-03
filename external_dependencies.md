@@ -11,7 +11,7 @@ manager and the vendoring system.
 
 Maven dependencies are managed as follows:
 
-- Dependencies are declared in the JVM section of [MODULES.bazel](/MODULES.bazel).
+- Dependencies are declared in the JVM section of [MODULE.bazel](/MODULE.bazel).
 - Dependencies are locked via the `REPIN=1 bazel run @com_jackbradshaw_maven//:pin` shell command.
 - Dependencies are referenced via `@com_jackbradshaw_maven//:${groupId}_{artefactId}`, where
   `groupId` and `artefactId` identifies the dependency, after all non-alphanumeric characters have
@@ -52,9 +52,9 @@ For example, [mdformat](https://pypi.org/project/mdformat/0.7.22/) is registered
 
 Crate dependencies are managed as follows:
 
-- Dependencies are declared in the Rust section of [`MODULES.bazel`](/MODULES.bazel).
+- Dependencies are declared in the Rust section of [`MODULE.bazel`](/MODULE.bazel).
 - Dependencies are not locked as locking not supported by the package manager.
-- Dependencies are referenced via `@crate//:$packageName`.
+- Dependencies are referenced via `@crates//:$packageName`.
 
 For example, [serde](https://crates.io/crates/serde) is registered as:
 
@@ -65,7 +65,7 @@ crate.spec(
 )
 ```
 
-After registration it is referenced as `@crate//:serde`.
+After registration it is referenced as `@crates//:serde`.
 
 ## Vendoring Dependencies
 

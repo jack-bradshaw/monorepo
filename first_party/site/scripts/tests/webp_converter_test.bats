@@ -1,6 +1,7 @@
 setup() {
   {{RUNFILES_BOILERPLATE}}
   source "$(rlocation "_main/first_party/site/scripts/webp_converter.sh")"
+  source "$(rlocation "_main/first_party/dr_bashir/strings/trim_indent_with_runfiles.sh")"
 }
 
 @test "optimize_image__normal_conditions__generates_image_matching_golden" {
@@ -29,12 +30,11 @@ setup() {
   run cmp "$output_file_path" "$golden_file_path"
 
   if [ "$status" -ne 0 ]; then
-    cp "$output_file_path" \
-      "$TEST_UNDECLARED_OUTPUTS_DIR/webp_converter_test___optimize_image__normal_conditions__generates_image_matching_golden.webp"
+    cp "$output_file_path" "$TEST_UNDECLARED_OUTPUTS_DIR/actual.webp"
+    cp "$golden_file_path" "$TEST_UNDECLARED_OUTPUTS_DIR/expected.webp"
     echo "Output image does not match golden."
-    echo "New image saved to \
-		    bazel-testlogs/first_party/site/scripts/tests/webp_converter_test/test.outputs"
-    echo "Test failed."
+    echo "Actual image:   $TEST_UNDECLARED_OUTPUTS_DIR/actual.webp"
+    echo "Expected image: $TEST_UNDECLARED_OUTPUTS_DIR/expected.webp"
     return 1
   fi
 }

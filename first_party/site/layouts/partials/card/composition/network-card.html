@@ -1,15 +1,16 @@
-{{/*
-Network Card Component
-
-Params:
-* image: URL of the icon
-* title: Title text
-* link: URL to link to
-*/}}
+{{/* Network Card Component Params: * image: URL of the icon * title: Title text * link: URL to link
+to */}}
 <article class="card network-card">
-  <a href="{{ .link }}" target="_blank" rel="author">
+  <a
+    href="{{ .link }}"
+    target="_blank"
+    rel="author"
+  >
     <div class="content-wrapper">
-      <img src="{{ .image }}" alt="{{ .title }}">
+      <img
+        src="{{ .image }}"
+        alt="{{ .title }}"
+      />
       <h3>{{ .title }}</h3>
     </div>
   </a>
