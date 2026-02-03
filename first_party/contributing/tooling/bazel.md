@@ -39,3 +39,17 @@ Exceptions:
 This makes file-level dependencies explicit, eliminates the possibility of overloaded God-object
 targets, sets the codebase up for complex dependency management situations ahead of time, and
 improves improves build cache usage.
+
+### Standard: Documented Exports
+
+All calls to `exports_files` must have an explicit documented reason in the BUILD file.
+
+Example:
+
+```starlark
+# Required for reference by macro-generated build rules in other packages
+exports_files(["pom_template.xml"])
+```
+
+This ensures that the reason for exposing raw files (which breaks encapsulation) is clear to future
+maintainers.

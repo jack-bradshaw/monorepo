@@ -1,3 +1,4 @@
+# Exported for reference by the macro-generated targets.
 exports_files([
     "shell.bzl",
     "bats_test.bzl",
