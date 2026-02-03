@@ -1,11 +1,17 @@
 {
   "default_bindings": [
-    { "binding_url": "khr_simple_controller.json", "controller_type": "khr_simple_controller" },
+    {
+      "binding_url": "khr_simple_controller.json",
+      "controller_type": "khr_simple_controller"
+    },
     {
       "binding_url": "google_daydream_controller.json",
       "controller_type": "google_daydream_controller"
     },
-    { "binding_url": "htc_vive_controller.json", "controller_type": "htc_vive_controller" },
+    {
+      "binding_url": "htc_vive_controller.json",
+      "controller_type": "htc_vive_controller"
+    },
     { "binding_url": "htc_vive_pro.json", "controller_type": "htc_vive_pro" },
     {
       "binding_url": "microsoft_motion_controller.json",
@@ -15,9 +21,18 @@
       "binding_url": "microsoft_xbox_controller.json",
       "controller_type": "microsoft_xbox_controller"
     },
-    { "binding_url": "oculus_go_controller.json", "controller_type": "oculus_go_controller" },
-    { "binding_url": "oculus_touch_controller.json", "controller_type": "oculus_touch_controller" },
-    { "binding_url": "valve_index_controller.json", "controller_type": "valve_index_controller" }
+    {
+      "binding_url": "oculus_go_controller.json",
+      "controller_type": "oculus_go_controller"
+    },
+    {
+      "binding_url": "oculus_touch_controller.json",
+      "controller_type": "oculus_touch_controller"
+    },
+    {
+      "binding_url": "valve_index_controller.json",
+      "controller_type": "valve_index_controller"
+    }
   ],
   "actions": [
     { "name": "0", "type": "boolean" },

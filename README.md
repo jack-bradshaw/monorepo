@@ -49,8 +49,8 @@ tooling.
 
 ## Build System
 
-This repository uses [Bazel](https://bazel.build) exclusively and universally. The commands to build
-and test the entire repository are `bazel build //...` and `bazel test //...` respectively.
+This repository uses [Bazel](https://bazel.build) extensively. View the [instructions](/tools) to
+get started.
 
 ## Continuous Integration
 
