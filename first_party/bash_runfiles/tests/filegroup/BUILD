@@ -25,6 +25,7 @@ filegroup_with_runfiles(
     srcs = ["input_malformed_directive.txt"],
 )
 
+# Depending on the .txt_generator targets exposes the macro-processed files for validation in tests.
 bats_test(
     name = "filegroup_with_runfiles_test",
     srcs = ["filegroup_with_runfiles_test.bats"],
@@ -33,10 +34,10 @@ bats_test(
         "golden_multiple_directives.txt",
         "golden_no_directive.txt",
         "golden_one_directive.txt",
-        ":test_malformed_directive",
-        ":test_multiple_directives",
-        ":test_no_directive",
-        ":test_one_directive",
+        ":test_malformed_directive_input_malformed_directive.txt_generator",
+        ":test_multiple_directives_input_multiple_directives.txt_generator",
+        ":test_no_directive_input_no_directive.txt_generator",
+        ":test_one_directive_input_one_directive.txt_generator",
         "//first_party/bash_runfiles/tests:verify_matches_golden",
         "@bazel_tools//tools/bash/runfiles",
     ],

@@ -18,6 +18,9 @@ source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null ||
 f=
 set -e
 
+source "$(rlocation "_main/first_party/dr_bashir/testing/assertions_with_runfiles.sh")"
+source "$(rlocation "_main/first_party/dr_bashir/strings/trim_indent_with_runfiles.sh")"
+
 # Verifies that a file (located via rlocation) matches a golden file.
 # Reports differences and fails the test if they don't match.
 #
@@ -47,16 +50,8 @@ verify_matches_golden() {
   local expected_content=$(cat "$golden")
   local actual_content=$(cat "$actual")
 
-  source "$(rlocation "_main/first_party/bash_runfiles/tests/trim_spaces.sh")"
-  local expected_trimmed=$(trim_spaces "$expected_content")
-  local actual_trimmed=$(trim_spaces "$actual_content")
+  local expected_trimmed=$(echo "$expected_content" | trim_indent)
+  local actual_trimmed=$(echo "$actual_content" | trim_indent)
 
-  if [[ "$actual_trimmed" != "$expected_trimmed" ]]; then
-    echo "Expected and actual do not match."
-    echo "Expected:"
-    echo "$expected_trimmed"
-    echo "Actual:"
-    echo "$actual_trimmed"
-    return 1
-  fi
+  assert_equals "$expected_trimmed" "$actual_trimmed" "Expected and actual files do not match (trimmed)."
 }

@@ -25,17 +25,25 @@ setup() {
 }
 
 @test "sh_library__input_no_directive__matches_golden_no_directive" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/shell/input_no_directive_with_runfiles.sh" "_main/first_party/bash_runfiles/tests/shell/golden_no_directive.sh"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/shell/input_no_directive_with_runfiles.sh" \
+    "_main/first_party/bash_runfiles/tests/shell/golden_no_directive.sh"
 }
 
 @test "sh_library__input_one_directive__matches_golden_one_directive" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/shell/input_one_directive_with_runfiles.sh" "_main/first_party/bash_runfiles/tests/shell/golden_one_directive.sh"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/shell/input_one_directive_with_runfiles.sh" \
+    "_main/first_party/bash_runfiles/tests/shell/golden_one_directive.sh"
 }
 
 @test "sh_library__input_multiple_directives__matches_golden_multiple_directives" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/shell/input_multiple_directives_with_runfiles.sh" "_main/first_party/bash_runfiles/tests/shell/golden_multiple_directives.sh"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/shell/input_multiple_directives_with_runfiles.sh" \
+    "_main/first_party/bash_runfiles/tests/shell/golden_multiple_directives.sh"
 }
 
 @test "sh_library__input_malformed_directive__matches_golden_malformed_directive" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/shell/input_malformed_directive_with_runfiles.sh" "_main/first_party/bash_runfiles/tests/shell/golden_malformed_directive.sh"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/shell/input_malformed_directive_with_runfiles.sh" \
+    "_main/first_party/bash_runfiles/tests/shell/golden_malformed_directive.sh"
 }
