@@ -25,6 +25,7 @@ bats_test_with_runfiles(
     tags = ["manual"],
 )
 
+# Depending on the .bats_generator targets exposes the macro-processed files for validation in tests.
 bats_test(
     name = "bats_test_with_runfiles_test",
     srcs = ["bats_test_with_runfiles_test.bats"],

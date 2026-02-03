@@ -27,6 +27,7 @@ sh_library_with_runfiles(
     srcs = ["input_malformed_directive.sh"],
 )
 
+# Depending on the .sh_generator targets exposes the macro-processed files for validation in tests.
 bats_test(
     name = "sh_library_with_runfiles_test",
     srcs = ["sh_library_with_runfiles_test.bats"],
@@ -35,10 +36,10 @@ bats_test(
         "golden_multiple_directives.sh",
         "golden_no_directive.sh",
         "golden_one_directive.sh",
-        ":lib_malformed_directive",
-        ":lib_multiple_directives",
-        ":lib_no_directive",
-        ":lib_one_directive",
+        ":lib_malformed_directive_input_malformed_directive.sh_generator",
+        ":lib_multiple_directives_input_multiple_directives.sh_generator",
+        ":lib_no_directive_input_no_directive.sh_generator",
+        ":lib_one_directive_input_one_directive.sh_generator",
         "//first_party/bash_runfiles/tests:verify_matches_golden",
         "@bazel_tools//tools/bash/runfiles",
     ],
@@ -74,6 +75,7 @@ sh_binary_with_runfiles(
     suffix = "_binary",
 )
 
+# Depending on the .sh_generator targets exposes the macro-processed files for validation in tests.
 bats_test(
     name = "sh_binary_with_runfiles_test",
     srcs = ["sh_binary_with_runfiles_test.bats"],
@@ -82,10 +84,10 @@ bats_test(
         "golden_multiple_directives.sh",
         "golden_no_directive.sh",
         "golden_one_directive.sh",
-        ":bin_malformed_directive",
-        ":bin_multiple_directives",
-        ":bin_no_directive",
-        ":bin_one_directive",
+        ":bin_malformed_directive_input_malformed_directive.sh_generator",
+        ":bin_multiple_directives_input_multiple_directives.sh_generator",
+        ":bin_no_directive_input_no_directive.sh_generator",
+        ":bin_one_directive_input_one_directive.sh_generator",
         "//first_party/bash_runfiles/tests:verify_matches_golden",
         "@bazel_tools//tools/bash/runfiles",
     ],
@@ -125,6 +127,7 @@ sh_test_with_runfiles(
     tags = ["manual"],
 )
 
+# Depending on the .sh_generator targets exposes the macro-processed files for validation in tests.
 bats_test(
     name = "sh_test_with_runfiles_test",
     srcs = ["sh_test_with_runfiles_test.bats"],
@@ -133,10 +136,10 @@ bats_test(
         "golden_multiple_directives.sh",
         "golden_no_directive.sh",
         "golden_one_directive.sh",
-        ":test_malformed_directive",
-        ":test_multiple_directives",
-        ":test_no_directive",
-        ":test_one_directive",
+        ":test_malformed_directive_input_malformed_directive.sh_generator",
+        ":test_multiple_directives_input_multiple_directives.sh_generator",
+        ":test_no_directive_input_no_directive.sh_generator",
+        ":test_one_directive_input_one_directive.sh_generator",
         "//first_party/bash_runfiles/tests:verify_matches_golden",
         "@bazel_tools//tools/bash/runfiles",
     ],

@@ -1,7 +1,6 @@
 #!/usr/bin/env bats
 
 # Tests for the `bats_test_with_runfiles` macro.
-#
 
 setup() {
   # These tests verify the runfiles boilerplate preprocessor; therefore, they cannot rely on the
@@ -24,17 +23,25 @@ setup() {
 }
 
 @test "bats_test__input_no_directive__matches_golden_no_directive" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/bats_test/input_no_directive_with_runfiles.bats" "_main/first_party/bash_runfiles/tests/bats_test/golden_no_directive.bats"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/bats_test/input_no_directive_with_runfiles.bats" \
+    "_main/first_party/bash_runfiles/tests/bats_test/golden_no_directive.bats"
 }
 
 @test "bats_test__input_one_directive__matches_golden_one_directive" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/bats_test/input_one_directive_with_runfiles.bats" "_main/first_party/bash_runfiles/tests/bats_test/golden_one_directive.bats"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/bats_test/input_one_directive_with_runfiles.bats" \
+    "_main/first_party/bash_runfiles/tests/bats_test/golden_one_directive.bats"
 }
 
 @test "bats_test__input_multiple_directives__matches_golden_multiple_directives" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/bats_test/input_multiple_directives_with_runfiles.bats" "_main/first_party/bash_runfiles/tests/bats_test/golden_multiple_directives.bats"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/bats_test/input_multiple_directives_with_runfiles.bats" \
+    "_main/first_party/bash_runfiles/tests/bats_test/golden_multiple_directives.bats"
 }
 
 @test "bats_test__input_malformed_directive__matches_golden_malformed_directive" {
-  verify_matches_golden "_main/first_party/bash_runfiles/tests/bats_test/input_malformed_directive_with_runfiles.bats" "_main/first_party/bash_runfiles/tests/bats_test/golden_malformed_directive.bats"
+  verify_matches_golden \
+    "_main/first_party/bash_runfiles/tests/bats_test/input_malformed_directive_with_runfiles.bats" \
+    "_main/first_party/bash_runfiles/tests/bats_test/golden_malformed_directive.bats"
 }

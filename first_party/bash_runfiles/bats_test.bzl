@@ -24,11 +24,13 @@ def bats_test_with_runfiles(name, srcs = [], src = None, suffix = None, include_
 
     processed_files = inject_runfiles(name, merged_srcs, suffix)
 
+    data = kwargs.pop("data", []) + processed_files
+    if include_runfiles_dep:
+        data += ["@bazel_tools//tools/bash/runfiles"]
+
     bats_test(
         name = name,
         srcs = processed_files,
-        data = kwargs.pop("data", []) +
-               (["@bazel_tools//tools/bash/runfiles"] if include_runfiles_dep else []) +
-               processed_files,
+        data = data,
         **kwargs
     )
