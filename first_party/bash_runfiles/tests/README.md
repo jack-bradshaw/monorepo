@@ -14,3 +14,8 @@ of:
    targets are marked as `manual` to prevent execution during presubmit.
 1. The tests contain extraneous content (text, tests, shebangs, etc) to ensure the preprocessor does
    not remove any content that should remain.
+1. The tests depend on the intermediate generated targets (e.g.
+   `:input_no_directive_input_no_directive.bats_generator`) instead of the main generated target
+   (e.g. `:input_no_directive_with_runfiles.bats`) because the intermediate target is the only
+   reliable way to access the processed files. While some main generated targets do expose the
+   files, using the intermediate everywhere creates consistency.
