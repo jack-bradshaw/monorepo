@@ -14,15 +14,15 @@ Params:
 {{ end }}
 {{ end }}
 
-<nav class="secondary" aria-label="{{ .title }} navigation">
+{{ $class := .class | default "secondary" }}
+<nav class="{{ $class }}" aria-label="{{ .title }} navigation">
   <details open>
     <summary>{{ .title }}</summary>
     <ol>
       {{ range .pages }}
       <li>
         {{ $state := cond (eq .name $activePage) "selected" "unselected" }}
-        <a href="{{ .link }}" class="button {{ $state }}"
-        {{ if eq $state "selected" }} aria-current="page" {{ end }}>
+        <a href="{{ .link }}" class="button {{ $state }}" {{ if eq $state "selected" }} aria-current="page" {{ end }}>
           {{ .name }}
         </a>
       </li>

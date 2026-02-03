@@ -80,7 +80,10 @@ class TestHarness {
 
   /** Opens a new browser page at [page] (relative to the site root). */
   fun openPage(page: URI): Page =
-      browserContext.newPage().apply { navigate(getServerEndpoint().resolve(page).toString()) }
+      browserContext.newPage().apply {
+        navigate(getServerEndpoint().resolve(page).toString())
+        waitForLoad()
+      }
 
   /** Returns the runfile at [path] (relative to the runfiles root). */
   fun getRunfile(path: Path): Path = Paths.get(runfiles.rlocation(path.toString()))
@@ -124,7 +127,21 @@ class TestHarness {
 
   /** Initializes [playwright], [browser], and [browserContext]. */
   private fun setupInstrumentation(width: ScreenWidth) {
-    playwright = Playwright.create()
+    // Find the browser executable to use it directly, bypassing Playwright's internal
+    // browser resolution which often fails in hermetic Bazel environments.
+    // The path below is derived from the rules_playwright bzlmod canonical name.
+    val browserExecutable = runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-arm64/chromium_headless_shell-1148/chrome-mac/headless_shell")
+        ?: runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-x64/chromium_headless_shell-1148/chrome-mac/headless_shell")
+        ?: runfiles.rlocation("rules_playwright++playwright+playwright/browsers/linux-x64/chromium_headless_shell-1148/headless_shell")
+
+    val env = System.getenv().toMutableMap()
+    if (browserExecutable != null) {
+      env["PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD"] = "1"
+      val browsersDir = File(browserExecutable).parentFile.parentFile
+      env["PLAYWRIGHT_BROWSERS_PATH"] = browsersDir.absolutePath
+    }
+
+    playwright = Playwright.create(Playwright.CreateOptions().setEnv(env))
 
     // Reduce test flakiness by disabling GPU acceleration and other non-deterministic features.
     val launchOptions =
@@ -140,6 +157,11 @@ class TestHarness {
                     "--disable-in-process-stack-traces",
                     "--disable-checker-imaging",
                     "--force-color-profile=srgb"))
+    
+    if (browserExecutable != null) {
+      launchOptions.setExecutablePath(Paths.get(browserExecutable))
+    }
+
     browser = playwright.chromium().launch(launchOptions)
 
     browserContext =

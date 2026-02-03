@@ -60,4 +60,5 @@ Parameters:
   $.context.Scratch.Set "nav_title" .title }} {{ $.context.Scratch.Add "nav_pages" (dict "name" (printf "More %s"
   .title) "link" (printf "/journal/genres#%s" (.key | urlize))) }} {{ end }} {{ end }} {{ end }} {{ end }} {{ $pages
   :=$context.Scratch.Get "nav_pages" }} {{ $title :=$context.Scratch.Get "nav_title" }} {{ if gt (len $pages) 0 }} {{
-  partial "navigation/nav-secondary.html" (dict "context" $context "title" $title "pages" $pages) }} {{ end }}
+  partial "navigation/nav-secondary.html" (dict "context" $context "title" $title "pages" $pages "class" "contextual" )
+  }} {{ end }}
