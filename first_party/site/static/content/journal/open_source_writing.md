@@ -15,11 +15,9 @@ and I possess the same capacity for contradiction and variance that all humans d
 riddled with ugliness and horror, but if my work is to represent me, it should be a true
 representation, not a pulped and filtered version for the consumption of the unexamined.
 
-I have withheld only a few pieces, specifically those which could lead to severe repercussions given
-the current political climate, but I intend to publish them once I am beyond the reach of the local
-authorities. I look back now at my work and see not a body of truth or even purpose, but simply a
-mind attempting to make sense of this chaotic world. I will in time continue to upgrade and improve
-myself, and will adjust my work accordingly, but no progress can occur until it has all been checked
-in to version control. This has to happen, and given my commitment to the open source, there is no
-other way. I am taking a monumental risk by making my inner world visible to others, but somewhere
-buried in this soul is a child, and I intend to excavate myself from the ruins.
+I look back now at my work and see not a body of truth or even purpose, but simply a mind attempting
+to make sense of this chaotic world. I will in time continue to upgrade and improve myself, and will
+adjust my work accordingly, but no progress can occur until it has all been checked in to version
+control. This has to happen, and given my commitment to the open source, there is no other way. I am
+taking a monumental risk by making my inner world visible to others, but somewhere buried in this
+soul is a child, and I intend to excavate myself from the ruins.
