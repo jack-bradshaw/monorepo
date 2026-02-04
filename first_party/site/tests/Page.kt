@@ -44,7 +44,7 @@ fun Page.collapseAllDetailsContentBlocks() {
 /** Expands the popup menu identified by [type] on this [Page]. */
 fun Page.expandPopupMenu(type: MenuType) {
   evaluate("document.querySelector('${type.selector} details').open = true")
-  waitForLoad()
+  waitForTimeout(500.0)
 }
 
 /** Collapses the popup menu identified by [type] on this [Page]. */

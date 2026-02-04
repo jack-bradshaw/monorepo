@@ -127,24 +127,16 @@ class TestHarness {
 
   /** Initializes [playwright], [browser], and [browserContext]. */
   private fun setupInstrumentation(width: ScreenWidth) {
-    // Find the browser executable to use it directly, bypassing Playwright's internal
-    // browser resolution which often fails in hermetic Bazel environments.
-    // The path below is derived from the rules_playwright bzlmod canonical name.
     val os = System.getProperty("os.name").lowercase()
-    val browserExecutable =
-        if (os.contains("mac")) {
-          runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-arm64/chromium_headless_shell-1148/chrome-mac/headless_shell")
-              ?: runfiles.rlocation("rules_playwright++playwright+playwright/browsers/mac14-x64/chromium_headless_shell-1148/chrome-mac/headless_shell")
-        } else {
-          runfiles.rlocation("rules_playwright++playwright+playwright/browsers/linux-x64/chromium_headless_shell-1148/headless_shell")
-        }
+    check(os.contains("linux")) {
+      "Tests can only run on the Linux CI machine for pixel-perfect golden matching. Found OS: $os"
+    }
 
     val env = System.getenv().toMutableMap()
-    if (browserExecutable != null) {
-      env["PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD"] = "1"
-      val browsersDir = File(browserExecutable).parentFile.parentFile
-      env["PLAYWRIGHT_BROWSERS_PATH"] = browsersDir.absolutePath
-    }
+    val browserExecutable = runfiles.rlocation(BROWSER_RUNFILES_KEY)
+        ?: error("Unable to locate hermetic browser binary.")
+    env["PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD"] = "1"
+    env["PLAYWRIGHT_BROWSERS_PATH"] = File(browserExecutable).parentFile.parentFile.absolutePath
 
     playwright = Playwright.create(Playwright.CreateOptions().setEnv(env))
 
@@ -162,10 +154,7 @@ class TestHarness {
                     "--disable-in-process-stack-traces",
                     "--disable-checker-imaging",
                     "--force-color-profile=srgb"))
-    
-    if (browserExecutable != null) {
-      launchOptions.setExecutablePath(Paths.get(browserExecutable))
-    }
+            .setExecutablePath(Paths.get(browserExecutable))
 
     browser = playwright.chromium().launch(launchOptions)
 
@@ -294,6 +283,9 @@ class TestHarness {
 
     /** The directory where screendiff goldens are stored, relative to the runfiles root. */
     private val GOLDEN_DIR = Paths.get("_main/first_party/site/tests/goldens")
+
+    /** The runfiles key of the browser. */
+    private val BROWSER_RUNFILES_KEY= "rules_playwright++playwright+playwright/browsers/ubuntu24.04-x64/chromium_headless_shell-1148/chrome-linux/headless_shell"
   }
 }
 
