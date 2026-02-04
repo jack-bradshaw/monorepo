@@ -15,6 +15,7 @@ kt_jvm_library_with_dagger(
     ],
 )
 
+<<<<<<< HEAD
 kt_jvm_library(
     name = "component",
     srcs = [
@@ -38,20 +39,39 @@ kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = [
         "OtterComponentImpl.kt",
+=======
+kt_jvm_library_with_dagger(
+    name = "component",
+    srcs = [
+        "Otter.kt",
+>>>>>>> 013d49db (Refactor Backstab: Rename externaltypes, minimize targets, and polish docs)
     ],
     visibility = PUBLICITY,
     deps = [
-        ":component",
         ":scope",
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/coroutines:module",
+        "//first_party/otter/engine/core",
+        "//first_party/otter/engine/core:impl",
         "//first_party/otter/engine/core:module",
         "//first_party/otter/openxr/manifest/encoder:module",
         "//first_party/otter/openxr/manifest/generator:module",
         "//first_party/otter/openxr/manifest/installer:module",
+        "//first_party/otter/qualifiers",
         "//first_party/otter/scene/stage:module",
+        "//first_party/otter/timing",
+        "//first_party/otter/timing:impl",
         "//first_party/otter/timing:module",
+    ],
+)
+
+kt_jvm_library(
+    name = "otter",
+    visibility = PUBLICITY,
+    exports = [
+        ":component",
+        ":scope",
     ],
 )
 
@@ -63,7 +83,7 @@ java_export(
     tags = ["no-javadocs"],
     deps = [
         ":component",
-        ":component_impl",
+        ":otter",
         ":scope",
         "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_kotlin",
     ],

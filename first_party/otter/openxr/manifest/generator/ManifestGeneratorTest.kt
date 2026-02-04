@@ -8,7 +8,7 @@ import com.jackbradshaw.otter.openxr.manifest.goldens.goldenPrimaryManifest
 import com.jackbradshaw.otter.openxr.manifest.goldens.goldenSecondaryManifests
 import com.jackbradshaw.otter.openxr.model.InteractionProfile
 import com.jackbradshaw.otter.openxr.standard.StandardInteractionProfile
-import com.jackbradshaw.otter.otterComponent
+import com.jackbradshaw.otter.otter
 import dagger.Component
 import java.io.File
 import javax.inject.Inject
@@ -29,7 +29,7 @@ class ManifestGeneratorTest {
 
   @Before
   fun setUp() {
-    DaggerTestComponent.builder().consuming(otterComponent()).build().inject(this)
+    DaggerTestComponent.builder().setOtter(otter()).build().inject(this)
   }
 
   @Test
@@ -80,7 +80,7 @@ interface TestComponent {
 
   @Component.Builder
   interface Builder {
-    fun consuming(otter: OtterComponent): Builder
+    fun setOtter(otter: OtterComponent): Builder
 
     fun build(): TestComponent
   }

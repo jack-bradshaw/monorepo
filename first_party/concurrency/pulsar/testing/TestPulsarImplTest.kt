@@ -1,8 +1,8 @@
 package com.jackbradshaw.concurrency.pulsar.testing
 
 import com.jackbradshaw.concurrency.ConcurrencyScope
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
+import com.jackbradshaw.coroutines.testing.TestCoroutines
 import dagger.Component
 import kotlinx.coroutines.test.TestScope
 
@@ -13,7 +13,8 @@ class TestPulsarImplTest : TestPulsarTest() {
   private lateinit var testScope: TestScope
 
   override fun setup() {
-    val component = DaggerTestComponent.builder().consuming(testCoroutinesComponent()).build()
+    val component =
+        DaggerTestComponent.builder().setCoroutines(DaggerTestCoroutines.create()).build()
 
     subject = component.testPulsar()
     testScope = component.testScope()
@@ -25,7 +26,7 @@ class TestPulsarImplTest : TestPulsarTest() {
 }
 
 @ConcurrencyScope
-@Component(dependencies = [TestCoroutinesComponent::class], modules = [TestPulsarModule::class])
+@Component(dependencies = [TestCoroutines::class], modules = [TestPulsarModule::class])
 interface TestComponent {
   fun testScope(): TestScope
 
@@ -33,7 +34,7 @@ interface TestComponent {
 
   @Component.Builder
   interface Builder {
-    fun consuming(coroutines: TestCoroutinesComponent): Builder
+    fun setCoroutines(coroutines: TestCoroutines): Builder
 
     fun build(): TestComponent
   }

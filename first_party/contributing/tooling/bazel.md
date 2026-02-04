@@ -130,6 +130,110 @@ enforced by the publicity [conformance checker](/first_party/publicity/conforman
 documents and communicates the publicity of first party properties while providing a central point
 of control.
 
+## Standard: Target-Scoped Visibility
+
+Visibility must be defined on a per-target basis (i.e. not with the `package` function).
+
+Positive example:
+
+```starlark
+kt_jvm_library(
+    name = "foo",
+    srcs = ["Foo.kt"],
+    visibility = ["//visibility:public"],
+)
+```
+
+Negative example:
+
+```starlark
+package(default_visibility = ["//visibility:public"])
+
+kt_jvm_library(
+    name = "foo",
+    srcs = ["Foo.kt"],
+)
+```
+
+Package defaults make it easy to unintentionally expose internal targets. Explicit visibility forces
+a conscious decision for every target.
+
+Note: Omitting the visibility attribute to mark a targets as private is acceptable.
+
+## Practice: Private By Default
+
+Targets intended for exclusive consumption within the enclosing package should be marked as private.
+
+Example:
+
+```starlark
+# No explicit visibility attribute since private is the default.
+kt_jvm_library(
+    name = "foo",
+    srcs = ["Foo.kt"],
+)
+```
+
+This ensures targets are not accidentally used more broadly than intended.
+
+## Practice: Restrictive Visibility for Implementations
+
+Targets intended to form the implementation details of a multi-package system should be marked with
+the most restrictive visibility that passes compilation.
+
+Examples:
+
+```starlark
+kt_jvm_library(
+    name = "used_by_foo",
+    srcs = ["MyThing.kt"],
+    visibility = ["//first_party/foo:__pkg__"],
+)
+
+kt_jvm_library(
+    name = "used_by_bar_and_subpackages",
+    srcs = ["MyOtherThing.kt"],
+    visibility = ["//first_party/bar:__subpackages__"],
+)
+```
+
+This ensures targets are not accidentally used more broadly than intended.
+
+## Standard: Internal Visibility for Private APIs
+
+Targets that constitute an API that is intended for broad use within the repository (but not by the
+general public) should be marked with visibility `//first_party:__subpackages__`.
+
+Example:
+
+```starlark
+kt_jvm_library(
+    name = "internal_util",
+    srcs = ["InternalUtil.kt"],
+    visibility = ["//first_party:__subpackages__"],
+)
+```
+
+This communicates clearly about reusable code while retaining the opportunity to refactor on demand.
+
+## Practice: Public Visibility for Public APIs
+
+Targets that constitute an API that is intended for broad use within the repository and is released
+to the general public should be marked with visibility `//visibility:public`.
+
+Example:
+
+```starlark
+kt_jvm_library(
+    name = "public_api",
+    srcs = ["Api.kt"],
+    visibility = ["//visibility:public"],
+)
+```
+
+This communicates clearly about reusable code, and allows external consumers to reference targets
+directly (via bzlmod deps).
+
 ## Practice: Minimal Sources
 
 Every build target should have at most one source file (defined in `srcs`, `src` etc.).
@@ -177,7 +281,8 @@ the reason ensures the export is necessary and not just a workaround for proper 
 ## Standard: Explicit Dependency Declaration
 
 Targets must explicitly declare all dependencies they require instead of relying on their transitive
-dependencies.
+dependencies. In some languages this is enforced automatically (i.e. Java
+strict deps).
 
 Example:
 
@@ -195,8 +300,6 @@ kt_jvm_library(
 
 Explicit declaration ensures hermeticity and prevents downstream breakages when upstream targets or
 macros change.
-
-Note: In some languages this is enforced automatically (i.e. Java strict deps).
 
 ## Practice: Minimal Rule Principle
 
