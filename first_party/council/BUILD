@@ -1,8 +1,7 @@
 load("@pypi//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_binary")
 load("//first_party/bash_runfiles:shell.bzl", "sh_binary_with_runfiles", "sh_library_with_runfiles")
-
-package(default_visibility = ["//first_party/council:__subpackages__"])
+load(":publicity.bzl", "PUBLICITY")
 
 py_binary(
     name = "server_bin",
@@ -14,6 +13,7 @@ py_binary(
         "static",
     ],
     main = "server.py",
+    visibility = PUBLICITY,
     deps = [
         requirement("fastapi"),
         requirement("uvicorn"),
@@ -32,6 +32,7 @@ py_binary(
         "simulation_config.json",
     ],
     main = "simulation.py",
+    visibility = PUBLICITY,
     deps = [
         requirement("websockets"),
         requirement("google-generativeai"),
@@ -46,4 +47,5 @@ sh_binary_with_runfiles(
         ":server_bin",
         ":simulation_bin",
     ],
+    visibility = PUBLICITY,
 )

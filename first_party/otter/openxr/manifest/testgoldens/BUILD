@@ -15,19 +15,14 @@ filegroup(
         "primary_manifest.json",
         "valve_index_controller.json",
     ],
-    visibility = ["//visibility:private"],
 )
 
 kt_jvm_library(
     name = "testgoldens",
     testonly = True,
-    srcs = [
-        "Goldens.kt",
-    ],
+    srcs = ["Goldens.kt"],
     data = [":manifest_files"],
-    visibility = [
-        "//first_party/otter/openxr/manifest:__subpackages__",
-    ],
+    visibility = ["//first_party/otter/openxr/manifest:__subpackages__"],
     deps = [
         "//first_party/otter/openxr/manifest/encoder",
         "//first_party/otter/openxr/manifest/installer",

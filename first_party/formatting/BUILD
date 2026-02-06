@@ -1,12 +1,12 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("@rules_java//java:defs.bzl", "java_binary")
-
-package(default_visibility = ["//:__subpackages__"])
+load(":publicity.bzl", "PUBLICITY")
 
 # Referenced repeatedly in formatting target. Alias improves readability.
 alias(
     name = "prettier",
     actual = "//first_party/formatting/prettier:binary",
+    visibility = PUBLICITY,
 )
 
 java_binary(
@@ -19,6 +19,7 @@ java_binary(
         "--add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
     ],
     main_class = "com.google.googlejavaformat.java.Main",
+    visibility = PUBLICITY,
     runtime_deps = ["@google-java-format//jar"],
 )
 
@@ -28,6 +29,7 @@ alias(
         "@bazel_tools//src/conditions:linux": "@swiftformat",
         "@bazel_tools//src/conditions:darwin": "@swiftformat_mac",
     }),
+    visibility = PUBLICITY,
 )
 
 format_multirun(
@@ -52,7 +54,7 @@ format_multirun(
     starlark = "@buildifier_prebuilt//:buildifier",
     swift = ":swiftformat",
     terraform = "@aspect_rules_lint//format:terraform",
-    visibility = ["//visibility:private"],
+    visibility = PUBLICITY,
     xml = ":prettier",
     yaml = "@aspect_rules_lint//format:yamlfmt",
 )

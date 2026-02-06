@@ -4,11 +4,13 @@ load(
     "//first_party/bash_runfiles:shell.bzl",
     "sh_binary_with_runfiles",
 )
+load("//first_party/publicity:defs.bzl", "public")
+
+PUBLICITY = public()
 
 js_library(
     name = "config",
     srcs = ["prettier.config.cjs"],
-    visibility = ["//first_party/formatting:__pkg__"],
 )
 
 sh_binary_with_runfiles(
@@ -22,7 +24,7 @@ sh_binary_with_runfiles(
         "//:node_modules/prettier-plugin-sql",
         "//:prettierignore",
     ],
-    visibility = ["//first_party/formatting:__pkg__"],
+    visibility = PUBLICITY,
 )
 
 bats_test_with_runfiles(

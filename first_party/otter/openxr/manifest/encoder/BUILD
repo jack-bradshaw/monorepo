@@ -1,14 +1,13 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/openxr/manifest/encoder")
 
 kt_jvm_library(
     name = "encoder",
-    srcs = [
-        "ManifestEncoder.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["ManifestEncoder.kt"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/otter/openxr/model:kt_jvm_proto",
         "//first_party/otter/openxr/standard",
@@ -17,12 +16,7 @@ kt_jvm_library(
 
 kt_jvm_library_with_dagger(
     name = "impl",
-    srcs = [
-        "ManifestEncoderImpl.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["ManifestEncoderImpl.kt"],
     deps = [
         ":encoder",
         "//first_party/otter:scope",
@@ -32,12 +26,8 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_library_with_dagger(
     name = "module",
-    srcs = [
-        "ManifestEncoderModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["ManifestEncoderModule.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":encoder",
         ":impl",
@@ -46,11 +36,8 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_test_with_dagger(
     name = "test",
-    srcs = [
-        "ManifestEncoderTest.kt",
-    ],
+    srcs = ["ManifestEncoderTest.kt"],
     test_class = "com.jackbradshaw.otter.openxr.manifest.encoder.ManifestEncoderTest",
-    visibility = ["//visibility:private"],
     deps = [
         "//first_party/otter:component",
         "//first_party/otter:component_impl",

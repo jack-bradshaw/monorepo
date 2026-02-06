@@ -1,5 +1,8 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_test")
+load("//first_party/publicity:defs.bzl", "internal")
+
+PUBLICITY = internal()
 
 java_library(
     name = "lib",
@@ -10,7 +13,7 @@ java_library(
 java_binary(
     name = "bin",
     main_class = "com.jackbradshaw.formatting.ktfmtwrapper.KtFmtWrapper",
-    visibility = ["//first_party/formatting:__pkg__"],
+    visibility = PUBLICITY,
     runtime_deps = [":lib"],
 )
 

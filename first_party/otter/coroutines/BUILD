@@ -1,14 +1,13 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/coroutines")
 
 kt_jvm_library(
     name = "coroutines",
-    srcs = [
-        "Dispatchers.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["Dispatchers.kt"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/otter/engine/core",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -18,12 +17,8 @@ kt_jvm_library(
 
 kt_jvm_library_with_dagger(
     name = "module",
-    srcs = [
-        "CoroutinesModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["CoroutinesModule.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":coroutines",
         "//first_party/otter/engine/core",

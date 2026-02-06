@@ -1,11 +1,12 @@
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/engine/core")
 
 kt_jvm_library_with_dagger(
     name = "core",
-    srcs = [
-        "EngineCore.kt",
-    ],
-    visibility = ["//first_party/otter:__subpackages__"],
+    srcs = ["EngineCore.kt"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/otter:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -17,12 +18,7 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_library_with_dagger(
     name = "impl",
-    srcs = [
-        "EngineCoreImpl.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["EngineCoreImpl.kt"],
     deps = [
         ":core",
         "//first_party/otter:scope",
@@ -37,12 +33,8 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_library_with_dagger(
     name = "module",
-    srcs = [
-        "EngineCoreModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["EngineCoreModule.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":core",
         ":impl",

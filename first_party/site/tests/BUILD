@@ -1,11 +1,13 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
+load("//first_party/publicity:defs.bzl", "internal")
 
-package(default_visibility = ["//visibility:public"])
+PUBLICITY = internal()
 
 kt_jvm_library(
     name = "page_extensions",
     testonly = True,
     srcs = ["Page.kt"],
+    visibility = PUBLICITY,
     deps = [
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:com_microsoft_playwright_playwright",
@@ -16,9 +18,8 @@ kt_jvm_library(
     name = "test_harness",
     testonly = True,
     srcs = ["TestHarness.kt"],
-    data = [
-        "//first_party/site",
-    ],
+    data = ["//first_party/site"],
+    visibility = PUBLICITY,
     deps = [
         ":page_extensions",
         "@bazel_tools//tools/java/runfiles",
@@ -36,6 +37,7 @@ kt_jvm_library(
     name = "page_subject",
     testonly = True,
     srcs = ["PageSubject.kt"],
+    visibility = PUBLICITY,
     deps = [
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:com_microsoft_playwright_playwright",
@@ -69,9 +71,7 @@ kt_jvm_test(
     name = "content_navigation_test",
     size = "medium",
     srcs = ["ContentNavigationTest.kt"],
-    data = [
-        "@playwright//:chromium-headless-shell",
-    ],
+    data = ["@playwright//:chromium-headless-shell"],
     env = {
         "PLAYWRIGHT_BROWSERS_PATH": "$(rootpath @playwright//:chromium-headless-shell)/../",
     },

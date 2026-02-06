@@ -41,9 +41,11 @@ independent of other directives.
 
 ### Standard: Type Headers
 
-The type of directive (Standard, Practice, or Guideline) should be specified in the section header.
+The type of directive (Standard, Practice, Guideline, or Automation) should be specified in the
+section header.
 
-Examples: `## Standard: Foo not Bar`, `## Practice: Foo Not Bar`, and `## Guideline: Foo Not Bar.`
+Examples: `## Standard: Foo not Bar`, `## Practice: Foo Not Bar`, `## Guideline: Foo Not Bar`, and
+`## Automation: Foo Not Bar`.
 
 This enables contributors to quickly distinguish between absolute rules and conventional practices.
 
@@ -125,35 +127,6 @@ Negative example: "Be concise" and "Avoid brevity" are contradictory and not ind
 
 This ensures contributors can apply individual directives without needing to reconcile conflicts or
 understand the entire directive system, and prevents redundancy in the directive set.
-
-### Guideline: Dialectical Structure for Guidelines
-
-Guidelines that balance competing concerns should be structured dialectically to make the tension
-explicit; specifically, guidelines should open with a thesis, then introduce an antithesis, and
-close with a synthesis balancing the extremes; furthermore, examples should include both ends of the
-spectrum and a balanced middle position.
-
-The structure consists of four parts:
-
-1. Opening statement: `"X should Y, as Z; however, W; therefore, V."`
-   - Thesis: State the primary concern with rationale
-   - Antithesis: Introduce the opposing concern with `"however"`
-   - Synthesis: Conclude with `"therefore"` and the balanced approach
-1. Negative examples: Two contrasting extremes
-   - `"Too [Extreme A]: (example) (description of problem)"`
-   - `"Too [Extreme B]: (example) (description of problem)"`
-1. Positive synthesis: Balanced example
-   - `"Just Right: (example demonstrating balance) (description of balance achieved)."`
-1. Closing statement: `"Striking a balance between X and Y ensures..."`
-   - Reinforces the dialectical relationship
-   - Explains the benefit of the balanced approach
-
-Positive example: In [style.md](/first_party/contributing/documentation/style.md), "Balance
-Confidence and Humility" demonstrates this structure with "Too Hesitant" and "Too Confident"
-extremes, followed by a "Just Right" example that balances both concerns.
-
-This structure makes competing concerns explicit and helps contributors understand the nuanced
-balance being advocated rather than presenting a single prescriptive rule.
 
 ### Guideline: Offer Options
 

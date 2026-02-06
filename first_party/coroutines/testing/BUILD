@@ -1,10 +1,13 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/publicity:defs.bzl", "public")
+
+PUBLICITY = public()
 
 kt_jvm_library(
     name = "component",
     srcs = ["TestCoroutinesComponent.kt"],
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/coroutines:component",
         "//first_party/coroutines/testing/launcher",
@@ -15,7 +18,7 @@ kt_jvm_library(
 kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = ["TestCoroutinesComponentImpl.kt"],
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
     deps = [
         ":component",
         "//first_party/coroutines:scope",

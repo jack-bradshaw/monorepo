@@ -1,4 +1,7 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/math/interpolators")
 
 kt_jvm_library(
     name = "interpolators",
@@ -7,9 +10,7 @@ kt_jvm_library(
         "QuaternionNlerpInterpolator.kt",
         "QuaternionSlerpInterpolator.kt",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/autofactory",
         "//first_party/otter/math/model:kt_jvm_proto",
@@ -22,9 +23,6 @@ kt_jvm_library(
     srcs = [
         "QuaternionNlerpInterpolator.kt",
         "QuaternionSlerpInterpolator.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
     ],
     deps = [
         ":interpolators",

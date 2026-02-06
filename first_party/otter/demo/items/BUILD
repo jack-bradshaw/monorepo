@@ -9,12 +9,8 @@ kt_jvm_library(
         "CubeLevel.kt",
         "CubeSwarm.kt",
     ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
-    deps = [
-        "//first_party/otter/scene/item",
-    ],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
+    deps = ["//first_party/otter/scene/item"],
 )
 
 kt_jvm_library(
@@ -25,12 +21,11 @@ kt_jvm_library(
         "CubeLevelImpl.kt",
         "CubeSwarmImpl.kt",
     ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     deps = [
         ":items",
-        "//first_party/klu",
+        "//first_party/klu/concurrency",
+        "//first_party/klu/flow",
         "//first_party/otter/coroutines",
         "//first_party/otter/demo:scope",
         "//first_party/otter/demo/constants",
@@ -49,12 +44,8 @@ kt_jvm_library(
 kt_jvm_library_with_dagger(
     name = "module",
     testonly = True,
-    srcs = [
-        "ItemsModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    srcs = ["ItemsModule.kt"],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     deps = [
         ":impl",
         ":items",

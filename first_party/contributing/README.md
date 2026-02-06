@@ -18,7 +18,7 @@ Throughout the documents in this package, the following terms are used with spec
 1. Maintainer: A person who consumes the content of the repository directly (i.e. API users).
 1. User: A person or organization which consumes the artefacts produced by the repository (i.e. app
    users).
-1. Directive: A standard, practice, or guideline.
+1. Directive: A standard, practice, guideline, or automation.
 1. Standard: A directive that is an absolute requirement. Standards must all be satisfied prior to
    submission and are strictly enforced during code review (by automation where possible).
 1. Automation: A directive that is enforced by presubmit.
@@ -29,11 +29,13 @@ Throughout the documents in this package, the following terms are used with spec
 1. Directive document: A document that lists one or more directives for contributors.
 1. Documentation: Any human-readable file that exists to provide context to contributors. Documents
    are not necessarily documentation (e.g. the contents of [site](/first_party/site/)).
+1. First Party Property: A top-level package in [first_party](/first_party) (and all of its
+   subpackages).
 
-The main distinction between standards, practices, and guidelines is their ambiguity. Standards are
-unambiguous and could be automated with enough time. Practices are ambiguous enough to require
-interpretation, and generally cannot be automated. Guidelines are highly subjective, and exist to
-align contributors on a common approach.
+The main distinction between standards, practices, guidelines, and automation is their ambiguity.
+Standards are unambiguous and could be automated with enough time. Practices are ambiguous enough to
+require interpretation, and generally cannot be automated. Guidelines are highly subjective, and
+exist to align contributors on a common approach. Only automations are enforced by presubmit.
 
 ## Subpackages
 

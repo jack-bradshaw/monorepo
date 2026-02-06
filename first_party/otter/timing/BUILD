@@ -1,15 +1,14 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/timing")
 
 kt_jvm_library(
     name = "timing",
-    srcs = [
-        "Clock.kt",
-    ],
-    visibility = ["//first_party/otter:__subpackages__"],
-    deps = [
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-    ],
+    srcs = ["Clock.kt"],
+    visibility = PUBLICITY,
+    deps = ["@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
 )
 
 kt_jvm_library(
@@ -17,9 +16,6 @@ kt_jvm_library(
     srcs = [
         "PhysicsClock.kt",
         "RenderingClock.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
     ],
     deps = [
         ":timing",
@@ -33,12 +29,8 @@ kt_jvm_library(
 
 kt_jvm_library_with_dagger(
     name = "module",
-    srcs = [
-        "TimingModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["TimingModule.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":impl",
         ":timing",
