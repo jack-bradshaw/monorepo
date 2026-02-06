@@ -7,7 +7,7 @@ Infrastructure for managing build visibility.
 First-party properties generally contain a mix of public targets and private targets. Usually, the
 public targets are the APIs and implementations that other packages can use, while the private
 targets are the internal implementation details that should not be shared broadly. There are varying
-grades of publicity beyond the binary public/private, though, and not every first-party property
+grades of publicity beyond the binary public/private though, and not every first-party property
 needs to be completely public or private, with some benefiting from more nuanced visibility. This
 package recognizes four discrete levels:
 
@@ -19,10 +19,8 @@ package recognizes four discrete levels:
 These levels are the publicity of a package, and the publicity framework supports consistent
 publicity management across repositories via a standardized API and conformance system. It helps you
 correctly define your desired publicity in a central location and reference it across your
-subpackages, so it can be updated and managed in a central location. If some targets require
-different visibility, you can still use a custom value for them while using the standard value
-elsewhere. Overall, this system relieves you of the burden of manual visibility management while
-clearly communicating to contributors and consumers how they should approach your code.
+subpackages, which relieves you of the burden of manual visibility management while clearly
+communicating to contributors and consumers how they should approach your code.
 
 ## Definitions
 
