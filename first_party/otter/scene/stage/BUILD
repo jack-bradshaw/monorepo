@@ -1,14 +1,13 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/scene/stage")
 
 kt_jvm_library(
     name = "stage",
-    srcs = [
-        "SceneStage.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["SceneStage.kt"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/klu/flow",
         "//first_party/otter/engine/core",
@@ -23,12 +22,7 @@ kt_jvm_library(
 
 kt_jvm_library(
     name = "impl",
-    srcs = [
-        "SceneStageImpl.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["SceneStageImpl.kt"],
     deps = [
         ":stage",
         "//first_party/klu/flow",
@@ -43,12 +37,8 @@ kt_jvm_library(
 
 kt_jvm_library_with_dagger(
     name = "module",
-    srcs = [
-        "SceneStageModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["SceneStageModule.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":impl",
         ":stage",

@@ -1,20 +1,19 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_import")
 load("@rules_kotlin//kotlin:core.bzl", "kt_ksp_plugin")
+load(":publicity.bzl", "PUBLICITY")
 
 java_binary(
     name = "jarjar",
     main_class = "org.pantsbuild.jarjar.Main",
-    visibility = ["//visibility:private"],
+    visibility = PUBLICITY,
     runtime_deps = ["@com_jackbradshaw_maven//:org_pantsbuild_jarjar"],
 )
 
 java_binary(
     name = "dagger_compiler_original",
     main_class = "dagger.internal.codegen.ComponentProcessor",
-    visibility = ["//visibility:private"],
-    runtime_deps = [
-        "@com_jackbradshaw_maven//:com_google_dagger_dagger_compiler",
-    ],
+    visibility = PUBLICITY,
+    runtime_deps = ["@com_jackbradshaw_maven//:com_google_dagger_dagger_compiler"],
 )
 
 genrule(
@@ -33,12 +32,12 @@ genrule(
 java_import(
     name = "dagger_compiler_shaded",
     jars = [":dagger_compiler_shaded_generated"],
-    visibility = ["//visibility:private"],
+    visibility = PUBLICITY,
 )
 
 kt_ksp_plugin(
     name = "dagger_ksp_plugin",
     processor_class = "dagger.internal.codegen.KspComponentProcessor$Provider",
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
     deps = [":dagger_compiler_shaded"],
 )

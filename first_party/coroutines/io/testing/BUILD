@@ -1,9 +1,12 @@
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/publicity:defs.bzl", "public")
+
+PUBLICITY = public()
 
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["TestIoModule.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/coroutines:scope",
         "//first_party/coroutines/io",

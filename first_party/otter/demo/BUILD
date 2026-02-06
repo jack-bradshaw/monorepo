@@ -14,9 +14,7 @@ kt_jvm_library(
     testonly = True,
     srcs = ["DemoComponent.kt"],
     visibility = ["//first_party/otter/demo:__subpackages__"],
-    deps = [
-        "//first_party/otter/demo/items",
-    ],
+    deps = ["//first_party/otter/demo/items"],
 )
 
 kt_jvm_library_with_dagger(

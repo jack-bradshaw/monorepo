@@ -1,13 +1,12 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/scene/item")
 
 kt_jvm_library(
     name = "item",
-    srcs = [
-        "SceneItem.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["SceneItem.kt"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/klu/flow",
         "//first_party/otter/engine/core",
@@ -21,12 +20,8 @@ kt_jvm_library(
 
 kt_jvm_library(
     name = "impl",
-    srcs = [
-        "SceneItemImpl.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["SceneItemImpl.kt"],
+    visibility = ["//first_party/otter:__subpackages__"],
     deps = [
         ":item",
         "//first_party/klu/flow",

@@ -1,4 +1,7 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
+load("//first_party/publicity:defs.bzl", "public")
+
+PUBLICITY = public()
 
 kt_jvm_library(
     name = "flow",
@@ -6,19 +9,13 @@ kt_jvm_library(
         "Annotations.kt",
         "Operators.kt",
     ],
-    visibility = [
-        "//first_party:__subpackages__",
-    ],
-    deps = [
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-    ],
+    visibility = PUBLICITY,
+    deps = ["@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
 )
 
 kt_jvm_test(
     name = "test",
-    srcs = [
-        "OperatorsTest.kt",
-    ],
+    srcs = ["OperatorsTest.kt"],
     test_class = "com.jackbradshaw.klu.flow.OperatorsTest",
     deps = [
         "//first_party/klu/flow",

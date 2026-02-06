@@ -1,23 +1,18 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
+load("//first_party/publicity:defs.bzl", "public")
+
+PUBLICITY = public()
 
 kt_jvm_library(
     name = "concurrency",
-    srcs = [
-        "Once.kt",
-    ],
-    visibility = [
-        "//first_party:__subpackages__",
-    ],
-    deps = [
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-    ],
+    srcs = ["Once.kt"],
+    visibility = PUBLICITY,
+    deps = ["@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
 )
 
 kt_jvm_test(
     name = "test",
-    srcs = [
-        "OnceTest.kt",
-    ],
+    srcs = ["OnceTest.kt"],
     test_class = "com.jackbradshaw.klu.concurrency.OnceTest",
     deps = [
         "//first_party/klu/concurrency",

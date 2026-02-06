@@ -1,19 +1,19 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
+load("//first_party/publicity:defs.bzl", "public")
+
+PUBLICITY = public()
 
 kt_jvm_library(
     name = "launcher",
     srcs = ["Launcher.kt"],
-    visibility = ["//visibility:public"],
-    deps = [
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-    ],
+    visibility = PUBLICITY,
+    deps = ["@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
 )
 
 kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["LauncherImpl.kt"],
-    visibility = ["//visibility:public"],
     deps = [
         ":launcher",
         "//first_party/coroutines:scope",
@@ -26,7 +26,7 @@ kt_jvm_library_with_dagger(
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["LauncherModule.kt"],
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
     deps = [
         ":impl",
         ":launcher",
@@ -37,7 +37,7 @@ kt_jvm_library_with_dagger(
 kt_jvm_library(
     name = "test",
     srcs = ["LauncherTest.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         ":launcher",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
@@ -54,7 +54,6 @@ kt_jvm_test_with_dagger(
     timeout = "short",
     srcs = ["LauncherImplTest.kt"],
     test_class = "com.jackbradshaw.coroutines.testing.launcher.LauncherImplTest",
-    visibility = ["//first_party:__subpackages__"],
     deps = [
         ":impl",
         ":launcher",

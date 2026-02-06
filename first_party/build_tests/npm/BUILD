@@ -1,9 +1,5 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
 
-package(
-    default_visibility = ["//visibility:private"],
-)
-
 js_library(
     name = "npm_deps_must_resolve",
     srcs = ["dummy.js"],

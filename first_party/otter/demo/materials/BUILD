@@ -3,12 +3,8 @@ load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 kt_jvm_library(
     name = "materials",
     testonly = True,
-    srcs = [
-        "Materials.kt",
-    ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    srcs = ["Materials.kt"],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     deps = [
         "@com_jackbradshaw_maven//:javax_inject_javax_inject",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
@@ -18,12 +14,8 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     testonly = True,
-    srcs = [
-        "MaterialsImpl.kt",
-    ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    srcs = ["MaterialsImpl.kt"],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     deps = [
         ":materials",
         "//first_party/otter/demo:scope",
@@ -37,12 +29,8 @@ kt_jvm_library(
 kt_jvm_library(
     name = "module",
     testonly = True,
-    srcs = [
-        "MaterialsModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    srcs = ["MaterialsModule.kt"],
+    visibility = ["//first_party/otter/demo:__subpackages__"],
     deps = [
         ":impl",
         ":materials",

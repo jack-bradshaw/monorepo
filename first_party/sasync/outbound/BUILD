@@ -1,25 +1,26 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/publicity:defs.bzl", "public")
+
+PUBLICITY = public()
 
 kt_jvm_library_with_dagger(
     name = "scope",
     srcs = ["OutboundScope.kt"],
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
 )
 
 kt_jvm_library(
     name = "component",
     srcs = ["OutboundComponent.kt"],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//first_party/sasync/outbound/transport",
-    ],
+    visibility = PUBLICITY,
+    deps = ["//first_party/sasync/outbound/transport"],
 )
 
 kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = ["OutboundComponentImpl.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         ":component",
         ":scope",

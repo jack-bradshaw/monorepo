@@ -74,16 +74,6 @@ abstract class PackageCheckerTest {
   }
 
   @Test
-  fun fullyQualifiedLoad_passes() {
-    runSuccessTest(
-        """
-      load("@com_jackbradshaw//first_party/publicity:defs.bzl", "public")
-      PUBLICITY = public()
-    """
-            .trimIndent())
-  }
-
-  @Test
   fun aliasedLoad_passes() {
     runSuccessTest(
         """

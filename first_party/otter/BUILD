@@ -1,27 +1,18 @@
 load("@rules_jvm_external//:defs.bzl", "java_export")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load(":publicity.bzl", "PUBLICITY")
 
 kt_jvm_library_with_dagger(
     name = "scope",
-    srcs = [
-        "OtterScope.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
-    deps = [
-    ],
+    srcs = ["OtterScope.kt"],
+    visibility = PUBLICITY,
 )
 
 kt_jvm_library(
     name = "component",
-    srcs = [
-        "OtterComponent.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["OtterComponent.kt"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/engine/core",
@@ -37,12 +28,8 @@ kt_jvm_library(
 
 kt_jvm_library_with_dagger(
     name = "component_impl",
-    srcs = [
-        "OtterComponentImpl.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["OtterComponentImpl.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":component",
         ":scope",
@@ -58,26 +45,17 @@ kt_jvm_library_with_dagger(
     ],
 )
 
-kt_jvm_library(
-    name = "otter",
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
-    exports = [
-        ":component",
-        ":component_impl",
-        ":scope",
-    ],
-)
-
 java_export(
     name = "release",
     srcs = ["Stub.java"],
     maven_coordinates = "com.jackbradshaw:otter:0.0.0",
     pom_template = "pom_template.xml",
     tags = ["no-javadocs"],
+    visibility = PUBLICITY,
     deps = [
-        ":otter",
+        ":component",
+        ":component_impl",
+        ":scope",
         "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_kotlin",
     ],
 )

@@ -1,14 +1,13 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
+load("//first_party/publicity:defs.bzl", "quarantined")
+
+PUBLICITY = quarantined("//first_party/otter/openxr/manifest/generator")
 
 kt_jvm_library(
     name = "generator",
-    srcs = [
-        "ManifestGenerator.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["ManifestGenerator.kt"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/klu/flow",
         "//first_party/otter/openxr/model:kt_jvm_proto",
@@ -18,12 +17,7 @@ kt_jvm_library(
 
 kt_jvm_library_with_dagger(
     name = "impl",
-    srcs = [
-        "ManifestGeneratorImpl.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["ManifestGeneratorImpl.kt"],
     deps = [
         ":generator",
         "//first_party/klu/flow",
@@ -39,12 +33,8 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_library_with_dagger(
     name = "module",
-    srcs = [
-        "ManifestGeneratorModule.kt",
-    ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    srcs = ["ManifestGeneratorModule.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":generator",
         ":impl",
@@ -53,11 +43,8 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_test_with_dagger(
     name = "test",
-    srcs = [
-        "ManifestGeneratorTest.kt",
-    ],
+    srcs = ["ManifestGeneratorTest.kt"],
     test_class = "com.jackbradshaw.otter.openxr.manifest.generator.ManifestGeneratorTest",
-    visibility = ["//visibility:private"],
     deps = [
         "//first_party/otter:component",
         "//first_party/otter:component_impl",

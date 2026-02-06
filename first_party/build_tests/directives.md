@@ -106,7 +106,13 @@ Directives applicable to all build tests.
 
 Validation targets and support targets must have private visibility.
 
-Example: `visibility = ["//visibility:private"]`.
+```starlark
+# Note: No visibility attribute is equivalent to `//visibility:private`.
+java_library(
+    name = "java_library_must_build",
+    srcs = ["Library.java"],
+)
+```
 
 Rationale: Build tests are internal verification tools and should not be consumed by other packages.
 

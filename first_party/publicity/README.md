@@ -12,9 +12,9 @@ needs to be completely public or private, with some benefiting from more nuanced
 package recognizes four discrete levels:
 
 1. Public Visibility: Available to the entire repository and the general public.
-1. Internal Visibility: Available to the entire repository, but not the general public.
-1. Restricted Visibility: Available to a specific allowlist of first-party packages.
-1. Quarantined Visibility: Not available to other first-party packages (own subpackages only).
+2. Internal Visibility: Available to the entire repository, but not the general public.
+3. Restricted Visibility: Available to a specific allowlist of first-party packages.
+4. Quarantined Visibility: Not available to other first-party packages (own subpackages only).
 
 These levels are the publicity of a package, and the publicity framework supports consistent
 publicity management across repositories via a standardized API and conformance system. It helps you
@@ -40,10 +40,10 @@ as the branching point for your independent components/projects/layers.
 To use publicity in a first-party property:
 
 1. Create a `publicity.bzl` file in the root package.
-1. Define a `PUBLICITY` variable in the file by calling one of the publicity functions from
+2. Define a `PUBLICITY` variable in the file by calling one of the publicity functions from
    [defs.bzl](/first_party/publicity/defs.bzl) (`public`, `internal`, `restricted`, or
    `quarantined`).
-1. Reference this variable in `BUILD` files via a `load` statement.
+3. Reference this variable in `BUILD` files via a `load` statement.
 
 An optional conformance test is available to automatically detect incorrect usages of publicity and
 fail a CI/test run.
@@ -135,7 +135,7 @@ The term "quarantined" was chosen instead of "private" for two reasons:
 1. "Private" in Bazel already means private to a package (no references from subpackages or ancestor
    packages), whereas "quarantined" allows references from subpackages and ancestor packages if they
    are within the same first-party property.
-1. It was chosen at a time when the original author ([Jack Bradshaw](mailto:jack@jack-bradshaw.com))
+2. It was chosen at a time when the original author ([Jack Bradshaw](mailto:jack@jack-bradshaw.com))
    was contending with the need to isolate unrefined. experimental AI-generated code without storing
    it in a separate repository.
 
