@@ -1,28 +1,24 @@
 package com.jackbradshaw.publicity.conformance.workspacechecker
 
-import com.jackbradshaw.publicity.conformance.ConformanceScope
-import com.jackbradshaw.publicity.conformance.FirstPartyRoot
-import com.jackbradshaw.publicity.conformance.WorkspaceRoot
+import com.jackbradshaw.publicity.conformance.model.Workspace
 import com.jackbradshaw.publicity.conformance.packagechecker.PackageCheckerImplModule
 import dagger.BindsInstance
 import dagger.Component
-import java.io.File
+import javax.inject.Inject
 
 /** Tests for [WorkspaceCheckerImpl]. */
 class WorkspaceCheckerImplTest : WorkspaceCheckerTest() {
 
-  private lateinit var workspaceChecker: WorkspaceChecker
+  @Inject lateinit var checker: WorkspaceChecker
 
-  override fun setupSubject(workspaceRoot: File, firstPartyRoot: String) {
-    workspaceChecker =
-        DaggerWorkspaceCheckerImplTest_WorkspaceCheckerTestComponent.factory()
-            .create(workspaceRoot, firstPartyRoot)
-            .checker()
+  override fun setupSubject(workspace: Workspace) {
+    DaggerWorkspaceCheckerImplTest_WorkspaceCheckerTestComponent.factory()
+        .create(workspace)
+        .inject(this)
   }
 
-  override fun subject() = workspaceChecker
+  override fun subject() = checker
 
-  @ConformanceScope
   @Component(
       modules =
           [
@@ -30,14 +26,11 @@ class WorkspaceCheckerImplTest : WorkspaceCheckerTest() {
               PackageCheckerImplModule::class,
           ])
   internal interface WorkspaceCheckerTestComponent {
-    fun checker(): WorkspaceChecker
+    fun inject(target: WorkspaceCheckerImplTest)
 
     @Component.Factory
     interface Factory {
-      fun create(
-          @BindsInstance @WorkspaceRoot workspaceRoot: File,
-          @BindsInstance @FirstPartyRoot firstPartyRoot: String
-      ): WorkspaceCheckerTestComponent
+      fun create(@BindsInstance workspace: Workspace): WorkspaceCheckerTestComponent
     }
   }
 }

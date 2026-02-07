@@ -92,7 +92,8 @@ java_library(
 
 ## Publicity Conformance
 
-The conformance test can be set up by calling the `conformance_test` macro (from
+The conformance test checks every first-party property for correct use of publicity. It can be set
+up by calling the `conformance_test` macro (from
 [conformance.bzl](/first_party/publicity/conformance/conformance.bzl)) in the root `BUILD` file of
 your repository, for example:
 
@@ -101,16 +102,41 @@ load("//first_party/publicity/conformance:conformance.bzl", "conformance_test")
 
 conformance_test(
     name = "conformance_test",
-    # optionally: first_party_root = "//foo/bar",
+    first_party_root = "//foo/bar",
 )
 ```
 
-It will check every first-party property for correct use of publicity. Adding the test to your CI
-runner will prevent anyone from checking in invalid publicity usages.
+Adding the test to your CI runner will prevent anyone from checking in invalid publicity usages.
+Example using GitHub CI:
 
-Note: The conformance test presently bundles various checks into one, but some may not fit your use
-case. It may be decomposed into smaller tests in the future for more granular control. Furthermore,
-there are opportunities for stricter conformance which are not presently implemented.
+```yaml
+name: Publicity Conformance
+
+on: [push, pull_request]
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Publicity Conformance Auditor
+        run: |
+          echo "Running publicity conformance audit."
+          if bazel run //first_party/publicity/conformance:conformance_test; then
+            echo "Audit passed successfully."
+          else
+            echo "Audit failed. Please check the logs for non-conforming packages."
+            exit 1
+          fi
+```
+
+Two caveats:
+
+- The conformance test presently bundles various checks into one, but some may not fit your use
+  case. It may be decomposed into smaller tests in the future for more granular control.
+  Furthermore, there are opportunities for stricter conformance which are not presently implemented.
+- The conformance test is not actually a test at all, and must be invoked with `bazel run` not
+  `bazel test`.
 
 ## Caveats
 

@@ -1,8 +1,9 @@
 package com.jackbradshaw.publicity.conformance.workspacechecker
 
 import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.publicity.conformance.model.Workspace
 import java.io.File
-import kotlin.test.assertFailsWith
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -12,120 +13,146 @@ abstract class WorkspaceCheckerTest {
 
   @get:Rule val workspaceRoot = TemporaryFolder()
 
-  @Test
-  fun check_noPackages_passes() {
-    setupSubject(workspaceRoot.root, "//first_party")
-    workspaceRoot.root.resolve("first_party").mkdirs()
-    subject().checkAllFirstPartyProperties()
+  private lateinit var workspace: Workspace
+
+  @Before
+  fun setup() {
+    workspace = createWorkspace()
+    setupSubject(workspace)
   }
 
   @Test
-  fun check_firstPartyRootDoesNotExist_fails() {
-    setupSubject(workspaceRoot.root, "//nonexistent")
+  fun noPackages_passes() {
+    val result = subject().checkAllFirstPartyProperties(workspace)
 
-    val exception =
-        assertFailsWith<IllegalArgumentException> { subject().checkAllFirstPartyProperties() }
-
-    assertThat(exception).hasMessageThat().contains("First-party root does not exist")
+    assertThat(result).isEqualTo(WorkspaceChecker.Result.AllConform)
   }
 
   @Test
-  fun check_firstPartyRootIsFile_fails() {
-    workspaceRoot.newFile("first_party_file")
-    setupSubject(workspaceRoot.root, "//first_party_file")
+  fun onePackage_conformant_passes() {
+    createConformantPackage("pkg1", workspace)
 
-    val exception =
-        assertFailsWith<IllegalArgumentException> { subject().checkAllFirstPartyProperties() }
+    val result = subject().checkAllFirstPartyProperties(workspace)
 
-    assertThat(exception).hasMessageThat().contains("First-party root is not a directory")
+    assertThat(result).isEqualTo(WorkspaceChecker.Result.AllConform)
   }
 
   @Test
-  fun check_onePackage_conformant_passes() {
-    setupSubject(workspaceRoot.root, "//first_party")
-    createConformantPackage("pkg1")
-    subject().checkAllFirstPartyProperties()
+  fun onePackage_missingPublicity_fails() {
+    createPackageWithNoDeclaration("pkg1", workspace)
+
+    val result = subject().checkAllFirstPartyProperties(workspace)
+
+    assertThat(result)
+        .isInstanceOf(WorkspaceChecker.Result.NonConformingPropertiesFound::class.java)
+    val failure = result as WorkspaceChecker.Result.NonConformingPropertiesFound
+    assertThat(failure.properties)
+        .containsExactlyEntriesIn(
+            mapOf(
+                "//first_party/pkg1" to
+                    "${workspace.workspaceRoot.path}/first_party/pkg1 must contain a file named publicity.bzl, but none exists"))
   }
 
   @Test
-  fun check_onePackage_missingPublicity_fails() {
-    setupSubject(workspaceRoot.root, "//first_party")
-    createPackageWithNoDeclaration("pkg1")
+  fun onePackage_invalidDeclaration_fails() {
+    createPackageWithInvalidDeclaration("pkg1", workspace)
 
-    val exception = assertFailsWith<AssertionError> { subject().checkAllFirstPartyProperties() }
+    val result = subject().checkAllFirstPartyProperties(workspace)
 
-    assertThat(exception).hasMessageThat().contains("Expected a publicity.bzl file")
+    assertThat(result)
+        .isInstanceOf(WorkspaceChecker.Result.NonConformingPropertiesFound::class.java)
+    val failure = result as WorkspaceChecker.Result.NonConformingPropertiesFound
+    assertThat(failure.properties)
+        .containsExactlyEntriesIn(
+            mapOf(
+                "//first_party/pkg1" to
+                    "${workspace.workspaceRoot.path}/first_party/pkg1/publicity.bzl must contain a variable named PUBLICITY, but none exists"))
   }
 
   @Test
-  fun check_onePackage_invalidDeclaration_fails() {
-    setupSubject(workspaceRoot.root, "//first_party")
-    createPackageWithInvalidDeclaration("pkg1")
+  fun multiplePackagesAllConformant_passes() {
+    createConformantPackage("pkg1", workspace)
+    createConformantPackage("pkg2", workspace)
+    createConformantPackage("pkg3", workspace)
 
-    val exception = assertFailsWith<AssertionError> { subject().checkAllFirstPartyProperties() }
+    val result = subject().checkAllFirstPartyProperties(workspace)
 
-    assertThat(exception).hasMessageThat().contains("must contain a variable named PUBLICITY")
+    assertThat(result).isEqualTo(WorkspaceChecker.Result.AllConform)
   }
 
   @Test
-  fun check_multiplePackagesAllConformant_passes() {
-    setupSubject(workspaceRoot.root, "//first_party")
-    createConformantPackage("pkg1")
-    createConformantPackage("pkg2")
-    createConformantPackage("pkg3")
-    subject().checkAllFirstPartyProperties()
+  fun multiplePackages_oneNonConformant_fails() {
+    createConformantPackage("pkg1", workspace)
+    createConformantPackage("pkg2", workspace)
+    createPackageWithNoDeclaration("pkg3", workspace)
+
+    val result = subject().checkAllFirstPartyProperties(workspace)
+
+    assertThat(result)
+        .isInstanceOf(WorkspaceChecker.Result.NonConformingPropertiesFound::class.java)
+    val failure = result as WorkspaceChecker.Result.NonConformingPropertiesFound
+    assertThat(failure.properties)
+        .containsExactlyEntriesIn(
+            mapOf(
+                "//first_party/pkg3" to
+                    "${workspace.workspaceRoot.path}/first_party/pkg3 must contain a file named publicity.bzl, but none exists"))
   }
 
   @Test
-  fun check_multiplePackages_oneNonConformant_fails() {
-    setupSubject(workspaceRoot.root, "//first_party")
-    createConformantPackage("pkg1")
-    createConformantPackage("pkg2")
-    createPackageWithNoDeclaration("pkg3")
+  fun multiplePackages_allNonConformant_fails() {
+    createPackageWithNoDeclaration("pkg1", workspace)
+    createPackageWithNoDeclaration("pkg2", workspace)
 
-    val exception = assertFailsWith<AssertionError> { subject().checkAllFirstPartyProperties() }
+    val result = subject().checkAllFirstPartyProperties(workspace)
 
-    assertThat(exception).hasMessageThat().contains("Expected a publicity.bzl file")
+    assertThat(result)
+        .isInstanceOf(WorkspaceChecker.Result.NonConformingPropertiesFound::class.java)
+    val failure = result as WorkspaceChecker.Result.NonConformingPropertiesFound
+    assertThat(failure.properties)
+        .containsExactlyEntriesIn(
+            mapOf(
+                "//first_party/pkg1" to
+                    "${workspace.workspaceRoot.path}/first_party/pkg1 must contain a file named publicity.bzl, but none exists",
+                "//first_party/pkg2" to
+                    "${workspace.workspaceRoot.path}/first_party/pkg2 must contain a file named publicity.bzl, but none exists"))
   }
 
-  @Test
-  fun check_multiplePackages_allNonConformant_fails() {
-    setupSubject(workspaceRoot.root, "//first_party")
-    createPackageWithNoDeclaration("pkg1")
-    createPackageWithNoDeclaration("pkg2")
+  /** Configures the [subject]. Should be called exactly once per test. */
+  protected abstract fun setupSubject(workspace: Workspace)
 
-    val exception = assertFailsWith<AssertionError> { subject().checkAllFirstPartyProperties() }
-
-    assertThat(exception).hasMessageThat().contains("Expected a publicity.bzl file")
+  /** Creates a workspace with a first party package at //first_party. */
+  private fun createWorkspace(): Workspace {
+    val firstPartyRoot = workspaceRoot.root.resolve("first_party").also { it.mkdirs() }
+    val workspace = Workspace(workspaceRoot.root, firstPartyRoot)
+    return workspace
   }
 
   /**
-   * Returns the subjct under test. Must be ready for testing. Must return the same object on each
-   * call (within a single test run).
+   * Gets the subject under test.
+   *
+   * Must return the same object on each call (within a single test run). Should only be called
+   * after [setupSubject].
    */
   protected abstract fun subject(): WorkspaceChecker
 
-  /** Configures the [subject]. Should be called exactly once per test. */
-  protected abstract fun setupSubject(workspaceRoot: File, firstPartyRoot: String)
-
-  protected fun createConformantPackage(name: String, root: String = "first_party") {
-    val packageDir = workspaceRoot.root.resolve(root).resolve(name).also { it.mkdirs() }
+  private fun createConformantPackage(name: String, workspace: Workspace) {
+    val packageDir = workspace.firstPartyRoot.resolve(name).also { it.mkdirs() }
 
     File(packageDir, "publicity.bzl")
         .writeText(
             """
-      load("//first_party/publicity:defs.bzl", "public")
-      PUBLICITY = public()
-    """
+            load("//first_party/publicity:defs.bzl", "public")
+            PUBLICITY = public()
+            """
                 .trimIndent())
   }
 
-  protected fun createPackageWithNoDeclaration(name: String, root: String = "first_party") {
-    workspaceRoot.root.resolve(root).resolve(name).mkdirs()
+  private fun createPackageWithNoDeclaration(name: String, workspace: Workspace) {
+    workspace.firstPartyRoot.resolve(name).mkdirs()
   }
 
-  protected fun createPackageWithInvalidDeclaration(name: String, root: String = "first_party") {
-    val packageDir = workspaceRoot.root.resolve(root).resolve(name).also { it.mkdirs() }
+  private fun createPackageWithInvalidDeclaration(name: String, workspace: Workspace) {
+    val packageDir = workspace.firstPartyRoot.resolve(name).also { it.mkdirs() }
     File(packageDir, "publicity.bzl").writeText("FOO = 'bar'")
   }
 }
