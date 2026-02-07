@@ -4,7 +4,7 @@ load("//first_party/publicity:publicity.bzl", "PUBLICITY")
 kt_jvm_library(
     name = "entrypoint",
     srcs = ["EntryPoint.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
         "//first_party/concurrency:component",
         "//first_party/coroutines:component",
