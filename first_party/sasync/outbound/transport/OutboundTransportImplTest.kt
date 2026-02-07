@@ -1,7 +1,7 @@
 package com.jackbradshaw.sasync.outbound.transport
 
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
+import com.jackbradshaw.coroutines.testing.TestCoroutines
 import com.jackbradshaw.sasync.outbound.OutboundScope
 import com.jackbradshaw.sasync.outbound.config.Config
 import com.jackbradshaw.sasync.outbound.config.config
@@ -28,7 +28,7 @@ class OutboundTransportImplTest : OutboundTransportTest() {
   override fun setup(config: Config) {
     DaggerTestComponent.builder()
         .binding(config)
-        .consuming(testCoroutinesComponent())
+        .consuming(DaggerTestCoroutines.create())
         .build()
         .inject(this)
 
@@ -49,7 +49,7 @@ class OutboundTransportImplTest : OutboundTransportTest() {
 }
 
 @OutboundScope
-@Component(dependencies = [TestCoroutinesComponent::class])
+@Component(dependencies = [TestCoroutines::class])
 interface TestComponent {
   fun inject(target: OutboundTransportImplTest)
 
@@ -57,7 +57,7 @@ interface TestComponent {
   interface Builder {
     @BindsInstance fun binding(config: Config): Builder
 
-    fun consuming(coroutines: TestCoroutinesComponent): Builder
+    fun consuming(coroutines: TestCoroutines): Builder
 
     fun build(): TestComponent
   }

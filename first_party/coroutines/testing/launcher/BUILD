@@ -1,4 +1,4 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 
 kt_jvm_library(
@@ -34,14 +34,13 @@ kt_jvm_library_with_dagger(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "test",
     srcs = ["LauncherTest.kt"],
     visibility = ["//first_party:__subpackages__"],
     deps = [
         ":launcher",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
-        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
