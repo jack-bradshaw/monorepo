@@ -25,6 +25,8 @@ interface OutboundTransport {
 
   suspend fun publishLineEnding()
 
+  suspend fun close()
+
   fun interface Factory {
     fun create(destination: OutputStream): OutboundTransport
   }
