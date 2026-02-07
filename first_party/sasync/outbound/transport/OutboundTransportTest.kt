@@ -6,11 +6,11 @@ import com.jackbradshaw.sasync.outbound.config.config
 import com.jackbradshaw.universal.count.CountKt.bounded
 import com.jackbradshaw.universal.count.CountKt.unbounded
 import com.jackbradshaw.universal.count.count
+import kotlin.test.assertFailsWith
 import kotlinx.coroutines.channels.ClosedSendChannelException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope
-import kotlin.test.assertFailsWith
 import org.junit.Test
 
 abstract class OutboundTransportTest {
@@ -164,13 +164,10 @@ abstract class OutboundTransportTest {
   fun publish_afterClose_fails(): Unit = runBlocking {
     setup(config = QUEUE_SIZE_BOUNDED)
 
-    val closeJob = testScope().launch { subject().close() }
+    testScope().launch { subject().close() }
     waitForIdle()
-    closeJob.join()
 
-    val exception = assertFailsWith<ClosedSendChannelException> {
-      subject().publishInt(1)
-    }
+    val exception = assertFailsWith<ClosedSendChannelException> { subject().publishInt(1) }
     assertThat(exception.message).contains("Channel was closed")
   }
 
@@ -180,7 +177,7 @@ abstract class OutboundTransportTest {
 
     TEST_VALUES_INTS.forEach { testScope().launch { subject().publishInt(it) } }
 
-    val closeJob = testScope().launch { subject().close() }
+    testScope().launch { subject().close() }
     waitForIdle()
 
     assertThat(received()).isEqualTo(TEST_VALUES_BYTE_ARRAY)
