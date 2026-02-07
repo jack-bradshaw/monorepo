@@ -5,8 +5,8 @@ package com.jackbradshaw.publicity.conformance.runner
  *
  * The implementation is responsible for sourcing the workspace.
  *
- * The API only requires the result to be returned as a binary success/failure. Any other
- * information should be logged to STDIO.
+ * The API only requires the result to be returned as a binary success/failure. All other details
+ * should be logged to STDIO.
  */
 interface Runner {
 

@@ -102,7 +102,7 @@ load("//first_party/publicity/conformance:conformance.bzl", "conformance_test")
 
 conformance_test(
     name = "conformance_test",
-    # optionally: first_party_root = "//foo/bar",
+    first_party_root = "//foo/bar",
 )
 ```
 

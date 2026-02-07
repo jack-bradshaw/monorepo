@@ -27,7 +27,5 @@ internal interface RunnerComponentImpl : RunnerComponent {
 }
 
 /** Creates a [RunnerComponent]. */
-fun runnerComponent(
-    workspace: Workspace,
-    standardComponent: StandardComponent = standardComponent()
-): RunnerComponent = DaggerRunnerComponentImpl.factory().create(workspace, standardComponent)
+fun runnerComponent(workspace: Workspace, standardComponent: StandardComponent): RunnerComponent =
+    DaggerRunnerComponentImpl.factory().create(workspace, standardComponent)
