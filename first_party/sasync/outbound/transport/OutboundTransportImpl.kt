@@ -29,13 +29,12 @@ constructor(
     }
   }
 
-  init {
-    ioScope.launch {
-      for (array in channel) {
-        destination.write(array)
+  private val consumerJob =
+      ioScope.launch {
+        for (array in channel) {
+          destination.write(array)
+        }
       }
-    }
-  }
 
   override suspend fun asChannel(): SendChannel<ByteArray> = channel
 
@@ -77,6 +76,11 @@ constructor(
 
   override suspend fun publishLineEnding() {
     channel.send(System.lineSeparator().toByteArray())
+  }
+
+  override suspend fun close() {
+    channel.close()
+    consumerJob.join()
   }
 
   @AssistedFactory
