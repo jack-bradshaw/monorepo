@@ -1,5 +1,6 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/otter/demo:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "items",
@@ -9,7 +10,7 @@ kt_jvm_library(
         "CubeLevel.kt",
         "CubeSwarm.kt",
     ],
-    visibility = ["//first_party/otter/demo:__subpackages__"],
+    visibility = PUBLICITY,
     deps = ["//first_party/otter/scene/item"],
 )
 
@@ -21,7 +22,7 @@ kt_jvm_library(
         "CubeLevelImpl.kt",
         "CubeSwarmImpl.kt",
     ],
-    visibility = ["//first_party/otter/demo:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         ":items",
         "//first_party/klu/concurrency",
@@ -45,7 +46,7 @@ kt_jvm_library_with_dagger(
     name = "module",
     testonly = True,
     srcs = ["ItemsModule.kt"],
-    visibility = ["//first_party/otter/demo:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         ":impl",
         ":items",

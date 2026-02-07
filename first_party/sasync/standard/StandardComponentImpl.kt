@@ -1,7 +1,11 @@
 package com.jackbradshaw.sasync.standard
 
 import com.jackbradshaw.sasync.inbound.InboundComponent
+import com.jackbradshaw.sasync.inbound.config.defaultConfig as inboundDefaultConfig
+import com.jackbradshaw.sasync.inbound.inboundComponent
 import com.jackbradshaw.sasync.outbound.OutboundComponent
+import com.jackbradshaw.sasync.outbound.config.defaultConfig as outboundDefaultConfig
+import com.jackbradshaw.sasync.outbound.outboundComponent
 import com.jackbradshaw.sasync.standard.error.StandardError
 import com.jackbradshaw.sasync.standard.error.StandardErrorModule
 import com.jackbradshaw.sasync.standard.input.StandardInput
@@ -48,3 +52,9 @@ fun standardComponent(
         .bindingStandardOutput(output)
         .bindingStandardError(error)
         .build()
+
+/** Creates a [StandardComponent] using default configurations. */
+fun standardComponent(): StandardComponent =
+    standardComponent(
+        inbound = inboundComponent(inboundDefaultConfig),
+        outbound = outboundComponent(outboundDefaultConfig))

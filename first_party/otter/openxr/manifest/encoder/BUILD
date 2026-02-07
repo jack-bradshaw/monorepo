@@ -1,8 +1,6 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
-load("//first_party/publicity:defs.bzl", "quarantined")
-
-PUBLICITY = quarantined("//first_party/otter/openxr/manifest/encoder")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "encoder",

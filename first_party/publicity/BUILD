@@ -7,3 +7,9 @@ exports_files(
     ["defs.bzl"],
     visibility = PUBLICITY,
 )
+
+alias(
+    name = "conformance_check",
+    actual = "//first_party/publicity/conformance/entrypoint:conformance_audit",
+    visibility = PUBLICITY,
+)

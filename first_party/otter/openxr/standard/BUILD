@@ -1,7 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
-load("//first_party/publicity:defs.bzl", "quarantined")
-
-PUBLICITY = quarantined("//first_party/otter/openxr/standard")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "standard",

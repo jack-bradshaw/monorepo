@@ -1,6 +1,7 @@
 package com.jackbradshaw.publicity.conformance.packagechecker
 
 import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.publicity.conformance.model.Workspace
 import java.io.File
 import org.junit.Before
 import org.junit.Rule
@@ -18,17 +19,19 @@ abstract class PackageCheckerTest {
 
   @Before
   fun setUp() {
+    workspaceRoot.root.resolve("first_party").mkdirs()
     packageDir = workspaceRoot.newFolder("first_party", "foo")
-    setupSubject(workspaceRoot.root, "//first_party")
+    val workspace = Workspace(workspaceRoot.root, workspaceRoot.root.resolve("first_party"))
+    setupSubject(workspace)
   }
 
   @Test
   fun public_passes() {
     runSuccessTest(
         """
-      load("//first_party/publicity:defs.bzl", "public")
-      PUBLICITY = public()
-    """
+        load("//first_party/publicity:defs.bzl", "public")
+        PUBLICITY = public()
+        """
             .trimIndent())
   }
 
@@ -36,9 +39,9 @@ abstract class PackageCheckerTest {
   fun internal_passes() {
     runSuccessTest(
         """
-      load("//first_party/publicity:defs.bzl", "internal")
-      PUBLICITY = internal()
-    """
+        load("//first_party/publicity:defs.bzl", "internal")
+        PUBLICITY = internal()
+        """
             .trimIndent())
   }
 
@@ -46,9 +49,9 @@ abstract class PackageCheckerTest {
   fun restricted_passes() {
     runSuccessTest(
         """
-      load("//first_party/publicity:defs.bzl", "restricted")
-      PUBLICITY = restricted(["foo"])
-    """
+        load("//first_party/publicity:defs.bzl", "restricted")
+        PUBLICITY = restricted(["foo"])
+        """
             .trimIndent())
   }
 
@@ -56,9 +59,9 @@ abstract class PackageCheckerTest {
   fun quarantined_pathMatchesEnclosingPackage_passes() {
     runSuccessTest(
         """
-      load("//first_party/publicity:defs.bzl", "quarantined")
-      PUBLICITY = quarantined("//first_party/foo")
-    """
+        load("//first_party/publicity:defs.bzl", "quarantined")
+        PUBLICITY = quarantined("//first_party/foo")
+        """
             .trimIndent())
   }
 
@@ -68,7 +71,7 @@ abstract class PackageCheckerTest {
         """
         load("//first_party/publicity:defs.bzl", "quarantined")
         PUBLICITY = quarantined("//first_party/bar")
-      """
+        """
             .trimIndent(),
         "quarantined() in ${packageDir.path}/publicity.bzl must be passed the enclosing package ('//first_party/foo') but '//first_party/bar' was found.")
   }
@@ -77,9 +80,9 @@ abstract class PackageCheckerTest {
   fun aliasedLoad_passes() {
     runSuccessTest(
         """
-      load("//first_party/publicity:defs.bzl", my_pub = "public")
-      PUBLICITY = my_pub()
-    """
+        load("//first_party/publicity:defs.bzl", my_pub = "public")
+        PUBLICITY = my_pub()
+        """
             .trimIndent())
   }
 
@@ -89,7 +92,7 @@ abstract class PackageCheckerTest {
         """
         load("//first_party/publicity:defs.bzl", "public")
         # Missing PUBLICITY assignment
-      """
+        """
             .trimIndent(),
         "${packageDir.path}/publicity.bzl must contain a variable named PUBLICITY, but none exists")
   }
@@ -100,7 +103,7 @@ abstract class PackageCheckerTest {
         """
         load("//first_party/publicity:defs.bzl", "public")
         PUBLICITY = "some_string"
-      """
+        """
             .trimIndent(),
         "PUBLICITY in ${packageDir.path}/publicity.bzl must be assigned a function call, but found \"some_string\".")
   }
@@ -109,7 +112,7 @@ abstract class PackageCheckerTest {
   fun unsupportedFunctionCall_fails() {
     runFailureTest(
         "PUBLICITY = unknown_func()",
-        "PUBLICITY in ${packageDir.path}/publicity.bzl must be assigned a direct call to `public`, `internal`, `restricted` or `quarantined` (or a load alias), but found 'unknown_func'.")
+        "PUBLICITY in ${packageDir.path}/publicity.bzl must be assigned a direct call to `public`, `internal`, `restricted` or `quarantined` (or an equivalent load alias), but found 'unknown_func'.")
   }
 
   @Test
@@ -119,7 +122,7 @@ abstract class PackageCheckerTest {
         load("//first_party/publicity:defs.bzl", "public")
         # Dot notation
         PUBLICITY = some_mod.public()
-      """
+        """
             .trimIndent(),
         "PUBLICITY in ${packageDir.path}/publicity.bzl must be assigned a direct function call, but found some_mod.public.")
   }
@@ -135,10 +138,10 @@ abstract class PackageCheckerTest {
   }
 
   /** Configures the [subject]. Should be called exactly once per test. */
-  protected abstract fun setupSubject(workspaceRoot: File, firstPartyRoot: String)
+  protected abstract fun setupSubject(workspace: Workspace)
 
   /**
-   * Gets the subjct under test.
+   * Gets the subject under test.
    *
    * Must return the same object on each call (within a single test run). Should only be called
    * after [setupSubject].
@@ -169,12 +172,12 @@ abstract class PackageCheckerTest {
     result.assertFailure(failureMessage)
   }
 
-  /** Asserts that this [Result] is success. */
+  /** Asserts that this [Result] is Successful. */
   private fun PackageChecker.Result.assertSuccess() {
     assertThat(this).isInstanceOf(PackageChecker.Result.Success::class.java)
   }
 
-  /** Asserts that this [Result] is failure with [expectedMessage]. */
+  /** Asserts that this [Result] is a Failure with [expectedMessage]. */
   private fun PackageChecker.Result.assertFailure(expectedMessage: String) {
     assertThat(this).isInstanceOf(PackageChecker.Result.Failure::class.java)
     val failure = this as PackageChecker.Result.Failure

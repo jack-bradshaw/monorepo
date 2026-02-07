@@ -10,6 +10,10 @@ exports_files(
     visibility = PUBLICITY,
 )
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> daae4a44 (stuff)
 # These files are exported so they can be referenced by the macro-generated targets; however,
 # they are not supported for use in other contexts, and do not constitutie the public API of this
 # package. They are effectively internal, but must be publicly available due to Bazel visibility

@@ -733,6 +733,31 @@
         ]
       }
     },
+    "@@rules_android+//bzlmod_extensions:com_android_dex.bzl%com_android_dex_extension": {
+      "general": {
+        "bzlTransitiveDigest": "2icqERrdWnpamgt/akEgAtfBsjNG1/st+AAFRZx9aH4=",
+        "usagesDigest": "c1Y/KGGjUYCyd8zNIVTUh1bynVXRFz6xGKaSCBpQANM=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "com_android_dex": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+            "attributes": {
+              "url": "https://android.googlesource.com/platform/dalvik/+archive/5a81c499a569731e2395f7c8d13c0e0d4e17a2b6.tar.gz",
+              "build_file": "@@rules_android+//bzlmod_extensions:com_android_dex.BUILD"
+            }
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "rules_android+",
+            "bazel_tools",
+            "bazel_tools"
+          ]
+        ]
+      }
+    },
     "@@rules_android+//rules/android_sdk_repository:rule.bzl%android_sdk_repository_extension": {
       "general": {
         "bzlTransitiveDigest": "+rMrzIrv7sImYmkbXJYv+gFpTJQ79X3MpwwMLI2A+oA=",
@@ -3404,7 +3429,7 @@
     },
     "@@rules_rust+//crate_universe:extensions.bzl%crate": {
       "general": {
-        "bzlTransitiveDigest": "3c/sr7WFbXx+MSCATHMzC4Ga+rJC/0tF36ZcmLXcuqQ=",
+        "bzlTransitiveDigest": "0mqaGoG14lc3zGAoqG7rKJTkENeXe23vBEYBVk4rbpc=",
         "usagesDigest": "t4Rp/SOv2DhF6l0VHMMCT9vz11t5Tw+7se5MO8neuvg=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},

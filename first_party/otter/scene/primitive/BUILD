@@ -1,7 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//first_party/publicity:defs.bzl", "quarantined")
-
-PUBLICITY = quarantined("//first_party/otter/scene/primitive")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "primitive",
