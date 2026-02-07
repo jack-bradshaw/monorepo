@@ -1,6 +1,6 @@
 package com.jackbradshaw.publicity.conformance.packagechecker
 
-import com.jackbradshaw.publicity.conformance.WorkspaceRoot
+import com.jackbradshaw.publicity.conformance.model.Workspace
 import com.jackbradshaw.publicity.conformance.packagechecker.PackageChecker.Result
 import java.io.File
 import javax.inject.Inject
@@ -14,8 +14,7 @@ import net.starlark.java.syntax.StarlarkFile
 import net.starlark.java.syntax.StringLiteral
 
 /** [PackageChecker] that uses a Starlark AST. */
-class PackageCheckerImpl @Inject constructor(@WorkspaceRoot private val workspaceRoot: File) :
-    PackageChecker {
+class PackageCheckerImpl @Inject constructor(private val workspace: Workspace) : PackageChecker {
 
   override fun validate(packageDir: File): Result {
     val publicityFile = findPublicityFile(packageDir)
@@ -47,11 +46,13 @@ class PackageCheckerImpl @Inject constructor(@WorkspaceRoot private val workspac
       packageDir.listFiles()?.find { it.name == "publicity.bzl" }
 
   private fun parseLoadedPublicityFunctions(file: StarlarkFile): Map<String, Publicity> {
+    // Uses contains (not equals) for the import value comparison to support fully qualified names.
     return file.statements
         .filterIsInstance<LoadStatement>()
         .filter { it.getImport().value.contains("first_party/publicity:defs.bzl") }
         .flatMap { it.bindings }
         .mapNotNull { binding ->
+          // Null implies the load statement was not related to publiciity and can be disregarded.
           Publicity.from(binding.originalName.name)?.let { binding.localName.name to it }
         }
         .toMap()
@@ -62,7 +63,7 @@ class PackageCheckerImpl @Inject constructor(@WorkspaceRoot private val workspac
       assignment: AssignmentStatement,
       publicityFile: File,
       packageDir: File,
-      typesByAlias: Map<String, Publicity>
+      functionsByAlias: Map<String, Publicity>
   ): Result {
     val callExpression = assignment.rhs as? CallExpression
     if (callExpression == null) {
@@ -78,19 +79,18 @@ class PackageCheckerImpl @Inject constructor(@WorkspaceRoot private val workspac
               "${callExpression.function}.")
     }
 
-    val publicityType = typesByAlias[functionName]
+    val publicityType = functionsByAlias[functionName]
     if (publicityType == null) {
       return Result.Failure(
           "PUBLICITY in ${publicityFile.path} must be assigned a direct call to `public`, " +
-              "`internal`, `restricted` or `quarantined` (or a load alias), but found " +
-              "\'$functionName\'.")
+              "`internal`, `restricted` or `quarantined` (or an equivalent load alias), " +
+              "but found \'$functionName\'.")
     }
 
+    // Quarantined has extra requirements.
     return when (publicityType) {
-      Publicity.Public -> Result.Success
-      Publicity.Internal -> Result.Success
-      Publicity.Restricted -> Result.Success
       Publicity.Quarantined -> validateQuarantinedCall(callExpression, packageDir, publicityFile)
+      else -> Result.Success
     }
   }
 
@@ -106,16 +106,16 @@ class PackageCheckerImpl @Inject constructor(@WorkspaceRoot private val workspac
 
     if (packageArg != packageIdentifier) {
       return Result.Failure(
-          "quarantined() in ${publicityFile.path} must be passed the enclosing package (\'$packageIdentifier\') but \'$packageArg\' was found.")
+          "quarantined() in ${publicityFile.path} must be passed the enclosing package " +
+              "(\'$packageIdentifier\') but \'$packageArg\' was found.")
     }
 
     return Result.Success
   }
 
-  /** Gets the bazel package identifier of the package at [packageDir] (e.g. //foo/bar). */
+  /** Gets the package identifier of the package at [packageDir] (e.g. //foo/bar). */
   private fun getBazelPackageIdentifier(packageDir: File): String {
-    val relativePath = packageDir.relativeTo(workspaceRoot).path
-    return "//$relativePath"
+    return workspace.identifyPackage(packageDir)
   }
 
   /** The supported publicity options. */

@@ -22,21 +22,18 @@ conformance test ensures the correct value is passed in.
 
 The conformance infrastructure is divided into several components to create a clean separation
 between the underlying logic of the tests and their integration into Bazel. This approach allows the
-core logic to be tested in isolation while still ensuring that the integration with Bazel is
-correct. Overall this approach enables fast feedback cycles and prevents a variety of bug classes.
-
-The main components are:
+core logic to be tested with granular precision while still ensuring that the integration with Bazel
+is correct. The main components are:
 
 - The [package checker](/first_party/publicity/conformance/packagechecker) which validates a single
   package using a Starlark AST.
-- The [workspace checker](/first_party/publicity/conformance/workspacechecker) which validates the
-  entire workspace by iterating over the first party packages and delegating to the package checker.
-- The [conformance test](file:///first_party/publicity/conformance/ConformanceTest.kt) which runs
-  the workspace checker as a Kotlin test.
+- The [workspace checker](/first_party/publicity/conformance/workspacechecker) which validates a
+  single workspace by iterating over the first-party packages and delegating to the package checker.
+- The [runner](/first_party/publicity/conformance/runner) which validates a single workspace and
+  pipes the results into STDIO.
+- The [entrypoint](/first_party/publicity/conformance/entrypoint) which bridges the runner with a
+  main function for CLI invocation. This binary is the primary auditor and must be invoked via
+  `bazel run` (not `bazel test`).
 
-An integration test checks the conformance test by manually invoking it on a fake workspace under a
-few basic conditions. It does not perform deep checking of the logic, as those details are covered
-in depth by the unit tests for the package and workspace checkers.
-
-In summary, this layered approach modularizes the verification logic, decouples it from Bazel, and
-allows extensive testing for correctness and maintainability.
+This modular approach makes extensive use of dependency injection to decouple the logic from the
+environment and ensure thorough testing.
