@@ -12,7 +12,7 @@ interface PackageChecker {
     /** The package is fully conformant. */
     object Success : Result()
 
-    /** The package is non-conformant, details in [message]. */
+    /** The package is non-conformant (details in [message]). */
     data class Failure(val message: String) : Result()
   }
 }
