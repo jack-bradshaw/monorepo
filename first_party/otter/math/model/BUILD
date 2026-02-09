@@ -1,6 +1,7 @@
 load("@grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 proto_library(
     name = "proto",
@@ -9,16 +10,12 @@ proto_library(
         "quaternion.proto",
         "vector.proto",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
 )
 
 kt_jvm_proto_library(
     name = "kt_jvm_proto",
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
     deps = [":proto"],
 )
 
@@ -29,9 +26,7 @@ kt_jvm_library(
         "QuaternionExt.kt",
         "VectorExt.kt",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
     deps = [
         ":kt_jvm_proto",
         "//first_party/autofactory",

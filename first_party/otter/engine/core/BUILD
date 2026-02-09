@@ -1,11 +1,13 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library_with_dagger(
     name = "core",
     srcs = [
         "EngineCore.kt",
     ],
-    visibility = ["//first_party/otter:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/otter:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -15,14 +17,12 @@ kt_jvm_library_with_dagger(
     ],
 )
 
-kt_jvm_library_with_dagger(
+kt_jvm_library(
     name = "impl",
     srcs = [
         "EngineCoreImpl.kt",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = ["//visibility:private"],
     deps = [
         ":core",
         "//first_party/otter:scope",
@@ -46,8 +46,5 @@ kt_jvm_library_with_dagger(
     deps = [
         ":core",
         ":impl",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
-        "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_vr",
     ],
 )

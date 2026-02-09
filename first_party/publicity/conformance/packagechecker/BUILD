@@ -1,17 +1,17 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
-load("//first_party/publicity:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "checker",
     srcs = ["PackageChecker.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
+    visibility = [
+        "//first_party/publicity/conformance/workspacechecker:__pkg__",
+    ],
 )
 
 kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["PackageCheckerImpl.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
     deps = [
         ":checker",
         "//first_party/publicity/conformance/model",
@@ -22,7 +22,9 @@ kt_jvm_library_with_dagger(
 kt_jvm_library_with_dagger(
     name = "impl_module",
     srcs = ["PackageCheckerImplModule.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
+    visibility = [
+        "//first_party/publicity/conformance:__subpackages__",
+    ],
     deps = [
         ":checker",
         ":impl",
@@ -32,7 +34,6 @@ kt_jvm_library_with_dagger(
 kt_jvm_library(
     name = "test",
     srcs = ["PackageCheckerTest.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
     deps = [
         ":checker",
         "//first_party/publicity/conformance/model",

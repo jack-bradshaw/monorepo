@@ -96,7 +96,7 @@ class TestHarness {
    * Expects to be run in a sharded test (i.e. shard_count set in Bazel test rule) and fails if not.
    *
    * @param page The page to screenshot.
-   * @param goldenName The unique name of the golden file (e.g., "TestClass_testMethod.png").
+   * @param goldenName The unique name of the golden file (e.g. "TestClass_testMethod.png").
    */
   fun checkScreendiff(page: Page, goldenName: String) {
     val screenshot = page.captureScreenshot()

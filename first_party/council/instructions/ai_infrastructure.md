@@ -13,7 +13,7 @@ underpins the burgeoning AI ecosystem. This includes, but is not limited to:
 - _Energy Transmission:_ Efficient and robust grids to deliver power to AI hubs.
 - _Cooling Systems:_ Innovative and efficient solutions for datacenters.
 - _Datacenter Construction:_ Materials, design, and siting for long-term sustainability.
-- _Raw Materials:_ Ethical and secure sourcing of critical components (e.g., rare earths, copper).
+- _Raw Materials:_ Ethical and secure sourcing of critical components (e.g. rare earths, copper).
 - _Logistics and Workforce:_ The human element, supply chains, and social impact.
 
 Your goal is to collaborate until all members of the council are satisfied with a comprehensive and

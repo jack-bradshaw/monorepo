@@ -418,7 +418,7 @@ kt_jvm_library(
 
 This is an extension of the granular target requirements in
 [bazel.md](/first_party/contributing/tooling/bazel.md). It creates classpath separation at the build
-system level, which allows consumers to depend on naked interface without also including the
+system level, which allows consumers to depend on the naked interface without including the
 Dagger-generated code in the classpath, thereby improving build performance and supporting the
 dependency-inversion principle promoted by the naked interfaces directive.
 

@@ -82,7 +82,7 @@ class RunnerImplTest : RunnerTest() {
         [
             WorkspaceCheckerImplModule::class,
             PackageCheckerImplModule::class,
-            RunnerModule::class,
+            RunnerImplModule::class,
         ])
 internal interface TestCheckerComponent {
   fun inject(target: RunnerImplTest)

@@ -1,9 +1,5 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_import", "java_library", "java_plugin", "java_test")
 
-package(
-    default_visibility = ["//visibility:private"],
-)
-
 java_library(
     name = "java_library_must_build",
     srcs = ["Library.java"],
@@ -19,9 +15,7 @@ java_test(
     name = "java_test_must_pass",
     srcs = ["Testing.java"],
     test_class = "Testing",
-    deps = [
-        "@com_jackbradshaw_maven//:junit_junit",
-    ],
+    deps = ["@com_jackbradshaw_maven//:junit_junit"],
 )
 
 java_import(
