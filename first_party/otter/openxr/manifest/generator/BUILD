@@ -1,14 +1,13 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "generator",
     srcs = [
         "ManifestGenerator.kt",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/klu/flow",
         "//first_party/otter/openxr/model:kt_jvm_proto",
@@ -16,14 +15,12 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library_with_dagger(
+kt_jvm_library(
     name = "impl",
     srcs = [
         "ManifestGeneratorImpl.kt",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = ["//visibility:private"],
     deps = [
         ":generator",
         "//first_party/klu/flow",

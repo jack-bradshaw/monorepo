@@ -8,8 +8,6 @@ load(
 )
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 
-package(default_visibility = ["//visibility:private"])
-
 aar_import(
     name = "aar_import_must_build",
     aar = "dummy.aar",
@@ -43,7 +41,5 @@ android_local_test(
     name = "android_local_test_must_pass",
     srcs = ["Testing.java"],
     test_class = "com.jackbradshaw.build_tests.Testing",
-    deps = [
-        "@com_jackbradshaw_maven//:junit_junit",
-    ],
+    deps = ["@com_jackbradshaw_maven//:junit_junit"],
 )

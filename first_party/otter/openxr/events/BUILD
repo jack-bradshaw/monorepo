@@ -17,17 +17,16 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library_with_dagger(
+kt_jvm_library(
     name = "impl",
     srcs = [
         "EventsImpl.kt",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = ["//visibility:private"],
     deps = [
         ":events",
         "//first_party/otter:scope",
+        "//first_party/otter/openxr/manifest/encoder",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

@@ -1,7 +1,5 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 
-package(default_visibility = ["//visibility:private"])
-
 cc_library(
     name = "cpp_library_must_build",
     srcs = ["library.cpp"],
@@ -10,14 +8,10 @@ cc_library(
 
 cc_binary(
     name = "cpp_binary_must_build",
-    srcs = [
-        "main.cpp",
-    ],
+    srcs = ["main.cpp"],
 )
 
 cc_test(
     name = "cpp_test_must_pass",
-    srcs = [
-        "test.cpp",
-    ],
+    srcs = ["test.cpp"],
 )

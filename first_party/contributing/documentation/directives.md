@@ -41,9 +41,11 @@ independent of other directives.
 
 ### Standard: Type Headers
 
-The type of directive (Standard, Practice, or Guideline) should be specified in the section header.
+The type of directive (Standard, Practice, Guideline, or Automation) should be specified in the
+section header.
 
-Examples: `## Standard: Foo not Bar`, `## Practice: Foo Not Bar`, and `## Guideline: Foo Not Bar.`
+Examples: `## Standard: Foo not Bar`, `## Practice: Foo Not Bar`, `## Guideline: Foo Not Bar`, and
+`## Automation: Foo Not Bar`.
 
 This enables contributors to quickly distinguish between absolute rules and conventional practices.
 
@@ -179,7 +181,7 @@ Example: The directives in this file.
 
 Ordering standards and practices this way aids legibility by allowing readers to comprehend what is
 being asked of them before they are presented with the detailed reasoning to support it, while
-leaving guidelines unconstrained and open ended.
+leaving guidelines unconstrained and open-ended.
 
 ### Practice: Example Terminology
 

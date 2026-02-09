@@ -8,7 +8,6 @@ load(
 js_library(
     name = "config",
     srcs = ["prettier.config.cjs"],
-    visibility = ["//first_party/formatting:__pkg__"],
 )
 
 sh_binary_with_runfiles(

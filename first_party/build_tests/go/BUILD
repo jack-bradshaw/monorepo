@@ -1,7 +1,5 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
-package(default_visibility = ["//visibility:private"])
-
 go_library(
     name = "go_library_must_build",
     srcs = ["main.go"],

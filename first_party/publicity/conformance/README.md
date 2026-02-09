@@ -31,9 +31,9 @@ is correct. The main components are:
   single workspace by iterating over the first-party packages and delegating to the package checker.
 - The [runner](/first_party/publicity/conformance/runner) which validates a single workspace and
   pipes the results into STDIO.
-- The [entrypoint](/first_party/publicity/conformance/entrypoint) which bridges the runner with a
-  main function for CLI invocation. This binary is the primary auditor and must be invoked via
-  `bazel run` (not `bazel test`).
+- The [entrypoint](/first_party/publicity/conformance) (this package) which bridges the runner to a
+  JVM main function for execution. The binary is the primary enter point and must be invoked via
+  `bazel run`, not `bazel test`, because tests cannot reliably locale and read the whole workspace.
 
 This modular approach makes extensive use of dependency injection to decouple the logic from the
 environment and ensure thorough testing.

@@ -1,15 +1,14 @@
 load("@grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 proto_library(
     name = "interaction_proto",
     srcs = [
         "interaction.proto",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/otter/graphics/model:proto",
         "//first_party/otter/math/model:proto",
@@ -18,9 +17,7 @@ proto_library(
 
 kt_jvm_proto_library(
     name = "interaction_kt_jvm_proto",
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
     deps = [":interaction_proto"],
 )
 

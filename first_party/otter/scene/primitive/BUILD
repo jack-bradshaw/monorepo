@@ -1,13 +1,12 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "primitive",
     srcs = [
         "ScenePrimitive.kt",
     ],
-    visibility = [
-        "//first_party/otter:__subpackages__",
-    ],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/klu/flow",
         "//first_party/otter/physics/model:kt_jvm_proto",

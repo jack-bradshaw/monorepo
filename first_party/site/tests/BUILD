@@ -1,7 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 
-package(default_visibility = ["//visibility:public"])
-
 kt_jvm_library(
     name = "page_extensions",
     testonly = True,
@@ -16,9 +14,7 @@ kt_jvm_library(
     name = "test_harness",
     testonly = True,
     srcs = ["TestHarness.kt"],
-    data = [
-        "//first_party/site",
-    ],
+    data = ["//first_party/site"],
     deps = [
         ":page_extensions",
         "@bazel_tools//tools/java/runfiles",
@@ -69,9 +65,7 @@ kt_jvm_test(
     name = "content_navigation_test",
     size = "medium",
     srcs = ["ContentNavigationTest.kt"],
-    data = [
-        "@playwright//:chromium-headless-shell",
-    ],
+    data = ["@playwright//:chromium-headless-shell"],
     env = {
         "PLAYWRIGHT_BROWSERS_PATH": "$(rootpath @playwright//:chromium-headless-shell)/../",
     },

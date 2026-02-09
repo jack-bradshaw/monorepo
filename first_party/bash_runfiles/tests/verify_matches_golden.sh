@@ -25,7 +25,7 @@ source "$(rlocation "_main/first_party/dr_bashir/strings/trim_indent_with_runfil
 # Reports differences and fails the test if they don't match.
 #
 # Args:
-#   $1: The runfile-relative path to the actual file (e.g., "_main/path/to/file").
+#   $1: The runfile-relative path to the actual file (e.g. "_main/path/to/file").
 #   $2: The runfile-relative path to the golden file.
 #
 # Returns:

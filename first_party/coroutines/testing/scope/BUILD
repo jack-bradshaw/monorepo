@@ -3,7 +3,7 @@ load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["ScopeModule.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = ["//first_party/coroutines/testing:__subpackages__"],
     deps = [
         "//first_party/coroutines:scope",
         "//first_party/coroutines/testing/dispatchers",

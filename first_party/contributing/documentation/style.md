@@ -171,7 +171,7 @@ Just Right: "The Kernel Team decided to remove the drivers for runtime performan
 attribution with clear reasoning).
 
 Striking a balance between attribution (providing accountability and context) and clarity (avoiding
-ambiguous pronouns) ensures clear communication by using specific group references (e.g., "The
+ambiguous pronouns) ensures clear communication by using specific group references (e.g. "The
 Maintainers", "The Compiler Team", "The Security Workgroup") rather than vague pronouns.
 
 Exception: Pronouns that refer to the user (e.g. "you") are acceptable (related to Balance
@@ -312,9 +312,9 @@ the right place but the document is becoming too large.
 ## Practice: Scope-Appropriate Documentation
 
 Documentation should match its scope to its context. Granular documentation (e.g. Javadoc, inline
-comments) should focus on the component they relate to; whereas, high-level documentation (e.g.,
-READMEs, architecture docs) should focus on how components integrate and compose together, and how
-they fit into the broader system.
+comments) should focus on the component they relate to; whereas, high-level documentation (e.g.
+ARCHITECTURE docs) should focus on how components integrate and compose together, and how they fit
+into the broader system.
 
 Positive Example: Javadoc explaining a function's parameters, return value, and edge cases.
 

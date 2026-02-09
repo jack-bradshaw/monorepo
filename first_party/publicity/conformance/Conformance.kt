@@ -1,9 +1,8 @@
-package com.jackbradshaw.publicity.conformance.entrypoint
+package com.jackbradshaw.publicity.conformance
 
 import com.jackbradshaw.concurrency.concurrencyComponent
 import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.publicity.conformance.model.Workspace
-import com.jackbradshaw.publicity.conformance.runner.runnerComponent
 import com.jackbradshaw.sasync.inbound.config.defaultConfig as inboundConfig
 import com.jackbradshaw.sasync.inbound.inboundComponent
 import com.jackbradshaw.sasync.outbound.config.defaultConfig as outboundConfig
@@ -17,7 +16,7 @@ import kotlin.system.exitProcess
 import kotlinx.coroutines.runBlocking
 
 /**
- * Entry point for the publicity conformance tests.
+ * Entry point for the publicity conformance system.
  *
  * Run the tests by calling [main], and control the tests by setting:
  * - BUILD_WORKSPACE_DIRECTORY to the absolute file path of the workspace to check.
@@ -29,7 +28,7 @@ import kotlinx.coroutines.runBlocking
  * The test logs are written to STDIO, and main returns 0/1 for success/failure. Args are unused and
  * ignored.
  */
-object EntryPoint {
+object Conformance {
 
   /**
    * Executes the conformance tests, writes the results to the streams currently set in [System],
@@ -69,7 +68,7 @@ object EntryPoint {
             output = stdout,
             error = stderr)
 
-    val result = runnerComponent(workspace, standard).runner().run()
+    val result = conformanceComponent(workspace, standard).runner().run()
 
     // Asynchronous output buffers may need time to flush.
     standard.standardOutputOutboundTransport().close()

@@ -1,42 +1,15 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
-load("//first_party/publicity:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "runner",
     srcs = ["Runner.kt"],
-    visibility = PUBLICITY,
-)
-
-kt_jvm_library(
-    name = "component",
-    srcs = ["RunnerComponent.kt"],
-    visibility = PUBLICITY,
-    deps = [
-        ":runner",
-    ],
-)
-
-kt_jvm_library_with_dagger(
-    name = "component_impl",
-    srcs = ["RunnerComponentImpl.kt"],
-    visibility = PUBLICITY,
-    deps = [
-        ":component",
-        ":module",
-        ":runner",
-        "//first_party/publicity/conformance/model",
-        "//first_party/publicity/conformance/packagechecker:impl_module",
-        "//first_party/publicity/conformance/workspacechecker:impl_module",
-        "//first_party/sasync/standard:component",
-        "//first_party/sasync/standard:component_impl",
-    ],
+    visibility = ["//first_party/publicity/conformance:__pkg__"],
 )
 
 kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["RunnerImpl.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
     deps = [
         ":runner",
         "//first_party/publicity/conformance/model",
@@ -48,9 +21,11 @@ kt_jvm_library_with_dagger(
 )
 
 kt_jvm_library_with_dagger(
-    name = "module",
-    srcs = ["RunnerModule.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
+    name = "impl_module",
+    srcs = ["RunnerImplModule.kt"],
+    visibility = [
+        "//first_party/publicity/conformance:__subpackages__",
+    ],
     deps = [
         ":impl",
         ":runner",
@@ -60,7 +35,6 @@ kt_jvm_library_with_dagger(
 kt_jvm_library(
     name = "test",
     srcs = ["RunnerTest.kt"],
-    visibility = ["//first_party/publicity/conformance:__subpackages__"],
     deps = [
         ":runner",
         "//first_party/publicity/conformance/model",
@@ -72,13 +46,12 @@ kt_jvm_library(
 
 kt_jvm_test_with_dagger(
     name = "impl_test",
-    # timeout = "short" is default for unit tests usually, but good to be explicit if it was there.
     timeout = "short",
     srcs = ["RunnerImplTest.kt"],
     test_class = "com.jackbradshaw.publicity.conformance.runner.RunnerImplTest",
     deps = [
         ":impl",
-        ":module",
+        ":impl_module",
         ":runner",
         ":test",
         "//first_party/concurrency/testing:component",

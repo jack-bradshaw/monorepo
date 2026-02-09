@@ -1,13 +1,10 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
+load("//first_party/kmonkey:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "coroutines",
-    srcs = [
-        "Dispatchers.kt",
-    ],
-    visibility = [
-        "//first_party:__subpackages__",
-    ],
+    srcs = ["Dispatchers.kt"],
+    visibility = PUBLICITY,
     deps = [
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_bullet",
@@ -17,9 +14,7 @@ kt_jvm_library(
 
 kt_jvm_test(
     name = "test",
-    srcs = [
-        "DispatchersTest.kt",
-    ],
+    srcs = ["DispatchersTest.kt"],
     test_class = "com.jackbradshaw.kmonkey.coroutines.DispatchersTest",
     deps = [
         "//first_party/kmonkey/coroutines",

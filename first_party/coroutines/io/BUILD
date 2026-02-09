@@ -1,17 +1,16 @@
+load("//first_party/coroutines:publicity.bzl", "PUBLICITY")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
 kt_jvm_library_with_dagger(
     name = "io",
     srcs = ["Io.kt"],
-    visibility = ["//first_party:__subpackages__"],
-    deps = [
-    ],
+    visibility = PUBLICITY,
 )
 
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["IoModule.kt"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = ["//first_party/coroutines:__pkg__"],
     deps = [
         ":io",
         "//first_party/coroutines:scope",

@@ -1,23 +1,17 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
+load("//first_party/sasync:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "transport",
     srcs = ["InboundTransport.kt"],
-    visibility = [
-        "//visibility:public",
-    ],
-    deps = [
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-    ],
+    visibility = PUBLICITY,
+    deps = ["@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
 )
 
 kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["InboundTransportImpl.kt"],
-    visibility = [
-        "//visibility:public",
-    ],
     deps = [
         ":transport",
         "//first_party/concurrency/pulsar",
@@ -32,9 +26,7 @@ kt_jvm_library_with_dagger(
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["InboundTransportModule.kt"],
-    visibility = [
-        "//visibility:public",
-    ],
+    visibility = ["//first_party/sasync/inbound:__subpackages__"],
     deps = [
         ":impl",
         ":transport",
@@ -45,9 +37,7 @@ kt_jvm_library_with_dagger(
 kt_jvm_library(
     name = "test",
     srcs = ["InboundTransportTest.kt"],
-    visibility = [
-        "//visibility:public",
-    ],
+    visibility = PUBLICITY,
     deps = [
         ":transport",
         "//first_party/concurrency/pulsar/testing",
@@ -65,9 +55,6 @@ kt_jvm_test_with_dagger(
     testonly = True,
     srcs = ["InboundTransportImplTest.kt"],
     test_class = "com.jackbradshaw.sasync.inbound.transport.InboundTransportImplTest",
-    visibility = [
-        "//visibility:private",
-    ],
     deps = [
         ":impl",
         ":test",

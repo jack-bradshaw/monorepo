@@ -1,7 +1,5 @@
 load("//first_party/bash_runfiles:bats_test.bzl", "bats_test_with_runfiles")
 
-package(default_visibility = ["//visibility:public"])
-
 bats_test_with_runfiles(
     name = "webp_converter_test",
     src = "webp_converter_test.bats",

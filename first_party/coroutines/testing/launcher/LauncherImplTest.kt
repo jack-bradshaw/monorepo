@@ -1,6 +1,7 @@
 package com.jackbradshaw.coroutines.testing.launcher
 
 import com.jackbradshaw.coroutines.CoroutinesScope
+import com.jackbradshaw.coroutines.testing.dispatchers.DispatchersModule
 import com.jackbradshaw.coroutines.testing.scope.ScopeModule
 import dagger.Component
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class LauncherImplTest : LauncherTest() {
 }
 
 @CoroutinesScope
-@Component(modules = [LauncherModule::class, ScopeModule::class])
+@Component(modules = [LauncherModule::class, ScopeModule::class, DispatchersModule::class])
 interface TestComponent {
   fun inject(target: LauncherImplTest)
 }

@@ -1,9 +1,5 @@
 load("@rules_swift//swift:swift.bzl", "swift_binary", "swift_library", "swift_test")
 
-package(
-    default_visibility = ["//visibility:private"],
-)
-
 swift_library(
     name = "swift_library_must_build",
     srcs = ["Library.swift"],

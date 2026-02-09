@@ -4,19 +4,23 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
 
-/** Tests to verify the generated Dagger components work as intended. */
-class LibraryAndTestMacroTest {
+/**
+ * Tests to verify the macro correctly detects and processes the dagger components in
+ * BinTestComponents.kt. The main method is irrelevant and is not exercise, it simply needs to exist
+ * for the compiled file to be a valid bin.
+ */
+class BinTest {
 
-  private lateinit var component: TestComponent
+  private lateinit var component: BinTestComponent
 
   @Before
   fun setup() {
     val upstream =
-        object : UpstreamComponent {
+        object : BinUpstreamComponent {
           override fun provideUpstreamString() = "Upstream"
         }
 
-    component = DaggerTestComponent.builder().upstreamComponent(upstream).build()
+    component = DaggerBinTestComponent.builder().binUpstreamComponent(upstream).build()
   }
 
   @Test
@@ -26,7 +30,7 @@ class LibraryAndTestMacroTest {
   }
 
   @Test
-  fun givenDependeny_expectUpstreamString() {
+  fun givenDependency_expectUpstreamString() {
     val result = component.getUpstreamString()
     assertThat(result).isEqualTo("Upstream")
   }
@@ -67,7 +71,7 @@ class LibraryAndTestMacroTest {
 
   @Test
   fun givenMembersInjection_expectFieldInjected() {
-    val target = TargetClass()
+    val target = BinTargetClass()
     component.inject(target)
     assertThat(target.upstreamString).isEqualTo("Upstream")
   }
