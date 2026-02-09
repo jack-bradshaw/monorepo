@@ -12,9 +12,7 @@ sh_binary_with_runfiles(
     src = "generate_gallery_item_webp.sh",
     data = [":webp_converter"],
     visibility = ["//first_party/site/scripts/tests:__pkg__"],
-    deps = [
-        ":webp_converter",
-    ],
+    deps = [":webp_converter"],
 )
 
 sh_binary_with_runfiles(
@@ -22,7 +20,5 @@ sh_binary_with_runfiles(
     src = "generate_decoration_webp.sh",
     data = [":webp_converter"],
     visibility = ["//first_party/site/scripts/tests:__pkg__"],
-    deps = [
-        ":webp_converter",
-    ],
+    deps = [":webp_converter"],
 )

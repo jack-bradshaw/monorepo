@@ -1,11 +1,11 @@
 load("@rules_java//java:java_library.bzl", "java_library")
 load("@rules_java//java:java_plugin.bzl", "java_plugin")
+load("//first_party/autofactory:publicity.bzl", "PUBLICITY")
 
 java_plugin(
     name = "plugin",
     generates_api = 1,
     processor_class = "com.google.auto.factory.processor.AutoFactoryProcessor",
-    visibility = ["//visibility:private"],
     deps = [
         "@com_jackbradshaw_maven//:com_google_auto_auto_common",
         "@com_jackbradshaw_maven//:com_google_auto_factory_auto_factory",
@@ -18,7 +18,7 @@ java_plugin(
 java_library(
     name = "autofactory",
     exported_plugins = [":plugin"],
-    visibility = ["//first_party:__subpackages__"],
+    visibility = PUBLICITY,
     exports = [
         "@com_jackbradshaw_maven//:com_google_auto_auto_common",
         "@com_jackbradshaw_maven//:com_google_auto_factory_auto_factory",

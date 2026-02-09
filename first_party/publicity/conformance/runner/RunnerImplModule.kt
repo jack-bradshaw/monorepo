@@ -4,6 +4,6 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface RunnerModule {
+interface RunnerImplModule {
   @Binds fun bindRunner(impl: RunnerImpl): Runner
 }

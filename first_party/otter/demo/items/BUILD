@@ -25,12 +25,9 @@ kt_jvm_library(
         "CubeLevelImpl.kt",
         "CubeSwarmImpl.kt",
     ],
-    visibility = [
-        "//first_party/otter/demo:__subpackages__",
-    ],
+    visibility = ["//visibility:private"],
     deps = [
         ":items",
-        "//first_party/klu",
         "//first_party/otter/coroutines",
         "//first_party/otter/demo:scope",
         "//first_party/otter/demo/constants",
