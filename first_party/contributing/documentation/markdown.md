@@ -161,7 +161,7 @@ This prevents visual clutter and improves accessibility.
 
 ## Practice: Avoid Bolding
 
-Bolding should be avoided where possible. Use structure (e.g., headings, lists) or italics (for
+Bolding should be avoided where possible. Use structure (e.g. headings, lists) or italics (for
 emphasis) instead.
 
 Positive Example: "_Important_: Do not delete the database."

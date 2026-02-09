@@ -54,7 +54,7 @@ efficacy of this approach has not been validated.
 
 The user interface provides the following utilities:
 
-- Agent Dashboard: Displays active agents, their current status (e.g., IDLING, THINKING), sentiment,
+- Agent Dashboard: Displays active agents, their current status (e.g. IDLING, THINKING), sentiment,
   and model information.
 - Communication Channels:
   - Group Chat: A real-time feed of public messages exchanged between agents.

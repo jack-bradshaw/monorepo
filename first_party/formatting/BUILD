@@ -1,13 +1,6 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("@rules_java//java:defs.bzl", "java_binary")
-
-package(default_visibility = ["//:__subpackages__"])
-
-# Referenced repeatedly in formatting target. Alias improves readability.
-alias(
-    name = "prettier",
-    actual = "//first_party/formatting/prettier:binary",
-)
+load(":publicity.bzl", "PUBLICITY")
 
 java_binary(
     name = "java-format",
@@ -22,6 +15,8 @@ java_binary(
     runtime_deps = ["@google-java-format//jar"],
 )
 
+# The select() function cannot be used directly from a format_multirun call to Bazel restrictions
+# so it must be used via an alias.
 alias(
     name = "swiftformat",
     actual = select({
@@ -34,25 +29,25 @@ format_multirun(
     name = "formatting",
     c = "@llvm_toolchain_llvm//:bin/clang-format",
     cc = "@llvm_toolchain_llvm//:bin/clang-format",
-    css = ":prettier",
+    css = "//first_party/formatting/prettier:binary",
     cuda = "@llvm_toolchain_llvm//:bin/clang-format",
-    gherkin = ":prettier",
+    gherkin = "//first_party/formatting/prettier:binary",
     go = "@aspect_rules_lint//format:gofumpt",
-    graphql = ":prettier",
-    html = ":prettier",
+    graphql = "//first_party/formatting/prettier:binary",
+    html = "//first_party/formatting/prettier:binary",
     java = ":java-format",
-    javascript = ":prettier",
+    javascript = "//first_party/formatting/prettier:binary",
     jsonnet = "@aspect_rules_lint//format:jsonnetfmt",
     kotlin = "//first_party/formatting/ktfmtwrapper:bin",
-    markdown = ":prettier",
+    markdown = "//first_party/formatting/prettier:binary",
     protocol_buffer = "@rules_buf_toolchains//:buf",
     python = "@aspect_rules_lint//format:ruff",
     shell = "@aspect_rules_lint//format:shfmt",
-    sql = ":prettier",
+    sql = "//first_party/formatting/prettier:binary",
     starlark = "@buildifier_prebuilt//:buildifier",
     swift = ":swiftformat",
     terraform = "@aspect_rules_lint//format:terraform",
-    visibility = ["//visibility:private"],
-    xml = ":prettier",
+    visibility = PUBLICITY,
+    xml = "//first_party/formatting/prettier:binary",
     yaml = "@aspect_rules_lint//format:yamlfmt",
 )

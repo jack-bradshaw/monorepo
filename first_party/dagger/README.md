@@ -103,8 +103,9 @@ process known as "shading"). This allows the Dagger compiler and KSP to coexist 
 ## Testing
 
 Given the delicate nature of this operation, the [tests](/first_party/dagger/tests) exercise a
-complex Dagger setup to verify this approach does not interfere with Dagger's normal operation. The
-components in the tests do not comply with the
-[repository contributing guidelines](/first_party/contributing/tooling/dagger.md), becuase their
-sole purpose is to exercise the dagger compiler, and they should not be used as dependencies beyond
-the test.
+complex Dagger graph to verify this approach does not interfere with Dagger's normal operation. The
+Dagger code in the tests do not comply with the
+[repository contributing guidelines](/first_party/contributing/tooling/dagger.md) because their sole
+purpose is exercising the dagger compiler, and they should not be used as dependencies beyond the
+test. Furthermore, the tests themselves are split across multiple targets: macro invocations
+exercise the macro, and test targets check the Dagger-generated code is correct.

@@ -1,50 +1,53 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_test")
 load("//first_party/dagger:defs.bzl", "kt_jvm_binary_with_dagger", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 
+# Tests for the library macro. The lib target exercises the macro and the test checks the results.
+
 kt_jvm_library_with_dagger(
-    name = "test_component",
+    name = "lib_test_components",
     testonly = True,
-    srcs = ["TestComponent.kt"],
+    srcs = ["LibTestComponents.kt"],
 )
 
-# Tests the kt_jvm_library_with_dagger macro (:test_component) works as intended.
 kt_jvm_test(
-    name = "LibraryMacroTest",
-    srcs = ["LibraryAndTestMacroTest.kt"],
-    test_class = "first_party.dagger.tests.LibraryAndTestMacroTest",
+    name = "lib_test",
+    srcs = ["LibTest.kt"],
+    test_class = "first_party.dagger.tests.LibTest",
     deps = [
-        ":test_component",
+        ":lib_test_components",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
     ],
 )
 
-# Tests the kt_jvm_test_with_dagger macro works as intended.
-kt_jvm_test_with_dagger(
-    name = "TestMacroTest",
-    srcs = ["LibraryAndTestMacroTest.kt"],
-    test_class = "first_party.dagger.tests.LibraryAndTestMacroTest",
-    deps = [
-        ":test_component",
-        "@com_jackbradshaw_maven//:com_google_truth_truth",
-        "@com_jackbradshaw_maven//:junit_junit",
-    ],
-)
+# Tests for binary macro. The bin target exercises the macro and the test checks the result.
 
 kt_jvm_binary_with_dagger(
-    name = "BinaryMacroTestBin",
+    name = "bin_test_components",
     testonly = True,
-    srcs = ["BinaryMain.kt"],
-    main_class = "first_party.dagger.tests.BinaryMain",
-    deps = [":test_component"],
+    srcs = ["BinTestComponents.kt"],
+    main_class = "first_party.dagger.tests.BinMain",
 )
 
 kt_jvm_test(
-    name = "BinaryMacroTest",
-    srcs = ["BinaryMacroTest.kt"],
-    test_class = "first_party.dagger.tests.BinaryMacroTest",
+    name = "bin_test",
+    srcs = ["BinTest.kt"],
+    test_class = "first_party.dagger.tests.BinTest",
     deps = [
-        ":BinaryMacroTestBin",
+        ":bin_test_components",
+        "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:junit_junit",
+    ],
+)
+
+# Tests for the library macro. Unlike lib and bin tests, one target can build and verify the macro,
+# since the macro generates a test target.
+
+kt_jvm_test_with_dagger(
+    name = "test_test",
+    srcs = ["TestTest.kt"],
+    test_class = "first_party.dagger.tests.TestTest",
+    deps = [
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
     ],

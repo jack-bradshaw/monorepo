@@ -1,19 +1,17 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/concurrency:publicity.bzl", "PUBLICITY")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 
 kt_jvm_library(
     name = "pulsar",
     srcs = ["Pulsar.kt"],
-    visibility = ["//visibility:public"],
-    deps = [
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-    ],
+    visibility = PUBLICITY,
+    deps = ["@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core"],
 )
 
 kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["PulsarImpl.kt"],
-    visibility = ["//visibility:public"],
     deps = [
         ":pulsar",
         "//first_party/concurrency:scope",
@@ -24,7 +22,7 @@ kt_jvm_library_with_dagger(
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["PulsarModule.kt"],
-    visibility = ["//visibility:public"],
+    visibility = ["//first_party/concurrency:__pkg__"],
     deps = [
         ":impl",
         ":pulsar",
@@ -35,7 +33,7 @@ kt_jvm_library(
     name = "test",
     testonly = True,
     srcs = ["PulsarTest.kt"],
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
     deps = [
         ":pulsar",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
@@ -50,7 +48,6 @@ kt_jvm_test_with_dagger(
     name = "impl_test",
     srcs = ["PulsarImplTest.kt"],
     test_class = "com.jackbradshaw.concurrency.pulsar.PulsarImplTest",
-    visibility = ["//visibility:private"],
     deps = [
         ":impl",
         ":pulsar",

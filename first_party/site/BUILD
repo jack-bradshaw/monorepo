@@ -2,6 +2,7 @@ load("@rules_hugo//hugo:rules.bzl", "hugo_serve", "hugo_site")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_test")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//first_party/bash_runfiles:shell.bzl", "sh_binary_with_runfiles")
+load("//first_party/site:publicity.bzl", "PUBLICITY")
 
 hugo_site(
     name = "site",
@@ -11,7 +12,7 @@ hugo_site(
     layouts = glob(["layouts/**"]),
     quiet = False,
     static = glob(["static/**"]),
-    visibility = ["//first_party/site:__subpackages__"],
+    visibility = PUBLICITY,
 )
 
 hugo_serve(

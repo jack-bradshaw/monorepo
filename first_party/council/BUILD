@@ -1,8 +1,7 @@
 load("@pypi//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_binary")
 load("//first_party/bash_runfiles:shell.bzl", "sh_binary_with_runfiles", "sh_library_with_runfiles")
-
-package(default_visibility = ["//first_party/council:__subpackages__"])
+load("//first_party/council:publicity.bzl", "PUBLICITY")
 
 py_binary(
     name = "server_bin",
@@ -46,4 +45,5 @@ sh_binary_with_runfiles(
         ":server_bin",
         ":simulation_bin",
     ],
+    visibility = PUBLICITY,
 )

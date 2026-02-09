@@ -14,28 +14,24 @@ import javax.inject.Provider
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
-// 0. Qualifiers
-@Qualifier @Retention(AnnotationRetention.RUNTIME) annotation class MyQualifier
+@Qualifier @Retention(AnnotationRetention.RUNTIME) annotation class BinQualifier
 
-// 1. Upstream Dependency
-interface UpstreamComponent {
+interface BinUpstreamComponent {
   @Named("upstream") fun provideUpstreamString(): String
 }
 
-// 2. Target for Members Injection
-class TargetClass {
+class BinTargetClass {
   @Inject @Named("upstream") lateinit var upstreamString: String
 }
 
-// 3. The Main Component
 @Singleton
-@Component(modules = [TestModule::class], dependencies = [UpstreamComponent::class])
-interface TestComponent {
+@Component(modules = [BinTestModule::class], dependencies = [BinUpstreamComponent::class])
+interface BinTestComponent {
   fun getString(): String
 
   @Named("upstream") fun getUpstreamString(): String
 
-  @MyQualifier fun getQualifiedString(): String
+  @BinQualifier fun getQualifiedString(): String
 
   fun getLazyString(): Lazy<String>
 
@@ -45,17 +41,16 @@ interface TestComponent {
 
   fun getMap(): Map<String, Int>
 
-  fun inject(target: TargetClass)
+  fun inject(target: BinTargetClass)
 
-  fun subcomponentBuilder(): TestSubcomponent.Builder
+  fun subcomponentBuilder(): BinTestSubcomponent.Builder
 }
 
-// 4. The Module
 @Module
-class TestModule {
+class BinTestModule {
   @Provides @Singleton fun provideString(): String = "Hello Dagger"
 
-  @Provides @MyQualifier fun provideQualifiedString(): String = "Qualified"
+  @Provides @BinQualifier fun provideQualifiedString(): String = "Qualified"
 
   @Provides @IntoSet fun provideSetItem1(): String = "Item1"
 
@@ -66,13 +61,19 @@ class TestModule {
   @Provides @IntoMap @StringKey("two") fun provideMapItem2(): Int = 2
 }
 
-// 5. Subcomponent
 @Subcomponent
-interface TestSubcomponent {
+interface BinTestSubcomponent {
   fun getChildString(): String
 
   @Subcomponent.Builder
   interface Builder {
-    fun build(): TestSubcomponent
+    fun build(): BinTestSubcomponent
+  }
+}
+
+object BinMain {
+  @JvmStatic
+  fun main(args: Array<String>) {
+    // Only needs to exist, can be empty.
   }
 }

@@ -11,8 +11,8 @@
  * window-size-changed event.
  *
  * Note on Resize Logic: This script tracks `previousDeviceType` to distinguish between genuine
- * device profile changes (e.g., rotation/resizing) and minor layout shifts
- * (e.g., scrollbar appearance). This prevents the menu from aggressively auto-closing during
+ * device profile changes (e.g. rotation/resizing) and minor layout shifts
+ * (e.g. scrollbar appearance). This prevents the menu from aggressively auto-closing during
  * harmless resize events, which was an issue previously (causing menu invisibility on taller pages).
  */
 (function () {
