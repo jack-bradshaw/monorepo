@@ -1,10 +1,11 @@
 load("@rules_kotlin//kotlin:core.bzl", "kt_ksp_plugin")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/backstab:publicity.bzl", "PUBLICITY")
 
 kt_ksp_plugin(
     name = "plugin",
     processor_class = "com.jackbradshaw.backstab.entrypoint.BackstabProcessorProvider",
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
     deps = [":entrypoint"],
 )
 

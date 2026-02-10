@@ -1,10 +1,11 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
+load("//first_party/backstab:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "component",
     srcs = ["BackstabCoreComponent.kt"],
-    visibility = ["//first_party/backstab:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/backstab/processor/core",
     ],
@@ -13,7 +14,7 @@ kt_jvm_library(
 kt_jvm_library_with_dagger(
     name = "component_impl",
     srcs = ["BackstabCoreComponentImpl.kt"],
-    visibility = ["//first_party/backstab:__subpackages__"],
+    visibility = PUBLICITY,
     deps = [
         ":component",
         ":scope",

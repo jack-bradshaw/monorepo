@@ -3,11 +3,9 @@ package com.jackbradshaw.backstab.annotations.aggregate
 import javax.inject.Scope
 
 /**
- * The dagger scope for the flat component space associated with a backstab aggregate component. All
- * components annotated with `@Backstab` that are included in an aggregate component will be
- * included in this scope, but they do not need to be annotated with @AggregateScope. It should only
- * be placed on:
- * 1. Modules defined to inegrate third party components.
- * 2. Aggregate components.
+ * The dagger scope for the flat component space associated with an aggregate component.
+ * 
+ * This scope should be placed on aggregate components and modules that bind third party components
+ * into aggregate components. It should not be placed on `@Backstab`-annotated components.
  */
 @Scope @Retention(AnnotationRetention.RUNTIME) annotation class AggregateScope
