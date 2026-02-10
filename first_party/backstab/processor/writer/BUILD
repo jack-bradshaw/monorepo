@@ -1,11 +1,10 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
-load("//first_party/backstab:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "writer",
     srcs = ["Writer.kt"],
-    visibility = PUBLICITY,
+    visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
         "@com_jackbradshaw_maven//:com_squareup_kotlinpoet",
@@ -15,7 +14,7 @@ kt_jvm_library(
 kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["WriterImpl.kt"],
-    visibility = PUBLICITY,
+    visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":writer",
         "//first_party/backstab/processor:scope",

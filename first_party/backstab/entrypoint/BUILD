@@ -2,13 +2,6 @@ load("@rules_kotlin//kotlin:core.bzl", "kt_ksp_plugin")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/backstab:publicity.bzl", "PUBLICITY")
 
-kt_ksp_plugin(
-    name = "plugin",
-    processor_class = "com.jackbradshaw.backstab.entrypoint.BackstabProcessorProvider",
-    visibility = PUBLICITY,
-    deps = [":entrypoint"],
-)
-
 kt_jvm_library(
     name = "entrypoint",
     srcs = ["BackstabProcessor.kt"],
@@ -23,3 +16,12 @@ kt_jvm_library(
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
+
+
+kt_ksp_plugin(
+    name = "plugin",
+    processor_class = "com.jackbradshaw.backstab.entrypoint.BackstabProcessorProvider",
+    visibility = PUBLICITY,
+    deps = [":entrypoint"],
+)
+

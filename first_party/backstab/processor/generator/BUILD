@@ -1,11 +1,10 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
-load("//first_party/backstab:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "generator",
     srcs = ["AggregateComponentGenerator.kt"],
-    visibility = PUBLICITY,
+    visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         "//first_party/backstab/processor/model",
         "@com_jackbradshaw_maven//:com_squareup_kotlinpoet",
@@ -15,7 +14,7 @@ kt_jvm_library(
 kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["AggregateComponentGeneratorImpl.kt"],
-    visibility = PUBLICITY,
+    visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":generator",
         "//first_party/backstab/annotations/aggregate",
@@ -28,7 +27,7 @@ kt_jvm_library_with_dagger(
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["AggregateComponentGeneratorModule.kt"],
-    visibility = PUBLICITY,
+    visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":generator",
         ":impl",
