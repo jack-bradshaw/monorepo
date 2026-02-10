@@ -40,7 +40,7 @@ kt_jvm_test_with_dagger(
         "AggregateComponentGeneratorImplTest.kt",
         "AggregateComponentGeneratorTest.kt",
     ],
-    test_class = "com.jackbradshaw.backstab.core.generator.AggregateComponentGeneratorImplTest",
+    test_class = "com.jackbradshaw.backstab.processor.generator.AggregateComponentGeneratorImplTest",
     deps = [
         ":generator",
         ":impl",
