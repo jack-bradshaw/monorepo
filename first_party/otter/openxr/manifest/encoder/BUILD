@@ -1,4 +1,4 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 load("//first_party/otter:publicity.bzl", "PUBLICITY")
 
@@ -50,7 +50,6 @@ kt_jvm_test_with_dagger(
     visibility = ["//visibility:private"],
     deps = [
         "//first_party/otter:component",
-        "//first_party/otter:component_impl",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/openxr/config:proto_extensions",
         "//first_party/otter/openxr/manifest/encoder",

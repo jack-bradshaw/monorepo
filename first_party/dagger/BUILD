@@ -25,6 +25,7 @@ genrule(
     """,
     toolchains = ["@bazel_tools//tools/jdk:current_host_java_runtime"],
     tools = [":jarjar"],
+    visibility = ["//visibility:private"],
 )
 
 java_import(
