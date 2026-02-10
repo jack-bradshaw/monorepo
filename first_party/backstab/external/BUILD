@@ -1,5 +1,5 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//first_party/backstab:publicity.bzl", "PUBLICITY")
+load(":publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "external",
