@@ -1,6 +1,6 @@
-package com.jackbradshaw.backstab.processor.core
+package com.jackbradshaw.backstab.processor
 
-import com.jackbradshaw.backstab.processor.generator.AggregateComponentGenerator
+import com.jackbradshaw.backstab.processor.generator.Generator
 import com.jackbradshaw.backstab.processor.parser.Parser
 import com.jackbradshaw.backstab.processor.writer.Writer
 import dagger.BindsInstance
@@ -11,7 +11,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class ProcessorImplTest : ProcessorTest() {
   override fun createSubject(
-      generator: AggregateComponentGenerator,
+      generator: Generator,
       writer: Writer,
       parser: Parser
   ): Processor {
@@ -24,13 +24,14 @@ class ProcessorImplTest : ProcessorTest() {
   }
 }
 
-@Component(modules = [ProcessorModule::class])
+@ProcessorScope
+@Component(modules = [ProcessorImplModule::class])
 interface ProcessorTestComponent {
   fun processor(): Processor
 
   @Component.Builder
   interface Builder {
-    @BindsInstance fun generator(generator: AggregateComponentGenerator): Builder
+    @BindsInstance fun generator(generator: Generator): Builder
 
     @BindsInstance fun writer(writer: Writer): Builder
 

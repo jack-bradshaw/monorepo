@@ -1,4 +1,4 @@
-package com.jackbradshaw.backstab.annotations.aggregate
+package com.jackbradshaw.backstab.annotations
 
 import javax.inject.Scope
 

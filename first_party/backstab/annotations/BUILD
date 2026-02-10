@@ -9,3 +9,12 @@ kt_jvm_library(
         "@com_jackbradshaw_maven//:javax_inject_javax_inject",
     ],
 )
+
+kt_jvm_library(
+    name = "backstab",
+    srcs = ["Backstab.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
+    ],
+)

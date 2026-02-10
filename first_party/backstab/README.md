@@ -33,11 +33,11 @@ kt_jvm_library_with_dagger(
     name = "my_lib",
     srcs = ["MyComponent.kt"],
     plugins = [
-        "//first_party/backstab/entrypoint:plugin",
+        "//first_party/backstab:plugin",
     ],
     deps = [
-        "//first_party/backstab/annotations/backstab",
-        "//first_party/backstab/annotations/aggregate",
+        "//first_party/backstab/annotations:backstab",
+        "//first_party/backstab/annotations:aggregate",
     ],
 )
 ```

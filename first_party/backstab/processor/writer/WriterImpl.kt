@@ -3,14 +3,14 @@ package com.jackbradshaw.backstab.processor.writer
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.symbol.KSFile
-import com.jackbradshaw.backstab.processor.BackstabCoreScope
+import com.jackbradshaw.backstab.processor.ProcessorScope
 import com.squareup.kotlinpoet.FileSpec
 import java.io.OutputStreamWriter
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 /** Provides a concrete implementation of [Writer] using KSP's [CodeGenerator]. */
-@BackstabCoreScope
+@ProcessorScope
 class WriterImpl @Inject constructor(private val codeGenerator: CodeGenerator) : Writer {
 
   override suspend fun write(spec: FileSpec, source: KSFile) {

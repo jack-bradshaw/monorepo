@@ -1,4 +1,4 @@
-package com.jackbradshaw.backstab.entrypoint
+package com.jackbradshaw.backstab
 
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
@@ -7,16 +7,16 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.validate
-import com.jackbradshaw.backstab.annotations.backstab.Backstab
-import com.jackbradshaw.backstab.processor.backstabCoreComponent
-import com.jackbradshaw.backstab.processor.core.Processor
+import com.jackbradshaw.backstab.annotations.Backstab
+import com.jackbradshaw.backstab.processor.processorComponent
+import com.jackbradshaw.backstab.processor.Processor
 
 /** The KSP entrypoint for the Backstab annotation processor. */
-class BackstabEntrypoint(private val environment: SymbolProcessorEnvironment) : SymbolProcessor {
+class BackstabKsp(private val environment: SymbolProcessorEnvironment) : SymbolProcessor {
 
   /** The underlying processor which actually does the code generation. */
   private val processor: Processor by lazy {
-    backstabCoreComponent(environment.codeGenerator).processor()
+    processorComponent(environment.codeGenerator).processor()
   }
 
   override fun process(resolver: Resolver): List<KSAnnotated> {
@@ -37,5 +37,5 @@ class BackstabEntrypoint(private val environment: SymbolProcessorEnvironment) : 
 
 /** Provides the processor. Required for KSP integration. */
 class BackstabProcessorProvider : SymbolProcessorProvider {
-  override fun create(environment: SymbolProcessorEnvironment) = BackstabEntrypoint(environment)
+  override fun create(environment: SymbolProcessorEnvironment) = BackstabKsp(environment)
 }

@@ -1,4 +1,4 @@
-package com.jackbradshaw.backstab.annotations.backstab
+package com.jackbradshaw.backstab.annotations
 
 /**
  * Marks a Dagger Component for processing so it can be included in an aggregate component.

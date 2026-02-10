@@ -1,13 +1,13 @@
-package com.jackbradshaw.backstab.tests
+package com.jackbradshaw.backstab
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.backstab.tests.BaseTypes.Bar
-import com.jackbradshaw.backstab.tests.BaseTypes.Foo
+import com.jackbradshaw.backstab.BaseTypes.Bar
+import com.jackbradshaw.backstab.BaseTypes.Foo
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-@RunWith(JUnit4::class)
+
 /**
  * Tests the Backstab integration end-to-end.
  *
@@ -28,7 +28,8 @@ import org.junit.runners.JUnit4
  * `[Dimension]_[Case]_Test_[Role]` (e.g., `Topology_Diamond_Test_Aggregate`,
  * `Topology_Diamond_Test_DiamondLeft`).
  */
-class BackstabTest {
+@RunWith(JUnit4::class)
+class BackstabKspTest {
 
   @Test
   fun topology_isolated() {

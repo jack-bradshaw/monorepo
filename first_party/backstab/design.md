@@ -206,6 +206,17 @@ used.
 Note: Dagger KAPT is not officially supported as of Feb 2026, therefore a
 [workaround](/first_party/dagger) was created to support KSP.
 
+### Limited use of KotlinPoet
+
+To ensure long-term maintainability and minimize API bloat, the use of KotlinPoet types within the
+intermediate representation model is strictly limited. Component interfaces and the domain model
+should not depend on complex types from third-party libraries (like `FunSpec` or `TypeSpec`) because
+such dependencies increase maintenance costs and invite misuse by exposing generator-specific logic
+to the semantic layer. Instead, KotlinPoet usage is restricted to simple, value-like types such as
+`ClassName`, `TypeName`, and `MemberName`. This preserves a clean, POJO-like domain model that
+encapsulates semantic meaning while delegating technical code-generation details to the final
+emittance stage.
+
 ## Design Decisions
 
 The design decisions capture the tradeoffs and compromises made to arrive at the final design. They

@@ -2,14 +2,15 @@ package com.jackbradshaw.backstab.processor.generator
 
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.backstab.processor.model.BackstabComponent
-import com.jackbradshaw.backstab.processor.model.BackstabComponent.Builder
-import com.jackbradshaw.backstab.processor.model.BackstabComponent.BuilderFunction
-import com.jackbradshaw.backstab.processor.model.BackstabComponent.Create
-import com.jackbradshaw.backstab.processor.model.BackstabComponent.Factory
-import com.jackbradshaw.backstab.processor.model.BackstabComponent.FactoryParameter
+import com.jackbradshaw.backstab.processor.model.BackstabComponent.ComponentInstantiator.BuilderInterface
+import com.jackbradshaw.backstab.processor.model.BackstabComponent.ComponentInstantiator.SetterFunction
+import com.jackbradshaw.backstab.processor.model.BackstabComponent.ComponentInstantiator.BuildFunction
+import com.jackbradshaw.backstab.processor.model.BackstabComponent.ComponentInstantiator.CreateFunction
+import com.jackbradshaw.backstab.processor.model.BackstabComponent.ComponentInstantiator.FactoryFunction
 import com.jackbradshaw.backstab.processor.model.BackstabComponent.Qualification
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.MemberName
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -19,42 +20,41 @@ import org.junit.Test
  *
  * **Testing Dimensions:**
  * 1. **Instantiator Type:**
- *     * `Create`: Implicit creation via `create()`.
- *     * `Builder`: Explicit `@Component.Builder`.
- *     * `Factory`: Explicit `@Component.Factory`.
+ *     * `CreateFunction`: Implicit creation via `create()`.
+ *     * `BuilderInterface`: Explicit `@Component.Builder`.
+ *     * `FactoryFunction`: Explicit `@Component.Factory`.
  * 2. **Binding Topology:**
  *     * `BindsInstance`: Binding instances directly (Simple, Named, Qualified).
  *     * `ComponentDependency`: Binding other components as dependencies.
  *     * `Mixed`: Combinations of instance bindings and component dependencies.
  *     * `Empty`: Components with no modules or dependencies.
  */
-abstract class AggregateComponentGeneratorTest {
+abstract class GeneratorTest {
 
-  /** **Subject:** The [AggregateComponentGenerator] under test. */
-  abstract fun subject(): AggregateComponentGenerator
+  /** **Subject:** The [Generator] under test. */
+  abstract fun subject(): Generator
 
   /**
-   * **Dimensions:** `Builder` + `BindsInstance` (Simple)
+   * **Dimensions:** `BuilderInterface` + `BindsInstance` (Simple)
    *
-   * Verifies that the generator correctly handles a component with an `@Component.Builder` that
+   * Verifies that the generator correctly handles a component with an `@Component.BuilderInterface` that
    * binds a simple instance.
    */
   @Test
   fun generateModule_builder_bindsInstance() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("MyComponent"),
+            className = ClassName("com.example", "MyComponent"),
             instantiator =
-                Builder(
-                    buildFunction =
-                        BuilderFunction("build", ClassName("com.example", "MyComponent")),
-                    componentBindings =
+                BuilderInterface(
+                    componentSetters =
                         listOf(
-                            BuilderFunction(
-                                functionName = "bindFoo",
-                                paramType = ClassName("com.example", "Foo"))),
-                    instanceBindings = emptyList()))
+                            SetterFunction(
+                                name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Builder"), "bindFoo"),
+                                type = ClassName("com.example", "Foo"))),
+                    boundInstanceSetters = emptyList(),
+                    buildFunction =
+                        BuildFunction(MemberName(ClassName("com.example", "MyComponent").nestedClass("Builder"), "build"), ClassName("com.example", "MyComponent"))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -64,7 +64,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -81,9 +81,9 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Builder` + `BindsInstance` (Named Qualification)
+   * **Dimensions:** `BuilderInterface` + `BindsInstance` (Named Qualification)
    *
-   * Verifies that the generator correctly handles a component with an `@Component.Builder` that
+   * Verifies that the generator correctly handles a component with an `@Component.BuilderInterface` that
    * binds an instance qualified with `@Named`.
    */
   @Test
@@ -97,19 +97,19 @@ abstract class AggregateComponentGeneratorTest {
 
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("QualifiedComponent"),
+            className = ClassName("com.example", "QualifiedComponent"),
             instantiator =
-                Builder(
-                    buildFunction =
-                        BuilderFunction("build", ClassName("com.example", "QualifiedComponent")),
-                    componentBindings = emptyList(),
-                    instanceBindings =
+                BuilderInterface(
+                    componentSetters = emptyList(),
+                    boundInstanceSetters =
                         listOf(
-                            BuilderFunction(
-                                functionName = "bindFoo",
-                                paramType = ClassName("com.example", "Foo"),
-                                qualification = qualification))))
+                            SetterFunction(
+                                name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Builder"), "bindFoo"),
+                                type = ClassName("com.example", "Foo"),
+                                qualification = qualification)),
+                    buildFunction =
+                        BuildFunction(MemberName(ClassName("com.example", "QualifiedComponent").nestedClass("Builder"), "build"), ClassName("com.example", "QualifiedComponent"))
+))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -119,7 +119,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
             import javax.inject.Named
@@ -138,9 +138,9 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Builder` + `BindsInstance` (Custom Qualification)
+   * **Dimensions:** `BuilderInterface` + `BindsInstance` (Custom Qualification)
    *
-   * Verifies that the generator correctly handles a component with an `@Component.Builder` that
+   * Verifies that the generator correctly handles a component with an `@Component.BuilderInterface` that
    * binds an instance qualified with a custom qualifier annotation.
    */
   @Test
@@ -152,20 +152,19 @@ abstract class AggregateComponentGeneratorTest {
 
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("CustomQualifiedComponent"),
+            className = ClassName("com.example", "CustomQualifiedComponent"),
             instantiator =
-                Builder(
-                    buildFunction =
-                        BuilderFunction(
-                            "build", ClassName("com.example", "CustomQualifiedComponent")),
-                    componentBindings = emptyList(),
-                    instanceBindings =
+                BuilderInterface(
+                    componentSetters = emptyList(),
+                    boundInstanceSetters =
                         listOf(
-                            BuilderFunction(
-                                functionName = "bindFoo",
-                                paramType = ClassName("com.example", "Foo"),
-                                qualification = qualification))))
+                            SetterFunction(
+                                name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Builder"), "bindFoo"),
+                                type = ClassName("com.example", "Foo"),
+                                qualification = qualification)),
+                    buildFunction =
+                        BuildFunction(
+                            MemberName(ClassName("com.example", "CustomQualifiedComponent").nestedClass("Builder"), "build"), ClassName("com.example", "CustomQualifiedComponent"))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -175,7 +174,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -193,7 +192,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Builder` + `ComponentDependency`
+   * **Dimensions:** `BuilderInterface` + `ComponentDependency`
    *
    * Verifies that the generator correctly handles a component that depends on another component.
    */
@@ -201,17 +200,17 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_builder_componentDependency() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("DependentComponent"),
+            className = ClassName("com.example", "DependentComponent"),
             instantiator =
-                Builder(
-                    buildFunction =
-                        BuilderFunction("build", ClassName("com.example", "DependentComponent")),
-                    componentBindings =
+                BuilderInterface(
+                    componentSetters =
                         listOf(
-                            BuilderFunction(
-                                "depComponent", ClassName("com.example", "BaseComponent"))),
-                    instanceBindings = emptyList()))
+                            SetterFunction(
+                                MemberName(ClassName("com.example", "DependentComponent").nestedClass("Builder"), "depComponent"), ClassName("com.example", "BaseComponent"))),
+                    boundInstanceSetters = emptyList(),
+                    buildFunction =
+                        BuildFunction(MemberName(ClassName("com.example", "DependentComponent").nestedClass("Builder"), "build"), ClassName("com.example", "DependentComponent"))
+))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -221,7 +220,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -239,7 +238,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Builder` + `Mixed` (Dependency + BindsInstance + Qualifiers)
+   * **Dimensions:** `BuilderInterface` + `Mixed` (Dependency + BindsInstance + Qualifiers)
    *
    * Verifies that the generator correctly handles a component with a mixture of both component
    * dependencies and instance bindings.
@@ -257,25 +256,27 @@ abstract class AggregateComponentGeneratorTest {
 
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("MixedComponent"),
+            className = ClassName("com.example", "MixedComponent"),
             instantiator =
-                Builder(
-                    buildFunction =
-                        BuilderFunction("build", ClassName("com.example", "MixedComponent")),
-                    componentBindings =
-                        listOf(BuilderFunction("dep", ClassName("com.example", "DepComponent"))),
-                    instanceBindings =
+                BuilderInterface(
+                    componentSetters =
+                        listOf(SetterFunction(MemberName(ClassName("com.example", "MixedComponent").nestedClass("Builder"), "dep"), ClassName("com.example", "DepComponent"))
+),
+                    boundInstanceSetters =
                         listOf(
-                            BuilderFunction("bindSimple", ClassName("com.example", "Simple")),
-                            BuilderFunction(
-                                "bindNamed",
+                            SetterFunction(MemberName(ClassName("com.example", "MixedComponent").nestedClass("Builder"), "bindSimple"), ClassName("com.example", "Simple"))
+,
+                            SetterFunction(
+                                MemberName(ClassName("com.example", "MixedComponent").nestedClass("Builder"), "bindNamed"),
                                 ClassName("com.example", "NamedFoo"),
                                 namedQualification),
-                            BuilderFunction(
-                                "bindQualified",
+                            SetterFunction(
+                                MemberName(ClassName("com.example", "MixedComponent").nestedClass("Builder"), "bindQualified"),
                                 ClassName("com.example", "QualifiedBar"),
-                                customQualification))))
+                                customQualification)),
+                    buildFunction =
+                        BuildFunction(MemberName(ClassName("com.example", "MixedComponent").nestedClass("Builder"), "build"), ClassName("com.example", "MixedComponent"))
+))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -285,7 +286,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
             import javax.inject.Named
@@ -314,17 +315,18 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_builder_multipleComponentBindings() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("ComplexComponent"),
+            className = ClassName("com.example", "ComplexComponent"),
             instantiator =
-                Builder(
-                    buildFunction =
-                        BuilderFunction("build", ClassName("com.example", "ComplexComponent")),
-                    componentBindings =
+                BuilderInterface(
+                    componentSetters =
                         listOf(
-                            BuilderFunction("dep1", ClassName("com.example", "Dep1")),
-                            BuilderFunction("dep2", ClassName("com.example", "Dep2"))),
-                    instanceBindings = emptyList()))
+                            SetterFunction(MemberName(ClassName("com.example", "ComplexComponent").nestedClass("Builder"), "dep1"), ClassName("com.example", "Dep1"))
+,
+                            SetterFunction(MemberName(ClassName("com.example", "ComplexComponent").nestedClass("Builder"), "dep2"), ClassName("com.example", "Dep2"))
+),
+                    boundInstanceSetters = emptyList(),
+                    buildFunction =
+                        BuildFunction(MemberName(ClassName("com.example", "ComplexComponent").nestedClass("Builder"), "build"), ClassName("com.example", "ComplexComponent"))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -334,7 +336,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -356,17 +358,16 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_builder_multipleInstanceBindings() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("ComplexComponent"),
+            className = ClassName("com.example", "ComplexComponent"),
             instantiator =
-                Builder(
-                    buildFunction =
-                        BuilderFunction("build", ClassName("com.example", "ComplexComponent")),
-                    componentBindings = emptyList(),
-                    instanceBindings =
+                BuilderInterface(
+                    componentSetters = emptyList(),
+                    boundInstanceSetters =
                         listOf(
-                            BuilderFunction("bindFoo", ClassName("com.example", "Foo")),
-                            BuilderFunction("bindBar", ClassName("com.example", "Bar")))))
+                            SetterFunction(name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Builder"), "bindFoo"), type = ClassName("com.example", "Foo")),
+                            SetterFunction(name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Builder"), "bindBar"), type = ClassName("com.example", "Bar"))),
+                    buildFunction =
+                        BuildFunction(MemberName(ClassName("com.example", "ComplexComponent").nestedClass("Builder"), "build"), ClassName("com.example", "ComplexComponent"))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -376,7 +377,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -395,7 +396,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Builder` + `Empty`
+   * **Dimensions:** `BuilderInterface` + `Empty`
    *
    * Verifies that the generator correctly handles a component with no bindings.
    */
@@ -403,14 +404,13 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_builder_noBindings() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("MyComponent"),
+            className = ClassName("com.example", "MyComponent"),
             instantiator =
-                Builder(
+                BuilderInterface(
+                    componentSetters = emptyList(),
+                    boundInstanceSetters = emptyList(),
                     buildFunction =
-                        BuilderFunction("build", ClassName("com.example", "MyComponent")),
-                    componentBindings = emptyList(),
-                    instanceBindings = emptyList()))
+                        BuildFunction(MemberName(ClassName("com.example", "MyComponent").nestedClass("Builder"), "build"), ClassName("com.example", "MyComponent"))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -420,7 +420,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -436,7 +436,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Create`
+   * **Dimensions:** `CreateFunction`
    *
    * Verifies that the generator correctly handles a component with no builder or factory, by
    * falling back to the standard `create()` function.
@@ -445,9 +445,8 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_create() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("NoBuilderComponent"),
-            instantiator = Create)
+            className = ClassName("com.example", "NoBuilderComponent"),
+            instantiator = CreateFunction)
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -457,7 +456,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -472,21 +471,20 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `BindsInstance` (Simple)
+   * **Dimensions:** `FactoryFunction` + `BindsInstance` (Simple)
    *
-   * Verifies that the generator correctly handles a component with an `@Component.Factory` that
+   * Verifies that the generator correctly handles a component with an `@Component.FactoryFunction` that
    * binds a simple instance.
    */
   @Test
   fun generateModule_factory_bindsInstance() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
+            className = ClassName("com.example", "FactoryComponent"),
             instantiator =
-                Factory(
-                    functionName = "create",
-                    parameters = listOf(FactoryParameter(ClassName("com.example", "Foo")))))
+                FactoryFunction(
+                    name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Factory"), "create"),
+                    parameters = listOf(FactoryFunction.Parameter(ClassName("com.example", "Foo")))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -496,7 +494,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -512,9 +510,9 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `BindsInstance` (Named Qualification)
+   * **Dimensions:** `FactoryFunction` + `BindsInstance` (Named Qualification)
    *
-   * Verifies that the generator correctly handles a component with an `@Component.Factory` that
+   * Verifies that the generator correctly handles a component with an `@Component.FactoryFunction` that
    * binds an instance qualified with `@Named`.
    */
   @Test
@@ -528,13 +526,12 @@ abstract class AggregateComponentGeneratorTest {
 
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
+            className = ClassName("com.example", "FactoryComponent"),
             instantiator =
-                Factory(
-                    functionName = "create",
+                FactoryFunction(
+                    name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Factory"), "create"),
                     parameters =
-                        listOf(FactoryParameter(ClassName("com.example", "Foo"), qualification))))
+                        listOf(FactoryFunction.Parameter(ClassName("com.example", "Foo"), qualification))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -544,7 +541,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
             import javax.inject.Named
@@ -561,9 +558,9 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `BindsInstance` (Custom Qualification)
+   * **Dimensions:** `FactoryFunction` + `BindsInstance` (Custom Qualification)
    *
-   * Verifies that the generator correctly handles a component with an `@Component.Factory` that
+   * Verifies that the generator correctly handles a component with an `@Component.FactoryFunction` that
    * binds an instance qualified with a custom qualifier annotation.
    */
   @Test
@@ -575,13 +572,12 @@ abstract class AggregateComponentGeneratorTest {
 
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
+            className = ClassName("com.example", "FactoryComponent"),
             instantiator =
-                Factory(
-                    functionName = "create",
+                FactoryFunction(
+                    name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Factory"), "create"),
                     parameters =
-                        listOf(FactoryParameter(ClassName("com.example", "Foo"), qualification))))
+                        listOf(FactoryFunction.Parameter(ClassName("com.example", "Foo"), qualification))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -591,7 +587,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -607,7 +603,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `ComponentDependency`
+   * **Dimensions:** `FactoryFunction` + `ComponentDependency`
    *
    * Verifies that the generator correctly handles a factory component that depends on another
    * component.
@@ -616,13 +612,12 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_factory_componentDependency() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
+            className = ClassName("com.example", "FactoryComponent"),
             instantiator =
-                Factory(
-                    functionName = "create",
+                FactoryFunction(
+                    name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Factory"), "create"),
                     parameters =
-                        listOf(FactoryParameter(ClassName("com.example", "BaseComponent")))))
+                        listOf(FactoryFunction.Parameter(ClassName("com.example", "BaseComponent")))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -632,7 +627,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -648,7 +643,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `Mixed` (Dependency + BindsInstance + Qualifiers)
+   * **Dimensions:** `FactoryFunction` + `Mixed` (Dependency + BindsInstance + Qualifiers)
    *
    * Verifies that the generator correctly handles a factory component with a mixture of both
    * component dependencies and instance bindings.
@@ -666,18 +661,17 @@ abstract class AggregateComponentGeneratorTest {
 
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
+            className = ClassName("com.example", "FactoryComponent"),
             instantiator =
-                Factory(
-                    functionName = "create",
+                FactoryFunction(
+                    name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Factory"), "create"),
                     parameters =
                         listOf(
-                            FactoryParameter(ClassName("com.example", "DepComponent")),
-                            FactoryParameter(ClassName("com.example", "Simple")),
-                            FactoryParameter(
+                            FactoryFunction.Parameter(ClassName("com.example", "DepComponent")),
+                            FactoryFunction.Parameter(ClassName("com.example", "Simple")),
+                            FactoryFunction.Parameter(
                                 ClassName("com.example", "NamedFoo"), namedQualification),
-                            FactoryParameter(
+                            FactoryFunction.Parameter(
                                 ClassName("com.example", "QualifiedBar"), customQualification))))
 
     val fileSpec = subject().generate(component)
@@ -688,7 +682,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
             import javax.inject.Named
@@ -709,7 +703,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `ComponentDependency` (Multiple)
+   * **Dimensions:** `FactoryFunction` + `ComponentDependency` (Multiple)
    *
    * Verifies that the generator correctly handles a factory component with multiple component
    * dependencies.
@@ -718,15 +712,14 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_factory_multipleComponentBindings() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
+            className = ClassName("com.example", "FactoryComponent"),
             instantiator =
-                Factory(
-                    functionName = "create",
+                FactoryFunction(
+                    name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Factory"), "create"),
                     parameters =
                         listOf(
-                            FactoryParameter(ClassName("com.example", "Dep1")),
-                            FactoryParameter(ClassName("com.example", "Dep2")))))
+                            FactoryFunction.Parameter(ClassName("com.example", "Dep1")),
+                            FactoryFunction.Parameter(ClassName("com.example", "Dep2")))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -736,7 +729,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -752,7 +745,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `BindsInstance` (Multiple)
+   * **Dimensions:** `FactoryFunction` + `BindsInstance` (Multiple)
    *
    * Verifies that the generator correctly handles a factory component with multiple instance
    * bindings.
@@ -761,15 +754,14 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_factory_multipleInstanceBindings() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
+            className = ClassName("com.example", "FactoryComponent"),
             instantiator =
-                Factory(
-                    functionName = "create",
+                FactoryFunction(
+                    name = MemberName(ClassName("com.example", "MyComponent").nestedClass("Factory"), "create"),
                     parameters =
                         listOf(
-                            FactoryParameter(ClassName("com.example", "Foo")),
-                            FactoryParameter(ClassName("com.example", "Bar")))))
+                            FactoryFunction.Parameter(ClassName("com.example", "Foo")),
+                            FactoryFunction.Parameter(ClassName("com.example", "Bar")))))
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -779,7 +771,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 
@@ -795,7 +787,7 @@ abstract class AggregateComponentGeneratorTest {
   }
 
   /**
-   * **Dimensions:** `Factory` + `Empty`
+   * **Dimensions:** `FactoryFunction` + `Empty`
    *
    * Verifies that the generator correctly handles a factory component with no bindings.
    */
@@ -803,9 +795,9 @@ abstract class AggregateComponentGeneratorTest {
   fun generateModule_factory_noBindings() = runBlocking {
     val component =
         BackstabComponent(
-            packageName = "com.example",
-            names = listOf("FactoryComponent"),
-            instantiator = Factory(functionName = "create", parameters = emptyList()))
+            className = ClassName("com.example", "FactoryComponent"),
+            instantiator = FactoryFunction(name = MemberName(ClassName("com.example", "FactoryComponent").nestedClass("Factory"), "create"), parameters = emptyList())
+)
 
     val fileSpec = subject().generate(component)
     val content = fileSpec.toString()
@@ -815,7 +807,7 @@ abstract class AggregateComponentGeneratorTest {
             """
             package com.example
 
-            import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
+            import com.jackbradshaw.backstab.annotations.AggregateScope
             import dagger.Module
             import dagger.Provides
 

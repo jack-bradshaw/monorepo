@@ -3,7 +3,7 @@ load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test
 
 kt_jvm_library(
     name = "generator",
-    srcs = ["AggregateComponentGenerator.kt"],
+    srcs = ["Generator.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         "//first_party/backstab/processor/model",
@@ -13,11 +13,12 @@ kt_jvm_library(
 
 kt_jvm_library_with_dagger(
     name = "impl",
-    srcs = ["AggregateComponentGeneratorImpl.kt"],
+    srcs = ["GeneratorImpl.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":generator",
-        "//first_party/backstab/annotations/aggregate",
+        "//first_party/backstab/annotations:aggregate",
+        "//first_party/backstab/external:dagger",
         "//first_party/backstab/processor:scope",
         "//first_party/backstab/processor/model",
         "@com_jackbradshaw_maven//:com_squareup_kotlinpoet",
@@ -26,7 +27,7 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_library_with_dagger(
     name = "module",
-    srcs = ["AggregateComponentGeneratorModule.kt"],
+    srcs = ["GeneratorModule.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":generator",
@@ -35,17 +36,17 @@ kt_jvm_library_with_dagger(
 )
 
 kt_jvm_test_with_dagger(
-    name = "AggregateComponentGeneratorTest",
+    name = "GeneratorTest",
     srcs = [
-        "AggregateComponentGeneratorImplTest.kt",
-        "AggregateComponentGeneratorTest.kt",
+        "GeneratorImplTest.kt",
+        "GeneratorTest.kt",
     ],
-    test_class = "com.jackbradshaw.backstab.processor.generator.AggregateComponentGeneratorImplTest",
+    test_class = "com.jackbradshaw.backstab.processor.generator.GeneratorImplTest",
     deps = [
         ":generator",
         ":impl",
         ":module",
-        "//first_party/backstab/annotations/aggregate",
+        "//first_party/backstab/annotations:aggregate",
         "//first_party/backstab/processor:scope",
         "//first_party/backstab/processor/model",
         "//first_party/backstab/processor/parser",

@@ -1,11 +1,11 @@
-package com.jackbradshaw.backstab.tests
+package com.jackbradshaw.backstab
 
-import com.jackbradshaw.backstab.annotations.aggregate.AggregateScope
-import com.jackbradshaw.backstab.annotations.backstab.Backstab
-import com.jackbradshaw.backstab.tests.BaseTypes.Bar
-import com.jackbradshaw.backstab.tests.BaseTypes.Foo
-import com.jackbradshaw.backstab.tests.BaseTypes.MyQualifier
-import com.jackbradshaw.backstab.tests.BaseTypes.TestScope
+import com.jackbradshaw.backstab.annotations.AggregateScope
+import com.jackbradshaw.backstab.annotations.Backstab
+import com.jackbradshaw.backstab.BaseTypes.Bar
+import com.jackbradshaw.backstab.BaseTypes.Foo
+import com.jackbradshaw.backstab.BaseTypes.MyQualifier
+import com.jackbradshaw.backstab.BaseTypes.TestScope
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module

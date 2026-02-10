@@ -1,32 +1,20 @@
 package com.jackbradshaw.backstab.processor.parser
 
-/**
- * Parses Dagger [KSClassDeclaration] symbols into the Backstab domain model.
- *
- * This implementation identifies Dagger qualifiers by matching the fully qualified class names
- * (FQCN) of annotations. `@Named` is identified by checking if the qualified name equals
- * `javax.inject.Named`. Custom qualifiers are identified by resolving the annotation type and
- * checking for the `javax.inject.Qualifier` base annotation.
- *
- * This implementation has several known limitations:
- * 1. Qualifiers defined in libraries without source attachment or KSP information may fail to
- *    resolve if the type hierarchy cannot be traversed.
- * 2. Relying strictly on `javax.inject.Qualifier` prevents usage of Jakarta Inject
- *    (`jakarta.inject.Qualifier`).
- * 3. Type resolution is computationally expensive. Deeply nested annotations may impact build
- *    performance.
- */
 import com.google.devtools.ksp.symbol.KSAnnotation
 import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.jackbradshaw.backstab.external.ExternalTypes
-import com.jackbradshaw.backstab.processor.BackstabCoreScope
+import com.jackbradshaw.backstab.external.DaggerTypeRegistry
+import com.jackbradshaw.backstab.external.JavaxTypeRegistry
+import com.jackbradshaw.backstab.processor.ProcessorScope
 import com.jackbradshaw.backstab.processor.model.BackstabComponent
 import com.squareup.kotlinpoet.ksp.toAnnotationSpec
 import com.squareup.kotlinpoet.ksp.toTypeName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.MemberName
+import java.util.LinkedList
 import javax.inject.Inject
 
 /** Provides a concrete implementation of [Parser]. */
-@BackstabCoreScope
+@ProcessorScope
 class ParserImpl @Inject constructor() : Parser {
 
   /**
@@ -36,21 +24,27 @@ class ParserImpl @Inject constructor() : Parser {
    */
   override fun parseModel(component: KSClassDeclaration): BackstabComponent {
     val annotations = component.annotations.toList()
-    if (!annotations.any { it.matches(ExternalTypes.DAGGER_COMPONENT) }) {
+
+    if (!annotations.any { it.matches(DaggerTypeRegistry.COMPONENT) }) {
       throw IllegalArgumentException(
           "Error: ${component.qualifiedName?.asString() ?: component.simpleName.asString()} is not a Dagger @Component.")
     }
 
     val packageName = component.packageName.asString()
-    val names = collectNames(component)
-    val instantiator = findInstantiator(component)
+    val names = parseNames(component)
+    val className = ClassName(packageName, names)
+    val instantiator = parseInstantiator(component)
 
-    return BackstabComponent(packageName, names, instantiator)
+    return BackstabComponent(className, instantiator)
   }
 
-  /** Collects the hierarchy of names for the component (e.g. `Outer.Inner`). */
-  private fun collectNames(declaration: KSClassDeclaration): List<String> {
-    val names = mutableListOf<String>()
+  /**
+   * Parses the hierarchy of names for the component by traversing up the declaration hierarchy.
+   *
+   * For example: `Outer.Inner.FooComponent` becomes `['Outer', 'Inner', 'FooComponent']`.
+   */
+  private fun parseNames(declaration: KSClassDeclaration): List<String> {
+    val names = LinkedList<String>()
     var current: KSClassDeclaration? = declaration
     while (current != null) {
       names.add(0, current.simpleName.asString())
@@ -59,130 +53,138 @@ class ParserImpl @Inject constructor() : Parser {
     return names
   }
 
-  /** Finds the [BackstabComponent.ComponentInstantiator] for the component. */
-  private fun findInstantiator(
+  /** Parses the [BackstabComponent.ComponentInstantiator] for the component. */
+  private fun parseInstantiator(
       component: KSClassDeclaration
   ): BackstabComponent.ComponentInstantiator {
-    val declarations = component.declarations.filterIsInstance<KSClassDeclaration>().toList()
-
-    val factoryInterface =
-        declarations.firstOrNull { decl ->
-          decl.annotations.any { it.matches(ExternalTypes.DAGGER_COMPONENT_FACTORY) }
-        }
-    if (factoryInterface != null) {
-      return parseFactoryInstantiator(factoryInterface) ?: BackstabComponent.Create
+    component.findFactory()?.let {
+      return parseFactory(it)
     }
 
-    val builderInterface =
-        declarations.firstOrNull { decl ->
-          decl.annotations.any { it.matches(ExternalTypes.DAGGER_COMPONENT_BUILDER) }
-        }
-    if (builderInterface != null) {
-      return parseBuilderInstantiator(builderInterface) ?: BackstabComponent.Create
+    component.findBuilder()?.let {
+      return parseBuilder(it)
     }
 
-    return BackstabComponent.Create
+    return BackstabComponent.ComponentInstantiator.CreateFunction
   }
 
-  /** Parses a `@Component.Factory` interface into a [BackstabComponent.Factory] model. */
-  private fun parseFactoryInstantiator(
-      factoryInterface: KSClassDeclaration
-  ): BackstabComponent.Factory? {
-    val function = factoryInterface.getAllFunctions().firstOrNull { it.isAbstract } ?: return null
+  /** Finds the `@Component.Factory` interface defined within this component, if any. */
+  private fun KSClassDeclaration.findFactory(): KSClassDeclaration? {
+    return declarations
+        .filterIsInstance<KSClassDeclaration>()
+        .firstOrNull { decl ->
+          decl.annotations.any { it.matches(DaggerTypeRegistry.COMPONENT_FACTORY) }
+        }
+  }
 
-    val functionName = function.simpleName.asString()
+  /** Finds the `@Component.Builder` interface defined within this component, if any. */
+  private fun KSClassDeclaration.findBuilder(): KSClassDeclaration? {
+    return declarations
+        .filterIsInstance<KSClassDeclaration>()
+        .firstOrNull { decl ->
+          decl.annotations.any { it.matches(DaggerTypeRegistry.COMPONENT_BUILDER) }
+        }
+  }
+
+  /** Parses a `@Component.Factory` interface into a [BackstabComponent.ComponentInstantiator.FactoryFunction] model. */
+  private fun parseFactory(
+      factoryInterface: KSClassDeclaration
+  ): BackstabComponent.ComponentInstantiator.FactoryFunction {
+    val function =
+        checkNotNull(factoryInterface.getAllFunctions().firstOrNull { it.isAbstract }) {
+          "Factory interface must have exactly one abstract function."
+        }
+
+    val owner = factoryInterface.asType(emptyList()).toTypeName() as ClassName
+    val name = MemberName(owner, function.simpleName.asString())
+
     val params =
         function.parameters.map { param ->
           val type = param.type.resolve().toTypeName()
-          val qualification = extractQualification(param.annotations)
-          BackstabComponent.FactoryParameter(type, qualification)
+          val qualification = parseQualification(param.annotations)
+          BackstabComponent.ComponentInstantiator.FactoryFunction.Parameter(type, qualification)
         }
 
-    return BackstabComponent.Factory(functionName, params)
+    return BackstabComponent.ComponentInstantiator.FactoryFunction(name, params)
   }
 
-  /** Parses a `@Component.Builder` interface into a [BackstabComponent.Builder] model. */
-  private fun parseBuilderInstantiator(
+  /** Parses a `@Component.Builder` interface into a [BackstabComponent.ComponentInstantiator.BuilderInterface] model. */
+  private fun parseBuilder(
       builderInterface: KSClassDeclaration
-  ): BackstabComponent.Builder? {
+  ): BackstabComponent.ComponentInstantiator.BuilderInterface {
     val functions = builderInterface.getAllFunctions().filter { it.isAbstract }.toList()
 
-    val buildFunctionSymbol = functions.firstOrNull { it.parameters.isEmpty() } ?: return null
-    val buildFunctionName = buildFunctionSymbol.simpleName.asString()
+    val buildFunctionSymbol =
+        checkNotNull(functions.firstOrNull { it.parameters.isEmpty() }) {
+          "Builder interface must have a build function with no parameters."
+        }
+        
+    val owner = builderInterface.asType(emptyList()).toTypeName() as ClassName
+    val buildFunctionName = MemberName(owner, buildFunctionSymbol.simpleName.asString())
     val buildFunctionReturnType =
         buildFunctionSymbol.returnType?.resolve()?.toTypeName()
             ?: throw IllegalStateException("Could not resolve return type for build function.")
 
     val buildFunction =
-        BackstabComponent.BuilderFunction(buildFunctionName, buildFunctionReturnType)
+        BackstabComponent.ComponentInstantiator.BuildFunction(buildFunctionName, buildFunctionReturnType)
 
     val bindingFunctions = functions.filter { it.parameters.isNotEmpty() }
 
-    val componentBindings =
+    val componentSetters =
         bindingFunctions
             .filter { func ->
               !func.parameters.first().annotations.any {
-                it.matches(ExternalTypes.DAGGER_BINDS_INSTANCE)
+                it.matches(DaggerTypeRegistry.BINDS_INSTANCE)
               }
             }
             .map { func ->
-              val name = func.simpleName.asString()
+              val name = MemberName(owner, func.simpleName.asString())
               val param = func.parameters.first()
               val type = param.type.resolve().toTypeName()
-              val qualification = extractQualification(param.annotations)
-              BackstabComponent.BuilderFunction(name, type, qualification)
+              val qualification = parseQualification(param.annotations)
+              BackstabComponent.ComponentInstantiator.SetterFunction(name, type, qualification)
             }
-            .toList()
 
-    val instanceBindings =
+    val boundInstanceSetters =
         bindingFunctions
             .filter { func ->
-              func.parameters.first().annotations.any {
-                it.matches(ExternalTypes.DAGGER_BINDS_INSTANCE)
-              }
+              func.parameters.first().annotations.any { it.matches(DaggerTypeRegistry.BINDS_INSTANCE) }
             }
             .map { func ->
-              val name = func.simpleName.asString()
+              val name = MemberName(owner, func.simpleName.asString())
               val param = func.parameters.first()
               val type = param.type.resolve().toTypeName()
-              val qualification = extractQualification(param.annotations)
-              BackstabComponent.BuilderFunction(name, type, qualification)
+              val qualification = parseQualification(param.annotations)
+              BackstabComponent.ComponentInstantiator.SetterFunction(name, type, qualification)
             }
-            .toList()
 
-    return BackstabComponent.Builder(
-        buildFunction = buildFunction,
-        componentBindings = componentBindings,
-        instanceBindings = instanceBindings)
+    return BackstabComponent.ComponentInstantiator.BuilderInterface(
+        componentSetters, boundInstanceSetters, buildFunction)
   }
 
-  /** Extracts the Dagger qualification (Named or Qualifier) from the annotation list. */
-  private fun extractQualification(
+  /** Parses Dagger qualification (Named or custom Qualifier) from [annotations]. */
+  private fun parseQualification(
       annotations: Sequence<KSAnnotation>
   ): BackstabComponent.Qualification? {
-    for (annotation in annotations) {
-      if (annotation.matches(ExternalTypes.JAVAX_INJECT_NAMED)) {
-        return BackstabComponent.Qualification.Named(annotation.toAnnotationSpec())
-      }
-      if (isDaggerQualifier(annotation)) {
-        return BackstabComponent.Qualification.Qualifier(annotation.toAnnotationSpec())
-      }
+    val annotation =
+        annotations.firstOrNull { it.matches(JavaxTypeRegistry.NAMED) || it.isDaggerQualifier() }
+            ?: return null
+
+    return if (annotation.matches(JavaxTypeRegistry.NAMED)) {
+      BackstabComponent.Qualification.Named(annotation.toAnnotationSpec())
+    } else {
+      BackstabComponent.Qualification.Qualifier(annotation.toAnnotationSpec())
     }
-    return null
   }
 
-  /** Returns true if the annotation is annotated with `@javax.inject.Qualifier`. */
-  private fun isDaggerQualifier(annotation: KSAnnotation): Boolean {
-    val type = annotation.annotationType.resolve()
-    val declaration = type.declaration as? KSClassDeclaration ?: return false
-    return declaration.annotations.any { it.matches(ExternalTypes.JAVAX_INJECT_QUALIFIER) }
+  /** Returns true if this annotation is a Dagger qualifier. */
+  private fun KSAnnotation.isDaggerQualifier(): Boolean {
+    val declaration = annotationType.resolve().declaration as? KSClassDeclaration ?: return false
+    return declaration.annotations.any { it.matches(JavaxTypeRegistry.QUALIFIER) }
   }
 
-  /** Returns true if the annotation matches the given fully qualified class name. */
-  private fun KSAnnotation.matches(fqcn: String): Boolean {
-    val type = this.annotationType.resolve()
-    if (type.isError) return false
-    val declaration = type.declaration as? KSClassDeclaration ?: return false
-    return declaration.qualifiedName?.asString() == fqcn
+  /** Returns true if this annotation matches the [qualifiedName]. */
+  private fun KSAnnotation.matches(qualifiedName: String): Boolean {
+    return annotationType.resolve().declaration.qualifiedName?.asString() == qualifiedName
   }
 }

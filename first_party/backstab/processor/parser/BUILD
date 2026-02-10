@@ -17,7 +17,8 @@ kt_jvm_library_with_dagger(
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":parser",
-        "//first_party/backstab/external",
+        "//first_party/backstab/external:dagger",
+        "//first_party/backstab/external:javax",
         "//first_party/backstab/processor:scope",
         "//first_party/backstab/processor/model",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
