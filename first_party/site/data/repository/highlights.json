@@ -1,14 +1,16 @@
 [
-  "k_monkey",
-  "sliding_intro_screen",
   "spyglass",
   "retrial",
   "shamir",
   "sasync",
-  "rules_hugo",
-  "avatar",
   "coroutines",
+  "concurrency",
+  "k_monkey",
+  "dr_bashir",
+  "bash_runfiles",
+  "sliding_intro_screen",
+  "avatar",
   "universal",
   "rx_mvp_android",
-  "mixtape"
+  "forty_two"
 ]
