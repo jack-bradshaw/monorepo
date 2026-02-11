@@ -99,9 +99,8 @@ class ContentNavigationTest {
   fun clickRepositoryItem_highlightsPage_opensItem() {
     runClickExternalLinkTest(
         startPagePath = URI.create("/repository/highlights"),
-        itemLabel = "KMonkey",
-        destinationUri =
-            URI.create("https://github.com/jack-bradshaw/monorepo/tree/main/first_party/kmonkey"))
+        itemLabel = "Spyglass",
+        destinationUri = URI.create("https://github.com/jack-bradshaw/Spyglass"))
   }
 
   @Test
