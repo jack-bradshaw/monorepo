@@ -12,7 +12,7 @@
     "title": "Bash Runfiles",
     "description": "Macros for injecting the Bazel runfiles setup logic into shell scripts (and other files) at build time.",
     "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/bash_runfiles",
-    "technologies": ["bazel"],
+    "technologies": ["bash", "bazel"],
     "repo": "monorepo"
   },
   {
@@ -48,6 +48,14 @@
     "repo": "monorepo"
   },
   {
+    "key": "dr_bashir",
+    "title": "Doctor Bashir",
+    "description": "Common Bash utilities.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/dr_bashir",
+    "technologies": ["bash", "bazel"],
+    "repo": "monorepo"
+  },
+  {
     "key": "formatting",
     "title": "Formatting",
     "description": "Automated code formatting for a variety of languages and frameworks.",
@@ -64,7 +72,7 @@
     "repo": "monorepo"
   },
   {
-    "key": "k_monkey",
+    "key": "kmonkey",
     "title": "KMonkey",
     "description": "Kotlin coroutine support for the JMonkeyEngine game engine.",
     "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/kmonkey",
@@ -104,6 +112,14 @@
     "repo": "monorepo"
   },
   {
+    "key": "publicity",
+    "title": "Publicity",
+    "description": "Infrastructure for managing build visibility via a standardized API and conformance system.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/publicity",
+    "technologies": ["bazel"],
+    "repo": "monorepo"
+  },
+  {
     "key": "site",
     "title": "Site",
     "description": "The source code for this website.",
@@ -116,6 +132,14 @@
     "title": "Contributing",
     "description": "Directives for contributing to this repository.",
     "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/contributing",
+    "technologies": ["bazel"],
+    "repo": "monorepo"
+  },
+  {
+    "key": "tofu",
+    "title": "Tofu",
+    "description": "Infrastructure for working with Open Tofu.",
+    "link": "https://github.com/jack-bradshaw/monorepo/tree/main/first_party/tofu",
     "technologies": ["bazel"],
     "repo": "monorepo"
   },
