@@ -1,5 +1,14 @@
 [
   {
+    "key": "timeless-engineering",
+    "title": "Timeless Engineering",
+    "description": "An essay on the virtues of sustainable design, the permanence of human nature, and the dangers of manufactured urgency and \"wartime\" rhetoric in the software industry.",
+    "year": 2026,
+    "month": 2,
+    "day": 11,
+    "file": "/static/content/journal/timeless_engineering.md"
+  },
+  {
     "key": "logs",
     "title": "Temporal Logs",
     "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
