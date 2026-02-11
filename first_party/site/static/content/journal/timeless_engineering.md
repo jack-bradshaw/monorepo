@@ -99,5 +99,3 @@ left standing when you are gone?
 Sincerely,
 
 Patience
-
-.
