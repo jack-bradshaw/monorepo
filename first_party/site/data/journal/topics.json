@@ -9,7 +9,8 @@
       "illumination",
       "the-answer",
       "hermeticity",
-      "the-artificial-man"
+      "the-artificial-man",
+      "timeless-engineering"
     ]
   },
   {
@@ -37,14 +38,21 @@
       "pragmatic-altruism",
       "challenge-of-monologue",
       "one-or-many",
-      "hermeticity"
+      "hermeticity",
+      "timeless-engineering"
     ]
   },
   {
     "key": "technology",
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
-    "items": ["the-cursed-cursor", "pragmatic-altruism", "the-wolves-are-all-gone", "logs"]
+    "items": [
+      "the-cursed-cursor",
+      "pragmatic-altruism",
+      "the-wolves-are-all-gone",
+      "logs",
+      "timeless-engineering"
+    ]
   },
   {
     "key": "psychology",
