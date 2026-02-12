@@ -19,10 +19,10 @@ into a broader ecosystem, one which serves the core needs and desires of humanit
 be pursued at all costs. It is simply a matter of designing and building in a way that puts the
 needs of the user first, allows change as the environment evolves, and is resilient to errors. It
 requires deep consideration, premeditation, and care for edge cases and divergent futures. All this
-is not to say we should design up front and plan for all eventualities in advance, but to suggest
-that we should build in a way that is ready for change, spend time being cautious, and tether our
-designs to the permanence of human nature. Prudence and conscientiousness are virtues, and engineers
-would do well to practice them.
+is not to say we should design everything up front and plan for all eventualities in advance, but to
+suggest that we should build in a way that is ready for change, spend time being cautious, and
+tether our designs to the permanence of human nature. Prudence and conscientiousness are virtues,
+and engineers would do well to practice them.
 
 If building for a millennium is possible though, what drives the software industry towards
 short-term gains? The answer is multifaceted, but one answer can be found in rhetoric, for example,
@@ -96,6 +96,4 @@ consider what will happen after they, and the purveyors of those narratives, hav
 been forgotten. Ask yourself: Who will benefit from your life, who will suffer, and what will be
 left standing when you are gone?
 
-Sincerely,
-
-Patience
+Sincerely,<br> Patience
