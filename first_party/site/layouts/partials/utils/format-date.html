@@ -1,0 +1,30 @@
+{{/*
+Formats a date object into a human-readable string.
+
+Parameters:
+. (dict): A date object containing:
+- year (int/string): Required.
+- month (int/string): Optional.
+- day (int/string): Optional.
+*/}}
+
+{{ $dateString := "" }}
+
+{{ if and . .year }}
+{{ if .month }}
+{{ $month := int .month }}
+{{ $day := int (.day | default 1) }}
+{{ $year := int .year }}
+{{ $dateStr := printf "%04d-%02d-%02d" $year $month $day }}
+
+{{ if .day }}
+{{ $dateString = (time $dateStr).Format "January 2, 2006" }}
+{{ else }}
+{{ $dateString = (time $dateStr).Format "January 2006" }}
+{{ end }}
+{{ else }}
+{{ $dateString = printf "%v" (int .year) }}
+{{ end }}
+{{ end }}
+
+{{ return $dateString }}

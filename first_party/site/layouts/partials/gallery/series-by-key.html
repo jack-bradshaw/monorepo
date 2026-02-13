@@ -1,0 +1,10 @@
+{{/*
+Constructs and returns a map of all gallery series keyed by their 'key' field.
+*/}}
+
+{{ $seriesByKey := dict }}
+{{ range site.Data.gallery.series }}
+{{ $seriesByKey = merge $seriesByKey (dict .key .) }}
+{{ end }}
+
+{{ return $seriesByKey }}

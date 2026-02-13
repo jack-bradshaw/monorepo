@@ -5,7 +5,7 @@
   "sasync",
   "coroutines",
   "concurrency",
-  "k_monkey",
+  "kmonkey",
   "dr_bashir",
   "bash_runfiles",
   "sliding_intro_screen",

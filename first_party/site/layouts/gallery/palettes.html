@@ -1,37 +1,33 @@
 {{/*
-Gallery Stylistic Layout
+Gallery Palettes Layout
 
 Parameters: None
 */}}
+
 {{ define "main" }}
+
+{{ $allItemsByKey := partial "gallery/items-by-key.html" . }}
+
 <div class="content root wide-root">
   {{ range site.Data.gallery.palettes }}
-  {{ $expandByDefault := index site.Data.gallery.behaviour "palettes" }}
-  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'palettes' in Gallery behaviour.json" }}{{ end }}
+
+  {{ $expandByDefault := partial "gallery/expansion-state.html" "palettes" }}
+
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
     <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">
-      {{ $itemKeysToItems := dict }}
-      {{ range site.Data.gallery.items }}
-      {{ $itemKeysToItems = merge $itemKeysToItems (dict .key .) }}
+      {{ range .items }}
+
+      {{ $item := index $allItemsByKey . }}
+      {{ if not $item }}
+      {{ errorf "Gallery item '%v' (palette) not found in gallery metadata" . }}
       {{ end }}
 
-      {{ range .items }}
-      {{ $item := index $itemKeysToItems . }}
-      {{ if $item }}
       <li>
-        {{ $subtitle := "" }}
-
-        {{ if $item.year }}
-        {{ $subtitle = $item.year }}
-        {{ if $item.description }}
-        {{ $subtitle = printf "%s · %s" $subtitle $item.description }}
-        {{ end }}
-        {{ else if $item.description }}
-        {{ $subtitle = $item.description }}
-        {{ end }}
+        {{ if $item }}
+        {{ $subtitle := partial "gallery/subtitle.html" $item }}
 
         {{ partial "card/composition/gallery-card.html" (dict
         "image" (strings.TrimPrefix "/static" $item.thumbnail)
@@ -39,8 +35,8 @@ Parameters: None
         "subtitle" $subtitle
         "link" (printf "/gallery/item/%s" $item.key))
         }}
+        {{ end }}
       </li>
-      {{ end }}
       {{ end }}
     </ol>
   </details>

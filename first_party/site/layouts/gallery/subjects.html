@@ -1,54 +1,47 @@
 {{/*
-Gallery Curated Layout
+Gallery Subjects Layout
 
 Parameters: None
 */}}
 
 {{ define "main" }}
-{{ $itemMap := dict }}
-{{ range site.Data.gallery.items }}
-{{ $itemMap = merge $itemMap (dict .key .) }}
-{{ end }}
 
-{{ $seriesMap := dict }}
-{{ range site.Data.gallery.series }}
-{{ $coverItem := index $itemMap .cover }}
-{{ $coverImage := "" }}
-{{ if $coverItem }}
-{{ $coverImage = strings.TrimPrefix "/static" $coverItem.thumbnail }}
-{{ end }}
-{{ $seriesLink := printf "/gallery/series/%s" .key }}
-{{ $resolvedSeries := merge . (dict "image" $coverImage "link" $seriesLink) }}
-{{ $seriesMap = merge $seriesMap (dict .key $resolvedSeries) }}
-{{ end }}
+{{ $allItemsByKey := partial "gallery/items-by-key.html" . }}
+{{ $seriesByKey := partial "gallery/series-by-key.html" . }}
+
 <div class="content root wide-root">
   {{ range site.Data.gallery.subjects }}
-  {{ $expandByDefault := index site.Data.gallery.behaviour "subjects" }}
-  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'subjects' in Gallery behaviour.json" }}{{ end }}
+
+  {{ $expandByDefault := partial "gallery/expansion-state.html" "subjects" }}
+
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
-    <summary id="{{ .title | urlize }}">
+    <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">
       {{ range .series }}
-      {{ $series := index $seriesMap . }}
-      <li>
-        {{ $subtitle := "" }}
 
-        {{ if $series.year }}
-        {{ $subtitle = $series.year }}
-        {{ if $series.description }}
-        {{ $subtitle = printf "%s · %s" $subtitle $series.description }}
-        {{ end }}
-        {{ else if $series.description }}
-        {{ $subtitle = $series.description }}
-        {{ end }}
+      {{ $series := index $seriesByKey . }}
+      {{ if not $series }}
+      {{ errorf "Series '%v' not found in gallery metadata" . }}
+      {{ end }}
+
+      {{ $coverItem := index $allItemsByKey $series.cover }}
+      {{ if not $coverItem }}
+      {{ errorf "Gallery item '%v' (cover) not found for series '%v'" $series.cover $series.key }}
+      {{ end }}
+
+      <li>
+        {{ $coverImage := strings.TrimPrefix "/static" $coverItem.thumbnail }}
+        {{ $seriesLink := printf "/gallery/series/%s/" $series.key }}
+
+        {{ $subtitle := partial "gallery/subtitle.html" $series }}
 
         {{ partial "card/composition/gallery-card.html" (dict
-        "image" $series.image
+        "image" $coverImage
         "title" $series.title
         "subtitle" $subtitle
-        "link" $series.link)
+        "link" $seriesLink)
         }}
       </li>
       {{ end }}

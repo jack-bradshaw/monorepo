@@ -4,42 +4,40 @@ Journal Topics Layout
 Parameters:
 * key: "topics" (implied)
 */}}
+
 {{ define "main" }}
 
-{{ $itemMap := dict }}
-{{ range site.Data.journal.items }}
-{{ $itemMap = merge $itemMap (dict .key .) }}
-{{ end }}
+{{ $itemsByKey := partial "journal/items-by-key.html" . }}
 
 <div class="content root wide-root">
   {{ range site.Data.journal.topics }}
+
   {{ $visibleItems := slice }}
   {{ range .items }}
-  {{ $item := index $itemMap . }}
+  {{ $item := index $itemsByKey . }}
   {{ if $item }}
   {{ $visibleItems = $visibleItems | append $item }}
   {{ end }}
   {{ end }}
 
   {{ if gt (len $visibleItems) 0 }}
-  {{ $expandByDefault := index site.Data.journal.behaviour "topics" }}
-  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'topics' in Journal behaviour.json" }}{{ end }}
+
+  {{ $expandByDefault := partial "journal/expansion-state.html" "topics" }}
+
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
     <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">
       {{ range $visibleItems }}
-      {{ $monthInt := int .month }}
-      {{ $yearInt := int .year }}
-      {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
-      {{ $date := printf "%s %d" $monthName $yearInt }}
-
-      {{ partial "card/composition/journal-card.html" (dict
-      "title" .title
-      "description" .description
-      "link" (printf "/journal/item/%s" .key))
-      }}
+      <li>
+        {{ $subtitle := partial "journal/subtitle.html" . }}
+        {{ partial "card/composition/journal-card.html" (dict
+        "title" .title
+        "subtitle" $subtitle
+        "link" (printf "/journal/item/%s" .key))
+        }}
+      </li>
       {{ end }}
     </ol>
   </details>

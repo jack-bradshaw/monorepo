@@ -1,0 +1,24 @@
+{{/*
+Validates and returns icon paths for a given list of technologies.
+
+Parameters:
+. (slice of strings): Keys of technologies (e.g., ["bazel", "kotlin"]).
+
+Returns:
+(slice of strings): Validated web paths to the icon assets corresponding to the input keys.
+*/}}
+
+{{ $icons := slice }}
+{{ range . }}
+{{ $iconName := . }}
+{{ $staticPath := printf "/static/decorations/technologies/%s.webp" $iconName }}
+
+{{ if not (fileExists $staticPath) }}
+{{ errorf "Icon not found for technology: %s" $iconName }}
+{{ else }}
+{{ $webPath := printf "/decorations/technologies/%s.webp" $iconName }}
+{{ $icons = $icons | append $webPath }}
+{{ end }}
+{{ end }}
+
+{{ return $icons }}
