@@ -7,39 +7,32 @@ Params:
 */}}
 <div class="nav-coordinator">
 
-
+  {{/* Main Navigation (Always Shown)*/}}
   {{ partial "navigation/nav-primary.html" . }}
 
   {{/* Gallery Sub-navigation */}}
-
-  {{ if hasPrefix .RelPermalink "/gallery/" }}
+  {{ if and (hasPrefix .RelPermalink "/gallery/") (not (hasPrefix .RelPermalink "/gallery/series/")) (not (hasPrefix
+  .RelPermalink "/gallery/item/")) }}
   {{ $subpages := slice
   (dict "name" "Highlights" "link" "/gallery/highlights/")
   (dict "name" "Subjects" "link" "/gallery/subjects/")
   (dict "name" "Palettes" "link" "/gallery/palettes/")
   (dict "name" "Chronological" "link" "/gallery/chronological/")
   }}
-  {{ partial "navigation/nav-secondary.html" (dict
-  "context" . "title"
-  "Gallery" "pages" $subpages)
-  }}
+  {{ partial "navigation/nav-secondary.html" (dict "context" . "title" "Gallery" "pages" $subpages) }}
   {{ end }}
 
   {{/* Journal Sub-navigation */}}
-  {{ if hasPrefix .RelPermalink "/journal/" }}
+  {{ if and (hasPrefix .RelPermalink "/journal/") (not (hasPrefix .RelPermalink "/journal/series/")) (not (hasPrefix
+  .RelPermalink "/journal/item/")) }}
   {{ $subpages := slice
   (dict "name" "Highlights" "link" "/journal/highlights/")
   (dict "name" "Topics" "link" "/journal/topics/")
-  (dict "name" "Series" "link" "/journal/series/")
+  (dict "name" "Series" "link" "/journal/serieslist/")
   (dict "name" "Genres" "link" "/journal/genres/")
-
   (dict "name" "Chronological" "link" "/journal/chronological/")
   }}
-  {{ partial "navigation/nav-secondary.html" (dict
-  "context" .
-  "title" "Journal"
-  "pages" $subpages)
-  }}
+  {{ partial "navigation/nav-secondary.html" (dict "context" . "title" "Journal" "pages" $subpages) }}
   {{ end }}
 
   {{/* Repository Sub-navigation */}}
@@ -49,14 +42,16 @@ Params:
   (dict "name" "Locations" "link" "/repository/locations/")
   (dict "name" "Technologies" "link" "/repository/technologies/")
   }}
-  {{ partial "navigation/nav-secondary.html" (dict
-  "context" .
-  "title" "Repository"
-  "pages" $subpages)
-  }}
+  {{ partial "navigation/nav-secondary.html" (dict "context" . "title" "Repository" "pages" $subpages) }}
   {{ end }}
 
-
+  {{/* Contextual Menu */}}
+  {{ if hasPrefix .RelPermalink "/gallery/item" }}
+  {{ partial "navigation/nav-contextual-gallery-item.html" . }}
+  {{ else if hasPrefix .RelPermalink "/journal/item" }}
+  {{ partial "navigation/nav-contextual-journal-item.html" . }}
+  {{ end }}
 
   <script src="/js/navigation.js"></script>
+  <script src="/js/anchor-expansion.js"></script>
 </div>

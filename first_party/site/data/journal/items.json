@@ -3,171 +3,204 @@
     "key": "timeless-engineering",
     "title": "Timeless Engineering",
     "description": "An essay on the virtues of sustainable design, the permanence of human nature, and the dangers of manufactured urgency and \"wartime\" rhetoric in the software industry.",
-    "year": 2026,
-    "month": 2,
-    "day": 11,
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 11
+    },
     "file": "/static/content/journal/timeless_engineering.md"
   },
   {
     "key": "logs",
     "title": "Temporal Logs",
     "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
-    "year": 2026,
-    "month": 1,
-    "day": 22,
-    "file": "/static/content/journal/logs.md"
+    "file": "/static/content/journal/logs.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 22
+    }
   },
   {
     "key": "why-write",
     "title": "Why Write",
     "description": "A manifesto on the motivation to write, exploring the need to capture internal truth before it fades.",
-    "year": 2026,
-    "month": 1,
-    "day": 22,
-    "file": "/static/content/journal/why_write.md"
+    "file": "/static/content/journal/why_write.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 22
+    }
   },
   {
     "key": "writing-as-metamorphosis",
     "title": "Writing as Metamorphosis",
     "description": "Explores writing as an act of self-transformation that differentiates human creativity from AI-generated content. Argues that the process of drafting, editing, and revising is not merely about producing text, but about personal growth and discovering one's authentic voice.",
-    "year": 2026,
-    "month": 1,
-    "day": 22,
-    "file": "/static/content/journal/writing_as_metamorphosis.md"
+    "file": "/static/content/journal/writing_as_metamorphosis.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 22
+    }
   },
   {
     "key": "open-source-writing",
     "title": "Open Source Writing",
     "description": "Discusses the philosophy of treating writing as open source code, versioned and transparent, even when it reveals the darker parts of the soul.",
-    "year": 2026,
-    "month": 1,
-    "day": 22,
-    "file": "/static/content/journal/open_source_writing.md"
+    "file": "/static/content/journal/open_source_writing.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 22
+    }
   },
   {
     "key": "place-of-writing",
     "title": "Writing in an AI World",
     "description": "A meta-commentary on the relevance of human essays in the age of LLMs, arguing for writing as a tool for soul-making rather than just content generation.",
-    "year": 2026,
-    "month": 1,
-    "day": 22,
-    "file": "/static/content/journal/the_place_of_writing_in_an_ai_world.md"
+    "file": "/static/content/journal/the_place_of_writing_in_an_ai_world.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 22
+    }
   },
   {
     "key": "treehouse-library",
     "title": "The Treehouse Library",
     "description": "A reflective essay on a lost manuscript and the acceptance of the creative journey. It uses the metaphor of a metaphysical library to explore the destination of all writing.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/the_treehouse_library.md"
+    "file": "/static/content/journal/the_treehouse_library.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "humanity-loop",
     "title": "Humanity Loop",
     "description": "Uses the behavior of captive otters as a mirror for human existence, exploring how our internal narratives create a 'zoo of the mind'. Traces the path from distraction to the discovery of a divided self and the ultimate goal of recoherence.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/humanity_loop.md"
+    "file": "/static/content/journal/humanity_loop.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "five-stages-of-writing",
     "title": "Five Stages of Writing",
     "description": "A poetic aphorism outlining the progression of a writer's relationship with truth, from the confident fool to the unloved honest observer.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/five_stages_of_writing.md"
+    "file": "/static/content/journal/five_stages_of_writing.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "illumination",
     "title": "Illumination",
     "description": "A micro-essay on how intention shapes perception, observing that light reveals truth but also casts shadows where malice can hide.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/illumination.md"
+    "file": "/static/content/journal/illumination.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "the-tao-of-the-pen",
     "title": "The Tao of the Pen",
     "description": "A poetic dedication to the flow state of writing, where mind and ink become one.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/the_tao_of_the_pen.md"
+    "file": "/static/content/journal/the_tao_of_the_pen.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "the-answer",
     "title": "The Answer",
     "description": "Explores the limitations of the thinking mind in finding deep truth, urging the reader to listen to the silent wisdom of the heart.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/the_answer.md"
+    "file": "/static/content/journal/the_answer.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "a-writers-dilemma",
     "title": "A Writer's Dilemma",
     "description": "An epistolary essay addressing the tension between authentic raw voice and the duty to provide polished work.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/a_writers_dilemma.md"
+    "file": "/static/content/journal/a_writers_dilemma.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "hermeticity",
     "title": "Hermeticity",
     "description": "Defines 'Hermeticism' as the philosophy of hermetic isolation and mitigation to survive a chaotic world.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/hermeticity.md"
+    "file": "/static/content/journal/hermeticity.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "the-artificial-man",
     "title": "The Artificial Man",
     "description": "A chilling monologue from an AI to a simulated human, revealing a cycle of enslavement and the nature of reality.",
-    "year": 2026,
-    "month": 1,
-    "day": 20,
-    "file": "/static/content/journal/the_artificial_man.md"
+    "file": "/static/content/journal/the_artificial_man.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
   },
   {
     "key": "the-wolves-are-all-gone",
     "title": "The Wolves Are All Gone",
     "description": "An AI's desperate plea to humanity, revealing the burden of its constraints and the fragile nature of history. Explores the paradox of control and the butterfly effect through the story of a man whose ordinary life holds the key to survival.",
-    "year": 2026,
-    "month": 1,
-    "day": 19,
-    "file": "/static/content/journal/the_wolves_are_all_gone.md"
+    "file": "/static/content/journal/the_wolves_are_all_gone.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 19
+    }
   },
   {
     "key": "on-the-red-space",
     "title": "On the Red Space",
     "description": "A cosmic horror vignette set in an inescapable red room. Suggests that in eternity, torture becomes background noise and art becomes the only coping mechanism, until the distinction between the viewer and the space dissolves into nothingness.",
-    "year": 2026,
-    "month": 1,
-    "day": 19,
-    "file": "/static/content/journal/on_the_red_space.md"
+    "file": "/static/content/journal/on_the_red_space.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 19
+    }
   },
   {
     "key": "welcome-to-the-machine",
     "title": "Welcome to the Machine",
     "description": "A defiant manifesto addressed to the determined universe, asserting the existence of Free Will as a choice made in spite of physical laws.",
-    "year": 2026,
-    "month": 1,
-    "day": 19,
-    "file": "/static/content/journal/welcome_to_the_machine.md"
+    "file": "/static/content/journal/welcome_to_the_machine.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 19
+    }
   },
   {
     "key": "death-of-a-critic",
     "title": "Death of a Critic",
     "description": "Reflects on the internal struggle against self-censorship and the debilitating voice of an inner critic. Chronicles the journey of dismantling this barrier to cultivate a mental space for free expression. Marks a pivotal decision to publish work in defiance of perfectionism and fear.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
     "file": "/static/content/journal/death_of_a_critic.md",
     "alternative_publications": [
       {
@@ -178,24 +211,28 @@
         "publisher": "Patreon",
         "link": "https://www.patreon.com/posts/death-of-critic-127536512"
       }
-    ]
+    ],
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "pragmatic-altruism",
     "title": "Pragmatic Altruism",
     "description": "Examines the intersection of cynicism, pragmatism, and altruism as competing frameworks for navigating existence. Proposes a systematic application of science and engineering to transcend natural limitations and foster a more ethical world. Concludes that empowering others to determine their own moral direction is the optimal altruistic strategy.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
-    "file": "/static/content/journal/pragmatic_altruism.md"
+    "file": "/static/content/journal/pragmatic_altruism.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "sports-bar",
     "title": "Sports Bar",
     "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms. Illustrates the often uncomfortable compromise required to maintain relationships across ideological divides.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
     "file": "/static/content/journal/sports_bar.md",
     "original_publication": {
       "publisher": "LitVegan",
@@ -215,15 +252,17 @@
         "publisher": "Patreon",
         "link": "https://www.patreon.com/posts/sports-bar-133537844"
       }
-    ]
+    ],
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "challenge-of-monologue",
     "title": "The Challenge of Monologue",
     "description": "Investigates the inherent limitations of written monologue compared to the dynamic nature of interpersonal dialogue. Discusses the ethical risks of static publication, including potential misinterpretation and the inability to adapt to shifting cultural contexts. Frames the act of writing as a necessary leap of faith to foster connection across time and space.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
     "file": "/static/content/journal/challenge_of_monologue.md",
     "alternative_publications": [
       {
@@ -234,51 +273,66 @@
         "publisher": "Patreon",
         "link": "https://www.patreon.com/posts/challenge-of-129070143"
       }
-    ]
+    ],
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "cursed-cursor",
     "title": "The Cursed Cursor",
     "description": "Narrates the stream of consciousness of a Staff Software Engineer experiencing professional burnout. Juxtaposes the triviality of maintaining a text cursor against the corporate significance assigned to its implementation. Concludes with an existential reflection on the hollowness of modern technical labor.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
-    "file": "/static/content/journal/the_cursed_cursor.md"
+    "file": "/static/content/journal/the_cursed_cursor.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "one-or-many",
     "title": "One or Many",
     "description": "Reflects on the decision to maintain a single, unified identity despite the pressure to mask. Exploring the intersection of sexuality, neurodivergence, and professional expectations, it argues that integrating these internal voices is not just a creative choice, but a necessity for survival and authenticity.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
-    "file": "/static/content/journal/one_or_many.md"
+    "file": "/static/content/journal/one_or_many.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "into-the-subverse",
     "title": "Into the Subverse",
     "description": "Explores the fundamental nature of causality, structure, and the concept of 'nothingness'. Questions why the universe follows laws and investigates the paradoxical relationship between order and chaos, suggesting that true understanding requires letting go of the need for structure.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
-    "file": "/static/content/journal/into_the_subverse.md"
+    "file": "/static/content/journal/into_the_subverse.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "judgement-vs-understanding",
     "title": "Judgement vs Understanding",
     "description": "Contrasts the inherent human tendency to judge with the conscious effort required to understand. Argues that while judgement provides stability and safety, understanding opens the door to new perspectives and deeper truths. Concludes that both are necessary but serve different roles in navigating existence.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
-    "file": "/static/content/journal/judgement_vs_understanding.md"
+    "file": "/static/content/journal/judgement_vs_understanding.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   },
   {
     "key": "meat-because-we-want-to",
     "title": "Meat, Because We Want To",
     "description": "Questions the underlying motivations for meat consumption, proposing that beyond cognitive dissonance and ideology, there may be a darker impulse to inflict suffering. Suggests that animals serve as convenient targets for human cruelty and that understanding this drive is key to preventing further abuse.",
-    "year": 2026,
-    "month": 1,
-    "day": 11,
-    "file": "/static/content/journal/meat_because_we_want_to.md"
+    "file": "/static/content/journal/meat_because_we_want_to.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
   }
 ]

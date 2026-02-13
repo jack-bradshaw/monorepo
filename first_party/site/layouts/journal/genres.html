@@ -4,39 +4,36 @@ Journal Genres Layout
 Parameters:
 * key: "genres" (implied)
 */}}
+
 {{ define "main" }}
 
+{{ $itemsByKey := partial "journal/items-by-key.html" . }}
 
 <div class="content root wide-root">
   {{ range site.Data.journal.genres }}
-  {{ $expandByDefault := index site.Data.journal.behaviour "genres" }}
-  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'genres' in Journal behaviour.json" }}{{ end }}
+
+  {{ $expandByDefault := partial "journal/expansion-state.html" "genres" }}
+
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
     <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
     </summary>
     <ol class="content items wide-items" role="list">
-      {{ $itemMap := dict }}
-      {{ range site.Data.journal.items }}
-      {{ $itemMap = merge $itemMap (dict .key .) }}
-      {{ end }}
-
       {{ range .items }}
 
-      {{ $item := index $itemMap . }}
-      {{ if $item }}
-      {{ $monthInt := int $item.month }}
-      {{ $yearInt := int $item.year }}
-      {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
-      {{ $date := printf "%s %d" $monthName $yearInt }}
-
-      {{ partial "card/composition/journal-card.html" (dict
-      "title" $item.title
-      "description" $item.description
-      "link" (printf "/journal/item/%s" $item.key))
-      }}
-
+      {{ $item := index $itemsByKey . }}
+      {{ if not $item }}
+      {{ errorf "Journal item '%v' (genre) not found in journal metadata" . }}
       {{ end }}
+
+      <li>
+        {{ $subtitle := partial "journal/subtitle.html" $item }}
+        {{ partial "card/composition/journal-card.html" (dict
+        "title" $item.title
+        "subtitle" $subtitle
+        "link" (printf "/journal/item/%s" $item.key))
+        }}
+      </li>
       {{ end }}
     </ol>
   </details>

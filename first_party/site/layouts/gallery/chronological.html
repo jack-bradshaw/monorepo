@@ -6,50 +6,22 @@ Parameters: None
 
 {{ define "main" }}
 
-{{ $itemsByYear := dict }}
-{{ range site.Data.gallery.items }}
-{{ $yearKey := printf "%v" .year }}
-{{ $dateStr := .date | default (printf "%d-01-01" .year) }}
-{{ $itemWithSort := merge . (dict "sortDate" $dateStr) }}
-
-{{ $items := index $itemsByYear $yearKey | default slice }}
-{{ $items = $items | append $itemWithSort }}
-{{ $itemsByYear = merge $itemsByYear (dict $yearKey $items) }}
-{{ end }}
-
-{{ $years := slice }}
-{{ range $k, $v := $itemsByYear }}
-{{ $years = $years | append $k }}
-{{ end }}
-{{ $yearsSorted := sort $years "value" "desc" }}
+{{ $yearsSorted := partial "gallery/items-by-year.html" . }}
 
 <div class="content root wide-root">
-  {{ range $year := $yearsSorted }}
-  {{ $expandByDefault := index site.Data.gallery.behaviour "chronological" }}
-  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'chronological' in Gallery behaviour.json" }}{{
-  end }}
+  {{ range $yearData := $yearsSorted }}
+
+  {{ $expandByDefault := partial "gallery/expansion-state.html" "chronological" }}
+
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
-    <summary id="{{ $year }}">
-      {{ $subtitle := printf "All pieces from %s" $year }}
-      {{ partial "content-block-header.html" (dict "title" $year "subtitle" $subtitle) }}
+    <summary id="{{ $yearData.year | urlize }}">
+      {{ $subtitle := printf "All pieces from %s" $yearData.year }}
+      {{ partial "content-block-header.html" (dict "title" $yearData.year "subtitle" $subtitle) }}
     </summary>
     <ol class="content items wide-items" role="list">
-      {{ range sort (index $itemsByYear $year) "sortDate" "desc" }}
+      {{ range sort $yearData.items "sortDate" "desc" }}
       <li>
-        {{ $subtitle := "" }}
-        {{ if .date }}
-        {{ $subtitle = (time .date).Format "January 2006" }}
-        {{ if .description }}
-        {{ $subtitle = printf "%s - %s" $subtitle .description }}
-        {{ end }}
-        {{ else if .year }}
-        {{ $subtitle = .year }}
-        {{ if .description }}
-        {{ $subtitle = printf "%s - %s" $subtitle .description }}
-        {{ end }}
-        {{ else if .description }}
-        {{ $subtitle = .description }}
-        {{ end }}
+        {{ $subtitle := partial "gallery/subtitle.html" . }}
 
         {{ partial "card/composition/gallery-card.html" (dict
         "image" (strings.TrimPrefix "/static" .thumbnail)

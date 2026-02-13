@@ -1,0 +1,10 @@
+{{/*
+Constructs and returns a map of all journal items keyed by their 'key' field.
+*/}}
+
+{{ $itemsByKey := dict }}
+{{ range site.Data.journal.items }}
+{{ $itemsByKey = merge $itemsByKey (dict .key .) }}
+{{ end }}
+
+{{ return $itemsByKey }}

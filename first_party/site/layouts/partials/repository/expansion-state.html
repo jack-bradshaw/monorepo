@@ -1,0 +1,13 @@
+{{/*
+Retrieves and validates the expansion state for a repository section.
+
+Parameters:
+. (string): The key of the section in behaviour.json (e.g., "locations", "technologies")
+*/}}
+
+{{ $state := index site.Data.repository.behaviour . }}
+{{ if not $state }}
+{{ errorf "Missing expansion state for '%s' in Repository behaviour.json" . }}
+{{ end }}
+
+{{ return $state }}
