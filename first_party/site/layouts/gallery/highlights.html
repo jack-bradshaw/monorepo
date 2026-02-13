@@ -3,28 +3,23 @@ Gallery Highlights Layout
 
 Parameters: None
 */}}
+
 {{ define "main" }}
+
+{{ $allItemsByKey := partial "gallery/items-by-key.html" . }}
+
 <div class="content root wide-root">
   <div class="content block">
     <ol class="content items wide-items" role="list">
-      {{ $itemMap := dict }}
-      {{ range site.Data.gallery.items }}
-      {{ $itemMap = merge $itemMap (dict .key .) }}
+      {{ range site.Data.gallery.highlights }}
+
+      {{ $item := index $allItemsByKey . }}
+      {{ if not $item }}
+      {{ errorf "Gallery item '%v' (highlight) not found in gallery metadata" . }}
       {{ end }}
 
-      {{ range site.Data.gallery.highlights }}
-      {{ $item := index $itemMap . }}
-      {{ if $item }}
       <li>
-        {{ $subtitle := "" }}
-        {{ if $item.year }}
-        {{ $subtitle = $item.year }}
-        {{ if $item.description }}
-        {{ $subtitle = printf "%s · %s" $subtitle $item.description }}
-        {{ end }}
-        {{ else if $item.description }}
-        {{ $subtitle = $item.description }}
-        {{ end }}
+        {{ $subtitle := partial "gallery/subtitle.html" $item }}
 
         {{ partial "card/composition/gallery-card.html" (dict
         "image" (strings.TrimPrefix "/static" $item.thumbnail)
@@ -33,7 +28,6 @@ Parameters: None
         "link" (printf "/gallery/item/%s" $item.key))
         }}
       </li>
-      {{ end }}
       {{ end }}
     </ol>
   </div>

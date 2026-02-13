@@ -1,4 +1,4 @@
 ---
 title: "Home"
-description: "The mind and soul of Jack Bradshaw"
+description: "The Collected Works"
 ---

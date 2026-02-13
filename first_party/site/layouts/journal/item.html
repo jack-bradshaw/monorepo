@@ -4,60 +4,21 @@ Journal Item Layout
 Parameters:
 * key: The item key.
 */}}
-{{ define "main" }}
 
+{{ define "main" }}
 
 <div class="content root narrow-root">
   <article class="panel vertical-wrap text-flow journal-item">
-    {{ $item := dict }}
-    {{ range site.Data.journal.items }}
-    {{ if eq .key $.Params.key }}
-    {{ $item = . }}
-    {{ end }}
+    {{ $itemsByKey := partial "journal/items-by-key.html" . }}
+    {{ $item := index $itemsByKey $.Params.key }}
+    {{ if not $item }}
+    {{ errorf "Journal item '%v' not found in journal metadata" $.Params.key }}
     {{ end }}
 
     {{ readFile (strings.TrimPrefix "/" $item.file) | markdownify }}
 
-    {{ $publicationInformation := "" }}
-
-    {{ if $item.original_publication }}
-    {{ $publicationDate := $item.original_publication.date }}
-    {{ if reflect.IsMap $publicationDate }}
-    {{ $monthInt := int $publicationDate.month }}
-    {{ $dayInt := int $publicationDate.day }}
-    {{ $yearInt := int $publicationDate.year }}
-    {{ $month := partial "utils/get-month-name.html" $monthInt }}
-    {{ $publicationDate = printf "%s %d, %d" $month $dayInt $yearInt }}
-    {{ end }}
-
-    {{ $publicationInformation = printf "Originally published by <a href=\"%s\">%s</a> on %s."
-    $item.original_publication.link $item.original_publication.publisher $publicationDate }}
-    {{ if $item.alternative_publications }}
-    {{ $publicationInformation = printf "%s " $publicationInformation }}
-    {{ end }}
-    {{ end }}
-
-    {{ if $item.alternative_publications }}
-    {{ $publicationInformation = printf "%sRepublished to " $publicationInformation }}
-
-    {{ $len := len $item.alternative_publications }}
-    {{ range $i, $pub := $item.alternative_publications }}
-    {{ $link := printf "<a href=\"%s\">%s</a>" $pub.link $pub.publisher }}
-    {{ $publicationInformation = printf "%s%s" $publicationInformation $link }}
-
-    {{ if lt $i (sub $len 2) }}
-    {{ $publicationInformation = printf "%s, " $publicationInformation }}
-    {{ else if eq $i (sub $len 2) }}
-    {{ $publicationInformation = printf "%s and " $publicationInformation }}
-    {{ end }}
-    {{ end }}
-    {{ $publicationInformation = printf "%s." $publicationInformation }}
-    {{ end }}
-
-    {{ if ne $publicationInformation "" }}
-    <hr>
-    <p>{{ $publicationInformation | safeHTML }}</p>
-    {{ end }}
+    {{ partial "journal/publication-info.html" $item }}
   </article>
+
 </div>
 {{ end }}

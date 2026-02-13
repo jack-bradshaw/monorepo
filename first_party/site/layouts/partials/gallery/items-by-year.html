@@ -1,0 +1,27 @@
+{{/*
+Groups gallery items by year and returns a sorted list of year objects.
+
+Returns a slice of dictionaries, each containing:
+- year: The year as a string (e.g. "2025")
+- items: A slice of items belonging to that year, each with a 'sortDate' field.
+
+The returned list is sorted by year in descending order.
+*/}}
+
+{{ $itemsByYearMap := dict }}
+{{ range site.Data.gallery.items }}
+{{ $yearKey := printf "%v" (int .date.year) }}
+{{ $dateStr := printf "%04d-%02d-%02d" (int .date.year) (int (.date.month | default 1)) (int (.date.day | default 1)) }}
+{{ $itemWithSort := merge . (dict "sortDate" $dateStr) }}
+
+{{ $items := index $itemsByYearMap $yearKey | default slice }}
+{{ $items = $items | append $itemWithSort }}
+{{ $itemsByYearMap = merge $itemsByYearMap (dict $yearKey $items) }}
+{{ end }}
+
+{{ $chronologicalList := slice }}
+{{ range $year, $items := $itemsByYearMap }}
+{{ $chronologicalList = $chronologicalList | append (dict "year" $year "items" $items) }}
+{{ end }}
+
+{{ return sort $chronologicalList "year" "desc" }}

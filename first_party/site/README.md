@@ -1,11 +1,12 @@
 # Site
 
-The personal [website](https://www.jack-bradshaw.com) of Jack Bradshaw.
+The collected works of Jack Bradshaw.
 
 ## Release
 
-Hosted on [Firebase](https://firebase.google.com). The release process is not automated and must be
-run manually via `bazel run //first_party/site:release`.
+Hosted on [Firebase](https://firebase.google.com) and released to https://jack-bradshaw.com. The
+release process is not automated and must be run manually via
+`bazel run //first_party/site:release`.
 
 ## User Experience
 

@@ -1,0 +1,100 @@
+{{/*
+Journal Item Contextual Navigation Menu
+
+Renders based on the item's metadata (series, topics, and genres).
+
+Parameters:
+* . (Page Context): The current page context.
+*/}}
+
+{{/* For ease of reference in nested blocks.*/}}
+{{ $itemKey := .Params.key }}
+
+{{/* Data gathering - Find series and position in series */}}
+
+{{ $series := false }}
+{{ $itemPositionInSeries := -1 }}
+
+{{ range site.Data.journal.series }}
+{{ if in .items $itemKey }}
+{{ $series = . }}
+{{ range $i, $k := .items }}
+{{ if eq $k $itemKey }}
+{{ $itemPositionInSeries = $i }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find topic */}}
+
+{{ $topic := false }}
+{{ range site.Data.journal.topics }}
+{{ if in .items $itemKey }}
+{{ $topic = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find genre */}}
+
+{{ $genre := false }}
+{{ range site.Data.journal.genres }}
+{{ if in .items $itemKey }}
+{{ $genre = . }}
+{{ end }}
+{{ end }}
+
+{{/* Holds nav items while they are being constructed.*/}}
+{{ $navItems := slice }}
+
+{{/* Item construction - Previous in series button */}}
+
+{{/* Previous Button */}}
+{{ if and $series (gt $itemPositionInSeries 0) }}
+{{ $prevKey := index $series.items (sub $itemPositionInSeries 1) }}
+{{ $navItems = $navItems | append (dict
+    "name" "< Previous"
+    "link" (printf "/journal/item/%s" $prevKey)
+) }}
+{{ end }}
+
+{{/* Item construction - Full series button */}}
+
+{{ if $series }}
+{{ $navItems = $navItems | append (dict
+    "name" "Full Series"
+    "link" (printf "/journal/serieslist#%s" ($series.key | urlize))
+) }}
+{{ end }}
+
+{{/* Topic Button */}}
+{{ if $topic }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Topic (%s)" $topic.title)
+    "link" (printf "/journal/topics#%s" ($topic.key | urlize))
+) }}
+{{ end }}
+
+{{/* Item construction - Genre button */}}
+
+{{ if $genre }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Genre (%s)" $genre.title)
+    "link" (printf "/journal/genres#%s" ($genre.key | urlize))
+) }}
+{{ end }}
+
+{{/* Item construction - Next in series button */}}
+
+{{ if and $series (lt $itemPositionInSeries (sub (len $series.items) 1)) }}
+{{ $nextKey := index $series.items (add $itemPositionInSeries 1) }}
+{{ $navItems = $navItems | append (dict
+    "name" "Next >"
+    "link" (printf "/journal/item/%s" $nextKey)
+) }}
+{{ end }}
+
+{{/* Delegate to renderer */}}
+{{ partial "navigation/nav-contextual-actual.html" (dict
+    "pages" $navItems
+) }}
