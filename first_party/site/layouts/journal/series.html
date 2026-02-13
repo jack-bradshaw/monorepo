@@ -4,45 +4,37 @@ Journal Series Layout
 Parameters:
 * key: "series" (implied)
 */}}
+
 {{ define "main" }}
 
-{{ $itemMap := dict }}
-{{ range site.Data.journal.items }}
-{{ $itemMap = merge $itemMap (dict .key .) }}
-{{ end }}
+{{ $itemsByKey := partial "journal/items-by-key.html" . }}
+{{ $seriesByKey := partial "journal/series-by-key.html" . }}
 
-{{ $itemsInSeries := slice }}
+{{ $itemsInSeriesKeys := slice }}
 {{ $resolvedSeries := slice }}
 
 {{ range site.Data.journal.series }}
 {{ $series := . }}
 {{ $resolvedItems := slice }}
-{{ $item := index $itemMap . }}
+
+{{ range .items }}
+{{ $item := index $itemsByKey . }}
 {{ if $item }}
-{{ $itemsInSeries = $itemsInSeries | append . }}
-
-{{ $monthInt := int $item.month }}
-{{ $yearInt := int $item.year }}
-{{ $monthName := partial "utils/get-month-name.html" $monthInt }}
-{{ $date := printf "%s %d" $monthName $yearInt }}
-{{ $link := printf "/journal/item/%s" $item.key }}
-
-{{ $resolvedItems = $resolvedItems | append (merge $item (dict "date" $date "link" $link)) }}
+{{ $resolvedItems = $resolvedItems | append $item }}
+{{ $itemsInSeriesKeys = $itemsInSeriesKeys | append $item.key }}
+{{ else }}
+{{ errorf "Journal item '%v' not found for series '%v'" . $series.key }}
 {{ end }}
+{{ end }}
+
 {{ $resolvedSeries = $resolvedSeries | append (merge $series (dict "items" $resolvedItems)) }}
 {{ end }}
 
 {{/* Identify Standalone Items */}}
 {{ $standaloneItems := slice }}
 {{ range site.Data.journal.items }}
-{{ if not (in $itemsInSeries .key) }}
-{{ $item := . }}
-{{ $monthInt := int $item.month }}
-{{ $yearInt := int $item.year }}
-{{ $monthName := partial "utils/get-month-name.html" $monthInt }}
-{{ $date := printf "%s %d" $monthName $yearInt }}
-{{ $link := printf "/journal/item/%s" $item.key }}
-{{ $standaloneItems = $standaloneItems | append (merge $item (dict "date" $date "link" $link)) }}
+{{ if not (in $itemsInSeriesKeys .key) }}
+{{ $standaloneItems = $standaloneItems | append . }}
 {{ end }}
 {{ end }}
 
@@ -54,8 +46,9 @@ Parameters:
 
 <div class="content root wide-root">
   {{ range $resolvedSeries }}
-  {{ $expandByDefault := index site.Data.journal.behaviour "series" }}
-  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'series' in Journal behaviour.json" }}{{ end }}
+
+  {{ $expandByDefault := partial "journal/expansion-state.html" "series" }}
+
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
     <summary id="{{ .key | urlize }}">
       {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
@@ -63,10 +56,11 @@ Parameters:
     <ol class="content items wide-items" role="list">
       {{ range .items }}
       <li>
+        {{ $subtitle := partial "journal/subtitle.html" . }}
         {{ partial "card/composition/journal-card.html" (dict
         "title" .title
-        "description" .description
-        "link" .link)
+        "subtitle" $subtitle
+        "link" (printf "/journal/item/%s" .key))
         }}
       </li>
       {{ end }}

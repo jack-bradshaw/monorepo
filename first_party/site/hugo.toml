@@ -1,8 +1,10 @@
 baseURL = "https://jack-bradshaw.com/"
 languageCode = "en-us"
 title = "Jack Bradshaw"
+disableKinds = ["taxonomy", "term", "section"]
 
 [params]
+  description = "The collected works"
   googleAnalytics = "G-3LQFSGQLVV"
 
 [[cascade]]

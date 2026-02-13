@@ -4,47 +4,33 @@ Repository Technologies Layout
 Parameters:
 * key: "technologies" (implied)
 */}}
+
 {{ define "main" }}
+
 <div class="content root wide-root">
   {{ range site.Data.repository.technologies }}
-  {{ $techKey := .key }}
-  {{ $techName := .name }}
-  {{ $techLink := .link }}
+  {{ $tech := . }}
 
   {{ $items := slice }}
   {{ range site.Data.repository.items }}
-  {{ if in .technologies $techKey }}
+  {{ if in .technologies $tech.key }}
   {{ $items = $items | append . }}
   {{ end }}
   {{ end }}
 
   {{ if gt (len $items) 0 }}
-  {{ $subtitle := printf "All projects that use or target <a href=\"%s\">%s</a>" $techLink $techName }}
-  {{ $expandByDefault := index site.Data.repository.behaviour "technologies" }}
-  {{ if not $expandByDefault }}{{ errorf "Missing expansion state for 'technologies' in Repository behaviour.json" }}{{
-  end }}
+  {{ $subtitle := printf "All projects that use or target <a href=\"%s\">%s</a>" $tech.link $tech.name }}
+  {{ $expandByDefault := partial "repository/expansion-state.html" "technologies" }}
+
   <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
-    <summary id="{{ .key | urlize }}">
-      {{ partial "content-block-header.html" (dict "title" $techName "subtitle" $subtitle) }}
+    <summary id="{{ $tech.key | urlize }}">
+      {{ partial "content-block-header.html" (dict "title" $tech.name "subtitle" $subtitle) }}
     </summary>
     <ol class="content items wide-items" role="list">
       {{ range $items }}
       <li>
-        {{ $icons := slice }}
+        {{ $icons := partial "utils/tech-icons.html" .technologies }}
 
-        {{ if .technologies }}
-        {{ range .technologies }}
-        {{ $iconName := . }}
-        {{ $staticPath := printf "/static/decorations/technologies/%s.webp" $iconName }}
-        {{ $webPath := printf "/decorations/technologies/%s.webp" $iconName }}
-
-        {{ if not (fileExists $staticPath) }}
-        {{ errorf "Icon not found for technology: %s" $iconName }}
-        {{ else }}
-        {{ $icons = $icons | append $webPath }}
-        {{ end }}
-        {{ end }}
-        {{ end }}
         {{ partial "card/composition/repository-card.html" (dict
         "images" $icons
         "title" .title

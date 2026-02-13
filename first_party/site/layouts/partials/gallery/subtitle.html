@@ -1,0 +1,23 @@
+{{/*
+Constructs the subtitle for a gallery item or series.
+
+Parameters:
+. (context): The gallery item or series
+*/}}
+
+{{ $subtitle := "" }}
+{{ if . }}
+{{ $dateString := partial "utils/format-date.html" .date }}
+
+{{ if .description }}
+{{ if $dateString }}
+{{ $subtitle = printf "%v · %s" $dateString .description }}
+{{ else }}
+{{ $subtitle = .description }}
+{{ end }}
+{{ else }}
+{{ $subtitle = $dateString }}
+{{ end }}
+{{ end }}
+
+{{ return $subtitle }}

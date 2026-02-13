@@ -1,0 +1,29 @@
+{{/*
+Contextual Navigation UI Component
+
+Renders a contextual navigation menu bar containing the provided pages.
+
+Parameters:
+* pages: A slice of dictionaries (name, link) for the navigation items.
+*/}}
+
+{{ $pages := .pages }}
+{{ $title := .title | default "Contextual Navigation" }}
+
+{{ if eq (len $pages) 0 }}
+{{ errorf "Expected at least one page but found zero." }}
+{{ end }}
+<nav aria-label="Contextual Navigation" id="nav-contextual">
+  <details open>
+    <summary>More</summary>
+    <ol>
+      {{ range $pages }}
+      <li>
+        <a href="{{ .link }}" class="button unselected">
+          {{ .name }}
+        </a>
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+</nav>

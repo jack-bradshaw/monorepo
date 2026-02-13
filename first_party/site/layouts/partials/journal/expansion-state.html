@@ -1,0 +1,13 @@
+{{/*
+Retrieves and validates the expansion state for a journal section.
+
+Parameters:
+. (string): The key of the section in behaviour.json (e.g., "chronological", "genres")
+*/}}
+
+{{ $state := index site.Data.journal.behaviour . }}
+{{ if not $state }}
+{{ errorf "Missing expansion state for '%s' in Journal behaviour.json" . }}
+{{ end }}
+
+{{ return $state }}

@@ -40,3 +40,21 @@ fun Page.collapseAllDetailsContentBlocks() {
   evaluate("document.querySelectorAll('details.content.block').forEach(d => d.open = false)")
   waitForLoad()
 }
+
+/** Expands the popup menu identified by [type] on this [Page]. */
+fun Page.expandPopupMenu(type: MenuType) {
+  findElement("${type.selector} details summary").click()
+  waitForLoad()
+}
+
+/** Collapses the popup menu identified by [type] on this [Page]. */
+fun Page.collapsePopupMenu(type: MenuType) {
+  evaluate("document.querySelector('${type.selector} details').open = false")
+  waitForLoad()
+}
+
+enum class MenuType(val selector: String) {
+  PRIMARY("#nav-primary"),
+  SECONDARY("#nav-secondary"),
+  CONTEXTUAL("#nav-contextual")
+}

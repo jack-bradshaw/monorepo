@@ -3,9 +3,7 @@
 {{ range site.Data.journal.items }}
   {{ $itemData := . }}
 
-  {{ $monthInt := int $itemData.month }}
-  {{ $monthName := partial "utils/get-month-name.html" $monthInt }}
-  {{ $date := printf "%s %d" $monthName (int $itemData.year) }}
+  {{ $date := partial "utils/format-date.html" $itemData.date }}
 
   {{ $.AddPage (dict
       "kind" "page"

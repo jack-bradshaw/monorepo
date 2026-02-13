@@ -3,6 +3,7 @@ Gallery Item Layout
 
 Parameters: the item key of the item to display
 */}}
+
 {{ define "main" }}
 
 <div class="content root wide-root">
@@ -13,11 +14,12 @@ Parameters: the item key of the item to display
     {{ $item = . }}
     {{ end }}
     {{ end }}
-    
+
     {{ $webPath := strings.TrimPrefix "/static" $item.full_size }}
     <a href="{{ $webPath }}">
       <img class="rounded fill-width" src="{{ $webPath }}" alt="{{ $item.title }}" />
     </a>
   </div>
+
 </div>
 {{ end }}
