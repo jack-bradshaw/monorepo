@@ -1,4 +1,4 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 load("//first_party/sasync:publicity.bzl", "PUBLICITY")
 
@@ -56,7 +56,7 @@ kt_jvm_test_with_dagger(
         ":impl",
         ":test",
         ":transport",
-        "//first_party/coroutines/testing:component_impl",
+        "//first_party/coroutines/testing",
         "//first_party/sasync/outbound:scope",
         "//first_party/sasync/outbound/config:kt_jvm_proto",
         "//first_party/universal/count:kt_jvm_proto",

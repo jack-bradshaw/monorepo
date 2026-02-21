@@ -22,7 +22,7 @@ kt_jvm_library(
     srcs = [
         "EngineCoreImpl.kt",
     ],
-    visibility = ["//visibility:private"],
+    visibility = ["//first_party/otter:__subpackages__"],
     deps = [
         ":core",
         "//first_party/otter:scope",

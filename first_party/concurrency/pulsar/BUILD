@@ -1,4 +1,4 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library", "kt_jvm_test")
 load("//first_party/concurrency:publicity.bzl", "PUBLICITY")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 

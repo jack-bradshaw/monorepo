@@ -1,10 +1,8 @@
-load("@rules_java//java:defs.bzl", "java_library")
+load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
-java_library(
+package(default_visibility = ["//visibility:private"])
+
+kt_jvm_library_with_dagger(
     name = "dagger_library_must_build",
     srcs = ["TestComponent.java"],
-    deps = [
-        "//:dagger",
-        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
-    ],
 )
