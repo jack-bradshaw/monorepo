@@ -2,6 +2,7 @@ load("@dagger//:workspace_defs.bzl", "dagger_rules")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("//first_party/publicity/conformance:conformance.bzl", "conformance_test")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -28,3 +29,5 @@ filegroup(
     srcs = [".prettierignore"],
     visibility = ["//visibility:public"],
 )
+
+conformance_test(name = "publicity_conformance_test")

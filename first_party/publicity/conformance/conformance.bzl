@@ -17,11 +17,11 @@ def conformance_test(name, first_party_root = "first_party", **kwargs):
     jvm_flags.append("-DFIRST_PARTY_ROOT=%s" % first_party_root)
 
     runtime_deps = kwargs.pop("runtime_deps", [])
-    runtime_deps.append("//first_party/publicity/conformance/entrypoint:entrypoint")
+    runtime_deps.append("//first_party/publicity/conformance")
 
     kt_jvm_binary(
         name = name,
-        main_class = "com.jackbradshaw.publicity.conformance.entrypoint.EntryPoint",
+        main_class = "com.jackbradshaw.publicity.conformance.Conformance",
         jvm_flags = jvm_flags,
         runtime_deps = runtime_deps,
         **kwargs
