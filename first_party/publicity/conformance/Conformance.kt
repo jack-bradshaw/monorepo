@@ -3,11 +3,18 @@ package com.jackbradshaw.publicity.conformance
 import com.jackbradshaw.concurrency.concurrencyComponent
 import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.publicity.conformance.model.Workspace
+import com.jackbradshaw.publicity.conformance.packagechecker.PackageCheckerImplModule
+import com.jackbradshaw.publicity.conformance.runner.Runner
+import com.jackbradshaw.publicity.conformance.runner.RunnerImplModule
+import com.jackbradshaw.publicity.conformance.workspacechecker.WorkspaceCheckerImplModule
 import com.jackbradshaw.sasync.inbound.config.defaultConfig as inboundConfig
 import com.jackbradshaw.sasync.inbound.inboundComponent
 import com.jackbradshaw.sasync.outbound.config.defaultConfig as outboundConfig
 import com.jackbradshaw.sasync.outbound.outboundComponent
+import com.jackbradshaw.sasync.standard.StandardComponent
 import com.jackbradshaw.sasync.standard.standardComponent
+import dagger.BindsInstance
+import dagger.Component
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
@@ -68,7 +75,7 @@ object Conformance {
             output = stdout,
             error = stderr)
 
-    val result = conformanceComponent(workspace, standard).runner().run()
+    val result = DaggerConformanceComponent.factory().create(workspace, standard).runner().run()
 
     // Asynchronous output buffers may need time to flush.
     standard.standardOutputOutboundTransport().close()
@@ -91,4 +98,25 @@ object Conformance {
 
   /** Key for loading the first party root directory from the environment. */
   private val FIRST_PARTY_ROOT_DIR_KEY = "FIRST_PARTY_ROOT"
+}
+
+@Component(
+    dependencies = [StandardComponent::class],
+    modules =
+        [
+            PackageCheckerImplModule::class,
+            WorkspaceCheckerImplModule::class,
+            RunnerImplModule::class,
+        ])
+private interface ConformanceComponent {
+
+  fun runner(): Runner
+
+  @Component.Factory
+  interface Factory {
+    fun create(
+        @BindsInstance workspace: Workspace,
+        standardComponent: StandardComponent
+    ): ConformanceComponent
+  }
 }
