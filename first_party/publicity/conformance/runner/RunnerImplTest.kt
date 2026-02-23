@@ -1,26 +1,26 @@
 package com.jackbradshaw.publicity.conformance.runner
 
-import com.jackbradshaw.concurrency.testing.TestConcurrencyComponent
-import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.concurrency.testing.TestConcurrency
+import com.jackbradshaw.concurrency.testing.testConcurrency
+import com.jackbradshaw.coroutines.testing.TestCoroutines
+import com.jackbradshaw.coroutines.testing.testCoroutines
 import com.jackbradshaw.publicity.conformance.model.Workspace
 import com.jackbradshaw.publicity.conformance.packagechecker.PackageCheckerImplModule
 import com.jackbradshaw.publicity.conformance.workspacechecker.WorkspaceCheckerImplModule
 import com.jackbradshaw.sasync.inbound.config.defaultConfig as defaultInboundConfig
-import com.jackbradshaw.sasync.inbound.inboundComponent
+import com.jackbradshaw.publicity.conformance.ConformanceScope
+import com.jackbradshaw.sasync.inbound.inbound
 import com.jackbradshaw.sasync.outbound.config.defaultConfig as defaultOutboundConfig
-import com.jackbradshaw.sasync.outbound.outboundComponent
+import com.jackbradshaw.sasync.outbound.outbound
 import com.jackbradshaw.sasync.outbound.transport.OutboundTransport
-import com.jackbradshaw.sasync.standard.StandardComponent
+import com.jackbradshaw.sasync.standard.Standard
 import com.jackbradshaw.sasync.standard.error.StandardError
 import com.jackbradshaw.sasync.standard.output.StandardOutput
-import com.jackbradshaw.sasync.standard.standardComponent
+import com.jackbradshaw.sasync.standard.standard
 import dagger.BindsInstance
 import dagger.Component
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 
@@ -38,13 +38,13 @@ class RunnerImplTest : RunnerTest() {
       out: ByteArrayOutputStream,
       err: ByteArrayOutputStream
   ) {
-    val coroutines = testCoroutinesComponent()
-    val concurrency = testConcurrencyComponent()
+    val coroutines = testCoroutines()
+    val concurrency = testConcurrency()
 
     val sasync =
-        standardComponent(
-            inbound = inboundComponent(defaultInboundConfig, coroutines, concurrency),
-            outbound = outboundComponent(defaultOutboundConfig, coroutines, concurrency),
+        standard(
+            inbound = inbound(defaultInboundConfig, coroutines, concurrency),
+            outbound = outbound(defaultOutboundConfig, coroutines, concurrency),
             output = out,
             error = err)
 
@@ -70,13 +70,13 @@ class RunnerImplTest : RunnerTest() {
   }
 }
 
-@Singleton
+@ConformanceScope
 @Component(
     dependencies =
         [
-            StandardComponent::class,
-            TestCoroutinesComponent::class,
-            TestConcurrencyComponent::class,
+            Standard::class,
+            TestCoroutines::class,
+            TestConcurrency::class,
         ],
     modules =
         [
@@ -89,11 +89,11 @@ internal interface TestCheckerComponent {
 
   @Component.Builder
   interface Builder {
-    fun standardComponent(component: StandardComponent): Builder
+    fun standardComponent(component: Standard): Builder
 
-    fun coroutines(coroutinesComponent: TestCoroutinesComponent): Builder
+    fun coroutines(coroutinesComponent: TestCoroutines): Builder
 
-    fun concurrency(concurrencyComponent: TestConcurrencyComponent): Builder
+    fun concurrency(concurrencyComponent: TestConcurrency): Builder
 
     @BindsInstance fun workspace(workspace: Workspace): Builder
 
