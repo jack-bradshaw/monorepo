@@ -18,8 +18,7 @@ import com.jackbradshaw.coroutines.CoroutinesScope
 import com.jackbradshaw.coroutines.coroutines
 import com.jackbradshaw.coroutines.io.Io
 import com.jackbradshaw.oksp.application.ApplicationLoader
-import com.jackbradshaw.oksp.services.ProcessingService
-import com.jackbradshaw.oksp.services.Stage
+import com.jackbradshaw.oksp.service.ProcessingService
 import dagger.Component
 import dagger.BindsInstance
 import dagger.Binds
@@ -35,7 +34,7 @@ import com.jackbradshaw.oksp.application.ApplicationLoaderImpl
  * construct their Dagger dependency graph. It creates the [Application] environment
  * and maintains its asynchronous lifecycle.
  */
-abstract class EntryPointImpl @JvmOverloads constructor(
+open class EntryPointImpl @JvmOverloads constructor(
   val coroutineComponent: Coroutines = coroutines()
 ) : SymbolProcessorProvider {
 
@@ -59,7 +58,7 @@ abstract class EntryPointImpl @JvmOverloads constructor(
     }
 
     coroutineScope.launch {
-      processor.stage.filter { it == Stage.FINISHED }.first()
+      processor.observeTermination().first()
       app.onDestroy()
     }
 

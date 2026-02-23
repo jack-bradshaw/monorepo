@@ -32,7 +32,8 @@ kt_jvm_library(
     srcs = ["ApplicationComponent.kt"],
     visibility = ["//visibility:public"],
     deps = [
-        "//first_party/oksp/services:processing_service",
+        "//first_party/oksp/processor:processor",
+        "//first_party/oksp/service",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
     ],
 )

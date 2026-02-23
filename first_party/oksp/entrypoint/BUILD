@@ -25,9 +25,18 @@ kt_jvm_library_with_dagger(
         "//first_party/oksp/application:component",
         "//first_party/oksp/processor:processor",
         "//first_party/oksp/processor:processor_impl",
-        "//first_party/oksp/services:lifecycle_service",
-        "//first_party/oksp/services:processing_service",
+        "//first_party/oksp/service",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)
+
+kt_jvm_library(
+    name = "entrypoint_impl_declared",
+    resource_strip_prefix = "first_party/oksp/entrypoint/resources",
+    resources = glob(["resources/**"]),
+    visibility = ["//visibility:public"],
+    runtime_deps = [
+        ":entrypoint_impl",
     ],
 )

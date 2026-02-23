@@ -9,9 +9,7 @@ import com.google.devtools.ksp.symbol.KSNode
 import com.google.devtools.ksp.validate
 import kotlinx.coroutines.channels.BufferOverflow
 import com.jackbradshaw.oksp.model.SourceFile
-import com.jackbradshaw.oksp.services.ProcessingService
-import com.jackbradshaw.oksp.services.LifecycleService
-import com.jackbradshaw.oksp.services.Stage
+import com.jackbradshaw.oksp.service.ProcessingService
 import javax.inject.Inject
 import com.jackbradshaw.coroutines.io.Io
 import kotlinx.coroutines.CoroutineScope
@@ -48,11 +46,11 @@ class ProcessorImpl
 constructor(
     private val environment: SymbolProcessorEnvironment,
     @Io private val scope: CoroutineScope
-) : OkspProcessor, ProcessingService, LifecycleService {
+) : OkspProcessor, ProcessingService {
 
-  private val _stage = MutableStateFlow(Stage.PENDING)
+  private val termination = MutableSharedFlow<Unit>()
 
-  override val stage = _stage
+  override fun observeTermination(): SharedFlow<Unit> = termination
 
   private val roundResolver = MutableSharedFlow<Resolver>(
     replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST
@@ -67,16 +65,6 @@ constructor(
   )
 
   override fun process(resolver: Resolver): List<KSAnnotated> = runBlocking {
-    if (_stage.value == Stage.PENDING) {
-      _stage.value = Stage.RUNNING
-    } else if (_stage.value == Stage.FINISHED) {
-      throw IllegalStateException(
-        "Received data into `process` after `finish` callback. This should not happen as it " +
-        "violates the KSP contract: A `finish` callback should mean no more `process` callbacks " +
-        "are coming."
-      )
-    }
-
     val allDeferred = LinkedList<KSAnnotated>()
     val collectAllDeferred = scope.launch {
       roundDeferred.onEach {
@@ -93,7 +81,7 @@ constructor(
 
   override fun finish() {
     runBlocking { 
-      _stage.value = Stage.FINISHED
+      termination.emit(Unit)
     }
   }
 
@@ -111,20 +99,21 @@ constructor(
     file.use { it.write(source.contents.toByteArray()) }
   }
 
-  override suspend fun publishError(error: Throwable, anchors: KSNode) {
-    environment.logger.error(error.toString(), anchors)
+  override suspend fun publishError(error: Throwable, anchor: KSNode?) {
+    if (anchor != null) {
+      environment.logger.error(error.toString(), anchor)
+
+    } else {
+      environment.logger.error(error.toString())
+    }
   }
 
-  override suspend fun publishError(error: Throwable) {
-    environment.logger.error(error.toString())
-  }
-
-  override suspend fun publishError(error: String, anchors: KSNode) {
-    environment.logger.error(error, anchors)
-  }
-
-  override suspend fun publishError(error: String) {
-    environment.logger.error(error)
+  override suspend fun publishError(error: String, anchor: KSNode?) {
+    if (anchor != null) {
+      environment.logger.error(error, anchor)
+    } else {
+      environment.logger.error(error)
+    }
   }
 
   override suspend fun publishDeferred(node: KSAnnotated) {

@@ -1,18 +1,18 @@
 package com.jackbradshaw.publicity.conformance
 
-import com.jackbradshaw.concurrency.concurrencyComponent
-import com.jackbradshaw.coroutines.coroutinesComponent
+import com.jackbradshaw.concurrency.concurrency
+import com.jackbradshaw.coroutines.coroutines
 import com.jackbradshaw.publicity.conformance.model.Workspace
 import com.jackbradshaw.publicity.conformance.packagechecker.PackageCheckerImplModule
 import com.jackbradshaw.publicity.conformance.runner.Runner
 import com.jackbradshaw.publicity.conformance.runner.RunnerImplModule
 import com.jackbradshaw.publicity.conformance.workspacechecker.WorkspaceCheckerImplModule
 import com.jackbradshaw.sasync.inbound.config.defaultConfig as inboundConfig
-import com.jackbradshaw.sasync.inbound.inboundComponent
+import com.jackbradshaw.sasync.inbound.inbound
 import com.jackbradshaw.sasync.outbound.config.defaultConfig as outboundConfig
-import com.jackbradshaw.sasync.outbound.outboundComponent
-import com.jackbradshaw.sasync.standard.StandardComponent
-import com.jackbradshaw.sasync.standard.standardComponent
+import com.jackbradshaw.sasync.outbound.outbound
+import com.jackbradshaw.sasync.standard.Standard
+import com.jackbradshaw.sasync.standard.standard
 import dagger.BindsInstance
 import dagger.Component
 import java.io.File
@@ -65,12 +65,12 @@ object Conformance {
           return@runBlocking 1
         }
 
-    val coroutines = coroutinesComponent()
-    val concurrency = concurrencyComponent()
+    val coroutines = coroutines()
+    val concurrency = concurrency()
     val standard =
-        standardComponent(
-            inbound = inboundComponent(inboundConfig, coroutines, concurrency),
-            outbound = outboundComponent(outboundConfig, coroutines, concurrency),
+        standard(
+            inbound = inbound(inboundConfig, concurrency, coroutines),
+            outbound = outbound(outboundConfig, concurrency, coroutines),
             input = stdin,
             output = stdout,
             error = stderr)
@@ -78,8 +78,8 @@ object Conformance {
     val result = DaggerConformanceComponent.factory().create(workspace, standard).runner().run()
 
     // Asynchronous output buffers may need time to flush.
-    standard.standardOutputOutboundTransport().close()
-    standard.standardErrorOutboundTransport().close()
+    standard.standardOutput().close()
+    standard.standardError().close()
 
     when (result) {
       com.jackbradshaw.publicity.conformance.runner.Runner.Result.SUCCESS -> 0
@@ -100,8 +100,9 @@ object Conformance {
   private val FIRST_PARTY_ROOT_DIR_KEY = "FIRST_PARTY_ROOT"
 }
 
+@ConformanceScope
 @Component(
-    dependencies = [StandardComponent::class],
+    dependencies = [Standard::class],
     modules =
         [
             PackageCheckerImplModule::class,
@@ -116,7 +117,7 @@ private interface ConformanceComponent {
   interface Factory {
     fun create(
         @BindsInstance workspace: Workspace,
-        standardComponent: StandardComponent
+        standard: Standard
     ): ConformanceComponent
   }
 }

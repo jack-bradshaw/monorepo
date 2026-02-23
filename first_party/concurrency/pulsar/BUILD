@@ -22,7 +22,10 @@ kt_jvm_library_with_dagger(
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["PulsarModule.kt"],
-    visibility = ["//first_party/concurrency:__pkg__"],
+    visibility = [
+        "//first_party/concurrency:__pkg__",
+        "//first_party/concurrency/testing:__pkg__",
+    ],
     deps = [
         ":impl",
         ":pulsar",

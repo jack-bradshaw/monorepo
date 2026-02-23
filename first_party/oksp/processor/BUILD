@@ -6,9 +6,10 @@ kt_jvm_library(
     srcs = ["Processor.kt"],
     visibility = ["//visibility:public"],
     deps = [
-        "//first_party/oksp/services:lifecycle_service",
-        "//first_party/oksp/services:processing_service",
+        "//first_party/oksp/model:source_file",
+        "//first_party/oksp/service",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -20,8 +21,7 @@ kt_jvm_library_with_dagger(
         ":processor",
         "//first_party/coroutines/io",
         "//first_party/oksp/model:source_file",
-        "//first_party/oksp/services:lifecycle_service",
-        "//first_party/oksp/services:processing_service",
+        "//first_party/oksp/service",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

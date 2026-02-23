@@ -2,8 +2,8 @@ package com.jackbradshaw.publicity.conformance.runner
 
 import com.jackbradshaw.concurrency.testing.TestConcurrency
 import com.jackbradshaw.concurrency.testing.testConcurrency
+import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
 import com.jackbradshaw.coroutines.testing.TestCoroutines
-import com.jackbradshaw.coroutines.testing.testCoroutines
 import com.jackbradshaw.publicity.conformance.model.Workspace
 import com.jackbradshaw.publicity.conformance.packagechecker.PackageCheckerImplModule
 import com.jackbradshaw.publicity.conformance.workspacechecker.WorkspaceCheckerImplModule
@@ -38,13 +38,13 @@ class RunnerImplTest : RunnerTest() {
       out: ByteArrayOutputStream,
       err: ByteArrayOutputStream
   ) {
-    val coroutines = testCoroutines()
+    val coroutines = DaggerTestCoroutines.create()
     val concurrency = testConcurrency()
 
     val sasync =
         standard(
-            inbound = inbound(defaultInboundConfig, coroutines, concurrency),
-            outbound = outbound(defaultOutboundConfig, coroutines, concurrency),
+            inbound = inbound(defaultInboundConfig, concurrency, coroutines),
+            outbound = outbound(defaultOutboundConfig, concurrency, coroutines),
             output = out,
             error = err)
 
