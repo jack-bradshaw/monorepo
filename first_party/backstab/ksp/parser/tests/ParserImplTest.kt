@@ -8,7 +8,7 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.jackbradshaw.backstab.core.CoreScope
 import com.jackbradshaw.backstab.core.model.BackstabTarget
-import com.jackbradshaw.backstab.core.model.SourceHeader
+import com.jackbradshaw.oksp.model.SourceFile
 import com.jackbradshaw.backstab.core.model.Type
 import com.jackbradshaw.backstab.ksp.parser.Parser
 import com.jackbradshaw.backstab.ksp.parser.ParserModule
@@ -46,7 +46,7 @@ class ParserImplTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env)
 
     val expected =
         BackstabTarget(
-            header = SourceHeader(packageName = "com.foo", fileName = "parse_create_input"),
+            header = SourceFile(packageName = "com.foo", fileName = "parse_create_input"),
             component =
                 BackstabTarget.Component(
                     packageName = "com.foo", nameChain = listOf("ComponentCreate")),
@@ -60,7 +60,7 @@ class ParserImplTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env)
 
     val expected =
         BackstabTarget(
-            header = SourceHeader(packageName = "com.foo", fileName = "parse_builder_custom_input"),
+            header = SourceFile(packageName = "com.foo", fileName = "parse_builder_custom_input"),
             component =
                 BackstabTarget.Component(
                     packageName = "com.foo", nameChain = listOf("ComponentBuilderCustom")),
@@ -89,7 +89,7 @@ class ParserImplTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env)
     val expected =
         BackstabTarget(
             header =
-                SourceHeader(packageName = "com.foo", fileName = "parse_builder_standard_input"),
+                SourceFile(packageName = "com.foo", fileName = "parse_builder_standard_input"),
             component =
                 BackstabTarget.Component(
                     packageName = "com.foo", nameChain = listOf("ComponentBuilderStandard")),
@@ -117,7 +117,7 @@ class ParserImplTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env)
 
     val expected =
         BackstabTarget(
-            header = SourceHeader(packageName = "com.foo", fileName = "parse_factory_custom_input"),
+            header = SourceFile(packageName = "com.foo", fileName = "parse_factory_custom_input"),
             component =
                 BackstabTarget.Component(
                     packageName = "com.foo", nameChain = listOf("ComponentFactoryCustom")),
@@ -139,7 +139,7 @@ class ParserImplTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env)
     val expected =
         BackstabTarget(
             header =
-                SourceHeader(packageName = "com.foo", fileName = "parse_factory_standard_input"),
+                SourceFile(packageName = "com.foo", fileName = "parse_factory_standard_input"),
             component =
                 BackstabTarget.Component(
                     packageName = "com.foo", nameChain = listOf("ComponentFactoryStandard")),

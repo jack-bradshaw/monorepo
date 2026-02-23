@@ -3,7 +3,7 @@ package com.jackbradshaw.backstab.core.main
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.backstab.core.model.BackstabModule
 import com.jackbradshaw.backstab.core.model.BackstabTarget
-import com.jackbradshaw.backstab.core.model.SourceHeader
+import com.jackbradshaw.oksp.model.SourceFile
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertThrows
@@ -116,14 +116,14 @@ abstract class MainTest {
   /** Creates a [BackstabTarget] for use in tests. */
   protected fun createTarget(name: String) =
       BackstabTarget(
-          header = SourceHeader("com.example", name, "kt"),
+          header = SourceFile("com.example", name, "kt"),
           component = BackstabTarget.Component("com.example", listOf(name)),
           instantiator = BackstabTarget.ComponentInstantiator.CreateFunction)
 
   /** Creates a [BackstabModule] for use in tests. */
   protected fun createModule(name: String) =
       BackstabModule(
-          header = SourceHeader("com.example", name, "kt"), contents = "package com.example")
+          sourceFile = SourceFile("com.example", name, "kt", "package com.example"))
 }
 
 // DO NOT SUBMIT test needs careful review

@@ -1,0 +1,9 @@
+package com.jackbradshaw.oksp.component
+
+import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
+import com.jackbradshaw.oksp.services.ProcessingService
+
+interface OkspComponent {
+  fun processingService(): ProcessingService
+  fun environment(): SymbolProcessorEnvironment
+}

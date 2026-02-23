@@ -109,11 +109,11 @@ constructor(
       val file =
           environment.codeGenerator.createNewFile(
               dependencies = dependencies,
-              packageName = module.header.packageName,
-              fileName = module.header.fileName,
-              extensionName = module.header.extension)
+              packageName = module.sourceFile.packageName,
+              fileName = module.sourceFile.fileName,
+              extensionName = module.sourceFile.extension)
 
-      file.use { it.write(module.contents.toByteArray()) }
+      file.use { it.write(module.sourceFile.contents.toByteArray()) }
     }
   }
 

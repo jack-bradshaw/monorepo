@@ -3,7 +3,7 @@ package com.jackbradshaw.backstab.ksp.parser
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.jackbradshaw.backstab.core.CoreScope
 import com.jackbradshaw.backstab.core.model.BackstabTarget
-import com.jackbradshaw.backstab.core.model.SourceHeader
+import com.jackbradshaw.oksp.model.SourceFile
 import com.jackbradshaw.backstab.core.typeregistry.BackstabTypeRegistry
 import com.jackbradshaw.backstab.core.typeregistry.DaggerTypeRegistry
 import com.jackbradshaw.backstab.ksp.adapters.isQualifier
@@ -36,7 +36,7 @@ class ParserImpl @Inject constructor() : Parser {
     val extension = fileNameWithExtension.substringAfterLast(".", "kt")
 
     val header =
-        SourceHeader(
+        SourceFile(
             packageName = component.packageName,
             fileName = fileName,
             extension = extension,

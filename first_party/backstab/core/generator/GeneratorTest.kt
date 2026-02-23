@@ -8,7 +8,7 @@ import com.jackbradshaw.backstab.core.model.BackstabTarget.ComponentInstantiator
 import com.jackbradshaw.backstab.core.model.BackstabTarget.ComponentInstantiator.CreateFunction
 import com.jackbradshaw.backstab.core.model.BackstabTarget.ComponentInstantiator.FactoryFunction
 import com.jackbradshaw.backstab.core.model.BackstabTarget.Qualifier
-import com.jackbradshaw.backstab.core.model.SourceHeader
+import com.jackbradshaw.oksp.model.SourceFile
 import com.jackbradshaw.backstab.core.model.Type
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -1667,7 +1667,7 @@ abstract class GeneratorTest {
   ): BackstabTarget {
     val component = BackstabTarget.Component(packageName = packageName, nameChain = name)
     val header =
-        SourceHeader(
+        SourceFile(
             packageName = component.packageName, fileName = "ComponentFile", extension = "kt")
     return BackstabTarget(header = header, component = component, instantiator = instantiator)
   }
@@ -1682,7 +1682,7 @@ abstract class GeneratorTest {
   /** Asserts that the generator produces the [expected] content for the given [target]. */
   protected suspend fun assertGenerated(target: BackstabTarget, expected: String) {
     val module = subject().generateModuleFor(target)
-    val content = module.contents
+    val content = module.sourceFile.contents
     assertThat(content).isEqualTo(expected.trimIndent() + "\n")
   }
 }

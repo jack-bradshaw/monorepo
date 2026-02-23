@@ -1,6 +1,7 @@
 package com.jackbradshaw.backstab.core.model
 
 import com.jackbradshaw.backstab.core.annotations.Backstab
+import com.jackbradshaw.oksp.model.SourceFile
 import dagger.Component
 import javax.inject.Named
 import javax.inject.Qualifier
@@ -14,7 +15,7 @@ import javax.inject.Qualifier
  * @property instantiator The mechanism used to instantiate the modeled component.
  */
 data class BackstabTarget(
-    val header: SourceHeader,
+    val header: SourceFile,
     val component: Component,
     val instantiator: ComponentInstantiator
 ) {

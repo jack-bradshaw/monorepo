@@ -1,12 +1,6 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
-    name = "source_header",
-    srcs = ["SourceHeader.kt"],
-    visibility = ["//first_party/backstab:__subpackages__"],
-)
-
-kt_jvm_library(
     name = "type",
     srcs = ["Type.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
@@ -17,7 +11,7 @@ kt_jvm_library(
     srcs = ["BackstabTarget.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
-        ":source_header",
+        "//first_party/oksp/model:source_file",
         ":type",
         "//first_party/backstab/core/annotations:backstab",
         "@com_jackbradshaw_maven//:com_google_dagger_dagger",
@@ -30,6 +24,6 @@ kt_jvm_library(
     srcs = ["BackstabModule.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
-        ":source_header",
+        "//first_party/oksp/model:source_file",
     ],
 )

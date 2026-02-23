@@ -6,7 +6,7 @@ import com.jackbradshaw.backstab.core.model.BackstabTarget
 import com.jackbradshaw.backstab.core.model.BackstabTarget.ComponentInstantiator.BuilderInterface
 import com.jackbradshaw.backstab.core.model.BackstabTarget.ComponentInstantiator.CreateFunction
 import com.jackbradshaw.backstab.core.model.BackstabTarget.ComponentInstantiator.FactoryFunction
-import com.jackbradshaw.backstab.core.model.SourceHeader
+import com.jackbradshaw.oksp.model.SourceFile
 import com.jackbradshaw.backstab.core.model.kotlinpoet.toAnnotationSpec
 import com.jackbradshaw.backstab.core.model.kotlinpoet.toTypeName
 import com.jackbradshaw.backstab.core.typeregistry.BackstabTypeRegistry
@@ -30,7 +30,7 @@ class GeneratorImpl @Inject constructor() : Generator {
     val file = FileSpec.builder(metadata.packageName, metadata.simpleName).addType(source).build()
 
     return BackstabModule(
-        SourceHeader(metadata.packageName, metadata.simpleNames.last(), "kt"), file.toString())
+        SourceFile(metadata.packageName, metadata.simpleNames.last(), "kt", file.toString()))
   }
 
   /**

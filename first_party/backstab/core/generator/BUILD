@@ -7,7 +7,7 @@ kt_jvm_library(
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         "//first_party/backstab/core/model:module",
-        "//first_party/backstab/core/model:source_header",
+        "//first_party/oksp/model:source_file",
         "//first_party/backstab/core/model:target",
     ],
 )
@@ -21,7 +21,7 @@ kt_jvm_library_with_dagger(
         "//first_party/backstab/core:scope",
         "//first_party/backstab/core/annotations:aggregate_scope",
         "//first_party/backstab/core/model:module",
-        "//first_party/backstab/core/model:source_header",
+        "//first_party/oksp/model:source_file",
         "//first_party/backstab/core/model:target",
         "//first_party/backstab/core/model:type",
         "//first_party/backstab/core/model/kotlinpoet:backstab_target",
@@ -55,7 +55,7 @@ kt_jvm_test_with_dagger(
         ":impl",
         ":module_impl",
         "//first_party/backstab/core/annotations:aggregate_scope",
-        "//first_party/backstab/core/model:source_header",
+        "//first_party/oksp/model:source_file",
         "//first_party/backstab/core/model:target",
         "//first_party/backstab/core/model:type",
         "@com_jackbradshaw_maven//:com_google_truth_truth",

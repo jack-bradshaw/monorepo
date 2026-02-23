@@ -24,7 +24,7 @@ kt_jvm_library_with_dagger(
         "//first_party/backstab/core/annotations:aggregate_scope",
         "//first_party/backstab/core/annotations:backstab",
         "//first_party/backstab/core/model:module",
-        "//first_party/backstab/core/model:source_header",
+        "//first_party/oksp/model:source_file",
         "//first_party/backstab/core/model:target",
         "//first_party/backstab/core/model:type",
         "//first_party/backstab/core/ports/errorsink",
