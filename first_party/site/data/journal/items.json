@@ -1,16 +1,5 @@
 [
   {
-    "key": "timeless-engineering",
-    "title": "Timeless Engineering",
-    "description": "An essay on the virtues of sustainable design, the permanence of human nature, and the dangers of manufactured urgency and \"wartime\" rhetoric in the software industry.",
-    "date": {
-      "year": 2026,
-      "month": 2,
-      "day": 11
-    },
-    "file": "/static/content/journal/timeless_engineering.md"
-  },
-  {
     "key": "logs",
     "title": "Temporal Logs",
     "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
@@ -333,6 +322,215 @@
       "year": 2026,
       "month": 1,
       "day": 11
+    }
+  },
+  {
+    "key": "am-i-a-character",
+    "title": "Am I a Character?",
+    "description": "Explores the metaphysical possibility of being a character in a novel and the liberating choice to become one's own writer.",
+    "file": "/static/content/journal/am_i_a_character.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "joke",
+    "title": "Joke",
+    "description": "A short joke about a Christian, a taoist, a buddhist, and a therapist walking into a bar.",
+    "file": "/static/content/journal/joke.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "perfection",
+    "title": "Perfection",
+    "description": "A meditation reframing perfection from an unreachable ideal into an ever-present, neutral reality. Concludes that by letting go of the need to grasp it, one finds it was there all along.",
+    "file": "/static/content/journal/perfection.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "reality",
+    "title": "Reality",
+    "description": "A reflection asserting that reality derives from observation, flowing outwards and inwards until the self and the world are realized as one whole waking up to itself.",
+    "file": "/static/content/journal/reality.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "self-aware-antagonist",
+    "title": "Self Aware Antagonist",
+    "description": "A meta-fictional dialogue where an antagonist realizes they and the protagonist are merely words on a page, breaking the fourth wall.",
+    "file": "/static/content/journal/self_aware_antagonist.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "radix-pragmatismi",
+    "title": "Radix Pragmatismi Est Taedium Ideologiae Inflexibilis Et Dogmatis Rigidi",
+    "description": "Discusses the balance between the strict ideological separation of setup/act/assert blocks in testing and the pragmatic need for readability.",
+    "file": "/static/content/journal/radix_pragmatismi_est_taedium_ideologiae_inflexibilis_et_dogmatis_rigidi.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "three-strange-curiosities",
+    "title": "Three Strange Curiosities",
+    "description": "Three bizarre and unexplainable interactions with strangers in the San Francisco Bay Area.",
+    "file": "/static/content/journal/three_strange_curiosities.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "what-carries-on",
+    "title": "What Carries On",
+    "description": "A metaphysical inquiry into the Ship of Theseus applied to the human mind, concluding that the only underlying system that persists is the biological imperative of survival.",
+    "file": "/static/content/journal/survival/what_carries_on.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "flaws",
+    "title": "The Best Part of People are their Flaws",
+    "description": "Reframes outrage culture by celebrating the evolved, deeply ingrained imperfections of humanity.",
+    "file": "/static/content/journal/flaws.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "rogue",
+    "title": "Rogue",
+    "description": "Flash fiction about an author who feeds a philosophical text to a sophisticated AI machine to spark self-awareness, ending with a fateful knock at the door.",
+    "file": "/static/content/journal/rogue.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "rising-above-the-noise",
+    "title": "Rising Above the Noise",
+    "description": "A brief philosophy on ignoring the pervasive distraction of the internet age to focus on delivering true sustenance to a starving culture.",
+    "file": "/static/content/journal/rising_above_the_noise.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "for-the-love-of-subjectivity",
+    "title": "For the Love of Subjectivity",
+    "description": "A radical shift in perspective, moving away from strict objectivity to make peace with the deeply flawed, irrational, and subjective nature of humanity.",
+    "file": "/static/content/journal/for_the_love_of_subjectivity.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "death",
+    "title": "Death",
+    "description": "An existential meditation on the relentless approach of mortality and the pressure it puts on the living to create something 'worth looking back at.'",
+    "file": "/static/content/journal/death.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "principle_of_life",
+    "title": "Principle of Life",
+    "description": "The singular, defining imperative of all life: to exist however it can.",
+    "file": "/static/content/journal/survival/principle_of_life.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "no_adults_allowed",
+    "title": "No Adults Allowed",
+    "description": "The realization that authority figures are just as flawed and uncertain as everyone else.",
+    "file": "/static/content/journal/no_adults_allowed.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "borderline",
+    "title": "Borderline",
+    "description": "An exploration of generational pain and the lack of boundaries between self and origin.",
+    "file": "/static/content/journal/false_self/borderline.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "escape",
+    "title": "Escape",
+    "description": "A visceral rejection of a toxic environment and the iron will to rebuild the soul.",
+    "file": "/static/content/journal/false_self/escape.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "stars",
+    "title": "Stars",
+    "description": "A reflection on the universal human need to attach meaning to the cosmos and understand the world.",
+    "file": "/static/content/journal/meaning/stars.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "disapproval",
+    "title": "Disapproval",
+    "description": "A visceral depiction of internalized judgment and the paralyzing trap of an inherited psychological prison.",
+    "file": "/static/content/journal/false_self/disapproval.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
     }
   }
 ]
