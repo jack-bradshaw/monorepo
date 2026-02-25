@@ -26,7 +26,7 @@ intractable. I suspect this skill is a necessary step on the path to success, an
 possible. This ambition leads to a practical solution with three parts: a promise, a technique, and
 a decision. Let’s take them in order.
 
-First. My promise to you, dear reader, is as follows: I hope to provide you with something
+First. My intention towards you, dear reader, is as follows: I hope to provide you with something
 effortless to follow and enjoyable to read. I wish to bear fruit both sweet and sour, but never
 toxic, tasteless, or unripe. I seek to touch your heart and fill your mind, yet be gentle and tender
 to your eyes and ears. I believe creatures such as us thrive in humility and curiosity, but suffer
