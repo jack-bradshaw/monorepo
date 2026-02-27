@@ -6,7 +6,7 @@ broadens and skills sharpen, until the author's own voice has been revealed as n
 character in a story. After all is said and done, a new person emerges, and their work stands as the
 testament not to who they are now, but to who they shed to be here. We don't write for other people,
 we write to find ourselves, and when others find value in our words, that simply means we helped
-they along the way.
+them along the way.
 
 It's this metamorphosis which differentiates human writers from today's artificial intelligence, and
 when a person generates text without undergoing the change, they deny themselves the opportunity to
@@ -22,9 +22,9 @@ nor should it be taken as a dismissal of the usefulness of an assistant, but to 
 renaissance man (or more modernly, renaissance person) is the richest of dreams, and what is the
 point of life if not growth?
 
-I love to grow and develop new skills, especially when that means finding my limitations and
-overcoming them. It's the most enjoyable part of life, and it's that joy which artificial
+Personally, I love to grow and develop new skills, especially when that means finding my limitations
+and overcoming them. It's the most enjoyable part of life, and it's that joy which artificial
 intelligence will never replicate, because that joy comes from deep within and is inherent to who we
 are. We must find that joy to live, but offloading it to an artificial intelligence is not a viable
 path. In summary, writing is a deeply human act which nurtures the soul, and when we use artificial
-intelligence to bypass the difficulty parts, we do a great disservice to ourselves.
+intelligence to bypass the difficult parts, we do a great disservice to ourselves.
