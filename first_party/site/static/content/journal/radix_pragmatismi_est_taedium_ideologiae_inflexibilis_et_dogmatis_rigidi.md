@@ -4,7 +4,9 @@ unreasonable extreme, with no newlines permitted between the individual setup/ac
 believe the separation of tests into these logical phases is sensible, as it creates rigour and
 maintainability, but strictly compressing all code into undivided blocks is detrimental to
 readability, and there are circumstances where the inherent program structure makes this approach infeasible (for example, build system tests sometimes requires distributing logic across
-multiple files in the build). If there are occasions when rules do not apply, then what are we to do when our well intentioned peers argue for them to an unreasonable degree?
+multiple files in the build). If there are occasions when rules do not apply, then what are we to do when our well intentioned peers argue for them to an unreasonable degree? Morever what do we do
+when we find ourselves playing the advocate for stringent rules? I myself have been there on
+occasion.
 
 In this particular case (test structure) we must balance the underlying principle (separation of test stages) with pragmatic consideration of external constraints and other requirements (readability and test nature), but I suppose, seeking balance between pragmatism and idealism extends far beyond this extremely narrow case, and is a core element of engineering in general. From the Latin "Radix pragmatismi est taedium ideologiae inflexibilis et dogmatis rigidi": The root of all pragmatism is weariness of inflexible ideology and rigid dogma. I argue that idealism is a noble
 goal, one we should uphold when possible, but hold pragmatism as the fundamental root of

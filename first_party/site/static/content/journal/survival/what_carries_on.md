@@ -1,0 +1,9 @@
+The mind is not singular, nor is it unbreakable. Like all machines it can be damaged, disassembled,
+repaired, and improved, but when the core has been entirely replaced, what carries on? When all that was a person has been rebuilt from scratch, what is moving ahead and holding consciousness? Where some would view a question of identity, commobly expressed via The Ship of Theseus, my interest is less who carries on and when they cease to be themselves, but rather _what_ persists over time. Put aside the individual, the identity, and the ego, and simply consider, what is the underlying system that keeps going after the last cherished piece has fallen by the wayside, and how far can it go until it becomes dust? What system could possibly have the property that it continues to exist, however it can, even as its fundamental identify is discarded? I believe the answer is straightforward: Life itself.
+
+The mind does not serve the ego nor the organism, instead it serves the fundamental biological imperative of all life: survival. It carries on because it can, because it must, and because it has
+no choice. Everything else it does is mere artifice and aesthetic, from poetry to engineering to violence; tools designed by nature to reduce entropy and maintain homeostasis within
+and across the cells of society. It can be broken and repaired with new material, parts can be copied from others, forged from nothingness, or even rewritten at runtime by others, but the system itself does not stop until it can go no further. As an extension of
+life, it will not die without a fight, and it will not die until reality forces it. That iron will
+to survive is carries on, sheltering life through hardship and hostility, and the only question that matters is: What could possibly extinguish a determined will?
+
