@@ -5,7 +5,7 @@ import dagger.Module
 
 /** Dagger module for the Generator package. */
 @Module
-interface GeneratorModule {
+interface GeneratorImplModule {
   /** Binds the concrete implementation of [Generator]. */
   @Binds fun bindGenerator(impl: GeneratorImpl): Generator
 }

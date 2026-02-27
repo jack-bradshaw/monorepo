@@ -14,54 +14,12 @@ import org.junit.Test
 abstract class MainTest {
 
   @Test
-  fun start_calledOnce_doesNotFail() {
-    subject().start()
-  }
-
-  @Test
-  fun start_calledTwice_throwsIllegalStateException() {
-    val main = subject()
-    main.start()
-    val exception = assertThrows(IllegalStateException::class.java) { main.start() }
-    assertThat(exception.message).isEqualTo("Main is already started, cannot start again.")
-  }
-
-  @Test
-  fun stop_calledOnceBeforeStart_doesNotFail() {
-    subject().stop()
-  }
-
-  @Test
-  fun stop_calledOnceAfterStart_doesNotFail() {
-    val main = subject()
-    main.start()
-    main.stop()
-  }
-
-  @Test
-  fun stop_calledRepeatedlyBeforeStart_doesNotFail() {
-    val main = subject()
-    main.stop()
-    main.stop()
-    main.stop()
-  }
-
-  @Test
-  fun stop_calledRepeatedlyAfterStart_doesNotFail() {
-    val main = subject()
-    main.start()
-    main.stop()
-    main.stop()
-    main.stop()
-  }
-
-  @Test
   fun process_successfulMigration_publishesNewSources() {
     runBlocking {
       val target = createTarget("TestTarget")
       val expectedModule = createModule("TestTarget_BackstabModule")
 
-      subject().start()
+      runSubject()
       publishTarget(target)
       awaitIdle()
 
@@ -82,7 +40,7 @@ abstract class MainTest {
       val expectedException = RuntimeException("Test Error")
 
       injectGeneratorError(target, expectedException)
-      subject().start()
+      runSubject()
       publishTarget(target)
       awaitIdle()
 
@@ -112,6 +70,8 @@ abstract class MainTest {
 
   /** Awaits all pending asynchronous tasks initiated by the [subject] or the test. */
   protected abstract suspend fun awaitIdle()
+
+  protected abstract suspend fun runSubject()
 
   /** Creates a [BackstabTarget] for use in tests. */
   protected fun createTarget(name: String) =

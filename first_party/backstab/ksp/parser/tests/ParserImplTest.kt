@@ -1,23 +1,21 @@
 package com.jackbradshaw.backstab.ksp.parser.tests
 
-import com.google.common.truth.Truth.assertThat
 import com.google.devtools.ksp.processing.Resolver
-import com.google.devtools.ksp.processing.SymbolProcessor
-import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
-import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.oksp.application.Application
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.jackbradshaw.backstab.core.CoreScope
 import com.jackbradshaw.backstab.core.model.BackstabTarget
 import com.jackbradshaw.oksp.model.SourceFile
 import com.jackbradshaw.backstab.core.model.Type
 import com.jackbradshaw.backstab.ksp.parser.Parser
-import com.jackbradshaw.backstab.ksp.parser.ParserModule
+import com.jackbradshaw.backstab.ksp.parser.ParserImplModule
 import com.jackbradshaw.backstab.ksp.testing.SymbolProcessorTest
 import dagger.Component
 import javax.inject.Inject
 import org.junit.Assert.assertThrows
 
-class ParserImplTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env) {
+class ParserImplTest() : SymbolProcessorTest() {
 
   @Inject lateinit var parser: Parser
 
@@ -188,14 +186,10 @@ class ParserImplTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env)
   }
 }
 
-@Component(modules = [ParserModule::class])
+@Component(modules = [ParserImplModule::class])
 @CoreScope
 interface TestComponent {
   fun inject(target: ParserImplTest)
 }
 
-class ParserImplTestProvider : SymbolProcessorProvider {
-  override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-    return ParserImplTest(environment)
-  }
-}
+class TestApplication : Application by ParserImplTest()

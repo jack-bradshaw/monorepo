@@ -15,9 +15,11 @@ import com.jackbradshaw.coroutines.io.Io
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
@@ -48,32 +50,60 @@ constructor(
     @Io private val scope: CoroutineScope
 ) : OkspProcessor, ProcessingService {
 
-  private val termination = MutableSharedFlow<Unit>()
-
-  override fun observeTermination(): SharedFlow<Unit> = termination
-
-  private val roundResolver = MutableSharedFlow<Resolver>(
-    replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST
+  /** Emits when KSP notifies this processor that no more rounds will be delivered to [process]. The
+   * KSP contract guarantees the signal will occur after the last [process] call has returned.
+   * Replay and overflow strategy ensure this flow is historical and blocks the emitter until all
+   * downstream subscribers have completed, meaning late subscribers will always receive the signal,
+   * and all subscribers have an opportunity to clean up resources.
+   */
+  private val terminationSignal = MutableSharedFlow<Unit>(
+    replay = 1, onBufferOverflow = BufferOverflow.SUSPEND
   )
 
-  private val roundComplete = MutableSharedFlow<Unit>(
-    replay = 0, onBufferOverflow = BufferOverflow.SUSPEND, extraBufferCapacity = 1
+  /** The [Resolver] for the present round. */
+  private var roundResolver: Resolver? = null
+
+  /** Emits each time a new round is started by KSP. The configuration ensures this flow is passive,
+   * meaning any missed events are discarded and the supplier does not block. Note that [process]
+   * explicitly blocks at the start of each round until there is at least one subscriber to ensure
+   * every round is processed by at least one downstream subscriber.
+   */
+  private val roundStartEvents = MutableSharedFlow<Unit>(
+    replay = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST, extraBufferCapacity = 1
   )
 
-  private val roundDeferred = MutableSharedFlow<KSAnnotated>(
-    replay = 0, onBufferOverflow = BufferOverflow.SUSPEND, extraBufferCapacity = DEFERRED_BUFFER_SIZE
+  /** Emits each time a round is completed by a downstream consumer. The configuration ensures this
+   * flow is passive, meaning any missed events are discarded and the supplier does not block.
+   */
+  private val roundCompleteEvents = MutableSharedFlow<Unit>(
+    replay = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST, extraBufferCapacity = 1
   )
+
+  /** Emits each time a value is deferred by a downstream subscriber. Channel is used
+   * instead of SharedFlow to allow suspending behavior without replay buffering, and is adequate
+   * since there is exactly one consumer (the collector in the [process] callback).
+   */
+  private val roundDeferredValues = Channel<KSAnnotated>(
+    capacity = DEFERRED_BUFFER_SIZE, onBufferOverflow = BufferOverflow.SUSPEND
+  )
+
+  override fun observeAllRoundsCompleteEvent(): SharedFlow<Unit> = terminationSignal
 
   override fun process(resolver: Resolver): List<KSAnnotated> = runBlocking {
     val allDeferred = LinkedList<KSAnnotated>()
     val collectAllDeferred = scope.launch {
-      roundDeferred.onEach {
+      roundDeferredValues.consumeAsFlow().onEach {
         allDeferred.add(it)
       }.collect()
     }
 
-    roundResolver.emit(resolver)
-    roundComplete.first()
+    // Processing cannot begin until at least one observer is present.
+    roundStartEvents.subscriptionCount.filter { it > 0 }.first()
+
+    roundResolver = resolver
+    roundStartEvents.emit(Unit)
+
+    roundCompleteEvents.first()
     collectAllDeferred.cancel()
 
     return@runBlocking allDeferred
@@ -81,28 +111,38 @@ constructor(
 
   override fun finish() {
     runBlocking { 
-      termination.emit(Unit)
+      roundResolver = null
+
+      // Termination cannot complete until at least one observer is present.
+      terminationSignal.subscriptionCount.filter { it > 0 }.first()
+      terminationSignal.emit(Unit)
     }
   }
 
-  override fun observeResolver(): Flow<Resolver> = roundResolver
+  override fun observeRoundStartEvents(): Flow<Unit> = roundStartEvents
+
+  override fun getRoundResolver(): Resolver {
+    return checkNotNull(roundResolver) {
+      "Resolver is not available yet. Processing has not started. Call `getRoundResolver` after " +
+      "the first emission from `observeRoundStartEvents` and before " +
+      "`observeAllRoundsCompleteState` emits true."
+    }
+  } 
 
   override suspend fun publishSource(source: SourceFile, anchors: List<KSNode>) {
-    val dependencies = Dependencies(aggregating = true, *anchors.mapNotNull { it.getEnclosingFile() }.toTypedArray())
-    val file =
-        environment.codeGenerator.createNewFile(
-            dependencies = dependencies,
-            packageName = source.packageName,
-            fileName = source.fileName,
-            extensionName = source.extension)
-
-    file.use { it.write(source.contents.toByteArray()) }
+    val dependencyFiles = anchors.mapNotNull { it.getEnclosingFile() }.toTypedArray()
+    val dependencies = Dependencies(aggregating = true, *dependencyFiles)
+    
+    environment.codeGenerator.createNewFile(
+        dependencies = dependencies,
+        packageName = source.packageName,
+        fileName = source.fileName,
+        extensionName = source.extension).use { it.write(source.contents.toByteArray()) }
   }
 
   override suspend fun publishError(error: Throwable, anchor: KSNode?) {
     if (anchor != null) {
       environment.logger.error(error.toString(), anchor)
-
     } else {
       environment.logger.error(error.toString())
     }
@@ -117,11 +157,11 @@ constructor(
   }
 
   override suspend fun publishDeferred(node: KSAnnotated) {
-    roundDeferred.emit(node)
+    roundDeferredValues.send(node)
   }
 
   override suspend fun completeRound() {
-    roundComplete.emit(Unit)
+    roundCompleteEvents.emit(Unit)
   }
 
   private companion object {

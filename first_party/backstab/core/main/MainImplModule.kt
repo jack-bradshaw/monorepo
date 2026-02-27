@@ -5,7 +5,7 @@ import dagger.Module
 
 /** Dagger [Module] for the Main orchestrator. */
 @Module
-interface MainModule {
+interface MainImplModule {
   /** [Binds] the concrete implementation of [Main]. */
   @Binds fun bindMain(impl: MainImpl): Main
 }

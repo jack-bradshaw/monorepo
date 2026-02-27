@@ -6,6 +6,9 @@ kt_jvm_library(
     srcs = ["SymbolProcessorTest.kt"],
     visibility = ["//visibility:public"],
     deps = [
+        "//first_party/coroutines",
+        "//first_party/oksp/application",
+        "//first_party/oksp/application:component",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
     ],
 )

@@ -1,16 +1,14 @@
 package com.jackbradshaw.backstab.ksp.adapters.tests.ksannotation
 
-import com.google.common.truth.Truth.assertThat
 import com.google.devtools.ksp.processing.Resolver
-import com.google.devtools.ksp.processing.SymbolProcessor
-import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
-import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.oksp.application.Application
 import com.google.devtools.ksp.symbol.KSAnnotation
 import com.jackbradshaw.backstab.core.model.BackstabTarget
 import com.jackbradshaw.backstab.ksp.adapters.toQualifier
 import com.jackbradshaw.backstab.ksp.testing.SymbolProcessorTest
 
-class KsAnnotationExtensionsTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env) {
+class KsAnnotationExtensionsTest : SymbolProcessorTest() {
 
   override fun supplyCases(): Map<String, (Resolver) -> Unit> =
       mapOf(
@@ -57,9 +55,5 @@ class KsAnnotationExtensionsTest(env: SymbolProcessorEnvironment) : SymbolProces
     }
   }
 
-  class Provider : SymbolProcessorProvider {
-    override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-      return KsAnnotationExtensionsTest(environment)
-    }
-  }
+  class TestApplication : Application by KsAnnotationExtensionsTest()
 }

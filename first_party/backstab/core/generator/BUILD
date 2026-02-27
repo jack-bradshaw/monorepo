@@ -34,8 +34,8 @@ kt_jvm_library_with_dagger(
 )
 
 kt_jvm_library_with_dagger(
-    name = "module_impl",
-    srcs = ["GeneratorModule.kt"],
+    name = "impl_module",
+    srcs = ["GeneratorImplModule.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":generator",
@@ -53,7 +53,7 @@ kt_jvm_test_with_dagger(
     deps = [
         ":generator",
         ":impl",
-        ":module_impl",
+        ":impl_module",
         "//first_party/backstab/core/annotations:aggregate_scope",
         "//first_party/oksp/model:source_file",
         "//first_party/backstab/core/model:target",

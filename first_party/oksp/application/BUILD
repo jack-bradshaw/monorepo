@@ -11,23 +11,6 @@ kt_jvm_library(
 )
 
 kt_jvm_library(
-    name = "application_loader",
-    srcs = ["ApplicationLoader.kt"],
-    visibility = ["//visibility:public"],
-    deps = [":application"],
-)
-
-kt_jvm_library_with_dagger(
-    name = "application_loader_impl",
-    srcs = ["ApplicationLoaderImpl.kt"],
-    visibility = ["//visibility:public"],
-    deps = [
-        ":application",
-        ":application_loader",
-    ],
-)
-
-kt_jvm_library(
     name = "component",
     srcs = ["ApplicationComponent.kt"],
     visibility = ["//visibility:public"],

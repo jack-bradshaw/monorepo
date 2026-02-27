@@ -20,8 +20,11 @@ kt_jvm_library_with_dagger(
 kt_ksp_plugin(
     name = "plugin",
     testonly = True,
-    processor_class = "com.jackbradshaw.backstab.ksp.parser.tests.ParserImplTestProvider",
-    deps = [":instrumentation"],
+    processor_class = "com.jackbradshaw.oksp.entrypoint.EntryPointImpl",
+    deps = [
+        ":instrumentation",
+        "//first_party/oksp/entrypoint:entrypoint_impl_declared",
+    ],
 )
 
 kt_jvm_test(

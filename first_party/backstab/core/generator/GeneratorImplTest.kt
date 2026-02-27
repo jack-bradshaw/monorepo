@@ -21,7 +21,7 @@ class GeneratorImplTest : GeneratorTest() {
 }
 
 @CoreScope
-@Component(modules = [GeneratorModule::class])
+@Component(modules = [GeneratorImplModule::class])
 interface GeneratorTestComponent {
   fun inject(test: GeneratorImplTest)
 }

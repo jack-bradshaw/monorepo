@@ -30,7 +30,7 @@ kt_jvm_library_with_dagger(
 
 kt_jvm_library_with_dagger(
     name = "module_impl",
-    srcs = ["ParserModule.kt"],
+    srcs = ["ParserImplModule.kt"],
     visibility = ["//first_party/backstab:__subpackages__"],
     deps = [
         ":impl",

@@ -1,18 +1,16 @@
 package com.jackbradshaw.backstab.ksp.adapters.tests.kstypeargument
 
+import com.google.devtools.ksp.processing.Resolver
 import com.google.common.truth.Truth.assertThat
 import com.google.devtools.ksp.KspExperimental
-import com.google.devtools.ksp.processing.Resolver
-import com.google.devtools.ksp.processing.SymbolProcessor
-import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
-import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import com.jackbradshaw.oksp.application.Application
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.google.devtools.ksp.symbol.KSTypeArgument
 import com.jackbradshaw.backstab.core.model.Type
 import com.jackbradshaw.backstab.ksp.adapters.toTypeArgument
 import com.jackbradshaw.backstab.ksp.testing.SymbolProcessorTest
 
-class KsTypeArgumentExtensionsTest(env: SymbolProcessorEnvironment) : SymbolProcessorTest(env) {
+class KsTypeArgumentExtensionsTest : SymbolProcessorTest() {
 
   override fun supplyCases(): Map<String, (Resolver) -> Unit> =
       mapOf(
@@ -191,9 +189,5 @@ class KsTypeArgumentExtensionsTest(env: SymbolProcessorEnvironment) : SymbolProc
     return property.type.resolve().arguments.first()
   }
 
-  class Provider : SymbolProcessorProvider {
-    override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-      return KsTypeArgumentExtensionsTest(environment)
-    }
-  }
+  class TestApplication : Application by KsTypeArgumentExtensionsTest()
 }

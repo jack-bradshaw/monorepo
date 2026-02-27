@@ -4,7 +4,7 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.jackbradshaw.oksp.application.Application
-import com.jackbradshaw.oksp.component.OkspComponent
+import com.jackbradshaw.oksp.application.ApplicationComponent
 import com.jackbradshaw.oksp.processor.Processor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import com.jackbradshaw.coroutines.Coroutines
 import com.jackbradshaw.coroutines.CoroutinesScope
 import com.jackbradshaw.coroutines.coroutines
 import com.jackbradshaw.coroutines.io.Io
-import com.jackbradshaw.oksp.application.ApplicationLoader
+import com.jackbradshaw.oksp.application.loader.ApplicationLoader
 import com.jackbradshaw.oksp.service.ProcessingService
 import dagger.Component
 import dagger.BindsInstance
@@ -25,7 +25,7 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Scope
 import com.jackbradshaw.oksp.processor.ProcessorImpl
-import com.jackbradshaw.oksp.application.ApplicationLoaderImpl
+import com.jackbradshaw.oksp.application.loader.ApplicationLoaderImpl
 
 /**
  * Standard KSP entry point for an OKSP application.
@@ -51,21 +51,19 @@ open class EntryPointImpl @JvmOverloads constructor(
     }
 
     val app = applicationLoader.load().also { Companion.app = it }
-    val appComponent = DaggerApplicationComponent.factory().create(environment, processor)
+    val appComponent = DaggerApplicationComponentImpl.factory().create(environment, processor)
 
     runBlocking {
       app.onCreate(appComponent)
     }
 
     coroutineScope.launch {
-      processor.observeTermination().first()
+      processor.observeAllRoundsCompleteEvent().first()
       app.onDestroy()
     }
 
     return processor
   }
-
-  
 
   companion object {
     /** Statically holds the application reference to safeguard against repeated instantiation
@@ -110,7 +108,7 @@ open class EntryPointImpl @JvmOverloads constructor(
 
   /** The Dagger component passed into the application to supply KSP-related dependencies. */
   @Component(modules = [ApplicationModule::class])
-  internal interface ApplicationComponent : OkspComponent {
+  internal interface ApplicationComponentImpl : ApplicationComponent {
     @Component.Factory
     interface Factory {
       fun create(

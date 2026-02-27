@@ -11,15 +11,16 @@ kt_jvm_library(
         "//first_party/backstab/core/model:module",
         "//first_party/backstab/core/model:target",
         "//first_party/backstab/core/model:type",
-        "//first_party/backstab/core/ports/errorsink",
-        "//first_party/backstab/core/ports/modulesink",
-        "//first_party/backstab/core/ports/targetsource",
+        "//first_party/backstab/core/repository",
     ],
 )
 
 kt_ksp_plugin(
     name = "plugin",
-    processor_class = "com.jackbradshaw.backstab.ksp.entrypoint.EntryPoint",
+    processor_class = "com.jackbradshaw.oksp.entrypoint.EntryPointImpl",
     visibility = PUBLICITY,
-    deps = ["//first_party/backstab/ksp/entrypoint:impl"],
+    deps = [
+        "//first_party/backstab/ksp/entrypoint:impl",
+        "//first_party/oksp/entrypoint:entrypoint_impl_declared",
+    ],
 )

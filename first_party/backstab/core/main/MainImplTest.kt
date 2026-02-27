@@ -3,9 +3,7 @@ package com.jackbradshaw.backstab.core.main
 import com.jackbradshaw.backstab.core.generator.Generator
 import com.jackbradshaw.backstab.core.model.BackstabModule
 import com.jackbradshaw.backstab.core.model.BackstabTarget
-import com.jackbradshaw.backstab.core.ports.errorsink.ErrorSink
-import com.jackbradshaw.backstab.core.ports.modulesink.ModuleSink
-import com.jackbradshaw.backstab.core.ports.targetsource.TargetSource
+import com.jackbradshaw.backstab.core.repository.Repository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,6 +13,11 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import dagger.Component
+import javax.inject.Inject
+import com.jackbradshaw.backstab.core.CoreScope
+import com.jackbradshaw.coroutines.testing.launcher.Launcher
+import com.jackbradshaw.coroutines.testing.TestCoroutines
 
 /** Concrete tests for [MainImpl]. */
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -22,34 +25,26 @@ import org.junit.runners.JUnit4
 class MainImplTest : MainTest() {
 
   private lateinit var main: MainImpl
-  private lateinit var fakeTargetSource: FakeTargetSource
-  private lateinit var fakeModuleSink: FakeModuleSink
-  private lateinit var fakeErrorSink: FakeErrorSink
+  private lateinit var fakeRepository: FakeRepository
   private lateinit var fakeGenerator: FakeGenerator
-  private lateinit var testScope: TestScope
+  @Inject lateinit var launcher: Launcher
 
   @Before
   fun setup() {
-    val dispatcher = UnconfinedTestDispatcher()
-    testScope = TestScope(dispatcher)
-
-    fakeTargetSource = FakeTargetSource()
-    fakeModuleSink = FakeModuleSink()
-    fakeErrorSink = FakeErrorSink()
+    val coroutines = com.jackbradshaw.coroutines.testing.DaggerTestCoroutines.create()
+    DaggerMainTestComponent.builder().testCoroutines(coroutines).build().inject(this)
+    fakeRepository = FakeRepository()
     fakeGenerator = FakeGenerator()
     main =
         MainImpl(
-            targetSource = fakeTargetSource,
-            moduleSink = fakeModuleSink,
-            errorSink = fakeErrorSink,
-            generator = fakeGenerator,
-            coroutineScope = testScope)
+            repository = fakeRepository,
+            generator = fakeGenerator)
   }
 
   override fun subject(): Main = main
 
   override suspend fun publishTarget(target: BackstabTarget) {
-    fakeTargetSource.targets.emit(target)
+    fakeRepository.targets.emit(target)
   }
 
   override fun injectGeneratorError(target: BackstabTarget, throwable: Throwable) {
@@ -57,33 +52,33 @@ class MainImplTest : MainTest() {
   }
 
   override fun getPublishedModules(target: BackstabTarget): List<BackstabModule>? {
-    return fakeModuleSink.publishedModules[target]
+    return fakeRepository.publishedModules[target]
   }
 
   override fun getPublishedError(target: BackstabTarget): Throwable? {
-    return fakeErrorSink.publishedErrors[target]
+    return fakeRepository.publishedErrors[target]
   }
 
   override suspend fun awaitIdle() {
-    testScope.advanceUntilIdle()
+    // No-op for direct run()
   }
 
-  private class FakeTargetSource : TargetSource {
-    val targets = MutableSharedFlow<BackstabTarget>(replay = 0)
-
-    override fun observeTargets(): Flow<BackstabTarget> = targets
-  }
-
-  private class FakeModuleSink : ModuleSink {
-    val publishedModules = mutableMapOf<BackstabTarget, List<BackstabModule>>()
-
-    override suspend fun publishModules(target: BackstabTarget, modules: List<BackstabModule>) {
-      publishedModules[target] = modules
+  override suspend fun runSubject() {
+    launcher.launchEagerly {
+      subject().run()
     }
   }
 
-  private class FakeErrorSink : ErrorSink {
+  private class FakeRepository : Repository {
+    val targets = MutableSharedFlow<BackstabTarget>(replay = 0)
+    val publishedModules = mutableMapOf<BackstabTarget, List<BackstabModule>>()
     val publishedErrors = mutableMapOf<BackstabTarget, Throwable>()
+
+    override fun observeTargets(): Flow<BackstabTarget> = targets
+
+    override suspend fun publishModule(target: BackstabTarget, module: BackstabModule) {
+      publishedModules[target] = listOf(module)
+    }
 
     override suspend fun publishError(target: BackstabTarget, error: Throwable) {
       publishedErrors[target] = error
@@ -99,4 +94,10 @@ class MainImplTest : MainTest() {
       return createModule(target.component.nameChain.joinToString("_") + "_BackstabModule")
     }
   }
+}
+
+@CoreScope
+@Component(dependencies = [TestCoroutines::class])
+interface MainTestComponent {
+  fun inject(target: MainImplTest)
 }

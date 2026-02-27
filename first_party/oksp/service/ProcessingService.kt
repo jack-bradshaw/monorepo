@@ -8,7 +8,9 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 
 interface ProcessingService {
   
-  fun observeResolver(): Flow<Resolver>
+  fun observeRoundStartEvents(): Flow<Unit>
+
+  fun getRoundResolver(): Resolver
 
   suspend fun publishSource(source: SourceFile, anchors: List<KSNode> = emptyList())
 

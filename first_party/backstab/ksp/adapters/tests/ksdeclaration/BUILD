@@ -18,8 +18,8 @@ kt_jvm_library(
 kt_ksp_plugin(
     name = "plugin",
     testonly = True,
-    processor_class = "com.jackbradshaw.backstab.ksp.adapters.tests.ksdeclaration.KsDeclarationExtensionsTest$Provider",
-    deps = [":instrumentation"],
+    processor_class = "com.jackbradshaw.backstab.ksp.adapters.tests.ksdeclaration.com.jackbradshaw.oksp.entrypoint.EntryPointImpl",
+    deps = [":instrumentation", "//first_party/oksp/entrypoint:entrypoint_impl_declared"],
 )
 
 kt_jvm_test(

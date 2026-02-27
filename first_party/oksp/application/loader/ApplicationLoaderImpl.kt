@@ -1,11 +1,16 @@
-package com.jackbradshaw.oksp.application
+package com.jackbradshaw.oksp.application.loader
 
 import javax.inject.Inject
 import java.util.ServiceLoader
+import com.jackbradshaw.oksp.application.Application
 
 class ApplicationLoaderImpl @Inject constructor() : ApplicationLoader {
+
+  var classLoaderOverride: ClassLoader? = null
+
   override fun load(): Application {
-    val loader = ServiceLoader.load(Application::class.java, ApplicationLoaderImpl::class.java.classLoader)
+    val cl = classLoaderOverride ?: ApplicationLoaderImpl::class.java.classLoader
+    val loader = ServiceLoader.load(Application::class.java, cl)
     val iterator = loader.iterator()
     require (iterator.hasNext()) {
       "No Application implementation found. Please ensure your artefact exports a service implementation in META-INF/services/com.jackbradshaw.oksp.application.Application"
