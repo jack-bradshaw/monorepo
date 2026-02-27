@@ -1,4 +1,5 @@
-Many people look to the night sky and ask what the stars are, while others try to count them all,
-and some go so far as to assign each a special meaning. A few cunning minds even put radio telescopes in orbit to find hard answers to where they came from and how they work. Whether through faith or fact, what’s universally human is our interest in those tiny lights and the drive to understand them. While we
+Many people look to the night sky and ask what the stars are, while others try to count them all, 
+and some go so far as to assign each a special meaning. A few cunning minds even put radio telescopes in orbit to find hard answers to where they came from and how they work, crafting ever better
+theories and hypotheses. Whether through faith or fact, what’s universally human is our interest in those tiny lights and the drive to understand them. While we
 vary in how curious we are, our shared interest speaks to an innate sense of curiosity buried deep within the human psyche: an insatiable need to know, and an inability to be eternally satisfied with myth and legend. We all pursue answers in our own way, with varying degrees of sense and sensibility, but to be human is to thirst for information, to hunger for knowledge, and to be drawn to enlightened understanding. The topic alone could fill libraries, but in the end, perhaps the stars are not a source of answers at all, but a simple and omnipresent reminder that we still
 have questions to ask.
