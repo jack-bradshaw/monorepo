@@ -3,7 +3,7 @@
     "key": "poetry",
     "title": "Poetry",
     "description": "Rhythmic and expressive verse",
-    "items": ["sports-bar", "five-stages-of-writing", "the-tao-of-the-pen"]
+    "items": ["sports-bar", "five-stages-of-writing", "the-tao-of-the-pen", "reality"]
   },
   {
     "key": "essays",
@@ -13,7 +13,6 @@
       "death-of-a-critic",
       "why-write",
       "open-source-writing",
-      "place-of-writing",
       "pragmatic-altruism",
       "challenge-of-monologue",
       "one-or-many",

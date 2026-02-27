@@ -10,7 +10,8 @@
       "the-answer",
       "hermeticity",
       "the-artificial-man",
-      "timeless-engineering"
+      "timeless-engineering",
+      "reality"
     ]
   },
   {
@@ -25,7 +26,6 @@
       "a-writers-dilemma",
       "why-write",
       "open-source-writing",
-      "place-of-writing",
       "writing-as-metamorphosis"
     ]
   },
@@ -59,7 +59,7 @@
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "humanity-loop"]
+    "items": ["death-of-a-critic", "one-or-many", "humanity-loop", "reality"]
   },
   {
     "key": "veganism",

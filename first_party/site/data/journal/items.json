@@ -55,17 +55,6 @@
     }
   },
   {
-    "key": "place-of-writing",
-    "title": "Writing in an AI World",
-    "description": "A meta-commentary on the relevance of human essays in the age of LLMs, arguing for writing as a tool for soul-making rather than just content generation.",
-    "file": "/static/content/journal/the_place_of_writing_in_an_ai_world.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 22
-    }
-  },
-  {
     "key": "treehouse-library",
     "title": "The Treehouse Library",
     "description": "A reflective essay on a lost manuscript and the acceptance of the creative journey. It uses the metaphor of a metaphysical library to explore the destination of all writing.",
@@ -333,6 +322,17 @@
       "year": 2026,
       "month": 1,
       "day": 11
+    }
+  },
+  {
+    "key": "reality",
+    "title": "Reality",
+    "description": "A short meditative poem on the nature of reality and consciousness.",
+    "file": "/static/content/journal/reality.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
     }
   }
 ]
