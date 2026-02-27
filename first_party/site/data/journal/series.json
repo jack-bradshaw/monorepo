@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "key": "a-compass-for-reality",
+    "title": "A Compass for Reality",
+    "description": "A four-part philosophical exploration where each cardinal direction represents a fundamentally different human response to existence.",
+    "items": [
+      "reality-in-the-north",
+      "reality-in-the-south",
+      "reality-in-the-east",
+      "reality-in-the-west"
+    ]
+  }
+]

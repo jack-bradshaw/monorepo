@@ -16,6 +16,8 @@ What is the self though, if not part of the world?
 
 An endless wandering illusion.
 
+Guided by forces beyond perception.
+
 Inwards flowing out.
 
 An endless stream of pure being.
@@ -29,6 +31,8 @@ Only one reality waking up.
 One reality becoming whole.
 
 One reality becoming real.
+
+The endless cycle of becoming.
 
 So, we are reality.
 

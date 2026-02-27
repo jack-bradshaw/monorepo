@@ -345,5 +345,27 @@
       "month": 2,
       "day": 27
     }
+  },
+  {
+    "key": "reality-in-the-north",
+    "title": "Reality in the North",
+    "description": "An endless questioning of existence and its mysteries.",
+    "file": "/static/content/journal/reality_in_the_north.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "reality-in-the-south",
+    "title": "Reality in the South",
+    "description": "A dark, nihilistic rejection of the absurd pursuit of meaning.",
+    "file": "/static/content/journal/reality_in_the_south.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
   }
 ]
