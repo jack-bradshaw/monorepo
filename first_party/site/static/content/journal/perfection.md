@@ -1,4 +1,0 @@
-Perfection is the enemy of every artist, the bane of every scientist, and the origin of all things.
-It cannot be known or spoken, but we all see it in our dreams, and in rare waking moments, it comes forth from the most obvious place, smiles briefly, then departs before we have time to respond. It
-does not judge or want, it does not speak or act, and it does not wait or wander. It gently sits
-behind our eyes, forever out of reach, but never absent or afar. It finds a way through all adversity, but imposes nothing, and gives others the grace to follow their own way. If you can let go of this puzzle, and learn to accept the paradox of not knowing, then you may be surprised to find the answer was with you all along.
