@@ -1,6 +1,7 @@
 What is reality?
 
-Our thoughts inform us but they are not reality.<br> Our feelings guide us but they are not
+Our thoughts inform us but they are not reality.<br>
+Our feelings guide us but they are not
 reality.<br> Our bodies substantiate us but they are not reality.<br> The answer must be elsewhere.
 
 Look around and grasp the obvious truth:<br> Reality derives from observation.<br> Outwards flowing
