@@ -14,7 +14,9 @@
       "reality-in-the-east",
       "reality-in-the-west",
       "reality-in-the-north",
-      "reality-in-the-south"
+      "reality-in-the-south",
+      "stars",
+      "joke"
     ]
   },
   {
@@ -29,7 +31,8 @@
       "a-writers-dilemma",
       "why-write",
       "open-source-writing",
-      "writing-as-metamorphosis"
+      "writing-as-metamorphosis",
+      "on-imperfection"
     ]
   },
   {
@@ -69,16 +72,21 @@
       "reality-in-the-east",
       "reality-in-the-west",
       "reality-in-the-north",
-      "reality-in-the-south"
+      "reality-in-the-south",
+      "on-imperfection",
+      "stars"
     ]
   },
   {
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
-    "items": [
-      "meat-because-we-want-to",
-      "sports-bar"
-    ]
+    "items": ["meat-because-we-want-to", "sports-bar"]
+  },
+  {
+    "key": "meta-fiction",
+    "title": "Meta-Fiction",
+    "description": "Self-referential stories analyzing the nature of fiction",
+    "items": ["self-aware-antagonist"]
   }
 ]
