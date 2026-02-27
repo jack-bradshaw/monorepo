@@ -11,7 +11,8 @@
       "hermeticity",
       "the-artificial-man",
       "timeless-engineering",
-      "reality"
+      "reality-in-the-east",
+      "reality-in-the-west"
     ]
   },
   {
@@ -59,12 +60,21 @@
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "humanity-loop", "reality"]
+    "items": [
+      "death-of-a-critic",
+      "one-or-many",
+      "humanity-loop",
+      "reality-in-the-east",
+      "reality-in-the-west"
+    ]
   },
   {
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
-    "items": ["meat-because-we-want-to", "sports-bar"]
+    "items": [
+      "meat-because-we-want-to",
+      "sports-bar"
+    ]
   }
 ]

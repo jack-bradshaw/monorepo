@@ -325,10 +325,21 @@
     }
   },
   {
-    "key": "reality",
-    "title": "Reality",
-    "description": "A short meditative poem on the nature of reality and consciousness.",
-    "file": "/static/content/journal/reality.md",
+    "key": "reality-in-the-east",
+    "title": "Reality in the East",
+    "description": "An unabridged, ancient Taoist perspective on the flowing illusion of the self.",
+    "file": "/static/content/journal/reality_in_the_east.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "reality-in-the-west",
+    "title": "Reality in the West",
+    "description": "A modern, structured, and intimate meditation on determinism and the breakdown of duality.",
+    "file": "/static/content/journal/reality_in_the_west.md",
     "date": {
       "year": 2026,
       "month": 2,

@@ -3,7 +3,13 @@
     "key": "poetry",
     "title": "Poetry",
     "description": "Rhythmic and expressive verse",
-    "items": ["sports-bar", "five-stages-of-writing", "the-tao-of-the-pen", "reality"]
+    "items": [
+      "sports-bar",
+      "five-stages-of-writing",
+      "the-tao-of-the-pen",
+      "reality-in-the-east",
+      "reality-in-the-west"
+    ]
   },
   {
     "key": "essays",
@@ -35,6 +41,11 @@
     "key": "sci-fi",
     "title": "Sci-Fi",
     "description": "Speculative fiction exploring futuristic concepts",
-    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man", "logs"]
+    "items": [
+      "the-wolves-are-all-gone",
+      "on-the-red-space",
+      "the-artificial-man",
+      "logs"
+    ]
   }
 ]
