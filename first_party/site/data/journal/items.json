@@ -334,5 +334,49 @@
       "month": 1,
       "day": 11
     }
+  },
+  {
+    "key": "stars",
+    "title": "Stars",
+    "description": "A reflection on the innate human curiosity that drives us to look at the night sky and seek answers, reminding us that we will always have more questions to ask.",
+    "file": "/static/content/journal/stars.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "countertransference",
+    "title": "Countertransference",
+    "description": "A short, philosophical joke about a Christian, a Taoist, a Buddhist, and a Therapist walking into a bar, exploring how different worldviews approach a simple drink.",
+    "file": "/static/content/journal/countertransference.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "on-imperfection",
+    "title": "On Imperfection",
+    "description": "An essay exploring the destructive nature of the inner critic, the impossible demands of perfection, and the beauty found in accepting the flawed, evolutionary reality of life.",
+    "file": "/static/content/journal/on_imperfection.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "self-aware-antagonist",
+    "title": "The Self-Aware Antagonist",
+    "description": "A meta-fictional dialogue between a protagonist fighting for the lives of innocents and an antagonist who realizes they are both just characters on a page.",
+    "file": "/static/content/journal/self_aware_antagonist.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
   }
 ]

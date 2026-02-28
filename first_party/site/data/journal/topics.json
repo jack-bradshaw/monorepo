@@ -10,7 +10,9 @@
       "the-answer",
       "hermeticity",
       "the-artificial-man",
-      "timeless-engineering"
+      "timeless-engineering",
+      "stars",
+      "countertransference"
     ]
   },
   {
@@ -59,12 +61,30 @@
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "humanity-loop"]
+    "items": ["death-of-a-critic", "one-or-many", "humanity-loop", "stars", "on-imperfection"]
   },
   {
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
     "items": ["meat-because-we-want-to", "sports-bar"]
+  },
+  {
+    "key": "meta-fiction",
+    "title": "Meta-Fiction",
+    "description": "Self-referential stories analyzing the nature of fiction",
+    "items": ["self-aware-antagonist"]
+  },
+  {
+    "key": "sci-fi",
+    "title": "Sci-Fi",
+    "description": "Speculative fiction exploring futuristic concepts",
+    "items": [
+      "self-aware-antagonist",
+      "the-wolves-are-all-gone",
+      "on-the-red-space",
+      "the-artificial-man",
+      "logs"
+    ]
   }
 ]

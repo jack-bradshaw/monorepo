@@ -29,13 +29,27 @@
       "a-writers-dilemma",
       "humanity-loop",
       "writing-as-metamorphosis",
-      "judgement-vs-understanding"
+      "judgement-vs-understanding",
+      "on-imperfection",
+      "stars"
     ]
   },
   {
-    "key": "sci-fi",
-    "title": "Sci-Fi",
-    "description": "Speculative fiction exploring futuristic concepts",
-    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man", "logs"]
+    "key": "comedy",
+    "title": "Comedy",
+    "description": "Humorous anecdotes and lighthearted reflections",
+    "items": ["countertransference"]
+  },
+  {
+    "key": "fiction",
+    "title": "Fiction",
+    "description": "Narrative prose originating from imagination",
+    "items": [
+      "the-wolves-are-all-gone",
+      "on-the-red-space",
+      "the-artificial-man",
+      "logs",
+      "self-aware-antagonist"
+    ]
   }
 ]
