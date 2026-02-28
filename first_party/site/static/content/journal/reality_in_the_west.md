@@ -1,28 +1,17 @@
 What is reality?
 
-Our thoughts inform us but they are not absolute.<br>
-Our feelings guide us but they are not reliable.<br>
-Our bodies substantiate us but they are not eternal.<br>
-The answer must be elsewhere.
+Our thoughts inform us but they are not infallible; our feelings guide us but they are not reliable;
+our bodies substantiate us but they are not eternal; thus, the answer must be elsewhere. Just look around and notice an obvious truth: Our perception of reality derives from observation. Information flows inwards from our senses: An endless data stream beyond our control, ending only in death, but
+all perception is merely the downsteam effect of a distant cause propagating through a machine of absolute precision. Its origin: Unknown and perhaps unknowable. Curious...
 
-Look around and grasp the obvious truth:<br>
-Reality derives from observation.<br>
-Outwards flowing in.<br>
-An endless stream of information beyond control.<br>
-Motion without influence; effects of a distant cause.
 
-A curious answer...<br>
-Asking a curious question:<br>
-What are we if not part of our world?
 
-We look for others but find only more of ourself.<br>
-Ancient souls guided by forces beyond our walls.<br>
-An endless wandering illusion; an artificial line dissolving.<br>
-Inwards leaking out.<br>
-Observation derived of reality.
+We play the role of observer, but what are we if not part of our world? We look for others but the
+enlightened thinker finds only others calling themselves self. Countless souls guided by forces
+beyond our walls, each seeking truth in their own way, each another link in the chain of causality.
+An endless sea of bodies, divided by an artificial line, tirelessly working as one whole. Inwards leaking out, observation derived of reality, a feedback look without end.
 
-We cannot divide because there are no cells.<br>
-Only one reality waking up.<br>
+We cannot divide because there are no cells. 
 One reality becoming whole.<br>
 One reality becoming real.<br>
 The endless cycle of becoming.

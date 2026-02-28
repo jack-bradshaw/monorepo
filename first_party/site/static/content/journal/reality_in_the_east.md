@@ -12,21 +12,25 @@ Outwards flowing in.
 
 An endless stream beyond control.
 
-What is the self though, if not part of the world?
+An endless outwards gaze.
+
+Yet what is the self if not the world.
 
 An endless wandering illusion.
 
-Guided by forces beyond perception.
+An artificial line dividing one whole.
 
 Inwards flowing out.
 
-An endless stream of pure being.
+A stream of pure being.
 
-An artificial line between two halves of one whole.
+Guided by forces beyond perception.
 
-No one knows reality, because there are no cells.
+In unity the answer is clear.
 
-Only one reality waking up.
+We all know reality for we are all one soul.
+
+One reality waking up.
 
 One reality becoming whole.
 
@@ -34,7 +38,7 @@ One reality becoming real.
 
 The endless cycle of becoming.
 
-So, we are reality.
+_We_ are reality.
 
 Watching itself, questioning itself, asking itself:
 

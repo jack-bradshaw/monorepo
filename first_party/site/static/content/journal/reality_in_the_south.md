@@ -1,8 +1,10 @@
 What is reality?
 
-It doesn't matter.
+Stop there now. I warn you kindly.
 
-Reality is as meaningless as it is pointless.
+It does not matter and it does not end.
+
+Reality is as meaningless as it is senseless.
 
 It is but it should not be.
 
@@ -12,8 +14,20 @@ It is but _cannot_ be.
 
 Frustration. Endless frustration.
 
-It begins and thus it must end.
+It goes on forever but has no base.
 
-Yet trace it back and you will find:
+It begins just once but has no beginning.
 
-Nothing south of here.
+It ends in all directions but has no ending.
+
+A paradox at the heart of nature.
+
+Yet trace all back, through time and space, and you will find one truth:
+
+There is nothing south of here.
+
+...
+
+Dare I hear you ask: What lies beyond nothing?
+
+Well, a compass won't help you there.
