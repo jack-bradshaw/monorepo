@@ -1,0 +1,38 @@
+{{/*
+Gallery Chronological Layout
+
+Parameters: None
+*/}}
+
+{{ define "main" }}
+
+{{ $yearsSorted := partial "gallery/items-by-year.html" . }}
+
+<div class="content root wide-root">
+  {{ range $yearData := $yearsSorted }}
+
+  {{ $expandByDefault := partial "gallery/expansion-state.html" "chronological" }}
+
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ $yearData.year | urlize }}">
+      {{ $subtitle := printf "All pieces from %s" $yearData.year }}
+      {{ partial "content-block-header.html" (dict "title" $yearData.year "subtitle" $subtitle) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range sort $yearData.items "sortDate" "desc" }}
+      <li>
+        {{ $subtitle := partial "gallery/subtitle.html" . }}
+
+        {{ partial "card/composition/gallery-card.html" (dict
+        "image" (strings.TrimPrefix "/static" .thumbnail)
+        "title" .title
+        "subtitle" $subtitle
+        "link" (printf "/gallery/item/%s" .key))
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

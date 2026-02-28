@@ -1,0 +1,56 @@
+[
+  {
+    "key": "meta-fiction",
+    "title": "Meta-Fiction",
+    "description": "Pieces with characters who operate above and beyond the fourth wall",
+    "items": [
+      "self-aware-antagonist",
+      "cynicism-exiled",
+      "cynicism-refined"
+    ]
+  },
+  {
+    "key": "sci-fi",
+    "title": "Sci-Fi",
+    "description": "Pieces that involve futuristic concepts, advanced technologies, and scientific breakthroughs",
+    "items": [
+      "logs",
+      "the-artificial-man",
+      "the-wolves-are-all-gone"
+    ]
+  },
+  {
+    "key": "horror",
+    "title": "Horror",
+    "description": "Pieces exploring various forms of dread, terror, fear, and tension.",
+    "items": [
+      "on-the-red-space"
+    ]
+  },
+  {
+    "key": "satire",
+    "title": "Satire",
+    "description": "Pieces that use humorous observation and outright jokes to provide commentary and critique of systems, society, and more",
+    "items": [
+      "countertransference",
+      "illumination",
+      "the-sage-of-san-francisco"
+    ]
+  },
+  {
+    "key": "allegory",
+    "title": "Allegory",
+    "description": "Pieces that convey abstract concepts through narrative storytelling and subtext",
+    "items": [
+      "five-stages-of-writing"
+    ]
+  },
+  {
+    "key": "speculative-fiction",
+    "title": "Speculative Fiction",
+    "description": "Pieces that involve alternate realities, futures, and hypothetical scenarios",
+    "items": [
+      "10-words"
+    ]
+  }
+]

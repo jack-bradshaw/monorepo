@@ -1,0 +1,15 @@
+/** Styling for the footer shown on every page. */
+
+.footer {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.footer p {
+  color: var(--color-text-on-page-muted);
+}
+
+.footer a {
+  color: var(--color-text-on-page-muted-link);
+}

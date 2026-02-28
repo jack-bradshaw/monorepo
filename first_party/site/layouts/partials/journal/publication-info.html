@@ -1,0 +1,51 @@
+{{/*
+Displays publication information for a journal item as text with links to external publications.
+
+Parameters:
+. (dict): A journal item object.
+*/}}
+
+{{/* 1. Resolve Original Publication */}}
+{{ $original := "" }}
+{{ if .original_publication }}
+{{ $date := partial "utils/format-date.html" .original_publication.date }}
+{{ $original = printf "Originally published by <a href=\"%s\">%s</a> on %s." .original_publication.link
+.original_publication.publisher $date }}
+{{ end }}
+
+{{/* 2. Resolve Republications */}}
+{{ $alternative := "" }}
+{{ if .alternative_publications }}
+{{ $links := slice }}
+{{ range .alternative_publications }}
+{{ $links = $links | append (printf "<a href=\"%s\">%s</a>" .link .publisher) }}
+{{ end }}
+
+{{ $alternative = "Republished to " }}
+{{ $len := len $links }}
+
+{{ if eq $len 1 }}
+{{ $alternative = printf "%s%s." $alternative (index $links 0) }}
+{{ else if eq $len 2 }}
+{{ $alternative = printf "%s%s and %s." $alternative (index $links 0) (index $links 1) }}
+{{ else }}
+{{ $head := first (sub $len 1) $links }}
+{{ $last := index $links (sub $len 1) }}
+{{ $alternative = printf "%s%s, and %s." $alternative (delimit $head ", ") $last }}
+{{ end }}
+{{ end }}
+
+{{/* 3. Combine and Render */}}
+{{ $fullText := "" }}
+{{ if and $original $alternative }}
+{{ $fullText = printf "%s %s" $original $alternative }}
+{{ else if $original }}
+{{ $fullText = $original }}
+{{ else if $alternative }}
+{{ $fullText = $alternative }}
+{{ end }}
+
+{{ if $fullText }}
+<hr>
+<p>{{ $fullText | safeHTML }}</p>
+{{ end }}

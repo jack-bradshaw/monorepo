@@ -1,0 +1,2 @@
+None directive here.
+Just text.

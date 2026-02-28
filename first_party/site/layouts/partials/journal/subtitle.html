@@ -1,0 +1,21 @@
+{{/*
+Constructs and returns the subtitle for a journal item or series.
+
+Parameters:
+. : A journal item or series object.
+*/}}
+
+{{ $dateString := partial "utils/format-date.html" .date }}
+{{ $subtitle := "" }}
+
+{{ if .description }}
+{{ if $dateString }}
+{{ $subtitle = printf "%v · %s" $dateString .description }}
+{{ else }}
+{{ $subtitle = .description }}
+{{ end }}
+{{ else }}
+{{ $subtitle = $dateString }}
+{{ end }}
+
+{{ return $subtitle }}

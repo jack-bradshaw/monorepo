@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# The ID of the Firebase project that hosts the website
+PROJECT_ID=websitejackbradshawcom
+
+# Fail fast to avoid breaking production.
+set -e
+
+# Standard runfiles setup.
+{{RUNFILES_BOILERPLATE}}
+
+echo "Checking execution environment."
+if [[ -z "${RUNFILES_DIR:-}" && -z "${RUNFILES_MANIFEST_FILE:-}" ]]; then
+  echo "Error: Release script must be invoked via Bazel (bazel run //first_party/site:release)."
+  echo "Exiting."
+  exit 1
+fi
+echo "Execution environment verified."
+
+# Resolve packaged website and firebase config via runfiles.
+echo "Checking artefacts in runfiles."
+
+PACKAGED_TAR=$(rlocation "_main/first_party/site/packaged.tar")
+FIREBASE_JSON=$(rlocation "_main/first_party/site/firebase.json")
+
+if [[ ! -f "$PACKAGED_TAR" ]]; then
+  echo "Error: Could not locate packaged.tar in runfiles. Exiting."
+  exit 1
+fi
+
+if [[ ! -f "$FIREBASE_JSON" ]]; then
+  echo "Error: Could not locate firebase.json in runfiles. Exiting."
+  exit 1
+fi
+
+echo "Artefacts verified."
+
+# Setup working directory
+echo "Setting up working directory."
+DEPLOY_DIR="tmp_deploy_$(date +%s)"
+echo "Creating deploy dir at $DEPLOY_DIR."
+mkdir -p "$DEPLOY_DIR"
+echo "Working directory set up."
+
+# Extract artefacts to working dir.
+echo "Extracting artefacts to working dir."
+tar -xf "$PACKAGED_TAR" -C "$DEPLOY_DIR"
+cp "$FIREBASE_JSON" "$DEPLOY_DIR/"
+cd "$DEPLOY_DIR"
+echo "Artefacts extracted."
+
+echo "Configuring Firebase."
+
+npx firebase-tools login
+
+echo "Firebase configured."
+
+echo "Deploying to Firebase."
+npx firebase-tools deploy --project "$PROJECT_ID"
+echo "Deployed to Firebase."
+
+echo "Done."

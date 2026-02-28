@@ -1,0 +1,10 @@
+/** Styling for the titlebar shown on every page. */
+
+.titlebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-extra-small);
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}

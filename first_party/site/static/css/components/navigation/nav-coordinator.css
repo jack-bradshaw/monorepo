@@ -1,0 +1,18 @@
+/** Styling for a coordinator that arranges multiple navigation menus. */
+
+.nav-coordinator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-medium);
+}
+
+/** Max-width derived from device.css (variables not permitted in media queries. */
+@media (max-width: 800px) {
+  .nav-coordinator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-medium);
+  }
+}

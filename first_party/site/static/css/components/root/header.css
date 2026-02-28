@@ -1,0 +1,11 @@
+/** Styling for the header shown on every page. */
+
+.header {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-large);
+  z-index: var(--layer-header);
+}

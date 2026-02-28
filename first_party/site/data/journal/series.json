@@ -1,0 +1,20 @@
+[
+  {
+    "key": "the-cynic",
+    "title": "The Cynic",
+    "description": "A meta-narrative series exploring the internal conflict, exile, and reconciliation of the cynical mind",
+    "items": [
+      "cynicism-exiled",
+      "cynicism-refined"
+    ]
+  },
+  {
+    "key": "the-sagely-sage",
+    "title": "The Sagely Sage",
+    "description": "A satiric series following a self-important sage as they navigate the modern world and encounter grounded, pragmatic realities",
+    "items": [
+      "illumination",
+      "the-sage-of-san-francisco"
+    ]
+  }
+]

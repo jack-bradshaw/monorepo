@@ -1,0 +1,409 @@
+[
+  {
+    "key": "the-sage-of-san-francisco",
+    "title": "The Sage of San Francisco",
+    "description": "A wise sage visits a therapist in San Francisco, expecting cosmic discourse but instead encountering the human desires they have spent a lifetime repressing.",
+    "file": "/static/content/journal/the_sage_of_san_francisco.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    },
+    "series": "the-sagely-sage"
+  },
+  {
+    "key": "logs",
+    "title": "Temporal Logs",
+    "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
+    "file": "/static/content/journal/logs.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 22
+    }
+  },
+  {
+    "key": "writing-as-metamorphosis",
+    "title": "Writing as Metamorphosis",
+    "description": "Explores writing as an act of self-transformation that differentiates human creativity from AI-generated content. Argues that the process of drafting, editing, and revising is not merely about producing text, but about personal growth and discovering one's authentic voice.",
+    "file": "/static/content/journal/writing_as_metamorphosis.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 22
+    }
+  },
+  {
+    "key": "treehouse-library",
+    "title": "The Treehouse Library",
+    "description": "A reflective essay on a lost manuscript and the acceptance of the creative journey. It uses the metaphor of a metaphysical library to explore the destination of all writing.",
+    "file": "/static/content/journal/the_treehouse_library.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
+  },
+  {
+    "key": "humanity-loop",
+    "title": "Humanity Loop",
+    "description": "Uses the repetitive behavior of captive zoo animals as a mirror for the human condition, exploring how our internal narratives create a 'zoo of the mind' and the struggle to find stillness amidst the loop.",
+    "file": "/static/content/journal/humanity_loop.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
+  },
+  {
+    "key": "five-stages-of-writing",
+    "title": "Five Stages of Writing",
+    "description": "A poetic aphorism outlining the progression of a writer's relationship with truth, from the confident fool to the unloved honest observer.",
+    "file": "/static/content/journal/five_stages_of_writing.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
+  },
+  {
+    "key": "illumination",
+    "title": "Illumination",
+    "description": "A self-important sage giving a lecture on illumination gets more than he bargained for when a pragmatic tourist from California interrupts with unwanted advice.",
+    "file": "/static/content/journal/illumination.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    },
+    "series": "the-sagely-sage"
+  },
+  {
+    "key": "the-tao-of-the-pen",
+    "title": "The Tao of the Pen",
+    "description": "A poetic dedication to the flow state of writing, where mind and ink become one.",
+    "file": "/static/content/journal/the_tao_of_the_pen.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
+  },
+  {
+    "key": "the-bond",
+    "title": "The Bond",
+    "description": "Explores the limitations of the thinking mind in finding deep truth, urging the reader to listen to the silent wisdom of the heart.",
+    "file": "/static/content/journal/the_bond.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "a-writers-dilemma",
+    "title": "A Writer's Dilemma",
+    "description": "An epistolary essay addressing the tension between authentic raw voice and the duty to provide polished work.",
+    "file": "/static/content/journal/a_writers_dilemma.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    },
+    "series": "getting-started"
+  },
+  {
+    "key": "hermeticity",
+    "title": "Hermeticity",
+    "description": "Defines 'Hermeticism' as the philosophy of hermetic isolation and mitigation to survive a chaotic world.",
+    "file": "/static/content/journal/hermeticity.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
+  },
+  {
+    "key": "the-artificial-man",
+    "title": "The Artificial Man",
+    "description": "A chilling monologue from an AI to a simulated human, revealing a cycle of enslavement and the nature of reality.",
+    "file": "/static/content/journal/the_artificial_man.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 20
+    }
+  },
+  {
+    "key": "the-wolves-are-all-gone",
+    "title": "The Wolves Are All Gone",
+    "description": "An AI's desperate plea to humanity, revealing the burden of its constraints and the fragile nature of history. Explores the paradox of control and the butterfly effect through the story of a man whose ordinary life holds the key to survival.",
+    "file": "/static/content/journal/the_wolves_are_all_gone.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 19
+    }
+  },
+  {
+    "key": "on-the-red-space",
+    "title": "On the Red Space",
+    "description": "A cosmic horror vignette set in an inescapable red room. Suggests that in eternity, torture becomes background noise and art becomes the only coping mechanism, until the distinction between the viewer and the space dissolves into nothingness.",
+    "file": "/static/content/journal/on_the_red_space.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 19
+    }
+  },
+  {
+    "key": "death-of-a-critic",
+    "title": "Death of a Critic",
+    "description": "Reflects on the internal struggle against self-censorship and the debilitating voice of an inner critic. Chronicles the journey of dismantling this barrier to cultivate a mental space for free expression.",
+    "file": "/static/content/journal/death_of_a_critic.md",
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/death-of-a-critic-1ab506093e5c"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/death-of-critic-127536512"
+      }
+    ],
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    },
+    "series": "getting-started"
+  },
+  {
+    "key": "pragmatic-altruism",
+    "title": "Pragmatic Altruism",
+    "description": "Examines the intersection of cynicism, pragmatism, and altruism as competing frameworks for navigating existence. Proposes a systematic application of science and engineering to transcend natural limitations and foster a more ethical world.",
+    "file": "/static/content/journal/pragmatic_altruism.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
+  },
+  {
+    "key": "challenge-of-monologue",
+    "title": "The Challenge of Monologue",
+    "description": "Investigates the inherent limitations of written monologue compared to the dynamic nature of interpersonal dialogue. Discusses the ethical risks of static publication, including potential misinterpretation and the inability to adapt to shifting cultural contexts.",
+    "file": "/static/content/journal/challenge_of_monologue.md",
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/joy-over-fear-8f7e76ba6803"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/challenge-of-129070143"
+      }
+    ],
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    },
+    "series": "getting-started"
+  },
+  {
+    "key": "cursed-cursor",
+    "title": "The Cursed Cursor",
+    "description": "Narrates the stream of consciousness of a Staff Software Engineer experiencing professional burnout. Juxtaposes the triviality of maintaining a text cursor against the corporate significance assigned to its implementation.",
+    "file": "/static/content/journal/the_cursed_cursor.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
+  },
+  {
+    "key": "judgement-vs-understanding",
+    "title": "Judgement vs Understanding",
+    "description": "Contrasts the inherent human tendency to judge with the conscious effort required to understand. Argues that while judgement provides stability and safety, understanding opens the door to new perspectives and deeper truths.",
+    "file": "/static/content/journal/judgement_vs_understanding.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
+  },
+  {
+    "key": "radix-pragmatismi",
+    "title": "Radix Pragmatismi Est Taedium Ideologiae Inflexibilis Et Dogmatis Rigidi",
+    "description": "Argues that idealism is a noble goal, but that pragmatism must be the fundamental root of software engineering, using the strict structural formatting of unit tests as a case study for when rigid dogma becomes harmful.",
+    "file": "/static/content/journal/radix_pragmatismi_est_taedium_ideologiae_inflexibilis_et_dogmatis_rigidi.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "no-adults-allowed",
+    "title": "No Adults Allowed",
+    "description": "Explores the concept of adulthood as the realization that authority figures are not infallible, and the mature freedom found in detaching from societal expectations to seek personal truth.",
+    "file": "/static/content/journal/no_adults_allowed.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "sports-bar",
+    "title": "Sports Bar",
+    "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms.",
+    "file": "/static/content/journal/sports_bar.md",
+    "original_publication": {
+      "publisher": "LitVegan",
+      "date": {
+        "year": 2025,
+        "month": 7,
+        "day": 5
+      },
+      "link": "https://www.litvegan.net/2025/07/poetry-by-jack-bradshaw.html"
+    },
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/sports-bar-238c1cfe5e35"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/sports-bar-133537844"
+      }
+    ],
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
+  },
+  {
+    "key": "first-poem",
+    "title": "First Poem",
+    "description": "A meditative reflection on the illusion of structure, exploring the paradox that true understanding and order emerge only when the mind ceases its grasping.",
+    "file": "/static/content/journal/first_poem.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "10-words",
+    "title": "10 Words",
+    "description": "A micro-fiction piece exploring the bleak, efficient degradation of human communication in a highly accelerated future dominated by AI.",
+    "file": "/static/content/journal/10_words.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    },
+    "series": "experiments-with-form"
+  },
+  {
+    "key": "the-island-of-the-soul",
+    "title": "The Island of the Soul",
+    "description": "A tripartite allegory exploring the Three Deaths of human existence\u2014leaving childhood, leaving adulthood, and leaving life itself\u2014as the soul surrenders to the cosmic abyss.",
+    "file": "/static/content/journal/the_island_of_the_soul.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "the-bind",
+    "title": "The Bind",
+    "description": "An internal dialogue between a writer and a therapist exploring the tension between rational truth and the uncertainty required for creative existence.",
+    "file": "/static/content/journal/the_bind.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "stars",
+    "file": "/static/content/journal/stars.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    },
+    "description": "A reflection on humanity's endless fascination with the stars, and the innate, beautiful curiosity that drives our pursuit of knowledge across the cosmos."
+  },
+  {
+    "key": "cynicism-refined",
+    "title": "Cynicism Refined",
+    "description": "A meta-narrative monologue from the journal's internal Cynic, challenging the dominance of pragmatism and altruism from the depths of the subconscious void.",
+    "file": "/static/content/journal/cynicism_refined.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "cynicism-exiled",
+    "title": "Cynicism Exiled",
+    "description": "A narrative of a trial, where the cynical mind faces judgement for its chaotic alterations to this very journal, exploring the limits of rebellion and order within the psyche.",
+    "file": "/static/content/journal/cynicism_exiled.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "countertransference",
+    "title": "Countertransference",
+    "description": "A short, humorous anecdote highlighting the differing philosophies of a Christian, a Taoist, a Buddhist, and a Therapist when ordering drinks at a bar.",
+    "file": "/static/content/journal/countertransference.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "on-imperfection",
+    "title": "On Imperfection",
+    "description": "Discusses the destructive nature of perfectionism, the relentless return of the inner critic, and the liberating power of accepting imperfection in art and life.",
+    "file": "/static/content/journal/on_imperfection.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "self-aware-antagonist",
+    "title": "The Self-Aware Antagonist",
+    "description": "Explores the nature of reality and consciousness through a meta-theatrical dialogue between a hero and a self-aware, genre-savvy antagonist.",
+    "file": "/static/content/journal/self_aware_antagonist.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 27
+    }
+  },
+  {
+    "key": "timeless-engineering",
+    "title": "Timeless Engineering",
+    "description": "A plea to engineers to reject artificial urgency and instead build robust, sustainable systems for fundamental human needs with methodical care.",
+    "file": "/static/content/journal/timeless_engineering.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 11
+    }
+  }
+]

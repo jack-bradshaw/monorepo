@@ -1,0 +1,39 @@
+* text=auto
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.pyc binary
+*.pdf binary
+*.ez binary
+*.bz2 binary
+*.swp binary
+*.cur binary
+*.wav binary
+*.webp binary
+*.woff2 binary
+*.jar binary
+*.dylib binary
+*.exe binary
+
+# Exclude 3P from autoformat to avoid high churn and ensure the contents match the sources.
+third_party/** rules-lint-ignored=true
+
+# Exclude package manager lock files from autoformat since they are auto-generated.
+lock_maven_grpc_kotlin.json rules-lint-ignored=true
+lock_maven_com_jackbradshaw.json rules-lint-ignored=true
+pnpm-lock.yaml rules-lint-ignored=true
+lock_pip_requirements.txt rules-lint-ignored=true

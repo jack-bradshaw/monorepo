@@ -1,0 +1,16 @@
+/** Styling for a card that displays a single gallery item or series. */
+
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--gap-none);
+}
+
+.gallery-card .details-wrapper {
+  display: block;
+  padding-left: var(--gap-medium);
+  padding-right: var(--gap-medium);
+  padding-top: var(--gap-medium);
+  padding-bottom: var(--gap-medium);
+}

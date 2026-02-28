@@ -1,0 +1,35 @@
+# Simplifies debugging.
+build --verbose_failures
+
+# Enables host-specific config lines in this fil (e.g. build:ios, build:linux)
+common --enable_platform_specific_config
+
+# C/CPP build configuration. Values chosen to be relatively modern as of 2025.
+build --cxxopt='-std=c++23'
+build --host_cxxopt='-std=c++23'
+
+# Java build configuration. Values chosen to be relatively modern as of 2025.
+build --java_language_version=11
+build --java_runtime_version=remotejdk_11
+build --tool_java_language_version=11
+build --tool_java_runtime_version=remotejdk_11
+
+
+
+# Improve test result outputs.
+test --test_output=errors
+test --test_summary=terse
+test --test_verbose_timeout_warnings
+
+# Keep going with other tests if one test fails.
+test --keep_going
+
+# Android build defaults. Values chosen to reduce CLI verbosity.
+build:android_arm64 --crosstool_top=@rules_android//toolchains/ndk:toolchain_arm64-v8a
+build:android_arm64 --cpu=arm64-v8a
+build:android_arm64 --fat_apk_cpu=arm64-v8a
+build:android_arm64 --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+# Add these to .bazelrc to force Bazel to write to the paths the GitHub Action expects
+build --disk_cache=~/.cache/bazel-disk-cache
+common --repository_cache=~/.cache/bazel-repo-cache

@@ -1,0 +1,68 @@
+{{/*
+Journal Series Layout
+*/}}
+
+{{ define "main" }}
+
+{{ $itemsByKey := partial "journal/items-by-key.html" . }}
+{{ $seriesByKey := partial "journal/series-by-key.html" . }}
+
+{{ $itemsInSeriesKeys := slice }}
+{{ $resolvedSeries := slice }}
+
+{{ range site.Data.journal.series }}
+{{ $series := . }}
+{{ $resolvedItems := slice }}
+
+{{ range .items }}
+{{ $item := index $itemsByKey . }}
+{{ if $item }}
+{{ $resolvedItems = $resolvedItems | append $item }}
+{{ $itemsInSeriesKeys = $itemsInSeriesKeys | append $item.key }}
+{{ else }}
+{{ errorf "Journal item '%v' not found for series '%v'" . $series.key }}
+{{ end }}
+{{ end }}
+
+{{ $resolvedSeries = $resolvedSeries | append (merge $series (dict "items" $resolvedItems)) }}
+{{ end }}
+
+{{/* Identify Standalone Items */}}
+{{ $standaloneItems := slice }}
+{{ range site.Data.journal.items }}
+{{ if not (in $itemsInSeriesKeys .key) }}
+{{ $standaloneItems = $standaloneItems | append . }}
+{{ end }}
+{{ end }}
+
+{{ if gt (len $standaloneItems) 0 }}
+{{ $desc := "Individual articles not part of a series." }}
+{{ $resolvedSeries = $resolvedSeries | append (dict "title" "Standalone" "description" $desc "items" $standaloneItems)
+}}
+{{ end }}
+
+<div class="content root wide-root">
+  {{ range $resolvedSeries }}
+
+  {{ $expandByDefault := partial "journal/expansion-state.html" "series" }}
+
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ .key | urlize }}">
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range .items }}
+      <li>
+        {{ $subtitle := partial "journal/subtitle.html" . }}
+        {{ partial "card/composition/journal-card.html" (dict
+        "title" .title
+        "subtitle" $subtitle
+        "link" (printf "/journal/item/%s" .key))
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,52 @@
+{{/*
+Gallery Subjects Layout
+
+Parameters: None
+*/}}
+
+{{ define "main" }}
+
+{{ $allItemsByKey := partial "gallery/items-by-key.html" . }}
+{{ $seriesByKey := partial "gallery/series-by-key.html" . }}
+
+<div class="content root wide-root">
+  {{ range site.Data.gallery.subjects }}
+
+  {{ $expandByDefault := partial "gallery/expansion-state.html" "subjects" }}
+
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ .key | urlize }}">
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range .series }}
+
+      {{ $series := index $seriesByKey . }}
+      {{ if not $series }}
+      {{ errorf "Series '%v' not found in gallery metadata" . }}
+      {{ end }}
+
+      {{ $coverItem := index $allItemsByKey $series.cover }}
+      {{ if not $coverItem }}
+      {{ errorf "Gallery item '%v' (cover) not found for series '%v'" $series.cover $series.key }}
+      {{ end }}
+
+      <li>
+        {{ $coverImage := strings.TrimPrefix "/static" $coverItem.thumbnail }}
+        {{ $seriesLink := printf "/gallery/series/%s/" $series.key }}
+
+        {{ $subtitle := partial "gallery/subtitle.html" $series }}
+
+        {{ partial "card/composition/gallery-card.html" (dict
+        "image" $coverImage
+        "title" $series.title
+        "subtitle" $subtitle
+        "link" $seriesLink)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

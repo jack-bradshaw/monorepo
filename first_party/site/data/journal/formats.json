@@ -1,0 +1,84 @@
+[
+  {
+    "key": "reflective-poetry",
+    "title": "Reflective Poetry",
+    "description": "Lyrical verses that explore from a perspective of detachment and equanimity",
+    "items": ["first-poem", "the-tao-of-the-pen"]
+  },
+  {
+    "key": "visceral-poetry",
+    "title": "Visceral Poetry",
+    "description": "Lyrical verses that explore from a perspective of visceral immersion in a mental state/process",
+    "items": ["sports-bar"]
+  },
+  {
+    "key": "narrative",
+    "title": "Narrative",
+    "description": "Fictional stories recounted by a narrator",
+    "items": [
+      "cynicism-exiled",
+      "illumination",
+      "the-sage-of-san-francisco",
+      "the-wolves-are-all-gone",
+      "five-stages-of-writing",
+      "cynicism-refined",
+      "the-bind"
+    ]
+  },
+  {
+    "key": "screenplay",
+    "title": "Screenplay",
+    "description": "Fictional stories presented as a sequence of direct moment-by-moment events",
+    "items": [
+      "cursed-cursor",
+      "self-aware-antagonist",
+      "the-artificial-man",
+      "the-island-of-the-soul"
+    ]
+  },
+  {
+    "key": "unconventional-narrative",
+    "title": "Unconventional Narrative",
+    "description": "Fictional stories presented with unconventional structures and styles",
+    "items": ["10-words", "logs"]
+  },
+  {
+    "key": "memoir",
+    "title": "Memoir",
+    "description": "Autobiographical narratives and personal reflections",
+    "items": ["death-of-a-critic", "treehouse-library", "on-imperfection"]
+  },
+  {
+    "key": "essays",
+    "title": "Essays",
+    "description": "Structured prose that explore themes with logic and reason to advocate for specific positions and conclusions",
+    "items": [
+      "no-adults-allowed",
+      "pragmatic-altruism",
+      "radix-pragmatismi",
+      "timeless-engineering",
+      "writing-as-metamorphosis",
+      "hermeticity",
+      "judgement-vs-understanding"
+    ]
+  },
+  {
+    "key": "meditations",
+    "title": "Meditations",
+    "description": "Structured prose that explore themes with perception and intuition to consider various positions without necessarily reaching a definite conclusion",
+    "items": [
+      "stars",
+      "the-bond",
+      "challenge-of-monologue",
+      "on-the-red-space",
+      "humanity-loop",
+      "a-writers-dilemma"
+    ]
+  },
+  {
+    "key": "joke",
+    "title": "Joke",
+    "description": "Comedic setups and punchlines",
+    "items": ["countertransference"]
+  }
+]

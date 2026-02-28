@@ -1,0 +1,34 @@
+{{/*
+Repository Highlights Layout
+
+Parameters:
+*/}}
+
+{{ define "main" }}
+
+{{ $itemsByKey := partial "repository/items-by-key.html" . }}
+
+<div class="content root wide-root">
+  <div class="content block">
+    <ol class="content items wide-items" role="list">
+      {{ range site.Data.repository.highlights }}
+      {{ $item := index $itemsByKey . }}
+      {{ if not $item }}
+      {{ errorf "Repository item '%v' (highlight) not found in repository metadata" . }}
+      {{ end }}
+
+      <li>
+        {{ $icons := partial "utils/tech-icons.html" $item.technologies }}
+
+        {{ partial "card/composition/repository-card.html" (dict
+        "images" $icons
+        "title" $item.title
+        "subtitle" $item.description
+        "link" $item.link)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </div>
+</div>
+{{ end }}

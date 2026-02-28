@@ -1,0 +1,2274 @@
+[
+  {
+    "key": "nothing_2022",
+    "title": "Nothing",
+    "full_size": "/static/content/gallery/nothing_2022.jpg",
+    "thumbnail": "/static/content/gallery/nothing_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "singularity_2025",
+    "title": "Singularity",
+    "full_size": "/static/content/gallery/singularity_2025.jpg",
+    "thumbnail": "/static/content/gallery/singularity_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "transcendence_2024",
+    "title": "Transcendence",
+    "full_size": "/static/content/gallery/transcendence_2024.png",
+    "thumbnail": "/static/content/gallery/transcendence_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "everything_2025",
+    "title": "Everything",
+    "full_size": "/static/content/gallery/everything_2025.jpg",
+    "thumbnail": "/static/content/gallery/everything_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "anything_2025",
+    "title": "Anything",
+    "full_size": "/static/content/gallery/anything_2025.jpg",
+    "thumbnail": "/static/content/gallery/anything_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "inflation_2025",
+    "title": "Inflation",
+    "full_size": "/static/content/gallery/inflation_2025.jpg",
+    "thumbnail": "/static/content/gallery/inflation_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "condensation_2023",
+    "title": "Condensation",
+    "full_size": "/static/content/gallery/condensation_2023.jpg",
+    "thumbnail": "/static/content/gallery/condensation_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "emergence_2023",
+    "title": "Emergence",
+    "full_size": "/static/content/gallery/emergence_2023.jpg",
+    "thumbnail": "/static/content/gallery/emergence_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "cohesion_2023",
+    "title": "Cohesion",
+    "full_size": "/static/content/gallery/cohesion_2023.jpg",
+    "thumbnail": "/static/content/gallery/cohesion_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "intelligence_2023",
+    "title": "Intelligence",
+    "full_size": "/static/content/gallery/intelligence_2023.jpg",
+    "thumbnail": "/static/content/gallery/intelligence_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "awareness_2025",
+    "title": "Awareness",
+    "full_size": "/static/content/gallery/awareness_2025.jpg",
+    "thumbnail": "/static/content/gallery/awareness_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "choice_2023",
+    "title": "Choice",
+    "full_size": "/static/content/gallery/choice_2023.jpg",
+    "thumbnail": "/static/content/gallery/choice_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "enlightenment_2024",
+    "title": "Enlightenment",
+    "full_size": "/static/content/gallery/enlightenment_2024.jpg",
+    "thumbnail": "/static/content/gallery/enlightenment_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "startled_2022",
+    "title": "Startled",
+    "full_size": "/static/content/gallery/startled_2022.jpg",
+    "thumbnail": "/static/content/gallery/startled_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "analysis_2022",
+    "title": "Analysis",
+    "full_size": "/static/content/gallery/analysis_2022.jpg",
+    "thumbnail": "/static/content/gallery/analysis_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "paradox_abundant_2022",
+    "title": "Paradox Abundant",
+    "full_size": "/static/content/gallery/paradox_abundant_2022.jpg",
+    "thumbnail": "/static/content/gallery/paradox_abundant_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "subjectivity_encountered_2022",
+    "title": "Subjectivity Encountered",
+    "full_size": "/static/content/gallery/subjectivity_encountered_2022.jpg",
+    "thumbnail": "/static/content/gallery/subjectivity_encountered_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "subjectivity_embraced_2022",
+    "title": "Subjectivity Embraced",
+    "full_size": "/static/content/gallery/subjectivity_embraced_2022.jpg",
+    "thumbnail": "/static/content/gallery/subjectivity_embraced_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "subjectivity_explored_2022",
+    "title": "Subjectivity Explored",
+    "full_size": "/static/content/gallery/subjectivity_explored_2022.jpg",
+    "thumbnail": "/static/content/gallery/subjectivity_explored_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "a_deeper_problem_emerges_2022",
+    "title": "A Deeper Problem Emerges",
+    "full_size": "/static/content/gallery/a_deeper_problem_emerges_2022.jpg",
+    "thumbnail": "/static/content/gallery/a_deeper_problem_emerges_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "a_novel_perspective_grows_2022",
+    "title": "A Novel Perspective Grows",
+    "full_size": "/static/content/gallery/a_novel_perspective_grows_2022.jpg",
+    "thumbnail": "/static/content/gallery/a_novel_perspective_grows_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "the_self_transformed_2022",
+    "title": "The Self Transformed",
+    "full_size": "/static/content/gallery/the_self_transformed_2022.jpg",
+    "thumbnail": "/static/content/gallery/the_self_transformed_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "a_final_answer_and_another_question_2022",
+    "title": "A Final Answer and Another Question",
+    "full_size": "/static/content/gallery/a_final_answer_and_another_question_2022.jpg",
+    "thumbnail": "/static/content/gallery/a_final_answer_and_another_question_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "the_eternal_flame_within_2025",
+    "title": "The Eternal Flame Within",
+    "full_size": "/static/content/gallery/the_eternal_flame_within_2025.jpg",
+    "thumbnail": "/static/content/gallery/the_eternal_flame_within_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "the_outwards_husk_2023",
+    "title": "The Outwards Husk",
+    "full_size": "/static/content/gallery/the_outwards_husk_2023.jpg",
+    "thumbnail": "/static/content/gallery/the_outwards_husk_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "suffering_2023",
+    "title": "Suffering",
+    "full_size": "/static/content/gallery/suffering_2023.jpg",
+    "thumbnail": "/static/content/gallery/suffering_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "straining_2023",
+    "title": "Straining",
+    "full_size": "/static/content/gallery/straining_2023.jpg",
+    "thumbnail": "/static/content/gallery/straining_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "the_breakthrough_2023",
+    "title": "The Breakthrough",
+    "full_size": "/static/content/gallery/the_breakthrough_2023.jpg",
+    "thumbnail": "/static/content/gallery/the_breakthrough_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "the_rupture_2023",
+    "title": "The Rupture",
+    "full_size": "/static/content/gallery/the_rupture_2023.jpg",
+    "thumbnail": "/static/content/gallery/the_rupture_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "clearing_the_debris_2025",
+    "title": "Clearing the Debris",
+    "full_size": "/static/content/gallery/clearing_the_debris_2025.jpeg",
+    "thumbnail": "/static/content/gallery/clearing_the_debris_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "free_expression_2023",
+    "title": "Free Expression",
+    "full_size": "/static/content/gallery/free_expression_2023.jpg",
+    "thumbnail": "/static/content/gallery/free_expression_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "relief_2023",
+    "title": "Relief",
+    "full_size": "/static/content/gallery/relief_2023.jpg",
+    "thumbnail": "/static/content/gallery/relief_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "cessation_2023",
+    "title": "Cessation",
+    "full_size": "/static/content/gallery/cessation_2023.jpg",
+    "thumbnail": "/static/content/gallery/cessation_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "emergence_2022",
+    "title": "Emergence",
+    "full_size": "/static/content/gallery/emergence_2022.jpg",
+    "thumbnail": "/static/content/gallery/emergence_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "first_barrier_2022",
+    "title": "First Barrier",
+    "full_size": "/static/content/gallery/first_barrier_2022.jpg",
+    "thumbnail": "/static/content/gallery/first_barrier_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "another_barrier_2022",
+    "title": "Another Barrier",
+    "full_size": "/static/content/gallery/another_barrier_2022.jpg",
+    "thumbnail": "/static/content/gallery/another_barrier_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "enclosure_discovered_2022",
+    "title": "Enclosure Discovered",
+    "full_size": "/static/content/gallery/enclosure_discovered_2022.jpg",
+    "thumbnail": "/static/content/gallery/enclosure_discovered_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "sudden_realisation_2022",
+    "title": "Sudden Realisation",
+    "full_size": "/static/content/gallery/sudden_realisation_2022.jpg",
+    "thumbnail": "/static/content/gallery/sudden_realisation_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "self_awareness_2022",
+    "title": "Self-Awareness",
+    "full_size": "/static/content/gallery/self_awareness_2022.jpg",
+    "thumbnail": "/static/content/gallery/self_awareness_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "social_awareness_2022",
+    "title": "Social Awareness",
+    "full_size": "/static/content/gallery/social_awareness_2022.jpg",
+    "thumbnail": "/static/content/gallery/social_awareness_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "seeking_connection_2022",
+    "title": "Seeking Connection",
+    "full_size": "/static/content/gallery/seeking_connection_2022.jpg",
+    "thumbnail": "/static/content/gallery/seeking_connection_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "isolated_and_weary_2023",
+    "title": "Isolated and Weary",
+    "full_size": "/static/content/gallery/isolated_and_weary_2023.jpg",
+    "thumbnail": "/static/content/gallery/isolated_and_weary_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "adrift_and_alone_2024",
+    "title": "Adrift and Alone",
+    "full_size": "/static/content/gallery/adrift_and_alone_2024.jpg",
+    "thumbnail": "/static/content/gallery/adrift_and_alone_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "languishing_in_defeat_2024",
+    "title": "Languishing in Defeat",
+    "full_size": "/static/content/gallery/languishing_in_defeat_2024.jpg",
+    "thumbnail": "/static/content/gallery/languishing_in_defeat_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "desparate_and_broken_2024",
+    "title": "Desparate and Broken",
+    "full_size": "/static/content/gallery/desparate_and_broken_2024.jpg",
+    "thumbnail": "/static/content/gallery/desparate_and_broken_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "resolute_2024",
+    "title": "Resolute",
+    "full_size": "/static/content/gallery/resolute_2024.jpg",
+    "thumbnail": "/static/content/gallery/resolute_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "courageous_and_defiant_2022",
+    "title": "Courageous and Defiant",
+    "full_size": "/static/content/gallery/courageous_and_defiant_2022.jpg",
+    "thumbnail": "/static/content/gallery/courageous_and_defiant_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "refocused_2023",
+    "title": "Refocused",
+    "full_size": "/static/content/gallery/refocused_2023.jpg",
+    "thumbnail": "/static/content/gallery/refocused_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "determined_2023",
+    "title": "Determined",
+    "full_size": "/static/content/gallery/determined_2023.jpg",
+    "thumbnail": "/static/content/gallery/determined_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "unseen_but_returning_2022",
+    "title": "Unseen but Returning",
+    "full_size": "/static/content/gallery/unseen_but_returning_2022.jpg",
+    "thumbnail": "/static/content/gallery/unseen_but_returning_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "sol_core_2022",
+    "title": "Sol Core",
+    "full_size": "/static/content/gallery/sol_core_2022.jpg",
+    "thumbnail": "/static/content/gallery/sol_core_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "sol_corona_2022",
+    "title": "Sol Corona",
+    "full_size": "/static/content/gallery/sol_corona_2022.jpg",
+    "thumbnail": "/static/content/gallery/sol_corona_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "neptune_2022",
+    "title": "Neptune",
+    "full_size": "/static/content/gallery/neptune_2022.jpg",
+    "thumbnail": "/static/content/gallery/neptune_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "mercury_2025",
+    "title": "Mercury",
+    "full_size": "/static/content/gallery/mercury_2025.jpg",
+    "thumbnail": "/static/content/gallery/mercury_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "venus_2022",
+    "title": "Venus",
+    "full_size": "/static/content/gallery/venus_2022.jpg",
+    "thumbnail": "/static/content/gallery/venus_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "earth_2022",
+    "title": "Earth",
+    "full_size": "/static/content/gallery/earth_2022.jpg",
+    "thumbnail": "/static/content/gallery/earth_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "mars_2025",
+    "title": "Mars",
+    "full_size": "/static/content/gallery/mars_2025.jpg",
+    "thumbnail": "/static/content/gallery/mars_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "asteroid_belt_2022",
+    "title": "Asteroid Belt",
+    "full_size": "/static/content/gallery/asteroid_belt_2022.jpg",
+    "thumbnail": "/static/content/gallery/asteroid_belt_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "jupiter_2022",
+    "title": "Jupiter",
+    "full_size": "/static/content/gallery/jupiter_2022.jpg",
+    "thumbnail": "/static/content/gallery/jupiter_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "saturn_2025",
+    "title": "Saturn",
+    "full_size": "/static/content/gallery/saturn_2025.jpg",
+    "thumbnail": "/static/content/gallery/saturn_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "uranus_2022",
+    "title": "Uranus",
+    "full_size": "/static/content/gallery/uranus_2022.jpg",
+    "thumbnail": "/static/content/gallery/uranus_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "restructuring_2024",
+    "title": "Restructuring",
+    "full_size": "/static/content/gallery/restructuring_2024.jpg",
+    "thumbnail": "/static/content/gallery/restructuring_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "integration_2024",
+    "title": "Integration",
+    "full_size": "/static/content/gallery/integration_2024.jpg",
+    "thumbnail": "/static/content/gallery/integration_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "fight_2024",
+    "title": "Fight",
+    "full_size": "/static/content/gallery/fight_2024.jpg",
+    "thumbnail": "/static/content/gallery/fight_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "flight_2025",
+    "title": "Flight",
+    "full_size": "/static/content/gallery/flight_2025.jpg",
+    "thumbnail": "/static/content/gallery/flight_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "freeze_2024",
+    "title": "Freeze",
+    "full_size": "/static/content/gallery/freeze_2024.jpg",
+    "thumbnail": "/static/content/gallery/freeze_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "fawn_2024",
+    "title": "Fawn",
+    "full_size": "/static/content/gallery/fawn_2024.jpg",
+    "thumbnail": "/static/content/gallery/fawn_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "compartmentalization_2024",
+    "title": "Compartmentalization",
+    "full_size": "/static/content/gallery/compartmentalization_2024.jpg",
+    "thumbnail": "/static/content/gallery/compartmentalization_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "dissociation_2024",
+    "title": "Dissociation",
+    "full_size": "/static/content/gallery/dissociation_2024.jpg",
+    "thumbnail": "/static/content/gallery/dissociation_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "minimisation_2024",
+    "title": "Minimisation",
+    "full_size": "/static/content/gallery/minimisation_2024.jpg",
+    "thumbnail": "/static/content/gallery/minimisation_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "repression_2024",
+    "title": "Repression",
+    "full_size": "/static/content/gallery/repression_2024.jpg",
+    "thumbnail": "/static/content/gallery/repression_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "resilience_2024",
+    "title": "Resilience",
+    "full_size": "/static/content/gallery/resilience_2024.jpg",
+    "thumbnail": "/static/content/gallery/resilience_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "self_awareness_2024",
+    "title": "Self-Awareness",
+    "full_size": "/static/content/gallery/self_awareness_2024.jpg",
+    "thumbnail": "/static/content/gallery/self_awareness_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "flexibility_2024",
+    "title": "Flexibility",
+    "full_size": "/static/content/gallery/flexibility_2024.jpg",
+    "thumbnail": "/static/content/gallery/flexibility_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "obsession_2024",
+    "title": "Obsession",
+    "full_size": "/static/content/gallery/obsession_2024.jpg",
+    "thumbnail": "/static/content/gallery/obsession_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "compulsion_2024",
+    "title": "Compulsion",
+    "full_size": "/static/content/gallery/compulsion_2024.jpg",
+    "thumbnail": "/static/content/gallery/compulsion_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "validation_2024",
+    "title": "Validation",
+    "full_size": "/static/content/gallery/validation_2024.jpg",
+    "thumbnail": "/static/content/gallery/validation_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "invalidation_2024",
+    "title": "Invalidation",
+    "full_size": "/static/content/gallery/invalidation_2024.jpg",
+    "thumbnail": "/static/content/gallery/invalidation_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "components_reason_and_emotion_2024",
+    "title": "Components (Reason and Emotion)",
+    "full_size": "/static/content/gallery/components_reason_and_emotion_2024.jpg",
+    "thumbnail": "/static/content/gallery/components_reason_and_emotion_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "integration_wisdom_2024",
+    "title": "Integration (Wisdom)",
+    "full_size": "/static/content/gallery/integration_wisdom_2024.jpg",
+    "thumbnail": "/static/content/gallery/integration_wisdom_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "part_1_2022",
+    "title": "Part 1",
+    "full_size": "/static/content/gallery/part_1_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_1_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_2_2022",
+    "title": "Part 2",
+    "full_size": "/static/content/gallery/part_2_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_2_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_3_2022",
+    "title": "Part 3",
+    "full_size": "/static/content/gallery/part_3_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_3_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_4_2022",
+    "title": "Part 4",
+    "full_size": "/static/content/gallery/part_4_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_4_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_5_2022",
+    "title": "Part 5",
+    "full_size": "/static/content/gallery/part_5_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_5_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_6_2022",
+    "title": "Part 6",
+    "full_size": "/static/content/gallery/part_6_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_6_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_7_2022",
+    "title": "Part 7",
+    "full_size": "/static/content/gallery/part_7_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_7_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_8_2022",
+    "title": "Part 8",
+    "full_size": "/static/content/gallery/part_8_2022.jpg",
+    "thumbnail": "/static/content/gallery/part_8_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "alpha_2022",
+    "title": "Alpha",
+    "full_size": "/static/content/gallery/alpha_2022.jpg",
+    "thumbnail": "/static/content/gallery/alpha_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "alpha_anthro_2022",
+    "title": "Alpha Anthro",
+    "full_size": "/static/content/gallery/alpha_anthro_2022.jpg",
+    "thumbnail": "/static/content/gallery/alpha_anthro_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "beta_2022",
+    "title": "Beta",
+    "full_size": "/static/content/gallery/beta_2022.jpg",
+    "thumbnail": "/static/content/gallery/beta_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "beta_anthro_2022",
+    "title": "Beta Anthro",
+    "full_size": "/static/content/gallery/beta_anthro_2022.jpg",
+    "thumbnail": "/static/content/gallery/beta_anthro_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "gamma_2022",
+    "title": "Gamma",
+    "full_size": "/static/content/gallery/gamma_2022.jpg",
+    "thumbnail": "/static/content/gallery/gamma_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "gamma_anthro_2022",
+    "title": "Gamma Anthro",
+    "full_size": "/static/content/gallery/gamma_anthro_2022.jpg",
+    "thumbnail": "/static/content/gallery/gamma_anthro_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "delta_2022",
+    "title": "Delta",
+    "full_size": "/static/content/gallery/delta_2022.jpg",
+    "thumbnail": "/static/content/gallery/delta_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "delta_anthro_2022",
+    "title": "Delta Anthro",
+    "full_size": "/static/content/gallery/delta_anthro_2022.jpg",
+    "thumbnail": "/static/content/gallery/delta_anthro_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "happy_2022",
+    "title": "Happy",
+    "full_size": "/static/content/gallery/happy_2022.jpg",
+    "thumbnail": "/static/content/gallery/happy_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "loving_2022",
+    "title": "Loving",
+    "full_size": "/static/content/gallery/loving_2022.jpg",
+    "thumbnail": "/static/content/gallery/loving_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "the_friendly_frightened_man_2023",
+    "title": "The Friendly Frightened Man",
+    "full_size": "/static/content/gallery/the_friendly_frightened_man_2023.jpg",
+    "thumbnail": "/static/content/gallery/the_friendly_frightened_man_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "the_frightened_friendly_man_2023",
+    "title": "The Frightened Friendly Man",
+    "full_size": "/static/content/gallery/the_frightened_friendly_man_2023.jpg",
+    "thumbnail": "/static/content/gallery/the_frightened_friendly_man_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "phoenix_2024",
+    "title": "Phoenix",
+    "full_size": "/static/content/gallery/phoenix_2024.jpg",
+    "thumbnail": "/static/content/gallery/phoenix_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "fire_spirit_2024",
+    "title": "Fire Spirit",
+    "full_size": "/static/content/gallery/fire_spirit_2024.jpg",
+    "thumbnail": "/static/content/gallery/fire_spirit_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "fire_sprite_2022",
+    "title": "Fire Sprite",
+    "full_size": "/static/content/gallery/fire_sprite_2022.jpg",
+    "thumbnail": "/static/content/gallery/fire_sprite_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "the_lone_wolf_2022",
+    "title": "The Lone Wolf",
+    "full_size": "/static/content/gallery/the_lone_wolf_2022.jpg",
+    "thumbnail": "/static/content/gallery/the_lone_wolf_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "mr_insistent_2023",
+    "title": "Mr Insistent",
+    "full_size": "/static/content/gallery/mr_insistent_2023.jpg",
+    "thumbnail": "/static/content/gallery/mr_insistent_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "ball_of_yarn_2022",
+    "title": "Ball of Yarn",
+    "full_size": "/static/content/gallery/ball_of_yarn_2022.jpg",
+    "thumbnail": "/static/content/gallery/ball_of_yarn_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "ear_2022",
+    "title": "Ear",
+    "full_size": "/static/content/gallery/ear_2022.jpg",
+    "thumbnail": "/static/content/gallery/ear_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "balloons_2022",
+    "title": "Balloons",
+    "full_size": "/static/content/gallery/balloons_2022.jpg",
+    "thumbnail": "/static/content/gallery/balloons_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "sushi_2022",
+    "title": "Sushi",
+    "full_size": "/static/content/gallery/sushi_2022.jpg",
+    "thumbnail": "/static/content/gallery/sushi_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "means_of_production_2022",
+    "title": "Means of Production",
+    "full_size": "/static/content/gallery/means_of_production_2022.jpg",
+    "thumbnail": "/static/content/gallery/means_of_production_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "blind_2023",
+    "title": "Blind",
+    "full_size": "/static/content/gallery/blind_2023.jpg",
+    "thumbnail": "/static/content/gallery/blind_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "disturbed_2023",
+    "title": "Disturbed",
+    "full_size": "/static/content/gallery/disturbed_2023.png",
+    "thumbnail": "/static/content/gallery/disturbed_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "hostile_2024",
+    "title": "Hostile",
+    "full_size": "/static/content/gallery/hostile_2024.jpg",
+    "thumbnail": "/static/content/gallery/hostile_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "disapproving_2022",
+    "title": "Disapproving",
+    "full_size": "/static/content/gallery/disapproving_2022.jpg",
+    "thumbnail": "/static/content/gallery/disapproving_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "disinterested_2022",
+    "title": "Disinterested",
+    "full_size": "/static/content/gallery/disinterested_2022.jpg",
+    "thumbnail": "/static/content/gallery/disinterested_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_1_2022_1",
+    "title": "Part 1",
+    "full_size": "/static/content/gallery/part_1_2022_1.jpg",
+    "thumbnail": "/static/content/gallery/part_1_2022_1_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_2_2022_1",
+    "title": "Part 2",
+    "full_size": "/static/content/gallery/part_2_2022_1.jpg",
+    "thumbnail": "/static/content/gallery/part_2_2022_1_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "beaten_2022",
+    "title": "Beaten",
+    "full_size": "/static/content/gallery/beaten_2022.jpg",
+    "thumbnail": "/static/content/gallery/beaten_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "unhappy_2022",
+    "title": "Unhappy",
+    "full_size": "/static/content/gallery/unhappy_2022.jpg",
+    "thumbnail": "/static/content/gallery/unhappy_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "light_rainbow_palette_2025",
+    "title": "Light Rainbow Palette",
+    "full_size": "/static/content/gallery/light_rainbow_palette_2025.jpg",
+    "thumbnail": "/static/content/gallery/light_rainbow_palette_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "000_2025",
+    "title": "000",
+    "full_size": "/static/content/gallery/000_2025.jpg",
+    "thumbnail": "/static/content/gallery/000_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "001_2025",
+    "title": "001",
+    "full_size": "/static/content/gallery/001_2025.jpg",
+    "thumbnail": "/static/content/gallery/001_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "010_2025",
+    "title": "010",
+    "full_size": "/static/content/gallery/010_2025.jpg",
+    "thumbnail": "/static/content/gallery/010_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "011_2025",
+    "title": "011",
+    "full_size": "/static/content/gallery/011_2025.jpg",
+    "thumbnail": "/static/content/gallery/011_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "100_2025",
+    "title": "100",
+    "full_size": "/static/content/gallery/100_2025.jpg",
+    "thumbnail": "/static/content/gallery/100_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "101_2025",
+    "title": "101",
+    "full_size": "/static/content/gallery/101_2025.jpg",
+    "thumbnail": "/static/content/gallery/101_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "110_2025",
+    "title": "110",
+    "full_size": "/static/content/gallery/110_2025.jpg",
+    "thumbnail": "/static/content/gallery/110_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "111_2025",
+    "title": "111",
+    "full_size": "/static/content/gallery/111_2025.jpg",
+    "thumbnail": "/static/content/gallery/111_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "inheritance_2022",
+    "title": "Inheritance",
+    "full_size": "/static/content/gallery/inheritance_2022.jpg",
+    "thumbnail": "/static/content/gallery/inheritance_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "composition_2022",
+    "title": "Composition",
+    "full_size": "/static/content/gallery/composition_2022.jpg",
+    "thumbnail": "/static/content/gallery/composition_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "white_dwarf_2022",
+    "title": "White Dwarf",
+    "full_size": "/static/content/gallery/white_dwarf_2022.jpg",
+    "thumbnail": "/static/content/gallery/white_dwarf_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "black_hole_2022",
+    "title": "Black Hole",
+    "full_size": "/static/content/gallery/black_hole_2022.jpg",
+    "thumbnail": "/static/content/gallery/black_hole_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "wave_particle_duality_2022",
+    "title": "Wave-Particle Duality",
+    "full_size": "/static/content/gallery/wave_particle_duality_2022.jpg",
+    "thumbnail": "/static/content/gallery/wave_particle_duality_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "particle_trajectories_2024",
+    "title": "Particle Trajectories",
+    "full_size": "/static/content/gallery/particle_trajectories_2024.jpg",
+    "thumbnail": "/static/content/gallery/particle_trajectories_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "hungarian_notation_2022",
+    "title": "Hungarian Notation",
+    "full_size": "/static/content/gallery/hungarian_notation_2022.jpg",
+    "thumbnail": "/static/content/gallery/hungarian_notation_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "subtle_dynamics_2022",
+    "title": "Subtle Dynamics",
+    "full_size": "/static/content/gallery/subtle_dynamics_2022.jpg",
+    "thumbnail": "/static/content/gallery/subtle_dynamics_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "infrastructure_2022",
+    "title": "Infrastructure",
+    "full_size": "/static/content/gallery/infrastructure_2022.jpg",
+    "thumbnail": "/static/content/gallery/infrastructure_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "decor_2022",
+    "title": "Decor",
+    "full_size": "/static/content/gallery/decor_2022.jpg",
+    "thumbnail": "/static/content/gallery/decor_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "training_2022",
+    "title": "Training",
+    "full_size": "/static/content/gallery/training_2022.jpg",
+    "thumbnail": "/static/content/gallery/training_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "accessibility_first_2022",
+    "title": "Accessibility First",
+    "full_size": "/static/content/gallery/accessibility_first_2022.jpg",
+    "thumbnail": "/static/content/gallery/accessibility_first_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "keep_it_simple_2022",
+    "title": "Keep It Simple",
+    "full_size": "/static/content/gallery/keep_it_simple_2022.jpg",
+    "thumbnail": "/static/content/gallery/keep_it_simple_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "solve_for_scale_2022",
+    "title": "Solve For Scale",
+    "full_size": "/static/content/gallery/solve_for_scale_2022.jpg",
+    "thumbnail": "/static/content/gallery/solve_for_scale_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "collaborate_across_boundaries_2022",
+    "title": "Collaborate Across Boundaries",
+    "full_size": "/static/content/gallery/collaborate_across_boundaries_2022.jpg",
+    "thumbnail": "/static/content/gallery/collaborate_across_boundaries_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "shower_in_ambiguity_2022",
+    "title": "Shower In Ambiguity",
+    "full_size": "/static/content/gallery/shower_in_ambiguity_2022.jpg",
+    "thumbnail": "/static/content/gallery/shower_in_ambiguity_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "build_for_everyone_2022",
+    "title": "Build For Everyone",
+    "full_size": "/static/content/gallery/build_for_everyone_2022.jpg",
+    "thumbnail": "/static/content/gallery/build_for_everyone_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "keep_it_scrappy_2022",
+    "title": "Keep It Scrappy",
+    "full_size": "/static/content/gallery/keep_it_scrappy_2022.jpg",
+    "thumbnail": "/static/content/gallery/keep_it_scrappy_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "bureaucracy_2025",
+    "title": " Bureaucracy",
+    "full_size": "/static/content/gallery/bureaucracy_2025.jpg",
+    "thumbnail": "/static/content/gallery/bureaucracy_2025_thumbnail.webp",
+    "date": {
+      "year": 2025
+    }
+  },
+  {
+    "key": "nuns_2022",
+    "title": "Nuns",
+    "full_size": "/static/content/gallery/nuns_2022.jpg",
+    "thumbnail": "/static/content/gallery/nuns_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "leos_2023",
+    "title": "Leos",
+    "full_size": "/static/content/gallery/leos_2023.png",
+    "thumbnail": "/static/content/gallery/leos_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "startups_2022",
+    "title": "Startups",
+    "full_size": "/static/content/gallery/startups_2022.jpg",
+    "thumbnail": "/static/content/gallery/startups_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "version_1_2022",
+    "title": "Version 1",
+    "full_size": "/static/content/gallery/version_1_2022.jpg",
+    "thumbnail": "/static/content/gallery/version_1_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "version_2_2022",
+    "title": "Version 2",
+    "full_size": "/static/content/gallery/version_2_2022.jpg",
+    "thumbnail": "/static/content/gallery/version_2_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "version_3_2022",
+    "title": "Version 3",
+    "full_size": "/static/content/gallery/version_3_2022.jpg",
+    "thumbnail": "/static/content/gallery/version_3_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "version_4_2022",
+    "title": "Version 4",
+    "full_size": "/static/content/gallery/version_4_2022.jpg",
+    "thumbnail": "/static/content/gallery/version_4_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "intoxication_2022",
+    "title": "Intoxication",
+    "full_size": "/static/content/gallery/intoxication_2022.jpg",
+    "thumbnail": "/static/content/gallery/intoxication_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "blissful_ignorance_2022",
+    "title": "Blissful Ignorance",
+    "full_size": "/static/content/gallery/blissful_ignorance_2022.jpg",
+    "thumbnail": "/static/content/gallery/blissful_ignorance_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "an_odd_occurrence_2022",
+    "title": "An Odd Occurrence",
+    "full_size": "/static/content/gallery/an_odd_occurrence_2022.jpg",
+    "thumbnail": "/static/content/gallery/an_odd_occurrence_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "analysis_engaged_2022",
+    "title": "Analysis Engaged",
+    "full_size": "/static/content/gallery/analysis_engaged_2022.jpg",
+    "thumbnail": "/static/content/gallery/analysis_engaged_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "uncertain_2022",
+    "title": "Uncertain",
+    "full_size": "/static/content/gallery/uncertain_2022.jpg",
+    "thumbnail": "/static/content/gallery/uncertain_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "first_2024_2024",
+    "title": "First - 2024",
+    "full_size": "/static/content/gallery/first_2024_2024.jpg",
+    "thumbnail": "/static/content/gallery/first_2024_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "second_2024",
+    "title": "Second",
+    "full_size": "/static/content/gallery/second_2024.jpg",
+    "thumbnail": "/static/content/gallery/second_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "joining_2024",
+    "title": "Joining",
+    "full_size": "/static/content/gallery/joining_2024.jpg",
+    "thumbnail": "/static/content/gallery/joining_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "snuggling_2024",
+    "title": "Snuggling",
+    "full_size": "/static/content/gallery/snuggling_2024.jpg",
+    "thumbnail": "/static/content/gallery/snuggling_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "uniting_2024",
+    "title": "Uniting",
+    "full_size": "/static/content/gallery/uniting_2024.jpg",
+    "thumbnail": "/static/content/gallery/uniting_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "one_2024",
+    "title": "One",
+    "full_size": "/static/content/gallery/one_2024.jpg",
+    "thumbnail": "/static/content/gallery/one_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "confused_2024",
+    "title": "Confused",
+    "full_size": "/static/content/gallery/confused_2024.jpg",
+    "thumbnail": "/static/content/gallery/confused_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "frustrated_2024",
+    "title": "Frustrated",
+    "full_size": "/static/content/gallery/frustrated_2024.jpg",
+    "thumbnail": "/static/content/gallery/frustrated_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "groggy_2024",
+    "title": "Groggy",
+    "full_size": "/static/content/gallery/groggy_2024.jpg",
+    "thumbnail": "/static/content/gallery/groggy_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "serenity_2022",
+    "title": "Serenity",
+    "full_size": "/static/content/gallery/serenity_2022.jpg",
+    "thumbnail": "/static/content/gallery/serenity_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "equanimity_2023",
+    "title": "Equanimity",
+    "full_size": "/static/content/gallery/equanimity_2023.jpg",
+    "thumbnail": "/static/content/gallery/equanimity_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "playful_2022",
+    "title": "Playful",
+    "full_size": "/static/content/gallery/playful_2022.jpg",
+    "thumbnail": "/static/content/gallery/playful_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_1_2022_2",
+    "title": "Part 1",
+    "full_size": "/static/content/gallery/part_1_2022_2.jpg",
+    "thumbnail": "/static/content/gallery/part_1_2022_2_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_2_2022_2",
+    "title": "Part 2",
+    "full_size": "/static/content/gallery/part_2_2022_2.jpg",
+    "thumbnail": "/static/content/gallery/part_2_2022_2_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_3_2022_1",
+    "title": "Part 3",
+    "full_size": "/static/content/gallery/part_3_2022_1.jpg",
+    "thumbnail": "/static/content/gallery/part_3_2022_1_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_4_2022_1",
+    "title": "Part 4",
+    "full_size": "/static/content/gallery/part_4_2022_1.jpg",
+    "thumbnail": "/static/content/gallery/part_4_2022_1_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_5_2022_1",
+    "title": "Part 5",
+    "full_size": "/static/content/gallery/part_5_2022_1.jpg",
+    "thumbnail": "/static/content/gallery/part_5_2022_1_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "version_1_2024",
+    "title": "Version 1",
+    "full_size": "/static/content/gallery/version_1_2024.jpg",
+    "thumbnail": "/static/content/gallery/version_1_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "version_2_2024",
+    "title": "Version 2",
+    "full_size": "/static/content/gallery/version_2_2024.png",
+    "thumbnail": "/static/content/gallery/version_2_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "version_3_2024",
+    "title": "Version 3",
+    "full_size": "/static/content/gallery/version_3_2024.png",
+    "thumbnail": "/static/content/gallery/version_3_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "version_4_2024",
+    "title": "Version 4",
+    "full_size": "/static/content/gallery/version_4_2024.png",
+    "thumbnail": "/static/content/gallery/version_4_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "shame_2024",
+    "title": "Shame",
+    "full_size": "/static/content/gallery/shame_2024.jpg",
+    "thumbnail": "/static/content/gallery/shame_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "fear_2023",
+    "title": "Fear",
+    "full_size": "/static/content/gallery/fear_2023.jpg",
+    "thumbnail": "/static/content/gallery/fear_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "pretense_2024",
+    "title": "Pretense",
+    "full_size": "/static/content/gallery/pretense_2024.jpg",
+    "thumbnail": "/static/content/gallery/pretense_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "part_1_2023",
+    "title": "Part 1",
+    "full_size": "/static/content/gallery/part_1_2023.jpg",
+    "thumbnail": "/static/content/gallery/part_1_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_2_2022_3",
+    "title": "Part 2",
+    "full_size": "/static/content/gallery/part_2_2022_3.jpg",
+    "thumbnail": "/static/content/gallery/part_2_2022_3_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_3_2023",
+    "title": "Part 3",
+    "full_size": "/static/content/gallery/part_3_2023.jpg",
+    "thumbnail": "/static/content/gallery/part_3_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_4_2023",
+    "title": "Part 4",
+    "full_size": "/static/content/gallery/part_4_2023.jpg",
+    "thumbnail": "/static/content/gallery/part_4_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_5_2024",
+    "title": "Part 5",
+    "full_size": "/static/content/gallery/part_5_2024.jpg",
+    "thumbnail": "/static/content/gallery/part_5_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "part_6_2022_1",
+    "title": "Part 6",
+    "full_size": "/static/content/gallery/part_6_2022_1.jpg",
+    "thumbnail": "/static/content/gallery/part_6_2022_1_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "pride_by_day_2023",
+    "title": "Pride By Day",
+    "full_size": "/static/content/gallery/pride_by_day_2023.jpg",
+    "thumbnail": "/static/content/gallery/pride_by_day_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "pride_by_night_2023",
+    "title": "Pride By Night",
+    "full_size": "/static/content/gallery/pride_by_night_2023.jpg",
+    "thumbnail": "/static/content/gallery/pride_by_night_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "jon_2023",
+    "title": "Jon",
+    "full_size": "/static/content/gallery/jon_2023.jpg",
+    "thumbnail": "/static/content/gallery/jon_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "steve_2023",
+    "title": "Steve",
+    "full_size": "/static/content/gallery/steve_2023.jpg",
+    "thumbnail": "/static/content/gallery/steve_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "kent_2023",
+    "title": "Kent",
+    "full_size": "/static/content/gallery/kent_2023.jpg",
+    "thumbnail": "/static/content/gallery/kent_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "brad_2023",
+    "title": "Brad",
+    "full_size": "/static/content/gallery/brad_2023.jpg",
+    "thumbnail": "/static/content/gallery/brad_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "troy_2023",
+    "title": "Troy",
+    "full_size": "/static/content/gallery/troy_2023.jpg",
+    "thumbnail": "/static/content/gallery/troy_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "rajat_2023",
+    "title": " Rajat",
+    "full_size": "/static/content/gallery/rajat_2023.jpg",
+    "thumbnail": "/static/content/gallery/rajat_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_1_2023_1",
+    "title": "Part 1",
+    "full_size": "/static/content/gallery/part_1_2023_1.jpg",
+    "thumbnail": "/static/content/gallery/part_1_2023_1_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_2_2023",
+    "title": "Part 2",
+    "full_size": "/static/content/gallery/part_2_2023.jpg",
+    "thumbnail": "/static/content/gallery/part_2_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "google_pride_2018_2022",
+    "title": "Google Pride 2018",
+    "full_size": "/static/content/gallery/google_pride_2018_2022.jpg",
+    "thumbnail": "/static/content/gallery/google_pride_2018_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "google_pride_2019_2022",
+    "title": "Google Pride 2019",
+    "full_size": "/static/content/gallery/google_pride_2019_2022.jpg",
+    "thumbnail": "/static/content/gallery/google_pride_2019_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "x_ray_2022",
+    "title": "X-Ray",
+    "full_size": "/static/content/gallery/x_ray_2022.jpg",
+    "thumbnail": "/static/content/gallery/x_ray_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "french_girl_2022",
+    "title": "French Girl",
+    "full_size": "/static/content/gallery/french_girl_2022.jpg",
+    "thumbnail": "/static/content/gallery/french_girl_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "it_stares_back_2024",
+    "title": "It Stares Back",
+    "full_size": "/static/content/gallery/it_stares_back_2024.jpg",
+    "thumbnail": "/static/content/gallery/it_stares_back_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "it_obeys_the_will_2024",
+    "title": "It Obeys The Will",
+    "full_size": "/static/content/gallery/it_obeys_the_will_2024.jpg",
+    "thumbnail": "/static/content/gallery/it_obeys_the_will_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "it_corrodes_everything_2023",
+    "title": "It Corrodes Everything",
+    "full_size": "/static/content/gallery/it_corrodes_everything_2023.jpg",
+    "thumbnail": "/static/content/gallery/it_corrodes_everything_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "the_tools_2022",
+    "title": "The Tools",
+    "full_size": "/static/content/gallery/the_tools_2022.jpg",
+    "thumbnail": "/static/content/gallery/the_tools_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "the_entrance_2024",
+    "title": "The Entrance",
+    "full_size": "/static/content/gallery/the_entrance_2024.jpg",
+    "thumbnail": "/static/content/gallery/the_entrance_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "the_whispers_2023",
+    "title": "The Whispers",
+    "full_size": "/static/content/gallery/the_whispers_2023.jpg",
+    "thumbnail": "/static/content/gallery/the_whispers_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "the_eldritch_2024",
+    "title": "The Eldritch",
+    "full_size": "/static/content/gallery/the_eldritch_2024.jpg",
+    "thumbnail": "/static/content/gallery/the_eldritch_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "part_1_2024",
+    "title": "Part 1",
+    "full_size": "/static/content/gallery/part_1_2024.jpg",
+    "thumbnail": "/static/content/gallery/part_1_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "part_2_2022_4",
+    "title": "Part 2",
+    "full_size": "/static/content/gallery/part_2_2022_4.jpg",
+    "thumbnail": "/static/content/gallery/part_2_2022_4_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "flattened_2024",
+    "title": "Flattened",
+    "full_size": "/static/content/gallery/flattened_2024.jpg",
+    "thumbnail": "/static/content/gallery/flattened_2024_thumbnail.webp",
+    "date": {
+      "year": 2024
+    }
+  },
+  {
+    "key": "impossible_2023",
+    "title": "Impossible",
+    "full_size": "/static/content/gallery/impossible_2023.jpg",
+    "thumbnail": "/static/content/gallery/impossible_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_1_2023_2",
+    "title": "Part 1",
+    "full_size": "/static/content/gallery/part_1_2023_2.jpg",
+    "thumbnail": "/static/content/gallery/part_1_2023_2_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_2_2023_1",
+    "title": "Part 2",
+    "full_size": "/static/content/gallery/part_2_2023_1.jpg",
+    "thumbnail": "/static/content/gallery/part_2_2023_1_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "part_3_2022_2",
+    "title": "Part 3",
+    "full_size": "/static/content/gallery/part_3_2022_2.jpg",
+    "thumbnail": "/static/content/gallery/part_3_2022_2_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_4_2022_2",
+    "title": "Part 4",
+    "full_size": "/static/content/gallery/part_4_2022_2.jpg",
+    "thumbnail": "/static/content/gallery/part_4_2022_2_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "part_5_2023",
+    "title": "Part 5",
+    "full_size": "/static/content/gallery/part_5_2023.png",
+    "thumbnail": "/static/content/gallery/part_5_2023_thumbnail.webp",
+    "date": {
+      "year": 2023
+    }
+  },
+  {
+    "key": "wrong_lever_2022",
+    "title": "WRONG LEVER",
+    "full_size": "/static/content/gallery/wrong_lever_2022.jpg",
+    "thumbnail": "/static/content/gallery/wrong_lever_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "i_love_gooooooold_2022",
+    "title": "I love GOOOOOOOLD",
+    "full_size": "/static/content/gallery/i_love_gooooooold_2022.jpg",
+    "thumbnail": "/static/content/gallery/i_love_gooooooold_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "fuck_off_steve_2022",
+    "title": "Fuck Off Steve",
+    "full_size": "/static/content/gallery/fuck_off_steve_2022.jpg",
+    "thumbnail": "/static/content/gallery/fuck_off_steve_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "harold_finch_2022",
+    "title": "Harold Finch",
+    "full_size": "/static/content/gallery/harold_finch_2022.jpg",
+    "thumbnail": "/static/content/gallery/harold_finch_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "sideshow_bob_2022",
+    "title": "Sideshow Bob",
+    "full_size": "/static/content/gallery/sideshow_bob_2022.jpg",
+    "thumbnail": "/static/content/gallery/sideshow_bob_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "romulan_traitor_2022",
+    "title": "Romulan Traitor",
+    "full_size": "/static/content/gallery/romulan_traitor_2022.jpg",
+    "thumbnail": "/static/content/gallery/romulan_traitor_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "cheshire_cat_2022",
+    "title": "Cheshire Cat",
+    "full_size": "/static/content/gallery/cheshire_cat_2022.jpg",
+    "thumbnail": "/static/content/gallery/cheshire_cat_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "florals_2022",
+    "title": "Florals",
+    "full_size": "/static/content/gallery/florals_2022.jpg",
+    "thumbnail": "/static/content/gallery/florals_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "sweet_sweet_porcelain_2022",
+    "title": "Sweet Sweet Porcelain",
+    "full_size": "/static/content/gallery/sweet_sweet_porcelain_2022.jpg",
+    "thumbnail": "/static/content/gallery/sweet_sweet_porcelain_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "the_seraph_2022",
+    "title": "The Seraph",
+    "full_size": "/static/content/gallery/the_seraph_2022.jpg",
+    "thumbnail": "/static/content/gallery/the_seraph_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "memorial_to_mrs_courtney_gears_2022",
+    "title": "Memorial To Mrs Courtney Gears ",
+    "full_size": "/static/content/gallery/memorial_to_mrs_courtney_gears_2022.jpg",
+    "thumbnail": "/static/content/gallery/memorial_to_mrs_courtney_gears_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "cube_2022",
+    "title": "Cube",
+    "full_size": "/static/content/gallery/cube_2022.jpg",
+    "thumbnail": "/static/content/gallery/cube_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "central_plexus_2022",
+    "title": "Central Plexus",
+    "full_size": "/static/content/gallery/central_plexus_2022.jpg",
+    "thumbnail": "/static/content/gallery/central_plexus_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "brotherhood_2022",
+    "title": "Brotherhood",
+    "full_size": "/static/content/gallery/brotherhood_2022.jpg",
+    "thumbnail": "/static/content/gallery/brotherhood_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "seven_days_2022",
+    "title": "Seven Days",
+    "full_size": "/static/content/gallery/seven_days_2022.jpg",
+    "thumbnail": "/static/content/gallery/seven_days_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "bill_nye_the_science_guy_2022",
+    "title": "Bill Nye the Science Guy",
+    "full_size": "/static/content/gallery/bill_nye_the_science_guy_2022.jpg",
+    "thumbnail": "/static/content/gallery/bill_nye_the_science_guy_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "eddie_the_eagle_2022",
+    "title": "Eddie the Eagle",
+    "full_size": "/static/content/gallery/eddie_the_eagle_2022.jpg",
+    "thumbnail": "/static/content/gallery/eddie_the_eagle_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "manny_the_mammoth_2022",
+    "title": "Manny the Mammoth",
+    "full_size": "/static/content/gallery/manny_the_mammoth_2022.jpg",
+    "thumbnail": "/static/content/gallery/manny_the_mammoth_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "harbour_2022",
+    "title": "Harbour",
+    "full_size": "/static/content/gallery/harbour_2022.jpg",
+    "thumbnail": "/static/content/gallery/harbour_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "plane_from_below_2022",
+    "title": "Plane From Below",
+    "full_size": "/static/content/gallery/plane_from_below_2022.jpg",
+    "thumbnail": "/static/content/gallery/plane_from_below_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "beach_from_above_2022",
+    "title": "Beach From Above",
+    "full_size": "/static/content/gallery/beach_from_above_2022.jpg",
+    "thumbnail": "/static/content/gallery/beach_from_above_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "hillside_2022",
+    "title": "Hillside",
+    "full_size": "/static/content/gallery/hillside_2022.jpg",
+    "thumbnail": "/static/content/gallery/hillside_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "bar_smith_lawns_2022",
+    "title": "Bar Smith Lawns",
+    "full_size": "/static/content/gallery/bar_smith_lawns_2022.jpg",
+    "thumbnail": "/static/content/gallery/bar_smith_lawns_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "hub_central_2022",
+    "title": "Hub Central",
+    "full_size": "/static/content/gallery/hub_central_2022.jpg",
+    "thumbnail": "/static/content/gallery/hub_central_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "westminister_palace_2022",
+    "title": "Westminister Palace",
+    "full_size": "/static/content/gallery/westminister_palace_2022.jpg",
+    "thumbnail": "/static/content/gallery/westminister_palace_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "restaurant_2022",
+    "title": "Restaurant",
+    "full_size": "/static/content/gallery/restaurant_2022.jpg",
+    "thumbnail": "/static/content/gallery/restaurant_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "luna_2022",
+    "title": "Luna",
+    "full_size": "/static/content/gallery/luna_2022.jpg",
+    "thumbnail": "/static/content/gallery/luna_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "beach_2022",
+    "title": "Beach",
+    "full_size": "/static/content/gallery/beach_2022.jpg",
+    "thumbnail": "/static/content/gallery/beach_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "oil_rig_2022",
+    "title": "Oil Rig",
+    "full_size": "/static/content/gallery/oil_rig_2022.jpg",
+    "thumbnail": "/static/content/gallery/oil_rig_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "vesuvius_2022",
+    "title": "Vesuvius",
+    "full_size": "/static/content/gallery/vesuvius_2022.jpg",
+    "thumbnail": "/static/content/gallery/vesuvius_2022_thumbnail.webp",
+    "date": {
+      "year": 2022
+    }
+  },
+  {
+    "key": "molecules_2025",
+    "title": "Molecules",
+    "full_size": "/static/content/gallery/molecules_2025.jpg",
+    "thumbnail": "/static/content/gallery/molecules_2025_thumbnail.webp",
+    "date": {
+      "year": 2025,
+      "month": 9,
+      "day": 1
+    }
+  },
+  {
+    "key": "panic_2026",
+    "title": "Panic",
+    "month": 1,
+    "full_size": "/static/content/gallery/panic_2026.jpg",
+    "thumbnail": "/static/content/gallery/panic_2026_thumbnail.webp",
+    "date": {
+      "year": 2026
+    }
+  },
+  {
+    "key": "multitude_wrong_perspectives_art_gallery_2026",
+    "title": "A Multitude of Wrong Perspectives on an Art Gallery",
+    "month": 1,
+    "full_size": "/static/content/gallery/multitude_wrong_perspectives_art_gallery.jpg",
+    "thumbnail": "/static/content/gallery/multitude_wrong_perspectives_art_gallery_thumbnail.webp",
+    "date": {
+      "year": 2026
+    }
+  }
+]

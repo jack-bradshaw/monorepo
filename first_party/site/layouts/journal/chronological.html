@@ -1,0 +1,34 @@
+{{/*
+Journal Chronological Layout
+*/}}
+
+{{ define "main" }}
+
+{{ $chronologicalList := partial "journal/items-by-year.html" . }}
+
+<div class="content root wide-root">
+  {{ range $yearData := $chronologicalList }}
+
+  {{ $expandByDefault := partial "journal/expansion-state.html" "chronological" }}
+
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ $yearData.year | urlize }}">
+      {{ partial "content-block-header.html" (dict "title" $yearData.year "subtitle" (printf "All articles from %s"
+      $yearData.year)) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range sort $yearData.items "sortDate" "desc" }}
+      <li>
+        {{ $subtitle := partial "journal/subtitle.html" . }}
+        {{ partial "card/composition/journal-card.html" (dict
+        "title" .title
+        "subtitle" $subtitle
+        "link" (printf "/journal/item/%s" .key))
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

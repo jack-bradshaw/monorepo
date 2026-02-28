@@ -1,0 +1,39 @@
+{{/*
+Journal Genres Layout
+*/}}
+
+{{ define "main" }}
+
+{{ $itemsByKey := partial "journal/items-by-key.html" . }}
+
+<div class="content root wide-root">
+  {{ range site.Data.journal.genres }}
+
+  {{ $expandByDefault := partial "journal/expansion-state.html" "genres" }}
+
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ .key | urlize }}">
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range .items }}
+
+      {{ $item := index $itemsByKey . }}
+      {{ if not $item }}
+      {{ errorf "Journal item '%v' (genre) not found in journal metadata" . }}
+      {{ end }}
+
+      <li>
+        {{ $subtitle := partial "journal/subtitle.html" $item }}
+        {{ partial "card/composition/journal-card.html" (dict
+        "title" $item.title
+        "subtitle" $subtitle
+        "link" (printf "/journal/item/%s" $item.key))
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,24 @@
+{{/*
+Journal Item Layout
+
+Parameters:
+* key: The item key.
+*/}}
+
+{{ define "main" }}
+
+<div class="content root narrow-root">
+  <article class="panel vertical-wrap text-flow journal-item">
+    {{ $itemsByKey := partial "journal/items-by-key.html" . }}
+    {{ $item := index $itemsByKey $.Params.key }}
+    {{ if not $item }}
+    {{ errorf "Journal item '%v' not found in journal metadata" $.Params.key }}
+    {{ end }}
+
+    {{ readFile (strings.TrimPrefix "/" $item.file) | markdownify }}
+
+    {{ partial "journal/publication-info.html" $item }}
+  </article>
+
+</div>
+{{ end }}

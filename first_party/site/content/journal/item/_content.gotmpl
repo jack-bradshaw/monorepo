@@ -1,0 +1,17 @@
+{{/* Generates a page under /journal/item for each journal item. */}}
+
+{{ range site.Data.journal.items }}
+  {{ $itemData := . }}
+
+  {{ $date := partial "utils/format-date.html" $itemData.date }}
+
+  {{ $.AddPage (dict
+      "kind" "page"
+      "type" "journal"
+      "layout" "item"
+      "path" .key
+      "title" $itemData.title
+      "description" $date
+      "params" (dict "key" .key))
+  }}
+{{ end }}

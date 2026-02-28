@@ -1,0 +1,166 @@
+[
+  {
+    "key": "spaces",
+    "title": "Spaces",
+    "description": "Exploring various spaces.",
+    "series": ["red_space"]
+  },
+  {
+    "key": "the_bigger_picture",
+    "title": "The Bigger Picture",
+    "description": "Grant narratives, deep concepts, broad perspectives, and extreme scales.",
+    "series": [
+      "genesis_ex_nihilo",
+      "find_x",
+      "escape_of_the_heart",
+      "birth_of_the_mind",
+      "reconnection",
+      "sector_001"
+    ]
+  },
+  {
+    "key": "the_hidden_systems",
+    "title": "The Hidden Systems",
+    "description": "Snapshots of the psychological systems that drive human behaviour",
+    "series": [
+      "reorganisation",
+      "fear_responses",
+      "defence_mechanisms",
+      "growth_mindset",
+      "obsessive_compulsive_disorder",
+      "conflict_management",
+      "wisdom",
+      "fixed_mindset",
+      "borderline"
+    ]
+  },
+  {
+    "key": "stem",
+    "title": "STEM",
+    "description": "Science, technology, engineering and mathematics",
+    "series": [
+      "3_bits",
+      "object_oriented_programming",
+      "stellar_bodies",
+      "3_electro_magnetism",
+      "hungarian_notation",
+      "subtle_dynamics",
+      "molecules",
+      "modular_home",
+      "training",
+      "google"
+    ]
+  },
+  {
+    "key": "society_and_culture",
+    "title": "Society and Culture",
+    "description": "Exploration of various societal and cultural phenomena",
+    "series": ["bureaucracy", "crowds", "startups"]
+  },
+  {
+    "key": "the_human_condition",
+    "title": "The Human Condition",
+    "description": "Universal human experiences",
+    "series": [
+      "cozy",
+      "intoxicated",
+      "uncertain",
+      "loving",
+      "confused",
+      "frustrated",
+      "groggy",
+      "relaxed",
+      "playful",
+      "curious",
+      "distracted",
+      "hurt"
+    ]
+  },
+  {
+    "key": "queer",
+    "title": "Queer",
+    "description": "Exploration of LGBTQ experiences and sexuality in general",
+    "series": [
+      "pink_triangle",
+      "the_closet",
+      "pride",
+      "24_7_365",
+      "gay_men_s_group_psychotherapy",
+      "menage_a_trois",
+      "gpride",
+      "x_ray",
+      "french_girl"
+    ]
+  },
+  {
+    "key": "the_abstract",
+    "title": "The Abstract",
+    "description": "Exploring the abstract perspectives and places available to the human mind",
+    "series": ["the_void", "the_absurd"]
+  },
+  {
+    "key": "geometry_and_colour",
+    "title": "Geometry and Colour",
+    "description": "Lines, transparency, layers, fills, and other explorations of pure geometry and color",
+    "series": ["layering_experiments", "isometric_experiments", "smudging_experiments"]
+  },
+  {
+    "key": "pop_culture",
+    "title": "Pop Culture",
+    "description": "References to cultural icons and well-known brands",
+    "series": [
+      "wrong_lever",
+      "i_love_gooooooold",
+      "florals",
+      "sweet_sweet_porcelain",
+      "the_seraph",
+      "memorial_to_courtney_gears",
+      "we_are_the_borg",
+      "brotherhood",
+      "seven_days",
+      "x_the_y",
+      "fuck_off_steve",
+      "early_sketches"
+    ]
+  },
+  {
+    "key": "locations",
+    "title": "Locations",
+    "description": "Various locations from various perspectives",
+    "series": [
+      "harbour",
+      "vacation",
+      "hillside",
+      "university_of_adelaide",
+      "westminister_palace",
+      "crude"
+    ]
+  },
+  {
+    "key": "people_and_characters",
+    "title": "People and Characters",
+    "description": "Individuals and anthropomorphic representations",
+    "series": [
+      "sister",
+      "squiggly_people",
+      "greek_characters",
+      "gerard",
+      "fear_and_friendliness",
+      "fiery_little_friends",
+      "the_lone_wolf",
+      "mr_insistent"
+    ]
+  },
+  {
+    "key": "objects",
+    "title": "Objects",
+    "description": "Abstractions and impressions of various objects",
+    "series": ["ball_of_yarn", "ear", "balloons", "sushi", "means_of_production"]
+  },
+  {
+    "key": "raw_materials",
+    "title": "Raw Materials",
+    "description": "Palettes and other materials used in my work",
+    "series": ["light_rainbow_palette"]
+  }
+]

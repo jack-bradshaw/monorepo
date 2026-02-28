@@ -1,0 +1,6 @@
+h1 {
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-light);
+  letter-spacing: var(--letter-spacing-large);
+  line-height: var(--line-height-large);
+}

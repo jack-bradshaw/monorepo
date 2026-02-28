@@ -1,0 +1,54 @@
+{{/*
+Repository Locations Layout
+
+Parameters:
+* key: "locations" (implied)
+*/}}
+
+{{ define "main" }}
+
+<div class="content root wide-root">
+  {{ $monorepoItems := slice }}
+  {{ $secondaryRepoItems := slice }}
+
+  {{ range site.Data.repository.items }}
+  {{ if eq .repo "monorepo" }}
+  {{ $monorepoItems = $monorepoItems | append . }}
+  {{ else }}
+  {{ $secondaryRepoItems = $secondaryRepoItems | append . }}
+  {{ end }}
+  {{ end }}
+
+  {{ range $key := slice "monorepo" "secondary" }}
+  {{ $items := cond (eq $key "monorepo") $monorepoItems $secondaryRepoItems }}
+
+  {{ if gt (len $items) 0 }}
+  {{ $expandByDefault := partial "repository/expansion-state.html" "locations" }}
+
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ $key }}">
+      {{ $metadata := index site.Data.repository.locations $key }}
+      {{ partial "content-block-header.html" (dict
+      "title" $metadata.title
+      "subtitle" $metadata.description)
+      }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range $items }}
+      <li>
+        {{ $icons := partial "utils/tech-icons.html" .technologies }}
+
+        {{ partial "card/composition/repository-card.html" (dict
+        "images" $icons
+        "title" .title
+        "subtitle" .description
+        "link" .link)
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}
