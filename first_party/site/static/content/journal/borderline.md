@@ -1,4 +1,4 @@
-readliness: content ready, needs polish
+needs review and polish
 
 Borderline
 

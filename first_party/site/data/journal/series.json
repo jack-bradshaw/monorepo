@@ -1,12 +1,17 @@
 [
   {
-    "key": "false-self",
-    "title": "False Self",
-    "description": "A collection of raw, deeply personal pieces reflecting on trauma, inherited psychological prisons, and the visceral struggle to rebuild an authentic self. These pieces are presented as context for the messy, unpolished reality that precedes systemic philosophy.",
-    "items": [
-      "borderline",
-      "escape",
-      "disapproval"
-    ]
+    "key": "triptich-trauma",
+    "title": "Triptich on Trauma",
+    "description": "A three-part series of visceral poetry examining the shame, learned helpness, and righteous anger that surround trauma."
+  },
+  {
+    "key": "experiments-with-form",
+    "title": "Experiments with Form",
+    "description": "Pieces that explore unconventional structural and stylistic constraints. In these pieces the form is the message."
+  },
+  {
+    "key": "getting-started",
+    "title": "Getting Started",
+    "description": "Working through the difficulty of getting started when staying silent seemed so much safer."
   }
 ]

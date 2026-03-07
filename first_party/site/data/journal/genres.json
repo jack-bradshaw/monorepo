@@ -7,7 +7,8 @@
       "five-stages-of-writing",
       "the-tao-of-the-pen",
       "first-poem",
-      "the-island-of-the-soul"
+      "the-island-of-the-soul",
+      "what-carries-on"
     ]
   },
   {
@@ -15,10 +16,23 @@
     "title": "Visceral Poetry",
     "description": "Explores the visceral experience of a thought, state, or feeling",
     "items": [
-      "sports-bar",
       "borderline",
       "escape",
-      "disapproval"
+      "disapproval",
+      "sports-bar"
+    ]
+  },
+  {
+    "key": "narrative",
+    "title": "Narrative",
+    "description": "Fictional or narrative structures",
+    "items": [
+      "cursed-cursor",
+      "the-wolves-are-all-gone",
+      "on-the-red-space",
+      "the-artificial-man",
+      "logs",
+      "10-words"
     ]
   },
   {
@@ -27,7 +41,9 @@
     "description": "Autobiographical narratives and personal reflections",
     "items": [
       "three-strange-curiosities",
-      "one-or-many"
+      "one-or-many",
+      "treehouse-library",
+      "death-of-a-critic"
     ]
   },
   {
@@ -35,23 +51,19 @@
     "title": "Essays",
     "description": "Structured prose exploring specific topics",
     "items": [
-      "death-of-a-critic",
       "why-write",
       "open-source-writing",
       "pragmatic-altruism",
       "challenge-of-monologue",
       "judgement-vs-understanding",
       "into-the-subverse",
-      "cursed-cursor",
       "welcome-to-the-machine",
-      "treehouse-library",
       "illumination",
       "the-answer",
       "hermeticity",
       "a-writers-dilemma",
       "humanity-loop",
       "writing-as-metamorphosis",
-      "judgement-vs-understanding",
       "am-i-a-character",
       "radix-pragmatismi",
       "flaws",
@@ -62,15 +74,11 @@
     ]
   },
   {
-    "key": "sci-fi",
-    "title": "Sci-Fi",
-    "description": "Speculative fiction exploring futuristic concepts",
+    "key": "internal-dialogue",
+    "title": "Internal Dialogue",
+    "description": "Socratic exploration and conversation with the self",
     "items": [
-      "the-wolves-are-all-gone",
-      "on-the-red-space",
-      "the-artificial-man",
-      "logs",
-      "10-words"
+      "the-bind"
     ]
   }
 ]

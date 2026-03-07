@@ -118,7 +118,8 @@
       "year": 2026,
       "month": 1,
       "day": 20
-    }
+    },
+    "series": "getting-started"
   },
   {
     "key": "hermeticity",
@@ -194,7 +195,8 @@
       "year": 2026,
       "month": 1,
       "day": 11
-    }
+    },
+    "series": "getting-started"
   },
   {
     "key": "pragmatic-altruism",
@@ -226,7 +228,8 @@
       "year": 2026,
       "month": 1,
       "day": 11
-    }
+    },
+    "series": "getting-started"
   },
   {
     "key": "cursed-cursor",
@@ -358,7 +361,8 @@
       "year": 2026,
       "month": 2,
       "day": 25
-    }
+    },
+    "series": "triptich-trauma"
   },
   {
     "key": "escape",
@@ -369,7 +373,8 @@
       "year": 2026,
       "month": 2,
       "day": 25
-    }
+    },
+    "series": "triptich-trauma"
   },
   {
     "key": "disapproval",
@@ -380,7 +385,8 @@
       "year": 2026,
       "month": 2,
       "day": 25
-    }
+    },
+    "series": "triptich-trauma"
   },
   {
     "key": "sports-bar",
@@ -443,7 +449,8 @@
       "year": 2026,
       "month": 3,
       "day": 6
-    }
+    },
+    "series": "experiments-with-form"
   },
   {
     "key": "the-island-of-the-soul",
@@ -454,6 +461,28 @@
       "year": 2026,
       "month": 3,
       "day": 6
+    }
+  },
+  {
+    "key": "the-bind",
+    "title": "The Bind",
+    "description": "An internal dialogue on the tension between rational truth and the uncertainty required for creative existence.",
+    "file": "/static/content/journal/the_bind.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 7
+    }
+  },
+  {
+    "key": "what-carries-on",
+    "title": "What Carries On",
+    "description": "An exploration of the underlying system of the mind that persists even as the individual components are replaced or destroyed.",
+    "file": "/static/content/journal/what_carries_on.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 7
     }
   }
 ]
