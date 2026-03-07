@@ -1,9 +1,34 @@
 [
   {
-    "key": "poetry",
-    "title": "Poetry",
-    "description": "Rhythmic and expressive verse",
-    "items": ["sports-bar", "five-stages-of-writing", "the-tao-of-the-pen"]
+    "key": "meditative-poetry",
+    "title": "Meditative Poetry",
+    "description": "Explores from a detached place of analysis and understanding",
+    "items": [
+      "five-stages-of-writing",
+      "the-tao-of-the-pen",
+      "first-poem",
+      "the-island-of-the-soul"
+    ]
+  },
+  {
+    "key": "visceral-poetry",
+    "title": "Visceral Poetry",
+    "description": "Explores the visceral experience of a thought, state, or feeling",
+    "items": [
+      "sports-bar",
+      "borderline",
+      "escape",
+      "disapproval"
+    ]
+  },
+  {
+    "key": "memoir",
+    "title": "Memoir",
+    "description": "Autobiographical narratives and personal reflections",
+    "items": [
+      "three-strange-curiosities",
+      "one-or-many"
+    ]
   },
   {
     "key": "essays",
@@ -13,12 +38,9 @@
       "death-of-a-critic",
       "why-write",
       "open-source-writing",
-      "place-of-writing",
       "pragmatic-altruism",
       "challenge-of-monologue",
-      "one-or-many",
       "judgement-vs-understanding",
-      "meat-because-we-want-to",
       "into-the-subverse",
       "cursed-cursor",
       "welcome-to-the-machine",
@@ -29,13 +51,26 @@
       "a-writers-dilemma",
       "humanity-loop",
       "writing-as-metamorphosis",
-      "judgement-vs-understanding"
+      "judgement-vs-understanding",
+      "am-i-a-character",
+      "radix-pragmatismi",
+      "flaws",
+      "rising-above-the-noise",
+      "for-the-love-of-subjectivity",
+      "death",
+      "no_adults_allowed"
     ]
   },
   {
     "key": "sci-fi",
     "title": "Sci-Fi",
     "description": "Speculative fiction exploring futuristic concepts",
-    "items": ["the-wolves-are-all-gone", "on-the-red-space", "the-artificial-man", "logs"]
+    "items": [
+      "the-wolves-are-all-gone",
+      "on-the-red-space",
+      "the-artificial-man",
+      "logs",
+      "10-words"
+    ]
   }
 ]
