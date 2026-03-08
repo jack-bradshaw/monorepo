@@ -132,8 +132,6 @@ in the end."
 
 The sun now having set deep below the horizon yields to the night sky, adorned with countless
 brilliant shining lights, each reflected on the still surface of the ocean. Without a ripple in
-sight, where once was an island now sits an endless sea of stars in every direction. A few brighter
-than the rest, but all beautiful in their own way. Between them lies an infinitely dark abyss, as
-deep as any pit can go, as cold as any material can become, and as blank as any canvas can be.
-Within the abyss the voice smiles gently, waiting patiently for all who listen, and remembering its
-days on the island.
+sight, where once was an island now sits an endless sea of stars in every direction: A perfect
+image upon a perfect mirror. A few shine brighter than the rest, but all have beauty in their own
+way, and none compares to the beauty of the entire scene. Between each point of light lies an infinitely dark abyss, as deep as any pit can go, as cold as any material can become, and as blank as any canvas can be. Within the abyss the voice smiles gently, waiting patiently for all who listen, and remembering its days on the island.
