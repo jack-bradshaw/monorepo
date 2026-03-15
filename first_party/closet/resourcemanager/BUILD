@@ -44,7 +44,7 @@ kt_jvm_library_with_dagger(
     visibility = ["//first_party:__subpackages__"],
     deps = [
         ":resource_manager",
-        "//first_party/coroutines",
+        "//first_party/coroutines:component",
         "//first_party/coroutines/io",
         "@com_jackbradshaw_maven//:jakarta_inject_jakarta_inject_api",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -96,12 +96,12 @@ kt_jvm_test_with_dagger(
         ":resource_manager",
         ":component",
         ":component_impl",
-        "//first_party/coroutines",
         "//first_party/coroutines:component",
         "//first_party/coroutines:component_impl",
 
         "//first_party/coroutines/testing/launcher",
-        "//first_party/coroutines/testing",
+        "//first_party/coroutines/testing:component",
+        "//first_party/coroutines/testing:component_impl",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_test",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
