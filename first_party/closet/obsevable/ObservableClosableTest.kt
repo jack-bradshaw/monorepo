@@ -4,6 +4,7 @@ import org.junit.Test
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 
+/** Abstract test that all [ObservableClosable] instances should pass. */
 abstract class ObservableClosableTest<T : ObservableClosable> {
 
   @Test

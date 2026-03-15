@@ -5,36 +5,52 @@ import kotlinx.coroutines.flow.StateFlow
 import com.jackbradshaw.closet.observable.ObservableClosable
 
 /**
- * A generalized, thread-safe, managed registry of auto-closeable resources.
+ * Manages a collection of [ObservableClosable] objects.
  * 
- * Provides atomic access and modification mechanisms that guarantee 
- * deterministic closure and state integrity without deadlocks.
- *
- * ## System Behaviors
+ * Closables can be registered, deregistered, and retrieved from the manager, and when the manager
+ * itself is closed, all of its registered closables are closed. The manager provides various
+ * functions for insertion, removal, retrieval, replacement, and query, all of which are thread-safe
+ * and suspend until such a time as they can be safely evaluated. After the manager is closed, all
+ * calls to accessors/mutators will results in an IllegalStateException). 
  * 
- * The resource manager acts as a cohesive state machine governing the following 8 core behaviors:
- *
- * 1. Insertion: Inserting a valid resource registers it for tracking and retrieval.
- * 2. Replacement: Key collisions are resolved by retaining exactly one active resource. 
- *    Overwrites explicitly displace and request closure of the displaced resource. Soft inserts
- *    deduplicate and request closure of the incoming ignored resource.
- * 3. Direct Removal: Removing a resource unregisters it without explicitly requesting its closure.
- * 4. Resource-Driven Closure: The manager observes resources and actively unregisters any 
- *    resource that terminates externally.
- * 5. Manager-Driven Closure: The manager acts as a parent node. Closing the manager
- *    cascades a closure request to all active tracked resources.
- * 6. Validation: Attempting to insert an already-closed resource is a no-op; the resource 
- *    is rejected and untracked.
- * 7. Atomicity: Operations executed within an `exclusiveAccess` block are guaranteed to be 
- *    evaluated synchronously without thread interleaving.
- * 8. Post-Manager-Closure: Post-closure, the manager violently rejects all mutation and query attempts
- *    with an `IllegalStateException`.
+ * There are three primary operations supported by a variety of paths:
+ * 
+ * 1. Registration: Associating a resource with this manager so it can inherit the managers closure.
+ * Functions are [put], [getOrPut], and the equivalent operations provided by [exclusiveAccess].
+ * 2. Deregistration: Dissociating a resource from this manager so it no longer inherits the managers
+ * closure. Functions are [remove], [clear], and the equivalent operations provided by
+ * [exclusiveAccess].
+ * 3. Access: Reading the state of the manager without modification. Functions are [get], [size],
+ * [isEmpty], [containsKey], [containsValue], and the equivalent operations provided by
+ * [exclusiveAccess].
+ * 
+ * Registration and deregistration are referred to as mutator functions.
+ * 
+ * Implementations must ensure all accessor/mutator functions are thread-safe, such that calls may
+ * suspends until they can be evaluated safely. In cases where multiple accessor/mutator calls are
+ * required in succession without giving other threads an opportunity to mutate state, the
+ * [exclusiveAccess] function  can be used. It ensures mutex-like access to the manager and causes
+ * all other accessor/mutator functions to suspend while in use.
+ * 
+ * Caveats:
+ * 
+ * 1. The manager does not close resources when they are deregistered.
+ * 2. Closing the manager with [close] will close all resources; furthermore, the manager's [close] function will
+ * block until every managed resource has reached a terminal state and has terminated its processes.
+ * 3. Closing a registered resource externally will cause the manager to deregister it.
+   4. Attempting to register an already closed resource results in an exception.
+ * 5. Attempting to call any mutator/accessor function after the manager has been closed rsults in an exception.
+ * 6. All accessor/mutator functions are thread-safe.
+ * 7. Call to accessor/mutator functions suspend while a [exclusiveAccess] block is being evaluated.
+ * 8. The [exclusiveAccess] function provides exclusive access but not concurrent access, such that
+ * concurrent calls to 
  */
 interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableClosable {
 
   /** 
-   * Retrieves an item if it exists, independently of the accessor.
-   * Can be invoked freely.
+   * Retrieves the item associated with [key].
+   * 
+   * Calls will suspend while other calls to accessors/mutators occur.
    */
   suspend fun get(key: K): V?
 

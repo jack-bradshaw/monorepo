@@ -164,96 +164,138 @@ internal class ResourceManagerImpl<K, V : ManagedResource>(
   }
 
   private inner class SessionAccessor : ResourceManager.Accessor<K, V>, AutoCloseable {
+
+    private val lock = Mutex()
     
     private var isClosed = false
 
     override fun close() {
-      isClosed = true
+      runBlocking {
+        lock.withLock {
+          isClosed = true
+        }
+      }
     }
 
     override fun get(key: K): V? {
-      checkNotClosed()
-      val existing = managedResources[key]
-      if (existing != null && existing.hasTerminalState.value) {
-        remove(key)
-        return null
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          val existing = managedResources[key]
+          if (existing != null && existing.hasTerminalState.value) {
+            remove(key)
+            return@withLock null
+          }
+          return@withLock existing
+        }
       }
-      return existing
     }
     
     override fun put(key: K, resource: V): V? {
-      checkNotClosed()
-      if (resource.hasTerminalState.value) return null
-      val oldItem = managedResources.put(key, resource)
-      
-      observeTerminationJobs.remove(key)?.cancel()
-      observeTerminationJobs[key] = coroutineScope.launch {
-        resource.removeSelfOnClosure(key)
-      }
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          if (resource.hasTerminalState.value) return@withLock null
+          val oldItem = managedResources.put(key, resource)
+          
+          observeTerminationJobs.remove(key)?.cancel()
+          observeTerminationJobs[key] = coroutineScope.launch {
+            resource.removeSelfOnClosure(key)
+          }
 
-      return oldItem
+          return@withLock oldItem
+        }
+      }
     }
 
     override fun getOrPut(key: K, newValueProvider: () -> V): V {
-      checkNotClosed()
-      
-      var existing = managedResources[key]
-      if (existing != null) {
-        if (!existing.hasTerminalState.value) {
-          return existing
-        } else {
-          remove(key)
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          
+          var existing = managedResources[key]
+          if (existing != null) {
+            if (!existing.hasTerminalState.value) {
+              return@withLock existing
+            } else {
+              remove(key)
+            }
+          }
+
+          val newResource = newValueProvider()
+          if (newResource.hasTerminalState.value) {
+            return@withLock newResource
+          }
+
+          managedResources[key] = newResource
+
+          observeTerminationJobs.remove(key)?.cancel()
+          observeTerminationJobs[key] = coroutineScope.launch {
+            newResource.removeSelfOnClosure(key)
+          }
+          
+          return@withLock newResource
         }
       }
-
-      val newResource = newValueProvider()
-      if (newResource.hasTerminalState.value) {
-        return newResource
-      }
-
-      managedResources[key] = newResource
-
-      observeTerminationJobs.remove(key)?.cancel()
-      observeTerminationJobs[key] = coroutineScope.launch {
-        newResource.removeSelfOnClosure(key)
-      }
-      
-      return newResource
     }
 
     override fun remove(key: K): V? {
-      checkNotClosed()
-      observeTerminationJobs.remove(key)?.cancel()
-      return managedResources.remove(key)
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          observeTerminationJobs.remove(key)?.cancel()
+          return@withLock managedResources.remove(key)
+        }
+      }
     }
 
     override fun clear(): List<V> {
-      checkNotClosed()
-      val items = managedResources.values.toList()
-      observeTerminationJobs.values.forEach { it.cancel() }
-      observeTerminationJobs.clear()
-      managedResources.clear()
-      return items
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          val items = managedResources.values.toList()
+          observeTerminationJobs.values.forEach { it.cancel() }
+          observeTerminationJobs.clear()
+          managedResources.clear()
+          return@withLock items
+        }
+      }
     }
 
     override fun size(): Int {
-      checkNotClosed()
-      return managedResources.size
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          return@withLock managedResources.size
+        }
+      }
     }
 
     override fun isEmpty(): Boolean {
-      checkNotClosed()
-      return managedResources.isEmpty()
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          return@withLock managedResources.isEmpty()
+        }
+      }
     }
 
     override fun containsKey(key: K): Boolean {
-      checkNotClosed()
-      return managedResources.containsKey(key)
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          return@withLock managedResources.containsKey(key)
+        }
+      }
     }
 
     override fun containsValue(resource: V): Boolean {
-      checkNotClosed()
-      return managedResources.containsValue(resource)
+      return runBlocking {
+        lock.withLock {
+          checkNotClosed()
+          return@withLock managedResources.containsValue(resource)
+        }
+      }
     }
 
     private fun checkNotClosed() {
