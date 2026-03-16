@@ -150,10 +150,12 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
     _hasTerminatedProcesses.value = true
   }
 
-  override suspend fun closeSelfOnly() {
-    lock.withLock {
-      if (hasTerminalState.value) return@withLock
-      _hasTerminalState.value = true
+  override fun closeSelfOnly() {
+    runBlocking {
+      lock.withLock {
+        if (hasTerminalState.value) return@withLock
+        _hasTerminalState.value = true
+      }
     }
 
     observeTerminationJobs.values.forEach { it.cancel() }

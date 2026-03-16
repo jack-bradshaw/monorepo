@@ -10,7 +10,7 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * Resources can be registered, deregistered, and retrieved from the manager, and when the manager
  * itself is closed, all of its registered resources are closed. The manager provides various
  * functions for mutation and access, all of which are thread-safe and suspend until such a time as
- * they can be safely evaluated with exclusive access to the underlying resources.
+ * they can be safely evaluated with exclusive access to the manager.
  * 
  * The manager supports three primary groups of operations:
  * 
@@ -44,17 +44,13 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * 5. Attempting to call any mutator/accessor function after the manager has been closed results in an exception.
  * 6. All accessor/mutator functions are thread-safe.
  * 7. All calls to accessor/mutator functions suspend while an [exclusiveAccess] block is being evaluated.
- * 8. The [exclusiveAccess] function provides exclusive access but not concurrent access, meaning
- * concurrent calls to exclusive access functions while the lock is held will deadlock. This ensures
- * exclusive access cannot break the internal state of the resource manager. Do not attempt to use
- * exclusive access functions concurrently.
  */
 interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
 
   /** 
    * Returns the registered resource associated with [key], or null if none exsts.
    * 
-   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * Suspends until exclusive access to the manager can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
    * 
    * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
@@ -70,7 +66,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
    * Registeres [resource] and associates it with [key]. If another resource is already associated
    * with [key], it is deregistered and returned, but not closed.
    * 
-   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * Suspends until exclusive access to the manager can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if [resource]
    * is closed.
    * 
@@ -87,7 +83,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
    * Returns the registered resource associated with [key]. If none exists, evaluates [newValueProvider],
    * registers the result, associates it with [key], and returns it.
    * 
-   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * Suspends until exclusive access to the manager can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if the resource
    * returned by [newValueProvider] is closed.
    * 
@@ -103,7 +99,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
   /**
    * Deregisters all resources and returns them.
    * 
-   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * Suspends until exclusive access to the manager can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
    * 
    * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
@@ -150,7 +146,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
   /**
    * Deregisters the resource associated with [key] and returns it, or returns null if none exists.
    * 
-   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * Suspends until exclusive access to the manager can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
    * 
    * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
@@ -172,7 +168,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
     /** 
      * Returns the registered resource associated with [key], or null if none exsts.
      * 
-     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * Suspends until exclusive access to the manager can be guaranteed. Throws
      * [IllegalStateException] if this manager is closed.
      * 
      * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
@@ -188,7 +184,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
      * Registeres [resource] and associates it with [key]. If another resource is already associated
      * with [key], it is deregistered and returned, but not closed.
      * 
-     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * Suspends until exclusive access to the manager can be guaranteed. Throws
      * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if [resource]
      * is closed.
      * 
@@ -205,7 +201,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
      * Returns the registered resource associated with [key]. If none exists, evaluates [newValueProvider],
      * registers the result, associates it with [key], and returns it.
      * 
-     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * Suspends until exclusive access to the manager can be guaranteed. Throws
      * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if the resource
      * returned by [newValueProvider] is closed.
      * 
@@ -221,7 +217,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
     /**
      * Deregisters the resource associated with [key] and returns it, or returns null if none exists.
      * 
-     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * Suspends until exclusive access to the manager can be guaranteed. Throws
      * [IllegalStateException] if this manager is closed.
      * 
      * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
@@ -236,7 +232,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
     /**
      * Deregisters all resources and returns them.
      * 
-     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * Suspends until exclusive access to the manager can be guaranteed. Throws
      * [IllegalStateException] if this manager is closed.
      * 
      * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
@@ -282,18 +278,28 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
   }
 
   /**
-   * Evaluates [block] and returns the result.
+   * Waits for exclusive access to the manager then evaluates [block]. 
    * 
-   * Suspends until exclusive access to the underlying resources can be guaranteed, and blocks all
+   * The accessor provided to [block] has exclusive access to the manager during
+   * function execution but must be discarded after the function returns, as usage outside the
+   * function call results in an error. Furthermore, [block] must not call any of the
+   * accessor/mutator functions on [ResourceManager] as they will suspend until [block] returnes,
+   * thus creating a deadlock. 
+   * 
+   * WARNING: The accessor has exclusive access to the manager but not concurrent access, meaning
+   * concurrent calls to exclusive access functions while the lock is held will deadlock. This ensures
+   * exclusive access cannot break the internal state of the resource manager. Do not attempt to use
+   * exclusive access functions concurrently.
+   * 
+   * Suspends until exclusive access to the manager can be guaranteed, and blocks all
    * other accessor/mutator functions until [block] completes. Throws [IllegalStateException] if
    * this manager is closed.
+   * 
    */
   suspend fun <R> exclusiveAccess(block: suspend (accessor: Accessor<K, V>) -> R): R
 
   /**
-   * Safely closes the resourceManager, marks [hasTerminalState] to true, without propagating closure 
-   * to managed resources. Subsequent [exclusiveAccess] and [put] calls will be rejected.
+   * Closes this manager without closing managed resources.
    */
-  suspend fun closeSelfOnly()
-
+  fun closeSelfOnly()
 }
