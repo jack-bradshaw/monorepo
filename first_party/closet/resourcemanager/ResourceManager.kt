@@ -9,9 +9,8 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * 
  * Resources can be registered, deregistered, and retrieved from the manager, and when the manager
  * itself is closed, all of its registered resources are closed. The manager provides various
- * functions for insertion, removal, retrieval, replacement, and query, all of which are thread-safe
- * and suspend until such a time as they can be safely evaluated (referred to as accessor/mutator
- * functions).
+ * functions for mutation and access, all of which are thread-safe and suspend until such a time as
+ * they can be safely evaluated with exclusive access to the underlying resources.
  * 
  * The manager supports three primary groups of operations:
  * 
@@ -35,7 +34,7 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * [close] function will block until every managed resource has reached a terminal state and has
  * terminated its processes. To close the manager without affecting managed resource, the 
  * [closeSelfOnly] function is available.
- * 3. Closing a registered resource externally will cause the manager to automatically deregister it; however,
+ * 3. Closing a registered resource externally (i.e. closed by means unrelated to the manager) will cause the manager to automatically deregister it; however,
  * external resources closure can be triggered any time by any thread, so there could be a delay between
  * external closure and automatic deregistration; therefore, functions such as [get], [getOrPut],
  * [remove], and [clear], cannot guarantee the returned value is open, and callers should check the
@@ -58,9 +57,10 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
    * 
-   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+   * unrelated to the manager), and this function checks
    * to ensure the resources are open before returning them; however, an unavoidable race condition
-   * exists where a resource is asynchronously closed by an external system after being checked
+   * exists: A resource could be externally closed after being checked
    * but before being returned; therefore, callers should verify the status of the returned resource
    * when a particular state is strictly necessary and not assume it is open.
    */
@@ -74,9 +74,10 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if [resource]
    * is closed.
    * 
-   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+   * unrelated to the manager), and this function checks
    * to ensure the resources are open before returning them; however, an unavoidable race condition
-   * exists where a resource is asynchronously closed by an external system after being checked
+   * exists: A resource could be externally closed after being checked
    * but before being returned; therefore, callers should verify the status of the returned resource
    * when a particular state is strictly necessary and not assume it is open.
    */
@@ -90,9 +91,10 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if the resource
    * returned by [newValueProvider] is closed.
    * 
-   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+   * unrelated to the manager), and this function checks
    * to ensure the resources are open before returning them; however, an unavoidable race condition
-   * exists where a resource is asynchronously closed by an external system after being checked
+   * exists: A resource could be externally closed after being checked
    * but before being returned; therefore, callers should verify the status of the returned resource
    * when a particular state is strictly necessary and not assume it is open.
    */
@@ -104,9 +106,10 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
    * 
-   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+   * unrelated to the manager), and this function checks
    * to ensure the resources are open before returning them; however, an unavoidable race condition
-   * exists where a resource is asynchronously closed by an external system after being checked
+   * exists: A resource could be externally closed after being checked
    * but before being returned; therefore, callers should verify the status of the returned resource
    * when a particular state is strictly necessary and not assume it is open.
    */
@@ -150,9 +153,10 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
    * 
-   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+   * unrelated to the manager), and this function checks
    * to ensure the resources are open before returning them; however, an unavoidable race condition
-   * exists where a resource is asynchronously closed by an external system after being checked
+   * exists: A resource could be externally closed after being checked
    * but before being returned; therefore, callers should verify the status of the returned resource
    * when a particular state is strictly necessary and not assume it is open.
    */
