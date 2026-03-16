@@ -41,4 +41,8 @@ class InterceptorDispatcherImpl(private val delegate: CoroutineDispatcher) : Int
   }
 
   override fun isIdle() = running.isEmpty()
+
+  class Factory : InterceptorDispatcher.Factory {
+    override fun create(delegate: CoroutineDispatcher): InterceptorDispatcher = InterceptorDispatcherImpl(delegate)
+  }
 }

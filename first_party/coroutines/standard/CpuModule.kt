@@ -9,6 +9,6 @@ object CpuModule {
   @Provides
   @Cpu
   fun provideScope(@CpuIntermediate actual: CoroutineScope) : CoroutineScope {
-    return CoroutineScope(dispatcher)
+    return actual
   }
 }
