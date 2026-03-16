@@ -5,52 +5,52 @@ import kotlinx.coroutines.flow.StateFlow
 import com.jackbradshaw.closet.observable.ObservableClosable
 
 /**
- * Manages a collection of [ObservableClosable] objects.
+ * Manages a collection of [ObservableClosable] resources.
  * 
- * Closables can be registered, deregistered, and retrieved from the manager, and when the manager
- * itself is closed, all of its registered closables are closed. The manager provides various
+ * Resources can be registered, deregistered, and retrieved from the manager, and when the manager
+ * itself is closed, all of its registered resources are closed. The manager provides various
  * functions for insertion, removal, retrieval, replacement, and query, all of which are thread-safe
- * and suspend until such a time as they can be safely evaluated. After the manager is closed, all
- * calls to accessors/mutators will results in an IllegalStateException). 
+ * and suspend until such a time as they can be safely evaluated (referred to as accessor/mutator
+ * functions).
  * 
- * There are three primary operations supported by a variety of paths:
+ * The manager supports three primary groups of operations:
  * 
- * 1. Registration: Associating a resource with this manager so it can inherit the managers closure.
- * Functions are [put], [getOrPut], and the equivalent operations provided by [exclusiveAccess].
- * 2. Deregistration: Dissociating a resource from this manager so it no longer inherits the managers
- * closure. Functions are [remove], [clear], and the equivalent operations provided by
- * [exclusiveAccess].
+ * 1. Registration: Associating a resource with this manager so it can inherit the manager's closure.
+ * Functions are [put] and [getOrPut].
+ * 2. Deregistration: Dissociating a resource from this manager so it no longer inherits the manager's
+ * closure. Functions are [remove] and [clear].
  * 3. Access: Reading the state of the manager without modification. Functions are [get], [size],
- * [isEmpty], [containsKey], [containsValue], and the equivalent operations provided by
- * [exclusiveAccess].
+ * [isEmpty], [containsKey], and [containsValue].
  * 
- * Registration and deregistration are referred to as mutator functions.
- * 
- * Implementations must ensure all accessor/mutator functions are thread-safe, such that calls may
- * suspends until they can be evaluated safely. In cases where multiple accessor/mutator calls are
- * required in succession without giving other threads an opportunity to mutate state, the
- * [exclusiveAccess] function  can be used. It ensures mutex-like access to the manager and causes
- * all other accessor/mutator functions to suspend while in use.
+ * All accessor/mutator functions are thread-safe, meaning calls will suspend until such a time as
+ * they can be evaluated safely. The [exclusiveAccess] function is provided for cases where multiple
+ * accessor/mutator calls are required in succession without race conditions with other threads. It
+ * effectively provides mutex-like access to the manager and causes all other accessor/mutator
+ * functions to suspend while in use.
  * 
  * Caveats:
  * 
  * 1. The manager does not close resources when they are deregistered.
- * 2. Closing the manager with [close] will close all resources; furthermore, the manager's [close] function will
- * block until every managed resource has reached a terminal state and has terminated its processes.
- * 3. Closing a registered resource externally will cause the manager to deregister it.
+ * 2. Closing the manager with [close] causes all resources to close; furthermore, the manager's
+ * [close] function will block until every managed resource has reached a terminal state and has
+ * terminated its processes. To close the manager without affecting managed resource, the 
+ * [closeSelfOnly] function is available.
+ * 3. Closing a registered resource externally will cause the manager to automatically deregister it.
    4. Attempting to register an already closed resource results in an exception.
- * 5. Attempting to call any mutator/accessor function after the manager has been closed rsults in an exception.
+ * 5. Attempting to call any mutator/accessor function after the manager has been closed results in an exception.
  * 6. All accessor/mutator functions are thread-safe.
- * 7. Call to accessor/mutator functions suspend while a [exclusiveAccess] block is being evaluated.
- * 8. The [exclusiveAccess] function provides exclusive access but not concurrent access, such that
- * concurrent calls to 
+ * 7. All calls to accessor/mutator functions suspend while an [exclusiveAccess] block is being evaluated.
+ * 8. The [exclusiveAccess] function provides exclusive access but not concurrent access, meaning
+ * concurrent calls to exclusive access functions while the lock is held will deadlock. This ensures
+ * exclusive access cannot break the internal state of the resource manager. Do not attempt to use
+ * exclusive access functions concurrently.
  */
 interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableClosable {
 
   /** 
    * Retrieves the item associated with [key].
    * 
-   * Calls will suspend while other calls to accessors/mutators occur.
+   * Suspends until  will suspend while other calls to accessors/mutators occur.
    */
   suspend fun get(key: K): V?
 
@@ -126,14 +126,14 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   suspend fun <R> exclusiveAccess(block: (accessor: Accessor<K, V>) -> R): R
 
   /**
-   * Safely closes the resourceManager, marks [isOpen] to false, and cascades the termination signal 
+   * Safely closes the resourceManager, marks [hasTerminalState] to true, and cascades the termination signal 
    * to all currently retained managed resources. Subsequent calls to mutating and accessor
    * functions will fail.
    */
   override fun close()
 
   /**
-   * Safely closes the resourceManager, marks [isOpen] to false, without propagating closure 
+   * Safely closes the resourceManager, marks [hasTerminalState] to true, without propagating closure 
    * to managed resources. Subsequent [exclusiveAccess] and [put] calls will be rejected.
    */
   suspend fun closeSelfOnly()
