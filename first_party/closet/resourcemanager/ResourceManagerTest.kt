@@ -12,13 +12,6 @@ import com.jackbradshaw.closet.observable.ObservableClosable
 
 /** 
  * Abstract tests that all [ResourceManager]s should pass.
- *
- * This test suite utilizes a behavior-driven architecture that verifies the manager as a cohesive
- * state machine. Tests are grouped into the following behavioral categories: the headings as a
- * list, correspodning to the [ResouceManager] documentation. This approach focuses on the broad
- * emergent properties of the system instead of the granulur method-level behaviours. Based on
- * experimentation during initial development, migrating ot behaviour-driven tsting reduced overall
- * class length by an order of magnitude.
  */
 abstract class ResourceManagerTest<K, V : ObservableClosable> {
 
@@ -924,6 +917,7 @@ abstract class ResourceManagerTest<K, V : ObservableClosable> {
     assertThat(e).hasMessageThat().isEqualTo("exclusiveAccess() cannot be called while resourceManager is closed.")
   }
 
+  /** Returns the subject under test. Must return the same instance on each call. */
   abstract fun subject(): ResourceManager<K, V>
 
   /**

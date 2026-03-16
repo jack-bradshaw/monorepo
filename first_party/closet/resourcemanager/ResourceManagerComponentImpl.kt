@@ -4,7 +4,6 @@ import com.jackbradshaw.coroutines.CoroutinesComponent
 import dagger.Component
 import com.jackbradshaw.closet.ClosetScope
 
-/** [ResourceManagerComponent] backed by Dagger. */
 @ClosetScope
 @Component(
   dependencies = [CoroutinesComponent::class],

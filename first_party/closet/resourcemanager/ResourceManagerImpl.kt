@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -14,6 +15,11 @@ import javax.inject.Inject
 import com.jackbradshaw.coroutines.io.Io
 import com.jackbradshaw.closet.observable.ObservableClosable
 
+/** Standard implementation of [ResourceManager].
+ * 
+ * Access/mutate functions are guarded by a mutex to ensure the internal state is not modified
+ * concurrently.
+ */
 class ResourceManagerImpl<K, V : ObservableClosable>(
   private val coroutineScope: CoroutineScope
 ) : ResourceManager<K, V> {
@@ -32,31 +38,33 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
 
   private val observeTerminationJobs = mutableMapOf<K, Job>()
 
+  /** Accessor/mutator functions delegate to this operator to avoid duplicating implementation
+   * details across the accessors/mutators and OperatorImpl. */
   private val internalOperator = OperatorImpl()
+
+  private fun checkOpen(functionName: String) {
+    check(!hasTerminalState.value) {
+      "$functionName() cannot be called while resourceManager is closed."
+    }
+  }
 
   override suspend fun get(key: K): V? {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "get() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "get")
       internalOperator.get(key)
     }
   }
 
   override suspend fun put(key: K, resource: V): V? {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "put() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "put")
       internalOperator.put(key, resource)
     }
   }
 
   override suspend fun getOrPut(key: K, newValueProvider: () -> V): V {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "getOrPut() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "getOrPut")
       internalOperator.getOrPut(key, newValueProvider)
     }
   }
@@ -65,9 +73,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
     block: suspend (operator: ResourceManager.Operator<K, V>) -> R
   ): R {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "exclusiveAccess() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "exclusiveAccess")
       val session = OperatorImpl()
       try {
         block(session)
@@ -79,88 +85,88 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
 
   override suspend fun clear(): List<V> {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "clear() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "clear")
       internalOperator.clear()
     }
   }
 
   override suspend fun size(): Int {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "size() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "size")
       internalOperator.size()
     }
   }
 
   override suspend fun isEmpty(): Boolean {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "isEmpty() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "isEmpty")
       internalOperator.isEmpty()
     }
   }
 
   override suspend fun containsKey(key: K): Boolean {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "containsKey() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "containsKey")
       internalOperator.containsKey(key)
     }
   }
 
   override suspend fun containsValue(resource: V): Boolean {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "containsValue() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "containsValue")
       internalOperator.containsValue(resource)
     }
   }
 
   override suspend fun remove(key: K): V? {
     return lock.withLock {
-      check (!hasTerminalState.value) {
-        "remove() cannot be called while resourceManager is closed."
-      }
+      checkOpen(functionName = "remove")
       internalOperator.remove(key)
     }
   }
 
   override fun close() {
-    val itemsToClose = runBlocking {
+    val (jobsToCancel, itemsToClose) = runBlocking {
       lock.withLock {
-        if (hasTerminalState.value) return@withLock emptyList<V>()
+        if (hasTerminalState.value) return@withLock Pair(emptyList<V>(), emptyList<Job>())
         _hasTerminalState.value = true
         
-        val currentItems = managedResources.values.toList()
-        observeTerminationJobs.values.forEach { it.cancel() }
+        val jobs = observeTerminationJobs.values.toList()
         observeTerminationJobs.clear()
+        
+        val items = managedResources.values.toList()
         managedResources.clear()
         
-        currentItems
+        Pair(jobs, items)
       }
     }
 
+    runBlocking {
+      jobsToCancel.forEach { it.cancelAndJoin() }
+    }
     itemsToClose.forEach { it.close() }
+
     _hasTerminatedProcesses.value = true
   }
 
   override fun closeSelfOnly() {
-    runBlocking {
+    val jobsToCancel = runBlocking {
       lock.withLock {
-        if (hasTerminalState.value) return@withLock
+        if (hasTerminalState.value) return@withLock emptyList<Job>()
         _hasTerminalState.value = true
+        
+        val jobs = observeTerminationJobs.values.toList()
+        observeTerminationJobs.clear()
+        
+        managedResources.clear()
+
+        jobs
       }
     }
 
-    observeTerminationJobs.values.forEach { it.cancel() }
-    observeTerminationJobs.clear()
-    managedResources.clear()
+    runBlocking {
+      jobsToCancel.forEach { it.cancelAndJoin() }
+    }
     
     _hasTerminatedProcesses.value = true
   }
@@ -181,7 +187,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
 
     override suspend fun get(key: K): V? {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         val existing = managedResources[key]
         
         // Guards against race conditions where external closure happens after map retrieval
@@ -194,7 +200,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
     
     override suspend fun put(key: K, resource: V): V? {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         if (resource.hasTerminalState.value) return@withLock null
         val oldItem = managedResources.put(key, resource)
         
@@ -209,7 +215,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
 
     override suspend fun getOrPut(key: K, newValueProvider: () -> V): V {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         
         var existing = managedResources[key]
 
@@ -236,7 +242,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
 
     override suspend fun remove(key: K): V? {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         observeTerminationJobs.remove(key)?.cancel()
         return@withLock managedResources.remove(key)
       }
@@ -244,7 +250,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
 
     override suspend fun clear(): List<V> {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         val items = managedResources.values.toList()
         observeTerminationJobs.values.forEach { it.cancel() }
         observeTerminationJobs.clear()
@@ -255,33 +261,33 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
 
     override suspend fun size(): Int {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         return@withLock managedResources.size
       }
     }
 
     override suspend fun isEmpty(): Boolean {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         return@withLock managedResources.isEmpty()
       }
     }
 
     override suspend fun containsKey(key: K): Boolean {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         return@withLock managedResources.containsKey(key)
       }
     }
 
     override suspend fun containsValue(resource: V): Boolean {
       return lock.withLock {
-        checkNotClosed()
+        checkOpen()
         return@withLock managedResources.containsValue(resource)
       }
     }
 
-    private fun checkNotClosed() {
+    private fun checkOpen() {
       check(!isClosed) {
         "This operator has expired. Each operator should only be used in the exclusiveAccess " +
         "callback that supplied it, and operators should not be retained after the callback " +

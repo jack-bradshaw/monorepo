@@ -18,13 +18,10 @@ class ResourceManagerImplObservableClosableTest : ObservableClosableTest<Resourc
   @Inject internal lateinit var factory: ResourceManager.Factory
   
   private lateinit var resourceManager: ResourceManager<String, ResourceManagerImplTest.TestResource>
-  
-  private lateinit var testScope: kotlinx.coroutines.test.TestScope
 
   @Before
   fun setUp() {
     val coroutinesComponent = testCoroutinesComponent()
-    testScope = coroutinesComponent.testScope()
     
     DaggerResourceManagerObservableTestsComponent.builder()
       .coroutines(coroutinesComponent)
