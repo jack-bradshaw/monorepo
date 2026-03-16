@@ -14,7 +14,7 @@ import javax.inject.Inject
 import com.jackbradshaw.coroutines.io.Io
 import com.jackbradshaw.closet.observable.ObservableClosable
 
-internal class ResourceManagerImpl<K, V : ObservableClosable>(
+class ResourceManagerImpl<K, V : ObservableClosable>(
   private val coroutineScope: CoroutineScope
 ) : ResourceManager<K, V> {
   
@@ -300,5 +300,11 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
         observeTerminationJobs.remove(key)
       }
     }
+  }
+
+  class FactoryImpl @Inject internal constructor(
+    @Io private val coroutineScope: CoroutineScope
+  ) : ResourceManager.Factory {
+    override fun <K, V : ObservableClosable> createResourceManager(): ResourceManager<K, V> = ResourceManagerImpl(coroutineScope)
   }
 }

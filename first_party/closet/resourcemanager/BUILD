@@ -39,7 +39,6 @@ kt_jvm_library_with_dagger(
     name = "impl",
     srcs = [
       "ResourceManagerImpl.kt",
-      "ResourceManagerFactoryImpl.kt",
     ],
     visibility = ["//first_party:__subpackages__"],
     deps = [

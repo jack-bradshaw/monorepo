@@ -68,6 +68,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
   }
 
   @Test fun manager_afterClose_hasTerminalState() = observableManagerTests.afterClose_hasTerminalState()
+  
   @Test fun manager_afterClose_hasTerminatedProcesses() = observableManagerTests.afterClose_hasTerminatedProcesses()
 
 
