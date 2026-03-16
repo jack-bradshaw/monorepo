@@ -44,14 +44,17 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * concurrent calls to exclusive access functions while the lock is held will deadlock. This ensures
  * exclusive access cannot break the internal state of the resource manager. Do not attempt to use
  * exclusive access functions concurrently.
+ * 
+ * Potential race conditions: The manager monitors the closed state of resources to automatically
+ * register/deregister them, and calls to the various accessor/mutator 
  */
 interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableClosable {
 
   /** 
    * Returns the resource associated with [key], or null if none exsts.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
    */
   suspend fun get(key: K): V?
 
@@ -59,8 +62,9 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Registeres [resource] and associates it with [key]. If another resource is already associated
    * with [key], it is deregistered and returned, but not closed.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed. Throws [IllegalStateException] is [resouce] is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if [resource]
+   * is closed.
    */
   suspend fun put(key: K, resource: V): V?
 
@@ -68,56 +72,57 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Returns the resource associated with [key]. If none exists, evaluates [newValueProvider],
    * registers the result, associates it with [key], and returns it.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed. Throws [IllegalStateException] if the resource returned by [newValueProvider] is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if the resource
+   * returned by [newValueProvider] is closed.
    */
   suspend fun getOrPut(key: K, newValueProvider: () -> V): V
 
   /**
    * Deregisters all resources and returns them.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
    */
   suspend fun clear(): List<V>
 
   /**
    * Returns the number of registered resources.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
    */
   suspend fun size(): Int
 
   /**
    * Returns true if no resources are registered.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
    */
   suspend fun isEmpty(): Boolean
 
   /**
    * Returns true if a resource is associated with [key].
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
    */
   suspend fun containsKey(key: K): Boolean
 
   /**
    * Returns true if [resource] is registered.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
    */
   suspend fun containsValue(resource: V): Boolean
 
   /**
    * Deregisters the resource associated with [key] and returns it, or returns null if none exists.
    * 
-   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
-   * is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
    */
   suspend fun remove(key: K): V?
 
@@ -143,8 +148,9 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /**
    * Evaluates [block] and returns the result.
    * 
-   * Suspends until thread-safe execution is possible, and blocks all other accessor/mutator functions
-   * until [block] completes. Throws [IllegalStateException] if this manager is closed.
+   * Suspends until exclusive access to the underlying resources can be guaranteed, and blocks all
+   * other accessor/mutator functions until [block] completes. Throws [IllegalStateException] if
+   * this manager is closed.
    */
   suspend fun <R> exclusiveAccess(block: (accessor: Accessor<K, V>) -> R): R
 
