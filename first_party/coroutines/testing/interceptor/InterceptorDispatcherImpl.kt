@@ -1,27 +1,39 @@
-class InterceptorDispatcherImpl(delegate: CoroutineDispatcher) : InterceptorDispatcher {
+package com.jackbradshaw.coroutines.testing.interceptor
 
-  private val running = ConcurrentHashSet<Runnable>()
+import kotlinx.coroutines.CoroutineDispatcher
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.coroutines.CoroutineContext
+
+class InterceptorDispatcherImpl(private val delegate: CoroutineDispatcher) : InterceptorDispatcher() {
+
+  private val running = ConcurrentHashMap.newKeySet<Runnable>()
 
   override fun dispatch(context: CoroutineContext, block: Runnable) {
     val wrapper = object : Runnable {
       override fun run() {
         running.add(this)
-        block()
-        running.remove(this)
+        try {
+          block.run()
+        } finally {
+          running.remove(this)
+        }
       }
     }
 
     delegate.dispatch(context, wrapper)
   }
 
-  override fun isDispatchNeeded(context: CoroutineContext) = delegate.isDispatchNeeded
+  override fun isDispatchNeeded(context: CoroutineContext) = delegate.isDispatchNeeded(context)
 
   override fun dispatchYield(context: CoroutineContext, block: Runnable) {
     val wrapper = object : Runnable {
       override fun run() {
         running.add(this)
-        block()
-        running.remove(this)
+        try {
+          block.run()
+        } finally {
+          running.remove(this)
+        }
       }
     }
 

@@ -1,4 +1,8 @@
-interface InterceptorDispatcher : CorotuineDispatcher {
+package com.jackbradshaw.coroutines.testing.interceptor
+
+import kotlinx.coroutines.CoroutineDispatcher
+
+abstract class InterceptorDispatcher : CoroutineDispatcher() {
   /** Whether the dispatcher is presently unoccupied by work. */
-  fun isIdle(): Boolean
+  abstract fun isIdle(): Boolean
 }
