@@ -50,7 +50,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /** 
    * Returns the resource associated with [key], or null if none exsts.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun get(key: K): V?
@@ -59,7 +59,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Registeres [resource] and associates it with [key]. If another resource is already associated
    * with [key], it is deregistered and returned, but not closed.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed. Throws [IllegalStateException] is [resouce] is closed.
    */
   suspend fun put(key: K, resource: V): V?
@@ -68,7 +68,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Returns the resource associated with [key]. If none exists, evaluates [newValueProvider],
    * registers the result, associates it with [key], and returns it.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed. Throws [IllegalStateException] if the resource returned by [newValueProvider] is closed.
    */
   suspend fun getOrPut(key: K, newValueProvider: () -> V): V
@@ -76,7 +76,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /**
    * Deregisters all resources and returns them.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun clear(): List<V>
@@ -84,7 +84,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /**
    * Returns the number of registered resources.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun size(): Int
@@ -92,7 +92,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /**
    * Returns true if no resources are registered.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun isEmpty(): Boolean
@@ -100,7 +100,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /**
    * Returns true if a resource is associated with [key].
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun containsKey(key: K): Boolean
@@ -108,7 +108,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /**
    * Returns true if [resource] is registered.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun containsValue(resource: V): Boolean
@@ -116,7 +116,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /**
    * Deregisters the resource associated with [key] and returns it, or returns null if none exists.
    * 
-   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
+   * Suspends until exclusive execution can be guaranteed. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun remove(key: K): V?
