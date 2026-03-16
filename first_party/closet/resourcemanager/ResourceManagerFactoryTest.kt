@@ -10,7 +10,7 @@ import com.jackbradshaw.closet.observable.ObservableClosable
 abstract class ResourceManagerFactoryTest {
 
   @Test
-  fun createResourceManager_returnsNewInstanceEachTime() {
+  fun createResourceManager_returnsNewInstanceEachTime() = runBlocking {
     val factory = subject()
     
     val managerA = factory.createResourceManager<String, ObservableClosable>()

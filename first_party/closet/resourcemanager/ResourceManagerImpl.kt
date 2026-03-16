@@ -184,7 +184,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
         checkNotClosed()
         val existing = managedResources[key]
         
-        // Guards against race conditions where external closure happens mid-get.
+        // Guards against race conditions where external closure happens after map retrieval
         if (existing != null && existing.hasTerminalState.value) {
           return@withLock null
         }
@@ -213,7 +213,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
         
         var existing = managedResources[key]
 
-        // Guards against race conditions where external closure happens mid-get.
+        // Guards against race conditions where external closure happens after map retrieval.
         if (existing != null && !existing.hasTerminalState.value) {
           return@withLock existing
         }
@@ -305,6 +305,6 @@ class ResourceManagerImpl<K, V : ObservableClosable>(
   class FactoryImpl @Inject internal constructor(
     @Io private val coroutineScope: CoroutineScope
   ) : ResourceManager.Factory {
-    override fun <K, V : ObservableClosable> createResourceManager(): ResourceManager<K, V> = ResourceManagerImpl(coroutineScope)
+    override suspend fun <K, V : ObservableClosable> createResourceManager(): ResourceManager<K, V> = ResourceManagerImpl(coroutineScope)
   }
 }

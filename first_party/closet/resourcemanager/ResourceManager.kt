@@ -307,6 +307,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
 
   /** Creates instances of [ResourceManager]. */
   interface Factory {
-    fun <K, V : ObservableClosable> createResourceManager(): ResourceManager<K, V>
+    /** Creates a new instance of [ResourceManager]. */
+    suspend fun <K, V : ObservableClosable> createResourceManager(): ResourceManager<K, V>
   }
 }

@@ -16,28 +16,29 @@ class ResourceManagerFactoryImplTest : ResourceManagerFactoryTest() {
 
   @Before
   fun setUp() {
-    DaggerResourceManagerFactoryImplTest_TestComponent.builder()
+    DaggerTestComponent.builder()
       .coroutines(coroutinesComponent())
       .build()
       .inject(this)
   }
 
   override fun subject() = factory
-  @Scope
-  annotation class TestScope
+}
 
-  @TestScope
-  @Component(
-    dependencies = [CoroutinesComponent::class],
-    modules = [ResourceManagerImplModule::class]
-  )
-  interface TestComponent {
-    fun inject(target: ResourceManagerFactoryImplTest)
+@Scope
+annotation class TestScope
 
-    @Component.Builder
-    interface Builder {
-      fun coroutines(coroutines: CoroutinesComponent): Builder
-      fun build(): TestComponent
-    }
+@TestScope
+@Component(
+  dependencies = [CoroutinesComponent::class],
+  modules = [ResourceManagerImplModule::class]
+)
+interface TestComponent {
+  fun inject(target: ResourceManagerFactoryImplTest)
+
+  @Component.Builder
+  interface Builder {
+    fun coroutines(coroutines: CoroutinesComponent): Builder
+    fun build(): TestComponent
   }
 }

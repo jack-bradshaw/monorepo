@@ -35,7 +35,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
       .build()
       .inject(this)
 
-    resourceManager = factory.createResourceManager()
+    resourceManager = runBlocking { factory.createResourceManager() }
   }
 
   override fun subject() = resourceManager
