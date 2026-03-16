@@ -163,22 +163,23 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   suspend fun remove(key: K): V?
 
   /** 
-   * Defines non-suspending, synchronous registry modifications.
+   * Provides access/mutation functions for a  without re-acquiring the mutex lock, and allows multiple calls
+   * to occur with a single lock.
    * 
    * WARNING: Do NOT invoke `ResourceManager.get`, `ResourceManager.put`, `ResourceManager.exclusiveAccess`, 
    * or `ResourceManager.close()` from within these methods. The parent [ResourceManager.exclusiveAccess]
    * block already holds the Mutex lock, and attempting to re-enter it will cause a deadlock.
    */
   interface Accessor<K, V> {
-    fun get(key: K): V?
-    fun put(key: K, resource: V): V?
-    fun getOrPut(key: K, newValueProvider: () -> V): V
-    fun remove(key: K): V?
-    fun clear(): List<V>
-    fun size(): Int
-    fun isEmpty(): Boolean
-    fun containsKey(key: K): Boolean
-    fun containsValue(resource: V): Boolean
+    suspend fun get(key: K): V?
+    suspend fun put(key: K, resource: V): V?
+    suspend fun getOrPut(key: K, newValueProvider: () -> V): V
+    suspend fun remove(key: K): V?
+    suspend fun clear(): List<V>
+    suspend fun size(): Int
+    suspend fun isEmpty(): Boolean
+    suspend fun containsKey(key: K): Boolean
+    suspend fun containsValue(resource: V): Boolean
   }
 
   /**
@@ -188,7 +189,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * other accessor/mutator functions until [block] completes. Throws [IllegalStateException] if
    * this manager is closed.
    */
-  suspend fun <R> exclusiveAccess(block: (accessor: Accessor<K, V>) -> R): R
+  suspend fun <R> exclusiveAccess(block: suspend (accessor: Accessor<K, V>) -> R): R
 
   /**
    * Safely closes the resourceManager, marks [hasTerminalState] to true, and cascades the termination signal 
