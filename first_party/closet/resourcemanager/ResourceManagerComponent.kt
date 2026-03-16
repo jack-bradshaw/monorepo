@@ -1,7 +1,7 @@
 package com.jackbradshaw.closet.resourcemanager
 
-/** Provides a [ResourceManagerFactory]. */
+/** Provides a [ResourceManager.Factory]. */
 interface ResourceManagerComponent {
-  /** Provides a [ResourceManagerFactory]. Calls are idempotent and return the same instance. */
-  fun resourceManagerFactory(): ResourceManagerFactory
+  /** Provides a [ResourceManager.Factory]. Calls are idempotent and return the same instance. */
+  fun resourceManagerFactory(): ResourceManager.Factory
 }

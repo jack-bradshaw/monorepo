@@ -304,4 +304,9 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
    * complete.
    */
   fun closeSelfOnly()
+
+  /** Creates instances of [ResourceManager]. */
+  interface Factory {
+    fun <K, V : ObservableClosable> createResourceManager(): ResourceManager<K, V>
+  }
 }

@@ -8,6 +8,7 @@ import org.junit.runners.JUnit4
 import javax.inject.Scope
 import dagger.Component
 import javax.inject.Inject
+import com.jackbradshaw.coroutines.CoroutinesComponent
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +21,7 @@ import org.junit.Test
 @RunWith(JUnit4::class)
 class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplTest.TestResource>() {
 
-  @Inject internal lateinit var factory: ResourceManagerFactory
+  @Inject internal lateinit var factory: ResourceManager.Factory
   private lateinit var resourceManager: ResourceManager<String, TestResource>
   private lateinit var testScope: kotlinx.coroutines.test.TestScope
 
@@ -83,7 +84,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
 
   @TestScope
   @Component(
-    dependencies = [com.jackbradshaw.coroutines.CoroutinesComponent::class],
+    dependencies = [CoroutinesComponent::class],
     modules = [ResourceManagerModule::class]
   )
   interface TestComponent {
@@ -91,7 +92,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
 
     @Component.Builder
     interface Builder {
-      fun coroutines(coroutines: com.jackbradshaw.coroutines.CoroutinesComponent): Builder
+      fun coroutines(coroutines: CoroutinesComponent): Builder
       fun build(): TestComponent
     }
   }

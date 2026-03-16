@@ -6,5 +6,5 @@ import dagger.Module
 @Module
 interface ResourceManagerModule {
   @Binds
-  fun bindResourceManagerFactory(impl: ResourceManagerFactoryImpl): ResourceManagerFactory
+  fun bindResourceManagerFactory(impl: ResourceManagerFactoryImpl): ResourceManager.Factory
 }

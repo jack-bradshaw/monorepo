@@ -7,30 +7,28 @@ import org.junit.runners.JUnit4
 import javax.inject.Scope
 import dagger.Component
 import javax.inject.Inject
+import com.jackbradshaw.coroutines.CoroutinesComponent
 
 @RunWith(JUnit4::class)
 class ResourceManagerFactoryImplTest : ResourceManagerFactoryTest() {
 
-  @Inject internal lateinit var factory: ResourceManagerFactory
+  @Inject internal lateinit var factory: ResourceManager.Factory
 
   @Before
   fun setUp() {
-    val coroutinesComponent = coroutinesComponent()
-    
     DaggerResourceManagerFactoryImplTest_TestComponent.builder()
-      .coroutines(coroutinesComponent)
+      .coroutines(coroutinesComponent())
       .build()
       .inject(this)
   }
 
   override fun subject() = factory
-
   @Scope
   annotation class TestScope
 
   @TestScope
   @Component(
-    dependencies = [com.jackbradshaw.coroutines.CoroutinesComponent::class],
+    dependencies = [CoroutinesComponent::class],
     modules = [ResourceManagerModule::class]
   )
   interface TestComponent {
@@ -38,7 +36,7 @@ class ResourceManagerFactoryImplTest : ResourceManagerFactoryTest() {
 
     @Component.Builder
     interface Builder {
-      fun coroutines(coroutines: com.jackbradshaw.coroutines.CoroutinesComponent): Builder
+      fun coroutines(coroutines: CoroutinesComponent): Builder
       fun build(): TestComponent
     }
   }

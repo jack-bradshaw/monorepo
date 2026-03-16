@@ -6,10 +6,11 @@ import com.google.common.truth.Truth.assertThat
 
 import com.jackbradshaw.closet.observable.ObservableClosable
 
+/** Abstract tests that all [ResourceManager.Factory] instances should pass. */
 abstract class ResourceManagerFactoryTest {
 
   @Test
-  fun createResourceManager_returnsNewInstance() {
+  fun createResourceManager_returnsNewInstanceEachTime() {
     val factory = subject()
     
     val managerA = factory.createResourceManager<String, ObservableClosable>()
@@ -18,5 +19,5 @@ abstract class ResourceManagerFactoryTest {
     assertThat(managerA).isNotSameInstanceAs(managerB)
   }
 
-  abstract fun subject(): ResourceManagerFactory
+  abstract fun subject(): ResourceManager.Factory
 }

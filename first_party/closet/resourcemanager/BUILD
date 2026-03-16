@@ -5,7 +5,6 @@ kt_jvm_library(
     name = "resource_manager",
     srcs = [
       "ResourceManager.kt",
-      "ResourceManagerFactory.kt"
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -40,7 +39,7 @@ kt_jvm_library_with_dagger(
     name = "impl",
     srcs = [
       "ResourceManagerImpl.kt",
-      "ResourceManagerFactoryImpl.kt"
+      "ResourceManagerFactoryImpl.kt",
     ],
     visibility = ["//first_party:__subpackages__"],
     deps = [
