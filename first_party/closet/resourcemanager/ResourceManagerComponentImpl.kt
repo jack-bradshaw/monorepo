@@ -2,10 +2,7 @@ package com.jackbradshaw.closet.resourcemanager
 
 import com.jackbradshaw.coroutines.CoroutinesComponent
 import dagger.Component
-import javax.inject.Scope
-
-@Scope
-annotation class ClosetScope
+import com.jackbradshaw.closet.ClosetScope
 
 @ClosetScope
 @Component(

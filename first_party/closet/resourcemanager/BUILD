@@ -30,6 +30,7 @@ kt_jvm_library_with_dagger(
     deps = [
         ":component",
         ":module",
+        "//first_party/closet:scope",
         "//first_party/coroutines:component",
         "@com_jackbradshaw_maven//:jakarta_inject_jakarta_inject_api",
     ],
