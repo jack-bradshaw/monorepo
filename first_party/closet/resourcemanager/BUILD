@@ -54,7 +54,7 @@ kt_jvm_library_with_dagger(
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = [
-      "ResourceManagerModule.kt",
+      "ResourceManagerImplModule.kt",
     ],
     visibility = ["//visibility:public"],
     deps = [

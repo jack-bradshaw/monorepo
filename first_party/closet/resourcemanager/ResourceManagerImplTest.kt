@@ -85,7 +85,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
   @TestScope
   @Component(
     dependencies = [CoroutinesComponent::class],
-    modules = [ResourceManagerModule::class]
+    modules = [ResourceManagerImplModule::class]
   )
   interface TestComponent {
     fun inject(target: ResourceManagerImplTest)

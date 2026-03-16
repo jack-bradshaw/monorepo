@@ -8,7 +8,7 @@ import com.jackbradshaw.closet.ClosetScope
 @ClosetScope
 @Component(
   dependencies = [CoroutinesComponent::class],
-  modules = [ResourceManagerModule::class]
+  modules = [ResourceManagerImplModule::class]
 )
 interface ResourceManagerComponentImpl : ResourceManagerComponent {
   @Component.Builder

@@ -29,7 +29,7 @@ class ResourceManagerFactoryImplTest : ResourceManagerFactoryTest() {
   @TestScope
   @Component(
     dependencies = [CoroutinesComponent::class],
-    modules = [ResourceManagerModule::class]
+    modules = [ResourceManagerImplModule::class]
   )
   interface TestComponent {
     fun inject(target: ResourceManagerFactoryImplTest)
