@@ -288,8 +288,8 @@ internal class ResourceManagerImpl<K, V : ManagedResource>(
     }
 
     private suspend fun V.removeSelfOnClosure(key: K) {
-      combine (hasTerminalState, hasTerminatedProcesses) {s, p ->
-        s && p // 500
+      combine (hasTerminalState, hasTerminatedProcesses) {stateClosed, processesClosed ->
+        stateClosed && processesClosed
       }.first { it }
 
       lock.withLock {

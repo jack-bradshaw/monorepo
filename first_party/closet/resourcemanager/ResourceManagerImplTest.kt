@@ -48,8 +48,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
   class TestResource(val id: String) : ManagedResource {
     var isClosed = false
     
-    private val _isClosureRequested = MutableStateFlow(false)
-    override val isClosureRequested = _isClosureRequested.asStateFlow()
+
     private val _hasTerminalState = MutableStateFlow(false)
     override val hasTerminalState = _hasTerminalState.asStateFlow()
 
@@ -64,7 +63,6 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
 
     override fun close() { 
       isClosed = true 
-      _isClosureRequested.value = true
       enterTerminalState()
       _hasTerminatedProcesses.value = true
     }

@@ -164,6 +164,9 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
 
   /** 
    * Performs access/mutation operations on a specific [ResourcesManager].
+   * 
+   * Follows the same behaviours and access logic as [ResourceManager] with regard to closure and
+   * concurrent access. 
    */
   interface Accessor<K, V> {
     /** 
@@ -288,15 +291,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   suspend fun <R> exclusiveAccess(block: suspend (accessor: Accessor<K, V>) -> R): R
 
   /**
-   * Safely closes the resourceManager, marks [hasTerminalState] to true, and cascades the termination signal 
-   * to all currently retained managed resources. Subsequent calls to mutating and accessor
-   * functions will fail.
-   */
-  override fun close()
-
-  /**
-   * Safely closes the resourceManager, marks [hasTerminalState] to true, without propagating closure 
-   * to managed resources. Subsequent [exclusiveAccess] and [put] calls will be rejected.
+   * Closes the resource manager without closing managed resources.
    */
   suspend fun closeSelfOnly()
 
@@ -306,11 +301,7 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    */
   interface ManagedResource : ObservableClosable {
 
-    /** 
-     * A flow that emits `true` exactly once when this resource is externally requested 
-     * to shut down (e.g. by a downstream consumer calling its proprietary methods).
-     */
-    val isClosureRequested: StateFlow<Boolean>
+
 
     /**
      * The atomic state-teardown phase. 
