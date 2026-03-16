@@ -50,14 +50,14 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   /** 
    * Returns the resource associated with [key], or null if none exsts.
    * 
-   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * Suspends until thread-safe execution is possible. Throws [IllegalStateException] if this manager
    * is closed.
    */
   suspend fun get(key: K): V?
 
   /** 
    * Registeres [resource] and associates it with [key]. If another resources is already associated
-   * with [key], it is deregistered, but not closed.
+   * with [key], it is deregistered and returned, but not closed.
    * 
    * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
    * is closed. Throws [IllegalStateException] is [resouce] is closed.

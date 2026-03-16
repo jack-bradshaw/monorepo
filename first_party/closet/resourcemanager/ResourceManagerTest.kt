@@ -174,12 +174,14 @@ abstract class ResourceManagerTest<K, V : ResourceManager.ManagedResource> {
     val (key, value1) = createKeyValuePair("test-key-1")
     val (_, value2) = createKeyValuePair("test-key-2")
 
-    resourceManager.put(key, value1)
+    val result1 = resourceManager.put(key, value1)
     awaitTestIdle()
     
-    resourceManager.put(key, value2)
+    val result2 = resourceManager.put(key, value2)
     awaitTestIdle()
 
+    assertThat(result1).isNull()
+    assertThat(result2).isEqualTo(value1)
     assertThat(resourceManager.size()).isEqualTo(1)
     assertThat(resourceManager.get(key)).isEqualTo(value2)
     assertThat(value1.hasTerminatedProcesses.value).isFalse()
@@ -234,12 +236,15 @@ abstract class ResourceManagerTest<K, V : ResourceManager.ManagedResource> {
     val (key, value1) = createKeyValuePair("test-key-1")
     val (_, value2) = createKeyValuePair("test-key-2")
 
-    resourceManager.put(key, value1)
+    val result1 = resourceManager.put(key, value1)
     awaitTestIdle()
     
-    resourceManager.exclusiveAccess { it.put(key, value2) }
+    var result2: V? = null
+    resourceManager.exclusiveAccess { result2 = it.put(key, value2) }
     awaitTestIdle()
 
+    assertThat(result1).isNull()
+    assertThat(result2).isEqualTo(value1)
     assertThat(resourceManager.size()).isEqualTo(1)
     assertThat(resourceManager.get(key)).isEqualTo(value2)
     assertThat(value1.hasTerminatedProcesses.value).isFalse()
