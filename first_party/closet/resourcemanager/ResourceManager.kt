@@ -48,52 +48,76 @@ import com.jackbradshaw.closet.observable.ObservableClosable
 interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableClosable {
 
   /** 
-   * Retrieves the item associated with [key].
+   * Returns the resource associated with [key], or null if none exsts.
    * 
-   * Suspends until  will suspend while other calls to accessors/mutators occur.
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed.
    */
   suspend fun get(key: K): V?
 
   /** 
-   * Directly puts a resource by key, independently of the accessor.
-   * Will throw IllegalStateException if called when `isOpen` is false.
+   * Registeres [resource] and associates it with [key]. If another resources is already associated
+   * with [key], it is deregistered, but not closed.
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed. Throws [IllegalStateException] is [resouce] is closed.
    */
   suspend fun put(key: K, resource: V): V?
 
   /**
-   * Atomically gets the resource if it exists, or evaluates the [newValueProvider],
-   * stores the result, and returns it.
+   * Returns the resource associated with [key]. If none exists, evaluates [newValueProvider],
+   * registers the result, associates it with [key], and returns it.
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed. Throws [IllegalStateException] if the resource returned by [newValueProvider] is closed.
    */
   suspend fun getOrPut(key: K, newValueProvider: () -> V): V
 
   /**
-   * Clears the entire registry, un-tracking and returning all resources concurrently outside the lock.
+   * Deregisters all resources and returns them.
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed.
    */
   suspend fun clear(): List<V>
 
   /**
-   * Returns the current number of resources held in the registry.
+   * Returns the number of registered resources.
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed.
    */
   suspend fun size(): Int
 
   /**
-   * Returns `true` if this resourceManager contains no managed resources.
+   * Returns true if no resources are registered.
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed.
    */
   suspend fun isEmpty(): Boolean
 
   /**
-   * Returns `true` if this resourceManager contains a resource associated with the specified [key].
+   * Returns true if a resource is associated with [key].
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed.
    */
   suspend fun containsKey(key: K): Boolean
 
   /**
-   * Returns `true` if this resourceManager maps one or more keys to the specified [resource].
+   * Returns true if [resource] is registered.
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed.
    */
   suspend fun containsValue(resource: V): Boolean
 
   /**
-   * Removes and returns the resource associated with the given [key], or `null` if the key is not present.
-   * Cancels the underlying observation job tracking its closure.
+   * Deregisters the resource associated with [key] and returns it, or returns null if none exists.
+   * 
+   * Suspends until thread-safe access is possible. Throws [IllegalStateException] if this manager
+   * is closed.
    */
   suspend fun remove(key: K): V?
 
@@ -117,11 +141,10 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   }
 
   /**
-   * Acquires the underlying Mutex lock and executes the provided block synchronously
-   * against the managed resource map. 
+   * Evaluates [block] and returns the result.
    * 
-   * This guarantees atomic read-modify-write cycles across multiple keys.
-   * Throws IllegalStateException if the resourceManager is closed prior to acquiring the lock.
+   * Suspends until thread-safe access is possible, and blocks all other accessor/mutator functions
+   * until [block] completes. Throws [IllegalStateException] if this manager is closed.
    */
   suspend fun <R> exclusiveAccess(block: (accessor: Accessor<K, V>) -> R): R
 
