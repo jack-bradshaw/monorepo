@@ -37,9 +37,10 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * [closeSelfOnly] function is available.
  * 3. Closing a registered resource externally will cause the manager to automatically deregister it; however,
  * external resources closure can be triggered any time by any thread, so there could be a delay between
- * external closure and automatic deregistration. While this does not causes internal issues in the
- * manager, external callers should not rely on retrieval always returning open resources and
- * should check the status directly when a particular status is strictly necessary.
+ * external closure and automatic deregistration; therefore, functions such as [get], [getOrPut],
+ * [remove], and [clear], cannot guarantee the returned value is open, and callers should check the
+ * status directly when a particular status is strictly necessary. Such cases are handled gracefully
+ * by the manager and do not cause failures.
    4. Attempting to register an already closed resource results in an exception.
  * 5. Attempting to call any mutator/accessor function after the manager has been closed results in an exception.
  * 6. All accessor/mutator functions are thread-safe.
@@ -56,6 +57,12 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * 
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
+   * 
+   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * to ensure the resources are open before returning them; however, an unavoidable race condition
+   * exists where a resource is asynchronously closed by an external system after being checked
+   * but before being returned; therefore, callers should verify the status of the returned resource
+   * when a particular state is strictly necessary and not assume it is open.
    */
   suspend fun get(key: K): V?
 
@@ -66,6 +73,12 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if [resource]
    * is closed.
+   * 
+   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * to ensure the resources are open before returning them; however, an unavoidable race condition
+   * exists where a resource is asynchronously closed by an external system after being checked
+   * but before being returned; therefore, callers should verify the status of the returned resource
+   * when a particular state is strictly necessary and not assume it is open.
    */
   suspend fun put(key: K, resource: V): V?
 
@@ -76,6 +89,12 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if the resource
    * returned by [newValueProvider] is closed.
+   * 
+   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * to ensure the resources are open before returning them; however, an unavoidable race condition
+   * exists where a resource is asynchronously closed by an external system after being checked
+   * but before being returned; therefore, callers should verify the status of the returned resource
+   * when a particular state is strictly necessary and not assume it is open.
    */
   suspend fun getOrPut(key: K, newValueProvider: () -> V): V
 
@@ -84,6 +103,12 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * 
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
+   * 
+   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * to ensure the resources are open before returning them; however, an unavoidable race condition
+   * exists where a resource is asynchronously closed by an external system after being checked
+   * but before being returned; therefore, callers should verify the status of the returned resource
+   * when a particular state is strictly necessary and not assume it is open.
    */
   suspend fun clear(): List<V>
 
@@ -124,6 +149,12 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
    * 
    * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
+   * 
+   * Caveat: Resources are automatically deregistered when closed externally, and this function checks
+   * to ensure the resources are open before returning them; however, an unavoidable race condition
+   * exists where a resource is asynchronously closed by an external system after being checked
+   * but before being returned; therefore, callers should verify the status of the returned resource
+   * when a particular state is strictly necessary and not assume it is open.
    */
   suspend fun remove(key: K): V?
 
