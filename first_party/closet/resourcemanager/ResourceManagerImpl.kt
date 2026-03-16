@@ -32,14 +32,14 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
 
   private val observeTerminationJobs = mutableMapOf<K, Job>()
 
-  private val internalAccessor = SessionAccessor()
+  private val internalOperator = OperatorImpl()
 
   override suspend fun get(key: K): V? {
     return lock.withLock {
       check (!hasTerminalState.value) {
         "get() cannot be called while resourceManager is closed."
       }
-      internalAccessor.get(key)
+      internalOperator.get(key)
     }
   }
 
@@ -48,7 +48,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "put() cannot be called while resourceManager is closed."
       }
-      internalAccessor.put(key, resource)
+      internalOperator.put(key, resource)
     }
   }
 
@@ -57,18 +57,18 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "getOrPut() cannot be called while resourceManager is closed."
       }
-      internalAccessor.getOrPut(key, newValueProvider)
+      internalOperator.getOrPut(key, newValueProvider)
     }
   }
 
   override suspend fun <R> exclusiveAccess(
-    block: suspend (accessor: ResourceManager.Accessor<K, V>) -> R
+    block: suspend (operator: ResourceManager.Operator<K, V>) -> R
   ): R {
     return lock.withLock {
       check (!hasTerminalState.value) {
         "exclusiveAccess() cannot be called while resourceManager is closed."
       }
-      val session = SessionAccessor()
+      val session = OperatorImpl()
       try {
         block(session)
       } finally {
@@ -82,7 +82,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "clear() cannot be called while resourceManager is closed."
       }
-      internalAccessor.clear()
+      internalOperator.clear()
     }
   }
 
@@ -91,7 +91,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "size() cannot be called while resourceManager is closed."
       }
-      internalAccessor.size()
+      internalOperator.size()
     }
   }
 
@@ -100,7 +100,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "isEmpty() cannot be called while resourceManager is closed."
       }
-      internalAccessor.isEmpty()
+      internalOperator.isEmpty()
     }
   }
 
@@ -109,7 +109,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "containsKey() cannot be called while resourceManager is closed."
       }
-      internalAccessor.containsKey(key)
+      internalOperator.containsKey(key)
     }
   }
 
@@ -118,7 +118,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "containsValue() cannot be called while resourceManager is closed."
       }
-      internalAccessor.containsValue(resource)
+      internalOperator.containsValue(resource)
     }
   }
 
@@ -127,7 +127,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
       check (!hasTerminalState.value) {
         "remove() cannot be called while resourceManager is closed."
       }
-      internalAccessor.remove(key)
+      internalOperator.remove(key)
     }
   }
 
@@ -165,7 +165,7 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
     _hasTerminatedProcesses.value = true
   }
 
-  private inner class SessionAccessor : ResourceManager.Accessor<K, V>, AutoCloseable {
+  private inner class OperatorImpl : ResourceManager.Operator<K, V>, AutoCloseable {
 
     private val lock = Mutex()
     
@@ -283,8 +283,8 @@ internal class ResourceManagerImpl<K, V : ObservableClosable>(
 
     private fun checkNotClosed() {
       check(!isClosed) {
-        "This accessor has expired. Each accessor should only be used in the exclusiveAccess " +
-        "callback that supplied it, and accessors should not be retained after the callback " +
+        "This operator has expired. Each operator should only be used in the exclusiveAccess " +
+        "callback that supplied it, and operators should not be retained after the callback " +
         "exits."
       }
     }

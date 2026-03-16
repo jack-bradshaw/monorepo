@@ -164,7 +164,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
    * Follows the same behaviours and access logic as [ResourceManager] with regard to closure and
    * concurrent access. 
    */
-  interface Accessor<K, V> {
+  interface Operator<K, V> {
     /** 
      * Returns the registered resource associated with [key], or null if none exsts.
      * 
@@ -280,26 +280,28 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
   /**
    * Waits for exclusive access to the manager then evaluates [block]. 
    * 
-   * The accessor provided to [block] has exclusive access to the manager during
+   * The operator provided to [block] has exclusive access to the manager during
    * function execution but must be discarded after the function returns, as usage outside the
    * function call results in an error. Furthermore, [block] must not call any of the
    * accessor/mutator functions on [ResourceManager] as they will suspend until [block] returnes,
    * thus creating a deadlock. 
    * 
-   * WARNING: The accessor has exclusive access to the manager but not concurrent access, meaning
-   * concurrent calls to exclusive access functions while the lock is held will deadlock. This ensures
-   * exclusive access cannot break the internal state of the resource manager. Do not attempt to use
-   * exclusive access functions concurrently.
+   * WARNING: The operator has exclusive access to the manager but not concurrent access, meaning
+   * concurrent calls to exclusive access functions while the lock is held will be executed
+   * sequentially. This ensures exclusive access cannot break the internal state of the resource
+   * manager.
    * 
    * Suspends until exclusive access to the manager can be guaranteed, and blocks all
    * other accessor/mutator functions until [block] completes. Throws [IllegalStateException] if
    * this manager is closed.
    * 
    */
-  suspend fun <R> exclusiveAccess(block: suspend (accessor: Accessor<K, V>) -> R): R
+  suspend fun <R> exclusiveAccess(block: suspend (operator: Operator<K, V>) -> R): R
 
   /**
-   * Closes this manager without closing managed resources.
+   * Closes this manager without closing managed resources, but otherwise follows the behaviour of
+   * [close] exactly with regard to state/process flag updates, and blocks until closure is
+   * complete.
    */
   fun closeSelfOnly()
 }

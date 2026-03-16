@@ -804,17 +804,17 @@ abstract class ResourceManagerTest<K, V : ObservableClosable> {
   }
 
   @Test
-  fun atomicity_leakedAccessorUsage_throwsIllegalStateException() = runBlocking {
+  fun atomicity_leakedOperatorUsage_throwsIllegalStateException() = runBlocking {
     val resourceManager = subject()
     val (key, value) = createKeyValuePair("test-key")
     
-    var leakedAccessor: ResourceManager.Accessor<K, V>? = null
-    resourceManager.exclusiveAccess { leakedAccessor = it }
+    var leakedOperator: ResourceManager.Operator<K, V>? = null
+    resourceManager.exclusiveAccess { leakedOperator = it }
     
     val e = assertFailsWith<IllegalStateException> {
-      leakedAccessor!!.put(key, value)
+      leakedOperator!!.put(key, value)
     }
-    assertThat(e).hasMessageThat().isEqualTo("This accessor has expired. Each accessor should only be used in the exclusiveAccess callback that supplied it, and accessors should not be retained after the callback exits.")
+    assertThat(e).hasMessageThat().isEqualTo("This operator has expired. Each operator should only be used in the exclusiveAccess callback that supplied it, and operators should not be retained after the callback exits.")
   }
 
 
