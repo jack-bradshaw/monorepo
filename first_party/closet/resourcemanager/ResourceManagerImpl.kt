@@ -182,6 +182,8 @@ internal class ResourceManagerImpl<K, V : ManagedResource>(
         lock.withLock {
           checkNotClosed()
           val existing = managedResources[key]
+          
+          // Guards against race conditions where external closure happens mid-get.
           if (existing != null && existing.hasTerminalState.value) {
             return@withLock null
           }
@@ -213,10 +215,10 @@ internal class ResourceManagerImpl<K, V : ManagedResource>(
           checkNotClosed()
           
           var existing = managedResources[key]
-          if (existing != null) {
-            if (!existing.hasTerminalState.value) {
-              return@withLock existing
-            }
+
+          // Guards against race conditions where external closure happens mid-get.
+          if (existing != null && !existing.hasTerminalState.value) {
+            return@withLock existing
           }
 
           val newResource = newValueProvider()
