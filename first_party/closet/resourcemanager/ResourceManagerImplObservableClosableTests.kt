@@ -9,17 +9,15 @@ import javax.inject.Scope
 import dagger.Component
 import javax.inject.Inject
 import com.jackbradshaw.coroutines.CoroutinesComponent
-
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.CompletableDeferred
 import com.jackbradshaw.closet.observable.ObservableClosable
 import com.jackbradshaw.closet.observable.ObservableClosableTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 @RunWith(JUnit4::class)
-class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplTest.TestResource>() {
+class ResourceManagerImplObservableClosableTests {
 
   @Inject internal lateinit var factory: ResourceManager.Factory
   private lateinit var resourceManager: ResourceManager<String, TestResource>
@@ -30,7 +28,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
     val coroutinesComponent = testCoroutinesComponent()
     testScope = coroutinesComponent.testScope()
     
-    DaggerResourceManagerImplTest_TestComponent.builder()
+    DaggerObservableTestsComponent.builder()
       .coroutines(coroutinesComponent)
       .build()
       .inject(this)
@@ -38,17 +36,8 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
     resourceManager = runBlocking { factory.createResourceManager() }
   }
 
-  override fun subject() = resourceManager
-  
-  override fun createKeyValuePair(id: String) = Pair(id, TestResource(id))
-  
-  override suspend fun awaitTestIdle() {
-    testScope.testScheduler.advanceUntilIdle()
-  }
-
   class TestResource(val id: String) : ObservableClosable {
     var isClosed = false
-    
 
     private val _hasTerminalState = MutableStateFlow(false)
     override val hasTerminalState = _hasTerminalState.asStateFlow()
@@ -63,21 +52,35 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
     }
   }
 
-  @Scope
-  annotation class TestScope
+  private val observableManagerTests = object : ObservableClosableTest<ResourceManager<String, TestResource>>() {
+    override fun subject() = resourceManager
+  }
 
-  @TestScope
-  @Component(
-    dependencies = [CoroutinesComponent::class],
-    modules = [ResourceManagerImplModule::class]
-  )
-  interface TestComponent {
-    fun inject(target: ResourceManagerImplTest)
+  @Test fun manager_afterClose_hasTerminalState() = observableManagerTests.afterClose_hasTerminalState()
+  @Test fun manager_afterClose_hasTerminatedProcesses() = observableManagerTests.afterClose_hasTerminatedProcesses()
 
-    @Component.Builder
-    interface Builder {
-      fun coroutines(coroutines: CoroutinesComponent): Builder
-      fun build(): TestComponent
-    }
+  private val observableResourceTests = object : ObservableClosableTest<TestResource>() {
+    override fun subject() = TestResource("managed-resource")
+  }
+  
+  @Test fun resource_afterClose_hasTerminalState() = observableResourceTests.afterClose_hasTerminalState()
+  @Test fun resource_afterClose_hasTerminatedProcesses() = observableResourceTests.afterClose_hasTerminatedProcesses()
+}
+
+@Scope
+annotation class ObservableTestsScope
+
+@ObservableTestsScope
+@Component(
+  dependencies = [CoroutinesComponent::class],
+  modules = [ResourceManagerImplModule::class]
+)
+interface ObservableTestsComponent {
+  fun inject(target: ResourceManagerImplObservableClosableTests)
+
+  @Component.Builder
+  interface Builder {
+    fun coroutines(coroutines: CoroutinesComponent): Builder
+    fun build(): ObservableTestsComponent
   }
 }

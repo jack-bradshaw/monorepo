@@ -86,7 +86,8 @@ kt_jvm_test_with_dagger(
     size = "small",
     srcs = [
       "ResourceManagerImplTest.kt",
-      "ResourceManagerFactoryImplTest.kt"
+      "ResourceManagerFactoryImplTest.kt",
+      "ResourceManagerImplObservableClosableTests.kt"
     ],
     test_class = "com.jackbradshaw.closet.resourcemanager.ResourceManagerImplTest",
     deps = [
