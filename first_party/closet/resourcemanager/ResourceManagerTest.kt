@@ -8,6 +8,8 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlin.test.assertFailsWith
 
+import com.jackbradshaw.closet.observable.ObservableClosable
+
 /** 
  * Abstract tests that all [ResourceManager]s should pass.
  *
@@ -18,7 +20,7 @@ import kotlin.test.assertFailsWith
  * experimentation during initial development, migrating ot behaviour-driven tsting reduced overall
  * class length by an order of magnitude.
  */
-abstract class ResourceManagerTest<K, V : ResourceManager.ManagedResource> {
+abstract class ResourceManagerTest<K, V : ObservableClosable> {
 
   @Test
   fun insertion_directOperation_put_isStoredAndRetrievable() = runBlocking {

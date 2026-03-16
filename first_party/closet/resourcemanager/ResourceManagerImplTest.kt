@@ -12,7 +12,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.CompletableDeferred
-import com.jackbradshaw.closet.resourcemanager.ResourceManager.ManagedResource
+import com.jackbradshaw.closet.observable.ObservableClosable
 import com.jackbradshaw.closet.observable.ObservableClosableTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -45,7 +45,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
     testScope.testScheduler.advanceUntilIdle()
   }
 
-  class TestResource(val id: String) : ManagedResource {
+  class TestResource(val id: String) : ObservableClosable {
     var isClosed = false
     
 
@@ -55,15 +55,9 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
     private val _hasTerminatedProcesses = MutableStateFlow(false)
     override val hasTerminatedProcesses = _hasTerminatedProcesses.asStateFlow()
 
-    override fun enterTerminalState() {
-      _hasTerminalState.value = true
-    }
-
-    override suspend fun awaitProcessTermination() {}
-
     override fun close() { 
       isClosed = true 
-      enterTerminalState()
+      _hasTerminalState.value = true
       _hasTerminatedProcesses.value = true
     }
   }
@@ -75,13 +69,7 @@ class ResourceManagerImplTest : ResourceManagerTest<String, ResourceManagerImplT
   @Test fun manager_afterClose_hasTerminalState() = observableManagerTests.afterClose_hasTerminalState()
   @Test fun manager_afterClose_hasTerminatedProcesses() = observableManagerTests.afterClose_hasTerminatedProcesses()
 
-  private val managedResourceTests = object : ManagedResourceTest<TestResource>() {
-    override fun subject() = TestResource("managed-resource")
-  }
 
-  @Test fun resource_close_isIdempotent() = managedResourceTests.close_isIdempotent()
-  @Test fun resource_enterTerminalState_isIdempotent() = managedResourceTests.enterTerminalState_isIdempotent()
-  @Test fun resource_awaitProcessTermination_isIdempotent() = managedResourceTests.awaitProcessTermination_isIdempotent()
 
   private val observableResourceTests = object : ObservableClosableTest<TestResource>() {
     override fun subject() = TestResource("managed-resource")

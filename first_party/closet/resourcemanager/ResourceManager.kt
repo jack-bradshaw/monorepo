@@ -49,7 +49,7 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * exclusive access cannot break the internal state of the resource manager. Do not attempt to use
  * exclusive access functions concurrently.
  */
-interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableClosable {
+interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
 
   /** 
    * Returns the registered resource associated with [key], or null if none exsts.
@@ -291,32 +291,9 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   suspend fun <R> exclusiveAccess(block: suspend (accessor: Accessor<K, V>) -> R): R
 
   /**
-   * Closes the resource manager without closing managed resources.
+   * Safely closes the resourceManager, marks [hasTerminalState] to true, without propagating closure 
+   * to managed resources. Subsequent [exclusiveAccess] and [put] calls will be rejected.
    */
   suspend fun closeSelfOnly()
-
-    /**
-   * A resource managed by a [ResourceManager] registry that can decouple its internal closure
-   * state from the parent's generic collection.
-   */
-  interface ManagedResource : ObservableClosable {
-
-
-
-    /**
-     * The atomic state-teardown phase. 
-     * ResourceManager will call this inside the Mutex lock. 
-     * Implementations MUST NOT suspend or perform I/O here.
-     */
-    fun enterTerminalState()
-
-    /**
-     * The blocking process-teardown phase.
-     * ResourceManager will call this OUTSIDE the Mutex lock.
-     * Implementations SHOULD suspend here (e.g. `job.join()`) to wait for 
-     * internal processes to finish.
-     */
-    suspend fun awaitProcessTermination()
-  }
 
 }

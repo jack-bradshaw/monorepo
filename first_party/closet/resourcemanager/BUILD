@@ -68,8 +68,7 @@ kt_jvm_library(
     name = "test_abstract_resource_manager",
     srcs = [
       "ResourceManagerTest.kt",
-      "ResourceManagerFactoryTest.kt",
-      "ManagedResourceTest.kt"
+      "ResourceManagerFactoryTest.kt"
     ],
     visibility = ["//first_party:__subpackages__"],
     deps = [

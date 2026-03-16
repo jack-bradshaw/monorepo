@@ -12,9 +12,9 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 import com.jackbradshaw.coroutines.io.Io
-import com.jackbradshaw.closet.resourcemanager.ResourceManager.ManagedResource
+import com.jackbradshaw.closet.observable.ObservableClosable
 
-internal class ResourceManagerImpl<K, V : ManagedResource>(
+internal class ResourceManagerImpl<K, V : ObservableClosable>(
   private val coroutineScope: CoroutineScope
 ) : ResourceManager<K, V> {
   
