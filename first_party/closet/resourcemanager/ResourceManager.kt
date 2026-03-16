@@ -35,7 +35,11 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * [close] function will block until every managed resource has reached a terminal state and has
  * terminated its processes. To close the manager without affecting managed resource, the 
  * [closeSelfOnly] function is available.
- * 3. Closing a registered resource externally will cause the manager to automatically deregister it.
+ * 3. Closing a registered resource externally will cause the manager to automatically deregister it; however,
+ * external resources closure can be triggered any time by any thread, so there could be a delay between
+ * external closure and automatic deregistration. While this does not causes internal issues in the
+ * manager, external callers should not rely on retrieval always returning open resources and
+ * should check the status directly when a particular status is strictly necessary.
    4. Attempting to register an already closed resource results in an exception.
  * 5. Attempting to call any mutator/accessor function after the manager has been closed results in an exception.
  * 6. All accessor/mutator functions are thread-safe.
@@ -44,9 +48,6 @@ import com.jackbradshaw.closet.observable.ObservableClosable
  * concurrent calls to exclusive access functions while the lock is held will deadlock. This ensures
  * exclusive access cannot break the internal state of the resource manager. Do not attempt to use
  * exclusive access functions concurrently.
- * 
- * Potential race conditions: The manager monitors the closed state of resources to automatically
- * register/deregister them, and calls to the various accessor/mutator 
  */
 interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableClosable {
 

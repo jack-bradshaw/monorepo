@@ -183,7 +183,6 @@ internal class ResourceManagerImpl<K, V : ManagedResource>(
           checkNotClosed()
           val existing = managedResources[key]
           if (existing != null && existing.hasTerminalState.value) {
-            remove(key)
             return@withLock null
           }
           return@withLock existing
@@ -217,8 +216,6 @@ internal class ResourceManagerImpl<K, V : ManagedResource>(
           if (existing != null) {
             if (!existing.hasTerminalState.value) {
               return@withLock existing
-            } else {
-              remove(key)
             }
           }
 
