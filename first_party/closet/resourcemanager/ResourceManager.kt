@@ -163,22 +163,118 @@ interface ResourceManager<K, V : ResourceManager.ManagedResource> : ObservableCl
   suspend fun remove(key: K): V?
 
   /** 
-   * Provides access/mutation functions for a  without re-acquiring the mutex lock, and allows multiple calls
-   * to occur with a single lock.
-   * 
-   * WARNING: Do NOT invoke `ResourceManager.get`, `ResourceManager.put`, `ResourceManager.exclusiveAccess`, 
-   * or `ResourceManager.close()` from within these methods. The parent [ResourceManager.exclusiveAccess]
-   * block already holds the Mutex lock, and attempting to re-enter it will cause a deadlock.
+   * Performs access/mutation operations on a specific [ResourcesManager].
    */
   interface Accessor<K, V> {
+    /** 
+     * Returns the registered resource associated with [key], or null if none exsts.
+     * 
+     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     * 
+     * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+     * unrelated to the manager), and this function checks
+     * to ensure the resources are open before returning them; however, an unavoidable race condition
+     * exists: A resource could be externally closed after being checked
+     * but before being returned; therefore, callers should verify the status of the returned resource
+     * when a particular state is strictly necessary, and not assume the returned resource is open.
+     */
     suspend fun get(key: K): V?
+
+    /** 
+     * Registeres [resource] and associates it with [key]. If another resource is already associated
+     * with [key], it is deregistered and returned, but not closed.
+     * 
+     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if [resource]
+     * is closed.
+     * 
+     * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+     * unrelated to the manager), and this function checks
+     * to ensure the resources are open before returning them; however, an unavoidable race condition
+     * exists: A resource could be externally closed after being checked
+     * but before being returned; therefore, callers should verify the status of the returned resource
+     * when a particular state is strictly necessary, and not assume the returned resource is open.
+     */
     suspend fun put(key: K, resource: V): V?
+
+    /**
+     * Returns the registered resource associated with [key]. If none exists, evaluates [newValueProvider],
+     * registers the result, associates it with [key], and returns it.
+     * 
+     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed. Throws [IllegalStateException] if the resource
+     * returned by [newValueProvider] is closed.
+     * 
+     * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+     * unrelated to the manager), and this function checks
+     * to ensure the resources are open before returning them; however, an unavoidable race condition
+     * exists: A resource could be externally closed after being checked
+     * but before being returned; therefore, callers should verify the status of the returned resource
+     * when a particular state is strictly necessary, and not assume the returned resource is open.
+     */
     suspend fun getOrPut(key: K, newValueProvider: () -> V): V
+
+    /**
+     * Deregisters the resource associated with [key] and returns it, or returns null if none exists.
+     * 
+     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     * 
+     * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+     * unrelated to the manager), and this function checks
+     * to ensure the resources are open before returning them; however, an unavoidable race condition
+     * exists: A resource could be externally closed after being checked
+     * but before being returned; therefore, callers should verify the status of the returned resource
+     * when a particular state is strictly necessary, and not assume the returned resource is open.
+     */
     suspend fun remove(key: K): V?
+
+    /**
+     * Deregisters all resources and returns them.
+     * 
+     * Suspends until exclusive access to the underlying resources can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     * 
+     * Caveat: Resources are automatically deregistered when closed externally (i.e. closed by means
+     * unrelated to the manager), and this function checks
+     * to ensure the resources are open before returning them; however, an unavoidable race condition
+     * exists: A resource could be externally closed after being checked
+     * but before being returned; therefore, callers should verify the status of the returned resources
+     * when a particular state is strictly necessary, and not assume the returned resources are open.
+     */
     suspend fun clear(): List<V>
+
+    /**
+     * Returns the number of registered resources.
+     * 
+     * Suspends until exclusive access to the underlying state can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     */
     suspend fun size(): Int
+
+    /**
+     * Returns true if no resources are registered.
+     * 
+     * Suspends until exclusive access to the underlying state can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     */
     suspend fun isEmpty(): Boolean
+
+    /**
+     * Returns true if a resource is associated with [key].
+     * 
+     * Suspends until exclusive access to the underlying state can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     */
     suspend fun containsKey(key: K): Boolean
+
+    /**
+     * Returns true if [resource] is registered.
+     * 
+     * Suspends until exclusive access to the underlying state can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     */
     suspend fun containsValue(resource: V): Boolean
   }
 
