@@ -1,9 +1,25 @@
 The flow of writing is the greatest joy.
 
-It brings a serenity and focus not found anywhere else.
+Offering serenity to all who find it.
 
-Word by word, stroke by stroke, letter by letter:
+Each word by word, each stroke by stroke:
 
-Mind and ink become one.
+Mind becomes one with ink.
 
-One single flow.
+One single flow, of dreams and joy.
+
+An endless stream united.
+
+With limitless prose and effortless voice:
+
+Ink and soul become whole.
+
+Entwined with love, with pain, like blood.
+
+A heartbeat shared beyond us.
+
+Now let all out, put pen to page.
+
+Put self to rest, let voices weave.
+
+And find the page becomes you.
