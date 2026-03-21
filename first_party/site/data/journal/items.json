@@ -1,16 +1,5 @@
 [
   {
-    "key": "timeless-engineering",
-    "title": "Timeless Engineering",
-    "description": "An essay on the virtues of sustainable design, the permanence of human nature, and the dangers of manufactured urgency and \"wartime\" rhetoric in the software industry.",
-    "date": {
-      "year": 2026,
-      "month": 2,
-      "day": 11
-    },
-    "file": "/static/content/journal/timeless_engineering.md"
-  },
-  {
     "key": "logs",
     "title": "Temporal Logs",
     "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
@@ -48,17 +37,6 @@
     "title": "Open Source Writing",
     "description": "Discusses the philosophy of treating writing as open source code, versioned and transparent, even when it reveals the darker parts of the soul.",
     "file": "/static/content/journal/open_source_writing.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 22
-    }
-  },
-  {
-    "key": "place-of-writing",
-    "title": "Writing in an AI World",
-    "description": "A meta-commentary on the relevance of human essays in the age of LLMs, arguing for writing as a tool for soul-making rather than just content generation.",
-    "file": "/static/content/journal/the_place_of_writing_in_an_ai_world.md",
     "date": {
       "year": 2026,
       "month": 1,
@@ -230,36 +208,6 @@
     }
   },
   {
-    "key": "sports-bar",
-    "title": "Sports Bar",
-    "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms. Illustrates the often uncomfortable compromise required to maintain relationships across ideological divides.",
-    "file": "/static/content/journal/sports_bar.md",
-    "original_publication": {
-      "publisher": "LitVegan",
-      "date": {
-        "year": 2025,
-        "month": 7,
-        "day": 5
-      },
-      "link": "https://www.litvegan.net/2025/07/poetry-by-jack-bradshaw.html"
-    },
-    "alternative_publications": [
-      {
-        "publisher": "Medium",
-        "link": "https://medium.com/@jackjbradshaw/sports-bar-238c1cfe5e35"
-      },
-      {
-        "publisher": "Patreon",
-        "link": "https://www.patreon.com/posts/sports-bar-133537844"
-      }
-    ],
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 11
-    }
-  },
-  {
     "key": "challenge-of-monologue",
     "title": "The Challenge of Monologue",
     "description": "Investigates the inherent limitations of written monologue compared to the dynamic nature of interpersonal dialogue. Discusses the ethical risks of static publication, including potential misinterpretation and the inability to adapt to shifting cultural contexts. Frames the act of writing as a necessary leap of faith to foster connection across time and space.",
@@ -292,17 +240,6 @@
     }
   },
   {
-    "key": "one-or-many",
-    "title": "One or Many",
-    "description": "Reflects on the decision to maintain a single, unified identity despite the pressure to mask. Exploring the intersection of sexuality, neurodivergence, and professional expectations, it argues that integrating these internal voices is not just a creative choice, but a necessity for survival and authenticity.",
-    "file": "/static/content/journal/one_or_many.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 11
-    }
-  },
-  {
     "key": "into-the-subverse",
     "title": "Into the Subverse",
     "description": "Explores the fundamental nature of causality, structure, and the concept of 'nothingness'. Questions why the universe follows laws and investigates the paradoxical relationship between order and chaos, suggesting that true understanding requires letting go of the need for structure.",
@@ -325,10 +262,150 @@
     }
   },
   {
-    "key": "meat-because-we-want-to",
-    "title": "Meat, Because We Want To",
-    "description": "Questions the underlying motivations for meat consumption, proposing that beyond cognitive dissonance and ideology, there may be a darker impulse to inflict suffering. Suggests that animals serve as convenient targets for human cruelty and that understanding this drive is key to preventing further abuse.",
-    "file": "/static/content/journal/meat_because_we_want_to.md",
+    "key": "am-i-a-character",
+    "title": "Am I a Character?",
+    "description": "Explores the metaphysical possibility of being a character in a novel and the liberating choice to become one's own writer.",
+    "file": "/static/content/journal/am_i_a_character.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "radix-pragmatismi",
+    "title": "Radix Pragmatismi Est Taedium Ideologiae Inflexibilis Et Dogmatis Rigidi",
+    "description": "Discusses the balance between the strict ideological separation of setup/act/assert blocks in testing and the pragmatic need for readability.",
+    "file": "/static/content/journal/radix_pragmatismi_est_taedium_ideologiae_inflexibilis_et_dogmatis_rigidi.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "three-strange-curiosities",
+    "title": "Three Strange Curiosities",
+    "description": "Three bizarre and unexplainable interactions with strangers in the San Francisco Bay Area.",
+    "file": "/static/content/journal/excuse_me_are_you_harassing_me.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "flaws",
+    "title": "The Best Part of People are their Flaws",
+    "description": "Reframes outrage culture by celebrating the evolved, deeply ingrained imperfections of humanity.",
+    "file": "/static/content/journal/flaws.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "rising-above-the-noise",
+    "title": "Rising Above the Noise",
+    "description": "A brief philosophy on ignoring the pervasive distraction of the internet age to focus on delivering true sustenance to a starving culture.",
+    "file": "/static/content/journal/rising_above_the_noise.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "for-the-love-of-subjectivity",
+    "title": "For the Love of Subjectivity",
+    "description": "A radical shift in perspective, moving away from strict objectivity to make peace with the deeply flawed, irrational, and subjective nature of humanity.",
+    "file": "/static/content/journal/for_the_love_of_subjectivity.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "death",
+    "title": "Death",
+    "description": "An existential meditation on the relentless approach of mortality and the pressure it puts on the living to create something 'worth looking back at.'",
+    "file": "/static/content/journal/death.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 24
+    }
+  },
+  {
+    "key": "no_adults_allowed",
+    "title": "No Adults Allowed",
+    "description": "The realization that authority figures are just as flawed and uncertain as everyone else.",
+    "file": "/static/content/journal/no_adults_allowed.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "borderline",
+    "title": "Borderline",
+    "description": "An exploration of generational pain and the lack of boundaries between self and origin.",
+    "file": "/static/content/journal/borderline.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "escape",
+    "title": "Escape",
+    "description": "A visceral rejection of a toxic environment and the iron will to rebuild the soul.",
+    "file": "/static/content/journal/escape.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "disapproval",
+    "title": "Disapproval",
+    "description": "A visceral depiction of internalized judgment and the paralyzing trap of an inherited psychological prison.",
+    "file": "/static/content/journal/disapproval.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 25
+    }
+  },
+  {
+    "key": "sports-bar",
+    "title": "Sports Bar",
+    "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms. Illustrates the often uncomfortable compromise required to maintain relationships across ideological divides.",
+    "file": "/static/content/journal/sports_bar.md",
+    "original_publication": {
+      "publisher": "LitVegan",
+      "date": {
+        "year": 2025,
+        "month": 7,
+        "day": 5
+      },
+      "link": "https://www.litvegan.net/2025/07/poetry-by-jack-bradshaw.html"
+    },
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/sports-bar-238c1cfe5e35"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/sports-bar-133537844"
+      }
+    ],
     "date": {
       "year": 2026,
       "month": 1,
@@ -336,47 +413,124 @@
     }
   },
   {
-    "key": "stars",
-    "title": "Stars",
-    "description": "A reflection on the innate human curiosity that drives us to look at the night sky and seek answers, reminding us that we will always have more questions to ask.",
-    "file": "/static/content/journal/stars.md",
+    "key": "one-or-many",
+    "title": "One or Many",
+    "description": "Reflects on the decision to maintain a single, unified identity despite the pressure to mask. Exploring the intersection of sexuality, neurodivergence, and professional expectations, it argues that integrating these internal voices is not just a creative choice, but a necessity for survival and authenticity.",
+    "file": "/static/content/journal/one_or_many.md",
     "date": {
       "year": 2026,
-      "month": 2,
-      "day": 27
+      "month": 1,
+      "day": 11
     }
   },
   {
-    "key": "countertransference",
-    "title": "Countertransference",
-    "description": "A short, philosophical joke about a Christian, a Taoist, a Buddhist, and a Therapist walking into a bar, exploring how different worldviews approach a simple drink.",
-    "file": "/static/content/journal/countertransference.md",
+    "key": "first-poem",
+    "title": "First Poem",
+    "description": "A meditative reflection on the illusion of structure, exploring the paradox that true understanding and order emerge only when the mind ceases its grasping.",
+    "file": "/static/content/journal/first_poem.md",
     "date": {
       "year": 2026,
-      "month": 2,
-      "day": 27
+      "month": 3,
+      "day": 6
+    }
+  },
+  {
+    "key": "10-words",
+    "title": "10 Words",
+    "description": "A micro-fiction piece exploring the bleak, efficient degradation of human communication and intimacy in a highly accelerated future.",
+    "file": "/static/content/journal/10_words.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 6
+    }
+  },
+  {
+    "key": "the-island-of-the-soul",
+    "title": "The Island of the Soul",
+    "description": "A tripartite allegory exploring the Three Deaths of human existence\u2014leaving childhood, leaving adulthood, and leaving life itself\u2014as the soul surrenders to the cosmic abyss.",
+    "file": "/static/content/journal/the_island_of_the_soul.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 6
+    }
+  },
+  {
+    "key": "timeless-engineering",
+    "title": "Timeless Engineering",
+    "description": "An essay arguing for sustainable, careful software engineering over artificial urgency and the rhetoric of 'wartime' business.",
+    "file": "/static/content/journal/timeless_engineering.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 21
+    }
+  },
+  {
+    "key": "meat-because-we-want-to",
+    "title": "Meat Because We Want To",
+    "description": "Placeholder description for Meat Because We Want To",
+    "file": "/static/content/journal/meat_because_we_want_to.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 21
     }
   },
   {
     "key": "on-imperfection",
     "title": "On Imperfection",
-    "description": "An essay exploring the destructive nature of the inner critic, the impossible demands of perfection, and the beauty found in accepting the flawed, evolutionary reality of life.",
+    "description": "Placeholder description for On Imperfection",
     "file": "/static/content/journal/on_imperfection.md",
     "date": {
       "year": 2026,
-      "month": 2,
-      "day": 27
+      "month": 3,
+      "day": 21
+    }
+  },
+  {
+    "key": "stars",
+    "title": "Stars",
+    "description": "Placeholder description for Stars",
+    "file": "/static/content/journal/stars.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 21
     }
   },
   {
     "key": "self-aware-antagonist",
-    "title": "The Self-Aware Antagonist",
-    "description": "A meta-fictional dialogue between a protagonist fighting for the lives of innocents and an antagonist who realizes they are both just characters on a page.",
+    "title": "Self Aware Antagonist",
+    "description": "Placeholder description for Self Aware Antagonist",
     "file": "/static/content/journal/self_aware_antagonist.md",
     "date": {
       "year": 2026,
-      "month": 2,
-      "day": 27
+      "month": 3,
+      "day": 21
+    }
+  },
+  {
+    "key": "countertransference",
+    "title": "Countertransference",
+    "description": "Placeholder description for Countertransference",
+    "file": "/static/content/journal/countertransference.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 21
+    }
+  },
+  {
+    "key": "place-of-writing",
+    "title": "Place Of Writing",
+    "description": "Placeholder description for Place Of Writing",
+    "file": "/static/content/journal/place_of_writing.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 21
     }
   }
 ]

@@ -50,7 +50,7 @@
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
     "items": [
-      "the-cursed-cursor",
+      "cursed-cursor",
       "pragmatic-altruism",
       "the-wolves-are-all-gone",
       "logs",
@@ -61,19 +61,30 @@
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "humanity-loop", "stars", "on-imperfection"]
+    "items": [
+      "death-of-a-critic",
+      "one-or-many",
+      "humanity-loop",
+      "stars",
+      "on-imperfection"
+    ]
   },
   {
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
-    "items": ["meat-because-we-want-to", "sports-bar"]
+    "items": [
+      "meat-because-we-want-to",
+      "sports-bar"
+    ]
   },
   {
     "key": "meta-fiction",
     "title": "Meta-Fiction",
     "description": "Self-referential stories analyzing the nature of fiction",
-    "items": ["self-aware-antagonist"]
+    "items": [
+      "self-aware-antagonist"
+    ]
   },
   {
     "key": "sci-fi",

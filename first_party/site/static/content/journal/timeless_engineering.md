@@ -10,7 +10,7 @@ worth pursuing stand the test of time because they address deeply human needs wi
 sensible designs. Meaningful pursuits do not decay, for they are based on a simple truth: We are
 fundamentally the same people we have been since the dawn of the Neolithic era, and the day we
 traded spears for gardens was the day we stepped out of the rat race. We earned the right to
-deliberate and consider when we stopped chasing game and started building civilization.
+deliberate and consider when we stopped chasing game and started building civilisation.
 
 To the discerning engineer, software need not constantly pivot towards new market opportunities and
 novel approaches; it can instead provide sustainable value and grow as needed. New technologies
@@ -22,7 +22,7 @@ requires deep consideration, premeditation, and care for edge cases and divergen
 is not to say we should design everything up front and plan for all eventualities in advance, but to
 suggest that we should build in a way that is ready for change, spend time being cautious, and
 tether our designs to the permanence of human nature. Prudence and conscientiousness are virtues,
-and engineers would do well to practice them.
+and engineers would do well to practise them.
 
 If building for a millennium is possible though, what drives the software industry towards
 short-term gains? The answer is multifaceted, but one answer can be found in rhetoric, for example,
@@ -42,7 +42,7 @@ that requires war, and virtually nothing about the tech industry that mirrors it
 A real war is a terrible failure of morality, and none of the software engineers I have ever known
 would survive in one, which brings us to the question: why the obsession with violent conflict? I
 suppose a cynical answer is somewhat obvious: In true peacetime, detached from real protracted
-inter-state violence, people can easily romanticize war as a heroic adventure, yearn for victory
+inter-state violence, people can easily romanticise war as a heroic adventure, yearn for victory
 over a worthy adversary, and desire the glory of conquest. It's understandably human, for those who
 have never known pain have no reason to fear sharp objects, but the appeal of war and its comparison
 to business is pure fiction. War is not a time when profits are down and competition is fierce; no,
@@ -77,16 +77,17 @@ forward is indifference.
 
 We must transcend greed and all those who espouse it, for we do not live in a world where urgency is
 physically necessary. We evolved from a system, nature, which makes steady progress over millennia,
-builds systems that change as needed, and recovers from all hardship in due time. Excessive urgency,
-in contrast, is manufactured, and reinforces itself until we are all chasing our own tails to
-satisfy an artificial deadline without care for the long-term consequences. It benefits the few now
-at the expense of the many later, leaves discarded husks of genius behind it, and does nothing but
-ruin the creative spirit that powers innovation. You have the ability to build something beautiful
-if you are not ruled by greed, so do not be led astray from your potential by those who have sold
-theirs, no matter how much green they promise you. Their dollars are not worth your future, and you
-have a bigger role to play in the world than profit above all else. Build for everyone, including
-people living 1000 years from now, and enjoy missing opportunities that others chase without purpose
-or end.
+builds systems that change as needed, and recovers from all hardship in due time. It gave us minds
+that flourish when left to simmer, bodies that need frequent rest to function properly, and
+interpersonal bonds that need space to grow. Excessive urgency, in contrast, is manufactured, and
+reinforces only itself until we are all chasing our own tails to satisfy an artificial deadline
+without care for the long-term consequences. It benefits the few now at the expense of the many
+later, leaves discarded husks of genius behind it, and does nothing but ruin the creative spirit
+that powers innovation. You have the ability to build something beautiful if you are not ruled by
+greed, so do not be led astray from your potential by those who have sold theirs, no matter how much
+green they promise you. Their dollars are not worth your future, and you have a bigger role to play
+in the world than profit above all else. Build for everyone, including people living 1000 years from
+now, and enjoy missing opportunities that others chase without purpose or end.
 
 To relate this all back to the original point, that software should be sustainable, that care and
 consideration are the tools of longevity, and that artificial deadlines and pressure are the
@@ -96,4 +97,5 @@ consider what will happen after they, and the purveyors of those narratives, hav
 been forgotten. Ask yourself: Who will benefit from your life, who will suffer, and what will be
 left standing when you are gone?
 
-Sincerely,<br> Patience
+Sincerely,\
+Patience
