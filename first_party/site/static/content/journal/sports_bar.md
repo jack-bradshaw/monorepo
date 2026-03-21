@@ -1,128 +1,201 @@
-A restaurant.<br/> A table.<br/> A friend.
+A restaurant.\
+A table.\
+A friend.
 
-A good friend.
+A close friend.
 
-A human.<br/> An animal.<br/> A life.
+A human.\
+An animal.\
+A life.
 
-An honorable life.
+An honourable life.
 
-A stem.<br/> A bond.<br/> A connection.
+A stem.\
+A bond.\
+A connection.
 
-A real connection.
+A genuine connection.
 
 The familiar comfort.
 
-The breaking glass.<br/> The cheering crowd.<br/> The shrieking child.<br/> The ringing phone.<br/>
-The throbbing song.
+The breaking glass.\
+The cheering crowd.\
+The shrieking child.\
+The throbbing song.\
+The countless voices.
 
 Overwhelming chaos.
 
 "What can I get you?"
 
-Snap.<br/> Open.<br/> Present.
+Snap.\
+Open.\
+Present.
 
 Hello Waiter.
 
 A simple question, a complex answer.
 
-Steak for my friend.<br/> Salad for me.<br/> Reality check for everyone.
+Steak for my friend.\
+Salad for me.\
+Reality check for everyone.
 
 Suddenly alone.
 
-First, the awkwardness.<br/> The moment of silence.<br/> The broken eye contact.<br/> They know what
-I know.<br/>
+First, the awkwardness.\
+The moment of silence.\
+The broken eye contact.\
+They know what I know.
 
-Politeness draws us close.
+Politeness draws us in.
 
-Second, the small talk.<br/> The undeniable undercurrent.<br/> The unspoken disagreement.<br/> They
-know what I think.<br/>
+Second, the small talk.\
+The undeniable undercurrent.\
+The unspoken disagreement.\
+They know what I think.
 
 Apprehension pushes us apart.
 
-Third, the excuse.<br/> Species. Hubris.<br/> History? Tradition.<br/> Intelligence...
-Entitlement.<br/> DIVINITY! Authority.
+Third, the excuses.\
+Species. Hubris.\
+History? Tradition.\
+Intelligence... Irrelevance.\
+Divinity! Superstition.
 
 They know I'm not buying it.
 
-Anxiety for them.<br/> Anxiety for me.<br/> Anxiety for everyone.
+Anxiety for them.\
+Anxiety for me.\
+Anxiety for everyone.
 
 Overwhelming chaos.
 
-A moment of silence.<br/> A moment of noise.<br/> A moment of choice.
+A moment of silence.\
+A moment of noise.\
+A moment of choice.
 
-Choice for me.<br/> Choice for them.<br/> Choice for _them_.
+Choice for me.\
+Choice for them.\
+Choice for _them_.
 
 The familiar trap.
 
-Dissent or dismiss.<br/> Critique or condone.<br/> Challenge or endorse.
+Dissent or dismiss.\
+Critique or condone.\
+Challenge or endorse.
 
-Failure or failure.
+Failure... or failure.
 
-Just disengage... it never works.<br/> Just let it go... and eat your plants.<br/> Just-
+Just disengage... it never works.\
+Just let it go... and eat your plants.\
+Just-
 
-Just? Hardly!
+Just? Hardly...
 
-Frustration simmers.<br/> Indignation brews.<br/> Patience wears thin.
+Another excuse lands. Offered without request. A reminder of trillions in pain.
 
-The defenses grow.
+Please, just let me eat my plants!
 
-The absurd philosophies.<br/> The baseless ideologies.<br/> The twisted hypotheticals.
+Frustration simmers.\
+Indignation brews.\
+Patience wears thin.
+
+Their defences grow.
+
+The absurd philosophies.\
+The baseless ideologies.\
+The twisted hypotheticals.
 
 Ridiculous distractions.
 
-The tangential topics.<br/> The unrelenting rationalizations.<br/> The blistering prejudice.
+The tangential topics.\
+The unrelenting rationalisations.\
+The blistering prejudice.
 
 All irrelevant.
 
-Dissonance.<br/> Dissonance.<br/> Dissonance.<br/> Endless dissonance.
+Dissonance.\
+Dissonance.\
+Dissonance.\
+Endless dissonance.
 
-Enough to fill the room.<br/> Enough to drown the conscience.<br/> Enough to end a life.
-
-A body.<br/> A mind.<br/> A soul.<br/> A person.<br/> A life.
+Enough to fill the room.\
+Enough to drown the conscience.\
+Enough to end a life.
 
 The plates arrive.
 
-A steak.<br/> A snack.<br/> A meal.<br/> A taste.<br/> A moment.
+A body.\
+A mind.\
+A soul.\
+A person.\
+A life.
+
+Another excuse.
+
+A steak.\
+A snack.\
+A meal.\
+A taste.\
+A moment.
 
 Enough!
 
-Anger. Malice. Fury.<br/> Where did these come from?
+Anger. Malice. Fury.\
+Where did these come from?
 
-Rage. Indignation. Frustration.<br/> Where is this going?
+Rage. Indignation. Irritation.\
+Where is this going?
 
-Bitterness. Disgust. Vitriol.<br/> Where do I put all this?
+Bitterness. Disgust. Vitriol.\
+Where do I put all this?
 
 Overwhelming chaos.
 
-Stop being polite.<br/> Speak the truth.<br/> State the obvious.
+Stop being polite.\
+Speak the truth.\
+State the obvious.
 
-"THAT<br/> is a _fucking_<br/> PERSON!"
+"THAT\
+is a _fucking_\
+PERSON!"
 
-Underwhelming simplicity.
+Underwhelming simplicity...
 
-Shock, mouth agape.<br/> Discomfort, eyes wide.<br/> Silence... silence.
+Shock, mouth agape.\
+Discomfort, eyes averted.\
+Silence... silence.
 
-Regret- No, wait, it can't be...
+Wait... what is that... regret? No, it can't be-
 
-A hint of horror, recognition?<br/> A sliver of disgust, acknowledgement?<br/> A gentle inwards
-turn! Acceptance!
+A hint of horror, recognition?\
+A sliver of disgust, acknowledgement?\
+A gentle inwards turn, _acceptance?_
 
-Please... _please_... no... no of course not.
+Maybe... just maybe... no... no of course not.
 
-A grimace of disgust, normal.<br/> A frown of contempt, always.<br/> A sneer of disapproval,
-understandable.
+A grimace of disgust, normal.\
+A frown of contempt, understandable.\
+A sneer of disapproval, unconditional.
 
-Failure. Again.
+Failure.
 
-My words disperse.<br/> Their defenses distract.<br/> Our bond decays.
+My words disperse.\
+Their defences distract.\
+Our bond decays.
 
 Snap. Closed. Distant.
 
-No more may be said.<br/> No more will be heard.<br/> No more can be done.
+No more may be said.\
+No more will be heard.\
+No more can be done.
 
-The vegan crossed the line: Politeness must quell passion.<br/> The vegan broke the contract: The
-tribe above the truth.<br/> The vegan disturbed the peace: Harmony at all costs.
+The vegan has done it again.
 
-But most importantly...
+We cross the line: Politeness must quell passion.\
+We break the contract: Tribe above the truth.\
+We disturb the peace: Harmony at all costs.
+
+But far more urgently...
 
 The steak is getting cold.
