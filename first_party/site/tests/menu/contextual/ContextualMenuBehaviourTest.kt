@@ -78,16 +78,30 @@ class ContextualMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.CONTEXTUAL) {
   @Test
   fun journalItem_startingCollapsed_topic() =
       runStartingCollapsedTest(
+          pagePath = "/journal/item/the-wolves-are-all-gone",
+          itemSelector = "More in Topic (Artificial Intelligence)",
+          expectedDestinationPath = "/journal/topics#artificial-intelligence")
+
+  @Test
+  fun journalItem_startingCollapsed_theme() =
+      runStartingCollapsedTest(
           pagePath = "/journal/item/into-the-subverse",
-          itemSelector = "More in Topic (Philosophy)",
-          expectedDestinationPath = "/journal/topics#philosophy")
+          itemSelector = "More in Theme (Philosophy)",
+          expectedDestinationPath = "/journal/themes#philosophy")
 
   @Test
   fun journalItem_startingCollapsed_genre() =
       runStartingCollapsedTest(
+          pagePath = "/journal/item/the-wolves-are-all-gone",
+          itemSelector = "More in Genre (Sci-Fi)",
+          expectedDestinationPath = "/journal/genres#sci-fi")
+
+  @Test
+  fun journalItem_startingCollapsed_format() =
+      runStartingCollapsedTest(
           pagePath = "/journal/item/into-the-subverse",
-          itemSelector = "More in Genre (Essays)",
-          expectedDestinationPath = "/journal/genres#essays")
+          itemSelector = "More in Format (Essays)",
+          expectedDestinationPath = "/journal/composition#essays")
 
   @Test
   fun journalItem_alwaysExpanded_next() {
@@ -102,14 +116,28 @@ class ContextualMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.CONTEXTUAL) {
   @Test
   fun journalItem_alwaysExpanded_topic() =
       runAlwaysExpandedTest(
+          pagePath = "/journal/item/the-wolves-are-all-gone",
+          itemSelector = "More in Topic (Artificial Intelligence)",
+          expectedDestinationPath = "/journal/topics#artificial-intelligence")
+
+  @Test
+  fun journalItem_alwaysExpanded_theme() =
+      runAlwaysExpandedTest(
           pagePath = "/journal/item/into-the-subverse",
-          itemSelector = "More in Topic (Philosophy)",
-          expectedDestinationPath = "/journal/topics#philosophy")
+          itemSelector = "More in Theme (Philosophy)",
+          expectedDestinationPath = "/journal/themes#philosophy")
 
   @Test
   fun journalItem_alwaysExpanded_genre() =
       runAlwaysExpandedTest(
+          pagePath = "/journal/item/the-wolves-are-all-gone",
+          itemSelector = "More in Genre (Sci-Fi)",
+          expectedDestinationPath = "/journal/genres#sci-fi")
+
+  @Test
+  fun journalItem_alwaysExpanded_format() =
+      runAlwaysExpandedTest(
           pagePath = "/journal/item/into-the-subverse",
-          itemSelector = "More in Genre (Essays)",
-          expectedDestinationPath = "/journal/genres#essays")
+          itemSelector = "More in Format (Essays)",
+          expectedDestinationPath = "/journal/composition#essays")
 }

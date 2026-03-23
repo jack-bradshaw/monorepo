@@ -31,7 +31,11 @@ class ContextualMenuPresenceTest : BaseMenuPresenceTest(MenuType.CONTEXTUAL) {
 
   @Test fun journalTopics_absent() = runTest("/journal/topics", present = false)
 
+  @Test fun journalThemes_absent() = runTest("/journal/themes", present = false)
+
   @Test fun journalGenres_absent() = runTest("/journal/genres", present = false)
+
+  @Test fun journalComposition_absent() = runTest("/journal/composition", present = false)
 
   @Test fun journalChronological_absent() = runTest("/journal/chronological", present = false)
 

@@ -87,6 +87,16 @@ class SecondaryMenuAppearanceTest :
   @Test
   fun journalTopics_largeScreen() = runAlwaysExpandedTest("/journal/topics", ScreenWidth.LARGE)
 
+  @Test fun journalThemes_smallScreen_collapsed() = runPopupCollapsedTest("/journal/themes")
+
+  @Test fun journalThemes_smallScreen_expanded() = runPopupExpandedTest("/journal/themes")
+
+  @Test
+  fun journalThemes_mediumScreen() = runAlwaysExpandedTest("/journal/themes", ScreenWidth.MEDIUM)
+
+  @Test
+  fun journalThemes_largeScreen() = runAlwaysExpandedTest("/journal/themes", ScreenWidth.LARGE)
+
   @Test fun journalGenres_smallScreen_collapsed() = runPopupCollapsedTest("/journal/genres")
 
   @Test fun journalGenres_smallScreen_expanded() = runPopupExpandedTest("/journal/genres")

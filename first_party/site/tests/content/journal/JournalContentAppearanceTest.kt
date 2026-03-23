@@ -32,6 +32,19 @@ class JournalContentAppearanceTest :
 
   @Test fun topics_largeScreen_expanded() = runExpandedTest("/journal/topics", ScreenWidth.LARGE)
 
+  @Test fun themes_smallScreen_collapsed() = runCollapsedTest("/journal/themes", ScreenWidth.SMALL)
+
+  @Test fun themes_smallScreen_expanded() = runExpandedTest("/journal/themes", ScreenWidth.SMALL)
+
+  @Test
+  fun themes_mediumScreen_collapsed() = runCollapsedTest("/journal/themes", ScreenWidth.MEDIUM)
+
+  @Test fun themes_mediumScreen_expanded() = runExpandedTest("/journal/themes", ScreenWidth.MEDIUM)
+
+  @Test fun themes_largeScreen_collapsed() = runCollapsedTest("/journal/themes", ScreenWidth.LARGE)
+
+  @Test fun themes_largeScreen_expanded() = runExpandedTest("/journal/themes", ScreenWidth.LARGE)
+
   @Test
   fun series_smallScreen_collapsed() = runCollapsedTest("/journal/serieslist", ScreenWidth.SMALL)
 
@@ -62,6 +75,30 @@ class JournalContentAppearanceTest :
   @Test fun genres_largeScreen_collapsed() = runCollapsedTest("/journal/genres", ScreenWidth.LARGE)
 
   @Test fun genres_largeScreen_expanded() = runExpandedTest("/journal/genres", ScreenWidth.LARGE)
+
+  @Test
+  fun composition_smallScreen_collapsed() =
+      runCollapsedTest("/journal/composition", ScreenWidth.SMALL)
+
+  @Test
+  fun composition_smallScreen_expanded() =
+      runExpandedTest("/journal/composition", ScreenWidth.SMALL)
+
+  @Test
+  fun composition_mediumScreen_collapsed() =
+      runCollapsedTest("/journal/composition", ScreenWidth.MEDIUM)
+
+  @Test
+  fun composition_mediumScreen_expanded() =
+      runExpandedTest("/journal/composition", ScreenWidth.MEDIUM)
+
+  @Test
+  fun composition_largeScreen_collapsed() =
+      runCollapsedTest("/journal/composition", ScreenWidth.LARGE)
+
+  @Test
+  fun composition_largeScreen_expanded() =
+      runExpandedTest("/journal/composition", ScreenWidth.LARGE)
 
   @Test
   fun chronological_smallScreen_collapsed() =

@@ -68,7 +68,7 @@ class SecondaryMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.SECONDARY) {
   @Test
   fun journal_startingCollapsed_highlights() =
       runStartingCollapsedTest(
-          pagePath = "/journal/topics",
+          pagePath = "/journal/themes",
           itemSelector = "Highlights",
           expectedDestinationPath = "/journal/highlights")
 
@@ -78,6 +78,20 @@ class SecondaryMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.SECONDARY) {
           pagePath = "/journal/highlights",
           itemSelector = "Topics",
           expectedDestinationPath = "/journal/topics")
+
+  @Test
+  fun journal_startingCollapsed_subjects() =
+      runStartingCollapsedTest(
+          pagePath = "/journal/highlights",
+          itemSelector = "Subjects",
+          expectedDestinationPath = "/journal/subjects")
+
+  @Test
+  fun journal_startingCollapsed_themes() =
+      runStartingCollapsedTest(
+          pagePath = "/journal/highlights",
+          itemSelector = "Themes",
+          expectedDestinationPath = "/journal/themes")
 
   @Test
   fun journal_startingCollapsed_series() =
@@ -94,6 +108,13 @@ class SecondaryMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.SECONDARY) {
           expectedDestinationPath = "/journal/genres")
 
   @Test
+  fun journal_startingCollapsed_composition() =
+      runStartingCollapsedTest(
+          pagePath = "/journal/highlights",
+          itemSelector = "Composition",
+          expectedDestinationPath = "/journal/composition")
+
+  @Test
   fun journal_startingCollapsed_chronological() =
       runStartingCollapsedTest(
           pagePath = "/journal/highlights",
@@ -103,7 +124,7 @@ class SecondaryMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.SECONDARY) {
   @Test
   fun journal_alwaysExpanded_highlights() =
       runAlwaysExpandedTest(
-          pagePath = "/journal/topics",
+          pagePath = "/journal/themes",
           itemSelector = "Highlights",
           expectedDestinationPath = "/journal/highlights")
 
@@ -113,6 +134,20 @@ class SecondaryMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.SECONDARY) {
           pagePath = "/journal/highlights",
           itemSelector = "Topics",
           expectedDestinationPath = "/journal/topics")
+
+  @Test
+  fun journal_alwaysExpanded_subjects() =
+      runAlwaysExpandedTest(
+          pagePath = "/journal/highlights",
+          itemSelector = "Subjects",
+          expectedDestinationPath = "/journal/subjects")
+
+  @Test
+  fun journal_alwaysExpanded_themes() =
+      runAlwaysExpandedTest(
+          pagePath = "/journal/highlights",
+          itemSelector = "Themes",
+          expectedDestinationPath = "/journal/themes")
 
   @Test
   fun journal_alwaysExpanded_series() =
@@ -127,6 +162,13 @@ class SecondaryMenuBehaviourTest : BaseMenuBehaviourTest(MenuType.SECONDARY) {
           pagePath = "/journal/highlights",
           itemSelector = "Genres",
           expectedDestinationPath = "/journal/genres")
+
+  @Test
+  fun journal_alwaysExpanded_composition() =
+      runAlwaysExpandedTest(
+          pagePath = "/journal/highlights",
+          itemSelector = "Composition",
+          expectedDestinationPath = "/journal/composition")
 
   @Test
   fun journal_alwaysExpanded_chronological() =

@@ -1,6 +1,21 @@
 {
+  "themes": "collapsed",
+  "subjects": "collapsed",
   "topics": "collapsed",
-  "series": "expanded",
   "genres": "collapsed",
-  "chronological": "expanded"
+  "composition": "collapsed",
+  "style": "collapsed",
+  "series": "expanded",
+  "author": "collapsed",
+  "characters": "collapsed",
+  "veracity": "collapsed",
+  "tropes": "collapsed",
+  "settings": "collapsed",
+  "movements": "collapsed",
+  "tone": "collapsed",
+  "audience": "collapsed",
+  "ratings": "collapsed",
+  "language": "collapsed",
+  "chronological": "expanded",
+  "canon": "collapsed"
 }

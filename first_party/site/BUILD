@@ -35,3 +35,15 @@ sh_binary_with_runfiles(
         ":packaged",
     ],
 )
+
+filegroup(
+    name = "journal_metadata",
+    srcs = glob(["data/journal/*.json"]),
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "journal_content_md",
+    srcs = glob(["static/content/journal/*.md"]),
+    visibility = ["//visibility:public"],
+)

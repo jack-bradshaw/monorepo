@@ -1,99 +1,62 @@
 [
   {
-    "key": "philosophy",
-    "title": "Philosophy",
-    "description": "Deep inquiries into existence, ethics, and metaphysics",
+    "key": "drafting-mechanics",
+    "title": "Drafting Mechanics",
+    "description": "Pieces involving the translation of thought into prose",
     "items": [
-      "into-the-subverse",
-      "pragmatic-altruism",
-      "illumination",
-      "the-answer",
-      "hermeticity",
-      "the-artificial-man",
-      "timeless-engineering",
-      "stars",
-      "countertransference",
-      "10-words",
-      "cynicism-exiled",
-      "cynicism-refined",
-      "first-poem",
-      "no-adults-allowed",
-      "radix-pragmatismi-est-taedium-ideologiae-inflexibilis-et-dogmatis-rigidi",
-      "the-bind",
-      "the-bond",
-      "the-island-of-the-soul",
-      "the-sage-of-san-francisco"
-    ]
-  },
-  {
-    "key": "creativity",
-    "title": "Creativity",
-    "description": "Reflections on the artistic process, writing, and expression",
-    "items": [
-      "death-of-a-critic",
       "challenge-of-monologue",
       "five-stages-of-writing",
-      "the-tao-of-the-pen",
       "a-writers-dilemma",
-      "why-write",
       "open-source-writing",
       "writing-as-metamorphosis"
     ]
   },
   {
-    "key": "society",
-    "title": "Society",
-    "description": "Exploration of social norms, ethics, and human interaction",
-    "items": [
-      "sports-bar",
-      "meat-because-we-want-to",
-      "pragmatic-altruism",
-      "challenge-of-monologue",
-      "one-or-many",
-      "hermeticity",
-      "timeless-engineering"
-    ]
+    "key": "artificial-intelligence",
+    "title": "Artificial Intelligence",
+    "description": "Pieces involving programs that emulate and replicate natural intelligence",
+    "items": ["writing-as-metamorphosis"]
   },
   {
-    "key": "technology",
-    "title": "Technology",
-    "description": "Narratives and essays centered on tech culture and engineering",
-    "items": [
-      "the-cursed-cursor",
-      "pragmatic-altruism",
-      "the-wolves-are-all-gone",
-      "logs",
-      "timeless-engineering"
-    ]
+    "key": "system-architecture",
+    "title": "System Architecture",
+    "description": "Pieces involving the mechanical design, resilience, and structural longevity of technology",
+    "items": ["timeless-engineering", "radix-pragmatismi"]
   },
   {
-    "key": "psychology",
-    "title": "Psychology",
-    "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "humanity-loop", "stars", "on-imperfection"]
+    "key": "tech-employment",
+    "title": "Tech Employment",
+    "description": "Pieces involving tech industry jobs, salaries, and technical career trajectories",
+    "items": ["cursed-cursor"]
+  },
+  {
+    "key": "venture-capital",
+    "title": "Venture Capital",
+    "description": "Pieces involving tech sector investors, funding executives, and the pursuit of commercial profit",
+    "items": ["timeless-engineering"]
+  },
+  {
+    "key": "programming",
+    "title": "Programming",
+    "description": "Pieces involving the maintenance and creation of source code",
+    "items": ["cursed-cursor"]
+  },
+  {
+    "key": "software-testing",
+    "title": "Software Testing",
+    "description": "Pieces involving the verification and validation of technical systems",
+    "items": ["radix-pragmatismi"]
+  },
+  {
+    "key": "zealotry",
+    "title": "Zealotry",
+    "description": "Pieces involving the adherence to dogma by localized human actors",
+    "items": ["radix-pragmatismi"]
   },
   {
     "key": "veganism",
     "title": "Veganism",
-    "description": "Ethical considerations of animal rights and diet",
-    "items": ["meat-because-we-want-to", "sports-bar"]
-  },
-  {
-    "key": "meta-fiction",
-    "title": "Meta-Fiction",
-    "description": "Self-referential stories analyzing the nature of fiction",
-    "items": ["self-aware-antagonist"]
-  },
-  {
-    "key": "sci-fi",
-    "title": "Sci-Fi",
-    "description": "Speculative fiction exploring futuristic concepts",
-    "items": [
-      "self-aware-antagonist",
-      "the-wolves-are-all-gone",
-      "on-the-red-space",
-      "the-artificial-man",
-      "logs"
-    ]
+    "description": "Pieces involving dietary implementations and the ethical treatment of animals",
+    "items": ["sports-bar"]
   }
 ]

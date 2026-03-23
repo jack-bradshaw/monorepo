@@ -10,9 +10,13 @@ class JournalContentExpansionTest : BaseContentExpansionTest() {
 
   @Test fun topics() = runExpansionTest("/journal/topics", isExpandedByDefault = false)
 
+  @Test fun themes() = runExpansionTest("/journal/themes", isExpandedByDefault = false)
+
   @Test fun series() = runExpansionTest("/journal/serieslist", isExpandedByDefault = true)
 
   @Test fun genres() = runExpansionTest("/journal/genres", isExpandedByDefault = false)
+
+  @Test fun composition() = runExpansionTest("/journal/composition", isExpandedByDefault = false)
 
   @Test fun chronological() = runExpansionTest("/journal/chronological", isExpandedByDefault = true)
 }

@@ -1,54 +1,64 @@
 [
   {
-    "key": "poetry",
-    "title": "Poetry",
-    "description": "Rhythmic and expressive verse",
-    "items": ["sports-bar", "five-stages-of-writing", "the-tao-of-the-pen"]
+    "key": "meta-fiction",
+    "title": "Meta-Fiction",
+    "description": "Pieces with characters who operate above and beyond the fourth wall",
+    "items": ["self-aware-antagonist", "cynicism-exiled", "cynicism-refined"]
   },
   {
-    "key": "essays",
-    "title": "Essays",
-    "description": "Structured prose exploring specific topics",
+    "key": "sci-fi",
+    "title": "Sci-Fi",
+    "description": "Pieces that involve futuristic concepts, advanced technologies, and scientific breakthroughs",
+    "items": ["logs", "artificial-man", "wolves-are-all-gone"]
+  },
+  {
+    "key": "fantasy",
+    "title": "Fantasy",
+    "description": "Narratives fundamentally structured around physically impossible mechanics, magic systems, or mythological worldbuilding",
+    "items": []
+  },
+  {
+    "key": "horror",
+    "title": "Horror",
+    "description": "Pieces exploring various forms of dread, terror, fear, and tension.",
+    "items": ["on-the-red-space"]
+  },
+  {
+    "key": "satire",
+    "title": "Satire",
+    "description": "Pieces that use humorous observation and outright jokes to provide commentary and critique of systems, society, and more",
+    "items": ["countertransference", "illumination", "sage-of-san-francisco"]
+  },
+  {
+    "key": "philosophical-fiction",
+    "title": "Philosophical Fiction",
+    "description": "Narratives explicitly engineered as Trojan Horses to explore, prosecute, or debate a theoretical or systemic thesis",
+    "items": ["five-stages-of-writing"]
+  },
+  {
+    "key": "extrapolative-fiction",
+    "title": "Extrapolative Fiction",
+    "description": "Narratives that isolate an existing contemporary variable (technological or sociological) and project it vigorously into a hypothetical timeline to observe the consequences",
+    "items": ["10-words"]
+  },
+  {
+    "key": "memoir",
+    "title": "Memoir",
+    "description": "Autobiographical narratives explicitly recounting the author's literal historical timeline",
+    "items": ["death-of-a-critic", "treehouse-library", "on-imperfection"]
+  },
+  {
+    "key": "autofiction",
+    "title": "AutoFiction",
+    "description": "Autobiographical narratives that have been highly stylised or modified to present a fictitious or synthesized account of the author's real life",
     "items": [
       "death-of-a-critic",
-      "why-write",
-      "open-source-writing",
-      "pragmatic-altruism",
-      "challenge-of-monologue",
-      "one-or-many",
-      "judgement-vs-understanding",
-      "meat-because-we-want-to",
-      "into-the-subverse",
-      "cursed-cursor",
-      "welcome-to-the-machine",
       "treehouse-library",
-      "illumination",
-      "the-answer",
-      "hermeticity",
-      "a-writers-dilemma",
-      "humanity-loop",
-      "writing-as-metamorphosis",
-      "judgement-vs-understanding",
       "on-imperfection",
-      "stars"
-    ]
-  },
-  {
-    "key": "comedy",
-    "title": "Comedy",
-    "description": "Humorous anecdotes and lighthearted reflections",
-    "items": ["countertransference"]
-  },
-  {
-    "key": "fiction",
-    "title": "Fiction",
-    "description": "Narrative prose originating from imagination",
-    "items": [
-      "the-wolves-are-all-gone",
-      "on-the-red-space",
-      "the-artificial-man",
-      "logs",
-      "self-aware-antagonist"
+      "first-poem",
+      "tao-of-the-pen",
+      "sports-bar",
+      "organising-a-mind"
     ]
   }
 ]

@@ -1,0 +1,32 @@
+[
+  {
+    "key": "artificial-intelligence",
+    "title": "Artificial Intelligence",
+    "description": "A synthetic or programmatic entity functioning as a narrative character",
+    "items": ["10-words", "wolves-are-all-gone", "artificial-man"]
+  },
+  {
+    "key": "time-travel",
+    "title": "Time Travel",
+    "description": "The narrative mechanism of temporal displacement",
+    "items": ["logs"]
+  },
+  {
+    "key": "cybernetic-hive-mind",
+    "title": "Cybernetic Hive-Mind",
+    "description": "A cybernetic entity functioning as an assimilated collective consciousness",
+    "items": ["logs"]
+  },
+  {
+    "key": "hyper-capitalist-species",
+    "title": "Hyper-Capitalist Species",
+    "description": "An alien civilization structurally defined by extreme commerce and profit",
+    "items": ["logs"]
+  },
+  {
+    "key": "self-aware-character",
+    "title": "Self-Aware Character",
+    "description": "Meta-narrative discussions where characters acknowledge their own structural arcs",
+    "items": ["bind", "self-aware-antagonist"]
+  }
+]

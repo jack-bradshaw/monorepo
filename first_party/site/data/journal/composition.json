@@ -1,0 +1,56 @@
+[
+  {
+    "key": "text",
+    "title": "Text",
+    "description": "The piece relies exclusively on alphabetic and typographic components to construct its payload",
+    "items": [
+      "no-adults-allowed",
+      "pragmatic-altruism",
+      "radix-pragmatismi",
+      "timeless-engineering",
+      "writing-as-metamorphosis",
+      "hermeticity",
+      "judgement-vs-understanding",
+      "stars",
+      "bond",
+      "challenge-of-monologue",
+      "on-the-red-space",
+      "humanity-loop",
+      "a-writers-dilemma",
+      "cynicism-exiled",
+      "illumination",
+      "sage-of-san-francisco",
+      "wolves-are-all-gone",
+      "five-stages-of-writing",
+      "cynicism-refined",
+      "bind",
+      "death-of-a-critic",
+      "treehouse-library",
+      "on-imperfection",
+      "10-words",
+      "first-poem",
+      "tao-of-the-pen",
+      "sports-bar",
+      "cursed-cursor",
+      "self-aware-antagonist",
+      "artificial-man",
+      "island-of-the-soul",
+      "organising-a-mind",
+      "countertransference",
+      "logs",
+      "literature-architectonics"
+    ]
+  },
+  {
+    "key": "visual",
+    "title": "Visual Gallery",
+    "description": "The piece is exclusively constructed from an ordered sequence of visual imagery, photographs, or art",
+    "items": []
+  },
+  {
+    "key": "composite",
+    "title": "Composite Media",
+    "description": "The piece intertwines text, images, architecture diagrams, data tables, or raw code to construct its payload",
+    "items": []
+  }
+]

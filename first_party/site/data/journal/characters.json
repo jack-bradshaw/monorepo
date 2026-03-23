@@ -1,0 +1,44 @@
+[
+  {
+    "key": "critic",
+    "title": "The Critic",
+    "description": "An archetypal psychological fragment dedicated to judgment and evaluation",
+    "items": ["death-of-a-critic", "five-stages-of-writing"]
+  },
+  {
+    "key": "altruist",
+    "title": "The Altruist",
+    "description": "An archetypal psychological fragment dedicated to empathy and self-sacrifice",
+    "items": ["pragmatic-altruism"]
+  },
+  {
+    "key": "cynic",
+    "title": "The Cynic",
+    "description": "An archetypal psychological fragment dedicated to pessimistic realism",
+    "items": ["cynicism-exiled", "cynicism-refined"]
+  },
+  {
+    "key": "pragmatist",
+    "title": "The Pragmatist",
+    "description": "An archetypal psychological fragment dedicated to practical functionality",
+    "items": ["pragmatic-altruism"]
+  },
+  {
+    "key": "protagonist",
+    "title": "The Protagonist",
+    "description": "The primary archetypal actor or central perspective in a narrative construction",
+    "items": ["self-aware-antagonist"]
+  },
+  {
+    "key": "antagonist",
+    "title": "The Antagonist",
+    "description": "The primary archetypal opposing force against the central perspective in a narrative construction",
+    "items": ["self-aware-antagonist"]
+  },
+  {
+    "key": "death",
+    "title": "Death",
+    "description": "The archetypal anthropomorphic personification of mortality",
+    "items": ["island-of-the-soul"]
+  }
+]
