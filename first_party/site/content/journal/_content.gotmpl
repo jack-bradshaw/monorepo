@@ -1,3 +1,12 @@
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "canon"
+    "path" "canon"
+    "title" "Canon"
+    "description" "Articles grouped by authoritative canon continuity")
+}}
+
 {{/* Generates the main journal pages under /journal */}}
 
 {{ .AddPage (dict
@@ -11,10 +20,55 @@
 {{ .AddPage (dict
     "kind" "page"
     "type" "journal"
+    "layout" "themes"
+    "path" "themes"
+    "title" "Themes"
+    "description" "Articles grouped by theme (emergent message)")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "subjects"
+    "path" "subjects"
+    "title" "Subjects"
+    "description" "Articles grouped by macro subject")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
     "layout" "topics"
     "path" "topics"
     "title" "Topics"
-    "description" "Articles grouped by topic")
+    "description" "Articles grouped by topic (explicit framing)")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "genres"
+    "path" "genres"
+    "title" "Genres"
+    "description" "Articles grouped by genre")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "composition"
+    "path" "composition"
+    "title" "Composition"
+    "description" "Articles grouped by physical composition")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "style"
+    "path" "style"
+    "title" "Style"
+    "description" "Articles grouped by structural layout")
 }}
 
 {{ .AddPage (dict
@@ -29,10 +83,91 @@
 {{ .AddPage (dict
     "kind" "page"
     "type" "journal"
-    "layout" "genres"
-    "path" "genres"
-    "title" "Genres"
-    "description" "Articles grouped by genre")
+    "layout" "author"
+    "path" "author"
+    "title" "Author"
+    "description" "Articles grouped by author")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "characters"
+    "path" "characters"
+    "title" "Characters"
+    "description" "Articles grouped by character")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "veracity"
+    "path" "veracity"
+    "title" "Veracity"
+    "description" "Articles grouped by epistemological veracity")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "tropes"
+    "path" "tropes"
+    "title" "Tropes"
+    "description" "Articles grouped by narrative trope")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "settings"
+    "path" "settings"
+    "title" "Settings"
+    "description" "Articles grouped by setting")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "movements"
+    "path" "movements"
+    "title" "Movements"
+    "description" "Articles grouped by historical movement")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "tone"
+    "path" "tone"
+    "title" "Tone"
+    "description" "Articles grouped by subjective tone")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "audience"
+    "path" "audience"
+    "title" "Audience"
+    "description" "Articles grouped by target audience")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "ratings"
+    "path" "ratings"
+    "title" "Ratings"
+    "description" "Articles grouped by content rating")
+}}
+
+{{ .AddPage (dict
+    "kind" "page"
+    "type" "journal"
+    "layout" "language"
+    "path" "language"
+    "title" "Language"
+    "description" "Articles grouped by linguistic cipher")
 }}
 
 {{ .AddPage (dict

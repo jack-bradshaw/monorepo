@@ -1,0 +1,116 @@
+[
+  {
+    "key": "philosophy",
+    "title": "Philosophy",
+    "description": "Deep inquiries into existence, ethics, and metaphysics",
+    "items": [
+      "cynicism-exiled",
+      "cynicism-refined",
+      "judgement-vs-understanding",
+      "hermeticity",
+      "pragmatic-altruism",
+      "stars",
+      "artificial-man",
+      "bind",
+      "bond",
+      "island-of-the-soul",
+      "on-the-red-space",
+      "timeless-engineering",
+      "wolves-are-all-gone"
+    ]
+  },
+  {
+    "key": "psychology",
+    "title": "Psychology",
+    "description": "Introspection, mental states, and identity",
+    "items": [
+      "a-writers-dilemma",
+      "death-of-a-critic",
+      "five-stages-of-writing",
+      "humanity-loop",
+      "no-adults-allowed",
+      "on-imperfection",
+      "cursed-cursor",
+      "bind",
+      "bond",
+      "cynicism-exiled",
+      "island-of-the-soul",
+      "sage-of-san-francisco",
+      "organising-a-mind"
+    ]
+  },
+  {
+    "key": "sociology",
+    "title": "Sociology",
+    "description": "Exploration of social norms, ethics, and human interaction",
+    "items": [
+      "10-words",
+      "hermeticity",
+      "humanity-loop",
+      "logs",
+      "no-adults-allowed",
+      "sports-bar",
+      "cursed-cursor"
+    ]
+  },
+  {
+    "key": "computer-science",
+    "title": "Computer Science",
+    "description": "The theoretical and practical study of computation, algorithms, and artificial intelligence",
+    "items": ["10-words", "open-source-writing", "artificial-man", "cursed-cursor"]
+  },
+  {
+    "key": "systems-engineering",
+    "title": "Systems Engineering",
+    "description": "The interdisciplinary field of designing, integrating, and managing complex physical and logical systems",
+    "items": [
+      "pragmatic-altruism",
+      "radix-pragmatismi",
+      "timeless-engineering",
+      "literature-architectonics"
+    ]
+  },
+  {
+    "key": "biology",
+    "title": "Biology",
+    "description": "The structural, evolutionary, and mechanical study of living organisms and biological data",
+    "items": ["wolves-are-all-gone"]
+  },
+  {
+    "key": "literature",
+    "title": "Literature",
+    "description": "Reflections on the artistic process, writing, and expression",
+    "items": [
+      "a-writers-dilemma",
+      "challenge-of-monologue",
+      "death-of-a-critic",
+      "first-poem",
+      "five-stages-of-writing",
+      "open-source-writing",
+      "writing-as-metamorphosis",
+      "self-aware-antagonist",
+      "tao-of-the-pen",
+      "treehouse-library",
+      "on-the-red-space",
+      "literature-architectonics"
+    ]
+  },
+  {
+    "key": "theology",
+    "title": "Theology",
+    "description": "The formal academic study of the divine and spiritual schemas",
+    "items": ["countertransference", "illumination", "sage-of-san-francisco", "tao-of-the-pen"]
+  },
+  {
+    "key": "linguistics",
+    "title": "Linguistics",
+    "description": "The scientific and structural study of language, syntax, and human communication",
+    "items": ["10-words", "challenge-of-monologue"]
+  },
+  {
+    "key": "history",
+    "title": "History",
+    "description": "Exploration of timelines, civilizational epochs, and the historical butterfly effect",
+    "items": ["logs", "wolves-are-all-gone", "timeless-engineering"]
+  }
+]

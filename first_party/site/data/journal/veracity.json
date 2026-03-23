@@ -1,0 +1,81 @@
+[
+  {
+    "key": "empirical",
+    "title": "Empirical Fact",
+    "description": "The text claims objective, external reality. It relies entirely on direct, observable physics, testable mechanics, or strict mathematical proof",
+    "items": ["radix-pragmatismi", "timeless-engineering", "hermeticity"]
+  },
+  {
+    "key": "philosophical",
+    "title": "Philosophical Assertion",
+    "description": "The text asserts a logical, ethical, or aesthetic truth relying entirely on reason, intuition, and debate rather than physical evidence",
+    "items": [
+      "judgement-vs-understanding",
+      "writing-as-metamorphosis",
+      "pragmatic-altruism",
+      "challenge-of-monologue",
+      "a-writers-dilemma",
+      "on-the-red-space",
+      "stars",
+      "bond",
+      "no-adults-allowed",
+      "literature-architectonics"
+    ]
+  },
+  {
+    "key": "personal",
+    "title": "Personal Reality",
+    "description": "The text anchors itself to personal experience and context, but exclusively claims the truth of the author's internal, biased, emotional experience",
+    "items": [
+      "death-of-a-critic",
+      "treehouse-library",
+      "on-imperfection",
+      "first-poem",
+      "tao-of-the-pen",
+      "sports-bar",
+      "organising-a-mind"
+    ]
+  },
+  {
+    "key": "consensus",
+    "title": "Consensus Reality",
+    "description": "The text anchors itself to shared historical authority and documented cultural agreement, relying on inherited trust rather than direct physical observation",
+    "items": []
+  },
+
+  {
+    "key": "synthesized",
+    "title": "Synthesized Reality",
+    "description": "The text is anchored in Empirical, Philosophical, Personal, or Consensus reality, but actively introduces fictional elements, characters, or scenarios to construct a synthesized account",
+    "items": [
+      "humanity-loop",
+      "five-stages-of-writing",
+      "countertransference",
+      "illumination",
+      "sage-of-san-francisco",
+      "bind",
+      "cynicism-exiled",
+      "cynicism-refined"
+    ]
+  },
+  {
+    "key": "absolute-fiction",
+    "title": "Absolute Fiction",
+    "description": "The text is definitively not true in base reality. It is a complete fabrication built to explore its own internal universe and mechanics",
+    "items": [
+      "logs",
+      "artificial-man",
+      "wolves-are-all-gone",
+      "10-words",
+      "cursed-cursor",
+      "island-of-the-soul",
+      "self-aware-antagonist"
+    ]
+  },
+  {
+    "key": "averacit",
+    "title": "Averacit",
+    "description": "The text is entirely divorced from the concept of truth. It constructs no reality and exists purely as an abstract, aesthetic, or structural mechanism of language",
+    "items": []
+  }
+]

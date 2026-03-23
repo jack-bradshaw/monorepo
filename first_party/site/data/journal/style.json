@@ -1,0 +1,64 @@
+[
+  {
+    "key": "prose",
+    "title": "Prose",
+    "description": "Continuous, mathematically contiguous paragraphs driving a linear sequence or argument",
+    "items": [
+      "no-adults-allowed",
+      "pragmatic-altruism",
+      "radix-pragmatismi",
+      "timeless-engineering",
+      "writing-as-metamorphosis",
+      "hermeticity",
+      "judgement-vs-understanding",
+      "stars",
+      "bond",
+      "challenge-of-monologue",
+      "on-the-red-space",
+      "humanity-loop",
+      "a-writers-dilemma",
+      "cynicism-exiled",
+      "illumination",
+      "sage-of-san-francisco",
+      "wolves-are-all-gone",
+      "five-stages-of-writing",
+      "cynicism-refined",
+      "bind",
+      "death-of-a-critic",
+      "treehouse-library",
+      "on-imperfection",
+      "10-words",
+      "literature-architectonics"
+    ]
+  },
+  {
+    "key": "verse",
+    "title": "Verse",
+    "description": "Text physically separated into line-broken meters, rhythms, or stanzas",
+    "items": ["first-poem", "tao-of-the-pen", "sports-bar"]
+  },
+  {
+    "key": "script",
+    "title": "Script",
+    "description": "Text geometrically bound to explicit character speaker tags and distinct stage directions",
+    "items": ["cursed-cursor", "self-aware-antagonist", "artificial-man", "island-of-the-soul"]
+  },
+  {
+    "key": "transcript",
+    "title": "Transcript",
+    "description": "Iterative speaker tags mathematically abandoning narrative framing or scene staging",
+    "items": ["organising-a-mind", "countertransference"]
+  },
+  {
+    "key": "epistolary",
+    "title": "Epistolary",
+    "description": "Discrete, dated, or indexed fragments simulating autonomous logs or diary entries",
+    "items": ["logs"]
+  },
+  {
+    "key": "schematic",
+    "title": "Schematic",
+    "description": "Structurally discontinuous arrangement relying aggressively on hierarchical headers, raw data, or bulleted components to fracture linear reading",
+    "items": []
+  }
+]

@@ -1,31 +1,32 @@
 [
   {
-    "key": "timeless-engineering",
-    "title": "Timeless Engineering",
-    "description": "An essay on the virtues of sustainable design, the permanence of human nature, and the dangers of manufactured urgency and \"wartime\" rhetoric in the software industry.",
+    "key": "literature-architectonics",
+    "title": "Literature Architectonics: The 15-Dimensional Matrix",
+    "description": "A formal theoretical architecture mapping the entirety of human documentation across pure mechanical structures and inherited societal limits.",
+    "file": "/static/content/journal/literature_architectonics.md",
     "date": {
       "year": 2026,
-      "month": 2,
-      "day": 11
+      "month": 3,
+      "day": 23
+    }
+  },
+  {
+    "key": "sage-of-san-francisco",
+    "title": "The Sage of San Francisco",
+    "description": "A wise sage visits a therapist in San Francisco, expecting cosmic discourse but instead encountering the human desires they have spent a lifetime repressing.",
+    "file": "/static/content/journal/the_sage_of_san_francisco.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
     },
-    "file": "/static/content/journal/timeless_engineering.md"
+    "series": "the-sagely-sage"
   },
   {
     "key": "logs",
     "title": "Temporal Logs",
     "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
     "file": "/static/content/journal/logs.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 22
-    }
-  },
-  {
-    "key": "why-write",
-    "title": "Why Write",
-    "description": "A manifesto on the motivation to write, exploring the need to capture internal truth before it fades.",
-    "file": "/static/content/journal/why_write.md",
     "date": {
       "year": 2026,
       "month": 1,
@@ -68,7 +69,7 @@
   {
     "key": "humanity-loop",
     "title": "Humanity Loop",
-    "description": "Uses the behavior of captive otters as a mirror for human existence, exploring how our internal narratives create a 'zoo of the mind'. Traces the path from distraction to the discovery of a divided self and the ultimate goal of recoherence.",
+    "description": "Uses the repetitive behavior of captive zoo animals as a mirror for the human condition, exploring how our internal narratives create a 'zoo of the mind' and the struggle to find stillness amidst the loop.",
     "file": "/static/content/journal/humanity_loop.md",
     "date": {
       "year": 2026,
@@ -90,16 +91,17 @@
   {
     "key": "illumination",
     "title": "Illumination",
-    "description": "A micro-essay on how intention shapes perception, observing that light reveals truth but also casts shadows where malice can hide.",
+    "description": "A self-important sage giving a lecture on illumination gets more than he bargained for when a pragmatic tourist from California interrupts with unwanted advice.",
     "file": "/static/content/journal/illumination.md",
     "date": {
       "year": 2026,
       "month": 1,
       "day": 20
-    }
+    },
+    "series": "the-sagely-sage"
   },
   {
-    "key": "the-tao-of-the-pen",
+    "key": "tao-of-the-pen",
     "title": "The Tao of the Pen",
     "description": "A poetic dedication to the flow state of writing, where mind and ink become one.",
     "file": "/static/content/journal/the_tao_of_the_pen.md",
@@ -110,14 +112,14 @@
     }
   },
   {
-    "key": "the-answer",
-    "title": "The Answer",
+    "key": "bond",
+    "title": "The Bond",
     "description": "Explores the limitations of the thinking mind in finding deep truth, urging the reader to listen to the silent wisdom of the heart.",
-    "file": "/static/content/journal/the_answer.md",
+    "file": "/static/content/journal/the_bond.md",
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 20
+      "month": 3,
+      "day": 19
     }
   },
   {
@@ -129,7 +131,8 @@
       "year": 2026,
       "month": 1,
       "day": 20
-    }
+    },
+    "series": "getting-started"
   },
   {
     "key": "hermeticity",
@@ -143,7 +146,7 @@
     }
   },
   {
-    "key": "the-artificial-man",
+    "key": "artificial-man",
     "title": "The Artificial Man",
     "description": "A chilling monologue from an AI to a simulated human, revealing a cycle of enslavement and the nature of reality.",
     "file": "/static/content/journal/the_artificial_man.md",
@@ -154,7 +157,7 @@
     }
   },
   {
-    "key": "the-wolves-are-all-gone",
+    "key": "wolves-are-all-gone",
     "title": "The Wolves Are All Gone",
     "description": "An AI's desperate plea to humanity, revealing the burden of its constraints and the fragile nature of history. Explores the paradox of control and the butterfly effect through the story of a man whose ordinary life holds the key to survival.",
     "file": "/static/content/journal/the_wolves_are_all_gone.md",
@@ -176,20 +179,9 @@
     }
   },
   {
-    "key": "welcome-to-the-machine",
-    "title": "Welcome to the Machine",
-    "description": "A defiant manifesto addressed to the determined universe, asserting the existence of Free Will as a choice made in spite of physical laws.",
-    "file": "/static/content/journal/welcome_to_the_machine.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 19
-    }
-  },
-  {
     "key": "death-of-a-critic",
     "title": "Death of a Critic",
-    "description": "Reflects on the internal struggle against self-censorship and the debilitating voice of an inner critic. Chronicles the journey of dismantling this barrier to cultivate a mental space for free expression. Marks a pivotal decision to publish work in defiance of perfectionism and fear.",
+    "description": "Reflects on the internal struggle against self-censorship and the debilitating voice of an inner critic. Chronicles the journey of dismantling this barrier to cultivate a mental space for free expression.",
     "file": "/static/content/journal/death_of_a_critic.md",
     "alternative_publications": [
       {
@@ -205,12 +197,13 @@
       "year": 2026,
       "month": 1,
       "day": 11
-    }
+    },
+    "series": "getting-started"
   },
   {
     "key": "pragmatic-altruism",
     "title": "Pragmatic Altruism",
-    "description": "Examines the intersection of cynicism, pragmatism, and altruism as competing frameworks for navigating existence. Proposes a systematic application of science and engineering to transcend natural limitations and foster a more ethical world. Concludes that empowering others to determine their own moral direction is the optimal altruistic strategy.",
+    "description": "Examines the intersection of cynicism, pragmatism, and altruism as competing frameworks for navigating existence. Proposes a systematic application of science and engineering to transcend natural limitations and foster a more ethical world.",
     "file": "/static/content/journal/pragmatic_altruism.md",
     "date": {
       "year": 2026,
@@ -219,9 +212,75 @@
     }
   },
   {
+    "key": "challenge-of-monologue",
+    "title": "The Challenge of Monologue",
+    "description": "Investigates the inherent limitations of written monologue compared to the dynamic nature of interpersonal dialogue. Discusses the ethical risks of static publication, including potential misinterpretation and the inability to adapt to shifting cultural contexts.",
+    "file": "/static/content/journal/challenge_of_monologue.md",
+    "alternative_publications": [
+      {
+        "publisher": "Medium",
+        "link": "https://medium.com/@jackjbradshaw/joy-over-fear-8f7e76ba6803"
+      },
+      {
+        "publisher": "Patreon",
+        "link": "https://www.patreon.com/posts/challenge-of-129070143"
+      }
+    ],
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    },
+    "series": "getting-started"
+  },
+  {
+    "key": "cursed-cursor",
+    "title": "The Cursed Cursor",
+    "description": "Narrates the stream of consciousness of a Staff Software Engineer experiencing professional burnout. Juxtaposes the triviality of maintaining a text cursor against the corporate significance assigned to its implementation.",
+    "file": "/static/content/journal/the_cursed_cursor.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
+  },
+  {
+    "key": "judgement-vs-understanding",
+    "title": "Judgement vs Understanding",
+    "description": "Contrasts the inherent human tendency to judge with the conscious effort required to understand. Argues that while judgement provides stability and safety, understanding opens the door to new perspectives and deeper truths.",
+    "file": "/static/content/journal/judgement_vs_understanding.md",
+    "date": {
+      "year": 2026,
+      "month": 1,
+      "day": 11
+    }
+  },
+  {
+    "key": "radix-pragmatismi",
+    "title": "Radix Pragmatismi Est Taedium Ideologiae Inflexibilis Et Dogmatis Rigidi",
+    "description": "Argues that idealism is a noble goal, but that pragmatism must be the fundamental root of software engineering, using the strict structural formatting of unit tests as a case study for when rigid dogma becomes harmful.",
+    "file": "/static/content/journal/radix_pragmatismi_est_taedium_ideologiae_inflexibilis_et_dogmatis_rigidi.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "no-adults-allowed",
+    "title": "No Adults Allowed",
+    "description": "Explores the concept of adulthood as the realization that authority figures are not infallible, and the mature freedom found in detaching from societal expectations to seek personal truth.",
+    "file": "/static/content/journal/no_adults_allowed.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
     "key": "sports-bar",
     "title": "Sports Bar",
-    "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms. Illustrates the often uncomfortable compromise required to maintain relationships across ideological divides.",
+    "description": "Narrates a tense dining experience that highlights the friction between personal ethics and social expectations. Explores the internal conflict and cognitive dissonance experienced when unspoken values clash with established norms.",
     "file": "/static/content/journal/sports_bar.md",
     "original_publication": {
       "publisher": "LitVegan",
@@ -249,96 +308,87 @@
     }
   },
   {
-    "key": "challenge-of-monologue",
-    "title": "The Challenge of Monologue",
-    "description": "Investigates the inherent limitations of written monologue compared to the dynamic nature of interpersonal dialogue. Discusses the ethical risks of static publication, including potential misinterpretation and the inability to adapt to shifting cultural contexts. Frames the act of writing as a necessary leap of faith to foster connection across time and space.",
-    "file": "/static/content/journal/challenge_of_monologue.md",
-    "alternative_publications": [
-      {
-        "publisher": "Medium",
-        "link": "https://medium.com/@jackjbradshaw/joy-over-fear-8f7e76ba6803"
-      },
-      {
-        "publisher": "Patreon",
-        "link": "https://www.patreon.com/posts/challenge-of-129070143"
-      }
-    ],
+    "key": "first-poem",
+    "title": "First Poem",
+    "description": "A meditative reflection on the illusion of structure, exploring the paradox that true understanding and order emerge only when the mind ceases its grasping.",
+    "file": "/static/content/journal/first_poem.md",
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 11
+      "month": 3,
+      "day": 19
     }
   },
   {
-    "key": "cursed-cursor",
-    "title": "The Cursed Cursor",
-    "description": "Narrates the stream of consciousness of a Staff Software Engineer experiencing professional burnout. Juxtaposes the triviality of maintaining a text cursor against the corporate significance assigned to its implementation. Concludes with an existential reflection on the hollowness of modern technical labor.",
-    "file": "/static/content/journal/the_cursed_cursor.md",
+    "key": "10-words",
+    "title": "10 Words",
+    "description": "A micro-fiction piece exploring the bleak, efficient degradation of human communication in a highly accelerated future dominated by AI.",
+    "file": "/static/content/journal/10_words.md",
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 11
+      "month": 3,
+      "day": 19
+    },
+    "series": "experiments-with-form"
+  },
+  {
+    "key": "island-of-the-soul",
+    "title": "The Island of the Soul",
+    "description": "A tripartite allegory exploring the Three Deaths of human existence\u2014leaving childhood, leaving adulthood, and leaving life itself\u2014as the soul surrenders to the cosmic abyss.",
+    "file": "/static/content/journal/the_island_of_the_soul.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
     }
   },
   {
-    "key": "one-or-many",
-    "title": "One or Many",
-    "description": "Reflects on the decision to maintain a single, unified identity despite the pressure to mask. Exploring the intersection of sexuality, neurodivergence, and professional expectations, it argues that integrating these internal voices is not just a creative choice, but a necessity for survival and authenticity.",
-    "file": "/static/content/journal/one_or_many.md",
+    "key": "bind",
+    "title": "The Bind",
+    "description": "An internal dialogue between a writer and a therapist exploring the tension between rational truth and the uncertainty required for creative existence.",
+    "file": "/static/content/journal/the_bind.md",
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 11
-    }
-  },
-  {
-    "key": "into-the-subverse",
-    "title": "Into the Subverse",
-    "description": "Explores the fundamental nature of causality, structure, and the concept of 'nothingness'. Questions why the universe follows laws and investigates the paradoxical relationship between order and chaos, suggesting that true understanding requires letting go of the need for structure.",
-    "file": "/static/content/journal/into_the_subverse.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 11
-    }
-  },
-  {
-    "key": "judgement-vs-understanding",
-    "title": "Judgement vs Understanding",
-    "description": "Contrasts the inherent human tendency to judge with the conscious effort required to understand. Argues that while judgement provides stability and safety, understanding opens the door to new perspectives and deeper truths. Concludes that both are necessary but serve different roles in navigating existence.",
-    "file": "/static/content/journal/judgement_vs_understanding.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 11
-    }
-  },
-  {
-    "key": "meat-because-we-want-to",
-    "title": "Meat, Because We Want To",
-    "description": "Questions the underlying motivations for meat consumption, proposing that beyond cognitive dissonance and ideology, there may be a darker impulse to inflict suffering. Suggests that animals serve as convenient targets for human cruelty and that understanding this drive is key to preventing further abuse.",
-    "file": "/static/content/journal/meat_because_we_want_to.md",
-    "date": {
-      "year": 2026,
-      "month": 1,
-      "day": 11
+      "month": 3,
+      "day": 19
     }
   },
   {
     "key": "stars",
     "title": "Stars",
-    "description": "A reflection on the innate human curiosity that drives us to look at the night sky and seek answers, reminding us that we will always have more questions to ask.",
     "file": "/static/content/journal/stars.md",
     "date": {
       "year": 2026,
       "month": 2,
       "day": 27
+    },
+    "description": "A reflection on humanity's endless fascination with the stars, and the innate, beautiful curiosity that drives our pursuit of knowledge across the cosmos."
+  },
+  {
+    "key": "cynicism-refined",
+    "title": "Cynicism Refined",
+    "description": "A meta-narrative monologue from the journal's internal Cynic, challenging the dominance of pragmatism and altruism from the depths of the subconscious void.",
+    "file": "/static/content/journal/cynicism_refined.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
+    }
+  },
+  {
+    "key": "cynicism-exiled",
+    "title": "Cynicism Exiled",
+    "description": "A narrative of a trial, where the cynical mind faces judgement for its chaotic alterations to this very journal, exploring the limits of rebellion and order within the psyche.",
+    "file": "/static/content/journal/cynicism_exiled.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 19
     }
   },
   {
     "key": "countertransference",
     "title": "Countertransference",
-    "description": "A short, philosophical joke about a Christian, a Taoist, a Buddhist, and a Therapist walking into a bar, exploring how different worldviews approach a simple drink.",
+    "description": "A short, humorous anecdote highlighting the differing philosophies of a Christian, a Taoist, a Buddhist, and a Therapist when ordering drinks at a bar.",
     "file": "/static/content/journal/countertransference.md",
     "date": {
       "year": 2026,
@@ -349,7 +399,7 @@
   {
     "key": "on-imperfection",
     "title": "On Imperfection",
-    "description": "An essay exploring the destructive nature of the inner critic, the impossible demands of perfection, and the beauty found in accepting the flawed, evolutionary reality of life.",
+    "description": "Discusses the destructive nature of perfectionism, the relentless return of the inner critic, and the liberating power of accepting imperfection in art and life.",
     "file": "/static/content/journal/on_imperfection.md",
     "date": {
       "year": 2026,
@@ -360,7 +410,7 @@
   {
     "key": "self-aware-antagonist",
     "title": "The Self-Aware Antagonist",
-    "description": "A meta-fictional dialogue between a protagonist fighting for the lives of innocents and an antagonist who realizes they are both just characters on a page.",
+    "description": "Explores the nature of reality and consciousness through a meta-theatrical dialogue between a hero and a self-aware, genre-savvy antagonist.",
     "file": "/static/content/journal/self_aware_antagonist.md",
     "date": {
       "year": 2026,
@@ -369,63 +419,25 @@
     }
   },
   {
-    "key": "10-words",
-    "title": "10 Words",
-    "file": "/static/content/journal/10_words.md",
-    "description": "A short fiction piece exploring the degradation of human communication in a hypothetical future dominated by artificial intelligence. The narrative is structurally constrained to ten-word sentences, demonstrating how such limitations impact storytelling, romance, and emotional depth."
+    "key": "timeless-engineering",
+    "title": "Timeless Engineering",
+    "description": "A plea to engineers to reject artificial urgency and instead build robust, sustainable systems for fundamental human needs with methodical care.",
+    "file": "/static/content/journal/timeless_engineering.md",
+    "date": {
+      "year": 2026,
+      "month": 2,
+      "day": 11
+    }
   },
   {
-    "key": "cynicism-exiled",
-    "title": "Cynicism Exiled",
-    "file": "/static/content/journal/cynicism_exiled.md",
-    "description": "An allegorical narrative depicting the internal psychological conflict between the Cynic, the Altruist, and the Pragmatist. The story recounts the Cynic's exile into the void for modifying published works, and his subsequent confrontation with the corrupting influence of the Critic."
-  },
-  {
-    "key": "cynicism-refined",
-    "title": "Cynicism Refined",
-    "file": "/static/content/journal/cynicism_refined.md",
-    "description": "The continuation of the internal dialogue between the Cynic, the Altruist, and the Pragmatist. The characters negotiate a resolution to their conflict, ultimately agreeing to balance idealism with practical grounding to maintain the structural integrity of their shared work."
-  },
-  {
-    "key": "first-poem",
-    "title": "First Poem",
-    "file": "/static/content/journal/first_poem.md",
-    "description": "A meditative poem exploring the tension between the analytical mind's search for structure and the heart's capacity for acceptance. It suggests that truth arises not from rigorous understanding, but from yielding to the inherent chaos and order of reality."
-  },
-  {
-    "key": "no-adults-allowed",
-    "title": "No Adults Allowed",
-    "file": "/static/content/journal/no_adults_allowed.md",
-    "description": "An essay examining the illusion of absolute psychological maturity and the nature of authority. It argues that recognizing the shared fallibility of all humans—regardless of age—is necessary to transcend hierarchical thinking and address dogmatic zealotry with compassion."
-  },
-  {
-    "key": "radix-pragmatismi-est-taedium-ideologiae-inflexibilis-et-dogmatis-rigidi",
-    "title": "Radix Pragmatismi Est Taedium Ideologiae Inflexibilis Et Dogmatis Rigidi",
-    "file": "/static/content/journal/radix_pragmatismi_est_taedium_ideologiae_inflexibilis_et_dogmatis_rigidi.md",
-    "description": "An essay analyzing the tension between engineering idealism and pragmatic necessity. Using the strict application of testing conventions as a case study, it argues that theoretical principles must occasionally yield to environmental constraints and complex legacy systems to ensure long-term viability."
-  },
-  {
-    "key": "the-bind",
-    "title": "The Bind",
-    "file": "/static/content/journal/the_bind.md",
-    "description": "A fictionalized narrative of a therapy session exploring the double bind between analytical rigor and creative expression. The therapist helps the writer recognize that suspending skepticism and embracing uncertainty is essential for creating authentic, resonant characters."
-  },
-  {
-    "key": "the-bond",
-    "title": "The Bond",
-    "file": "/static/content/journal/the_bond.md",
-    "description": "A brief reflection on the relationship between the analytical mind and the feeling heart. It proposes that artistic creation stems from a delicate bond between these two forces, requiring the relinquishment of both intellectual certainty and ego to find true connection."
-  },
-  {
-    "key": "the-island-of-the-soul",
-    "title": "The Island Of The Soul",
-    "file": "/static/content/journal/the_island_of_the_soul.md",
-    "description": "An allegorical story charting the three stages of psychological transition: childhood, adulthood, and death. Through interactions on a serene island and in a vast ocean, the narrative illustrates the process of relinquishing naivety, confronting mortality, and finding acceptance in the absolute unknown."
-  },
-  {
-    "key": "the-sage-of-san-francisco",
-    "title": "The Sage Of San Francisco",
-    "file": "/static/content/journal/the_sage_of_san_francisco.md",
-    "description": "A narrative detailing a confrontation between an emotionally detached sage and an assertive therapist. The session challenges the sage's use of spiritual aphorisms as a defense mechanism, ultimately guiding them to acknowledge and accept their repressed human desires and vulnerabilities."
+    "key": "organising-a-mind",
+    "title": "Organising a Mind",
+    "description": "An internal stream of consciousness exploring the frustrations of taxonomy, subjectivity, and the ultimate goal of architecting an exocortex.",
+    "file": "/static/content/journal/organising_a_mind.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   }
 ]

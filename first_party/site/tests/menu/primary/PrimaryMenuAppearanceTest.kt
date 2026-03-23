@@ -148,6 +148,16 @@ class PrimaryMenuAppearanceTest :
   @Test
   fun journalTopics_largeScreen() = runAlwaysExpandedTest("/journal/topics", ScreenWidth.LARGE)
 
+  @Test fun journalThemes_smallScreen_collapsed() = runPopupCollapsedTest("/journal/themes")
+
+  @Test fun journalThemes_smallScreen_expanded() = runPopupExpandedTest("/journal/themes")
+
+  @Test
+  fun journalThemes_mediumScreen() = runAlwaysExpandedTest("/journal/themes", ScreenWidth.MEDIUM)
+
+  @Test
+  fun journalThemes_largeScreen() = runAlwaysExpandedTest("/journal/themes", ScreenWidth.LARGE)
+
   @Test fun journalSeries_smallScreen_collapsed() = runPopupCollapsedTest("/journal/serieslist")
 
   @Test fun journalSeries_smallScreen_expanded() = runPopupExpandedTest("/journal/serieslist")
@@ -168,6 +178,19 @@ class PrimaryMenuAppearanceTest :
 
   @Test
   fun journalGenres_largeScreen() = runAlwaysExpandedTest("/journal/genres", ScreenWidth.LARGE)
+
+  @Test
+  fun journalComposition_smallScreen_collapsed() = runPopupCollapsedTest("/journal/composition")
+
+  @Test fun journalComposition_smallScreen_expanded() = runPopupExpandedTest("/journal/composition")
+
+  @Test
+  fun journalComposition_mediumScreen() =
+      runAlwaysExpandedTest("/journal/composition", ScreenWidth.MEDIUM)
+
+  @Test
+  fun journalComposition_largeScreen() =
+      runAlwaysExpandedTest("/journal/composition", ScreenWidth.LARGE)
 
   @Test
   fun journalChronological_smallScreen_collapsed() = runPopupCollapsedTest("/journal/chronological")

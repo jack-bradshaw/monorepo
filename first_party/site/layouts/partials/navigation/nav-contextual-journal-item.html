@@ -26,6 +26,15 @@ Parameters:
 {{ end }}
 {{ end }}
 
+{{/* Data gathering - Find subject */}}
+
+{{ $subject := false }}
+{{ range site.Data.journal.subjects }}
+{{ if in .items $itemKey }}
+{{ $subject = . }}
+{{ end }}
+{{ end }}
+
 {{/* Data gathering - Find topic */}}
 
 {{ $topic := false }}
@@ -35,12 +44,81 @@ Parameters:
 {{ end }}
 {{ end }}
 
+{{/* Data gathering - Find theme */}}
+
+{{ $theme := false }}
+{{ range site.Data.journal.themes }}
+{{ if in .items $itemKey }}
+{{ $theme = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find setting */}}
+{{ $setting := false }}
+{{ range site.Data.journal.settings }}
+{{ if in .items $itemKey }}
+{{ $setting = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find character */}}
+{{ $character := false }}
+{{ range site.Data.journal.characters }}
+{{ if in .items $itemKey }}
+{{ $character = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find trope */}}
+{{ $trope := false }}
+{{ range site.Data.journal.tropes }}
+{{ if in .items $itemKey }}
+{{ $trope = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find veracity */}}
+
+{{ $veracity := false }}
+{{ range site.Data.journal.veracity }}
+{{ if in .items $itemKey }}
+{{ $veracity = . }}
+{{ end }}
+{{ end }}
+
 {{/* Data gathering - Find genre */}}
 
 {{ $genre := false }}
 {{ range site.Data.journal.genres }}
 {{ if in .items $itemKey }}
 {{ $genre = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find composition */}}
+
+{{ $composition := false }}
+{{ range site.Data.journal.composition }}
+{{ if in .items $itemKey }}
+{{ $composition = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find style */}}
+
+{{ $style := false }}
+{{ range site.Data.journal.style }}
+{{ if in .items $itemKey }}
+{{ $style = . }}
+{{ end }}
+{{ end }}
+
+{{/* Data gathering - Find language */}}
+
+{{ $language := false }}
+{{ range site.Data.journal.language }}
+{{ if in .items $itemKey }}
+{{ $language = . }}
 {{ end }}
 {{ end }}
 
@@ -67,11 +145,59 @@ Parameters:
 ) }}
 {{ end }}
 
+{{/* Subject Button */}}
+{{ if $subject }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Subject (%s)" $subject.title)
+    "link" (printf "/journal/subjects#%s" ($subject.key | urlize))
+) }}
+{{ end }}
+
 {{/* Topic Button */}}
 {{ if $topic }}
 {{ $navItems = $navItems | append (dict
     "name" (printf "More in Topic (%s)" $topic.title)
     "link" (printf "/journal/topics#%s" ($topic.key | urlize))
+) }}
+{{ end }}
+
+{{/* Theme Button */}}
+{{ if $theme }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Theme (%s)" $theme.title)
+    "link" (printf "/journal/themes#%s" ($theme.key | urlize))
+) }}
+{{ end }}
+
+{{/* Setting Button */}}
+{{ if $setting }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Setting (%s)" $setting.title)
+    "link" (printf "/journal/settings#%s" ($setting.key | urlize))
+) }}
+{{ end }}
+
+{{/* Character Button */}}
+{{ if $character }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Character (%s)" $character.title)
+    "link" (printf "/journal/characters#%s" ($character.key | urlize))
+) }}
+{{ end }}
+
+{{/* Trope Button */}}
+{{ if $trope }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Trope (%s)" $trope.title)
+    "link" (printf "/journal/tropes#%s" ($trope.key | urlize))
+) }}
+{{ end }}
+
+{{/* Veracity Button */}}
+{{ if $veracity }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Veracity (%s)" $veracity.title)
+    "link" (printf "/journal/veracity#%s" ($veracity.key | urlize))
 ) }}
 {{ end }}
 
@@ -81,6 +207,33 @@ Parameters:
 {{ $navItems = $navItems | append (dict
     "name" (printf "More in Genre (%s)" $genre.title)
     "link" (printf "/journal/genres#%s" ($genre.key | urlize))
+) }}
+{{ end }}
+
+{{/* Item construction - Composition button */}}
+
+{{ if $composition }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Composition (%s)" $composition.title)
+    "link" (printf "/journal/composition#%s" ($composition.key | urlize))
+) }}
+{{ end }}
+
+{{/* Item construction - Style button */}}
+
+{{ if $style }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Style (%s)" $style.title)
+    "link" (printf "/journal/style#%s" ($style.key | urlize))
+) }}
+{{ end }}
+
+{{/* Item construction - Language button */}}
+
+{{ if $language }}
+{{ $navItems = $navItems | append (dict
+    "name" (printf "More in Language (%s)" $language.title)
+    "link" (printf "/journal/language#%s" ($language.key | urlize))
 ) }}
 {{ end }}
 

@@ -26,10 +26,17 @@ Params:
   {{ if and (hasPrefix .RelPermalink "/journal/") (not (hasPrefix .RelPermalink "/journal/series/")) (not (hasPrefix
   .RelPermalink "/journal/item/")) }}
   {{ $subpages := slice
-  (dict "name" "Highlights" "link" "/journal/highlights/")
+  (dict "name" "Style" "link" "/journal/style/")
+  (dict "name" "Subjects" "link" "/journal/subjects/")
   (dict "name" "Topics" "link" "/journal/topics/")
-  (dict "name" "Series" "link" "/journal/serieslist/")
+  (dict "name" "Composition" "link" "/journal/composition/")
+  (dict "name" "Characters" "link" "/journal/characters/")
+  (dict "name" "Settings" "link" "/journal/settings/")
+  (dict "name" "Tropes" "link" "/journal/tropes/")
+  (dict "name" "Veracity" "link" "/journal/veracity/")
+  (dict "name" "Themes" "link" "/journal/themes/")
   (dict "name" "Genres" "link" "/journal/genres/")
+  (dict "name" "Series" "link" "/journal/serieslist/")
   (dict "name" "Chronological" "link" "/journal/chronological/")
   }}
   {{ partial "navigation/nav-secondary.html" (dict "context" . "title" "Journal" "pages" $subpages) }}

@@ -29,9 +29,15 @@ class SecondaryMenuPresenceTest : BaseMenuPresenceTest(MenuType.SECONDARY) {
 
   @Test fun journalHighlights_present() = runTest("/journal/highlights", present = true)
 
+  @Test fun journalSubjects_present() = runTest("/journal/subjects", present = true)
+
   @Test fun journalTopics_present() = runTest("/journal/topics", present = true)
 
+  @Test fun journalThemes_present() = runTest("/journal/themes", present = true)
+
   @Test fun journalGenres_present() = runTest("/journal/genres", present = true)
+
+  @Test fun journalComposition_present() = runTest("/journal/composition", present = true)
 
   @Test fun journalChronological_present() = runTest("/journal/chronological", present = true)
 

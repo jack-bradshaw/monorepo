@@ -56,6 +56,7 @@
 @import url(/css/elements/p.css) layer(elements);
 @import url(/css/elements/hr.css) layer(elements);
 @import url(/css/elements/summary.css) layer(elements);
+@import url(/css/elements/table.css) layer(elements);
 
 @import url(/css/components/card/composition/career-card.css) layer(components);
 @import url(/css/components/card/composition/gallery-card.css) layer(components);

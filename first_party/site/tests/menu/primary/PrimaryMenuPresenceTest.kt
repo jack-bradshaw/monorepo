@@ -31,7 +31,11 @@ class PrimaryMenuPresenceTest : BaseMenuPresenceTest(MenuType.PRIMARY) {
 
   @Test fun journalTopics_present() = runTest("/journal/topics", present = true)
 
+  @Test fun journalThemes_present() = runTest("/journal/themes", present = true)
+
   @Test fun journalGenres_present() = runTest("/journal/genres", present = true)
+
+  @Test fun journalComposition_present() = runTest("/journal/composition", present = true)
 
   @Test fun journalChronological_present() = runTest("/journal/chronological", present = true)
 

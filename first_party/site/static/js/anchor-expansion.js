@@ -1,7 +1,7 @@
 /**
  * Automatically expands collapsed sections when linking to their contents.
  *
- * When a user navigates to a specific section (e.g., /journal/topics#spaces), this script
+ * When a user navigates to a specific section (e.g., /journal/themes#spaces), this script
  * ensures that if the section exists inside a collapsed <details> block, the block
  * is opened so the content is visible. It also ensures the target is scrolled into view.
  */

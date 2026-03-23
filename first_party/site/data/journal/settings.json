@@ -1,0 +1,50 @@
+[
+  {
+    "key": "john-elvis-room",
+    "title": "John Elvis' Therapy Room",
+    "description": "The specific clinical therapy room of Dr. John Elvis",
+    "items": ["sage-of-san-francisco", "bind", "countertransference", "illumination"]
+  },
+  {
+    "key": "san-francisco",
+    "title": "San Francisco",
+    "description": "The city of San Francisco, California",
+    "items": ["sage-of-san-francisco"]
+  },
+  {
+    "key": "generic-sports-bar",
+    "title": "Generic Sports Bar",
+    "description": "An unspecified public sports bar",
+    "items": ["sports-bar"]
+  },
+  {
+    "key": "generic-monastery",
+    "title": "Generic Monastery",
+    "description": "An unspecified secluded religious or meditative retreat",
+    "items": ["illumination"]
+  },
+  {
+    "key": "treehouse-library",
+    "title": "Treehouse Library",
+    "description": "An elevated, wooden architectural sanctuary functioning as a repository of literature and thought",
+    "items": ["cynicism-exiled", "treehouse-library"]
+  },
+  {
+    "key": "sacramento-zoo",
+    "title": "Sacramento Zoo",
+    "description": "The Sacramento Zoo located in Sacramento, California",
+    "items": ["humanity-loop"]
+  },
+  {
+    "key": "australia",
+    "title": "Australia",
+    "description": "The continent and nation of Australia",
+    "items": ["logs"]
+  },
+  {
+    "key": "generic-ocean",
+    "title": "Generic Ocean",
+    "description": "An unspecified vast body of salt water",
+    "items": ["island-of-the-soul"]
+  }
+]

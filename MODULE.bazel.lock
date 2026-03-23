@@ -459,7 +459,7 @@
   "moduleExtensions": {
     "//first_party/rules_hugo:fetch_hugo_executable.bzl%fetch_hugo_executable": {
       "general": {
-        "bzlTransitiveDigest": "GvIIHfr62VErt3cJ5w8Pf0SxdDhRQyHYreRHEzD6KS4=",
+        "bzlTransitiveDigest": "0XttWnqSURVWJVlxCREt7Lt9UJJAFet0k4sTbakTYvw=",
         "usagesDigest": "EExoLlt6ZkIgnD3Zs9fFAmnrLjqv3WZx1+rSL2XTLhQ=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},

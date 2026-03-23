@@ -1,0 +1,44 @@
+{{/*
+Journal Subjects Layout
+*/}}
+
+{{ define "main" }}
+
+{{ $itemsByKey := partial "journal/items-by-key.html" . }}
+
+<div class="content root wide-root">
+  {{ range site.Data.journal.subjects }}
+
+  {{ $visibleItems := slice }}
+  {{ range .items }}
+  {{ $item := index $itemsByKey . }}
+  {{ if $item }}
+  {{ $visibleItems = $visibleItems | append $item }}
+  {{ end }}
+  {{ end }}
+
+  {{ if gt (len $visibleItems) 0 }}
+
+  {{ $expandByDefault := partial "journal/expansion-state.html" "subjects" }}
+
+  <details class="content block" {{ if eq $expandByDefault "expanded" }}open{{ end }}>
+    <summary id="{{ .key | urlize }}">
+      {{ partial "content-block-header.html" (dict "title" .title "subtitle" .description) }}
+    </summary>
+    <ol class="content items wide-items" role="list">
+      {{ range $visibleItems }}
+      <li>
+        {{ $subtitle := partial "journal/subtitle.html" . }}
+        {{ partial "card/composition/journal-card.html" (dict
+        "title" .title
+        "subtitle" $subtitle
+        "link" (printf "/journal/item/%s" .key))
+        }}
+      </li>
+      {{ end }}
+    </ol>
+  </details>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}
