@@ -372,60 +372,110 @@
     "key": "10-words",
     "title": "10 Words",
     "file": "/static/content/journal/10_words.md",
-    "description": "A short fiction piece exploring the degradation of human communication in a hypothetical future dominated by artificial intelligence. The narrative is structurally constrained to ten-word sentences, demonstrating how such limitations impact storytelling, romance, and emotional depth."
+    "description": "A short fiction piece exploring the degradation of human communication in a hypothetical future dominated by artificial intelligence. The narrative is structurally constrained to ten-word sentences, demonstrating how such limitations impact storytelling, romance, and emotional depth.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "cynicism-exiled",
     "title": "Cynicism Exiled",
     "file": "/static/content/journal/cynicism_exiled.md",
-    "description": "An allegorical narrative depicting the internal psychological conflict between the Cynic, the Altruist, and the Pragmatist. The story recounts the Cynic's exile into the void for modifying published works, and his subsequent confrontation with the corrupting influence of the Critic."
+    "description": "An allegorical narrative depicting the internal psychological conflict between the Cynic, the Altruist, and the Pragmatist. The story recounts the Cynic's exile into the void for modifying published works, and his subsequent confrontation with the corrupting influence of the Critic.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "cynicism-refined",
     "title": "Cynicism Refined",
     "file": "/static/content/journal/cynicism_refined.md",
-    "description": "The continuation of the internal dialogue between the Cynic, the Altruist, and the Pragmatist. The characters negotiate a resolution to their conflict, ultimately agreeing to balance idealism with practical grounding to maintain the structural integrity of their shared work."
+    "description": "The continuation of the internal dialogue between the Cynic, the Altruist, and the Pragmatist. The characters negotiate a resolution to their conflict, ultimately agreeing to balance idealism with practical grounding to maintain the structural integrity of their shared work.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "first-poem",
     "title": "First Poem",
     "file": "/static/content/journal/first_poem.md",
-    "description": "A meditative poem exploring the tension between the analytical mind's search for structure and the heart's capacity for acceptance. It suggests that truth arises not from rigorous understanding, but from yielding to the inherent chaos and order of reality."
+    "description": "A meditative poem exploring the tension between the analytical mind's search for structure and the heart's capacity for acceptance. It suggests that truth arises not from rigorous understanding, but from yielding to the inherent chaos and order of reality.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "no-adults-allowed",
     "title": "No Adults Allowed",
     "file": "/static/content/journal/no_adults_allowed.md",
-    "description": "An essay examining the illusion of absolute psychological maturity and the nature of authority. It argues that recognizing the shared fallibility of all humans—regardless of age—is necessary to transcend hierarchical thinking and address dogmatic zealotry with compassion."
+    "description": "An essay examining the illusion of absolute psychological maturity and the nature of authority. It argues that recognizing the shared fallibility of all humans—regardless of age—is necessary to transcend hierarchical thinking and address dogmatic zealotry with compassion.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "radix-pragmatismi-est-taedium-ideologiae-inflexibilis-et-dogmatis-rigidi",
     "title": "Radix Pragmatismi Est Taedium Ideologiae Inflexibilis Et Dogmatis Rigidi",
     "file": "/static/content/journal/radix_pragmatismi_est_taedium_ideologiae_inflexibilis_et_dogmatis_rigidi.md",
-    "description": "An essay analyzing the tension between engineering idealism and pragmatic necessity. Using the strict application of testing conventions as a case study, it argues that theoretical principles must occasionally yield to environmental constraints and complex legacy systems to ensure long-term viability."
+    "description": "An essay analyzing the tension between engineering idealism and pragmatic necessity. Using the strict application of testing conventions as a case study, it argues that theoretical principles must occasionally yield to environmental constraints and complex legacy systems to ensure long-term viability.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "the-bind",
     "title": "The Bind",
     "file": "/static/content/journal/the_bind.md",
-    "description": "A fictionalized narrative of a therapy session exploring the double bind between analytical rigor and creative expression. The therapist helps the writer recognize that suspending skepticism and embracing uncertainty is essential for creating authentic, resonant characters."
+    "description": "A fictionalized narrative of a therapy session exploring the double bind between analytical rigor and creative expression. The therapist helps the writer recognize that suspending skepticism and embracing uncertainty is essential for creating authentic, resonant characters.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "the-bond",
     "title": "The Bond",
     "file": "/static/content/journal/the_bond.md",
-    "description": "A brief reflection on the relationship between the analytical mind and the feeling heart. It proposes that artistic creation stems from a delicate bond between these two forces, requiring the relinquishment of both intellectual certainty and ego to find true connection."
+    "description": "A brief reflection on the relationship between the analytical mind and the feeling heart. It proposes that artistic creation stems from a delicate bond between these two forces, requiring the relinquishment of both intellectual certainty and ego to find true connection.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "the-island-of-the-soul",
     "title": "The Island Of The Soul",
     "file": "/static/content/journal/the_island_of_the_soul.md",
-    "description": "An allegorical story charting the three stages of psychological transition: childhood, adulthood, and death. Through interactions on a serene island and in a vast ocean, the narrative illustrates the process of relinquishing naivety, confronting mortality, and finding acceptance in the absolute unknown."
+    "description": "An allegorical story charting the three stages of psychological transition: childhood, adulthood, and death. Through interactions on a serene island and in a vast ocean, the narrative illustrates the process of relinquishing naivety, confronting mortality, and finding acceptance in the absolute unknown.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   },
   {
     "key": "the-sage-of-san-francisco",
     "title": "The Sage Of San Francisco",
     "file": "/static/content/journal/the_sage_of_san_francisco.md",
-    "description": "A narrative detailing a confrontation between an emotionally detached sage and an assertive therapist. The session challenges the sage's use of spiritual aphorisms as a defense mechanism, ultimately guiding them to acknowledge and accept their repressed human desires and vulnerabilities."
+    "description": "A narrative detailing a confrontation between an emotionally detached sage and an assertive therapist. The session challenges the sage's use of spiritual aphorisms as a defense mechanism, ultimately guiding them to acknowledge and accept their repressed human desires and vulnerabilities.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 22
+    }
   }
 ]
