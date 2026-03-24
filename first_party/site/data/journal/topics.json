@@ -7,10 +7,8 @@
       "into-the-subverse",
       "pragmatic-altruism",
       "illumination",
-      "the-answer",
       "hermeticity",
       "the-artificial-man",
-      "timeless-engineering",
       "stars",
       "countertransference",
       "10-words",
@@ -35,8 +33,6 @@
       "five-stages-of-writing",
       "the-tao-of-the-pen",
       "a-writers-dilemma",
-      "why-write",
-      "open-source-writing",
       "writing-as-metamorphosis"
     ]
   },
@@ -44,39 +40,25 @@
     "key": "society",
     "title": "Society",
     "description": "Exploration of social norms, ethics, and human interaction",
-    "items": [
-      "sports-bar",
-      "meat-because-we-want-to",
-      "pragmatic-altruism",
-      "challenge-of-monologue",
-      "one-or-many",
-      "hermeticity",
-      "timeless-engineering"
-    ]
+    "items": ["sports-bar", "pragmatic-altruism", "challenge-of-monologue", "hermeticity"]
   },
   {
     "key": "technology",
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
-    "items": [
-      "the-cursed-cursor",
-      "pragmatic-altruism",
-      "the-wolves-are-all-gone",
-      "logs",
-      "timeless-engineering"
-    ]
+    "items": ["the-cursed-cursor", "pragmatic-altruism", "the-wolves-are-all-gone", "logs"]
   },
   {
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "one-or-many", "humanity-loop", "stars", "on-imperfection"]
+    "items": ["death-of-a-critic", "humanity-loop", "stars", "on-imperfection"]
   },
   {
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
-    "items": ["meat-because-we-want-to", "sports-bar"]
+    "items": ["sports-bar"]
   },
   {
     "key": "meta-fiction",
