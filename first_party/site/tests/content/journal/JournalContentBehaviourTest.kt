@@ -13,39 +13,39 @@ class JournalContentBehaviourTest : BaseContentBehaviourTest() {
   fun highlights() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/highlights"),
-        itemLabel = "Into the Subverse",
-        expectedDestinationPagePath = URI.create("/journal/item/into-the-subverse"))
+        itemLabel = "Exit",
+        expectedDestinationPagePath = URI.create("/journal/item/exit"))
   }
 
   @Test
   fun topics() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/topics"),
-        itemLabel = "Into the Subverse",
-        expectedDestinationPagePath = URI.create("/journal/item/into-the-subverse"))
+        itemLabel = "Exit",
+        expectedDestinationPagePath = URI.create("/journal/item/exit"))
   }
 
   @Test
   fun series() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/serieslist"),
-        itemLabel = "Death of a Critic",
-        expectedDestinationPagePath = URI.create("/journal/item/death-of-a-critic"))
+        itemLabel = "Exit",
+        expectedDestinationPagePath = URI.create("/journal/item/exit"))
   }
 
   @Test
   fun genres() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/genres"),
-        itemLabel = "Sports Bar",
-        expectedDestinationPagePath = URI.create("/journal/item/sports-bar"))
+        itemLabel = "Exit",
+        expectedDestinationPagePath = URI.create("/journal/item/exit"))
   }
 
   @Test
   fun chronological() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/chronological"),
-        itemLabel = "Death of a Critic",
-        expectedDestinationPagePath = URI.create("/journal/item/death-of-a-critic"))
+        itemLabel = "Exit",
+        expectedDestinationPagePath = URI.create("/journal/item/exit"))
   }
 }

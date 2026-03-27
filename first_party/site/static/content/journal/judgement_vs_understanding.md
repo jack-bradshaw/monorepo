@@ -1,6 +1,6 @@
 We are all born understanding but in time all we can recall is judgement. It's in our nature, and is
-a core part of humanity, for judgement stems from comparison between what we expect to be true and
-what we find to be true (two variables which are rarely aligned), and it is far easier to judge than
+a core part of humanity, for judgement stems from comparison between what we find to be true and
+what we want to be true (two variables which are rarely aligned), and it is far easier to judge than
 to understand. It's an approach to conflict which seeks to destroy and refine reality until only a
 pure truth remains. It should come as no surprise that it dominates Western society given how much
 support it lends to individual pursuits and institutional stability, and even Eastern society is not

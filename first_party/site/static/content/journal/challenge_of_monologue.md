@@ -1,10 +1,10 @@
 This life began with hardship and adversity, and for many years only the spirit of perseverance
 sustained me. It kept me alive and led me across continents, before slowly turning inwards and
-becoming a deep appreciation for all life. My journey showed me the inner workings of my own soul,
-gave me the tools to truly connect with others, and revealed several paradoxes at the heart of
-society which seem both necessary and intractable. I have come to believe our universe holds
-mysteries beyond anything we can imagine, and I wish to explore them with you, but face a bind. It
-must be resolved before we can truly begin, so let's explore it together.
+becoming a deep appreciation for all life. My journey showed me the inner workings of my soul, gave
+me the tools to truly connect with others, and revealed several paradoxes at the heart of society
+which seem both necessary and intractable. I have come to believe our universe holds mysteries
+beyond anything we can imagine, and wish to explore them with you, but I face a bind. It must be
+resolved before we can truly begin, so let's explore it together.
 
 What I have to share, by its very nature, is best expressed through conversation and connection, but
 as reader and writer we are bound together by monologue without recourse. We cannot ask each other
