@@ -6,6 +6,9 @@
 #
 name: CI
 on: [pull_request]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   single-commit-rule:
     runs-on: ubuntu-latest
