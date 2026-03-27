@@ -33,7 +33,8 @@
       "five-stages-of-writing",
       "the-tao-of-the-pen",
       "a-writers-dilemma",
-      "writing-as-metamorphosis"
+      "writing-as-metamorphosis",
+      "exit"
     ]
   },
   {
@@ -52,7 +53,16 @@
     "key": "psychology",
     "title": "Psychology",
     "description": "Introspection, mental states, and identity",
-    "items": ["death-of-a-critic", "humanity-loop", "stars", "on-imperfection"]
+    "items": [
+      "death-of-a-critic",
+      "humanity-loop",
+      "stars",
+      "on-imperfection",
+      "borderline",
+      "disapproval",
+      "escape",
+      "exit"
+    ]
   },
   {
     "key": "veganism",
