@@ -8,7 +8,7 @@ hard to write, but it needed to be written, and upon review it made very little 
 I later destroyed it. I shredded the pages and threw away the scraps out of fear for how others
 would perceive me if they saw it. I touched on too many notes, crossed too many silos, and ventured
 into territory I hold blasphemous to the secular, and irreverent to the cleric, but those were just
-excuses. I got too close to my own fear and pain, so I destroyed the apparent cause, and I regret
+excuses. I got too close to my own fear and pain, so I destroyed the apparent cause, but I regret
 that act so much. Those pages were dear to me, and they are gone forever.
 
 I felt sorrow and regret for many years, and even tried rewriting it a few times, but I have never

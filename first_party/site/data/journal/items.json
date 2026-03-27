@@ -1,5 +1,53 @@
 [
   {
+    "key": "exit",
+    "title": "Exit",
+    "description": "The thematic conclusion to the Exorcism series that defines publication as a systemic mechanism for permanently externalizing trauma.",
+    "series": "exorcism",
+    "file": "/static/content/journal/exit.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 26
+    }
+  },
+  {
+    "key": "disapproval",
+    "title": "Disapproval",
+    "description": "A visceral capture of a mind grappling with emotional flashbacks and learned helplessness.",
+    "series": "exorcism",
+    "file": "/static/content/journal/disapproval.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 26
+    }
+  },
+  {
+    "key": "escape",
+    "title": "Escape",
+    "description": "A visceral capture of a mind breaking free of the behavioral loops and internalized trauma that hold it back.",
+    "series": "exorcism",
+    "file": "/static/content/journal/escape.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 26
+    }
+  },
+  {
+    "key": "borderline",
+    "title": "Borderline",
+    "description": "A visceral capture of the psychological consequences of identity contamination and the internal experience of enmeshment.",
+    "file": "/static/content/journal/borderline.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 26
+    },
+    "series": "exorcism"
+  },
+  {
     "key": "logs",
     "title": "Temporal Logs",
     "description": "Fictional field logs from a 24th-century Temporal Agent stranded in 2025, observing human history and finding ethics in a chaotic world.",
@@ -57,7 +105,7 @@
   {
     "key": "illumination",
     "title": "Illumination",
-    "description": "A micro-essay on how intention shapes perception, observing that light reveals truth but also casts shadows where malice can hide.",
+    "description": "A wise sage is rudely interrupted by a man from far away, and comes to learn of another who outshines their wisdom.",
     "file": "/static/content/journal/illumination.md",
     "date": {
       "year": 2026,
