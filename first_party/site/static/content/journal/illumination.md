@@ -10,7 +10,7 @@ The sea of faces before them murmured in gentle acknowledgement and agreement. T
 bathe in their light, feeling vicarious joy for the enlightened souls being created. As they took a
 deep breath, their tranquil repose was interrupted by a loud, sharp voice.
 
-"Excuse me I don't see anything."
+"Excuse me, I don't see anything."
 
 Their eyes fell upon the source: In the front row was a man: A thin figure, dressed all in black,
 with his arm raised straight upwards, like a flagpole, and his eyes screwed shut. He spoke once
@@ -25,7 +25,7 @@ The sage smiled a wry smile and spoke directly:
 The man in black opened his eyes and made a note in his phone. Phones were not allowed in the
 temple, but apparently his ignorance extended to reading signs. He spoke again:
 
-"Ok, great thanks, open eyes to see things, got it."
+"Ok, great, thanks. Open eyes to see things, got it."
 
 The sage, sensing he was perhaps not entirely genuine, felt a pang of annoyance.
 
@@ -43,7 +43,7 @@ India. This young soul clearly had much to learn, but was at least on the right 
 
 "Your therapist is a wise woman, then", said the Sage.
 
-The man in black tilted his head, puzzled, and quipped back.
+The man in black tilted his head, puzzled, then quipped back.
 
 "Oh, man actually. My therapist is a man, and he's very wise. The wisest person I've ever met."
 
@@ -57,9 +57,9 @@ The man in black grimaced and made another note in his phone, muttering somethin
 Jung. He thought for a moment then spoke with skeptical awkwardness:
 
 "Maybe, but not _my_ therapist. They're the wisest man who ever lived. Here, what's your number?
-I'll text you the details, and you can see for yourself."
+I'll text you his details."
 
-The sage scoffed and turned their head away in derision. The man in black noticed the uncomfortable
+The sage scoffed and tilted their head in derision. The man in black noticed the uncomfortable
 glances from the others in the temple, but paid them no attention. The sage spoke again with
 grandiose derision:
 
@@ -76,14 +76,14 @@ Before the sage could respond, the man in black jumped up and hurried away, glan
 and the walls as he did, as if expecting a rock to fall on him.
 
 The wise sage sat before the crowd, and noticed for the first time the many eyes staring at them. A
-sea of blank expressions, all without thought, all waiting to hear another enlightening tale. The
-sage addressed the crowd with gleeful pride:
+sea of blank expressions, without a thought between them, all waiting to hear another enlightening
+tale. The sage addressed the crowd with gleeful pride:
 
 "Pay no attention to the strange visitor from afar, I hear San Francisco is a place of great
 enlightenment. I shall visit this sage and seek their counsel, then when I return we shall all share
-in their wisdom together. Fear not, my friends, we shall soon attain yet another level of
+in their wisdom together. Fear not, my friends, for soon we shall attain yet another level of
 enlightenment."
 
 The crowd murmured and nodded in agreement, then returned to their silent meditation. The sage sat,
-eyes closed and knees crossed, wondering just who the strange visitor was, and what they might learn
-from this Doctor John Elvis.
+eyes closed and knees crossed, working hard to dissapate the sense of irritation the visitor had
+brought, and wondering what they might learn from this Doctor John Elvis.

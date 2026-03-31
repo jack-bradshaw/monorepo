@@ -10,7 +10,8 @@
       "borderline",
       "disapproval",
       "escape",
-      "exit"
+      "exit",
+      "pride"
     ]
   },
   {
@@ -46,6 +47,7 @@
     "title": "Fiction",
     "description": "Narrative prose originating from imagination",
     "items": [
+      "doctor-breens-first-message",
       "the-wolves-are-all-gone",
       "on-the-red-space",
       "the-artificial-man",

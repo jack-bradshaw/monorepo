@@ -21,8 +21,8 @@ class JournalContentBehaviourTest : BaseContentBehaviourTest() {
   fun topics() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/topics"),
-        itemLabel = "Exit",
-        expectedDestinationPagePath = URI.create("/journal/item/exit"))
+        itemLabel = "Into the Subverse",
+        expectedDestinationPagePath = URI.create("/journal/item/into-the-subverse"))
   }
 
   @Test
@@ -37,15 +37,15 @@ class JournalContentBehaviourTest : BaseContentBehaviourTest() {
   fun genres() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/genres"),
-        itemLabel = "Exit",
-        expectedDestinationPagePath = URI.create("/journal/item/exit"))
+        itemLabel = "Sports Bar",
+        expectedDestinationPagePath = URI.create("/journal/item/sports-bar"))
   }
 
   @Test
   fun chronological() {
     runInternalLinkTest(
         startPagePath = URI.create("/journal/chronological"),
-        itemLabel = "Exit",
-        expectedDestinationPagePath = URI.create("/journal/item/exit"))
+        itemLabel = "Death of a Critic",
+        expectedDestinationPagePath = URI.create("/journal/item/death-of-a-critic"))
   }
 }

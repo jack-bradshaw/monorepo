@@ -448,5 +448,27 @@
       "month": 3,
       "day": 22
     }
+  },
+  {
+    "key": "pride",
+    "title": "Pride",
+    "file": "/static/content/journal/pride.md",
+    "description": "A visceral poetic analysis of the cognitive dissonance that allows celebrations of pride to coexist with animal slaughter. The piece aggressively juxtaposes the celebration of human liberation against the active, systemic commodification of non-human animals, ultimately asserting that liberation must extend beyond humanity.",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 30
+    }
+  },
+  {
+    "key": "doctor-breens-first-message",
+    "title": "Dr. Breen's First Message",
+    "description": "An impassioned, seemingly empathetic broadcast from Earth's Administrator demanding absolute, unconditional surrender to extraterrestrial occupation. Set in the fictional Half-Life universe.",
+    "file": "/static/content/journal/doctor_breen_first_message.md",
+    "date": {
+      "year": 2026,
+      "month": 3,
+      "day": 31
+    }
   }
 ]

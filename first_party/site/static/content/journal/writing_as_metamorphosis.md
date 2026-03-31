@@ -3,7 +3,7 @@ Entire fields are threatened with obsolescence and disruption, including art, te
 various others; fields which not long ago were immune to automation by virtue of their inherent
 subjectivity. Writing, as an extension of art, is not immune to the trend, and is closest to the
 epicentre by virtue of how modern large language models work. Entire essays are now just a prompt
-away, and soon entire textbooks will materialise in the blink of an eye. In some ways, it's
+away, and soon perhaps entire textbooks will materialise in the blink of an eye. In some ways, it's
 wonderful, and humanity will certainly benefit greatly, but given the unprecedented obsolescence we
 are witnessing, one could wonder whether we have seen the last generations of writers, and you would
 be forgiven for asking: Why bother writing? The answer is found by decoupling the act of writing
@@ -43,26 +43,26 @@ so offloading the struggle to an external source is simply unviable. To experien
 metamorphosis, we must continue to hone ourselves, find our missing pieces, and invest in our own
 capacities.
 
-Of course, none of this is to say we must all master every craft, and it should certainly not be
+Of course, none of this should imply we must all master every craft, and it should certainly not be
 interpreted as an indictment of collaboration. I myself did not produce any of the furniture in my
 house (save for a few paintings), and I would not know where to begin. I am not a carpenter and have
 accepted that my time is better spent on other tasks (writing, painting, and software engineering).
-Society's greatest gift is the time it permits to focus on the areas that are important to us while
-outsourcing the rest to others, and even the lucky few of us who receive the life of a renaissance
-man (or more modernly, renaissance person) cannot master truly everything. Working together allows a
-level of comfort and grace we could not achieve on our own, and collaboration is amongst the most
-beautiful tenets of humanity. We must acknowledge the distinction between work and requisition,
-though, for the process is what matters. Prompting an artificial intelligence yields a result, but
-it is fundamentally different to producing novel material with ourselves. The latter is what
-nurtures us, so in the end we don't write for other people, no, we write to find ourselves, and when
-others find value in our words, that simply means we helped them along the way.
+Society's greatest gift is the time it permits us to focus on the areas that are personally
+rewarding while outsourcing the rest to others, and even the lucky few of us who receive the life of
+a renaissance man (or more modernly, renaissance person) cannot master truly everything. Working
+together allows a level of comfort and grace we could not achieve on our own, and collaboration is
+amongst the most beautiful tenets of humanity. We must acknowledge the distinction between work and
+requisition, though, for the process is what matters; prompting an artificial intelligence yields a
+result, but is fundamentally different to producing novel material with ourselves. The latter is the
+only path that nurtures the soul, so in the end, we don't write for other people, no, we write to
+find ourselves, and when others find value in our words, that simply means we helped them along the
+way.
 
 All this to say: Writing is a deeply human act which nurtures the soul by requiring growth, and when
 we use artificial intelligence to bypass the difficult parts, we risk missing the metamorphosis
 entirely. Its usefulness as an assistant is undeniable, and it can benefit writers greatly, but
 there is a clear distinction between using artificial intelligence to edit work grown within, and
 generating material that has no human origin save for the underlying training data. Awareness of
-this distinction is critical, for it ultimately determines whether we will grow or stagnate not just
-as writers but as people. I invite you to consider: What are you gaining when you write purely from
-your own heart, and what are you losing when you outsource your creativity to a machine? The
-tradeoff may not be as worthwhile as it seems.
+this distinction is critical, for it ultimately determines whether we will grow or stagnate, not
+just as writers, but as people. I invite you to consider: What are you gaining when you write purely
+from your own heart, and what are you losing when you outsource your creativity to a machine?
