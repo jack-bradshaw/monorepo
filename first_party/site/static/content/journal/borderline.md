@@ -6,7 +6,8 @@ FAKER!\
 Rot in Hell, Fag!"
 
 Her echoes ring.\
-Endless and indelible.
+Endless and indelible.\
+Living just behind my eyes.
 
 Rage.\
 Lies.\

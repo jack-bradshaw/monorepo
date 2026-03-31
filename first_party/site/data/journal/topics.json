@@ -41,7 +41,7 @@
     "key": "society",
     "title": "Society",
     "description": "Exploration of social norms, ethics, and human interaction",
-    "items": ["sports-bar", "pragmatic-altruism", "challenge-of-monologue", "hermeticity"]
+    "items": ["sports-bar", "pragmatic-altruism", "challenge-of-monologue", "hermeticity", "pride"]
   },
   {
     "key": "technology",
@@ -68,7 +68,7 @@
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
-    "items": ["sports-bar"]
+    "items": ["sports-bar", "pride"]
   },
   {
     "key": "meta-fiction",
@@ -81,6 +81,7 @@
     "title": "Sci-Fi",
     "description": "Speculative fiction exploring futuristic concepts",
     "items": [
+      "doctor-breens-first-message",
       "self-aware-antagonist",
       "the-wolves-are-all-gone",
       "on-the-red-space",

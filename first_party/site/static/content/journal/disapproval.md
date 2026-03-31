@@ -69,8 +69,10 @@ Open now. Go. Leave.
 
 Leave!
 
-Please...
+...
 
-No, no... No. No.
+No, no... no.
 
-I am where I belong.
+...
+
+No. I am where I belong.

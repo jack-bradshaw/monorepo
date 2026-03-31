@@ -1,7 +1,7 @@
 The Pragmatist in me views altruism as a noble, but unfortunately difficult pursuit, and wonders how
 feasible kindness truly is. The Cynic in me believes altruism to be an expression of my genome, an
 unconscious drive to optimise the propagation of my species, and by extension, life itself. The
-Altruist in me hears these two voices and smiles with gentle understanding, viewing them as
+Altruist in me hears these two voices and smiles with gentle understanding, viewing them as two
 misguided, but ultimately necessary parts of the greater whole. I sit between them, neutral, but
 curious.
 
