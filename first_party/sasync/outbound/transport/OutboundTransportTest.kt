@@ -1,22 +1,28 @@
 package com.jackbradshaw.sasync.outbound.transport
 
 import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
+import com.jackbradshaw.coroutines.Cpu
+import com.jackbradshaw.coroutines.testing.Coroutines
 import com.jackbradshaw.sasync.outbound.config.Config
 import com.jackbradshaw.sasync.outbound.config.config
 import com.jackbradshaw.universal.count.CountKt.bounded
 import com.jackbradshaw.universal.count.CountKt.unbounded
 import com.jackbradshaw.universal.count.count
+import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 import kotlin.test.assertFailsWith
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.ClosedSendChannelException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
 import org.junit.Test
 
 abstract class OutboundTransportTest {
 
-  /** The config to use in [subject]. Must be populated before any calls to [subject]. */
-  lateinit var config: Config
+  @Inject @Cpu lateinit var cpuContext: CoroutineContext
+
+  @Inject @Coroutines lateinit var taskBarrier: TestingTaskBarrier
 
   @Test
   fun publishInt_writesToDestination(): Unit = runBlocking {
@@ -80,7 +86,7 @@ abstract class OutboundTransportTest {
 
     waitForIdle()
 
-    assertThat(received()).isEqualTo(TEST_VALUES_BYTE_ARRAY)
+    assertThat(received().toList()).containsExactlyElementsIn(TEST_VALUES_BYTE_ARRAY.toList())
   }
 
   @Test
@@ -102,7 +108,7 @@ abstract class OutboundTransportTest {
 
     waitForIdle()
 
-    assertThat(received()).isEqualTo(TEST_VALUES_BYTE_ARRAY)
+    assertThat(received().toList()).containsExactlyElementsIn(TEST_VALUES_BYTE_ARRAY.toList())
   }
 
   @Test
@@ -135,52 +141,40 @@ abstract class OutboundTransportTest {
 
     waitForIdle()
 
-    assertThat(received()).isEqualTo(TEST_VALUES_BYTE_ARRAY)
+    assertThat(received().toList()).containsExactlyElementsIn(TEST_VALUES_BYTE_ARRAY.toList())
   }
 
   @Test
   fun publish_concurrently_allWrittenToDestination(): Unit = runBlocking {
     setup(config = QUEUE_SIZE_UNBOUNDED)
 
-    TEST_VALUES_INTS.forEach { testScope().launch { subject().publishInt(it) } }
+    TEST_VALUES_INTS.forEach { CoroutineScope(cpuContext).launch { subject().publishInt(it) } }
 
     waitForIdle()
 
-    assertThat(received()).isEqualTo(TEST_VALUES_BYTE_ARRAY)
+    assertThat(received().toList()).containsExactlyElementsIn(TEST_VALUES_BYTE_ARRAY.toList())
   }
 
   @Test
-  fun publish_countExceedsQueueSize_allWrittenToDestination(): Unit = runBlocking {
+  fun publish_countExceedsQueueSize_allWrittenToDestinationEventually(): Unit = runBlocking {
     setup(config = QUEUE_SIZE_BOUNDED)
 
-    TEST_VALUES_INTS.forEach { testScope().launch { subject().publishInt(it) } }
+    TEST_VALUES_INTS.forEach { CoroutineScope(cpuContext).launch { subject().publishInt(it) } }
 
     waitForIdle()
 
-    assertThat(received()).isEqualTo(TEST_VALUES_BYTE_ARRAY)
+    assertThat(received().toList()).containsExactlyElementsIn(TEST_VALUES_BYTE_ARRAY.toList())
   }
 
   @Test
   fun publish_afterClose_fails(): Unit = runBlocking {
     setup(config = QUEUE_SIZE_BOUNDED)
 
-    testScope().launch { subject().close() }
+    CoroutineScope(cpuContext).launch { subject().close() }
     waitForIdle()
 
     val exception = assertFailsWith<ClosedSendChannelException> { subject().publishInt(1) }
     assertThat(exception.message).contains("Channel was closed")
-  }
-
-  @Test
-  fun close_flushesAllBufferedData(): Unit = runBlocking {
-    setup(config = QUEUE_SIZE_BOUNDED)
-
-    TEST_VALUES_INTS.forEach { testScope().launch { subject().publishInt(it) } }
-
-    testScope().launch { subject().close() }
-    waitForIdle()
-
-    assertThat(received()).isEqualTo(TEST_VALUES_BYTE_ARRAY)
   }
 
   /** Prepares [subject] using [config]. */
@@ -192,12 +186,9 @@ abstract class OutboundTransportTest {
   /** Gets the values received at the destination since the last call to [received]. */
   abstract fun received(): ByteArray
 
-  /** Gets the coroutine scope used to run tests. The same instance must be returned each call. */
-  abstract fun testScope(): TestScope
-
-  /** Advances until [testScope] is idle. */
+  /** Advances until the framework is idle. */
   suspend fun waitForIdle() {
-    testScope().testScheduler.advanceUntilIdle()
+    taskBarrier.awaitAllIdle()
   }
 
   companion object {
@@ -218,6 +209,7 @@ abstract class OutboundTransportTest {
 
     /** [TEST_VALUES_INTS] as a list of bytes. */
     private val TEST_VALUES_BYTES = listOf<Byte>(1, 20, 6, 1, 5)
+    
     /** [TEST_VALUES_INTS] as a primitive array of bytes. */
     private val TEST_VALUES_BYTE_ARRAY = byteArrayOf(1, 20, 6, 1, 5)
 

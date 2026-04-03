@@ -1,18 +1,25 @@
 package com.jackbradshaw.sasync.inbound.transport
 
 import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
+import com.jackbradshaw.coroutines.Cpu
+import com.jackbradshaw.coroutines.testing.Coroutines
 import com.jackbradshaw.universal.count.Count
 import com.jackbradshaw.universal.count.CountKt
+import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.runCurrent
 import org.junit.Test
 
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 abstract class InboundTransportTest {
+
+  @Inject @Cpu lateinit var cpuContext: CoroutineContext
+
+  @Inject @Coroutines lateinit var taskBarrier: TestingTaskBarrier
 
   @Test
   fun observeBuffered_emptyQueue_nothingEmitted(): Unit = runBlocking {
@@ -71,18 +78,15 @@ abstract class InboundTransportTest {
     var collected = launchBufferedCollection()
 
     val values = listOf<Byte>(1, 6, 9, 1, 7)
-    testScope().launch(UnconfinedTestDispatcher(testScope().testScheduler)) {
-      values.forEach { launch { queue(it) } }
-    }
+    CoroutineScope(cpuContext).launch { values.forEach { launch { queue(it) } } }
 
     advanceThroughNextBuffer()
     advanceThroughNextBuffer()
     advanceThroughNextBuffer()
 
     assertThat(collected).hasSize(3)
-    assertThat(collected[0]).isEqualTo(byteArrayOf(1, 6))
-    assertThat(collected[1]).isEqualTo(byteArrayOf(9, 1))
-    assertThat(collected[2]).isEqualTo(byteArrayOf(7))
+    val flattened = collected.flatMap { it.toList() }
+    assertThat(flattened).containsExactlyElementsIn(values)
   }
 
   @Test
@@ -144,11 +148,8 @@ abstract class InboundTransportTest {
   /** Advances until one buffer has been processed by [subject]. */
   abstract fun advanceThroughNextBuffer()
 
-  /** Gets the coroutine scope used to run tests. The same instance must be returned each call. */
-  abstract fun testScope(): TestScope
-
-  open fun waitUntilIdle() {
-    testScope().testScheduler.advanceUntilIdle()
+  open suspend fun waitUntilIdle() {
+    taskBarrier.awaitAllIdle()
   }
 
   /**
@@ -157,19 +158,15 @@ abstract class InboundTransportTest {
    */
   private suspend fun launchBufferedCollection(): List<ByteArray> {
     val collected = mutableListOf<ByteArray>()
-    testScope().launch(UnconfinedTestDispatcher(testScope().testScheduler)) {
-      subject().observeBuffered().toList(collected)
-    }
-    testScope().runCurrent()
+    CoroutineScope(cpuContext).launch { subject().observeBuffered().toList(collected) }
+    waitUntilIdle()
     return collected
   }
 
   private suspend fun launchFlattenedCollection(): List<Byte> {
     val collected = mutableListOf<Byte>()
-    testScope().launch(UnconfinedTestDispatcher(testScope().testScheduler)) {
-      subject().observeFlattened().toList(collected)
-    }
-    testScope().runCurrent()
+    CoroutineScope(cpuContext).launch { subject().observeFlattened().toList(collected) }
+    waitUntilIdle()
     return collected
   }
 

@@ -1,7 +1,7 @@
 package com.jackbradshaw.sasync.inbound.transport
 
 import com.jackbradshaw.concurrency.pulsar.Pulsar
-import com.jackbradshaw.coroutines.io.Io
+import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.sasync.inbound.config.Config
 import com.jackbradshaw.universal.frequency.Frequency
 import com.jackbradshaw.universal.frequency.toHertz
@@ -10,6 +10,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import java.io.InputStream
 import java.time.Duration
+import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration as DurationKt
 import kotlin.time.toKotlinDuration
 import kotlinx.coroutines.CoroutineScope
@@ -26,10 +27,12 @@ class InboundTransportImpl
 @AssistedInject
 constructor(
     private val config: Config,
-    @Io private val ioScope: CoroutineScope,
+    @Io private val ioContext: CoroutineContext,
     private val pulsar: Pulsar,
     @Assisted private val source: InputStream,
 ) : InboundTransport {
+
+  private val ioScope = CoroutineScope(ioContext)
 
   /**
    * The period between poll events, null for instantaneous. Evaluated during init to validate

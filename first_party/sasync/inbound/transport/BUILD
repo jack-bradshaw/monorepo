@@ -15,7 +15,8 @@ kt_jvm_library_with_dagger(
     deps = [
         ":transport",
         "//first_party/concurrency/pulsar",
-        "//first_party/coroutines/io",
+        "//first_party/coroutines/cpu:module",
+        "//first_party/coroutines/io:module",
         "//first_party/sasync/inbound/config:kt_jvm_proto",
         "//first_party/universal/frequency:kt_helpers",
         "//first_party/universal/frequency:kt_jvm_proto",
@@ -41,6 +42,7 @@ kt_jvm_library(
     deps = [
         ":transport",
         "//first_party/concurrency/pulsar/testing",
+        "//first_party/coroutines/testing/realistic:component",
         "//first_party/universal/count:kt_jvm_proto",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
@@ -60,7 +62,7 @@ kt_jvm_test_with_dagger(
         ":test",
         ":transport",
         "//first_party/concurrency/testing:component_impl",
-        "//first_party/coroutines/testing:component_impl",
+        "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sasync/inbound:scope",
         "//first_party/sasync/inbound/config:kt_jvm_proto",
         "//first_party/universal/count:kt_jvm_proto",

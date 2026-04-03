@@ -40,6 +40,7 @@ kt_jvm_library(
     visibility = PUBLICITY,
     deps = [
         ":testing",
+        "//first_party/coroutines/testing/realistic:component",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:javax_inject_javax_inject",
         "@com_jackbradshaw_maven//:junit_junit",
@@ -60,7 +61,7 @@ kt_jvm_test_with_dagger(
         ":test",
         ":testing",
         "//first_party/concurrency:scope",
-        "//first_party/coroutines/testing:component_impl",
+        "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",

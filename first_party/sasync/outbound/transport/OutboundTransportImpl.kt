@@ -1,12 +1,13 @@
 package com.jackbradshaw.sasync.outbound.transport
 
-import com.jackbradshaw.coroutines.io.Io
+import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.sasync.outbound.config.Config
 import com.jackbradshaw.universal.count.Count
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import java.io.OutputStream
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.SendChannel
@@ -15,10 +16,12 @@ import kotlinx.coroutines.launch
 class OutboundTransportImpl
 @AssistedInject
 constructor(
-    @Io private val ioScope: CoroutineScope,
+    @Io private val ioContext: CoroutineContext,
     config: Config,
     @Assisted private val destination: OutputStream,
 ) : OutboundTransport {
+
+  private val ioScope = CoroutineScope(ioContext)
 
   private val channel: Channel<ByteArray> by lazy {
     when (config.queueSize.typeCase) {

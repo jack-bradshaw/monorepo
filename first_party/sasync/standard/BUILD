@@ -43,7 +43,10 @@ kt_jvm_test(
     deps = [
         ":component",
         ":component_impl",
-        "//first_party/coroutines/testing:component_impl",
+        "//first_party/concurrency/pulsar/testing",
+        "//first_party/concurrency/testing:component",
+        "//first_party/concurrency/testing:component_impl",
+        "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sasync/inbound:component",
         "//first_party/sasync/inbound:component_impl",
         "//first_party/sasync/outbound:component",

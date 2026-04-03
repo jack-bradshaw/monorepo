@@ -1,158 +1,230 @@
 # Coroutines
 
-Kotlin coroutine infrastructure.
-
+Dependency injectable Kotlin coroutine infrastructure with [Chronosphere](/first_party/chronosphere) integration.
 ## Release
 
 Not released to third party package managers.
 
-## Utilities
+## Overview
 
-This package provides the following production utilities:
+This package makes coroutine infrastructure available via dependency injection. It provides two
+dispatchers, one for CPU bound work, and one for IO bound work, with all the necessary framing to
+inject them into other classes. It also provides a variety of test doubles for different purposes,
+also with dependency injection framing, so they can be substituted into applications without
+disturbing high-level code. This system provides all the benefits of concurrent programming with
+coroutines while keeping testability high and allowing tests to target real infrastructure where
+possible, thus ensuring tests exercise real code and provide meaningful results.
 
-- [IO Dispatcher](/first_party/coroutines/io): A
-  [CoroutineDispatcher](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.coroutines/-coroutine-dispatcher/)
-  for IO-bound work.
+## Guide
 
-This package provides the following test utilities:
+Anywhere you need a coroutine dispatcher simply inject an [@Io](/first_party/coroutines/io/Io.kt) or [@Cpu](/first_party/coroutines/cpu/Cpu.kt) annotated dispatcher. For example:
 
-- [Test Scope](/first_party/coroutines/testing/scope): A
-  [TestScope](https://kotlinlang.org/api/kotlinx.coroutines.test/kotlinx-coroutines-test/kotlinx.coroutines.test/-test-scope/)
-  to use and control coroutines in tests.
-- [Launcher](/first_party/coroutines/testing/launcher): A utility for launching coroutines in tests.
-
-The utilities are integrated/exposed using [Dagger](https://dagger.dev), and two components are
-provided:
-
-- The [production component](/first_party/coroutines/CoroutinesComponent.kt), which provides
-  production versions
-- The [test component](/first_party/coroutines/testing/TestCoroutinesComponent.kt), which provides
-  test doubles.
-
-The test component extends the production component; therefore, the test component can be
-substituted anywhere the production component is required. Furthermore, an equivalent Kotlin factory
-function is provided for each, specifically `com.jackbradshaw.coroutines.coroutinesComponent` for
-the former, and `com.jackbradshaw.coroutines.testing.testCoroutinesComponent` for the latter.
-
-## Example
-
-The following example contains a `FooRepository` class which uses the `IO` dispatcher from the
-coroutine infrastructure to perform background work. The production setup integrates the production
-infrastructure for normal execution, and the test setup integrates the test infrastructure to
-control virtual time and make the test deterministic.
-
-```kotlin
-import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.coroutines.CoroutinesComponent
-import com.jackbradshaw.coroutines.coroutinesComponent
-import com.jackbradshaw.coroutines.io.Io
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.launcher.Launcher
-import dagger.Component
-import javax.inject.Inject
-import javax.inject.Scope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.runTest
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
-
-@Scope @Retention(AnnotationRetention.RUNTIME) annotation class FooRepositoryScope
-
-@FooRepositoryScope
-class FooRepository @Inject constructor(
-  @Io private val ioScope: CoroutineScope
+```
+class Foo @Inject constructor(
+  @Cpu private val cpuDispatcher: CoroutineDispatcher,
+  @Io private val ioDispatcher: CoroutineDispatcher
 ) {
-  suspend fun fetchData(): String = withContext(ioScope.coroutineContext) {
-    // Simulate network delay.
-    delay(1000)
-
-    // Simulate network data.
-    "foo"
-  }
-}
-
-@FooRepositoryScope
-@Component(dependencies = [CoroutinesComponent::class])
-interface FooRepositoryComponent {
-  fun repository(): FooRepository
-
-  @Component.Builder
-  interface Builder {
-    fun consuming(coroutines: CoroutinesComponent): Builder
-    fun build(): FooRepositoryComponent
-  }
-}
-
-fun fooRepositoryComponent(coroutines: CoroutinesComponent = coroutinesComponent()) =
-    DaggerFooRepositoryComponent.builder().consuming(coroutines).build()
-
-class Main {
-  fun main(args: Array<String>) {
-    runBlocking {
-      val repository = fooRepositoryComponent().repository()
-      val data = repository.fetchData()
-      println("Fetched data: $data")
+  suspend fun sendRequest(request: Request) {
+    withContext(ioDispatcher) {
+      // Not implemented, present only for example purposes.
     }
   }
-}
 
-@FooRepositoryScope
-@Component(dependencies = [CoroutinesComponent::class])
-interface FooRepositoryTestComponent {
-  fun inject(target: FooRepositoryTest)
-
-  @Component.Builder
-  interface Builder {
-    fun consuming(coroutines: CoroutinesComponent): Builder
-    fun build(): FooRepositoryTestComponent
-  }
-}
-
-fun fooRepositoryTestComponent(coroutines: CoroutinesComponent = testCoroutinesComponent()) =
-    DaggerFooRepositoryTestComponent.builder().consuming(coroutines).build()
-
-@RunWith(JUnit4::class)
-class FooRepositoryTest {
-
-  @Inject lateinit var launcher: Launcher
-  @Inject lateinit var testScope: TestScope
-  @Inject lateinit var repository: FooRepository
-
-  @Before
-  fun setup() {
-    fooRepositoryTestComponent().inject(this)
-  }
-
-  @Test
-  fun fetchData_returnsData() = testScope.runTest {
-    // Launch the fetchData coroutine eagerly using the launcher
-    val deferredData = launcher.launchEagerly {
-      repository.fetchData()
+  suspend fun calculateFibonacci(n: Int): Int {
+    check (n > 0) {
+      "n must be greater than zero"
     }
+    if (n == 1) return 1
+      
+    return withContext(cpuDispatcher) {
+      var a = 0
+      var b = 1
+      for (i in 2..n) {
+        val next = a + b
+        a = b
+        b = next
+      }
 
-    // Advance the virtual time until all coroutines are idle
-    testScope.advanceUntilIdle()
+      b
+    }
+  }
 
-    // Await the result from the deferred coroutine
-    val data = deferredData.await()
-    assertThat(data).isEqualTo("foo")
+  suspend fun printWithDelay(text: String, delayMs: Int) {
+    delay(delayMs)
+    println(text)
   }
 }
 ```
+
+The [CoroutinesComponent](/first_party/coroutines/CoroutinesComponent.kt) provides the dispatchers to Dagger and should be included as a component
+dependency. It comes in three varieties:
+
+- Production.
+- Artificial testing.
+- Realistic testing.
+
+In general you should use the production version in production and testing unless you need to
+control concurrency in your test, in which case you should choose the appropriate testing dispatcher.
+Details for all three are provided below.
+
+### Production
+
+The production variant ultimately delegates to the standard Kotlin dispatchers (`Dispatchers.Io` and
+`Dispatchers.Default`) for performance and safety. It is suitable for most production environments
+and should be treated as singleton to avoid duplicating your concurrency systems. For example:
+
+```kotlin
+class MyApplication : Application() {
+
+  @Inject lateinit var foo: Foo
+
+  override fun onCreate() {
+    super.onCreate()
+    DaggerApplicationComponent.builder()
+        .consuming(DaggerCoroutinesComponentImpl.create())
+        .build()
+        .inject(this)
+
+    runBlocking {
+      val fib10 = foo.calculateFibonacci(10)
+      foo.sendRequest(Request("fib(10) is $fib10"))
+    }
+  }
+}
+
+@Component(dependencies = [CoroutinesComponent::class])
+interface ApplicationComponent {
+  fun inject(application: Application)
+
+  @Component.Builder
+  interface Builder {
+    fun consuming(coroutines: CoroutinesComponent): Builder
+    fun build(): ApplicationComponent
+  }
+}
+```
+
+### Artificial Testing
+
+The artificial testing variant delegates to the standard Kotlin test dispatcher for both CPU and
+IO bound work. This means all asynchronous work operates on the test thread and is fundamentally single-threaded, which is useful when testing systems that require a coroutine context but are not
+deeply concurrent (i.e. they use suspending functions but are fairly simple). The component exposes a Chronosphere [TestingTaskDriver](/first_party/chronosphere/testingtaskdriver/TestingTaskDriver.kt) that can be used to advance virtual time in millisecond increments. For example:
+
+```kotlin
+class MyApplicationTest {
+  @Inject lateinit var foo: Foo
+  @Inject lateinit var driver: TestingTaskDriver
+
+  private val outContent = java.io.ByteArrayOutputStream()
+
+  @Before fun setUp() {
+    DaggerApplicationTestComponent.builder()
+        .consuming(
+            DaggerArtificialCoroutinesTestingComponentImpl.builder()
+                .consuming(DaggerTestingTaskDriverComponentImpl.create())
+                .build()
+        )
+        .build()
+        .inject(this)
+
+    System.setOut(java.io.PrintStream(outContent))
+  }
+
+  @Test
+  fun printWithDelay_delayNotPassed_doesNotPrint() {
+    foo.printWithDelay("Hello, world!", 10)
+
+    driver.advanceBy(9)
+
+    assertThat(outContent.toString().trim()).isEmpty()
+  }
+  
+  @Test
+  fun printWithDelay_delayPassed_prints() {
+    foo.printWithDelay("Hello, world!", 10)
+
+    driver.advanceBy(10)
+
+    assertThat(outContent.toString().trim()).isEqualTo("Hello, world!")
+  }
+}
+
+@Component(dependencies = [ArtificialCoroutinesTestingComponent::class])
+interface ApplicationTestComponent {
+  fun inject(test: MyApplicationTest)
+
+  @Component.Builder
+  interface Builder {
+    fun consuming(coroutines: ArtificialCoroutinesTestingComponent): Builder
+    fun build(): ApplicationTestComponent
+  }
+}
+```
+
+Overall this variant allows you to reason about your tests as single-threaded but coroutine-compatible environments, but it does not exercise your system in a realistic environment,
+and thus does not provide the same guarantees as the realistic testing variant.
+
+### Realistic Testing
+
+The realistic testing variant ultimately delegates to custom executors backed by a JVM
+thread pool. This means all asynchronous work operates off the test thread and is fundamentally a
+realistic reflection of production concurrency, which is useful when testing systems that require a
+multi-threaded environment to avoid thread exhaustion and other such issues. The component exposes a Chronosphere [TestingTaskBarrier](/first_party/chronosphere/testingtaskbarrier/TestingTaskBarrier.kt) that can be used to block tests until work
+completes. For example:
+
+```kotlin
+@Component(
+  // Pretend this module provides the endpoint Foo actually writes to.
+  modules = [FooEndpointModule::class],
+  dependencies = [RealisticCoroutinesTestingComponent::class])
+interface ApplicationTestComponent {
+  fun inject(test: MyApplicationTest)
+
+  @Component.Builder
+  interface Builder {
+    fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
+    fun build(): ApplicationTestComponent
+  }
+}
+
+class MyApplicationTest {
+  @Inject lateinit var foo: Foo
+  @Inject lateinit var barrier: TestingTaskBarrier
+
+  // Pretend this is where Foo actually sends network requests
+  @Inject lateinit var fooEndpoint: FooEndpoint
+
+  @Before fun setUp() {
+    DaggerApplicationTestComponent.builder()
+        .consuming(
+            DaggerRealisticCoroutinesTestingComponentImpl.builder()
+                .consuming(DaggerTestingTaskBarrierComponentImpl.create())
+                .build()
+        )
+        .build()
+        .inject(this)
+  }
+  
+  @Test fun test_manyNetworkCalls_allComplete() = runBlocking {
+    for (i in 0..100) {
+      foo.sendRequest(Request("request $i"))
+    }
+
+    barrier.awaitAllIdle()
+
+    assertThat(fooEndpoint.successCount).isEqualTo(100)
+  }
+}
+```
+
+Overall this variant allows
+you to reason about tests as single-thread environments that interact with realistic multi-threaded
+environments, thereby ensuring your system under test is being exercised as it would in production.
+
+## Issues
 
 Issues relating to this package and its subpackages are tagged with `coroutines`.
 
 ## Contributions
 
 Third-party contributions are accepted.
-
-```
-
-```

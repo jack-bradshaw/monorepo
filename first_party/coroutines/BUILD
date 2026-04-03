@@ -4,7 +4,7 @@ load(":publicity.bzl", "PUBLICITY")
 
 kt_jvm_library_with_dagger(
     name = "scope",
-    srcs = ["CoroutinesScope.kt"],
+    srcs = ["CoroutinesDaggerScope.kt"],
     visibility = [
         "//first_party/coroutines:__subpackages__",
     ],
@@ -15,18 +15,23 @@ kt_jvm_library(
     srcs = ["CoroutinesComponent.kt"],
     visibility = PUBLICITY,
     deps = [
-        "//first_party/coroutines/io",
+        "//first_party/chronosphere/idleable",
+        "//first_party/coroutines/cpu:module",
+        "//first_party/coroutines/io:module",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
 kt_jvm_library_with_dagger(
     name = "component_impl",
-    srcs = ["CoroutinesComponentImpl.kt"],
+    srcs = [
+        "CoroutinesComponentImpl.kt",
+    ],
     visibility = PUBLICITY,
     deps = [
         ":component",
         ":scope",
+        "//first_party/coroutines/cpu:module",
         "//first_party/coroutines/io:module",
     ],
 )
