@@ -14,21 +14,21 @@ the absence of both resistance and attachment to authority, we come to view both
 hated adults as neither superior nor inferior, as neither adult nor child, but rather exactly what
 they are and always have been: People, half-baked, like everyone else, and just as unsure of the
 great unknown. A few are trying to figure everything out, many have their heads buried in the sand,
-and some are just happy to be alive. When we see them for who they are, all lose their power, and
-all start being something closer to peers. All this to say, we become adults the day we realise
-there were never any adults above or below us to begin with. We are, and always will be, equals.
+and some are just happy to be alive. When we see them for who they are, atheyll lose all power, and
+become something closer to peers. All this to say, we become adults the day we realise there were
+never any adults above us to begin with. All humans are, and always will be, equals.
 
 With all that being said, there do still appear to be varying degrees of cognitive development
-across humanity, and it would be foolish to ignore the benefits of experience, but there are many
-so-called adults who behave worse than the youth. In the same species that kills its own on
-ideological grounds we find those who donate their entire corpus of wealth to charity. We can look
-at any page of history and find vicious murderers within reach of pure saints; cruel abusers not far
-from caring, selfless healers; greedy thieves in range of selfless donors; and manipulative despots
-within striking distance of noble leaders. How can this be? We may disagree on the exact details of
-what counts as right and wrong, but we likely both hold some actions to be more defensible than
-others, so tell me, how can a species with such propensity for kindness contain so much potential
-for harm, or perhaps more on topic, how can we make sense of a world where the socalled adults
-commit horrible atrocities every second of every day?
+across humanity, and it would be foolish to ignore the differences in how we approach the world, but
+there are many so-called adults who behave worse than their own offspring. In the same species that
+kills its own on ideological grounds we find those who donate their entire corpus of wealth to
+charity. We can look at any page of history and find vicious murderers within reach of pure saints;
+cruel abusers not far from caring, selfless healers; greedy thieves in range of selfless donors; and
+manipulative despots within striking distance of noble leaders. How can this be? We may disagree on
+the exact details of what counts as right and wrong, but we likely both hold some actions to be more
+defensible than others, so tell me, how can a species with such propensity for kindness contain so
+much potential for harm, or perhaps more on topic, how can we make sense of a world where the
+socalled adults commit horrible atrocities every second of every day?
 
 I have no final answer to that question yet, but it begins to make sense once we stop assessing
 people based on their age and start understanding them based on their outward and inward behaviours.

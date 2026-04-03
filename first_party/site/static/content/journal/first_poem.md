@@ -1,4 +1,4 @@
-There is no freedom, and there is no control.\
+There is no freedom, and there are no controls.\
 There is no self, and there are no others.\
 There is no end, and there are no beginnings.
 

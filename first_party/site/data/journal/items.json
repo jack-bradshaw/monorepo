@@ -514,5 +514,49 @@
       "month": 4,
       "day": 3
     }
+  },
+  {
+    "key": "judgement-without-understanding",
+    "title": "Judgement Without Understanding",
+    "description": "An exploration of striking a balance between curiosity and rigid judgement, contextualized by a reflection on corporate semantic policy debates.",
+    "file": "/static/content/journal/judgement_without_understanding.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
+  },
+  {
+    "key": "from-striving-to-stillness",
+    "title": "From Striving to Stillness",
+    "description": "A reflection on the transition from maintaining life through rigid certainty to embracing openness, equanimity, and grace.",
+    "file": "/static/content/journal/from_striving_to_stillness.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
+  },
+  {
+    "key": "the-critical-protector",
+    "title": "The Critical Protector",
+    "description": "A dissection of the inner critic, analyzing the conflict between safe, rigid judgement formed from trauma and the conscious leap into understanding.",
+    "file": "/static/content/journal/the_critical_protector.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
+  },
+  {
+    "key": "retribution-and-humility",
+    "title": "Retribution and Humility",
+    "description": "An analysis of cancel culture as social retribution—weaponized judgment—and an argument advocating for humility, curiosity, and an open mind.",
+    "file": "/static/content/journal/retribution_and_humility.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
   }
 ]
