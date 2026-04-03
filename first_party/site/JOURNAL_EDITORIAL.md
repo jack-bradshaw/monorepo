@@ -24,6 +24,8 @@ The following documents are explicitly exempt from all but the basic linguistic 
   staccato style.
 - [Self Aware Antagonist](/first_party/site/static/content/journal/self_aware_antagonist.md) due to
   its unconventional screenplay-like style.
+- [The Heart and the Mind](/first_party/site/static/content/journal/the_heart_and_the_mind.md) due
+  to its unconventional screenplay-like style.
 
 ## Basic Linguistic Directives
 
@@ -38,6 +40,11 @@ Positive example (British English): `colour`
 Negative example (American English): `color`
 
 This ensures a consistent authorial voice across the entire repository.
+
+Exception: Documents that rely on American localized contexts for narrative or comedic effect are
+exempt from this standard. The following documents are explicitly exempt:
+
+- [Red Metal Industries](/first_party/site/static/content/journal/0-red-metal-industries).
 
 ### Standard: Spelling and Grammar
 
