@@ -20,7 +20,9 @@
       "the-bind",
       "the-bond",
       "the-island-of-the-soul",
-      "the-sage-of-san-francisco"
+      "the-sage-of-san-francisco",
+      "the-heart-and-the-mind",
+      "1-plus-2"
     ]
   },
   {
@@ -41,13 +43,26 @@
     "key": "society",
     "title": "Society",
     "description": "Exploration of social norms, ethics, and human interaction",
-    "items": ["sports-bar", "pragmatic-altruism", "challenge-of-monologue", "hermeticity", "pride"]
+    "items": [
+      "sports-bar",
+      "pragmatic-altruism",
+      "challenge-of-monologue",
+      "hermeticity",
+      "pride",
+      "red-metal-industries"
+    ]
   },
   {
     "key": "technology",
     "title": "Technology",
     "description": "Narratives and essays centered on tech culture and engineering",
-    "items": ["the-cursed-cursor", "pragmatic-altruism", "the-wolves-are-all-gone", "logs"]
+    "items": [
+      "the-cursed-cursor",
+      "pragmatic-altruism",
+      "the-wolves-are-all-gone",
+      "logs",
+      "red-metal-industries"
+    ]
   },
   {
     "key": "psychology",
@@ -61,20 +76,22 @@
       "borderline",
       "disapproval",
       "escape",
-      "exit"
+      "exit",
+      "supervillains-anonymous",
+      "the-heart-and-the-mind"
     ]
   },
   {
     "key": "veganism",
     "title": "Veganism",
     "description": "Ethical considerations of animal rights and diet",
-    "items": ["sports-bar", "pride"]
+    "items": ["sports-bar", "pride", "the-heart-and-the-mind"]
   },
   {
     "key": "meta-fiction",
     "title": "Meta-Fiction",
     "description": "Self-referential stories analyzing the nature of fiction",
-    "items": ["self-aware-antagonist"]
+    "items": ["self-aware-antagonist", "1-plus-2"]
   },
   {
     "key": "sci-fi",
@@ -86,7 +103,9 @@
       "the-wolves-are-all-gone",
       "on-the-red-space",
       "the-artificial-man",
-      "logs"
+      "logs",
+      "red-metal-industries",
+      "supervillains-anonymous"
     ]
   }
 ]

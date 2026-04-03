@@ -40,7 +40,7 @@
     "key": "comedy",
     "title": "Comedy",
     "description": "Humorous anecdotes and lighthearted reflections",
-    "items": ["countertransference"]
+    "items": ["countertransference", "red-metal-industries", "supervillains-anonymous"]
   },
   {
     "key": "fiction",
@@ -52,7 +52,23 @@
       "on-the-red-space",
       "the-artificial-man",
       "logs",
-      "self-aware-antagonist"
+      "self-aware-antagonist",
+      "red-metal-industries",
+      "supervillains-anonymous",
+      "the-heart-and-the-mind",
+      "1-plus-2"
+    ]
+  },
+  {
+    "key": "satire",
+    "title": "Satire",
+    "description": "Works employing humor, irony, and exaggeration to critique human nature, societal structures, and professional environments",
+    "items": [
+      "cursed-cursor",
+      "red-metal-industries",
+      "supervillains-anonymous",
+      "the-sage-of-san-francisco",
+      "illumination"
     ]
   }
 ]

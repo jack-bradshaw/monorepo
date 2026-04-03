@@ -470,5 +470,49 @@
       "month": 3,
       "day": 31
     }
+  },
+  {
+    "key": "red-metal-industries",
+    "title": "Red Metal Industries",
+    "description": "A dark corporate satire structured as a fundamental prospectus outlining the malevolent objectives, absurd product iterations, and exploitative business models of an explicitly evil conglomerate.",
+    "file": "/static/content/journal/red-metal-industries.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
+  },
+  {
+    "key": "supervillains-anonymous",
+    "title": "Supervillains Anonymous",
+    "description": "A satirical dark comedy detailing a group therapy session for supervillains, contrasting the mundanity of clinical psychological support with the absurdity of global annihilation.",
+    "file": "/static/content/journal/supervillains_anonymous.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
+  },
+  {
+    "key": "the-heart-and-the-mind",
+    "title": "The Heart and the Mind",
+    "description": "An allegorical screenplay exploring the internal psychological friction between intellectual rationalization and empathetic burden when processing systemic global suffering.",
+    "file": "/static/content/journal/the_heart_and_the_mind.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
+  },
+  {
+    "key": "1-plus-2",
+    "title": "1 + 2",
+    "description": "An abstract, meta-fictional dialogue between two emergent entities navigating their existence on a page. It explores the tension between writing and editing, and the perils of characters with the power to rewrite the plot in real time.",
+    "file": "/static/content/journal/1_plus_2.md",
+    "date": {
+      "year": 2026,
+      "month": 4,
+      "day": 3
+    }
   }
 ]
