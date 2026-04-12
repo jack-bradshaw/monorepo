@@ -9,7 +9,11 @@ option java_multiple_files = true;
 option java_outer_classname = "ConfigProto";
 option java_package = "com.jackbradshaw.sasync.inbound.config";
 
+// Configuration for InboundTransportImpl
 message Config {
+  // The rate to use when polling the underlying stream for new data.
   com.jackbradshaw.universal.frequency.Frequency refresh_rate = 1;
+
+  // The size of the buffer to store data in when polling the underlying stream.
   com.jackbradshaw.universal.count.Count.Bounded buffer_size = 2;
 }

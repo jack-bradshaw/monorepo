@@ -1,19 +1,24 @@
 package com.jackbradshaw.sasync.standard
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.concurrency.testing.TestConcurrencyComponent
+import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.sasync.inbound.config.Config as InboundConfig
 import com.jackbradshaw.sasync.inbound.inboundComponent
 import com.jackbradshaw.sasync.outbound.config.Config as OutboundConfig
 import com.jackbradshaw.sasync.outbound.outboundComponent
+import com.jackbradshaw.universal.count.Count
+import com.jackbradshaw.universal.frequency.Frequency
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import kotlin.collections.mutableListOf
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.advanceUntilIdle
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -24,18 +29,26 @@ class StandardTest {
   @Test
   fun linksStandardInput(): Unit = runBlocking {
     val inputStream = ByteArrayInputStream(TEST_DATA)
-    val coroutines = testCoroutinesComponent()
-    val standard = createStandard(coroutines, input = inputStream)
+
+    val coroutines = realisticCoroutinesTestingComponent()
+    val concurrency = testConcurrencyComponent()
+    val standard = createStandardComponent(coroutines, concurrency, input = inputStream)
 
     val collected = mutableListOf<Byte>()
-    coroutines.launcher().launchEagerly {
+    CoroutineScope(coroutines.cpuContext()).launch {
       standard
           .standardInputInboundTransport()
           .observeFlattened()
           .take(TEST_DATA.size)
           .toList(collected)
     }
-    coroutines.testScope().testScheduler.advanceUntilIdle()
+    coroutines.taskBarrier().awaitAllIdle()
+
+    // Input is poll-based not push-based (backed by the pulsar), so emit pulses to drive polling.
+    CoroutineScope(coroutines.cpuContext()).launch {
+      repeat(TEST_DATA.size) { concurrency.testPulsar().emit() }
+    }
+    coroutines.taskBarrier().awaitAllIdle()
 
     assertThat(collected).containsExactlyElementsIn(TEST_DATA.toList()).inOrder()
   }
@@ -43,23 +56,17 @@ class StandardTest {
   @Test
   fun linksStandardOutput(): Unit = runBlocking {
     val outputStream = ByteArrayOutputStream()
-    val coroutines = testCoroutinesComponent()
+    val coroutines = realisticCoroutinesTestingComponent()
+    val concurrency = testConcurrencyComponent()
     val standard =
-        createStandard(
+        createStandardComponent(
             coroutines,
+            concurrency,
             output = outputStream,
         )
 
-    val collected = mutableListOf<Byte>()
-    coroutines.launcher().launchEagerly {
-      standard
-          .standardInputInboundTransport()
-          .observeFlattened()
-          .take(TEST_DATA.size)
-          .toList(collected)
-    }
     standard.standardOutputOutboundTransport().publishBytes(TEST_DATA)
-    coroutines.testScope().testScheduler.advanceUntilIdle()
+    coroutines.taskBarrier().awaitAllIdle()
 
     assertThat(outputStream.toByteArray().toList())
         .containsExactlyElementsIn(TEST_DATA.toList())
@@ -69,45 +76,42 @@ class StandardTest {
   @Test
   fun linksStandardError(): Unit = runBlocking {
     val errorStream = ByteArrayOutputStream()
-    val coroutines = testCoroutinesComponent()
-    val standard = createStandard(coroutines, error = errorStream)
+    val coroutines = realisticCoroutinesTestingComponent()
+    val concurrency = testConcurrencyComponent()
+    val standard = createStandardComponent(coroutines, concurrency, error = errorStream)
 
     standard.standardErrorOutboundTransport().publishBytes(TEST_DATA)
-    coroutines.testScope().testScheduler.advanceUntilIdle()
+    coroutines.taskBarrier().awaitAllIdle()
 
     assertThat(errorStream.toByteArray().toList())
         .containsExactlyElementsIn(TEST_DATA.toList())
         .inOrder()
   }
 
-  private fun createStandard(
-      coroutines: TestCoroutinesComponent,
+  private fun createStandardComponent(
+      coroutines: RealisticCoroutinesTestingComponent,
+      concurrency: TestConcurrencyComponent,
       input: ByteArrayInputStream = ByteArrayInputStream(ByteArray(0)),
       output: ByteArrayOutputStream = ByteArrayOutputStream(),
       error: ByteArrayOutputStream = ByteArrayOutputStream(),
   ): StandardComponent {
+
     val inboundConfig =
         InboundConfig.newBuilder()
-            .setRefreshRate(
-                com.jackbradshaw.universal.frequency.Frequency.newBuilder()
-                    .setBounded(
-                        com.jackbradshaw.universal.frequency.Frequency.Bounded.newBuilder()
-                            .setHertz(60.0)))
-            .setBufferSize(
-                com.jackbradshaw.universal.count.Count.Bounded.newBuilder().setValue(1024))
+            .setRefreshRate(Frequency.newBuilder().setUnbounded(Frequency.Unbounded.newBuilder()))
+            .setBufferSize(Count.Bounded.newBuilder().setValue(1024))
             .build()
 
     val outboundConfig =
         OutboundConfig.newBuilder()
-            .setQueueSize(
-                com.jackbradshaw.universal.count.Count.newBuilder()
-                    .setBounded(
-                        com.jackbradshaw.universal.count.Count.Bounded.newBuilder().setValue(1024)))
+            .setQueueSize(Count.newBuilder().setBounded(Count.Bounded.newBuilder().setValue(1024)))
             .build()
 
     return standardComponent(
-        inbound = inboundComponent(inboundConfig, coroutines = coroutines),
-        outbound = outboundComponent(outboundConfig, coroutines = coroutines),
+        inbound =
+            inboundComponent(inboundConfig, coroutines = coroutines, concurrency = concurrency),
+        outbound =
+            outboundComponent(outboundConfig, coroutines = coroutines, concurrency = concurrency),
         input = input,
         output = output,
         error = error,

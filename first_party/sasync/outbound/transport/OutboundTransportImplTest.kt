@@ -1,7 +1,7 @@
 package com.jackbradshaw.sasync.outbound.transport
 
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.sasync.outbound.OutboundScope
 import com.jackbradshaw.sasync.outbound.config.Config
 import com.jackbradshaw.sasync.outbound.config.config
@@ -10,14 +10,11 @@ import dagger.Component
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 class OutboundTransportImplTest : OutboundTransportTest() {
-
-  @Inject lateinit var testScope: TestScope
 
   @Inject lateinit var subjectFactory: OutboundTransportImpl.Factory
 
@@ -28,7 +25,7 @@ class OutboundTransportImplTest : OutboundTransportTest() {
   override fun setup(config: Config) {
     DaggerTestComponent.builder()
         .binding(config)
-        .consuming(testCoroutinesComponent())
+        .consuming(realisticCoroutinesTestingComponent())
         .build()
         .inject(this)
 
@@ -44,12 +41,10 @@ class OutboundTransportImplTest : OutboundTransportTest() {
     destination.reset()
     return bytes
   }
-
-  override fun testScope() = testScope
 }
 
 @OutboundScope
-@Component(dependencies = [TestCoroutinesComponent::class])
+@Component(dependencies = [RealisticCoroutinesTestingComponent::class])
 interface TestComponent {
   fun inject(target: OutboundTransportImplTest)
 
@@ -57,7 +52,7 @@ interface TestComponent {
   interface Builder {
     @BindsInstance fun binding(config: Config): Builder
 
-    fun consuming(coroutines: TestCoroutinesComponent): Builder
+    fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
 
     fun build(): TestComponent
   }

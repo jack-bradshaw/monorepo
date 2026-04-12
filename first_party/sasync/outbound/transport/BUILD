@@ -14,10 +14,9 @@ kt_jvm_library_with_dagger(
     srcs = ["OutboundTransportImpl.kt"],
     deps = [
         ":transport",
-        "//first_party/coroutines/io",
+        "//first_party/coroutines:component",
         "//first_party/sasync/outbound/config:kt_jvm_proto",
         "//first_party/universal/count:kt_jvm_proto",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -37,13 +36,14 @@ kt_jvm_library(
     srcs = ["OutboundTransportTest.kt"],
     visibility = PUBLICITY,
     deps = [
-        ":impl",
         ":transport",
+        "//first_party/coroutines/testing/realistic:component",
+        "//first_party/sasync/outbound/config:kt_jvm_proto",
+        "//first_party/universal/count:kt_jvm_proto",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_test",
     ],
 )
 
@@ -55,12 +55,7 @@ kt_jvm_test_with_dagger(
     deps = [
         ":impl",
         ":test",
-        ":transport",
-        "//first_party/coroutines/testing:component_impl",
+        "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sasync/outbound:scope",
-        "//first_party/sasync/outbound/config:kt_jvm_proto",
-        "//first_party/universal/count:kt_jvm_proto",
-        "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

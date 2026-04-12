@@ -1,39 +1,37 @@
 package com.jackbradshaw.concurrency.pulsar.testing
 
 import com.jackbradshaw.concurrency.ConcurrencyScope
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import dagger.Component
-import kotlinx.coroutines.test.TestScope
 
 class TestPulsarImplTest : TestPulsarTest() {
 
   private lateinit var subject: TestPulsar
 
-  private lateinit var testScope: TestScope
-
   override fun setup() {
-    val component = DaggerTestComponent.builder().consuming(testCoroutinesComponent()).build()
+    val testComponent =
+        DaggerTestComponent.builder().consuming(realisticCoroutinesTestingComponent()).build()
+    testComponent.inject(this)
 
-    subject = component.testPulsar()
-    testScope = component.testScope()
+    subject = testComponent.testPulsar()
   }
 
   override fun subject() = subject
-
-  override fun testScope() = testScope
 }
 
 @ConcurrencyScope
-@Component(dependencies = [TestCoroutinesComponent::class], modules = [TestPulsarModule::class])
+@Component(
+    dependencies = [RealisticCoroutinesTestingComponent::class],
+    modules = [TestPulsarModule::class])
 interface TestComponent {
-  fun testScope(): TestScope
+  fun inject(target: TestPulsarImplTest)
 
   fun testPulsar(): TestPulsar
 
   @Component.Builder
   interface Builder {
-    fun consuming(coroutines: TestCoroutinesComponent): Builder
+    fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
 
     fun build(): TestComponent
   }

@@ -12,7 +12,7 @@ import com.jackbradshaw.concurrency.pulsar.Pulsar
  * fetches data on a background thread repeatedly:
  * ```
  * @Inject lateinit var testPulsar: TestPulsar
- * @Inject lateinit var testScope: TestScope
+ * @Inject lateinit var coroutines: RealisticCoroutinesTestingComponent
  *
  * @Test
  * fun someTest() = runBlocking {
@@ -20,7 +20,7 @@ import com.jackbradshaw.concurrency.pulsar.Pulsar
  *   val pollingService = FooPollingService(testPulsar)
  *
  *   testPulsar.emit()
- *   testScope.advanceUntilIdle()
+ *   coroutines.taskBarrier().awaitAllExecutorsIdle()
  *
  *   assertThat(pollingService.latestData()).isEqualTo("hello world")
  * }
