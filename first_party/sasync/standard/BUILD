@@ -41,16 +41,11 @@ kt_jvm_test(
     srcs = ["StandardTest.kt"],
     test_class = "com.jackbradshaw.sasync.standard.StandardTest",
     deps = [
-        ":component",
         ":component_impl",
-        "//first_party/coroutines/testing:component_impl",
-        "//first_party/sasync/inbound:component",
+        "//first_party/concurrency/testing:component_impl",
+        "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sasync/inbound:component_impl",
-        "//first_party/sasync/outbound:component",
         "//first_party/sasync/outbound:component_impl",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
-        "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_test",
     ],
 )

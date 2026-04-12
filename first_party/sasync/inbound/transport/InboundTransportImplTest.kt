@@ -3,8 +3,8 @@ package com.jackbradshaw.sasync.inbound.transport
 import com.jackbradshaw.concurrency.pulsar.testing.TestPulsar
 import com.jackbradshaw.concurrency.testing.TestConcurrencyComponent
 import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.sasync.inbound.InboundScope
 import com.jackbradshaw.sasync.inbound.config.Config
 import com.jackbradshaw.sasync.inbound.config.config
@@ -16,20 +16,16 @@ import dagger.BindsInstance
 import dagger.Component
 import java.io.InputStream
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.runCurrent
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class InboundTransportImplTest : InboundTransportTest() {
-
-  @Inject lateinit var testScope: TestScope
 
   @Inject lateinit var pulsar: TestPulsar
 
@@ -43,22 +39,6 @@ class InboundTransportImplTest : InboundTransportTest() {
     setupSubject(bufferSize, frequency { unbounded = FrequencyKt.unbounded {} })
   }
 
-  private fun setupSubject(bufferSize: Count.Bounded, refreshRate: Frequency) {
-    val config = config {
-      this.bufferSize = bufferSize
-      this.refreshRate = refreshRate
-    }
-
-    DaggerTestComponent.builder()
-        .binding(config)
-        .consuming(testCoroutinesComponent())
-        .consuming(testConcurrencyComponent())
-        .build()
-        .inject(this)
-
-    subject = subjectFactory.create(source)
-  }
-
   override fun subject() = subject
 
   override fun queue(byte: Byte) {
@@ -67,16 +47,30 @@ class InboundTransportImplTest : InboundTransportTest() {
 
   override fun advanceThroughNextBuffer() {
     runBlocking {
-      testScope().launch(UnconfinedTestDispatcher(testScope().testScheduler)) { pulsar.emit() }
-      testScope().runCurrent()
+      CoroutineScope(cpuContext).launch { pulsar.emit() }
+      waitUntilIdle()
     }
   }
 
-  override fun testScope() = testScope
-
-  override fun waitUntilIdle() {
-    runBlocking { pulsar.emit() }
+  override suspend fun waitUntilIdle() {
+    pulsar.emit()
     super.waitUntilIdle()
+  }
+
+  private fun setupSubject(bufferSize: Count.Bounded, refreshRate: Frequency) {
+    val config = config {
+      this.bufferSize = bufferSize
+      this.refreshRate = refreshRate
+    }
+
+    DaggerTestComponent.builder()
+        .binding(config)
+        .consuming(realisticCoroutinesTestingComponent())
+        .consuming(testConcurrencyComponent())
+        .build()
+        .inject(this)
+
+    subject = subjectFactory.create(source)
   }
 
   inner class FakeInputStream() : InputStream() {
@@ -118,7 +112,8 @@ class InboundTransportImplTest : InboundTransportTest() {
 }
 
 @InboundScope
-@Component(dependencies = [TestCoroutinesComponent::class, TestConcurrencyComponent::class])
+@Component(
+    dependencies = [RealisticCoroutinesTestingComponent::class, TestConcurrencyComponent::class])
 interface TestComponent {
   fun inject(target: InboundTransportImplTest)
 
@@ -126,7 +121,7 @@ interface TestComponent {
   interface Builder {
     @BindsInstance fun binding(config: Config): Builder
 
-    fun consuming(coroutines: TestCoroutinesComponent): Builder
+    fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
 
     fun consuming(concurrency: TestConcurrencyComponent): Builder
 

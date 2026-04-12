@@ -1,19 +1,22 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/coroutines:publicity.bzl", "PUBLICITY")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger")
 
-kt_jvm_library_with_dagger(
+kt_jvm_library(
     name = "io",
     srcs = ["Io.kt"],
     visibility = PUBLICITY,
+    deps = [
+        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
+    ],
 )
 
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["IoModule.kt"],
-    visibility = ["//first_party/coroutines:__pkg__"],
+    visibility = ["//first_party/coroutines:__subpackages__"],
     deps = [
         ":io",
-        "//first_party/coroutines:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

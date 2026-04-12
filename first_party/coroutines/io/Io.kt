@@ -1,5 +1,6 @@
-package com.jackbradshaw.coroutines.io
+package com.jackbradshaw.coroutines
 
 import javax.inject.Qualifier
 
-@Qualifier @Retention(AnnotationRetention.RUNTIME) annotation class Io
+/** Dagger qualifier for objects related to IO-bound execution. */
+@Qualifier annotation class Io

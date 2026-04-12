@@ -1,9 +1,12 @@
 package com.jackbradshaw.publicity.conformance.runner
 
+import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
 import com.jackbradshaw.concurrency.testing.TestConcurrencyComponent
 import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
-import com.jackbradshaw.coroutines.testing.TestCoroutinesComponent
-import com.jackbradshaw.coroutines.testing.testCoroutinesComponent
+import com.jackbradshaw.coroutines.Cpu
+import com.jackbradshaw.coroutines.testing.Coroutines
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.publicity.conformance.model.Workspace
 import com.jackbradshaw.publicity.conformance.packagechecker.PackageCheckerImplModule
 import com.jackbradshaw.publicity.conformance.workspacechecker.WorkspaceCheckerImplModule
@@ -21,13 +24,15 @@ import dagger.Component
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestScope
 
 /** Concrete test for [RunnerImpl]. */
 class RunnerImplTest : RunnerTest() {
 
-  @Inject lateinit var testScope: TestScope
+  @Inject @Coroutines lateinit var taskBarrier: TestingTaskBarrier
+  @Inject @Cpu lateinit var cpuContext: CoroutineContext
   @Inject @StandardOutput lateinit var outputTransport: OutboundTransport
   @Inject @StandardError lateinit var errorTransport: OutboundTransport
 
@@ -38,7 +43,7 @@ class RunnerImplTest : RunnerTest() {
       out: ByteArrayOutputStream,
       err: ByteArrayOutputStream
   ) {
-    val coroutines = testCoroutinesComponent()
+    val coroutines = realisticCoroutinesTestingComponent()
     val concurrency = testConcurrencyComponent()
 
     val sasync =
@@ -50,10 +55,10 @@ class RunnerImplTest : RunnerTest() {
 
     val component =
         DaggerTestCheckerComponent.builder()
-            .standardComponent(sasync)
-            .coroutines(coroutines)
-            .concurrency(concurrency)
-            .workspace(workspace)
+            .consuming(sasync)
+            .consuming(coroutines)
+            .consuming(concurrency)
+            .binding(workspace)
             .build()
 
     component.inject(this)
@@ -62,9 +67,9 @@ class RunnerImplTest : RunnerTest() {
   override fun subject() = runner
 
   override suspend fun awaitClosure() {
-    val outputJob = testScope.launch { outputTransport.close() }
-    val errorJob = testScope.launch { errorTransport.close() }
-    testScope.testScheduler.advanceUntilIdle()
+    val outputJob = CoroutineScope(cpuContext).launch { outputTransport.close() }
+    val errorJob = CoroutineScope(cpuContext).launch { errorTransport.close() }
+    taskBarrier.awaitAllIdle()
     outputJob.join()
     errorJob.join()
   }
@@ -75,7 +80,7 @@ class RunnerImplTest : RunnerTest() {
     dependencies =
         [
             StandardComponent::class,
-            TestCoroutinesComponent::class,
+            RealisticCoroutinesTestingComponent::class,
             TestConcurrencyComponent::class,
         ],
     modules =
@@ -89,13 +94,13 @@ internal interface TestCheckerComponent {
 
   @Component.Builder
   interface Builder {
-    fun standardComponent(component: StandardComponent): Builder
+    fun consuming(component: StandardComponent): Builder
 
-    fun coroutines(coroutinesComponent: TestCoroutinesComponent): Builder
+    fun consuming(coroutinesComponent: RealisticCoroutinesTestingComponent): Builder
 
-    fun concurrency(concurrencyComponent: TestConcurrencyComponent): Builder
+    fun consuming(concurrencyComponent: TestConcurrencyComponent): Builder
 
-    @BindsInstance fun workspace(workspace: Workspace): Builder
+    @BindsInstance fun binding(workspace: Workspace): Builder
 
     fun build(): TestCheckerComponent
   }
