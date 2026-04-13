@@ -13,13 +13,13 @@ kt_jvm_library(
     ],
 )
 
-kt_jvm_library(
+kt_jvm_library_with_dagger(
     name = "impl",
     srcs = [
         "PhysicsClock.kt",
         "RenderingClock.kt",
     ],
-    visibility = ["//visibility:private"],
+    visibility = ["//first_party/otter:__subpackages__"],
     deps = [
         ":timing",
         "//first_party/otter/coroutines",

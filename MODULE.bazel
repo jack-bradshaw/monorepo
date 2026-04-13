@@ -153,9 +153,9 @@ maven.install(
         "org.skyscreamer:jsonassert:1.5.3",
         "com.google.devtools.ksp:symbol-processing-api:2.2.0-2.0.2",
         "com.google.devtools.ksp:symbol-processing-aa-embeddable:2.2.0-2.0.2",
+        "com.squareup:kotlinpoet:1.14.2",
+        "com.squareup:kotlinpoet-ksp:1.14.2",
     ],
-    fetch_sources = True,
-    lock_file = "//:lock_maven_com_jackbradshaw.json",
     repositories = [
         "https://repo1.maven.org/maven2",
         "https://repository.mulesoft.org/nexus/content/repositories/public/",
