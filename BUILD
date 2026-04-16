@@ -4,6 +4,8 @@ load("@rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("//first_party/publicity/conformance:conformance.bzl", "conformance_test")
 
+package(default_visibility = ["//visibility:public"])
+
 # For compat with Jetpack Compose use Kotlin 1.7 and Java 1.8
 define_kt_toolchain(
     name = "kotlin_toolchain",
