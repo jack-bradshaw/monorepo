@@ -517,8 +517,8 @@
     },
     "@@aspect_rules_js+//npm:extensions.bzl%pnpm": {
       "general": {
-        "bzlTransitiveDigest": "g8u1dBKBhURHHZd+ua2yVbzTJYR1wtVRH/w/j1QYccM=",
-        "usagesDigest": "NMr075mT7CoZIkPscVHRvTy+OtCx+esTXvhSZjttzgk=",
+        "bzlTransitiveDigest": "Ygt0KHThN5vGe8oY8pnjUGdyAb4UDD2uQeHNmOUPXos=",
+        "usagesDigest": "qbr7EwV/DUTltQKwhdWbg5nXM6bjbPCGX7MUxzOwZwY=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -527,11 +527,11 @@
             "repoRuleId": "@@aspect_rules_js+//npm/private:npm_import.bzl%npm_import_rule",
             "attributes": {
               "package": "pnpm",
-              "version": "8.15.4",
+              "version": "8.6.7",
               "root_package": "",
               "link_workspace": "",
               "link_packages": {},
-              "integrity": "sha512-C9Opvp6w6aaSZ23uwAowO6IYuiedmSQUdWFrOY267t0RFG+SwoQ0WPVXsdEn4J1MFx4QW9zWthACs5aFqAFrng==",
+              "integrity": "sha512-vRIWpD/L4phf9Bk2o/O2TDR8fFoJnpYrp2TKqTIZF/qZ2/rgL3qKXzHofHgbXsinwMoSEigz28sqk3pQ+yMEQQ==",
               "url": "",
               "commit": "",
               "patch_args": [
@@ -547,14 +547,15 @@
               "extra_build_content": "load(\"@aspect_rules_js//js:defs.bzl\", \"js_binary\")\njs_binary(name = \"pnpm\", data = glob([\"package/**\"]), entry_point = \"package/dist/pnpm.cjs\", visibility = [\"//visibility:public\"])",
               "generate_bzl_library_targets": false,
               "extract_full_archive": true,
-              "exclude_package_contents": []
+              "exclude_package_contents": [],
+              "system_tar": "auto"
             }
           },
           "pnpm__links": {
             "repoRuleId": "@@aspect_rules_js+//npm/private:npm_import.bzl%npm_import_links",
             "attributes": {
               "package": "pnpm",
-              "version": "8.15.4",
+              "version": "8.6.7",
               "dev": false,
               "root_package": "",
               "link_packages": {},
