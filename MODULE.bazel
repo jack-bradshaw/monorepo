@@ -151,6 +151,8 @@ maven.install(
         "org.mockito:mockito-core:5.18.0",
         "org.pantsbuild:jarjar:1.7.2",
         "org.skyscreamer:jsonassert:1.5.3",
+        "com.google.devtools.ksp:symbol-processing-api:2.2.0-2.0.2",
+        "com.google.devtools.ksp:symbol-processing-aa-embeddable:2.2.0-2.0.2",
     ],
     fetch_sources = True,
     lock_file = "//:lock_maven_com_jackbradshaw.json",

@@ -2,10 +2,16 @@ package com.jackbradshaw.closet.observable
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Test
 
 /** Abstract test that all [ObservableClosable] instances should pass. */
 abstract class ObservableClosableTest<T : ObservableClosable> {
+
+  @After
+  open fun tearDown() {
+    subject().close()
+  }
 
   @Test
   fun afterClose_hasTerminalState() = runBlocking {
