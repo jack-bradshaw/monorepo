@@ -1,5 +1,9 @@
-interface ApplicationChassis : AutoClosable {
-  suspend fun run(application: Application): KspRunner.Result
+package com.jackbradshaw.oksp.testing.application.chassis
 
-  suspend fun run(applicationClass: Class<out Application>): KspRunner.Result
+import com.jackbradshaw.kale.model.Result
+import com.jackbradshaw.kale.model.Source
+import com.jackbradshaw.oksp.application.Application
+
+interface ApplicationChassis {
+  suspend fun run(application: Application, sources: Set<Source> = emptySet()): Result
 }

@@ -3,14 +3,16 @@ package com.jackbradshaw.oksp.entrypoint
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.jackbradshaw.coroutines.CoroutinesComponent
-import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.coroutines.Io
+import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.oksp.application.Application
 import com.jackbradshaw.oksp.application.ApplicationComponent
 import com.jackbradshaw.oksp.application.loaded.loadedApplicationComponent
 import com.jackbradshaw.oksp.processor.Processor
 import com.jackbradshaw.oksp.processor.ProcessorImpl
 import com.jackbradshaw.oksp.service.ProcessingService
+import com.jackbradshaw.quinn.core.QuinnComponent
+import com.jackbradshaw.quinn.core.quinnComponent
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
@@ -32,8 +34,9 @@ import kotlinx.coroutines.launch
 class EntryPointImpl
 @JvmOverloads
 constructor(
+    val applicationComponent: ApplicationComponent = loadedApplicationComponent(),
     val coroutineComponent: CoroutinesComponent = coroutinesComponent(),
-    val applicationComponent: ApplicationComponent = loadedApplicationComponent()
+    val quinnComponent: QuinnComponent = quinnComponent()
 ) : EntryPoint {
 
   @Inject lateinit var processor: Processor
@@ -42,7 +45,9 @@ constructor(
   private val coroutineScope by lazy { CoroutineScope(coroutineContext) }
 
   override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-    DaggerInternalComponent.factory().create(environment, coroutineComponent).inject(this)
+    DaggerInternalComponent.factory()
+        .create(environment, coroutineComponent, quinnComponent)
+        .inject(this)
 
     require(Companion.app == null) {
       "EntryPointImpl.create was called more than once. Each instance can only be used once."
@@ -51,12 +56,12 @@ constructor(
     val app = applicationComponent.application().also { Companion.app = it }
     val context = DaggerContextComponentImpl.factory().create(environment, processor)
 
-    coroutineScope.launch { app.onCreate(context) }
-
     coroutineScope.launch {
       processor.observeAllRoundsCompleteEvent().first()
       app.onDestroy()
     }
+
+    coroutineScope.launch { app.onCreate(context) }
 
     return processor
   }
@@ -79,7 +84,9 @@ internal interface InternalModule {
 }
 
 @InternalScope
-@Component(dependencies = [CoroutinesComponent::class], modules = [InternalModule::class])
+@Component(
+    dependencies = [CoroutinesComponent::class, QuinnComponent::class],
+    modules = [InternalModule::class])
 internal interface InternalComponent {
 
   fun inject(target: EntryPointImpl)
@@ -88,7 +95,8 @@ internal interface InternalComponent {
   interface Factory {
     fun create(
         @BindsInstance environment: SymbolProcessorEnvironment,
-        coroutines: CoroutinesComponent
+        coroutines: CoroutinesComponent,
+        quinn: QuinnComponent
     ): InternalComponent
   }
 }

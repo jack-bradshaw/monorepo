@@ -1,18 +1,20 @@
 package com.jackbradshaw.oksp.entrypoint
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.coroutines.testing.DaggerTestCoroutines
-import com.jackbradshaw.coroutines.testing.TestCoroutines
-import com.jackbradshaw.coroutines.testing.launcher.Launcher
-import com.jackbradshaw.kale.ksprunner.JvmSource
-import com.jackbradshaw.kale.ksprunner.KspRunnerComponent
-import com.jackbradshaw.kale.provider.ProviderChassis
-import com.jackbradshaw.kale.provider.ProviderChassisComponent
-import com.jackbradshaw.kale.provider.providerChassisComponent
+import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
+import com.jackbradshaw.coroutines.testing.Coroutines
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
+import com.jackbradshaw.kale.model.Source
+import com.jackbradshaw.kale.provider.ProviderRunner
+import com.jackbradshaw.kale.provider.ProviderRunnerComponent
+import com.jackbradshaw.kale.provider.providerRunnerComponent
 import com.jackbradshaw.oksp.application.Application
 import dagger.Component
 import javax.inject.Inject
 import javax.inject.Scope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
@@ -20,68 +22,77 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.advanceUntilIdle
 import org.junit.Before
 import org.junit.Test
 
 abstract class EntryPointTest {
 
-  @Inject lateinit var chassis: ProviderChassis
-  @Inject lateinit var launcher: Launcher
-  @Inject lateinit var testScope: TestScope
+  val coroutines = realisticCoroutinesTestingComponent()
+  @Inject lateinit var runner: ProviderRunner
+  @Inject @Coroutines lateinit var barrier: TestingTaskBarrier
 
   @Before
   fun setup() {
-    val coroutines = DaggerTestCoroutines.create()
-    val compiler = kspRunnerComponent(coroutines)
+
     DaggerEntryPointTest_TestComponent.builder()
-        .testCoroutines(coroutines)
-        .kspRunnerComponent(compiler)
-        .providerChassisComponent(providerChassisComponent(compiler))
+        .realisticCoroutinesTestingComponent(coroutines)
+        .providerRunnerComponent(providerRunnerComponent())
         .build()
         .inject(this)
   }
 
   @Test
   fun run_launchesApplication_waitsForCompleteSignals() = runBlocking {
-    val application = TestApplication()
+    val testScope = CoroutineScope(coroutines.ioDispatcher())
+    val application = TestApplication(testScope)
     setupSubject(application)
     val entryPoint = subject()
 
-    launcher.launchEagerly { chassis.run(sources, entryPoint) }
+    val runnerScope = CoroutineScope(coroutines.cpuDispatcher() + Job())
+    val job = runnerScope.launch { runner.runProvider(entryPoint, sources) }
 
-    awaitIdle()
+    awaitAppCreation(application)
 
     assertThat(application.onCreateCalls).isEqualTo(1)
     assertThat(application.onDestroyCalls).isEqualTo(0)
+
+    application.performProcessing()
+    job.join()
   }
 
   @Test
   fun run_afterCompleteSignal_finishesApplication() = runBlocking {
-    val application = TestApplication()
+    val testScope = CoroutineScope(coroutines.ioDispatcher())
+    val application = TestApplication(testScope)
     setupSubject(application)
     val entryPoint = subject()
 
-    launcher.launchEagerly { chassis.run(sources, entryPoint) }
+    val runnerScope = CoroutineScope(coroutines.cpuDispatcher() + Job())
+    val job = runnerScope.launch { runner.runProvider(entryPoint, sources) }
 
-    awaitIdle()
+    awaitAppCreation(application)
 
-    application.finish()
+    application.performProcessing()
+    job.join()
 
     assertThat(application.onCreateCalls).isEqualTo(1)
     assertThat(application.onDestroyCalls).isEqualTo(1)
+    job.cancel()
   }
 
   abstract fun setupSubject(application: Application)
 
   abstract fun subject(): EntryPoint
 
-  open fun awaitIdle() {
-    testScope.advanceUntilIdle()
+  open suspend fun awaitAppCreation(application: TestApplication) {
+    kotlinx.coroutines.withTimeout(5000L) {
+      while (application.onCreateCalls == 0) {
+        kotlinx.coroutines.delay(10)
+      }
+    }
   }
 
-  inner class TestApplication : Application {
+  inner class TestApplication(private val scope: kotlinx.coroutines.CoroutineScope) : Application {
 
     val processingEnabled = MutableStateFlow<Boolean>(false)
 
@@ -91,11 +102,11 @@ abstract class EntryPointTest {
     override suspend fun onCreate(component: Application.ContextComponent) {
       onCreateCalls++
 
-      testScope.launch {
+      scope.launch(coroutines.ioDispatcher()) {
         processingEnabled.filter { it }.first()
         component
             .processingService()
-            .observeRoundStartEvents()
+            .onRoundStart()
             .onEach { component.processingService().completeRound() }
             .collect()
       }
@@ -113,7 +124,7 @@ abstract class EntryPointTest {
   companion object {
     private val sources =
         setOf(
-            JvmSource(
+            com.jackbradshaw.kale.model.Source(
                 packageName = "com.foo",
                 fileName = "test",
                 extension = "kt",
@@ -124,8 +135,7 @@ abstract class EntryPointTest {
 
   @EntryPointTestScope
   @Component(
-      dependencies =
-          [TestCoroutines::class, KspRunnerComponent::class, ProviderChassisComponent::class])
+      dependencies = [RealisticCoroutinesTestingComponent::class, ProviderRunnerComponent::class])
   interface TestComponent {
     fun inject(test: EntryPointTest)
   }

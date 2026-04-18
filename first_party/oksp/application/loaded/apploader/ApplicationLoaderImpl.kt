@@ -10,6 +10,7 @@ class ApplicationLoaderImpl @Inject constructor(private val classLoader: ClassLo
   override fun load(): Application {
     val loader = ServiceLoader.load(Application::class.java, classLoader)
     val iterator = loader.iterator()
+
     require(iterator.hasNext()) {
       "No Application implementation found. " +
           "Ensure this JAR contains an application declartion in " +
@@ -21,6 +22,7 @@ class ApplicationLoaderImpl @Inject constructor(private val classLoader: ClassLo
           "Ensure this JAR contains exactly one application declartion in " +
           "META-INF/services/com.jackbradshaw.oksp.application.Application"
     }
+
     return application
   }
 }

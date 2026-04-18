@@ -1,7 +1,7 @@
 package com.jackbradshaw.oksp.model
 
 /**
- * A generated source file.
+ * A JVM source file.
  *
  * @property packageName The package name of the source file.
  * @property fileName The name of the source file (excluding extension).
@@ -9,8 +9,8 @@ package com.jackbradshaw.oksp.model
  * @property contents The raw string contents of the file.
  */
 data class SourceFile(
-    val packageName: String = "",
     val fileName: String,
     val extension: String = "kt",
+    val packageName: String = "",
     val contents: String = "",
 )

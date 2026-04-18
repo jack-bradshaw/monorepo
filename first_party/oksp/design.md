@@ -12,8 +12,8 @@ integration work? why not simply implement a ksp directly.
 implementing ksp directly has problems: the program structure is inherently round based, requiring
 boilerplate and custom logic (complex) to setup a simple reactive flow processor. the ksp stuff in
 backstab is an example. it would be better if ksp were just some abstracted program root that the
-downstream library doesnt need to worry about, they can get symbols from each round, and they can get
-a start/stop signal from for process lifecycle.
+downstream library doesnt need to worry about, they can get symbols from each round, and they can
+get a start/stop signal from for process lifecycle.
 
 alright so the goal is to abstract away the actual KSP foundation so the downstream can write
 reactive flow-based logic for their processor. will the API be dagger based?
@@ -23,8 +23,8 @@ yes of course, it should be, it makes integration simple.
 then we need to choose:
 
 a. the component interface b. the foundation api that consumers can implement to get control c. a
-means for declaring the root (similar to how is the application class declared on android will
-there be a manifest?)
+means for declaring the root (similar to how is the application class declared on android will there
+be a manifest?)
 
 why is this any better than ksp?
 

@@ -2,7 +2,6 @@ package com.jackbradshaw.oksp.application.loaded.apploader
 
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.oksp.application.Application
-import com.jackbradshaw.oksp.application.ApplicationComponent
 import kotlin.test.assertFailsWith
 import org.junit.Test
 

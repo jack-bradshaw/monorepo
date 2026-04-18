@@ -11,11 +11,9 @@ import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.oksp.model.SourceFile
 import com.jackbradshaw.oksp.processor.Processor as OkspProcessor
 import com.jackbradshaw.oksp.service.ProcessingService
-import com.jackbradshaw.quinn.Quinn
-import com.jackbradshaw.quinn.QuinnImpl
+import com.jackbradshaw.quinn.core.Quinn
 import java.util.LinkedList
 import javax.inject.Inject
-import javax.inject.Provider
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BufferOverflow
@@ -36,7 +34,7 @@ class ProcessorImpl
 constructor(
     private val environment: SymbolProcessorEnvironment,
     @Io private val coroutineContext: CoroutineContext,
-    private val quinnProvider: Provider<QuinnImpl<Resolver>>
+    private val quinnFactory: Quinn.Factory
 ) : OkspProcessor, ProcessingService {
 
   private val scope = CoroutineScope(coroutineContext)
@@ -70,9 +68,7 @@ constructor(
    * Emits each time a round is completed by a downstream consumer. The configuration ensures this
    * flow is passive, meaning any missed events are discarded and the supplier does not block.
    */
-  private val roundCompleteEvents =
-      MutableSharedFlow<Unit>(
-          replay = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST, extraBufferCapacity = 1)
+  private val roundCompleteEvents = Channel<Unit>(capacity = 1)
 
   /**
    * Emits each time a value is deferred by a downstream subscriber. Channel is used instead of
@@ -95,17 +91,18 @@ constructor(
     // Processing cannot begin until at least one observer is present.
     roundStartEvents.subscriptionCount.filter { it > 0 }.first()
 
-    val quinn = quinnProvider.get()
+    val quinn = quinnFactory.createQuinn<Resolver>()
     currentQuinn = quinn
     roundStartEvents.emit(Unit)
 
-    val roundMonitor = scope.launch {
-      roundCompleteEvents.first()
-      quinn.close()
-      collectAllDeferred.cancel()
-    }
+    val roundMonitor =
+        scope.launch {
+          roundCompleteEvents.receive()
+          quinn.close()
+          collectAllDeferred.cancel()
+        }
 
-    quinn.drain(resolver)
+    quinn.execute(resolver)
 
     roundMonitor.join()
     currentQuinn = null
@@ -132,9 +129,8 @@ constructor(
             ?: error(
                 "Resolver is not available yet. Processing has not started. Call `withResolver` after " +
                     "the first emission from `onRoundStart` and before " +
-                    "`observeAllRoundsCompleteState` emits true."
-            )
-    quinn.submit(block)
+                    "`observeAllRoundsCompleteState` emits true.")
+    quinn.run(block)
   }
 
   override suspend fun publishSource(source: SourceFile, anchors: List<KSNode>) {
@@ -171,7 +167,7 @@ constructor(
   }
 
   override suspend fun completeRound() {
-    roundCompleteEvents.emit(Unit)
+    roundCompleteEvents.send(Unit)
   }
 
   private companion object {

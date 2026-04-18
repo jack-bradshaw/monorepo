@@ -247,36 +247,33 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun multipleExecutes_concurrently_withCancellation_activeExecuteResourceUsed() =
-      runBlocking {
-        val quinn = subject()
-        val processed = mutableListOf<T>()
+  fun multipleExecutes_concurrently_withCancellation_activeExecuteResourceUsed() = runBlocking {
+    val quinn = subject()
+    val processed = mutableListOf<T>()
 
-        val resource1 = createResource()
-        val executeJob1 = launch(cpuDispatcher()) { quinn.execute(resource1) }
-        taskBarrier().awaitAllIdle()
+    val resource1 = createResource()
+    val executeJob1 = launch(cpuDispatcher()) { quinn.execute(resource1) }
+    taskBarrier().awaitAllIdle()
 
-        val resource2 = createResource()
-        val executeJob2 = launch(cpuDispatcher()) { quinn.execute(resource2) }
-        taskBarrier().awaitAllIdle()
+    val resource2 = createResource()
+    val executeJob2 = launch(cpuDispatcher()) { quinn.execute(resource2) }
+    taskBarrier().awaitAllIdle()
 
-        val submitJob1 =
-            launch(cpuDispatcher()) { quinn.run { resource -> processed.add(resource) } }
-        taskBarrier().awaitAllIdle()
+    val submitJob1 = launch(cpuDispatcher()) { quinn.run { resource -> processed.add(resource) } }
+    taskBarrier().awaitAllIdle()
 
-        executeJob1.cancelAndJoin()
-        taskBarrier().awaitAllIdle()
+    executeJob1.cancelAndJoin()
+    taskBarrier().awaitAllIdle()
 
-        val submitJob2 =
-            launch(cpuDispatcher()) { quinn.run { resource -> processed.add(resource) } }
-        taskBarrier().awaitAllIdle()
+    val submitJob2 = launch(cpuDispatcher()) { quinn.run { resource -> processed.add(resource) } }
+    taskBarrier().awaitAllIdle()
 
-        assertThat(processed).containsExactly(resource1, resource2).inOrder()
+    assertThat(processed).containsExactly(resource1, resource2).inOrder()
 
-        submitJob1.cancelAndJoin()
-        submitJob2.cancelAndJoin()
-        executeJob2.cancelAndJoin()
-      }
+    submitJob1.cancelAndJoin()
+    submitJob2.cancelAndJoin()
+    executeJob2.cancelAndJoin()
+  }
 
   @Test
   fun multipleExecutes_concurrently_allExecutesSuspend() = runBlocking {
@@ -324,7 +321,7 @@ abstract class QuinnTest<T> {
 
     val executeJob = launch(cpuDispatcher()) { quinn.execute(createResource()) }
     taskBarrier().awaitAllIdle()
-    
+
     val submitJob =
         launch(cpuDispatcher()) {
           quinn.run { processed.add("first") }
@@ -486,17 +483,16 @@ abstract class QuinnTest<T> {
   companion object {
     /**
      * The duration to delay for in tests that evaluate closure behaviour.
-     * 
+     *
      * This is necessary because `close` is a blocking call so any coroutine interactions it does
      * must be wrapped with `runBlocking`. Any usage of `runBlocking` inherently prevents an idle
      * state because `runBlocking` does not yield the thread back to the dispatcher until all its
      * work completes.
-     * 
+     *
      * TODO(jack-bradshaw): Create a suspendable closure interface so close can be non-blocking.
      */
     private const val DELAY_DURATION_MS = 50L
   }
-
 
   /**
    * Handle to precisely and deterministically pause and resume a coroutine within a test.
@@ -522,7 +518,7 @@ abstract class QuinnTest<T> {
    * such scenarios are where race conditions and complex multi-threading issues emerge.
    */
   protected class TestingSuspensionController {
-    
+
     /** Whether suspension has started */
     private val suspendStarted = kotlinx.coroutines.CompletableDeferred<Unit>()
 

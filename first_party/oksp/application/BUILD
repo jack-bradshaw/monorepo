@@ -25,8 +25,8 @@ kt_jvm_library_with_dagger(
     visibility = ["//visibility:public"],
     deps = [
         ":application",
-        "//first_party/oksp/application/loaded/apploader:loader",
         "//first_party/oksp/application/loaded/apploader:impl_module",
+        "//first_party/oksp/application/loaded/apploader:loader",
         "@com_jackbradshaw_maven//:jakarta_inject_jakarta_inject_api",
     ],
 )
@@ -44,7 +44,8 @@ kt_jvm_library(
     visibility = ["//visibility:public"],
     deps = [
         ":application",
-        "//first_party/coroutines",
+        "//first_party/coroutines:component",
+        "//first_party/oksp/testing/application/chassis",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
