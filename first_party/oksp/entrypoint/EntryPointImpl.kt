@@ -11,6 +11,8 @@ import com.jackbradshaw.oksp.application.applicationComponent
 import com.jackbradshaw.oksp.processor.Processor
 import com.jackbradshaw.oksp.processor.ProcessorImpl
 import com.jackbradshaw.oksp.service.ProcessingService
+import com.jackbradshaw.quinn.core.DaggerQuinnComponentImpl
+import com.jackbradshaw.quinn.core.QuinnComponent
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
@@ -32,14 +34,17 @@ class EntryPointImpl
 @JvmOverloads
 constructor(
     val coroutineComponent: Coroutines = coroutines(),
-    val applicationComponent: ApplicationComponent = applicationComponent()
+    val applicationComponent: ApplicationComponent = applicationComponent(),
+    val quinnComponent: QuinnComponent = DaggerQuinnComponentImpl.create()
 ) : EntryPoint {
 
   @Inject lateinit var processor: Processor
   @Inject @Io lateinit var coroutineScope: CoroutineScope
 
   override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-    DaggerInternalComponent.factory().create(environment, coroutineComponent).inject(this)
+    DaggerInternalComponent.factory()
+        .create(environment, coroutineComponent, quinnComponent)
+        .inject(this)
 
     require(Companion.app == null) {
       "EntryPointImpl.create was called more than once. Each instance can only be used once."
@@ -76,7 +81,7 @@ internal interface InternalModule {
 }
 
 @InternalScope
-@Component(dependencies = [Coroutines::class], modules = [InternalModule::class])
+@Component(dependencies = [Coroutines::class, QuinnComponent::class], modules = [InternalModule::class])
 internal interface InternalComponent {
 
   fun inject(target: EntryPointImpl)
@@ -85,7 +90,8 @@ internal interface InternalComponent {
   interface Factory {
     fun create(
         @BindsInstance environment: SymbolProcessorEnvironment,
-        coroutines: Coroutines
+        coroutines: Coroutines,
+        quinn: QuinnComponent
     ): InternalComponent
   }
 }

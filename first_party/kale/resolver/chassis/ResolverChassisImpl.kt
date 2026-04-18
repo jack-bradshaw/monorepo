@@ -112,7 +112,7 @@ internal constructor(
     /** A coroutine scope for the KSP run. */
     private val coroutineScope = CoroutineScope(coroutineContext + coroutineScopeHandle)
 
-    /** Handles passing evaluations onto the Resolver framework context. */
+    /** Forwards [Resolver]-dependent blocks for evaluation within a KSP lifecycle context. */
     private val quinn = quinnFactory.createQuinn<Resolver>()
 
     init {
@@ -125,6 +125,10 @@ internal constructor(
       }
     }
 
+    /**
+     * Accepts [Resolver]-dependent blocks and passes them to [quinn] for evaluation within a KSP
+     * lifecycle context.
+     */
     val harness =
         object : ResolverHarness {
           override suspend fun withResolver(block: (Resolver) -> Unit) {
@@ -158,7 +162,7 @@ internal constructor(
     }
 
     /**
-     * Creates a [SymbolProcessor] that utilizes [quinn] to expose [Resolver]s recursively.
+     * Creates a [SymbolProcessor] that uses [quinn] to execute [Resolver]-dependent work.
      * 
      * The process is not started when returned (only created).
      */

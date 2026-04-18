@@ -51,13 +51,13 @@ abstract class ApplicationLoaderTest {
 }
 
 class TestApp1 : Application {
-  override suspend fun onCreate(component: ApplicationComponent) {}
+  override suspend fun onCreate(component: Application.ContextComponent) {}
 
   override suspend fun onDestroy() {}
 }
 
 class TestApp2 : Application {
-  override suspend fun onCreate(component: ApplicationComponent) {}
+  override suspend fun onCreate(component: Application.ContextComponent) {}
 
   override suspend fun onDestroy() {}
 }

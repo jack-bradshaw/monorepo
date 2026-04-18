@@ -59,3 +59,14 @@ kt_jvm_library(
         ":log",
     ],
 )
+
+kt_jvm_library(
+    name = "artefacts",
+    srcs = [
+        "KspArtefacts.kt",
+        "JvmSource.kt",
+        "JvmClass.kt",
+        "KspVersions.kt",
+    ],
+    visibility = PUBLICITY,
+)

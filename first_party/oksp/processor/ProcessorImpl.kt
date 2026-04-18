@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import com.jackbradshaw.quinn.core.Quinn
 
 /**
  * The KSP processor for the Backstab annotation processor.
@@ -36,6 +37,7 @@ class ProcessorImpl
 @Inject
 constructor(
     private val environment: SymbolProcessorEnvironment,
+    private val quinnFactory: Quinn.Factory,
     @Io private val scope: CoroutineScope
 ) : OkspProcessor, ProcessingService {
 
@@ -49,8 +51,8 @@ constructor(
   private val terminationSignal =
       MutableSharedFlow<Unit>(replay = 1, onBufferOverflow = BufferOverflow.SUSPEND)
 
-  /** The [Resolver] for the present round. */
-  private var roundResolver: Resolver? = null
+  /** The [Quinn] processor handling the present round. */
+  private var roundQuinn: Quinn<Resolver>? = null
 
   /**
    * Emits each time a new round is started by KSP. The configuration ensures this flow is passive,
@@ -82,6 +84,9 @@ constructor(
   override fun observeAllRoundsCompleteEvent(): SharedFlow<Unit> = terminationSignal
 
   override fun process(resolver: Resolver): List<KSAnnotated> = runBlocking {
+    val quinnForRound = quinnFactory.createQuinn<Resolver>()
+    roundQuinn = quinnForRound
+
     val allDeferred = LinkedList<KSAnnotated>()
     val collectAllDeferred =
         scope.launch {
@@ -91,10 +96,18 @@ constructor(
     // Processing cannot begin until at least one observer is present.
     roundStartEvents.subscriptionCount.filter { it > 0 }.first()
 
-    roundResolver = resolver
     roundStartEvents.emit(Unit)
 
-    roundCompleteEvents.first()
+    // Await completeRound() signal before cancelling processing state.
+    scope.launch {
+      roundCompleteEvents.first()
+      quinnForRound.close()
+    }
+
+    // Hand over control continuously during this processing cycle iteration
+    quinnForRound.execute(resolver)
+
+    roundQuinn = null
     collectAllDeferred.cancel()
 
     return@runBlocking allDeferred
@@ -102,7 +115,6 @@ constructor(
 
   override fun finish() {
     runBlocking {
-      roundResolver = null
 
       // Termination cannot complete until at least one observer is present.
       terminationSignal.subscriptionCount.filter { it > 0 }.first()
@@ -112,14 +124,14 @@ constructor(
 
   override fun observeRoundStartEvents(): Flow<Unit> = roundStartEvents
 
-  override fun withResolver(block: (Resolver) -> Unit) {
-    val resolver =
-        checkNotNull(roundResolver) {
+  override suspend fun withResolver(block: (Resolver) -> Unit) {
+    val quinn =
+        checkNotNull(roundQuinn) {
           "Resolver is not available yet. Processing has not started. Call `withResolver` after " +
               "the first emission from `observeRoundStartEvents` and before " +
               "`observeAllRoundsCompleteState` emits true."
         }
-    block(resolver)
+    quinn.run(block)
   }
 
   override suspend fun publishSource(source: SourceFile, anchors: List<KSNode>) {

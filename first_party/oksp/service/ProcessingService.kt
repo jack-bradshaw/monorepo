@@ -10,7 +10,7 @@ interface ProcessingService {
 
   fun observeRoundStartEvents(): Flow<Unit>
 
-  fun withResolver(block: (Resolver) -> Unit)
+  suspend fun withResolver(block: (Resolver) -> Unit)
 
   suspend fun publishSource(source: SourceFile, anchors: List<KSNode> = emptyList())
 

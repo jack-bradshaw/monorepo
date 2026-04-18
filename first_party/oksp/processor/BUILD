@@ -22,6 +22,7 @@ kt_jvm_library_with_dagger(
         "//first_party/coroutines/io",
         "//first_party/oksp/model:source_file",
         "//first_party/oksp/service",
+        "//first_party/quinn/core:quinn",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
