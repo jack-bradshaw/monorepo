@@ -40,7 +40,7 @@ interface SubmittableQuinn<T> : ObservableClosable {
    * implementations are free to use non-reentrant locks, and they likely will due to the
    * multithreaded nature of Quinn.
    */
-  suspend fun run(block: (T) -> Unit)
+  suspend fun run(block: suspend (T) -> Unit)
 
   /**
    * Identical to [run], except it returns `false` instead of throwing an [IllegalStateException] if
@@ -51,7 +51,7 @@ interface SubmittableQuinn<T> : ObservableClosable {
    * was successfully scheduled without error, since this Quinn could be closed after submission but
    * before execution.
    */
-  suspend fun tryRun(block: (T) -> Unit): Boolean
+  suspend fun tryRun(block: suspend (T) -> Unit): Boolean
 }
 
 /**
