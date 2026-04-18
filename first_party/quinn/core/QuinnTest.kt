@@ -29,7 +29,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun submit_suspendsBeforeProcessing() = runBlocking {
+  fun run_suspendsBeforeProcessing() = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
@@ -42,7 +42,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun submit_resumesAfterProcessing() = runBlocking {
+  fun run_resumesAfterProcessing() = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
@@ -86,14 +86,14 @@ abstract class QuinnTest<T> {
     val processed = mutableListOf<T>()
 
     val resource1 = createResource()
-    val submitJob1 = launch(cpuDispatcher()) { quinn.run { processed.add(it) } }
     val executeJob1 = launch(cpuDispatcher()) { quinn.execute(resource1) }
+    val submitJob1 = launch(cpuDispatcher()) { quinn.run { processed.add(it) } }
     taskBarrier().awaitAllIdle()
     executeJob1.cancelAndJoin()
 
     val resource2 = createResource()
-    val submitJob2 = launch(cpuDispatcher()) { quinn.run { processed.add(it) } }
     val executeJob2 = launch(cpuDispatcher()) { quinn.execute(resource2) }
+    val submitJob2 = launch(cpuDispatcher()) { quinn.run { processed.add(it) } }
     taskBarrier().awaitAllIdle()
     executeJob2.cancelAndJoin()
 
@@ -372,11 +372,9 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun afterClose_submit_fails() = runBlocking {
+  fun afterClose_run_fails() = runBlocking {
     val quinn = subject()
     quinn.close()
-
-    val tryResult = quinn.tryRun {}
 
     val error = assertFailsWith<IllegalStateException> { quinn.run {} }
 
@@ -393,7 +391,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun afterClose_tryQueue_returnsFalse() = runBlocking {
+  fun afterClose_tryRun_returnsFalse() = runBlocking {
     val quinn = subject()
     quinn.close()
 
@@ -403,7 +401,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun tryQueue_returnsTrueWhenActive() = runBlocking {
+  fun tryRun_returnsTrueWhenActive() = runBlocking {
     val quinn = subject()
 
     var success = false

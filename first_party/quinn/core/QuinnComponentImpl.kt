@@ -15,3 +15,6 @@ interface QuinnComponentImpl : QuinnComponent {
     @Binds fun bindFactory(impl: QuinnImpl.FactoryImpl): Quinn.Factory
   }
 }
+
+/** Provides a new [QuinnComponent]. */
+fun quinnComponent(): QuinnComponent = DaggerQuinnComponentImpl.create()
