@@ -8,6 +8,8 @@ import com.jackbradshaw.kale.KaleScope
 import com.jackbradshaw.kale.provider.ProviderRunner
 import com.jackbradshaw.kale.provider.ProviderRunnerComponent
 import com.jackbradshaw.kale.provider.providerRunnerComponent
+import com.jackbradshaw.quinn.core.DaggerQuinnComponentImpl
+import com.jackbradshaw.quinn.core.QuinnComponent
 import dagger.Component
 
 /** [ResolverChassisComponent] backed by a [ProviderRunner]. */
@@ -17,7 +19,8 @@ import dagger.Component
         [
             CoroutinesComponent::class,
             ResourceManagerComponent::class,
-            ProviderRunnerComponent::class],
+            ProviderRunnerComponent::class,
+            QuinnComponent::class],
     modules = [ResolverChassisModule::class])
 interface ResolverChassisComponentImpl : ResolverChassisComponent {
   @Component.Builder
@@ -28,6 +31,8 @@ interface ResolverChassisComponentImpl : ResolverChassisComponent {
 
     fun consuming(providerRunner: ProviderRunnerComponent): Builder
 
+    fun consuming(quinn: QuinnComponent): Builder
+
     fun build(): ResolverChassisComponentImpl
   }
 }
@@ -36,10 +41,12 @@ interface ResolverChassisComponentImpl : ResolverChassisComponent {
 fun resolverChassisComponent(
     coroutines: CoroutinesComponent = coroutinesComponent(),
     resourceManager: ResourceManagerComponent = resourceManagerComponent(coroutines),
-    providerRunner: ProviderRunnerComponent = providerRunnerComponent()
+    providerRunner: ProviderRunnerComponent = providerRunnerComponent(),
+    quinn: QuinnComponent = DaggerQuinnComponentImpl.create()
 ): ResolverChassisComponent =
     DaggerResolverChassisComponentImpl.builder()
         .consuming(coroutines)
         .consuming(resourceManager)
         .consuming(providerRunner)
+        .consuming(quinn)
         .build()
