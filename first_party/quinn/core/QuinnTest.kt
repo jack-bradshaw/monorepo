@@ -28,6 +28,7 @@ abstract class QuinnTest<T> {
     runBlocking { subject().close() }
   }
 
+  /** Since `execute` does not call the block is not processed and should suspend. */
   @Test
   fun run_suspendsBeforeProcessing() = runBlocking {
     val quinn = subject()
@@ -58,7 +59,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun execute_suspendsIndefinitely() = runBlocking {
+  fun execute_betweenSubmissions_suspendsIndefinitely() = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
@@ -69,6 +70,52 @@ abstract class QuinnTest<T> {
     taskBarrier().awaitAllIdle()
 
     val submitJob2 = launch(cpuDispatcher()) { quinn.run { processed.add("second") } }
+    taskBarrier().awaitAllIdle()
+
+    // Check processed first to ensure execute job is active even after all values were processed
+    assertThat(processed).containsExactly("first", "second")
+    assertThat(executeJob.isActive).isTrue()
+
+    submitJob1.cancelAndJoin()
+    executeJob.cancelAndJoin()
+    submitJob2.cancelAndJoin()
+  }
+
+  @Test
+  fun execute_beforeSubmissions_suspendsIndefinitely() = runBlocking {
+    val quinn = subject()
+    val processed = mutableListOf<String>()
+
+    val executeJob = launch(cpuDispatcher()) { quinn.execute(createResource()) }
+    taskBarrier().awaitAllIdle()
+
+    val submitJob1 = launch(cpuDispatcher()) { quinn.run { processed.add("first") } }
+    taskBarrier().awaitAllIdle()
+
+    val submitJob2 = launch(cpuDispatcher()) { quinn.run { processed.add("second") } }
+    taskBarrier().awaitAllIdle()
+
+    // Check processed first to ensure execute job is active even after all values were processed
+    assertThat(processed).containsExactly("first", "second")
+    assertThat(executeJob.isActive).isTrue()
+
+    submitJob1.cancelAndJoin()
+    executeJob.cancelAndJoin()
+    submitJob2.cancelAndJoin()
+  }
+
+  @Test
+  fun execute_afterSubmissions_suspendsIndefinitely() = runBlocking {
+    val quinn = subject()
+    val processed = mutableListOf<String>()
+
+    val submitJob1 = launch(cpuDispatcher()) { quinn.run { processed.add("first") } }
+    taskBarrier().awaitAllIdle()
+
+    val submitJob2 = launch(cpuDispatcher()) { quinn.run { processed.add("second") } }
+    taskBarrier().awaitAllIdle()
+
+    val executeJob = launch(cpuDispatcher()) { quinn.execute(createResource()) }
     taskBarrier().awaitAllIdle()
 
     // Check processed first to ensure execute job is active even after all values were processed
@@ -104,7 +151,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun multipleExecutes_sequentially_firstExecuteResourceUsed() = runBlocking {
+  fun multipleExecutes_sequentially_activeExecuteResourceUsed() = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<T>()
 
@@ -124,6 +171,25 @@ abstract class QuinnTest<T> {
 
     submitJob1.cancelAndJoin()
     submitJob2.cancelAndJoin()
+  }
+
+  @Test
+  fun multipleExecutes_sequentially_eachBlockEvaluatedOnce() = runBlocking {
+    val quinn = subject()
+    val evaluationCount = java.util.concurrent.atomic.AtomicInteger(0)
+
+    val submitJob = launch(cpuDispatcher()) { quinn.run { evaluationCount.incrementAndGet() } }
+    val executeJob1 = launch(cpuDispatcher()) { quinn.execute(createResource()) }
+    taskBarrier().awaitAllIdle()
+    executeJob1.cancelAndJoin()
+
+    val executeJob2 = launch(cpuDispatcher()) { quinn.execute(createResource()) }
+    taskBarrier().awaitAllIdle()
+    executeJob2.cancelAndJoin()
+
+    submitJob.cancelAndJoin()
+
+    assertThat(evaluationCount.get()).isEqualTo(1)
   }
 
   @Test
@@ -181,7 +247,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun multipleExecutes_concurrently_resourceFromSecondExecuteUsedAfterFirstCancelled() =
+  fun multipleExecutes_concurrently_withCancellation_activeExecuteResourceUsed() =
       runBlocking {
         val quinn = subject()
         val processed = mutableListOf<T>()
@@ -222,6 +288,7 @@ abstract class QuinnTest<T> {
     val executeJob2 = launch(cpuDispatcher()) { quinn.execute(createResource()) }
     taskBarrier().awaitAllIdle()
 
+    assertThat(executeJob1.isActive).isTrue()
     assertThat(executeJob2.isActive).isTrue()
 
     executeJob1.cancel()
@@ -256,6 +323,8 @@ abstract class QuinnTest<T> {
     val processed = mutableListOf<String>()
 
     val executeJob = launch(cpuDispatcher()) { quinn.execute(createResource()) }
+    taskBarrier().awaitAllIdle()
+    
     val submitJob =
         launch(cpuDispatcher()) {
           quinn.run { processed.add("first") }
@@ -270,7 +339,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun concurrent_execute_eachBlockEvaluatedOnce() = runBlocking {
+  fun multipleExecutes_concurrently_eachBlockEvaluatedOnce() = runBlocking {
     val quinn = subject()
     val evaluations = java.util.concurrent.atomic.AtomicInteger(0)
 
@@ -290,49 +359,31 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun afterAllBlocksInvoked_executeRemainsSuspended() = runBlocking {
-    val quinn = subject()
-    val processed = mutableListOf<T>()
-
-    val executeJob = launch(cpuDispatcher()) { quinn.execute(createResource()) }
-    taskBarrier().awaitAllIdle()
-
-    val submitJob =
-        launch(cpuDispatcher()) {
-          quinn.run { processed.add(it) }
-          quinn.run { processed.add(it) }
-        }
-    taskBarrier().awaitAllIdle()
-
-    assertThat(executeJob.isActive).isTrue()
-
-    executeJob.cancel()
-    submitJob.cancelAndJoin()
-  }
-
-  @Test
   fun close_premptsProcessingPendingBlocks(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
-    val pauseHandle = TestingPauseHandle()
+    val pauseHandle = TestingSuspensionController()
 
     val executeJob = launch(cpuDispatcher()) { quinn.execute(createResource()) }
 
     val submitJob1 =
         launch(cpuDispatcher()) {
           quinn.run {
-            pauseHandle.pause()
+            pauseHandle.suspend()
             processed.add("first")
           }
         }
-
-    pauseHandle.waitUntilPaused()
+    taskBarrier().awaitAllIdle()
 
     val submitJob2 = launch(cpuDispatcher()) { quinn.run { processed.add("second") } }
 
     val closeJob = launch(cpuDispatcher()) { quinn.close() }
 
+    // See comment on DELAY_DURATION_MS.
+    kotlinx.coroutines.delay(DELAY_DURATION_MS)
+
     pauseHandle.resume()
+    taskBarrier().awaitAllIdle()
 
     submitJob1.join()
     submitJob2.join()
@@ -346,21 +397,24 @@ abstract class QuinnTest<T> {
   fun close_allowsActiveBlocksToComplete(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
-    val pauseHandle = TestingPauseHandle()
+    val pauseHandle = TestingSuspensionController()
 
     val executeJob = launch(cpuDispatcher()) { quinn.execute(createResource()) }
 
     val submitJob =
         launch(cpuDispatcher()) {
           quinn.run {
-            pauseHandle.pause()
+            pauseHandle.suspend()
             processed.add("first")
           }
         }
 
-    pauseHandle.waitUntilPaused()
+    taskBarrier().awaitAllIdle()
 
     val closeJob = launch(cpuDispatcher()) { quinn.close() }
+
+    // See comment on DELAY_DURATION_MS.
+    kotlinx.coroutines.delay(DELAY_DURATION_MS)
 
     pauseHandle.resume()
 
@@ -429,52 +483,66 @@ abstract class QuinnTest<T> {
    */
   abstract fun createResource(): T
 
-  // TODO(jack@jack-bradshaw.com): Extract to a separate package for reusability.
+  companion object {
+    /**
+     * The duration to delay for in tests that evaluate closure behaviour.
+     * 
+     * This is necessary because `close` is a blocking call so any coroutine interactions it does
+     * must be wrapped with `runBlocking`. Any usage of `runBlocking` inherently prevents an idle
+     * state because `runBlocking` does not yield the thread back to the dispatcher until all its
+     * work completes.
+     * 
+     * TODO(jack-bradshaw): Create a suspendable closure interface so close can be non-blocking.
+     */
+    private const val DELAY_DURATION_MS = 50L
+  }
+
+
   /**
    * Handle to precisely and deterministically pause and resume a coroutine within a test.
    *
    * Example:
    * ```kotlin
-   * val pauseHandle = TestingPauseHandle()
+   * val pauseHandle = TestingSuspensionController()
    *
    * val executionJob = launch(cpuDispatcher()) {
-   *   pauseHandle.pause()
+   *   pauseHandle.suspend()
    *   // Execution is deferred at this point...
    * }
    *
-   * pauseHandle.waitUntilPaused()
-   * // It is now guaranteed the coroutine is suspended actively mid-evaluation.
-   * // External synchronization or external event invocations can happen here safely.
+   * // Does not proceed until suspension has occurred.
+   * taskBarrier().awaitAllIdle()
    *
    * pauseHandle.resume()
-   * // Execution is unrestrained and concludes.
+   * // Execution of the launched block now resumes.
    * ```
    *
    * This is useful when tests need to start work then suspend it until a specific condition has
    * been met, which is a common scenario when testing the edge cases of a concurrent system, as
    * such scenarios are where race conditions and complex multi-threading issues emerge.
    */
-  protected class TestingPauseHandle {
-    /** Whether pause has started */
-    private val pauseStarted = kotlinx.coroutines.CompletableDeferred<Unit>()
+  protected class TestingSuspensionController {
+    
+    /** Whether suspension has started */
+    private val suspendStarted = kotlinx.coroutines.CompletableDeferred<Unit>()
 
-    /** Whether pause has resumed. Should not complete before [pauseStarted]. */
-    private val pauseCompleted = kotlinx.coroutines.CompletableDeferred<Unit>()
+    /** Whether suspension has resumed. Should not complete before [suspendStarted]. */
+    private val suspendCompleted = kotlinx.coroutines.CompletableDeferred<Unit>()
 
-    /** Pauses and suspends until [resume] is called. */
-    fun pause() {
-      pauseStarted.complete(Unit)
-      runBlocking { pauseCompleted.await() }
+    /** Suspends until [resume] is called. */
+    suspend fun suspend() {
+      suspendStarted.complete(Unit)
+      suspendCompleted.await()
     }
 
-    /** Suspends until [pause] has been invoked. */
-    suspend fun waitUntilPaused() {
-      pauseStarted.await()
+    /** Suspends until [suspend] has been invoked natively. */
+    suspend fun waitUntilSuspended() {
+      suspendStarted.await()
     }
 
-    /** Resumes anything waiting for pause to end. */
+    /** Resumes anything waiting for suspension to end. */
     fun resume() {
-      pauseCompleted.complete(Unit)
+      suspendCompleted.complete(Unit)
     }
   }
 }

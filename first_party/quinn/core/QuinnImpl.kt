@@ -62,11 +62,11 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
 
   override val hasTerminatedProcesses = _hasTerminatedProcesses.asStateFlow()
 
-  override suspend fun run(block: (T) -> Unit) {
+  override suspend fun run(block: suspend (T) -> Unit) {
     check(tryRun(block)) { "This Quinn instance is closed, run cannot be used." }
   }
 
-  override suspend fun tryRun(block: (T) -> Unit): Boolean {
+  override suspend fun tryRun(block: suspend (T) -> Unit): Boolean {
     if (hasTerminalState.value) return false
 
     val consumableBlock = ConsumableBlock(block)
@@ -175,7 +175,7 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
  * processor may decide to run the block or skip over it, and both count as being processed.
  */
 private data class ConsumableBlock<T>(
-    val block: (T) -> Unit,
+    val block: suspend (T) -> Unit,
 ) {
   val isProcessed = MutableStateFlow(false)
 }
