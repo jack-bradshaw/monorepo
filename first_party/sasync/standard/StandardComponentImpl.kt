@@ -1,7 +1,9 @@
 package com.jackbradshaw.sasync.standard
 
 import com.jackbradshaw.sasync.inbound.InboundComponent
+import com.jackbradshaw.sasync.inbound.inboundComponent
 import com.jackbradshaw.sasync.outbound.OutboundComponent
+import com.jackbradshaw.sasync.outbound.outboundComponent
 import com.jackbradshaw.sasync.standard.error.StandardError
 import com.jackbradshaw.sasync.standard.error.StandardErrorModule
 import com.jackbradshaw.sasync.standard.input.StandardInput
@@ -35,8 +37,8 @@ interface StandardComponentImpl : StandardComponent {
 }
 
 fun standardComponent(
-    inbound: InboundComponent,
-    outbound: OutboundComponent,
+    inbound: InboundComponent = inboundComponent(),
+    outbound: OutboundComponent = outboundComponent(),
     input: InputStream = System.`in`,
     output: OutputStream = System.`out`,
     error: OutputStream = System.err

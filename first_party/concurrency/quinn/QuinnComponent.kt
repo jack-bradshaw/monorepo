@@ -1,6 +1,8 @@
+
 package com.jackbradshaw.concurrency.quinn
 
-/** Generic multi-producer single-consumer actor-object infrastructure. */
+/** Provides a [Quinn.Factory]. */
+
 interface QuinnComponent {
   /** Provides a [Quinn.Factory]. */
   fun quinnFactory(): Quinn.Factory

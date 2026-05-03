@@ -1,0 +1,596 @@
+INFO: Invocation ID: a563354e-b82f-453a-9810-8e2ac98c69fa
+Computing main repo mapping: 
+WARNING: For repository 'rules_java', the root module requires module version rules_java@8.15.1, but got rules_java@9.3.0 in the resolved dependency graph. Please update the version in your MODULE.bazel or set --check_direct_dependencies=off
+WARNING: For repository 'rules_jvm_external', the root module requires module version rules_jvm_external@6.8, but got rules_jvm_external@6.9 in the resolved dependency graph. Please update the version in your MODULE.bazel or set --check_direct_dependencies=off
+WARNING: For repository 'rules_go', the root module requires module version rules_go@0.56.1, but got rules_go@0.59.0 in the resolved dependency graph. Please update the version in your MODULE.bazel or set --check_direct_dependencies=off
+WARNING: For repository 'protobuf', the root module requires module version protobuf@31.1, but got protobuf@33.4 in the resolved dependency graph. Please update the version in your MODULE.bazel or set --check_direct_dependencies=off
+Loading: 
+Loading: 0 packages loaded
+Analyzing: target //first_party/backstabmigrated/ksp/tests/binding/internalization:unqualified (1 packages loaded, 0 targets configured)
+Analyzing: target //first_party/backstabmigrated/ksp/tests/binding/internalization:unqualified (1 packages loaded, 0 targets configured)
+
+Analyzing: target //first_party/backstabmigrated/ksp/tests/binding/internalization:unqualified (86 packages loaded, 8 targets configured)
+
+Analyzing: target //first_party/backstabmigrated/ksp/tests/binding/internalization:unqualified (381 packages loaded, 13553 targets configured)
+
+INFO: Analyzed target //first_party/backstabmigrated/ksp/tests/binding/internalization:unqualified (381 packages loaded, 13849 targets configured).
+[553 / 1,822] Compiling upb/message/internal/extension.c [for tool]; 0s disk-cache ... (8 actions, 0 running)
+INFO: From Compiling src/google/protobuf/compiler/rust/accessors/singular_string.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/accessors/singular_string.cc:12:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field.cc:12:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_generators/cord_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_generators/cord_field.cc:23:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/rust/accessors/repeated_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/accessors/repeated_field.cc:12:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_generators/message_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_generators/message_field.cc:21:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/rust/accessors/singular_cord.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/accessors/singular_cord.cc:12:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_generators/string_view_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_generators/string_view_field.cc:19:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/wire_format.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/wire_format.cc:31:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/map_field.h:416:11: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  416 |         : repeated_field_(arena), prototype_(prototype) {}
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/helpers.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/helpers.cc:12:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/helpers.cc:1802:28: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 1802 |       if (field->options().weak()) {
+      |                            ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+2 warnings generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/generator.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/generator.cc:31:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/file.h:26:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/extension.h:19:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_generators/string_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_generators/string_field.cc:20:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/generated_message_tctable_gen.cc [for tool]:
+external/protobuf+/src/google/protobuf/generated_message_tctable_gen.cc:699:41: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  699 |     if (descriptor->field(i)->options().weak()) {
+      |                                         ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_tctable_gen.cc:738:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  738 |       field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_tctable_gen.cc:773:50: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  773 |            !field->is_map() && !field->options().weak() &&
+      |                                                  ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_tctable_gen.cc:813:35: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  813 |       } else if (field->options().weak()) {
+      |                                   ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+4 warnings generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/message.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:12:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/message.h:25:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/extension.h:19:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:176:25: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  176 |   if (!field->options().weak()) {
+      |                         ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:775:62: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  775 |     if (!field->real_containing_oneof() && !field->options().weak()) {
+      |                                                              ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:1140:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 1140 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:1363:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 1363 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:1396:55: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 1396 |   if (!HasHasbit(field, options_) || field->options().weak()) return;
+      |                                                       ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:2184:60: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 2184 |             if (!field->is_repeated() && !field->options().weak() &&
+      |                                                            ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:2717:26: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 2717 |     if (field->options().weak()) {
+      |                          ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:4372:35: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 4372 |       } else if (field->options().weak() ||
+      |                                   ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:4722:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 4722 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:5029:39: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 5029 |                  if (field->options().weak()) {
+      |                                       ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:5572:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 5572 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:1363:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 1363 |   if (field->options().weak()) {
+      |                        ^
+external/protobuf+/src/google/protobuf/compiler/cpp/message.cc:1418:11: note: in instantiation of function template specialization 'google::protobuf::compiler::cpp::MessageGenerator::EmitCheckAndUpdateByteSizeForField<false>' requested here
+ 1418 |           EmitCheckAndUpdateByteSizeForField</*kIsV2=*/false>(field, p);
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+13 warnings generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/service.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/service.cc:17:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/rust/naming.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/naming.cc:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/text_format.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/text_format.cc:54:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/map_field.h:416:11: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  416 |         : repeated_field_(arena), prototype_(prototype) {}
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+external/protobuf+/src/google/protobuf/text_format.cc:663:50: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  663 |       if (consumed_semicolon && field->options().weak() &&
+      |                                                  ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+2 warnings generated.
+INFO: From Compiling src/google/protobuf/map_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/map_field.cc:8:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/map_field.h:416:11: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  416 |         : repeated_field_(arena), prototype_(prototype) {}
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/descriptor.cc [for tool]:
+external/protobuf+/src/google/protobuf/descriptor.cc:3953:45: warning: 'has_optional_keyword' is deprecated: Use has_presence() instead. [-Wdeprecated-declarations]
+ 3953 |       (!is_required() && !is_repeated() && !has_optional_keyword())) {
+      |                                             ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.h:1135:3: note: 'has_optional_keyword' has been explicitly marked deprecated here
+ 1135 |   ABSL_DEPRECATED("Use has_presence() instead.")
+      |   ^
+external/abseil-cpp+/absl/base/attributes.h:689:49: note: expanded from macro 'ABSL_DEPRECATED'
+  689 | #define ABSL_DEPRECATED(message) __attribute__((deprecated(message)))
+      |                                                 ^
+external/protobuf+/src/google/protobuf/descriptor.cc:7982:61: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 7982 |     bool is_weak = !pool_->enforce_weak_ && proto.options().weak();
+      |                                                             ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/descriptor.cc:10700:58: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 10700 |   if (field->real_containing_oneof() || field->options().weak() ||
+       |                                                          ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+3 warnings generated.
+INFO: From Linking external/protobuf+/src/google/protobuf/io/libio_win32.a [for tool]:
+warning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: archive library: bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/io/libio_win32.a the table of contents is empty (no object file members in the library define global symbols)
+INFO: From Compiling src/google/protobuf/dynamic_message.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/dynamic_message.cc:66:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/map_field.h:416:11: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  416 |         : repeated_field_(arena), prototype_(prototype) {}
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+external/protobuf+/src/google/protobuf/dynamic_message.cc:574:31: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  574 |               new (field_ptr) RepeatedPtrField<std::string>(arena);
+      |                               ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+external/protobuf+/src/google/protobuf/dynamic_message.cc:602:29: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  602 |             new (field_ptr) RepeatedPtrField<Message>(arena);
+      |                             ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+external/protobuf+/src/google/protobuf/dynamic_message.cc:774:27: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  774 |         !field->options().weak() && !InRealOneof(field) &&
+      |                           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+4 warnings generated.
+INFO: From Executing genrule //first_party/dagger:dagger_compiler_shaded_generated [for tool]:
+Fully-qualified classname does not match jar entry:
+  jar entry: META-INF/versions/9/kotlin/reflect/jvm/internal/impl/serialization/deserialization/builtins/BuiltInsResourceLoader.class
+  class name: kotlin/reflect/jvm/internal/impl/serialization/deserialization/builtins/BuiltInsResourceLoader.class
+Omitting META-INF/versions/9/kotlin/reflect/jvm/internal/impl/serialization/deserialization/builtins/BuiltInsResourceLoader.class.
+INFO: From Compiling src/google/protobuf/generated_message_reflection.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/generated_message_reflection.cc:51:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/map_field.h:416:11: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  416 |         : repeated_field_(arena), prototype_(prototype) {}
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+In file included from external/protobuf+/src/google/protobuf/generated_message_reflection.cc:57:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/reflection_visit_fields.h:109:35: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  109 |     ABSL_DCHECK(!field->options().weak()) << "weak fields are not supported";
+      |                                   ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_reflection.cc:2526:51: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 2526 |   if (!field->is_extension() && !field->options().weak() &&
+      |                                                   ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_reflection.cc:3290:33: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 3290 |   ABSL_DCHECK(!field->options().weak());
+      |                                 ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_reflection.cc:3323:33: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 3323 |   ABSL_DCHECK(!field->options().weak());
+      |                                 ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_reflection.cc:3332:33: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 3332 |   ABSL_DCHECK(!field->options().weak());
+      |                                 ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+external/protobuf+/src/google/protobuf/generated_message_reflection.cc:3341:33: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+ 3341 |   ABSL_DCHECK(!field->options().weak());
+      |                                 ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+In file included from external/protobuf+/src/google/protobuf/generated_message_reflection.cc:57:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/reflection_visit_fields.h:109:35: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  109 |     ABSL_DCHECK(!field->options().weak()) << "weak fields are not supported";
+      |                                   ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/reflection_visit_fields.h:447:20: note: in instantiation of function template specialization 'google::protobuf::internal::ReflectionVisit::VisitFields<google::protobuf::Message, (lambda at bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/reflection_visit_fields.h:449:7)>' requested here
+  447 |   ReflectionVisit::VisitFields(
+      |                    ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/reflection_visit_fields.h:502:20: note: in instantiation of function template specialization 'google::protobuf::internal::ReflectionVisit::VisitMessageFields<(lambda at external/protobuf+/src/google/protobuf/generated_message_reflection.cc:1390:48)>' requested here
+  502 |   ReflectionVisit::VisitMessageFields(message, std::forward<CallbackFn>(func));
+      |                    ^
+external/protobuf+/src/google/protobuf/generated_message_reflection.cc:1390:15: note: in instantiation of function template specialization 'google::protobuf::internal::VisitMutableMessageFields<(lambda at external/protobuf+/src/google/protobuf/generated_message_reflection.cc:1390:48)>' requested here
+ 1390 |     internal::VisitMutableMessageFields(*curr, [&](Message& msg) {
+      |               ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+8 warnings generated.
+INFO: From Compiling src/google/protobuf/message.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/message.cc:40:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/map_field.h:416:11: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  416 |         : repeated_field_(arena), prototype_(prototype) {}
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+In file included from external/protobuf+/src/google/protobuf/message.cc:46:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/reflection_visit_fields.h:109:35: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  109 |     ABSL_DCHECK(!field->options().weak()) << "weak fields are not supported";
+      |                                   ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+2 warnings generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/tracker.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/tracker.cc:20:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_chunk.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_chunk.cc:1:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field_chunk.h:10:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/enum.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/enum.cc:29:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/extension.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/extension.cc:12:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/extension.h:19:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/reflection_ops.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/reflection_ops.cc:22:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/map_field.h:416:11: warning: 'RepeatedPtrField' is deprecated: Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead [-Wdeprecated-declarations]
+  416 |         : repeated_field_(arena), prototype_(prototype) {}
+      |           ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf_lite/google/protobuf/repeated_ptr_field.h:1035:5: note: 'RepeatedPtrField' has been explicitly marked deprecated here
+ 1035 |   [[deprecated("Use Arena::Create<RepeatedPtrField<...>>(Arena*) instead")]]
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_generators/enum_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_generators/enum_field.cc:20:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_generators/map_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_generators/map_field.cc:19:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/file.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/file.cc:12:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/file.h:26:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/extension.h:19:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/message_layout_helper.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/message_layout_helper.cc:1:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/message_layout_helper.h:20:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+[1,334 / 1,822] Compiling src/google/protobuf/compiler/cpp/field_generators/primitive_field.cc [for tool]; 0s disk-cache ... (8 actions, 0 running)
+INFO: From Compiling src/google/protobuf/compiler/cpp/field_generators/primitive_field.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/field_generators/primitive_field.cc:21:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/field.h:26:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/cpp/parse_function_generator.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/cpp/parse_function_generator.cc:8:
+In file included from bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/cpp/google/protobuf/compiler/cpp/parse_function_generator.h:18:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/rust/accessors/with_presence.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/accessors/with_presence.cc:13:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/rust/oneof.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/oneof.cc:16:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Linking external/protobuf+/src/google/protobuf/compiler/protoc_minimal [for tool]:
+ld: warning: ignoring duplicate libraries: '-lm', '-lpthread'
+INFO: From Compiling src/google/protobuf/compiler/rust/accessors/singular_message.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/accessors/singular_message.cc:12:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Compiling src/google/protobuf/compiler/rust/accessors/singular_scalar.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/accessors/singular_scalar.cc:12:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Linking external/protobuf+/upb_generator/c/protoc-gen-upb_stage0 [for tool]:
+ld: warning: ignoring duplicate libraries: '-lm', '-lpthread'
+INFO: From Compiling src/google/protobuf/compiler/rust/accessors/map.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/accessors/map.cc:11:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Linking external/protobuf+/upb_generator/minitable/protoc-gen-upb_minitable_stage0 [for tool]:
+ld: warning: ignoring duplicate libraries: '-lm', '-lpthread'
+INFO: From Compiling src/google/protobuf/compiler/rust/message.cc [for tool]:
+In file included from external/protobuf+/src/google/protobuf/compiler/rust/message.cc:20:
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/compiler/cpp/_virtual_includes/names_internal/google/protobuf/compiler/cpp/helpers.h:347:24: warning: 'weak' is deprecated [-Wdeprecated-declarations]
+  347 |   if (field->options().weak()) {
+      |                        ^
+bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/protobuf+/src/google/protobuf/_virtual_includes/protobuf/google/protobuf/descriptor.pb.h:7601:5: note: 'weak' has been explicitly marked deprecated here
+ 7601 |   [[deprecated]] bool weak() const;
+      |     ^
+1 warning generated.
+INFO: From Linking external/protobuf+/protoc [for tool]:
+ld: warning: ignoring duplicate libraries: '-lm', '-lpthread'
+INFO: Found 1 target...
+Target //first_party/backstabmigrated/ksp/tests/binding/internalization:unqualified up-to-date:
+  bazel-bin/first_party/backstabmigrated/ksp/tests/binding/internalization/unqualified.jar
+  bazel-bin/first_party/backstabmigrated/ksp/tests/binding/internalization/unqualified.jdeps
+INFO: Elapsed time: 5.766s, Critical Path: 0.48s
+INFO: 1822 processes: 1236 disk cache hit, 586 internal.
+INFO: Build completed successfully, 1822 total actions

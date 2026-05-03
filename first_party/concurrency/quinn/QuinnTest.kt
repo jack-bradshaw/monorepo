@@ -1,22 +1,22 @@
+
 package com.jackbradshaw.concurrency.quinn
 
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.ConcurrentHashMap
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
-import com.jackbradshaw.concurrency.quinn.Quinn.InsertionResult
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.atomic.AtomicInteger
+
 import kotlin.test.assertFailsWith
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
+
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
+
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -24,44 +24,100 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+
+
 /**
  * Abstract tests that all [Quinn] instances should pass.
  *
- * This test requires two separate coroutine scopes and task barriers due to the complexity of the
- * concurrent work involved.
+
+ * Tests are organized into the following discrete functional groups:
+ * 1. Basic Queueing and Suspension Mechanics: Verifies that submission functions (`queueAtBack`, `queueAtFront`, `tryQueueAtBack`, `tryQueueAtFront`) correctly suspend the calling coroutine while the submitted block is evaluated, and reliably resume it once evaluation completes.
+ * 2. Basic Execution Mechanics: Ensures that the `execute()` function correctly suspends indefinitely while waiting for work to arrive, without returning prematurely when the queue is empty.
+ * 3. Execution Evaluation Flows: Validates the fundamental end-to-end pathway, ensuring that blocks queued prior to execution are processed once `execute()` is called, and blocks queued while an executor is already active are processed immediately.
+ * 4. Concurrent / Sequential Executor Overlap: Verifies system stability when multiple `execute()` calls are active either sequentially or concurrently. Ensures that the oldest active resource is consistently prioritized, tasks are never duplicated or dropped, and newly launched executors seamlessly assume responsibility if the active executor is cancelled.
+ * 5. Execution State Observability: Ensures the `isExecuting` StateFlow property accurately reports `true` while any coroutine is actively blocking inside `execute()`, gracefully scaling to track multiple concurrent or sequential executor overlaps, and strictly returning `false` only when all executors have fully terminated.
+ * 6. Closure and Shutdown Semantics: Asserts the rigorous teardown protocol initiated by `close()`. Verifies that actively running blocks finish gracefully, pending blocks in the queue are safely evicted and their submission coroutines resumed, subsequent submissions are strictly rejected, and the executor loop exits reliably without error.
+ * 7. Error Handling and Propagation: Verifies that exceptions thrown within queued blocks are correctly routed based on `ErrorBehaviour`. Ensures `DELIVER_TO_CALLER` safely propagates the exception back to the submitting coroutine without destabilizing the executor, while `DELIVER_TO_EXECUTOR` allows the exception to surface naturally on the execution thread.
+
  */
 @RunWith(JUnit4::class)
 abstract class QuinnTest<T> {
 
-  /** All latches created during testing. Collected for automatic closure. */
+
   private val latches = ConcurrentHashMap.newKeySet<CountDownLatch>()
 
-  private val mainScopeHandle = Job()
+  private val subjectLinkedScopeHandle = Job()
 
-  private val mainScope by lazy { CoroutineScope(mainDispatcher() + mainScopeHandle) }
+  private val subjectIndependentScopeHandle = Job()
 
-  private val secondaryScopeHandle = Job()
-
-  private val secondaryScope by lazy {
-    CoroutineScope(secondaryDispatcher() + secondaryScopeHandle)
+  private val subjectLinkedScope by lazy {
+    CoroutineScope(subjectLinkedDispatcher() + subjectLinkedScopeHandle)
   }
+
+  private val subjectIndependentScope by lazy {
+    CoroutineScope(subjectIndependentDispatcher() + subjectIndependentScopeHandle)
+  }
+  
 
   @After
   fun tearDown() {
     latches.forEach { it.countDown() }
     runBlocking {
       subject().close()
-      mainScopeHandle.cancelAndJoin()
-      secondaryScopeHandle.cancelAndJoin()
+
+      subjectLinkedScopeHandle.cancel()
+      subjectIndependentScopeHandle.cancel()
     }
   }
+
+  /** Returns the subject under test. Must return the same instance each time. */
+  abstract fun subject(): Quinn<T>
+
+  /** Returns a dispatcher configured for CPU bound work. */
+  abstract fun subjectLinkedDispatcher(): CoroutineDispatcher
+
+  /** Returns a task barrier linked to [cpuDispatcher]. */
+  abstract fun subjectLinkedTaskBarrier(): TestingTaskBarrier
+
+  /** 
+   * A secondary CPU dispatcher. Must be strictly distinct from [cpuDispatcher] to ensure 
+   * independent task barrier tracking. Only used for tests that intentionally block threads. 
+   */
+  abstract fun subjectIndependentDispatcher(): CoroutineDispatcher
+
+  /** The task barrier associated with [cpuDispatcher2]. */
+  abstract fun subjectIndependentTaskBarrier(): TestingTaskBarrier
+
+  /**
+   * Creates a new resource that can be supplied to [Quinn]. A new value must be returned on each
+   * call (i.e. not equals-identical to any of the previous instances).
+   */
+  abstract fun createResource(): T
+
+ 
 
   @Test
   fun queueAtBack_suspendsBeforeProcessing(): Unit = runBlocking {
     val quinn = subject()
+    val processed = mutableListOf<String>()
 
-    val queueJob = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtBack { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    assertThat(queueJob.isActive).isTrue()
+  }
+
+  @Test
+  fun queueAtFront_suspendsBeforeProcessing(): Unit = runBlocking {
+    val quinn = subject()
+    val processed = mutableListOf<String>()
+
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtFront { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(queueJob.isActive).isTrue()
   }
@@ -70,34 +126,30 @@ abstract class QuinnTest<T> {
   fun queueAtBack_resumesAfterProcessing(): Unit = runBlocking {
     val quinn = subject()
 
-    val queueJob = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val processed = mutableListOf<String>()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtBack { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(queueJob.isCompleted).isTrue()
   }
 
   @Test
-  fun queueAtFront_suspendsBeforeProcessing(): Unit = runBlocking {
-    val quinn = subject()
 
-    val queueJob = mainScope.launch { quinn.queueAtFront {} }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJob.isActive).isTrue()
-  }
-
-  @Test
   fun queueAtFront_resumesAfterProcessing(): Unit = runBlocking {
     val quinn = subject()
+    val processed = mutableListOf<String>()
 
-    val queueJob = mainScope.launch { quinn.queueAtFront {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtFront { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(queueJob.isCompleted).isTrue()
   }
@@ -106,8 +158,22 @@ abstract class QuinnTest<T> {
   fun tryQueueAtBack_suspendsBeforeProcessing(): Unit = runBlocking {
     val quinn = subject()
 
-    val queueJob = mainScope.launch { quinn.tryQueueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val processed = mutableListOf<String>()
+
+    val queueJob = subjectLinkedScope.launch { quinn.tryQueueAtBack { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    assertThat(queueJob.isActive).isTrue()
+  }
+
+  @Test
+  fun tryQueueAtFront_suspendsBeforeProcessing(): Unit = runBlocking {
+    val quinn = subject()
+    val processed = mutableListOf<String>()
+
+    val queueJob = subjectLinkedScope.launch { quinn.tryQueueAtFront { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(queueJob.isActive).isTrue()
   }
@@ -116,34 +182,30 @@ abstract class QuinnTest<T> {
   fun tryQueueAtBack_resumesAfterProcessing(): Unit = runBlocking {
     val quinn = subject()
 
-    val queueJob = mainScope.launch { quinn.tryQueueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val processed = mutableListOf<String>()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.tryQueueAtBack { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(queueJob.isCompleted).isTrue()
   }
 
   @Test
-  fun tryQueueAtFront_suspendsBeforeProcessing(): Unit = runBlocking {
-    val quinn = subject()
 
-    val queueJob = mainScope.launch { quinn.tryQueueAtFront {} }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJob.isActive).isTrue()
-  }
-
-  @Test
   fun tryQueueAtFront_resumesAfterProcessing(): Unit = runBlocking {
     val quinn = subject()
+    val processed = mutableListOf<String>()
 
-    val queueJob = mainScope.launch { quinn.tryQueueAtFront {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.tryQueueAtFront { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(queueJob.isCompleted).isTrue()
   }
@@ -152,14 +214,15 @@ abstract class QuinnTest<T> {
   fun execute_beforeQueueing_suspendsIndefinitely(): Unit = runBlocking {
     val quinn = subject()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob2 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(executeJob.isActive).isTrue()
   }
@@ -168,14 +231,15 @@ abstract class QuinnTest<T> {
   fun execute_betweenQueueing_suspendsIndefinitely(): Unit = runBlocking {
     val quinn = subject()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob2 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(executeJob.isActive).isTrue()
   }
@@ -184,14 +248,15 @@ abstract class QuinnTest<T> {
   fun execute_afterQueueing_suspendsIndefinitely(): Unit = runBlocking {
     val quinn = subject()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob2 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(executeJob.isActive).isTrue()
   }
@@ -199,25 +264,25 @@ abstract class QuinnTest<T> {
   @Test
   fun multipleExecutes_sequentially_allBlocksComplete(): Unit = runBlocking {
     val quinn = subject()
-    val processed = mutableListOf<String>()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val processed = mutableListOf<T>()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
+    val resource1 = createResource()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(resource1) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack { processed.add(it) } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
     executeJob1.cancelAndJoin()
 
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val queueJob2 = mainScope.launch { quinn.queueAtBack { processed.add("second") } }
-    mainTaskBarrier().awaitAllIdle()
-
+    val resource2 = createResource()
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(resource2) }
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack { processed.add(it) } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
     executeJob2.cancelAndJoin()
 
-    assertThat(processed).containsExactly("first", "second").inOrder()
+    assertThat(processed).containsExactly(resource1, resource2).inOrder()
+
   }
 
   @Test
@@ -226,20 +291,19 @@ abstract class QuinnTest<T> {
     val processed = mutableListOf<T>()
 
     val resource1 = createResource()
-    val queueJob1 = mainScope.launch { quinn.queueAtBack { processed.add(it) } }
-    mainTaskBarrier().awaitAllIdle()
 
-    val executeJob1 = mainScope.launch { quinn.execute(resource1) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack { processed.add(it) } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(resource1) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
     executeJob1.cancelAndJoin()
 
     val resource2 = createResource()
-    val queueJob2 = mainScope.launch { quinn.queueAtBack { processed.add(it) } }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack { processed.add(it) } }
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(resource2) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob2 = mainScope.launch { quinn.execute(resource2) }
-    mainTaskBarrier().awaitAllIdle()
 
     assertThat(processed).containsExactly(resource1, resource2).inOrder()
   }
@@ -247,18 +311,19 @@ abstract class QuinnTest<T> {
   @Test
   fun multipleExecutes_sequentially_eachBlockEvaluatedOnce(): Unit = runBlocking {
     val quinn = subject()
-    val evaluationCount = AtomicInteger(0)
 
-    val queueJob = mainScope.launch { quinn.queueAtBack { evaluationCount.incrementAndGet() } }
-    mainTaskBarrier().awaitAllIdle()
+    val evaluationCount = java.util.concurrent.atomic.AtomicInteger(0)
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtBack { evaluationCount.incrementAndGet() } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
     executeJob1.cancelAndJoin()
 
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(evaluationCount.get()).isEqualTo(1)
   }
@@ -268,18 +333,20 @@ abstract class QuinnTest<T> {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
 
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
     val queueJob =
-        mainScope.launch {
+        subjectLinkedScope.launch {
           quinn.queueAtBack { processed.add("first") }
           quinn.queueAtBack { processed.add("second") }
         }
-    mainTaskBarrier().awaitAllIdle()
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(processed).containsExactly("first", "second").inOrder()
   }
@@ -290,21 +357,23 @@ abstract class QuinnTest<T> {
     val processed = mutableListOf<T>()
 
     val resource1 = createResource()
-    val executeJob1 = mainScope.launch { quinn.execute(resource1) }
-    mainTaskBarrier().awaitAllIdle()
+
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(resource1) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
     val resource2 = createResource()
-    val executeJob2 = mainScope.launch { quinn.execute(resource2) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(resource2) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
     val queueJob =
-        mainScope.launch {
+        subjectLinkedScope.launch {
           quinn.queueAtBack { resource -> processed.add(resource) }
           quinn.queueAtBack { resource -> processed.add(resource) }
         }
-    mainTaskBarrier().awaitAllIdle()
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    // Asserting which resource was used effectively asserts which executor processed the task
+    // Asserting which resource was used effectively asserts which executor processed the block
+
     assertThat(processed).containsExactly(resource1, resource1).inOrder()
   }
 
@@ -314,22 +383,25 @@ abstract class QuinnTest<T> {
     val processed = mutableListOf<T>()
 
     val resource1 = createResource()
-    val executeJob1 = mainScope.launch { quinn.execute(resource1) }
-    mainTaskBarrier().awaitAllIdle()
+
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(resource1) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
     val resource2 = createResource()
-    val executeJob2 = mainScope.launch { quinn.execute(resource2) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(resource2) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack { resource -> processed.add(resource) } }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack { resource -> processed.add(resource) } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
     executeJob1.cancelAndJoin()
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob2 = mainScope.launch { quinn.queueAtBack { resource -> processed.add(resource) } }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack { resource -> processed.add(resource) } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    // Asserting which resource was used effectively asserts which executor processed the task
+    // Asserting which resource was used effectively asserts which executor processed the block
+
     assertThat(processed).containsExactly(resource1, resource2).inOrder()
   }
 
@@ -337,15 +409,17 @@ abstract class QuinnTest<T> {
   fun multipleExecutes_beforeQueueing_bothSuspend(): Unit = runBlocking {
     val quinn = subject()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob2 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(executeJob1.isActive).isTrue()
     assertThat(executeJob2.isActive).isTrue()
@@ -355,15 +429,17 @@ abstract class QuinnTest<T> {
   fun multipleExecutes_betweenQueueing_bothSuspend(): Unit = runBlocking {
     val quinn = subject()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val queueJob2 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(executeJob1.isActive).isTrue()
     assertThat(executeJob2.isActive).isTrue()
@@ -373,15 +449,17 @@ abstract class QuinnTest<T> {
   fun multipleExecutes_afterQueueing_bothSuspend(): Unit = runBlocking {
     val quinn = subject()
 
-    val queueJob1 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
 
-    val queueJob2 = mainScope.launch { quinn.queueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob1 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob2 = subjectLinkedScope.launch { quinn.queueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(executeJob1.isActive).isTrue()
     assertThat(executeJob2.isActive).isTrue()
@@ -391,6 +469,7 @@ abstract class QuinnTest<T> {
   fun isExecuting_neverExecuted_isFalse(): Unit = runBlocking {
     val quinn = subject()
 
+
     assertThat(quinn.isExecuting.value).isFalse()
   }
 
@@ -398,18 +477,19 @@ abstract class QuinnTest<T> {
   fun isExecuting_singleExecution_isTrue(): Unit = runBlocking {
     val quinn = subject()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(quinn.isExecuting.value).isTrue()
   }
 
   @Test
-  fun isExecuting_singleExecutionStopped_isFalse(): Unit = runBlocking {
-    val quinn = subject()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+  fun isExecuting_singleExecutionStops_isFalse(): Unit = runBlocking {
+    val quinn = subject()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
     executeJob.cancelAndJoin()
 
@@ -417,23 +497,49 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun isExecuting_multipleParallelExecutions_neitherStopped_isTrue(): Unit = runBlocking {
-    val quinn = subject()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+  fun isExecuting_multipleParallelExecutions_isTrue(): Unit = runBlocking {
+    val quinn = subject()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(quinn.isExecuting.value).isTrue()
   }
 
   @Test
-  fun isExecuting_multipleParallelExecutions_firstStopped_isTrue(): Unit = runBlocking {
-    val quinn = subject()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+  fun isExecuting_multipleParallelExecutions_firstEnds_isTrue(): Unit = runBlocking {
+    val quinn = subject()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    executeJob1.cancelAndJoin()
+    assertThat(quinn.isExecuting.value).isTrue()
+  }
+
+  @Test
+  fun isExecuting_multipleSequentialExecutions_isTrue(): Unit = runBlocking {
+    val quinn = subject()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+
+    assertThat(quinn.isExecuting.value).isTrue()
+  }
+
+  @Test
+
+  fun isExecuting_multipleSequentialExecutions_firstEnds_isTrue(): Unit = runBlocking {
+    val quinn = subject()
+    val executeJob1 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+    val executeJob2 = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
     executeJob1.cancelAndJoin()
 
@@ -441,464 +547,105 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun isExecuting_multipleParallelExecutions_bothStopped_isFalse(): Unit = runBlocking {
-    val quinn = subject()
 
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    executeJob1.cancelAndJoin()
-    executeJob2.cancelAndJoin()
-
-    assertThat(quinn.isExecuting.value).isFalse()
-  }
-
-  @Test
-  fun isExecuting_multipleSequentialExecutions_neitherStopped_isTrue(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(quinn.isExecuting.value).isTrue()
-  }
-
-  @Test
-  fun isExecuting_multipleSequentialExecutions_firstStopped_isTrue(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    executeJob1.cancelAndJoin()
-
-    assertThat(quinn.isExecuting.value).isTrue()
-  }
-
-  @Test
-  fun isExecuting_multipleSequentialExecutions_bothStopped_isFalse(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob1 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val executeJob2 = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    executeJob1.cancelAndJoin()
-    executeJob2.cancelAndJoin()
-
-    assertThat(quinn.isExecuting.value).isFalse()
-  }
-
-  @Test
-  fun queueThenExecute_atBack_taskInvoked(): Unit = runBlocking {
+  fun queueThenExecute_atBack_blockInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
-    val queueJob = mainScope.launch { quinn.queueAtBack { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtBack { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(processed).containsExactly("first").inOrder()
   }
 
   @Test
-  fun queueThenExecute_atFront_taskInvoked(): Unit = runBlocking {
+
+  fun queueThenExecute_atFront_blockInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
-    val queueJob = mainScope.launch { quinn.queueAtFront { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtFront { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(processed).containsExactly("first").inOrder()
   }
 
   @Test
-  fun tryQueueThenExecute_atBack_taskInvoked(): Unit = runBlocking {
+
+  fun executeThenQueue_atBack_blockInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
-    val queueJob = mainScope.launch { quinn.tryQueueAtBack { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtBack { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(processed).containsExactly("first").inOrder()
   }
 
   @Test
-  fun tryQueueThenExecute_atBack_returnsInsertedAndRun(): Unit = runBlocking {
-    val quinn = subject()
 
-    val queueJobResult = mainScope.async { quinn.tryQueueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJobResult.await()).isEqualTo(Quinn.InsertionResult.INSERTED_AND_RUN)
-  }
-
-  @Test
-  fun tryQueueThenExecute_atFront_taskInvoked(): Unit = runBlocking {
+  fun executeThenQueue_atFront_blockInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
-    val queueJob = mainScope.launch { quinn.tryQueueAtFront { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val queueJob = subjectLinkedScope.launch { quinn.queueAtFront { processed.add("first") } }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
 
     assertThat(processed).containsExactly("first").inOrder()
   }
 
   @Test
-  fun tryQueueThenExecute_atFront_returnsInsertedAndRun(): Unit = runBlocking {
-    val quinn = subject()
 
-    val queueJobResult = mainScope.async { quinn.tryQueueAtFront {} }
-    mainTaskBarrier().awaitAllIdle()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJobResult.await()).isEqualTo(Quinn.InsertionResult.INSERTED_AND_RUN)
-  }
-
-  @Test
-  fun executeThenQueue_atBack_taskInvoked(): Unit = runBlocking {
+  fun close_finishesCurrentBlockAndIgnoresPendingBlocks(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
+    val pauseHandle = newLatch()
+    val startedExecution = MutableStateFlow(false)
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
 
-    val queueJob = mainScope.launch { quinn.queueAtBack { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(processed).containsExactly("first").inOrder()
-  }
-
-  @Test
-  fun executeThenQueue_atFront_taskInvoked(): Unit = runBlocking {
-    val quinn = subject()
-    val processed = mutableListOf<String>()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val queueJob = mainScope.launch { quinn.queueAtFront { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(processed).containsExactly("first").inOrder()
-  }
-
-  @Test
-  fun executeThenTryQueue_atBack_taskInvoked(): Unit = runBlocking {
-    val quinn = subject()
-    val processed = mutableListOf<String>()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val queueJob = mainScope.launch { quinn.tryQueueAtBack { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(processed).containsExactly("first").inOrder()
-  }
-
-  @Test
-  fun executeThenTryQueue_atBack_returnsInsertedAndRun(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val queueJobResult = mainScope.async { quinn.tryQueueAtBack {} }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJobResult.await()).isEqualTo(Quinn.InsertionResult.INSERTED_AND_RUN)
-  }
-
-  @Test
-  fun executeThenTryQueue_atFront_taskInvoked(): Unit = runBlocking {
-    val quinn = subject()
-    val processed = mutableListOf<String>()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val queueJob = mainScope.launch { quinn.tryQueueAtFront { processed.add("first") } }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(processed).containsExactly("first").inOrder()
-  }
-
-  @Test
-  fun executeThenTryQueue_atFront_returnsInsertedAndRun(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-    mainTaskBarrier().awaitAllIdle()
-
-    val queueJobResult = mainScope.async { quinn.tryQueueAtFront {} }
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJobResult.await()).isEqualTo(Quinn.InsertionResult.INSERTED_AND_RUN)
-  }
-
-  @Test
-  fun onClose_runningQueuedAtBack_finishes(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    var job1DidRun = false
     val queueJob1 =
-        secondaryScope.launch {
+        subjectIndependentScope.launch {
           quinn.queueAtBack {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-            job1DidRun = true
+            startedExecution.value = true
+            pauseHandle.await()
+            processed.add("first")
           }
         }
-    job1Started.await()
+    startedExecution.first { it }
 
-    val closeJob = mainScope.launch { quinn.close() }
+    val queueJob2 = subjectIndependentScope.launch { quinn.queueAtBack { processed.add("second") } }
+    subjectIndependentTaskBarrier().awaitAllIdle()
+
+    val closeJob = subjectLinkedScope.launch { quinn.close() }
+    // View comment on DELAY_DURATION_MS for details.
     delay(DELAY_DURATION_MS)
 
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
+    pauseHandle.countDown()
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    assertThat(job1DidRun).isTrue()
+    assertThat(processed).containsExactly("first")
   }
 
   @Test
-  fun onClose_runningQueuedAtFront_finishes(): Unit = runBlocking {
-    val quinn = subject()
+  fun queueAtBack_afterClose_fails(): Unit = runBlocking {
 
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    var job1DidRun = false
-    val queueJob1 =
-        secondaryScope.launch {
-          quinn.queueAtFront {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-            job1DidRun = true
-          }
-        }
-    job1Started.await()
-
-    val closeJob = mainScope.launch { quinn.close() }
-    delay(DELAY_DURATION_MS)
-
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(job1DidRun).isTrue()
-  }
-
-  @Test
-  fun onClose_runningTryQueueAtBack_returnsInsertedAndRun(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    val queueJob1Result =
-        secondaryScope.async {
-          quinn.tryQueueAtBack {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-          }
-        }
-    job1Started.await()
-
-    val closeJob = mainScope.launch { quinn.close() }
-    delay(DELAY_DURATION_MS)
-
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJob1Result.await()).isEqualTo(Quinn.InsertionResult.INSERTED_AND_RUN)
-  }
-
-  @Test
-  fun onClose_runningTryQueueAtFront_returnsInsertedAndRun(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    val queueJob1Result =
-        secondaryScope.async {
-          quinn.tryQueueAtFront {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-          }
-        }
-    job1Started.await()
-
-    val closeJob = mainScope.launch { quinn.close() }
-    delay(DELAY_DURATION_MS)
-
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJob1Result.await()).isEqualTo(Quinn.InsertionResult.INSERTED_AND_RUN)
-  }
-
-  @Test
-  fun onClose_pendingQueueAtBack_isIgnored(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    val queueJob1 =
-        secondaryScope.launch {
-          quinn.queueAtBack {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-          }
-        }
-    job1Started.await()
-
-    var job2DidRun = false
-    val queueJob2 = secondaryScope.launch { quinn.queueAtBack { job2DidRun = true } }
-    secondaryTaskBarrier().awaitAllIdle()
-
-    val closeJob = mainScope.launch { quinn.close() }
-    delay(DELAY_DURATION_MS)
-
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(job2DidRun).isFalse()
-  }
-
-  @Test
-  fun onClose_pendingQueueAtFront_isIgnored(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    val queueJob1 =
-        secondaryScope.launch {
-          quinn.queueAtBack {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-          }
-        }
-    job1Started.await()
-
-    var job2DidRun = false
-    val queueJob2 = secondaryScope.launch { quinn.queueAtFront { job2DidRun = true } }
-    secondaryTaskBarrier().awaitAllIdle()
-
-    val closeJob = mainScope.launch { quinn.close() }
-    delay(DELAY_DURATION_MS)
-
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(job2DidRun).isFalse()
-  }
-
-  @Test
-  fun onClose_pendingTryQueueAtBack_returnsInsertedNotRun(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    val queueJob1 =
-        secondaryScope.launch {
-          quinn.queueAtBack {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-          }
-        }
-    job1Started.await()
-
-    val queueJob2Result = secondaryScope.async { quinn.tryQueueAtBack {} }
-    secondaryTaskBarrier().awaitAllIdle()
-
-    val closeJob = mainScope.launch { quinn.close() }
-    delay(DELAY_DURATION_MS)
-
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJob2Result.await()).isEqualTo(Quinn.InsertionResult.INSERTED_NOT_RUN)
-  }
-
-  @Test
-  fun onClose_pendingTryQueueAtFront_returnsInsertedNotRun(): Unit = runBlocking {
-    val quinn = subject()
-
-    val executeJob = mainScope.launch { quinn.execute(createResource()) }
-
-    val job1Started = CompletableDeferred<Unit>()
-    val job1Blocker = newLatch()
-    val queueJob1 =
-        secondaryScope.launch {
-          quinn.queueAtBack {
-            job1Started.complete(Unit)
-            job1Blocker.await()
-          }
-        }
-    job1Started.await()
-
-    val queueJob2Result = secondaryScope.async { quinn.tryQueueAtFront {} }
-    secondaryTaskBarrier().awaitAllIdle()
-
-    val closeJob = mainScope.launch { quinn.close() }
-    delay(DELAY_DURATION_MS)
-
-    job1Blocker.countDown()
-    mainTaskBarrier().awaitAllIdle()
-
-    assertThat(queueJob2Result.await()).isEqualTo(Quinn.InsertionResult.INSERTED_NOT_RUN)
-  }
-
-  @Test
-  fun afterClosure_execute_returnsImmediately(): Unit = runBlocking {
-    val quinn = subject()
-
-    quinn.close()
-
-    quinn.execute(createResource())
-  }
-
-  @Test
-  fun afterClosure_queueAtBack_fails(): Unit = runBlocking {
     val quinn = subject()
     quinn.close()
 
@@ -909,458 +656,434 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun afterClosure_queueAtFront_fails(): Unit = runBlocking {
+
+  fun tryQueueAtBack_executesCompletely_returnsInsertedAndRun(): Unit = runBlocking {
     val quinn = subject()
-    quinn.close()
 
-    val error = assertFailsWith<IllegalStateException> { quinn.queueAtFront {} }
+    val result = subjectLinkedScope.async { quinn.tryQueueAtBack {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
 
-    assertThat(error.message)
-        .isEqualTo("This Quinn instance is closed, queueAtFront cannot be used.")
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    assertThat(result.await()).isEqualTo(AttemptedInsertionResult.INSERTED_AND_RUN)
   }
 
   @Test
-  fun afterClosure_tryQueueAtBack_returnsRejectedClosed(): Unit = runBlocking {
+  fun tryQueueAtBack_queuedBeforeClose_pendingAtClose_returnsInsertedNotRun(): Unit = runBlocking {
+    val quinn = subject()
+    val pauseHandle = newLatch()
+    val startedExecution = MutableStateFlow(false)
+
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+
+    val queueJob1 = subjectIndependentScope.launch { 
+      quinn.queueAtBack { 
+        startedExecution.value = true
+        pauseHandle.await() 
+      } 
+    }
+    startedExecution.first { it }
+
+    val result = subjectIndependentScope.async { quinn.tryQueueAtBack {} }
+    subjectIndependentTaskBarrier().awaitAllIdle()
+
+    val closeJob = subjectLinkedScope.launch { quinn.close() }
+    // View comment on DELAY_DURATION_MS for details.
+    delay(DELAY_DURATION_MS)
+
+    pauseHandle.countDown()
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    assertThat(result.await()).isEqualTo(AttemptedInsertionResult.INSERTED_NOT_RUN)
+  }
+
+  @Test
+  fun tryQueueAtBack_afterClose_returnsRejectedClosed(): Unit = runBlocking {
+
     val quinn = subject()
     quinn.close()
 
     val tryResult = quinn.tryQueueAtBack {}
 
-    assertThat(tryResult).isEqualTo(Quinn.InsertionResult.REJECTED_CLOSED)
+
+    assertThat(tryResult).isEqualTo(AttemptedInsertionResult.REJECTED_CLOSED)
+  }
+
+  @Test // todo gemini propagate name changes to other variants
+  fun tryQueueAtFront_executesCompletely_returnsInsertedAndRun(): Unit = runBlocking {
+    val quinn = subject()
+
+    val result = subjectLinkedScope.async { quinn.tryQueueAtFront {} }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    assertThat(result.await()).isEqualTo(AttemptedInsertionResult.INSERTED_AND_RUN)
+  }
+
+  // gemini side note: iterable quin testshould also pass these tests. use the approach elsewhere to 
+  // add a seconary test fo rit (like how we test things follow observableclosable contrct)
+  // add to impl plan
+
+  @Test
+  fun tryQueueAtFront_queuedBeforeClose_pendingAtClose_returnsInsertedNotRun(): Unit = runBlocking {
+    val quinn = subject()
+    val pauseHandle = newLatch()
+    val startedExecution = MutableStateFlow(false)
+
+    val executeJob = subjectLinkedScope.launch { quinn.execute(createResource()) }
+    // test scopes also need to be named subjet independent and subjedt linked
+    val queueJob1 = subjectIndependentScope.launch { 
+      quinn.queueAtBack { 
+        startedExecution.value = true
+        pauseHandle.await() 
+      } 
+    }
+    startedExecution.first { it }
+
+    val result = subjectIndependentScope.async { quinn.tryQueueAtFront {} }
+    subjectIndependentTaskBarrier().awaitAllIdle()
+
+    val closeJob = subjectLinkedScope.launch { quinn.close() }
+    // View comment on DELAY_DURATION_MS for details.
+    delay(DELAY_DURATION_MS)
+
+    pauseHandle.countDown()
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    assertThat(result.await()).isEqualTo(AttemptedInsertionResult.INSERTED_NOT_RUN)
   }
 
   @Test
-  fun afterClosure_tryQueueAtFront_returnsRejectedClosed(): Unit = runBlocking {
+  fun tryQueueAtFront_queuedAfterClose_returnsRejectedClosed(): Unit = runBlocking {
+
     val quinn = subject()
     quinn.close()
 
     val tryResult = quinn.tryQueueAtFront {}
 
-    assertThat(tryResult).isEqualTo(Quinn.InsertionResult.REJECTED_CLOSED)
+
+    assertThat(tryResult).isEqualTo(AttemptedInsertionResult.REJECTED_CLOSED)
   }
 
   @Test
-  fun errorInTask_queuedAtBack_submissionSideErrorHandling_throwsOnSubmission(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        val submissionSideError =
-            assertFailsWith<IllegalStateException> {
-              quinn.queueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-            }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(submissionSideError).isEqualTo(error)
-      }
-
-  @Test
-  fun errorInTask_queuedAtBack_submissionSideErrorHandling_doesNotThrowOnExecution(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        try {
-          quinn.queueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(errorReceivedExceptionSide.isCompleted).isFalse()
-      }
-
-  @Test
-  fun errorInTask_queuedAtBack_submissionSideErrorHandling_quinnRemainsOperational(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        try {
-          quinn.queueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
-
-        var ran = false
-        quinn.queueAtBack { ran = true }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(ran).isTrue()
-      }
-
-  @Test
-  fun errorInTask_queuedAtBack_executionSideErrorHandling_doesNotThrowOnSubmission(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        quinn.queueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
-
-        // If here no error was thrown
-      }
-
-  @Test
-  fun errorInTask_queuedAtBack_executionSideErrorHandling_throwsOnExecution(): Unit = runBlocking {
+  fun execute_afterClose_doesNotFail(): Unit = runBlocking {
     val quinn = subject()
-    val error = IllegalStateException("Foo")
-    val errorReceivedExceptionSide = executeWithCatch(quinn)
 
-    quinn.queueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-    mainTaskBarrier().awaitAllIdle()
+    quinn.close()
 
-    assertThat(errorReceivedExceptionSide.await()).isEqualTo(error)
+    quinn.execute(createResource())
   }
 
   @Test
-  fun errorInTask_queuedAtBack_executionSideErrorHandling_quinnRemainsOperational(): Unit =
+  fun queueAtBack_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        quinn.queueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
-
-        val newExecutionJob =
-            CoroutineScope(mainDispatcher()).launch { quinn.execute(createResource()) }
-
-        var ran = false
-        quinn.queueAtBack { ran = true }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(ran).isTrue()
-      }
-
-  @Test
-  fun errorInTask_queuedAtFront_submissionSideErrorHandling_throwsOnSubmission(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
         val submissionSideError =
             assertFailsWith<IllegalStateException> {
-              quinn.queueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
+              quinn.queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) { throw error }
             }
-        mainTaskBarrier().awaitAllIdle()
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        assertThat(executionSideError.isCompleted).isFalse()
 
         assertThat(submissionSideError).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_queuedAtFront_submissionSideErrorHandling_doesNotThrowOnExecution(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
 
-        try {
-          quinn.queueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(errorReceivedExceptionSide.isCompleted).isFalse()
-      }
-
-  @Test
-  fun errorInTask_queuedAtFront_submissionSideErrorHandling_quinnRemainsOperational(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        try {
-          quinn.queueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
-
-        var ran = false
-        quinn.queueAtFront { ran = true }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(ran).isTrue()
-      }
-
-  @Test
-  fun errorInTask_queuedAtFront_executionSideErrorHandling_doesNotThrowOnSubmission(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        quinn.queueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
-
-        // If here no error was thrown
-      }
-
-  @Test
-  fun errorInTask_queuedAtFront_executionSideErrorHandling_throwsOnExecution(): Unit = runBlocking {
+  fun queueAtBack_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit = runBlocking {
     val quinn = subject()
-    val error = IllegalStateException("Foo")
-    val errorReceivedExceptionSide = executeWithCatch(quinn)
 
-    quinn.queueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-    mainTaskBarrier().awaitAllIdle()
+    val executionSideError = executeAsyncWithCaughtError(quinn)
+    try {
+      quinn.queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) { throw IllegalStateException("Foo") }
+    } catch (e: IllegalStateException) {
+      // Expected
+    }
 
-    assertThat(errorReceivedExceptionSide.await()).isEqualTo(error)
+    var ran = false
+    quinn.queueAtBack { ran = true }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    // Running implies the system still works despite the failure
+    assertThat(ran).isTrue()
   }
 
   @Test
-  fun errorInTask_queuedAtFront_executionSideErrorHandling_quinnRemainsOperational(): Unit =
+  fun queueAtBack_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
+        val executionSideError = executeAsyncWithCaughtError(quinn)
 
-        quinn.queueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
+        quinn.queueAtBack(ErrorBehaviour.DELIVER_TO_EXECUTOR) { throw error }
+        subjectLinkedTaskBarrier().awaitAllIdle()
 
-        val newExecutionJob =
-            CoroutineScope(mainDispatcher()).launch { quinn.execute(createResource()) }
-
-        var ran = false
-        quinn.queueAtFront { ran = true }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(ran).isTrue()
+        // Implicit assertion: No exception occured submission side if here.
+        assertThat(executionSideError.await()).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_tryQueuedAtBack_submissionSideErrorHandling_throwsOnSubmission(): Unit =
+  fun queueAtBack_blockFails_deliverToBothMode_throwsExceptionBothSides(): Unit =
       runBlocking {
         val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
 
+        val executionSideError = executeAsyncWithCaughtError(quinn)
+        val error = IllegalStateException("Foo")
         val submissionSideError =
             assertFailsWith<IllegalStateException> {
-              quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
+              quinn.queueAtBack(ErrorBehaviour.DELIVER_TO_BOTH) { throw error }
             }
-        mainTaskBarrier().awaitAllIdle()
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        assertThat(executionSideError.await()).isEqualTo(error)
 
         assertThat(submissionSideError).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_tryQueuedAtBack_submissionSideErrorHandling_doesNotThrowOnExecution(): Unit =
+
+  fun queueAtFront_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
+        val submissionSideError =
+            assertFailsWith<IllegalStateException> {
+              quinn.queueAtFront(ErrorBehaviour.DELIVER_TO_CALLER) { throw error }
+            }
+        subjectLinkedTaskBarrier().awaitAllIdle()
 
-        try {
-          quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(errorReceivedExceptionSide.isCompleted).isFalse()
+        assertThat(executionSideError.isCompleted).isFalse()
+        assertThat(submissionSideError).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_tryQueuedAtBack_submissionSideErrorHandling_quinnRemainsOperational(): Unit =
+  fun queueAtFront_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit = runBlocking {
+    val quinn = subject()
+
+    val executionSideError = executeAsyncWithCaughtError(quinn)
+    try {
+      quinn.queueAtFront(ErrorBehaviour.DELIVER_TO_CALLER) { throw IllegalStateException("Foo") }
+    } catch (e: IllegalStateException) {
+      // Expected
+    }
+
+    var ran = false
+    quinn.queueAtFront { ran = true }
+    subjectLinkedTaskBarrier().awaitAllIdle()
+
+    // Running implies the system still works despite the failure
+    assertThat(ran).isTrue()
+  }
+
+  @Test
+  fun queueAtFront_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
+        val executionSideError = executeAsyncWithCaughtError(quinn)
 
+        quinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTOR) { throw error }
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        // Implicit assertion: No exception occured submission side if here.
+        assertThat(executionSideError.await()).isEqualTo(error)
+      }
+
+  @Test
+  fun queueAtFront_blockFails_deliverToBothMode_throwsExceptionBothSides(): Unit =
+      runBlocking {
+        val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
+        val error = IllegalStateException("Foo")
+        val submissionSideError =
+            assertFailsWith<IllegalStateException> {
+              quinn.queueAtFront(ErrorBehaviour.DELIVER_TO_BOTH) { throw error }
+            }
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        assertThat(executionSideError.await()).isEqualTo(error)
+        assertThat(submissionSideError).isEqualTo(error)
+      }
+
+  @Test
+  fun tryQueueAtBack_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
+      runBlocking {
+        val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
+        val error = IllegalStateException("Foo")
+        val submissionSideError =
+            assertFailsWith<IllegalStateException> {
+              quinn.tryQueueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) { throw error }
+            }
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        assertThat(executionSideError.isCompleted).isFalse()
+        assertThat(submissionSideError).isEqualTo(error)
+      }
+
+  @Test
+  fun tryQueueAtBack_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit =
+      runBlocking {
+        val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
         try {
-          quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
+          quinn.tryQueueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+            throw IllegalStateException("Foo")
+          }
+        } catch (e: IllegalStateException) {
+          // Expected
+        }
 
         var ran = false
         quinn.tryQueueAtBack { ran = true }
-        mainTaskBarrier().awaitAllIdle()
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        // Running implies the system still works despite the failure
 
         assertThat(ran).isTrue()
       }
 
   @Test
-  fun errorInTask_tryQueuedAtBack_executionSideErrorHandling_doesNotThrowOnSubmission(): Unit =
+
+  fun tryQueueAtBack_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
+        val executionSideError = executeAsyncWithCaughtError(quinn)
 
-        quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
+        quinn.tryQueueAtBack(ErrorBehaviour.DELIVER_TO_EXECUTOR) { throw error }
+        subjectLinkedTaskBarrier().awaitAllIdle()
 
-        // If here no error was thrown
+        // Implicit assertion: No exception occured submission side if here.
+        assertThat(executionSideError.await()).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_tryQueuedAtBack_executionSideErrorHandling_throwsOnExecution(): Unit =
+  fun tryQueueAtBack_blockFails_deliverToBothMode_throwsExceptionBothSides(): Unit =
       runBlocking {
         val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(errorReceivedExceptionSide.await()).isEqualTo(error)
-      }
-
-  @Test
-  fun errorInTask_tryQueuedAtBack_executionSideErrorHandling_quinnRemainsOperational(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
-
-        val newExecutionJob =
-            CoroutineScope(mainDispatcher()).launch { quinn.execute(createResource()) }
-
-        var ran = false
-        quinn.tryQueueAtBack { ran = true }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(ran).isTrue()
-      }
-
-  @Test
-  fun errorInTask_tryQueuedAtFront_submissionSideErrorHandling_throwsOnSubmission(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
         val submissionSideError =
             assertFailsWith<IllegalStateException> {
-              quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
+              quinn.tryQueueAtBack(ErrorBehaviour.DELIVER_TO_BOTH) { throw error }
             }
-        mainTaskBarrier().awaitAllIdle()
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        assertThat(executionSideError.await()).isEqualTo(error)
 
         assertThat(submissionSideError).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_tryQueuedAtFront_submissionSideErrorHandling_doesNotThrowOnExecution(): Unit =
+
+  fun tryQueueAtFront_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
+        val submissionSideError =
+            assertFailsWith<IllegalStateException> {
+              quinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_CALLER) { throw error }
+            }
+        subjectLinkedTaskBarrier().awaitAllIdle()
 
-        try {
-          quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(errorReceivedExceptionSide.isCompleted).isFalse()
+        assertThat(executionSideError.isCompleted).isFalse()
+        assertThat(submissionSideError).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_tryQueuedAtFront_submissionSideErrorHandling_quinnRemainsOperational(): Unit =
+  fun tryQueueAtFront_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit =
       runBlocking {
         val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
 
+        val executionSideError = executeAsyncWithCaughtError(quinn)
         try {
-          quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
-        } catch (e: IllegalStateException) {}
+          quinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_CALLER) {
+            throw IllegalStateException("Foo")
+          }
+        } catch (e: IllegalStateException) {
+          // Expected
+        }
 
         var ran = false
         quinn.tryQueueAtFront { ran = true }
-        mainTaskBarrier().awaitAllIdle()
+        subjectLinkedTaskBarrier().awaitAllIdle()
+
+        // Running implies the system still works despite the failure
 
         assertThat(ran).isTrue()
       }
 
   @Test
-  fun errorInTask_tryQueuedAtFront_executionSideErrorHandling_doesNotThrowOnSubmission(): Unit =
+
+  fun tryQueueAtFront_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
+        val executionSideError = executeAsyncWithCaughtError(quinn)
 
-        quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
+        quinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTOR) { throw error }
+        subjectLinkedTaskBarrier().awaitAllIdle()
 
-        // If here no error was thrown
+        // Implicit assertion: No exception occured submission side if here.
+        assertThat(executionSideError.await()).isEqualTo(error)
       }
 
   @Test
-  fun errorInTask_tryQueuedAtFront_executionSideErrorHandling_throwsOnExecution(): Unit =
+  fun tryQueueAtFront_blockFails_deliverToBothMode_throwsExceptionBothSides(): Unit =
       runBlocking {
         val quinn = subject()
+
+        val executionSideError = executeAsyncWithCaughtError(quinn)
         val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
+        val submissionSideError =
+            assertFailsWith<IllegalStateException> {
+              quinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_BOTH) { throw error }
+            }
+        subjectLinkedTaskBarrier().awaitAllIdle()
 
-        quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(errorReceivedExceptionSide.await()).isEqualTo(error)
+        assertThat(executionSideError.await()).isEqualTo(error)
+        assertThat(submissionSideError).isEqualTo(error)
       }
-
-  @Test
-  fun errorInTask_tryQueuedAtFront_executionSideErrorHandling_quinnRemainsOperational(): Unit =
-      runBlocking {
-        val quinn = subject()
-        val error = IllegalStateException("Foo")
-        val errorReceivedExceptionSide = executeWithCatch(quinn)
-
-        quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
-        mainTaskBarrier().awaitAllIdle()
-
-        val newExecutionJob =
-            CoroutineScope(mainDispatcher()).launch { quinn.execute(createResource()) }
-
-        var ran = false
-        quinn.tryQueueAtFront { ran = true }
-        mainTaskBarrier().awaitAllIdle()
-
-        assertThat(ran).isTrue()
-      }
-
-  /** Returns the subject under test. Must return the same instance each time. */
-  abstract fun subject(): Quinn<T>
-
-  /** Returns a dispatcher for use in tests. Must be distinct from [secondaryDispatcher]. */
-  abstract fun mainDispatcher(): CoroutineDispatcher
-
-  /**
-   * Returns a task barrier that gates [mainDispatcher]. Must be distinct from
-   * [secondaryTaskBarrier].
-   */
-  abstract fun mainTaskBarrier(): TestingTaskBarrier
-
-  /** Returns a dispatcher for use in tests. Must be distinct from [mainDispatcher]. */
-  abstract fun secondaryDispatcher(): CoroutineDispatcher
-
-  /**
-   * Returns a task barrier that gates [secondaryDispatcher]. Must be distinct from
-   * [mainTaskBarrier].
-   */
-  abstract fun secondaryTaskBarrier(): TestingTaskBarrier
-
-  /**
-   * Creates a new resource that can be supplied to [Quinn]. A new value must be returned on each
-   * call (i.e. not equals-identical to any of the previous instances).
-   */
-  abstract fun createResource(): T
 
   /**
    * Launches a job to run `execute` on [quinn] and returns a [Deferred] that completes with the
-   * error thrown by `execute`, or `null` if `execute` returns without error.
+   * error thrown by `execute` if any, or `null` if `execute` returns without error.
    */
-  private suspend fun executeWithCatch(quinn: Quinn<T>): Deferred<Throwable?> {
+  private suspend fun executeAsyncWithCaughtError(quinn: Quinn<T>): Deferred<Throwable?> {
     val exception = CompletableDeferred<Throwable?>()
     val exceptionCatcher = CoroutineExceptionHandler { _, e -> exception.complete(e) }
-    mainScope.launch(exceptionCatcher) {
+    subjectLinkedScope.launch(exceptionCatcher) {
       quinn.execute(createResource())
       exception.complete(null)
     }
-    mainTaskBarrier().awaitAllIdle()
+    subjectLinkedTaskBarrier().awaitAllIdle()
     return exception
   }
 
-  /** Provides a new [CoundDownLatch] with a count of `1`. The latch is registered in [latches]. */
-  private fun newLatch(): CountDownLatch = CountDownLatch(1).also { latches.add(it) }
+  private fun newLatch(): CountDownLatch {
+    val latch = java.util.concurrent.CountDownLatch(1)
+    latches.add(latch)
+    return latch
+  }
+
+
+
 
   companion object {
     /**

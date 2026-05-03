@@ -30,7 +30,7 @@ interface RealisticCoroutinesTestingComponentImpl : RealisticCoroutinesTestingCo
   }
 }
 
-fun realisticCoroutinesTestingComponent(): RealisticCoroutinesTestingComponent =
+fun realisticCoroutinesTestingComponent(taskBarrierComponent: TestingTaskBarrierComponent = testingTaskBarrierComponent()): RealisticCoroutinesTestingComponent =
     DaggerRealisticCoroutinesTestingComponentImpl.builder()
-        .consuming(testingTaskBarrierComponent())
+        .consuming(taskBarrierComponent)
         .build()

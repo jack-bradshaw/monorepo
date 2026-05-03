@@ -54,7 +54,8 @@ class ProviderRunnerImpl @Inject internal constructor() : ProviderRunner {
         Result.Failure(outputFiles.collectKspArtifacts(), logger.logs)
       }
     } catch (error: Exception) {
-      return Result.Failure(Artifacts.createEmpty(), logger.logs, error)
+      val artifacts = outputFiles?.collectKspArtifacts() ?: Artifacts.createEmpty()
+      return Result.Failure(artifacts, logger.logs, error)
     } finally {
       inputFiles?.root?.deleteRecursively()
       outputFiles?.root?.deleteRecursively()
@@ -204,9 +205,7 @@ class ProviderRunnerImpl @Inject internal constructor() : ProviderRunner {
     }
 
     /** Gets the path of this file relative to the output root. */
-    private fun File.getDirectoryPath(root: File): String {
-      return this.parentFile.relativeTo(root).path
-    }
+    private fun File.getDirectoryPath(root: File): String = this.parentFile.relativeTo(root).path
   }
 
   /** The processing workspace. */

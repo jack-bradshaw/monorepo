@@ -44,8 +44,6 @@ internal constructor(
 
   /** Factory that returns [TestingTaskBarrierImpl] instances. */
   class Factory @Inject internal constructor() : TestingTaskBarrier.Factory {
-    override fun create(gating: Set<Idleable>): TestingTaskBarrier {
-      return TestingTaskBarrierImpl(gating.toSet())
-    }
+    override fun create(gating: Set<Idleable>): TestingTaskBarrier = TestingTaskBarrierImpl(gating.toSet())
   }
 }

@@ -42,7 +42,5 @@ class AdvancableDispatcherImpl @Inject internal constructor() : AdvancableDispat
       timeMillis: Long,
       block: Runnable,
       context: CoroutineContext
-  ): DisposableHandle {
-    return (delegate as Delay).invokeOnTimeout(timeMillis, block, context)
-  }
+  ): DisposableHandle = (delegate as Delay).invokeOnTimeout(timeMillis, block, context)
 }

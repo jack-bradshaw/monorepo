@@ -1,11 +1,22 @@
+
 package com.jackbradshaw.concurrency.quinn
 
+import com.jackbradshaw.concurrency.quinn.QuinnScope
+import dagger.Binds
 import dagger.Component
+import dagger.Module
 
 /** Default [QuinnComponent]. */
 @QuinnScope
-@Component(modules = [QuinnModule::class])
-interface QuinnComponentImpl : QuinnComponent
+@Component(modules = [QuinnProductionModule::class, QuinnComponentImpl.DefaultModule::class])
+interface QuinnComponentImpl : QuinnComponent {
+  
+  @Module
+  interface DefaultModule {
+    @Binds fun bindDefaultFactory(@Production impl: Quinn.Factory): Quinn.Factory
+  }
+}
+
 
 /** Provides a new [QuinnComponent]. */
 fun quinnComponent(): QuinnComponent = DaggerQuinnComponentImpl.create()

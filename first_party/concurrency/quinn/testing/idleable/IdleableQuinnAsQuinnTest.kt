@@ -1,56 +1,58 @@
 package com.jackbradshaw.concurrency.quinn.testing.idleable
 
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.concurrency.quinn.QuinnTest
-import com.jackbradshaw.concurrency.quinn.quinnComponent
-import com.jackbradshaw.concurrency.quinn.testing.prod.prodPassThroughComponent
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
-import java.util.concurrent.atomic.AtomicInteger
+import com.jackbradshaw.concurrency.quinn.testing.DaggerTestingQuinnComponent
+import com.jackbradshaw.chronosphere.testingtaskbarrier.testingTaskBarrierComponent
+import com.jackbradshaw.concurrency.quinn.QuinnTest
 import kotlinx.coroutines.CoroutineDispatcher
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-/** Check that [IdleableQuinn] complies with the [Quinn] contract by passing [QuinnTest]. */
 @RunWith(JUnit4::class)
 class IdleableQuinnAsQuinnTest : QuinnTest<String>() {
 
   private lateinit var subject: IdleableQuinn<String>
-
-  private lateinit var mainDispatcher: CoroutineDispatcher
-
-  private lateinit var mainTaskBarrier: TestingTaskBarrier
-
-  private lateinit var secondaryDispatcher: CoroutineDispatcher
-
-  private lateinit var secondaryTaskBarrier: TestingTaskBarrier
+  private lateinit var subjectLinkedDispatcher: CoroutineDispatcher
+  private lateinit var subjectLinkedTaskBarrier: TestingTaskBarrier
+  
+  private lateinit var subjectIndependentDispatcher: CoroutineDispatcher
+  private lateinit var subjectIndependentTaskBarrier: TestingTaskBarrier
 
   /** Counter to ensure resources produced by [createResource] are unique. */
-  private var resourceCounter = AtomicInteger(0)
+  private var resourceCounter = java.util.concurrent.atomic.AtomicInteger(0)
 
   @Before
   fun setUp() {
-    val prodFactory = prodPassThroughComponent(quinnComponent()).prodQuinnFactory()
-    subject = IdleableQuinnImpl(prodFactory.createQuinn<String>())
+    val taskBarrierComponent = testingTaskBarrierComponent()
+    val coroutinesComponent = realisticCoroutinesTestingComponent(taskBarrierComponent)
+    val taskBarrierComponent2 = testingTaskBarrierComponent()
+    val coroutinesComponent2 = realisticCoroutinesTestingComponent(taskBarrierComponent2)
+    val resourceManager = com.jackbradshaw.closet.resourcemanager.resourceManagerComponent(coroutinesComponent)
 
-    val mainCoroutines = realisticCoroutinesTestingComponent()
-    mainDispatcher = mainCoroutines.cpuDispatcher()
-    mainTaskBarrier = mainCoroutines.taskBarrier()
+    val testComponent = DaggerTestingQuinnComponent.builder()
+      .testingTaskBarrierComponent(taskBarrierComponent)
+      .resourceManagerComponent(resourceManager)
+      .build()
 
-    val secondaryCoroutines = realisticCoroutinesTestingComponent()
-    secondaryDispatcher = secondaryCoroutines.cpuDispatcher()
-    secondaryTaskBarrier = secondaryCoroutines.taskBarrier()
+    subject = testComponent.idleableHub().createQuinn<String>() as IdleableQuinn<String>
+    subjectLinkedDispatcher = coroutinesComponent.cpuDispatcher()
+    subjectLinkedTaskBarrier = coroutinesComponent.taskBarrier()
+    
+    subjectIndependentDispatcher = coroutinesComponent2.cpuDispatcher()
+    subjectIndependentTaskBarrier = coroutinesComponent2.taskBarrier()
   }
 
   override fun subject() = subject
 
-  override fun mainDispatcher() = mainDispatcher
+  override fun subjectLinkedDispatcher() = subjectLinkedDispatcher
 
-  override fun mainTaskBarrier() = mainTaskBarrier
+  override fun subjectLinkedTaskBarrier() = subjectLinkedTaskBarrier
+  
+  override fun subjectIndependentDispatcher() = subjectIndependentDispatcher
 
-  override fun secondaryDispatcher() = secondaryDispatcher
-
-  override fun secondaryTaskBarrier() = secondaryTaskBarrier
+  override fun subjectIndependentTaskBarrier() = subjectIndependentTaskBarrier
 
   override fun createResource() = "TestResource_${resourceCounter.incrementAndGet()}"
 }

@@ -82,6 +82,7 @@ kt_jvm_library(
         "//first_party/kale/testing:class_collecting_provider",
         "//first_party/kale/testing:code_generating_provider",
         "//first_party/kale/testing:exception_throwing_provider",
+        "//first_party/kale/testing:exception_throwing_and_code_generating_provider",
         "//first_party/kale/testing:logging_provider",
         "//first_party/kale/testing:options_collecting_provider",
         "@com_jackbradshaw_maven//:com_google_truth_truth",

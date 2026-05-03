@@ -3,7 +3,7 @@ load("//first_party/coroutines:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "coroutines",
-    srcs = ["Coroutines.kt"],
+    srcs = ["Qualifiers.kt"],
     visibility = PUBLICITY,
     deps = [
         "@com_jackbradshaw_maven//:javax_inject_javax_inject",

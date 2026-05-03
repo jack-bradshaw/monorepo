@@ -116,3 +116,24 @@ kt_jvm_library(
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
     ],
 )
+
+kt_jvm_library(
+    name = "exception_throwing_and_code_generating_processor",
+    testonly = True,
+    srcs = ["ExceptionThrowingAndCodeGeneratingProcessor.kt"],
+    visibility = ["//first_party/kale:__subpackages__"],
+    deps = [
+        "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
+    ],
+)
+
+kt_jvm_library(
+    name = "exception_throwing_and_code_generating_provider",
+    testonly = True,
+    srcs = ["ExceptionThrowingAndCodeGeneratingProvider.kt"],
+    visibility = ["//first_party/kale:__subpackages__"],
+    deps = [
+        ":exception_throwing_and_code_generating_processor",
+        "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
+    ],
+)

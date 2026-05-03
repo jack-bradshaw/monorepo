@@ -1,33 +1,65 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//first_party/concurrency/quinn:publicity.bzl", "PUBLICITY")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
+load("//first_party/quinn:publicity.bzl", "PUBLICITY")
 
-kt_jvm_library(
-    name = "component",
-    srcs = ["TestQuinnComponent.kt"],
+kt_jvm_library_with_dagger(
+    name = "idleable",
+    srcs = [
+        "TestingQuinnComponent.kt",
+        "factory/IdleableQuinnHubImpl.kt",
+        "factory/IdleableQuinnHubModule.kt",
+        "idleable/IdleableQuinn.kt",
+        "idleable/IdleableQuinnImpl.kt",
+        "taskbarrier/TaskBarrierModule.kt",
+    ],
     visibility = PUBLICITY,
     deps = [
+        "//first_party/chronosphere/idleable",
+        "//first_party/chronosphere/testingtaskbarrier",
+        "//first_party/closet/resourcemanager:component_impl",
+        "//first_party/closet/resourcemanager:resource_manager",
+        "//first_party/coroutines/testing/realistic:component",
         "//first_party/chronosphere/testingtaskbarrier:component",
-        "//first_party/concurrency/quinn:component",
-        "//first_party/concurrency/quinn:scope",
-        "//first_party/concurrency/quinn:specific",
+        "//first_party/quinn:qualifiers",
+        "//first_party/quinn:component",
+        "//first_party/quinn:production_module",
+        "//first_party/quinn:quinn",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
-kt_jvm_library_with_dagger(
-    name = "component_impl",
-    srcs = ["TestQuinnComponentImpl.kt"],
-    visibility = PUBLICITY,
+kt_jvm_test_with_dagger(
+    name = "test",
+    srcs = [
+        "idleable/IdleableQuinnTest.kt",
+        "idleable/IdleableQuinnImplTest.kt"
+    ],
+    test_class = "com.jackbradshaw.quinn.testing.idleable.IdleableQuinnImplTest",
     deps = [
-        ":component",
-        "//first_party/chronosphere/testingtaskbarrier:component",
-        "//first_party/chronosphere/testingtaskbarrier:component_impl",
-        "//first_party/concurrency/quinn:component",
-        "//first_party/concurrency/quinn:scope",
-        "//first_party/concurrency/quinn:specific",
-        "//first_party/concurrency/quinn/testing/hub:module",
-        "//first_party/concurrency/quinn/testing/prod:component",
-        "//first_party/concurrency/quinn/testing/prod:component_impl",
-        "//first_party/concurrency/quinn/testing/taskbarrier:module",
+        ":idleable",
+        "//first_party/coroutines/testing/realistic:component",
+        "//first_party/coroutines/testing/realistic:component_impl",
+        "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:junit_junit",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)
+
+kt_jvm_test_with_dagger(
+    name = "as_quinn_test",
+    srcs = [
+        "idleable/IdleableQuinnAsQuinnTest.kt",
+    ],
+    test_class = "com.jackbradshaw.quinn.testing.idleable.IdleableQuinnAsQuinnTest",
+    deps = [
+        ":idleable",
+        "//first_party/coroutines/testing/realistic:component",
+        "//first_party/coroutines/testing/realistic:component_impl",
+        "//first_party/quinn:test",
+        "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:junit_junit",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

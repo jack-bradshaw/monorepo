@@ -11,6 +11,7 @@ data class Artifacts(
     /** All other generated files. */
     val resources: List<Resource>
 ) {
+
   companion object {
     /** Creates [Artifacts] with no generated sources or resources. */
     fun createEmpty() =

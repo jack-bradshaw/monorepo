@@ -55,7 +55,7 @@ bazel_dep(name = "rules_cc", version = "0.2.14")
 
 # JVM (Java + Kotlin)
 bazel_dep(name = "rules_java", version = "8.15.1")
-bazel_dep(name = "rules_kotlin", version = "2.1.9")
+bazel_dep(name = "rules_kotlin", version = "2.1.8")
 bazel_dep(name = "rules_jvm_external", version = "6.8")
 
 ## Maven Deps
@@ -358,3 +358,5 @@ playwright.repo(
     playwright_version = VERSION_PLAYWRIGHT,
 )
 use_repo(playwright, "playwright")
+
+single_version_override(module_name = "rules_kotlin", version = "2.1.8")

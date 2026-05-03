@@ -2,12 +2,14 @@ package com.jackbradshaw.kale.provider
 
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.kale.model.Log
+import com.jackbradshaw.kale.model.Resource
 import com.jackbradshaw.kale.model.Result
 import com.jackbradshaw.kale.model.Source
 import com.jackbradshaw.kale.model.Versions
 import com.jackbradshaw.kale.testing.BasicProvider
 import com.jackbradshaw.kale.testing.ClassCollectingProvider
 import com.jackbradshaw.kale.testing.CodeGeneratingProvider
+import com.jackbradshaw.kale.testing.ExceptionThrowingAndCodeGeneratingProvider
 import com.jackbradshaw.kale.testing.ExceptionThrowingProvider
 import com.jackbradshaw.kale.testing.LoggingProvider
 import com.jackbradshaw.kale.testing.OptionsCollectingProvider
@@ -191,7 +193,7 @@ abstract class ProviderRunnerTest {
         assertThat(result.artifacts.javaSources.first()).isEqualTo(expectedJavaSource)
 
         val expectedResource =
-            com.jackbradshaw.kale.model.Resource(
+            Resource(
                 directoryPath = "test",
                 fileName = "GeneratedResource",
                 extension = "txt",
@@ -254,6 +256,29 @@ abstract class ProviderRunnerTest {
 
         assertThat(provider.processor.didRunProcess).isTrue()
         assertThat(provider.processor.collectedClassNames).containsExactly("ValidKotlin")
+      }
+
+  
+  @Test
+  fun run_withExceptionThrowingAndCodeGeneratingProvider_suppliesExceptionAndFiles() =
+      runBlocking<Unit> {
+        val provider = ExceptionThrowingAndCodeGeneratingProvider()
+
+        val result =
+            subject()
+                .runProviders(providers = setOf(provider), sources = setOf(VALID_KOTLIN_SOURCE))
+
+        assertThat(result).isInstanceOf(Result.Failure::class.java)
+        val failure = result as Result.Failure
+        assertThat(failure.error).isInstanceOf(RuntimeException::class.java)
+        assertThat(failure.error!!.message).isEqualTo("Exception after generation")
+        assertThat(provider.processor.didRunProcess).isTrue()
+        
+        // Ensure the file generated in round 1 was preserved
+        assertThat(failure.artifacts.kotlinSources).hasSize(1)
+        val file = failure.artifacts.kotlinSources.first()
+        assertThat(file.packageName).isEqualTo("test")
+        assertThat(file.fileName).isEqualTo("GeneratedBeforeException")
       }
 
   abstract fun subject(): ProviderRunner

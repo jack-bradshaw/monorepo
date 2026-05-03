@@ -16,8 +16,6 @@ internal constructor(private val driving: Set<@JvmSuppressWildcards Advancable>)
   }
 
   class Factory @Inject internal constructor() : TestingTaskDriver.Factory {
-    override fun create(driving: Set<Advancable>): TestingTaskDriver {
-      return TestingTaskDriverImpl(driving.toSet())
-    }
+    override fun create(driving: Set<Advancable>): TestingTaskDriver = TestingTaskDriverImpl(driving.toSet())
   }
 }

@@ -5,6 +5,7 @@ import com.jackbradshaw.concurrency.pulsar.pulsarComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.sasync.outbound.config.Config
+import com.jackbradshaw.sasync.outbound.config.defaultConfig
 import com.jackbradshaw.sasync.outbound.transport.OutboundTransportModule
 import dagger.BindsInstance
 import dagger.Component
@@ -27,7 +28,7 @@ interface OutboundComponentImpl : OutboundComponent {
 }
 
 fun outboundComponent(
-    config: Config,
+    config: Config = defaultConfig,
     coroutines: CoroutinesComponent = coroutinesComponent(),
     pulsar: PulsarComponent = pulsarComponent()
 ): OutboundComponent =

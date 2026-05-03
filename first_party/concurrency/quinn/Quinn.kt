@@ -1,180 +1,171 @@
+
 package com.jackbradshaw.concurrency.quinn
+
 
 import com.jackbradshaw.closet.observable.ObservableClosable
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * A generic, reusable implementation of the multi-producer single-consumer actor-object design
- * pattern.
+
+ * The submission-side of a [Quinn] instance.
  *
- * Quinn accepts tasks to run from one context and executes them in another. Tasks are modelled as
- * single-argument non-suspending computations that are supplied concurrently in one execution
- * context (i.e. the submission side) and executed sequentially in another (i.e. the execution
- * side). Unlike the conventional actor-object design pattern, which is an implementation detail of
- * an object, Quinn is a reusable component that fully encapsulates the entire process of queueing,
- * dequeueing, and executing tasks. The submission side can simply pass in tasks, and the execution
- * side can simply supply the value to pass to them. Quinn conflates the act of passing in the value
- * with execution itself, meaning when the execution side calls [execute], the function suspends
- * indefinitely while processes the task queuee. This ensures execution occurs in the context that
- * natively has access to the value.
+ * [Quinn] is divided into two interfaces for API segregation:
+ * - [SubmittableQuinn], this interface, which contains the APIs for submitting work.
+ * - [ExecutableQuinn], which contains the APIs for executing work.
  *
- * This single-arg model double-sided model is useful in situations where a thread-confined resource
- * needs to be used in other threads, for example, a main-threaded resource (such as a UI element)
- * that cannot be mutated by other threads. By sharing a Quinn between the UI thread and background
- * worker threads, the workers can submit tasks that operate on the object and the UI thread can
- * execute the tasks by calling [execute]. Simplistically:
- * ```
- * // On the worker thread, suspends until the task is run.
- * quinn.queueAtFront { uiContext -> uiContext.setTextSize(10f) }
+ * The segregation allows different functions to be exposed to different contexts to avoid API
+ * leakage and accidental evaluation of the wrong logic (i.e. the submission layer of the consuming
+ * application cannot accidentally invoke execution).
  *
- * // On the UI thread, suspends indefinitely to run tasks as they are submitted
- * quinn.execute(uiContext)
- * ```
- *
- * In the above example, Quinn iterates through submitted tasks in order on the main thread, passing
- * each the ui context so each can use it, but never moving the UI context off the main thread. This
- * effectively runs each task on the UI thread without breaking thread confinement.
- *
- * Quinn follows a strict contract for coordinating submission, execution, and closure. When tasks
- * are submitted, the submitting call suspends until the task is complete, and when execute is
- * called, it suspends indefinitely. Multiple concurrent submissions are permitted and quinn is
- * strictly thread-safe, however queue ordering can be non-deterministic in submission race
- * conditions, so external synchronisation can be useful when determinstic ordering is required.
- * Only one execution call can have effect at any time, but all call suspend, and when one is
- * cancelled (by cancelling the host coroutine) the next takes effect (in order or arrival). When
- * Quinn is closed, it completes the present task if one is running, discards all queued tasks,
- * resumes all suspended submission calls, and resumes all suspended execute calls. No new tasks can
- * be submitted after closure, and attempting to do so throws an exception (unless the closure-safe
- * `try` variants are used); however, execution calls never fail after closure and instead return
- * immediately.
- *
- * Exceptions thrown within tasks are handled on the submission side or on the execution side, with
- * the deciding factor being the `errorHandling` argument passed to the submission function.
- * Submission side handling causes exceptions to be caught and rethrown by the submission function,
- * and execution side handling causes exceptions to be caught and rethrown by the execute function.
- * In both cases, Quinn remains operational and can continue processing tasks (immediately moving on
- * to the next in the queue without delay); however, whether the broader process can recover from
- * such an exception depends on the nature of the error, the effect on the process, and whether it
- * created an unrecoverable state. In any case, that is a detail of the broader program
- * architecture, and cannot be predicted or accounted for by Quinn.
- *
- * Quinn tasks are not suspending functions because Quinn operates structly as a processing queue
- * without cooperative multitasking. Tasks are exectued strictly according to the queue order, one
- * at a time, any blocking calls within a task block the task queue. This ensures Quinn is
- * deterministic and fulfills its core function (moving execution between contexts) without becoming
- * a generic coroutine dispatcher.
+ * View the docs of [Quinn] for full details.
  */
-interface Quinn<T> : ObservableClosable {
+interface SubmittableQuinn<T> : ObservableClosable {
+  /**
+   * Schedules [block] for execution in the execution context and suspends until [block] has been
+   * run.
+   *
+   * Strict FIFO ordering is used, and implementations must ensure this function is thread-safe;
+   * however, submission race conditions may lead to non-deterministic queue order, so consumers
+   * must use external synchronisation if strict execution ordering is required.
+   *
+   * Closure details:
+   * - If invoked after [close], throws an [IllegalStateException] immediately.
+   * - If [close] is called after this function is invoked but before [block] begins evaluation, no
+   *   exception is thrown, [block] is discarded without evaluation, and the suspended coroutine
+   *   resumes (i.e. this function exits).
+   * - If [close] is called while [block] is being evaluated, [block] will complete before closure
+   *   proceeds, and no further blocks will be evaluated.
+   *
+   * WARNING: Using the supplied lambda argument (T) outside of [block] is unsupported and not
+   * recommended, as the entire purpose of Quinn is accessing thread-bound resources safely, and
+   * using them outside the lambdas is likely to cause errors.
+   *
+   * WARNING: It is unsafe to make calls to this [SubmittableQuinn] from the [block] lambda as
+   * implementations are free to use non-reentrant locks, and they likely will due to the
+   * multithreaded nature of Quinn.
+   *
+   * WARNING: Exceptions thrown within [block] are propagated back to this call and raised as if
+   * they occured as part of [run], and the [Quinn] instance always remains operational after such
+   * errors (process-destabilising edge cases aside); however, since [block] is executed in the
+   * execution context, there is no guarantee the error did not create an irrecoverable state in the
+   * executor or its resources. Whether such events are recoverable is dependent on the
+   * implementation of the executor and the nature of the error.
+   */
+  suspend fun queueAtBack(
+      errorBehaviour: ErrorBehaviour = ErrorBehaviour.DELIVER_TO_CALLER,
+      block: (T) -> Unit
+  )
 
   /**
-   * Whether a call to [execute] is presently active (i.e. suspended).
-   *
-   * Does not become false between execute calls if one call exits while another is already waiting.
+   * Identical to [queueAtBack], except it returns [AttemptedInsertionResult.REJECTED_CLOSED] instead of throwing an
+   * [IllegalStateException] if this [SubmittableQuinn] is closed when called. If the block is inserted but subsequently
+   * discarded before execution due to a closure, it returns [AttemptedInsertionResult.INSERTED_NOT_RUN].
+   * Otherwise it returns [AttemptedInsertionResult.INSERTED_AND_RUN]. Implementations should avoid using try/catch where possible for
+   * performance optimization.
    */
+  suspend fun tryQueueAtBack(
+      errorBehaviour: ErrorBehaviour = ErrorBehaviour.DELIVER_TO_CALLER,
+      block: (T) -> Unit
+  ): AttemptedInsertionResult
+
+  /**
+   * Identical to [queueAtBack], but inserts [block] at the front of the queue, ensuring it
+   * evaluates before any previously submitted work in the queue.
+   */
+  suspend fun queueAtFront(
+      errorBehaviour: ErrorBehaviour = ErrorBehaviour.DELIVER_TO_CALLER,
+      block: (T) -> Unit
+  )
+
+  /** Identical to [tryQueueAtBack], but inserts [block] at the front of the queue. */
+  suspend fun tryQueueAtFront(
+      errorBehaviour: ErrorBehaviour = ErrorBehaviour.DELIVER_TO_CALLER,
+      block: (T) -> Unit
+  ): AttemptedInsertionResult
+}
+
+/**
+ * The execution-side of a [Quinn] instance.
+ *
+ * [Quinn] is divided into two interfaces for API segregation:
+ * - [ExecutableQuinn], this interface, which contains the APIs for executing work.
+ * - [SubmittableQuinn], which contains the APIs for submitting work.
+ *
+ * The segregation allows different functions to be exposed to different contexts to avoid API
+ * leakage and accidental execution logic evaluation (i.e. the execution layer of the consuming
+ * application cannot accidentally schedule infinite recursive logic).
+ *
+ * View the docs of [Quinn] for full details.
+ */
+interface ExecutableQuinn<T> : ObservableClosable {
+
+  /** Whether there is presently one or more calls to [execute].  */
   val isExecuting: StateFlow<Boolean>
 
   /**
-   * Schedules [task] for execution at the back of the queue (i.e. last) and suspends until it is
-   * run or this [Quinn] is closed.
+   * Executes the work submitted to the associated [SubmittableQuinn] with [resource] as the lambda
+   * argument.
    *
-   * Throws an [IllegalStateException] if this [Quinn] is already closed when invoked.
+   * When all previously-submitted work has been evaluated, this function continues to wait for new
+   * work (without blocking the thread) so future work can be processed. To end execution, the
+   * caller must terminate the execution context (e.g. cancel the coroutine, kill the process, etc.)
+   * or call [close]. Multiple concurrent invocations of `execute` are permitted and will not fail,
+   * but only the first will actively evaluate blocks, and all subsequent calls will block until the
+   * active execution is explicitly terminated (via the aforementioned execution context
+   * termination) or [close] is called. If the active execution is cancelled, the next waiting
+   * execution call will safely take over loop processing.
    *
-   * WARNING: Using the supplied resource (T) outside of [task] is unsupported and will likely fail
-   * if the resource is thread confined.
-   *
-   * WARNING: It is unsafe to make calls to this [Quinn] from [task] as implementations are free to
-   * use non-reentrant locks (and they likely will due to the multithreaded nature of Quinn).
-   */
-  suspend fun queueAtBack(
-      errorHandling: ErrorHandling = ErrorHandling.DELIVER_TO_SUBMISSION_SIDE,
-      task: (T) -> Unit
-  )
-
-  /**
-   * Schedules [task] for execution at the back of the queue (i.e. last), suspends until it is run
-   * or this [Quinn] is closed, and returns a result indicating whether the task was run. If this
-   * [Quinn] is already closed when invoked, then it does not suspend and
-   * [InsertionResult.REJECTED_CLOSED] is returned immedidiately.
-   *
-   * WARNING: Using the supplied resource (T) outside of [task] is unsupported and will likely fail
-   * if the resource is thread confined.
-   *
-   * WARNING: It is unsafe to make calls to this [Quinn] from [task] as implementations are free to
-   * use non-reentrant locks (and they likely will due to the multithreaded nature of Quinn).
-   */
-  suspend fun tryQueueAtBack(
-      errorHandling: ErrorHandling = ErrorHandling.DELIVER_TO_SUBMISSION_SIDE,
-      task: (T) -> Unit
-  ): InsertionResult
-
-  /**
-   * Schedules [task] for execution at the front of the queue (i.e. first) and suspends until it is
-   * run or this [Quinn] is closed.
-   *
-   * Throws an [IllegalStateException] if this [Quinn] is already closed when invoked.
-   *
-   * WARNING: Using the supplied resource (T) outside of [task] is unsupported and will likely fail
-   * if the resource is thread confined.
-   *
-   * WARNING: It is unsafe to make calls to this [Quinn] from [task] as implementations are free to
-   * use non-reentrant locks (and they likely will due to the multithreaded nature of Quinn).
-   */
-  suspend fun queueAtFront(
-      errorHandling: ErrorHandling = ErrorHandling.DELIVER_TO_SUBMISSION_SIDE,
-      task: (T) -> Unit
-  )
-
-  /**
-   * Schedules [task] for execution at the front of the queue (i.e. first), suspends until it is run
-   * or this [Quinn] is closed, and returns a result indicating whether the task was run. If this
-   * [Quinn] is already closed when invoked, then it does not suspend and
-   * [InsertionResult.REJECTED_CLOSED] is returned immedidiately.
-   *
-   * WARNING: Using the supplied resource (T) outside of [task] is unsupported and will likely fail
-   * if the resource is thread confined.
-   *
-   * WARNING: It is unsafe to make calls to this [Quinn] from [task] as implementations are free to
-   * use non-reentrant locks (and they likely will due to the multithreaded nature of Quinn).
-   */
-  suspend fun tryQueueAtFront(
-      errorHandling: ErrorHandling = ErrorHandling.DELIVER_TO_SUBMISSION_SIDE,
-      task: (T) -> Unit
-  ): InsertionResult
-
-  /**
-   * Executes the task queue in order with the supplied [resource] as the task argument.
-   *
-   * This function suspends indefinitely and continues to wait for new work once the task queue has
-   * been deplated. Multiple concurrent invocations of `execute` are permitted without error, and
-   * all will suspend, but only one can be active at any given time. Execution can be terminated by
-   * closing the Quinn or cancelling the coroutine hosting execution. When one call to execute
-   * exits, the next in line begins processing in order of arrival.
+   * Closure details:
+   * - If invoked after [close], returns immediately without throwing an exception.
+   * - If [close] is called after this function is invoked, all remaining blocks in the queue are
+   *   discarded and this function returns normally.
+   * - If [close] is called while a [block] is being evaluated, the [block] will be completed before
+   *   this function returns and closure finishes.
    */
   suspend fun execute(resource: T)
+}
 
-  /** The result of task submission. */
-  enum class InsertionResult {
-    /** The task was not queued because the [Quinn] was closed at the time of submission. */
-    REJECTED_CLOSED,
-
-    /**
-     * The task was queued but not run because the [Quinn] was closed between submission and
-     * processing.
-     */
-    INSERTED_NOT_RUN,
-
-    /** The task was queued and ran without exception. */
-    INSERTED_AND_RUN
-  }
-
-  /** How to handle the error when a task throws an exception during execution. */
-  enum class ErrorHandling {
-    /** Catch the error and rethrow it from the associated submission function. */
-    DELIVER_TO_SUBMISSION_SIDE,
-
-    /** Catch the error and rethrow it from the active [execute] call. */
-    DELIVER_TO_EXECUTION_SIDE
-  }
+/**
+ * Queues executable work in one execution context and executes it in another.
+ *
+ * Quinn solves two problems that commonly occur in systems with single-threaded event loops:
+ * 1. Resource Confinement: The resource of the main thread often cannot be used from other threads.
+ * 2. Automatic Termination: The main thread event loop cannot exit without terminating the process.
+ *
+ * Quinn allows other threads to define lambdas that take in the resource constrained to the main
+ * thread, queues them, and encapsulates all the execution mechanics, so the single-threaded context
+ * can simply supply the resource and block until quinn finishes executing scheduled work. It works
+ * as follows:
+ * 1. The main thread calls [ExecutableQuinn.execute]. The function accepts a resource to use and
+ *    blocks indefinitely while it wait for and executes work, although it never actually blocks the
+ *    thread so the underlying main thread does not report non-responsive.
+ * 2. Other threads call [SubmittableQuinn.run]. The function accepts a lambda that takes in the
+ *    resource from the main thread and works on it. It suspends until work completes so that it
+ *    appears to be a regular function call to the user, but the work is actually passed to the main
+ *    thread for execution.
+ *
+ * Quinn encapsulates all the complex multi-threading logic of this system so the submission-side
+ * users can just pass in work and the execution-side users can just pass in the resources to use
+ * (and implicitly, the thread, by virtue of calling the function).
+ *
+ * Quinn is closable and has well-defined closure mechanics:
+ * 1. Submission Rejection: Following closure, `run` throws an `IllegalStateException` while
+ *    `tryRun` safely returns `false`.
+ * 2. Graceful Completion: Any block being actively evaluated when closure occurs is finished
+ *    gracefully before closure completes. The execution thread is never abruptly aborted.
+ * 3. Queue Eviction: Pending blocks that were queued but have not yet been evaluated are evicted
+ *    without evaluation. Coroutines suspended on `run` for those evicted blocks resume completely
+ *    normally.
+ * 4. Execution Termination: Indefinite `execute` loops return gracefully without exception. Future
+ *    calls to `execute` return immediately without throwing an exception.
+ *
+ * In summary, closure finishes up the present computation, discards the unprocessed ones, sets
+ * `run` to raise an error, and sets `execute` to return immediately without raising an error.
+ *
+ * To ensure type abstraction and limit architectural exposure, components should typically depend
+ * specifically on either [SubmittableQuinn] or [ExecutableQuinn].
+ */
+interface Quinn<T> : SubmittableQuinn<T>, ExecutableQuinn<T> {
 
   /** Creates instances of [Quinn]. */
   interface Factory {
@@ -182,3 +173,26 @@ interface Quinn<T> : ObservableClosable {
     fun <T> createQuinn(): Quinn<T>
   }
 }
+
+
+/** How errors are handled when they occur within `run`/`tryRun` blocks. */
+enum class ErrorBehaviour {
+  /**
+   * The error is caught during block execution and thrown on the submission-side (i.e. the
+   * `run`/`tryRun` call throws).
+   */
+  DELIVER_TO_CALLER,
+
+  /** The error is not caught and affects execution-side normally. */
+  DELIVER_TO_EXECUTOR,
+
+  DELIVER_TO_BOTH
+}
+
+
+enum class AttemptedInsertionResult {
+  REJECTED_CLOSED,
+  INSERTED_NOT_RUN,
+  INSERTED_AND_RUN
+}
+
