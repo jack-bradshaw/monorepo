@@ -8,5 +8,6 @@ import dagger.Module
 @Module
 interface IdleableQuinnHubModule {
   @Binds fun bindFactory(impl: IdleableQuinnHubImpl): Quinn.Factory
+
   @Binds fun bindIdleableHub(impl: IdleableQuinnHubImpl): IdleableQuinn.Hub
 }

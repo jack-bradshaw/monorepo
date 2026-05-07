@@ -18,8 +18,8 @@ import com.jackbradshaw.obelisk.oksp.DaggerObeliskOkspComponentImpl
 import com.jackbradshaw.obelisk.oksp.ObeliskOkspComponent
 import com.jackbradshaw.obelisk.oksp.service.Service
 import com.jackbradshaw.oksp.application.Application
-import com.jackbradshaw.sluice.SluiceComponent
-import com.jackbradshaw.sluice.sluiceComponent
+import com.jackbradshaw.sealant.SealantComponent
+import com.jackbradshaw.sealant.sealantComponent
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -39,9 +39,11 @@ import kotlinx.coroutines.launch
  * 3. Starting [Main].
  * 4. Starting the [KspBackend] to observe processing rounds.
  */
-class BackstabApplication @JvmOverloads constructor(
-  private val coroutines: CoroutinesComponent = coroutinesComponent(),
-  private val sluiceComponent: SluiceComponent = sluiceComponent()
+class BackstabApplication
+@JvmOverloads
+constructor(
+    private val coroutines: CoroutinesComponent = coroutinesComponent(),
+    private val sealantComponent: SealantComponent = sealantComponent()
 ) : Application {
 
   private val mainScopeHandle = Job()
@@ -53,18 +55,15 @@ class BackstabApplication @JvmOverloads constructor(
         DaggerObeliskOkspComponentImpl.builder()
             .kspComponent(component)
             .coroutinesComponent(coroutines)
-            .sluiceComponent(sluiceComponent)
+            .sealantComponent(sealantComponent)
             .build()
 
-    val serviceComponent = DaggerObeliskServiceComponentImpl.builder()
-        .obeliskComponent(obeliskComponent)
-        .build()
+    val serviceComponent =
+        DaggerObeliskServiceComponentImpl.builder().obeliskComponent(obeliskComponent).build()
 
     val coreComponent = DaggerCoreComponentImpl.builder().consuming(serviceComponent).build()
 
-    mainScope.launch {
-      coreComponent.main().run()
-    }
+    mainScope.launch { coreComponent.main().run() }
   }
 
   override suspend fun onDestroy() {
@@ -94,21 +93,27 @@ class ObeliskModule {
   @Provides
   @CoreScope
   fun provideService(
-    factory: Service.Factory,
-    inflowAdapter: BackstabInflowAdapter,
-    outflowAdapter: BackstabOutflowAdapter
+      factory: Service.Factory,
+      inflowAdapter: BackstabInflowAdapter,
+      outflowAdapter: BackstabOutflowAdapter
   ): Service<BackstabTarget, BackstabModule> = factory.create(inflowAdapter, outflowAdapter)
 
   @Provides
-  fun provideControl(service: Service<BackstabTarget, BackstabModule>): ObeliskControlService = service
+  fun provideControl(service: Service<BackstabTarget, BackstabModule>): ObeliskControlService =
+      service
 
   @Provides
-  fun provideData(service: Service<BackstabTarget, BackstabModule>): ObeliskDataService<BackstabTarget, BackstabModule> = service
+  fun provideData(
+      service: Service<BackstabTarget, BackstabModule>
+  ): ObeliskDataService<BackstabTarget, BackstabModule> = service
 
   @Provides
-  fun provideError(service: Service<BackstabTarget, BackstabModule>): ObeliskErrorService<BackstabTarget> = service
+  fun provideError(
+      service: Service<BackstabTarget, BackstabModule>
+  ): ObeliskErrorService<BackstabTarget> = service
 
   @Provides
-  fun provideLogging(service: Service<BackstabTarget, BackstabModule>): ObeliskLoggingService<BackstabTarget> = service
+  fun provideLogging(
+      service: Service<BackstabTarget, BackstabModule>
+  ): ObeliskLoggingService<BackstabTarget> = service
 }
-

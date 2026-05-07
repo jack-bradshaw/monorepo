@@ -21,13 +21,13 @@ kt_jvm_library_with_dagger(
     visibility = ["//visibility:public"],
     deps = [
         ":chassis",
+        "//first_party/concurrency/quinn:component",
         "//first_party/coroutines:component",
         "//first_party/kale/model:result",
         "//first_party/kale/provider:component",
         "//first_party/kale/provider:runner",
         "//first_party/oksp/application/passed",
         "//first_party/oksp/host:host_impl",
-        "//first_party/quinn:component",
     ],
 )
 
@@ -50,8 +50,8 @@ kt_jvm_library_with_dagger(
     deps = [
         ":chassis",
         ":module",
+        "//first_party/concurrency/quinn:component",
         "//first_party/coroutines:component",
-        "//first_party/quinn:component",
     ],
 )
 
@@ -78,10 +78,9 @@ kt_jvm_test_with_dagger(
     deps = [
         ":component",
         ":test",
+        "//first_party/concurrency/quinn:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/kale/provider:component_impl",
-        "//first_party/quinn:component_impl",
     ],
 )
-

@@ -5,6 +5,5 @@ import dagger.Module
 
 @Module
 interface ServiceModule {
-  @Binds
-  fun bindFactory(impl: ServiceImpl.Factory): Service.Factory
+  @Binds fun bindFactory(impl: ServiceImpl.Factory): Service.Factory
 }

@@ -4,22 +4,22 @@ import com.jackbradshaw.backstab.core.CoreScope
 import com.jackbradshaw.backstab.core.generator.Generator
 import com.jackbradshaw.backstab.core.model.BackstabModule
 import com.jackbradshaw.backstab.core.model.BackstabTarget
+import com.jackbradshaw.coroutines.Io
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.obelisk.core.services.ObeliskControlService
 import com.jackbradshaw.obelisk.core.services.ObeliskDataService
 import com.jackbradshaw.obelisk.core.services.ObeliskErrorService
-import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
-import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
-import com.jackbradshaw.coroutines.Io
-import com.jackbradshaw.sluice.Sluice
+import com.jackbradshaw.sealant.hub.SealedHub
+import com.jackbradshaw.sealant.flow.SealedFlow
+import dagger.Component
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.launch
-import dagger.Component
-import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -40,18 +40,21 @@ class MainImplTest : MainTest() {
   @Before
   fun setup() {
     val coroutines = realisticCoroutinesTestingComponent()
-    DaggerMainTestComponent.builder().realisticCoroutinesTestingComponent(coroutines).build().inject(this)
+    DaggerMainTestComponent.builder()
+        .realisticCoroutinesTestingComponent(coroutines)
+        .build()
+        .inject(this)
     testScope = CoroutineScope(coroutineContext)
     fakeDataService = FakeDataService()
     fakeControlService = FakeControlService()
     fakeErrorService = FakeErrorService()
     fakeGenerator = FakeGenerator()
-    main = MainImpl(
-      dataService = fakeDataService,
-      controlService = fakeControlService,
-      errorService = fakeErrorService,
-      generator = fakeGenerator
-    )
+    main =
+        MainImpl(
+            dataService = fakeDataService,
+            controlService = fakeControlService,
+            errorService = fakeErrorService,
+            generator = fakeGenerator)
   }
 
   override fun subject(): Main = main
@@ -64,9 +67,11 @@ class MainImplTest : MainTest() {
     fakeGenerator.injectedErrors[target] = throwable
   }
 
-  override fun getPublishedModules(target: BackstabTarget): List<BackstabModule>? = fakeDataService.publishedModules[target]
+  override fun getPublishedModules(target: BackstabTarget): List<BackstabModule>? =
+      fakeDataService.publishedModules[target]
 
-  override fun getPublishedError(target: BackstabTarget): Throwable? = fakeErrorService.publishedErrors[target]
+  override fun getPublishedError(target: BackstabTarget): Throwable? =
+      fakeErrorService.publishedErrors[target]
 
   override suspend fun awaitIdle() {
     kotlinx.coroutines.delay(100)
@@ -80,13 +85,24 @@ class MainImplTest : MainTest() {
     val targets = MutableSharedFlow<BackstabTarget>(replay = 0)
     val publishedModules = mutableMapOf<BackstabTarget, List<BackstabModule>>()
 
-    override fun createSluice() = object : Sluice<BackstabTarget> {
-      override val flow = targets
-      override suspend fun awaitConnection() {}
-      override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
-      override val hasTerminatedProcesses = kotlinx.coroutines.flow.MutableStateFlow(false)
-      override fun close() {}
-    }
+    override fun observeTargets() =
+        object : SealedHub<BackstabTarget> {
+          override suspend fun createFlow() =
+              object : SealedFlow<BackstabTarget> {
+                override val flow = targets
+                override val isConnectedToHub = kotlinx.coroutines.flow.MutableStateFlow(false)
+                override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
+                override val hasTerminatedProcesses =
+                    kotlinx.coroutines.flow.MutableStateFlow(false)
+
+                override fun close() {}
+              }
+
+          override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
+          override val hasTerminatedProcesses = kotlinx.coroutines.flow.MutableStateFlow(false)
+
+          override fun close() {}
+        }
 
     override suspend fun publish(result: BackstabModule, anchors: Set<BackstabTarget>) {
       for (anchor in anchors) {
@@ -97,8 +113,11 @@ class MainImplTest : MainTest() {
 
   private class FakeControlService : ObeliskControlService {
     override suspend fun allowStart() {}
+
     override suspend fun allowEnd() {}
+
     override suspend fun allowAdvance() {}
+
     override suspend fun forceAbort() {}
   }
 

@@ -1,14 +1,13 @@
 package com.jackbradshaw.concurrency.quinn.testing.idleable
 
 import com.jackbradshaw.concurrency.quinn.Production
-import com.jackbradshaw.concurrency.quinn.AttemptedInsertionResult
-import com.jackbradshaw.concurrency.quinn.ErrorBehaviour
+
 import com.jackbradshaw.concurrency.quinn.Quinn
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
+
 import java.util.concurrent.atomic.AtomicInteger
 
-class IdleableQuinnImpl<T>(
-    @Production private val delegate: Quinn<T>
-) : IdleableQuinn<T> {
+class IdleableQuinnImpl<T>(@Production private val delegate: Quinn<T>) : IdleableQuinn<T> {
 
   private val submittedTasks = AtomicInteger(0)
 
@@ -28,7 +27,10 @@ class IdleableQuinnImpl<T>(
     }
   }
 
-  override suspend fun tryQueueAtBack(errorBehaviour: ErrorBehaviour, block: (T) -> Unit): AttemptedInsertionResult {
+  override suspend fun tryQueueAtBack(
+      errorBehaviour: ErrorBehaviour,
+      block: (T) -> Unit
+  ): Quinn.InsertionResult {
     submittedTasks.incrementAndGet()
     try {
       return delegate.tryQueueAtBack(errorBehaviour, block)
@@ -46,7 +48,10 @@ class IdleableQuinnImpl<T>(
     }
   }
 
-  override suspend fun tryQueueAtFront(errorBehaviour: ErrorBehaviour, block: (T) -> Unit): AttemptedInsertionResult {
+  override suspend fun tryQueueAtFront(
+      errorBehaviour: ErrorBehaviour,
+      block: (T) -> Unit
+  ): Quinn.InsertionResult {
     submittedTasks.incrementAndGet()
     try {
       return delegate.tryQueueAtFront(errorBehaviour, block)
@@ -59,7 +64,7 @@ class IdleableQuinnImpl<T>(
   guaranteed to be idle when there are no submitted blocks running (i.e. when submitted block count
   equals completed block count). This is guaranteed by the Quinn interface contract. */
   override suspend fun execute(resource: T) = delegate.execute(resource)
-  
+
   override val isExecuting = delegate.isExecuting
 
   override val hasTerminalState = delegate.hasTerminalState

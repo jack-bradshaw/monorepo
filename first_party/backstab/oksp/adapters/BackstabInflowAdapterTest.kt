@@ -167,7 +167,7 @@ class BackstabInflowAdapterTest {
                   BackstabTarget.Component(
                       packageName = "com.foo", nameChain = listOf("ComponentCreate")),
               instantiator = BackstabTarget.ComponentInstantiator.CreateFunction)
-              
+
       assertThat(ingestion.translated[declaration]).containsExactly(expected)
     }
   }
@@ -211,8 +211,7 @@ class BackstabInflowAdapterTest {
 
       val expected =
           BackstabTarget(
-              header =
-                  Source(packageName = "com.foo", fileName = "parse_builder_standard_input"),
+              header = Source(packageName = "com.foo", fileName = "parse_builder_standard_input"),
               component =
                   BackstabTarget.Component(
                       packageName = "com.foo", nameChain = listOf("ComponentBuilderStandard")),
@@ -267,8 +266,7 @@ class BackstabInflowAdapterTest {
 
       val expected =
           BackstabTarget(
-              header =
-                  Source(packageName = "com.foo", fileName = "parse_factory_standard_input"),
+              header = Source(packageName = "com.foo", fileName = "parse_factory_standard_input"),
               component =
                   BackstabTarget.Component(
                       packageName = "com.foo", nameChain = listOf("ComponentFactoryStandard")),
@@ -289,7 +287,7 @@ class BackstabInflowAdapterTest {
     evaluateAgainstResolver(sources) { resolver ->
       val declaration = resolveClass(resolver, "com.foo.NoAnnotationsInput")
       val ingestion = adapter.ingest(setOf(declaration))
-      
+
       assertThat(ingestion.translated).isEmpty()
       assertThat(ingestion.unused).isEmpty()
     }
@@ -300,7 +298,7 @@ class BackstabInflowAdapterTest {
     evaluateAgainstResolver(sources) { resolver ->
       val declaration = resolveClass(resolver, "com.foo.ComponentOnlyInput")
       val ingestion = adapter.ingest(setOf(declaration))
-      
+
       assertThat(ingestion.translated).isEmpty()
       assertThat(ingestion.unused).isEmpty()
     }
@@ -311,9 +309,7 @@ class BackstabInflowAdapterTest {
     evaluateAgainstResolver(sources) { resolver ->
       val declaration = resolveClass(resolver, "com.foo.BackstabOnlyInput")
       val exception =
-          assertThrows(IllegalArgumentException::class.java) {
-            adapter.ingest(setOf(declaration))
-          }
+          assertThrows(IllegalArgumentException::class.java) { adapter.ingest(setOf(declaration)) }
       assertThat(exception)
           .hasMessageThat()
           .isEqualTo("Expected BackstabOnlyInput to be annotated with @Component.")
@@ -326,6 +322,20 @@ class BackstabInflowAdapterTest {
   }
 
   private fun evaluateAgainstResolver(sources: List<Source>, block: (Resolver) -> Unit) {
-    kotlinx.coroutines.runBlocking { val versions = com.jackbradshaw.kale.model.Versions(); configuration.get().open(sources.map { com.jackbradshaw.kale.model.Source(it.fileName, it.extension, it.packageName, it.contents) }.toSet(), versions, emptyMap<String, String>()).withResolver(block) }
+    kotlinx.coroutines.runBlocking {
+      val versions = com.jackbradshaw.kale.model.Versions()
+      configuration
+          .get()
+          .open(
+              sources
+                  .map {
+                    com.jackbradshaw.kale.model.Source(
+                        it.fileName, it.extension, it.packageName, it.contents)
+                  }
+                  .toSet(),
+              versions,
+              emptyMap<String, String>())
+          .withResolver(block)
+    }
   }
 }

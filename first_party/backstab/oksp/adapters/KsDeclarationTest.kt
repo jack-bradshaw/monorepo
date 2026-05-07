@@ -124,14 +124,24 @@ class KsDeclarationTest {
     }
   }
 
-
-  private fun evaluateAgainstResolver(sources: Set<com.jackbradshaw.kale.model.Source>, block: (com.google.devtools.ksp.processing.Resolver) -> Unit) {
+  private fun evaluateAgainstResolver(
+      sources: Set<com.jackbradshaw.kale.model.Source>,
+      block: (com.google.devtools.ksp.processing.Resolver) -> Unit
+  ) {
     kotlinx.coroutines.runBlocking {
       val versions = com.jackbradshaw.kale.model.Versions()
-      resolverRule.get().open(sources.map { com.jackbradshaw.kale.model.Source(it.fileName, it.extension, it.packageName, it.contents) }.toSet(), versions, emptyMap<String, String>()).withResolver(block)
+      resolverRule
+          .get()
+          .open(
+              sources
+                  .map {
+                    com.jackbradshaw.kale.model.Source(
+                        it.fileName, it.extension, it.packageName, it.contents)
+                  }
+                  .toSet(),
+              versions,
+              emptyMap<String, String>())
+          .withResolver(block)
     }
   }
-
-
-
 }

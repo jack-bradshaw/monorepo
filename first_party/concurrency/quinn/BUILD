@@ -71,6 +71,9 @@ kt_jvm_library_with_dagger(
     ],
     deps = [
         ":impl",
+
+        ":qualifiers",
+
         ":quinn",
     ],
 )
@@ -106,9 +109,11 @@ kt_jvm_test_with_dagger(
 )
 
 kt_jvm_test_with_dagger(
-    name = "impl_as_observable_closable_test",
-    srcs = ["QuinnImplAsObservableClosableTest.kt"],
-    test_class = "com.jackbradshaw.concurrency.quinn.QuinnImplAsObservableClosableTest",
+
+    name = "impl_observable_closable_test",
+    srcs = ["QuinnImplObservableClosableTest.kt"],
+    test_class = "com.jackbradshaw.concurrency.quinn.QuinnImplObservableClosableTest",
+
     deps = [
         ":component",
         ":component_impl",

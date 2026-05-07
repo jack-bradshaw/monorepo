@@ -12,7 +12,6 @@ import com.jackbradshaw.backstab.core.typeregistry.BackstabTypeRegistry
 import com.jackbradshaw.backstab.core.typeregistry.DaggerTypeRegistry
 import com.jackbradshaw.obelisk.core.model.Source
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.ParameterSpec
@@ -34,8 +33,7 @@ class GeneratorImpl @Inject constructor() : Generator {
             fileName = metadata.simpleNames.last(),
             packageName = metadata.packageName,
             extension = "kt",
-            contents = file.toString()
-        ))
+            contents = file.toString()))
   }
 
   /**
@@ -129,11 +127,11 @@ class GeneratorImpl @Inject constructor() : Generator {
       val paramSpec = ParameterSpec.builder(paramName, setter.type.toTypeName())
       setter.qualifier?.let { paramSpec.addAnnotation(it.toAnnotationSpec()) }
       addParameter(paramSpec.build())
-      
+
       statement.append("\n.${setter.name}($paramName)")
     }
     statement.append("\n.${instantiator.buildFunction.name}()")
-    
+
     addStatement(statement.toString(), target.generatedComponentClassName())
   }
 

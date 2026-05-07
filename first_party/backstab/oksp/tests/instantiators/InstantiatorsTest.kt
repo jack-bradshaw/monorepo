@@ -1,38 +1,54 @@
 package com.jackbradshaw.backstab.oksp.tests.instantiators
 
 import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.backstab.core.annotations.AggregateScope
+import dagger.Component
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import dagger.Component
-import com.jackbradshaw.backstab.core.annotations.AggregateScope
 
 @Component(modules = [BuilderA_BackstabModule::class])
 @AggregateScope
 interface BuilderAgg {
   fun target(): BuilderA
-  @Component.Builder interface Builder { fun build(): BuilderAgg }
+
+  @Component.Builder
+  interface Builder {
+    fun build(): BuilderAgg
+  }
 }
 
 @Component(modules = [CustomBuildA_BackstabModule::class])
 @AggregateScope
 interface CustomBuildAgg {
   fun target(): CustomBuildA
-  @Component.Builder interface Builder { fun execute(): CustomBuildAgg }
+
+  @Component.Builder
+  interface Builder {
+    fun execute(): CustomBuildAgg
+  }
 }
 
 @Component(modules = [CustomFactoryA_BackstabModule::class])
 @AggregateScope
 interface CustomFactoryAgg {
   fun target(): CustomFactoryA
-  @Component.Factory interface Factory { fun execute(): CustomFactoryAgg }
+
+  @Component.Factory
+  interface Factory {
+    fun execute(): CustomFactoryAgg
+  }
 }
 
 @Component(modules = [FactoryA_BackstabModule::class])
 @AggregateScope
 interface FactoryAgg {
   fun target(): FactoryA
-  @Component.Factory interface Factory { fun create(): FactoryAgg }
+
+  @Component.Factory
+  interface Factory {
+    fun create(): FactoryAgg
+  }
 }
 
 @Component(modules = [ImplicitA_BackstabModule::class])
@@ -45,7 +61,12 @@ interface ImplicitAgg {
 @AggregateScope
 interface CustomCreationAgg {
   fun target(): CustomCreationA
-  @Component.Builder interface Builder { fun build(): CustomCreationAgg }
+
+  @Component.Builder
+  interface Builder {
+    fun build(): CustomCreationAgg
+  }
+
   companion object {
     fun execute(): CustomCreationAgg = DaggerCustomCreationAgg.builder().build()
   }

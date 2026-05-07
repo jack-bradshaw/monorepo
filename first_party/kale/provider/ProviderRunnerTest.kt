@@ -258,7 +258,6 @@ abstract class ProviderRunnerTest {
         assertThat(provider.processor.collectedClassNames).containsExactly("ValidKotlin")
       }
 
-  
   @Test
   fun run_withExceptionThrowingAndCodeGeneratingProvider_suppliesExceptionAndFiles() =
       runBlocking<Unit> {
@@ -273,7 +272,7 @@ abstract class ProviderRunnerTest {
         assertThat(failure.error).isInstanceOf(RuntimeException::class.java)
         assertThat(failure.error!!.message).isEqualTo("Exception after generation")
         assertThat(provider.processor.didRunProcess).isTrue()
-        
+
         // Ensure the file generated in round 1 was preserved
         assertThat(failure.artifacts.kotlinSources).hasSize(1)
         val file = failure.artifacts.kotlinSources.first()

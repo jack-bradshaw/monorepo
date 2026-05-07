@@ -1,10 +1,10 @@
 package com.jackbradshaw.oksp.testing.application.chassis
 
+import com.jackbradshaw.concurrency.quinn.QuinnComponent
+import com.jackbradshaw.concurrency.quinn.quinnComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.kale.provider.ProviderRunnerComponent
-import com.jackbradshaw.quinn.QuinnComponent
-import com.jackbradshaw.quinn.quinnComponent
 import dagger.Component
 
 @Component(

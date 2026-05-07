@@ -8,33 +8,31 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFile
 import com.google.devtools.ksp.symbol.KSNode
-import com.jackbradshaw.oksp.model.KspContext
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
+import com.jackbradshaw.concurrency.quinn.Quinn
+import com.jackbradshaw.concurrency.quinn.QuinnComponent
+import com.jackbradshaw.concurrency.quinn.quinnComponent
+import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.oksp.application.Application
 import com.jackbradshaw.oksp.application.ApplicationComponent
 import com.jackbradshaw.oksp.application.loaded.loadedApplicationComponent
-import kotlinx.coroutines.cancelAndJoin
+import com.jackbradshaw.oksp.model.KspContext
 import com.jackbradshaw.oksp.model.LogLevel
 import com.jackbradshaw.oksp.model.Resource
 import com.jackbradshaw.oksp.model.Source
 import com.jackbradshaw.oksp.service.KspService
-import com.jackbradshaw.quinn.Quinn
-import com.jackbradshaw.quinn.QuinnComponent
-import com.jackbradshaw.quinn.quinnComponent
 import dagger.BindsInstance
 import dagger.Component
-import com.jackbradshaw.quinn.ErrorBehaviour
-import com.jackbradshaw.coroutines.CoroutinesComponent
-import java.util.LinkedList
 import javax.inject.Inject
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -54,8 +52,7 @@ class HostImpl
 constructor(
     private val applicationComponent: ApplicationComponent = loadedApplicationComponent(),
     private val quinn: QuinnComponent = quinnComponent(),
-    private val coroutines: CoroutinesComponent =
-        com.jackbradshaw.coroutines.coroutinesComponent(),
+    private val coroutines: CoroutinesComponent = com.jackbradshaw.coroutines.coroutinesComponent(),
 ) : Host {
 
   private lateinit var app: Application
@@ -155,7 +152,7 @@ constructor(
 
           override suspend fun abortProcessing() {
             if (isFinished()) return
-            
+
             val abortException = kotlinx.coroutines.CancellationException("KSP Aborted")
             isFinishedErroneously.complete(Unit)
 
@@ -163,12 +160,9 @@ constructor(
             isServiceReadyToEnd.completeExceptionally(abortException)
 
             val activeQuinn = currentRoundQuinn ?: return
-            
-            activeQuinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTOR) {
-                throw abortException
-              }
-              activeQuinn.close()
-            
+
+            activeQuinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { throw abortException }
+            activeQuinn.close()
           }
 
           override suspend fun onEachRoundStart(): Flow<Unit> = channelFlow {
@@ -248,7 +242,9 @@ constructor(
               context.environment.codeGenerator
                   .createNewFileByPath(
                       dependencies = dependencies,
-                      path = if (resource.directoryPath.isEmpty()) resource.fileName else "${resource.directoryPath}/${resource.fileName}",
+                      path =
+                          if (resource.directoryPath.isEmpty()) resource.fileName
+                          else "${resource.directoryPath}/${resource.fileName}",
                       extensionName = resource.extension)
                   .use { it.write(resource.contents.toByteArray()) }
             }
@@ -281,7 +277,7 @@ constructor(
             check(activeQuinn != null) { "Cannot invoke fail between KSP rounds." }
 
             try {
-              activeQuinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTOR) { context ->
+              activeQuinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { context ->
                 if (anchor != null) {
                   context.environment.logger.error(error.message ?: error.toString(), anchor)
                 }
@@ -301,7 +297,7 @@ constructor(
             check(activeQuinn != null) { "Cannot invoke fail between KSP rounds." }
 
             try {
-              activeQuinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTOR) { context ->
+              activeQuinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { context ->
                 if (anchor != null) {
                   context.environment.logger.error(error, anchor)
                 } else {
@@ -321,9 +317,7 @@ constructor(
             val activeQuinn = currentRoundQuinn
             check(activeQuinn != null) { "Cannot invoke defer between KSP rounds." }
 
-            activeQuinn.queueAtBack {
-              currentRoundDeferred!!.add(node)
-            }
+            activeQuinn.queueAtBack { currentRoundDeferred!!.add(node) }
           }
         }
 
@@ -341,40 +335,39 @@ constructor(
           currentRoundDeferred = mutableListOf()
 
           // Launch the single proxy job that will manage both bridging gaps.
-          proxyJob = proxyScope.launch { 
-            // PHASE 1: Bridge the gap TO the execute call.
-            // We use runBlocking to ensure the JVM thread is held hostage, preventing
-            // IdleableDispatcher from registering as idle during the handoff.
-            runBlocking {
-              activeQuinn.isExecuting.first { it }
-              
-              // Now that execute() is definitely running, it's safe to start the round!
-              // We emit here so that the KspService cannot possibly complete the round
-              // before execute() has actually started.
-              roundStartEvents.emit(Unit)
-            }
-            
-            // PHASE 2: The "Suspended" Idle Zone.
-            // execute() has started. We use a standard suspend. Because we are suspended, 
-            // IdleableDispatcher drops our task. The dispatcher is now idle.
-            // Tests can safely awaitAllIdle() during KSP rounds.
-            activeQuinn.isExecuting.first { !it }
-            
-            // PHASE 3: Bridge the gap FROM the execute call.
-            // isExecuting just became false via close() on another thread. 
-            // Resuming from the suspension above synchronously incremented the dispatcher's 
-            // submittedTaskCount. We instantly enter runBlocking again to hold the 
-            // dispatcher hostage during native teardown.
-            runBlocking {
-              proxyBreaker.await()
-            }
-          }
+          proxyJob =
+              proxyScope.launch {
+                // PHASE 1: Bridge the gap TO the execute call.
+                // We use runBlocking to ensure the JVM thread is held hostage, preventing
+                // IdleableDispatcher from registering as idle during the handoff.
+                runBlocking {
+                  activeQuinn.isExecuting.first { it }
+
+                  // Now that execute() is definitely running, it's safe to start the round!
+                  // We emit here so that the KspService cannot possibly complete the round
+                  // before execute() has actually started.
+                  roundStartEvents.emit(Unit)
+                }
+
+                // PHASE 2: The "Suspended" Idle Zone.
+                // execute() has started. We use a standard suspend. Because we are suspended,
+                // IdleableDispatcher drops our task. The dispatcher is now idle.
+                // Tests can safely awaitAllIdle() during KSP rounds.
+                activeQuinn.isExecuting.first { !it }
+
+                // PHASE 3: Bridge the gap FROM the execute call.
+                // isExecuting just became false via close() on another thread.
+                // Resuming from the suspension above synchronously incremented the dispatcher's
+                // submittedTaskCount. We instantly enter runBlocking again to hold the
+                // dispatcher hostage during native teardown.
+                runBlocking { proxyBreaker.await() }
+              }
         }
 
         // Runs until activeQuinn is closed in `completeRound` of the service
         val quinn = currentRoundQuinn!!
         try {
-        quinn.execute(KspContext(environment, resolver))
+          quinn.execute(KspContext(environment, resolver))
         } finally {
           quinn.close()
         }
@@ -423,7 +416,8 @@ constructor(
     }
 
     /** Whether round processing is finished for any reason. */
-    private fun isFinished(): Boolean = isFinishedNormally.isCompleted || isFinishedErroneously.isCompleted
+    private fun isFinished(): Boolean =
+        isFinishedNormally.isCompleted || isFinishedErroneously.isCompleted
   }
 }
 
@@ -445,4 +439,3 @@ internal interface KspComponentImpl : Application.KspComponent {
     ): KspComponentImpl
   }
 }
-

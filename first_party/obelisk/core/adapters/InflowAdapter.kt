@@ -5,6 +5,6 @@ interface InflowAdapter<I, A> {
 }
 
 data class Ingestion<I, A>(
-  val translated: Map<I, Set<A>> = emptyMap(),
-  val unused: Set<I> = emptySet()
+    val translated: Map<I, Set<A>> = emptyMap(),
+    val unused: Set<I> = emptySet()
 )

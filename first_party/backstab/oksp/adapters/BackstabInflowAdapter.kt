@@ -13,8 +13,10 @@ import com.jackbradshaw.obelisk.core.model.Source
 import javax.inject.Inject
 
 class BackstabInflowAdapter @Inject constructor() : InflowAdapter<KSNode, BackstabTarget> {
-  
-  override fun ingest(abstractSyntaxTreeRootElements: Set<KSNode>): Ingestion<KSNode, BackstabTarget> {
+
+  override fun ingest(
+      abstractSyntaxTreeRootElements: Set<KSNode>
+  ): Ingestion<KSNode, BackstabTarget> {
     val translated = mutableMapOf<KSNode, Set<BackstabTarget>>()
     val unused = mutableSetOf<KSNode>()
     val declarations = abstractSyntaxTreeRootElements.asSequence().flatMap { collectClasses(it) }

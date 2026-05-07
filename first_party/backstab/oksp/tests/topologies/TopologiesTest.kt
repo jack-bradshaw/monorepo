@@ -12,10 +12,10 @@ import org.junit.runners.JUnit4
  * constructed deep within the graph matches the object with the same qualified type pulled from the
  * aggregate. This approach ensures intermediate components properly propagate the objects from the
  * leaves to the aggregate. If the components compile and if the retrieved instance is correct then
- * the graph was properly compiled and connected. A representative series of topologies used to ensure
- * Backstab-generated code is fully compatible with standard Dagger, including topologies where all
- * nodes are transitively connected and topologies where nodes form distinct and disconnected
- * subgraphs (note, in Backstab they share bindings regardless).
+ * the graph was properly compiled and connected. A representative series of topologies used to
+ * ensure Backstab-generated code is fully compatible with standard Dagger, including topologies
+ * where all nodes are transitively connected and topologies where nodes form distinct and
+ * disconnected subgraphs (note, in Backstab they share bindings regardless).
  */
 @RunWith(JUnit4::class)
 class TopologiesTest {

@@ -113,9 +113,9 @@ Negative example: "The Foo class"
 This distinguishes code references from prose and enables syntax highlighting in rendered
 documentation.
 
-## Standard: Introductory List Lines
+## Standard: Introsealantory List Lines
 
-Lists must be preceded by an introductory body line.
+Lists must be preceded by an introsealantory body line.
 
 Example:
 

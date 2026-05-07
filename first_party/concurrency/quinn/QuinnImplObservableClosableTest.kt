@@ -1,6 +1,6 @@
-<=
+
 package com.jackbradshaw.concurrency.quinn
->
+
 
 import com.jackbradshaw.closet.observable.ObservableClosableTest
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
@@ -10,7 +10,6 @@ import javax.inject.Scope
 import org.junit.After
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.junit.Test
 
 @RunWith(JUnit4::class)
 class QuinnImplAsObservableClosableTest : ObservableClosableTest<Quinn<String>>() {

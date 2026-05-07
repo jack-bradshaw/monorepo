@@ -1,6 +1,5 @@
 package com.jackbradshaw.backstab.oksp.tests.instantiators
 
-import com.jackbradshaw.backstab.core.annotations.AggregateScope
 import com.jackbradshaw.backstab.core.annotations.Backstab
 import dagger.Component
 import dagger.Module
@@ -21,4 +20,3 @@ object ImplicitModule {
 interface ImplicitA {
   fun foo(): ImplicitFoo
 }
-

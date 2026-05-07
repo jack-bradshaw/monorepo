@@ -1,14 +1,14 @@
 package com.jackbradshaw.oksp.host
 
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
+import com.jackbradshaw.chronosphere.testingtaskbarrier.testingTaskBarrierComponent
+import com.jackbradshaw.concurrency.quinn.QuinnComponent
+import com.jackbradshaw.concurrency.quinn.testing.DaggerTestingQuinnComponent
+import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.coroutines.testing.Coroutines
-import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
-import com.jackbradshaw.chronosphere.testingtaskbarrier.testingTaskBarrierComponent
-import com.jackbradshaw.quinn.testing.TestingQuinnComponent
-import com.jackbradshaw.quinn.testing.DaggerTestingQuinnComponent
 import com.jackbradshaw.kale.model.Log
 import com.jackbradshaw.kale.model.Result
 import com.jackbradshaw.kale.model.Source as KaleSource
@@ -17,14 +17,12 @@ import com.jackbradshaw.kale.provider.ProviderRunnerComponent
 import com.jackbradshaw.kale.provider.providerRunnerComponent
 import com.jackbradshaw.oksp.application.Application
 import com.jackbradshaw.oksp.application.ApplicationAdapter
-import kotlinx.coroutines.cancelAndJoin
 import com.jackbradshaw.oksp.application.ApplicationComponent
 import com.jackbradshaw.oksp.application.passed.DaggerPassedApplicationComponent
 import com.jackbradshaw.oksp.model.LogLevel
 import com.jackbradshaw.oksp.model.Source
 import com.jackbradshaw.oksp.service.KspService
 import com.jackbradshaw.oksp.service.KspServiceTest
-import com.jackbradshaw.quinn.QuinnComponent
 import dagger.Binds
 import dagger.Component
 import dagger.Module
@@ -36,11 +34,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.junit.After
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
 
 @RunWith(JUnit4::class)
 class HostKspServiceTest : KspServiceTest() {
@@ -81,8 +78,13 @@ class HostKspServiceTest : KspServiceTest() {
 
     val taskBarrier = testingTaskBarrierComponent()
     val coroutines = realisticCoroutinesTestingComponent(taskBarrier)
-    val resourceManager = com.jackbradshaw.closet.resourcemanager.resourceManagerComponent(coroutines)
-    val quinn = DaggerTestingQuinnComponent.builder().resourceManagerComponent(resourceManager).testingTaskBarrierComponent(taskBarrier).build()
+    val resourceManager =
+        com.jackbradshaw.closet.resourcemanager.resourceManagerComponent(coroutines)
+    val quinn =
+        DaggerTestingQuinnComponent.builder()
+            .resourceManagerComponent(resourceManager)
+            .testingTaskBarrierComponent(taskBarrier)
+            .build()
 
     DaggerHostKspServiceTest_TestComponent.builder()
         .coroutines(coroutines)
@@ -92,16 +94,22 @@ class HostKspServiceTest : KspServiceTest() {
         .build()
         .inject(this)
 
-    combinedTaskBarrier = testingTaskBarrierComponent().testingTaskBarrierFactory().create(
-        setOf(coroutinesTaskBarrier, quinn.idleableHub())
-    )
+    combinedTaskBarrier =
+        testingTaskBarrierComponent()
+            .testingTaskBarrierFactory()
+            .create(setOf(coroutinesTaskBarrier, quinn.idleableHub()))
 
     // Does not use injected corotuines becuase this is effectively a blocking job that never
     // suspends
     kspRun =
         CoroutineScope(Dispatchers.IO).launch {
           try {
-            kspResult = providerRunner.runProvider(host, sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet())
+            kspResult =
+                providerRunner.runProvider(
+                    host,
+                    sources
+                        .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                        .toSet())
           } catch (e: Throwable) {
             e.printStackTrace()
           }
@@ -155,11 +163,9 @@ class HostKspServiceTest : KspServiceTest() {
   }
 
   override fun isSuccessful(): Boolean {
-    if (kspResult !is Result.Success) {
-    }
+    if (kspResult !is Result.Success) {}
     return kspResult is Result.Success
   }
-
 
   @Scope annotation class TestScope
 
@@ -180,10 +186,7 @@ class HostKspServiceTest : KspServiceTest() {
     interface InnerModule {
       @Binds fun bind(impl: HostImpl): Host
 
-      @Binds
-      fun bindCoroutines(
-          impl: RealisticCoroutinesTestingComponent
-      ): CoroutinesComponent
+      @Binds fun bindCoroutines(impl: RealisticCoroutinesTestingComponent): CoroutinesComponent
     }
 
     @Component.Builder

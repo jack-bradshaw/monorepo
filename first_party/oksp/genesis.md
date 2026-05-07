@@ -4,16 +4,14 @@ how will this work?
 
 what if there were a ksp component like this
 
-interface KspComponent {
-  fun processor(): 
-}
+interface KspComponent { fun processor(): }
 
-halt. do we expose the processor to the component? what is the component really? how does the
-system integration work? why not simply implement a ksp directly.
+halt. do we expose the processor to the component? what is the component really? how does the system
+integration work? why not simply implement a ksp directly.
 
 implementing ksp directly has problems: the program structure is inherently round based, requiring
-boilerplate and custom logic (complex) to setup a simple reactive flow processor. the ksp stuff
-in backstab is an example. it would be better if ksp were just some abstracted program root that the
+boilerplate and custom logic (complex) to setup a simple reactive flow processor. the ksp stuff in
+backstab is an example. it would be better if ksp were just some abstracted program root that the
 downstream library doesnt need to worry about, they can get symbols from each round, and they can
 get a start/stop signal from for process lifecycle.
 
@@ -24,10 +22,9 @@ yes of course, it should be, it makes integration simple.
 
 then we need to choose:
 
-a. the component interface
-b. the foundation api that consumers can implement to get control
-c. a means for declaring the root (similar to how is the application class declared on android
-will there be a manifest?)
+a. the component interface b. the foundation api that consumers can implement to get control c. a
+means for declaring the root (similar to how is the application class declared on android will there
+be a manifest?)
 
 why is this any better than ksp?
 
@@ -36,23 +33,22 @@ synchronous rounds, and a bunch of other architectural issues.
 
 lets perhaps consider the ideal scenario how about something like
 
-class MyApplication : Main {
-  override fun onCreate() {
+class MyApplication : Main { override fun onCreate() {
 
-  }
-  
-  override fun onStart() {
-
-  }
-
-  override fun onStop() {
-
-  }
 }
+
+override fun onStart() {
+
+}
+
+override fun onStop() {
+
+} }
 
 whats the actual difference though? why do all this? what does this api do better?
 
-it focuses on abstract lifecycle that can do anything, which is what the application root should do, instead of a specific task, processing symbols, because real systems are generally far more complex.
+it focuses on abstract lifecycle that can do anything, which is what the application root should do,
+instead of a specific task, processing symbols, because real systems are generally far more complex.
 also it abstracts the details of processing (rounds etc) behind a convenient flow-based asynchronous
 api for advanced concurrent programming.
 

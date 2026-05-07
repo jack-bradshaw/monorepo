@@ -40,9 +40,9 @@ documentation should contain a balance of objectivity with subjectivity.
 
 Too Academic: "`FooSort` exhibits O(N log N) average-case computational complexity, as formally
 proven by Henderson (1984) via amortized analysis utilizing potential functions and aggregate
-methods. Empirical validation was conducted through Monte Carlo simulation across 10,000 uniformly
-distributed datasets, yielding a 95% confidence interval of [0.98N log N, 1.02N log N]. The
-algorithmic soundness has been peer-reviewed and published in ACM Transactions (DOI:
+methods. Empirical validation was consealanted through Monte Carlo simulation across 10,000
+uniformly distributed datasets, yielding a 95% confidence interval of [0.98N log N, 1.02N log N].
+The algorithmic soundness has been peer-reviewed and published in ACM Transactions (DOI:
 10.1145/12345)." (Unnecessarily dense academic language)
 
 Too Poetic: "`FooSort` dances through data like a graceful ballet, elegantly weaving elements into

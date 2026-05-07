@@ -1667,8 +1667,7 @@ abstract class GeneratorTest {
   ): BackstabTarget {
     val component = BackstabTarget.Component(packageName = packageName, nameChain = name)
     val header =
-        Source(
-            packageName = component.packageName, fileName = "ComponentFile", extension = "kt")
+        Source(packageName = component.packageName, fileName = "ComponentFile", extension = "kt")
     return BackstabTarget(header = header, component = component, instantiator = instantiator)
   }
 

@@ -1,8 +1,11 @@
 
 package com.jackbradshaw.concurrency.quinn
 
-
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
+import com.jackbradshaw.coroutines.Cpu
+import com.jackbradshaw.coroutines.testing.Coroutines
+import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
+
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import dagger.Component
 import java.util.concurrent.atomic.AtomicInteger
@@ -11,8 +14,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.junit.Test
-import com.jackbradshaw.coroutines.Cpu
 
 @RunWith(JUnit4::class)
 class QuinnImplTest : QuinnTest<String>() {
@@ -34,7 +35,8 @@ class QuinnImplTest : QuinnTest<String>() {
 
     val coroutines = realisticCoroutinesTestingComponent()
     val coroutines2 = realisticCoroutinesTestingComponent()
-    
+
+
 
     val component =
         DaggerQuinnImplTest_TestComponent.builder()
@@ -55,9 +57,9 @@ class QuinnImplTest : QuinnTest<String>() {
   override fun subjectLinkedDispatcher() = subjectLinkedDispatcher
 
   override fun subjectLinkedTaskBarrier() = subjectLinkedTaskBarrier
-  
+
   override fun subjectIndependentDispatcher() = subjectIndependentDispatcher
-  
+
   override fun subjectIndependentTaskBarrier() = subjectIndependentTaskBarrier
 
 
@@ -78,6 +80,7 @@ class QuinnImplTest : QuinnTest<String>() {
     @Component.Builder
     interface Builder {
       fun consuming(quinn: QuinnComponent): Builder
+
       fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
 
       fun build(): TestComponent

@@ -30,6 +30,7 @@ kt_jvm_library_with_dagger(
     srcs = [
         "ResourceManagerImplModule.kt",
     ],
+    visibility = PUBLICITY,
     deps = [
         ":impl",
         ":resource_manager",

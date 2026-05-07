@@ -81,7 +81,13 @@ abstract class MainTest {
 
   /** Creates a [BackstabModule] for use in tests. */
   protected fun createModule(name: String) =
-      BackstabModule(source = Source(fileName = name, packageName = "com.example", extension = "kt", contents = "package com.example"))
+      BackstabModule(
+          source =
+              Source(
+                  fileName = name,
+                  packageName = "com.example",
+                  extension = "kt",
+                  contents = "package com.example"))
 }
 
 // DO NOT SUBMIT test needs careful review

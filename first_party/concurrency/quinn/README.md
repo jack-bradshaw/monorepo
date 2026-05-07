@@ -2,6 +2,7 @@
 
 A bridge between single-threaded environments and complex multi-threaded ones.
 
+<<<<<<< HEAD
 ## Overview
 
 Quinn is a generic, reusable implementation of the multi-producer single-consumer actor-object
@@ -22,6 +23,12 @@ the value.
 one execution context to another. This commonly occurs when bridging complex asynchronous
 environments, and Quinn helps solve the two distinct architectural friction points that naturally
 emerge:
+=======
+## The Problem
+
+When bridging a complex asynchronous environment (like Kotlin coroutines) with a rigid,
+single-threaded framework, two distinct architectural friction points emerge:
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 
 1. Resource Confinement: Frameworks often strictly isolate their resources to a single thread. For
    example, UI elements safely cannot be altered by non-main threads. Often, if you try to affect
@@ -51,32 +58,60 @@ architectures to use the `Resolver`. These constraints rigidly bind the architec
 program by limiting the concurrency model and restricting the general design to a single-threaded,
 single-callback API.
 
+<<<<<<< HEAD
 [Quinn](/first_party/concurrency/quinn/Quinn.kt) solves both problems simultaneously by completely
 decoupling where reusable logic is defined from where that logic is natively executed. It inverts
 the standard processing model, so instead of background workers attempting to fetch restricted
 objects (pull), they dynamically construct logic tasks (lambdas) and queue them with `Quinn`.
 Concurrently, the restricted framework thread calls `execute()` on `Quinn`, which indefinitely
 repeatedly polls and executes received work on the framework thread.
+=======
+## The Solution
+
+[Quinn](/first_party/concurrency/quinn/core/Quinn.kt) solves both problems simultaneously by
+completely decoupling where reusable logic is defined from where that logic is natively executed. It
+inverts the standard processing model, so instead of background workers attempting to fetch
+restricted objects (pull), they dynamically construct logic blocks (lambdas) and queue them with
+`Quinn`. Concurrently, the restricted framework thread calls `execute()` on `Quinn`, which
+indefinitely repeatedly polls and executes received work on the framework thread.
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 
 `Quinn` encapsulates all the complex multi-threading and cross-thread orchestration: Higher level
 components simply pass in lambdas and the underlying event loop simply passes in the resources those
 lambdas need. It explicitly keeps the framework process alive, preventing teardown while
 asynchronous background workers are active, and avoiding sleeping the main thread. While suspended
 indefinitely, the framework thread continuously evaluates the queue, natively evaluating the logic
+<<<<<<< HEAD
 tasks, and eagerly supplying its highly restricted resources directly into them.
+=======
+blocks, and eagerly supplying its highly restricted resources directly into them.
+
+Once the higher-level code has finished, it simply invokes `close()` on the `Quinn` instance. This
+causes execution to gracefully complete so the framework loop can complete and pass control back to
+the framework.
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 
 ## Usage
 
 Using `Quinn` is straightforward:
 
 1. Create an instance and share it between the submission side and execution side.
+<<<<<<< HEAD
 1. Feed in tasks on the submission side with `queueAtBack` or `queueAtFront`.
+=======
+1. Feed in blocks on the submission side with `queueAtBack` or `queueAtFront`.
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 1. Supply resources and trigger execution on the execution side with `execute`.
 
 For example consider a KSP processor that uses `Quinn` to expose its `Resolver` and keep its
 `process` callback alive:
 
 ```kotlin
+<<<<<<< HEAD
+=======
+// In MySymbolProcessor.kt
+
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 /** The restricted, single-threaded entrypoint provided natively by KSP. */
 class MySymbolProcessor(private val quinnFactory: Quinn.Factory) : SymbolProcessor {
 
@@ -104,7 +139,11 @@ class MySymbolProcessor(private val quinnFactory: Quinn.Factory) : SymbolProcess
         println("Processing files: $filePaths")
       }
 
+<<<<<<< HEAD
       // Only reaches here after the queued task has been processed.
+=======
+      // Only reaches here after the queued block has been processed.
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
       quinn.close()
     }
   }
@@ -114,22 +153,34 @@ class MySymbolProcessor(private val quinnFactory: Quinn.Factory) : SymbolProcess
 The example launches background coroutines that require the single-threaded `Resolver`, but rather
 than saving the resolver in a member variable and accessing it from the coroutines (which would
 fail), the workers package their logic into lambdas and pass it to `Quinn` so it can be executed on
+<<<<<<< HEAD
 the KSP thread. The KSP thread runs the `execute` loop to safely evaluate each task with the
+=======
+the KSP thread. The KSP thread runs the `execute` loop to safely evaluate each block with the
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 restricted `Resolver` resources on the main thread. When all asynchronous tasks are complete, a
 coroutine calls `close` on the `Quinn` instance which ends the loop on the KSP thread so that
 `process` can return.
 
 ## Error Handling
 
+<<<<<<< HEAD
 When an error occurs while executing a queued task, the error can be handled in one of three ways:
 
 1. Throw on submission side.
 1. Throw on execution side.
+=======
+When an error occurs while executing a queued block, the error can be handled in one of three ways:
+
+1. Throw on submission side.
+2. Throw on execution side.
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 
 Since execution happens on the execution side, the error always originates there, but it will be
 caught and rethrown according to the logic. This allows you to granularly control how errors affect
 execution.
 
+<<<<<<< HEAD
 Submission side example:
 
 ```kotlin
@@ -338,6 +389,17 @@ class MyIdleableComponentTest {
 In the above example, the idleable testing coroutines are used only for test orchestration, and the
 Quinn instance uses real coroutines. The Quinn instance is a test double which is itself idleable.
 This somewhat convoluted example demonstrates setup and usage of the idleable test double Quinn.
+=======
+## Interface Segregation
+
+`Quinn` is composed of two interfaces: [Quinn](/first_party/concurrency/quinn/Quinn.kt) which can
+only receive work, and [Quinn](/first_party/concurrency/quinn/Quinn.kt) which can only execute work.
+This ensures interface segregation so that different parts of the application only have access to
+the elements they need. The above example is intentionally simplistic, with the `Quinn` being used
+in the same class, but in a more realistic scenario where the submitter is a separate class, that
+class should only receive the `Quinn`, and the executor should only receive the `Quinn`. Using
+dependency injection makes this straightforward and is recommended.
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)
 
 ## Other Frameworks
 
@@ -347,3 +409,14 @@ underlying system into that queued work, and it fundamentally models all work as
 Furthermore, a dispatcher-based system does not inherently provide a native way for higher-level
 asynchronous systems to signal "done" to the underlying loop. `Quinn` provides both of these
 capabilities, making it the superior structural fit for single-thread resource bridging.
+<<<<<<< HEAD
+=======
+
+## Issues
+
+Issues relating to this package and its subpackages are tagged with `quinn`.
+
+## Contributions
+
+Contributions from third parties are accepted.
+>>>>>>> 8d90304c (Checkpoint before Sealant plumbing architecture refactor)

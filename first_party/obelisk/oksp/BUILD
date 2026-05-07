@@ -7,7 +7,7 @@ kt_jvm_library_with_dagger(
     visibility = PUBLICITY,
     deps = [
         "//first_party/obelisk/oksp/service",
-    ]
+    ],
 )
 
 kt_jvm_library_with_dagger(
@@ -16,10 +16,10 @@ kt_jvm_library_with_dagger(
     visibility = PUBLICITY,
     deps = [
         ":component",
+        "//first_party/coroutines:component",
         "//first_party/obelisk:scope",
         "//first_party/obelisk/oksp/service:module",
-        "//first_party/coroutines:component",
-        "//first_party/sluice:component",
         "//first_party/oksp/application:component",
-    ]
+        "//first_party/sealant:component",
+    ],
 )

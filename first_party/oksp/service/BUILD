@@ -5,10 +5,10 @@ kt_jvm_library(
     srcs = ["KspService.kt"],
     visibility = ["//visibility:public"],
     deps = [
-        "//first_party/oksp/model:log_level",
-        "//first_party/oksp/model:source",
-        "//first_party/oksp/model:resource",
         "//first_party/oksp/model:ksp_context",
+        "//first_party/oksp/model:log_level",
+        "//first_party/oksp/model:resource",
+        "//first_party/oksp/model:source",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

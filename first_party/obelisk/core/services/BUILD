@@ -11,7 +11,7 @@ kt_jvm_library(
     srcs = ["ObeliskDataService.kt"],
     visibility = ["//visibility:public"],
     deps = [
-        "//first_party/sluice:sluice",
+        "//first_party/sealant/hub",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -21,8 +21,6 @@ kt_jvm_library(
     srcs = ["ObeliskErrorService.kt"],
     visibility = ["//visibility:public"],
 )
-
-
 
 kt_jvm_library(
     name = "logging",

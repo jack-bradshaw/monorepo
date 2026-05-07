@@ -3,10 +3,10 @@ package com.jackbradshaw.oksp.host
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
 import com.jackbradshaw.coroutines.testing.Coroutines
-import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
-import com.jackbradshaw.kale.model.Source as KaleSource
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.kale.model.Result
+import com.jackbradshaw.kale.model.Source as KaleSource
 import com.jackbradshaw.kale.provider.ProviderRunner
 import com.jackbradshaw.kale.provider.ProviderRunnerComponent
 import com.jackbradshaw.kale.provider.providerRunnerComponent
@@ -19,14 +19,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
 import org.junit.Before
 import org.junit.Test
 
@@ -63,7 +61,14 @@ abstract class HostTest {
         val application = object : TestApplicationBase(testScope) {}
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -92,7 +97,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -117,7 +129,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -149,7 +168,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -178,7 +204,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         // allowProcessing() isn't strictly needed as onCreate will fail the pipeline
         // immediately upon launch, causing process() to throw before any rounds start.
@@ -207,7 +240,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -244,7 +284,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -277,7 +324,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -289,8 +343,6 @@ abstract class HostTest {
         application.kspComponent?.kspService()?.allowTermination()
         result.cancelAndJoin()
       }
-
-
 
   @Test
   fun e2e__error__in_processing__abortProcessing__destroys_app() =
@@ -304,7 +356,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -312,11 +371,11 @@ abstract class HostTest {
         barrier.awaitAllIdle()
         val finalResult = result.await()
         assertThat(finalResult).isInstanceOf(Result.Failure::class.java)
-        
+
         val failure = finalResult as Result.Failure
         assertThat(failure.error).isInstanceOf(kotlinx.coroutines.CancellationException::class.java)
         assertThat(failure.error!!.message).isEqualTo("KSP Aborted")
-        
+
         assertThat(application.onCreateCalls.value).isEqualTo(1)
         assertThat(application.onDestroyCalls).isEqualTo(1)
       }
@@ -328,6 +387,7 @@ abstract class HostTest {
         val application =
             object : TestApplicationBase(testScope) {
               var round = 0
+
               override suspend fun onRoundStart(component: Application.KspComponent) {
                 round++
                 if (round == 1) {
@@ -340,7 +400,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -348,12 +415,12 @@ abstract class HostTest {
         barrier.awaitAllIdle()
         val finalResult = result.await()
         assertThat(finalResult).isInstanceOf(Result.Failure::class.java)
-        
+
         val failure = finalResult as Result.Failure
         assertThat(failure.error).isInstanceOf(kotlinx.coroutines.CancellationException::class.java)
         assertThat(failure.error!!.message).isEqualTo("KSP Aborted")
         assertThat(failure.artifacts.kotlinSources).hasSize(1)
-        
+
         assertThat(application.onCreateCalls.value).isEqualTo(1)
         assertThat(application.onDestroyCalls).isEqualTo(1)
       }
@@ -366,6 +433,7 @@ abstract class HostTest {
         val application =
             object : TestApplicationBase(testScope) {
               var round = 0
+
               override suspend fun onRoundStart(component: Application.KspComponent) {
                 round++
                 if (round == 1) {
@@ -378,7 +446,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -386,12 +461,12 @@ abstract class HostTest {
         barrier.awaitAllIdle()
         val finalResult = result.await()
         assertThat(finalResult).isInstanceOf(Result.Failure::class.java)
-        
+
         val failure = finalResult as Result.Failure
         assertThat(failure.error).isInstanceOf(IllegalStateException::class.java)
         assertThat(failure.error!!.message).isEqualTo("processing error")
         assertThat(failure.artifacts.kotlinSources).hasSize(1)
-        
+
         assertThat(application.onCreateCalls.value).isEqualTo(1)
         assertThat(application.onDestroyCalls).isEqualTo(1)
       }
@@ -404,6 +479,7 @@ abstract class HostTest {
         val application =
             object : TestApplicationBase(testScope) {
               var round = 0
+
               override suspend fun onRoundStart(component: Application.KspComponent) {
                 round++
                 if (round == 1) {
@@ -416,7 +492,14 @@ abstract class HostTest {
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -424,10 +507,10 @@ abstract class HostTest {
         barrier.awaitAllIdle()
         val finalResult = result.await()
         assertThat(finalResult).isInstanceOf(Result.Failure::class.java)
-        
+
         val failure = finalResult as Result.Failure
         assertThat(failure.artifacts.kotlinSources).hasSize(1)
-        
+
         assertThat(application.onCreateCalls.value).isEqualTo(1)
         assertThat(application.onDestroyCalls).isEqualTo(1)
       }
@@ -440,6 +523,7 @@ abstract class HostTest {
         val application =
             object : TestApplicationBase(testScope) {
               var round = 0
+
               override suspend fun onRoundStart(component: Application.KspComponent) {
                 round++
                 if (round == 1) {
@@ -449,16 +533,25 @@ abstract class HostTest {
                   component.kspService().completeRound()
                 }
               }
+
               override suspend fun onFinalRound(component: Application.KspComponent) {
                 component.kspService().allowTermination()
               }
+
               override suspend fun doOnDestroy() {
                 throw expectedError
               }
             }
         setupSubject(application)
 
-        val result = async(Dispatchers.Default) { runner.runProvider(subject(), sources.map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }.toSet()) }
+        val result =
+            async(Dispatchers.Default) {
+              runner.runProvider(
+                  subject(),
+                  sources
+                      .map { KaleSource(it.fileName, it.extension, it.packageName, it.contents) }
+                      .toSet())
+            }
 
         awaitAppCreation(application)
         application.allowProcessing()
@@ -466,11 +559,11 @@ abstract class HostTest {
         barrier.awaitAllIdle()
         val finalResult = result.await()
         assertThat(finalResult).isInstanceOf(Result.Failure::class.java)
-        
+
         val failure = finalResult as Result.Failure
         assertThat(failure.logs.any { it.toString().contains("onDestroy error") }).isTrue()
         assertThat(failure.artifacts.kotlinSources).hasSize(1)
-        
+
         assertThat(application.onCreateCalls.value).isEqualTo(1)
         assertThat(application.onDestroyCalls).isEqualTo(1)
       }
@@ -499,19 +592,11 @@ abstract class HostTest {
       doOnCreate(component)
 
       scope.launch(coroutines.ioDispatcher()) {
-        component
-            .kspService()
-            .onEachRoundStart()
-            .onEach { onRoundStart(component) }
-            .collect()
+        component.kspService().onEachRoundStart().onEach { onRoundStart(component) }.collect()
       }
 
       scope.launch(coroutines.ioDispatcher()) {
-        component
-            .kspService()
-            .onFinalRoundComplete()
-            .onEach { onFinalRound(component) }
-            .collect()
+        component.kspService().onFinalRoundComplete().onEach { onFinalRound(component) }.collect()
       }
     }
 
@@ -521,9 +606,7 @@ abstract class HostTest {
     }
 
     fun allowProcessing() {
-      scope.launch(coroutines.ioDispatcher()) {
-        kspComponent?.kspService()?.allowProcessing()
-      }
+      scope.launch(coroutines.ioDispatcher()) { kspComponent?.kspService()?.allowProcessing() }
     }
 
     open suspend fun doOnCreate(component: Application.KspComponent) {}

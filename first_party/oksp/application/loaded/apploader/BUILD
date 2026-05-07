@@ -56,4 +56,3 @@ kt_jvm_test_with_dagger(
         "@com_jackbradshaw_maven//:junit_junit",
     ],
 )
-

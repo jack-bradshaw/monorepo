@@ -24,6 +24,8 @@ interface CoreComponentImpl : CoreComponent {
 
 interface ObeliskServiceComponent {
   fun dataService(): ObeliskDataService<BackstabTarget, BackstabModule>
+
   fun controlService(): ObeliskControlService
+
   fun errorService(): ObeliskErrorService<BackstabTarget>
 }

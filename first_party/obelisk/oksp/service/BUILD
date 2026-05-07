@@ -23,6 +23,8 @@ kt_jvm_library_with_dagger(
     visibility = PUBLICITY,
     deps = [
         ":service",
+        "//first_party/coroutines:component_impl",
+        "//first_party/coroutines/io",
         "//first_party/obelisk/core/adapters:inflow_adapter",
         "//first_party/obelisk/core/adapters:outflow_adapter",
         "//first_party/obelisk/core/model:log_level",
@@ -30,10 +32,7 @@ kt_jvm_library_with_dagger(
         "//first_party/oksp/model:log_level",
         "//first_party/oksp/model:source",
         "//first_party/oksp/service",
-        "//first_party/coroutines:component_impl",
-        "//first_party/coroutines/io",
-        "//first_party/sluice:sluice",
-        "//first_party/sluice:factory",
+        "//first_party/sealant/hub",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
@@ -44,7 +43,7 @@ kt_jvm_library_with_dagger(
     srcs = ["ServiceModule.kt"],
     visibility = PUBLICITY,
     deps = [
-        ":service",
         ":impl",
-    ]
+        ":service",
+    ],
 )

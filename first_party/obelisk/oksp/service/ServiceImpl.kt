@@ -7,28 +7,21 @@ import com.jackbradshaw.obelisk.core.adapters.InflowAdapter
 import com.jackbradshaw.obelisk.core.adapters.Ingestion
 import com.jackbradshaw.obelisk.core.adapters.OutflowAdapter
 import com.jackbradshaw.obelisk.core.model.LogLevel
-import com.jackbradshaw.obelisk.core.model.Source
 import com.jackbradshaw.oksp.model.LogLevel as OkspLogLevel
 import com.jackbradshaw.oksp.model.Source as OkspSource
 import com.jackbradshaw.oksp.service.KspService
-import com.jackbradshaw.sluice.Sluice
-import com.jackbradshaw.sluice.SluiceFactory
+import com.jackbradshaw.sealant.hub.SealedHub
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -39,11 +32,12 @@ class ServiceImpl<A, R>(
     private val inflowAdapter: InflowAdapter<KSNode, A>,
     private val outflowAdapter: OutflowAdapter<R>,
     private val kspService: KspService,
-    private val sluiceFactory: SluiceFactory,
+    private val sealedHubFactory: SealedHub.Factory,
     @Io private val ioDispatcher: CoroutineDispatcher,
 ) : Service<A, R> {
 
-  /** Map to reverse lookup [KsNode]s from the values they were translated to. Associations are only
+  /**
+   * Map to reverse lookup [KsNode]s from the values they were translated to. Associations are only
    * valid during a round and the map must be cleared at the end of the round. The values should be
    * passed by to KSP and must otherwise have minimal interactions, as KSP is strictly not
    * multi-threaded and using its types outside KSP is extremely error prone.
@@ -57,31 +51,33 @@ class ServiceImpl<A, R>(
   private val processingScope = CoroutineScope(ioDispatcher + processingScopeHandle)
 
   private data class RoundState(
-      val targetCount: Int = 0, 
+      val targetCount: Int = 0,
       val processedCount: Int = 0,
       val id: java.util.UUID = java.util.UUID.randomUUID()
   )
+
   private val currentRound = MutableStateFlow<RoundState?>(null)
 
   init {
     processingScope.launch {
-      kspService.onEachRoundStart()
-        .onEach { 
-          // Ensures KSP types are not retained over round boundaries.
-          anchors.clear()
-          
-          updateForLatestIngestion(ingest()) 
-        }
-        .collect()
+      kspService
+          .onEachRoundStart()
+          .onEach {
+            // Ensures KSP types are not retained over round boundaries.
+            anchors.clear()
+
+            updateForLatestIngestion(ingest())
+          }
+          .collect()
     }
 
     processingScope.launch {
       currentRound
-        .filterNotNull()
-        .map { it.targetCount == it.processedCount }
-        .filter { it }
-        .onEach { kspService.completeRound() }
-        .collect()
+          .filterNotNull()
+          .map { it.targetCount == it.processedCount }
+          .filter { it }
+          .onEach { kspService.completeRound() }
+          .collect()
     }
 
     processingScope.launch {
@@ -96,7 +92,7 @@ class ServiceImpl<A, R>(
     kspService.allowProcessing()
   }
 
-  override suspend fun allowEnd() { 
+  override suspend fun allowEnd() {
     kspService.allowTermination()
   }
 
@@ -109,24 +105,25 @@ class ServiceImpl<A, R>(
     kspService.abortProcessing()
   }
 
-  override fun createSluice(): Sluice<A> = sluiceFactory.createSluice(translations)
+  override fun observeTargets(): SealedHub<A> = sealedHubFactory.create(translations)
 
   override suspend fun publish(result: R, anchors: Set<A>) {
-    val okspSource = outflowAdapter.format(result).let {
-      OkspSource(it.fileName, it.extension, it.packageName, it.contents)
-    }
+    val okspSource =
+        outflowAdapter.format(result).let {
+          OkspSource(it.fileName, it.extension, it.packageName, it.contents)
+        }
     kspService.publish(okspSource, getAnchors(anchors).toList())
     currentRound.update { it?.copy(processedCount = it.processedCount + anchors.size) }
   }
-  
-  override suspend fun fail(error: Throwable, anchor: A?) { 
+
+  override suspend fun fail(error: Throwable, anchor: A?) {
     kspService.fail(error, anchor?.let { getDefaultAnchor(it) })
     if (anchor != null) {
       currentRound.update { it?.copy(processedCount = it.processedCount + 1) }
     }
   }
 
-  override suspend fun fail(error: String, anchor: A?) { 
+  override suspend fun fail(error: String, anchor: A?) {
     kspService.fail(error, anchor?.let { getDefaultAnchor(it) })
     if (anchor != null) {
       currentRound.update { it?.copy(processedCount = it.processedCount + 1) }
@@ -134,13 +131,14 @@ class ServiceImpl<A, R>(
   }
 
   override suspend fun log(message: String, level: LogLevel?, anchor: A?) {
-    val okspLevel = level?.let {
-      when (it) {
-        LogLevel.INFO -> OkspLogLevel.INFO
-        LogLevel.WARNING -> OkspLogLevel.WARNING
-        LogLevel.ERROR -> OkspLogLevel.ERROR
-      }
-    }
+    val okspLevel =
+        level?.let {
+          when (it) {
+            LogLevel.INFO -> OkspLogLevel.INFO
+            LogLevel.WARNING -> OkspLogLevel.WARNING
+            LogLevel.ERROR -> OkspLogLevel.ERROR
+          }
+        }
     kspService.log(message, okspLevel, anchor?.let { getDefaultAnchor(it) })
   }
 
@@ -151,15 +149,16 @@ class ServiceImpl<A, R>(
     }
 
     // Null not expected ever, but check is forced by withContext API.
-    return ingestion ?: Ingestion() 
+    return ingestion ?: Ingestion()
   }
 
-  /** Updates [targets] and [anchors] for latest data [ingestion].
-   * 
-   * Two separate passes are used to fully update [anchors] before emitting anything to [targets]
-   * to ensure anchors is fully populated before any downstream consumers receive the target data.
-   * This prevents early calls to [fail], [log] and [publish] from pulling an incomplete set of
-   * anchors under race conditions.
+  /**
+   * Updates [targets] and [anchors] for latest data [ingestion].
+   *
+   * Two separate passes are used to fully update [anchors] before emitting anything to [targets] to
+   * ensure anchors is fully populated before any downstream consumers receive the target data. This
+   * prevents early calls to [fail], [log] and [publish] from pulling an incomplete set of anchors
+   * under race conditions.
    */
   private suspend fun updateForLatestIngestion(ingestion: Ingestion<KSNode, A>) {
     for (unused in ingestion.unused) {
@@ -167,17 +166,17 @@ class ServiceImpl<A, R>(
         kspService.defer(unused)
       }
     }
-    
+
     // Collected to ensure each translation is emitted exactly once
     val uniqueTranslations = mutableSetOf<A>()
-    
+
     for ((node, translatedSet) in ingestion.translated) {
       for (translation in translatedSet) {
         anchors[translation] = (anchors[translation] ?: emptySet()) + node
         uniqueTranslations.add(translation)
       }
     }
-    
+
     // Wait until there is at least one active subscriber before emitting
     translations.subscriptionCount.first { it > 0 }
 
@@ -190,31 +189,32 @@ class ServiceImpl<A, R>(
 
   /** Gets the KSNode anchors associated with this [anchor]. */
   private fun getAnchors(anchor: A): Set<KSNode> {
-    return checkNotNull(anchors[anchor]) {
-      "$anchor is not a valid anchor."
-    } 
+    return checkNotNull(anchors[anchor]) { "$anchor is not a valid anchor." }
   }
 
   /** Gets the KSNode anchors associated with all elements in [anchors]. */
   private fun getAnchors(anchors: Set<A>): Set<KSNode> = anchors.flatMap { getAnchors(it) }.toSet()
 
   /**
-   * Note: KSP's underlying logger only supports a single anchor. If the higher level compiler 
-   * requests a failure across a domain model mapped to multiple KSNode files/symbols, we simply 
+   * Note: KSP's underlying logger only supports a single anchor. If the higher level compiler
+   * requests a failure across a domain model mapped to multiple KSNode files/symbols, we simply
    * pick the first one. Tagging one file is sufficient to surface the error to the developer.
    */
   private fun getDefaultAnchor(anchor: A): KSNode? = getAnchors(anchor).firstOrNull()
 
-  /**
-   * Same rationale as [getDefaultAnchor] single-arg variant.
-   */
+  /** Same rationale as [getDefaultAnchor] single-arg variant. */
   private fun getDefaultAnchor(anchors: Set<A>): KSNode? = getAnchors(anchors).firstOrNull()
 
-  class Factory @Inject constructor(
-    private val kspService: KspService,
-    private val sluiceFactory: SluiceFactory,
-    @Io private val ioDispatcher: CoroutineDispatcher,
+  class Factory
+  @Inject
+  constructor(
+      private val kspService: KspService,
+      private val sealedHubFactory: SealedHub.Factory,
+      @Io private val ioDispatcher: CoroutineDispatcher,
   ) : Service.Factory {
-    override fun <A, R> create(inflow: InflowAdapter<KSNode, A>, outflow: OutflowAdapter<R>): Service<A, R> = ServiceImpl(inflow, outflow, kspService, sluiceFactory, ioDispatcher) 
+    override fun <A, R> create(
+        inflow: InflowAdapter<KSNode, A>,
+        outflow: OutflowAdapter<R>
+    ): Service<A, R> = ServiceImpl(inflow, outflow, kspService, sealedHubFactory, ioDispatcher)
   }
 }

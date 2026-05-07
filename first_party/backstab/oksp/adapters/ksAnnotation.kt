@@ -28,10 +28,12 @@ fun KSAnnotation.toQualifier(): BackstabTarget.Qualifier? {
 }
 
 /** Returns whether this annotation has a fully qualified name that matches [qualifiedName]. */
-fun KSAnnotation.matches(qualifiedName: String): Boolean = annotationType.resolve().declaration.qualifiedName?.asString() == qualifiedName
+fun KSAnnotation.matches(qualifiedName: String): Boolean =
+    annotationType.resolve().declaration.qualifiedName?.asString() == qualifiedName
 
 /** Returns whether this annotation is a Dagger [Named] qualifier. */
-private fun KSAnnotation.isDaggerNamedQualifier(): Boolean = matches(JavaxTypeRegistry.NAMED.qualifiedName!!)
+private fun KSAnnotation.isDaggerNamedQualifier(): Boolean =
+    matches(JavaxTypeRegistry.NAMED.qualifiedName!!)
 
 /** Returns true if this annotation is a Dagger [Qualifier] qualifier. */
 private fun KSAnnotation.isDaggerCustomQualifier(): Boolean {

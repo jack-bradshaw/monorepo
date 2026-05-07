@@ -1,7 +1,7 @@
 
 package com.jackbradshaw.concurrency.quinn
 
-import com.jackbradshaw.concurrency.quinn.QuinnScope
+
 import dagger.Binds
 import dagger.Component
 import dagger.Module
@@ -10,7 +10,7 @@ import dagger.Module
 @QuinnScope
 @Component(modules = [QuinnProductionModule::class, QuinnComponentImpl.DefaultModule::class])
 interface QuinnComponentImpl : QuinnComponent {
-  
+
   @Module
   interface DefaultModule {
     @Binds fun bindDefaultFactory(@Production impl: Quinn.Factory): Quinn.Factory

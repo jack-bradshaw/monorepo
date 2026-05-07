@@ -1,31 +1,32 @@
 package com.jackbradshaw.concurrency.quinn.testing.idleable
 
-import java.util.concurrent.CountDownLatch
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.concurrency.quinn.ErrorBehaviour
+
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
+import java.util.concurrent.CountDownLatch
+
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import org.junit.After
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
+import org.junit.Test
 
 abstract class IdleableQuinnTest {
 
   private val subjectLinkedScopeHandle = Job()
 
   private val subjectIndependentScopeHandle = Job()
-  
+
   private val subjectLinkedScope by lazy {
     CoroutineScope(subjectLinkedDispatcher() + subjectLinkedScopeHandle)
   }
-  
+
   private val subjectIndependentScope by lazy {
     CoroutineScope(subjectIndependentDispatcher() + subjectIndependentScopeHandle)
   }
@@ -40,10 +41,13 @@ abstract class IdleableQuinnTest {
   }
 
   abstract fun subject(): IdleableQuinn<String>
+
   abstract fun subjectLinkedDispatcher(): CoroutineDispatcher
+
   abstract fun subjectLinkedTaskBarrier(): TestingTaskBarrier
-  
+
   abstract fun subjectIndependentDispatcher(): CoroutineDispatcher
+
   abstract fun subjectIndependentTaskBarrier(): TestingTaskBarrier
 
   @Test
@@ -59,7 +63,7 @@ abstract class IdleableQuinnTest {
     val executionStarted = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         executionStarted.complete(Unit)
         executionLock.await()
       }
@@ -81,7 +85,7 @@ abstract class IdleableQuinnTest {
     val executionStarted = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().tryQueueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().tryQueueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         executionStarted.complete(Unit)
         executionLock.await()
       }
@@ -103,7 +107,7 @@ abstract class IdleableQuinnTest {
     val executionStarted = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().queueAtFront(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtFront(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         executionStarted.complete(Unit)
         executionLock.await()
       }
@@ -125,7 +129,7 @@ abstract class IdleableQuinnTest {
     val executionStarted = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().tryQueueAtFront(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().tryQueueAtFront(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         executionStarted.complete(Unit)
         executionLock.await()
       }
@@ -149,11 +153,11 @@ abstract class IdleableQuinnTest {
     val started2 = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         started1.complete(Unit)
         lock1.await()
       }
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         started2.complete(Unit)
         lock2.await()
       }
@@ -161,7 +165,7 @@ abstract class IdleableQuinnTest {
 
     started1.await()
     assertThat(subject().isIdle()).isFalse()
-    
+
     lock1.countDown()
     lock2.countDown()
   }
@@ -175,11 +179,11 @@ abstract class IdleableQuinnTest {
     val started2 = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         started1.complete(Unit)
         lock1.await()
       }
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         started2.complete(Unit)
         lock2.await()
       }
@@ -188,9 +192,9 @@ abstract class IdleableQuinnTest {
     started1.await()
     lock1.countDown()
     started2.await()
-    
+
     assertThat(subject().isIdle()).isFalse()
-    
+
     lock2.countDown()
   }
 
@@ -203,11 +207,11 @@ abstract class IdleableQuinnTest {
     val started2 = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         started1.complete(Unit)
         lock1.await()
       }
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         started2.complete(Unit)
         lock2.await()
       }
@@ -219,11 +223,9 @@ abstract class IdleableQuinnTest {
     lock2.countDown()
     subjectLinkedTaskBarrier().awaitAllIdle()
     subjectIndependentTaskBarrier().awaitAllIdle()
-    
+
     assertThat(subject().isIdle()).isTrue()
   }
-
-  
 
   @Test
   fun isIdle_whileClosingAndFinishingLastTask_isNotIdle() = runBlocking {
@@ -232,7 +234,7 @@ abstract class IdleableQuinnTest {
     val executionStarted = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         executionStarted.complete(Unit)
         executionLock.await()
       }
@@ -244,7 +246,7 @@ abstract class IdleableQuinnTest {
     // wait briefly for close to acquire the lock and get stuck
     delay(50)
     assertThat(subject().isIdle()).isFalse()
-    
+
     executionLock.countDown()
     closeJob.join()
   }
@@ -256,7 +258,7 @@ abstract class IdleableQuinnTest {
     val executionStarted = CompletableDeferred<Unit>()
 
     subjectIndependentScope.launch {
-      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_CALLER) {
+      subject().queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
         executionStarted.complete(Unit)
         executionLock.await()
       }

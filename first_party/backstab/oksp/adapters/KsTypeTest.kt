@@ -274,10 +274,24 @@ class KsTypeTest {
     return property.type.resolve()
   }
 
-  private fun evaluateAgainstResolver(sources: Set<com.jackbradshaw.kale.model.Source>, block: (Resolver) -> Unit) {
+  private fun evaluateAgainstResolver(
+      sources: Set<com.jackbradshaw.kale.model.Source>,
+      block: (Resolver) -> Unit
+  ) {
     kotlinx.coroutines.runBlocking {
       val versions = Versions()
-      configuration.get().open(sources.map { com.jackbradshaw.kale.model.Source(it.fileName, it.extension, it.packageName, it.contents) }.toSet(), versions, emptyMap<String, String>()).withResolver(block)
+      configuration
+          .get()
+          .open(
+              sources
+                  .map {
+                    com.jackbradshaw.kale.model.Source(
+                        it.fileName, it.extension, it.packageName, it.contents)
+                  }
+                  .toSet(),
+              versions,
+              emptyMap<String, String>())
+          .withResolver(block)
     }
   }
 }

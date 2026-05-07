@@ -2,6 +2,9 @@
 package com.jackbradshaw.concurrency.quinn
 
 
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
+import com.jackbradshaw.concurrency.quinn.Quinn.InsertionResult
+import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow
@@ -14,7 +17,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-import java.util.concurrent.atomic.AtomicInteger
+
 
 
 /**
@@ -36,20 +39,21 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
   private val executeLock = Mutex()
 
 
-  /** 
+  /**
+
    * Mutex guarding [blockQueue].
-   * 
+   *
    * Used in two places: Inserting into the queue in [tryQueueInternal] and draining the queue in
    * [close]. This prevents general write races when multiple threads try to insert concurrently,
    * and since [close] sets [shouldAcceptNewBlocks] `false` before beginning the drain, it ensures
-   * the drain operation waits until all pending insertions have released the lock and the queue
-   * is guaranteed to have no more insertions.
+   * the drain operation waits until all pending insertions have released the lock and the queue is
+   * guaranteed to have no more insertions.
    */
   private val queueLock = Mutex()
 
   /** Whether new blocks are presently being accepted. */
   private val shouldAcceptNewBlocks = MutableStateFlow(true)
-  
+
   /** Whether the queue of blocks is presently being consumed. */
   private val shouldProcessExistingBlocks = MutableStateFlow(true)
 
@@ -70,13 +74,14 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
 
 
   private val _isExecuting = MutableStateFlow(false)
-  
+
   override val isExecuting = _isExecuting.asStateFlow()
 
   private val executeCallCount = AtomicInteger(0)
 
   override suspend fun queueAtBack(errorBehaviour: ErrorBehaviour, block: (T) -> Unit) {
-    check(tryQueueAtBack(errorBehaviour, block) != AttemptedInsertionResult.REJECTED_CLOSED) {
+
+    check(tryQueueAtBack(errorBehaviour, block) != Quinn.InsertionResult.REJECTED_CLOSED) {
 
       "This Quinn instance is closed, queueAtBack cannot be used."
     }
@@ -86,10 +91,11 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
   override suspend fun tryQueueAtBack(
       errorBehaviour: ErrorBehaviour,
       block: (T) -> Unit
-  ): AttemptedInsertionResult = tryQueueInternal(block, errorBehaviour, atFront = false)
+  ): Quinn.InsertionResult = tryQueueInternal(block, errorBehaviour, atFront = false)
 
   override suspend fun queueAtFront(errorBehaviour: ErrorBehaviour, block: (T) -> Unit) {
-    check(tryQueueAtFront(errorBehaviour, block) != AttemptedInsertionResult.REJECTED_CLOSED) {
+
+    check(tryQueueAtFront(errorBehaviour, block) != Quinn.InsertionResult.REJECTED_CLOSED) {
 
       "This Quinn instance is closed, queueAtFront cannot be used."
     }
@@ -99,15 +105,15 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
   override suspend fun tryQueueAtFront(
       errorBehaviour: ErrorBehaviour,
       block: (T) -> Unit
-  ): AttemptedInsertionResult = tryQueueInternal(block, errorBehaviour, atFront = true)
+  ): Quinn.InsertionResult = tryQueueInternal(block, errorBehaviour, atFront = true)
 
   private suspend fun tryQueueInternal(
       block: (T) -> Unit,
       errorBehaviour: ErrorBehaviour,
       atFront: Boolean
-  ): AttemptedInsertionResult {
+  ): Quinn.InsertionResult {
     // Early exit. Not strictly necessary, but it avoids redundant work.
-    if (!shouldAcceptNewBlocks.value) return AttemptedInsertionResult.REJECTED_CLOSED
+    if (!shouldAcceptNewBlocks.value) return Quinn.InsertionResult.REJECTED_CLOSED
 
     val consumableBlock = ConsumableBlock(errorBehaviour, block)
 
@@ -121,20 +127,21 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
         executionSignal.trySend(Unit)
       } else {
         // Notify caller block was not executed.
-        return AttemptedInsertionResult.REJECTED_CLOSED
+        return Quinn.InsertionResult.REJECTED_CLOSED
       }
     }
 
     val finalOutcome = consumableBlock.outcome.await()
-    if (finalOutcome is ConsumableBlock.Outcome.ExecutedWithError && 
-        (errorBehaviour == ErrorBehaviour.DELIVER_TO_CALLER || errorBehaviour == ErrorBehaviour.DELIVER_TO_BOTH)) {
+    if (finalOutcome is ConsumableBlock.Outcome.ExecutedWithError &&
+        errorBehaviour == ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
       throw finalOutcome.error
     }
 
     return if (finalOutcome is ConsumableBlock.Outcome.NotExecuted) {
-      AttemptedInsertionResult.INSERTED_NOT_RUN
+      Quinn.InsertionResult.INSERTED_NOT_RUN
     } else {
-      AttemptedInsertionResult.INSERTED_AND_RUN
+
+      Quinn.InsertionResult.INSERTED_AND_RUN
 
     }
   }
@@ -148,7 +155,7 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
 
         // Early exit. Not strictly necessary, but it avoids redundant work.
         if (!shouldProcessExistingBlocks.value) return
-      
+
         executionSignal.receiveAsFlow().collect {
           while (true) {
             val block = queueLock.withLock { blockQueue.removeFirstOrNull() } ?: break
@@ -165,8 +172,8 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
               block.outcome.complete(ConsumableBlock.Outcome.ExecutedSuccessfully)
             } catch (t: Throwable) {
               block.outcome.complete(ConsumableBlock.Outcome.ExecutedWithError(t))
-              if (block.errorBehaviour == ErrorBehaviour.DELIVER_TO_EXECUTOR ||
-                  block.errorBehaviour == ErrorBehaviour.DELIVER_TO_BOTH) {
+
+              if (block.errorBehaviour == ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) {
 
                 throw t
               }
@@ -180,7 +187,6 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
       }
     }
   }
-
 
 
 
@@ -206,7 +212,7 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
     shouldProcessExistingBlocks.value = false
     executionSignal.close()
   }
-  
+
   /** Drains existing blocks in the queue without executing them */
   private suspend fun drainQueue() {
     queueLock.withLock {

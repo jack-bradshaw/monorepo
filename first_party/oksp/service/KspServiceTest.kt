@@ -1,26 +1,23 @@
 package com.jackbradshaw.oksp.service
 
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.ConcurrentHashMap
 import com.google.common.truth.Truth.assertThat
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.kale.model.Source as KaleSource
 import com.jackbradshaw.oksp.model.LogLevel
 import com.jackbradshaw.oksp.model.Source
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CountDownLatch
 import kotlin.test.assertFailsWith
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import org.junit.After
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
+import org.junit.Test
 
 /**
  * Abstract tests that all [KspService] instances should pass.
@@ -94,7 +91,8 @@ abstract class KspServiceTest {
             beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION, SOURCE_WITHOUT_ANNOTATION))
         var d1: KSAnnotated? = null
         var d2: KSAnnotated? = null
-        subject().withContext { context -> val resolver = context.resolver;
+        subject().withContext { context ->
+          val resolver = context.resolver
           val symbols =
               resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).toList()
           d1 = symbols[0]
@@ -164,11 +162,7 @@ abstract class KspServiceTest {
         subject().advanceThroughCurrentRound()
 
         subject().deferTargetAnnotation()
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound2", "kt", "class DummyRound2"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
         subject().advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(3)
@@ -207,18 +201,10 @@ abstract class KspServiceTest {
         subject().publish(SOURCE_GENERATED_1, emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound2", "kt", "class DummyRound2"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound3", "kt", "class DummyRound3"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound3", "kt", "class DummyRound3"), emptyList())
         subject().advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(4)
@@ -240,11 +226,7 @@ abstract class KspServiceTest {
         subject().publish(SOURCE_GENERATED_1, emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound2", "kt", "class DummyRound2"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
         subject().advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(3)
@@ -263,7 +245,8 @@ abstract class KspServiceTest {
       runBlocking<Unit> {
         val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION))
         var deferredTarget: KSAnnotated? = null
-        subject().withContext { context -> val resolver = context.resolver;
+        subject().withContext { context ->
+          val resolver = context.resolver
           deferredTarget =
               resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).firstOrNull()
         }
@@ -271,28 +254,22 @@ abstract class KspServiceTest {
         subject().publish(SOURCE_GENERATED_1, emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject().withContext { context -> val resolver = context.resolver;
+        subject().withContext { context ->
+          val resolver = context.resolver
           deferredTarget =
               resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).firstOrNull()
         }
         subject().defer(requireNotNull(deferredTarget) { "Deep iterative cascade failed in R2" })
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound2", "kt", "class DummyRound2"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject().withContext { context -> val resolver = context.resolver;
+        subject().withContext { context ->
+          val resolver = context.resolver
           deferredTarget =
               resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).firstOrNull()
         }
         subject().defer(requireNotNull(deferredTarget) { "Deep iterative cascade failed in R3" })
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound3", "kt", "class DummyRound3"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound3", "kt", "class DummyRound3"), emptyList())
         subject().advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(4)
@@ -388,11 +365,7 @@ abstract class KspServiceTest {
         subject().advanceThroughCurrentRound()
 
         subject().deferNewFile()
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound2", "kt", "class DummyRound2"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
 
         subject().advanceThroughKspExecution()
 
@@ -415,18 +388,10 @@ abstract class KspServiceTest {
         subject().advanceThroughCurrentRound()
 
         subject().deferNewFile()
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound2", "kt", "class DummyRound2"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject()
-            .publish(
-                Source(
-                    "com.test", "DummyRound3", "kt", "class DummyRound3"),
-                emptyList())
+        subject().publish(Source("com.test", "DummyRound3", "kt", "class DummyRound3"), emptyList())
         subject().advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(4)
@@ -941,8 +906,7 @@ abstract class KspServiceTest {
         val service = subject()
         subject().advanceThroughFinalRound()
 
-        val exception =
-            assertFailsWith<IllegalStateException> { subject().fail(Exception("Foo")) }
+        val exception = assertFailsWith<IllegalStateException> { subject().fail(Exception("Foo")) }
         assertThat(exception)
             .hasMessageThat()
             .isEqualTo("Cannot invoke fail after the final round.")
@@ -1039,8 +1003,7 @@ abstract class KspServiceTest {
         setupSubject(setOf(SOURCE_UNANNOTATED))
         val service = subject()
 
-        val exception =
-            assertFailsWith<IllegalStateException> { subject().fail(Exception("Foo")) }
+        val exception = assertFailsWith<IllegalStateException> { subject().fail(Exception("Foo")) }
         assertThat(exception)
             .hasMessageThat()
             .isEqualTo("Cannot invoke fail before processing has started.")
@@ -1089,14 +1052,12 @@ abstract class KspServiceTest {
             .isEqualTo("Cannot invoke withContext before processing has started.")
       }
 
-  /**
-   * Checks that pending withContext calls are cancelled on round completion.
-   */
+  /** Checks that pending withContext calls are cancelled on round completion. */
   @Test
   fun partial__resolution__completingRoundCancelsPendingCalls() =
       runBlocking<Unit> {
         beginProcessingWithoutRoundCount(setOf(SOURCE_UNANNOTATED))
-        
+
         val resolver1blocker = newLatch()
         val resolver1Run = MutableStateFlow(false)
         val resolverJob1 =
@@ -1109,32 +1070,32 @@ abstract class KspServiceTest {
 
         var resolver2Run = false
         val resolverJob2 =
-            CoroutineScope(testDispatcher()).async {
-              subject().withContext {
-                resolver2Run = true
-              }
-            }
+            CoroutineScope(testDispatcher()).async { subject().withContext { resolver2Run = true } }
 
         // Wait to ensure resolverJob1 has started executing and resolverJob2 is queued.
-        // We cannot use awaitAllIdle here because resolverJob1 is actively holding the Quinn thread, 
+        // We cannot use awaitAllIdle here because resolverJob1 is actively holding the Quinn
+        // thread,
         // which intentionally leaves Quinn in a non-idle state.
         resolver1Run.first { it }
 
         // completeRound() blocks until the active block finishes, then evicts pending blocks.
         // We must launch it concurrently to let resolverJob1 finish.
-        val roundJob = CoroutineScope(testDispatcher()).launch {
-          subject().completeRound() // completing without releasing the blocker should preempt job2
-        }
-        
-        // Wait for resolverJob2 to finish! Since completeRound() drops pending blocks, resolverJob2 will complete.
+        val roundJob =
+            CoroutineScope(testDispatcher()).launch {
+              subject()
+                  .completeRound() // completing without releasing the blocker should preempt job2
+            }
+
+        // Wait for resolverJob2 to finish! Since completeRound() drops pending blocks, resolverJob2
+        // will complete.
         resolverJob2.await()
-        
+
         // NOW we can release resolver1blocker!
         resolver1blocker.countDown()
 
         resolverJob1.await()
         roundJob.join()
-        
+
         // We must abort to cleanly close out the background processes
         subject().allowTermination()
         subject().abortProcessing()
@@ -1152,7 +1113,10 @@ abstract class KspServiceTest {
       runBlocking<Unit> {
         beginProcessingWithoutRoundCount(emptySet())
 
-        subject().withContext { context -> val resolver = context.resolver; assertThat(resolver.getAllFiles().toList()).isEmpty() }
+        subject().withContext { context ->
+          val resolver = context.resolver
+          assertThat(resolver.getAllFiles().toList()).isEmpty()
+        }
       }
 
   /**
@@ -1164,7 +1128,8 @@ abstract class KspServiceTest {
       runBlocking<Unit> {
         beginProcessingWithoutRoundCount(setOf(SOURCE_UNANNOTATED))
 
-        subject().withContext { context -> val resolver = context.resolver;
+        subject().withContext { context ->
+          val resolver = context.resolver
           assertThat(resolver.getAllFiles().toList()).hasSize(1)
         }
       }
@@ -1182,7 +1147,8 @@ abstract class KspServiceTest {
         subject().publish(SOURCE_GENERATED_2, emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject().withContext { context -> val resolver = context.resolver;
+        subject().withContext { context ->
+          val resolver = context.resolver
           val symbols =
               resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).toList()
           assertThat(symbols).hasSize(1)
@@ -1200,13 +1166,13 @@ abstract class KspServiceTest {
         subject().publish(SOURCE_GENERATED_1, emptyList())
         subject().advanceThroughCurrentRound()
 
-        subject().withContext { context -> val resolver = context.resolver;
+        subject().withContext { context ->
+          val resolver = context.resolver
           val files = resolver.getNewFiles().toList()
           assertThat(files).hasSize(1)
           assertThat(files.first().fileName).isEqualTo("Out1.kt")
         }
       }
-
 
   /**
    * Completes the current round and advances until the next has started (i.e. `onEachRoundStart`
@@ -1214,8 +1180,7 @@ abstract class KspServiceTest {
    * has started.
    */
   private suspend fun KspService.advanceThroughCurrentRound() {
-    val round =
-        CoroutineScope(testDispatcher()).async { onEachRoundStart().first() }
+    val round = CoroutineScope(testDispatcher()).async { onEachRoundStart().first() }
     completeRound()
     round.await()
   }
@@ -1226,9 +1191,7 @@ abstract class KspServiceTest {
    */
   private suspend fun KspService.advanceThroughFinalRound() {
     val drain =
-        CoroutineScope(testDispatcher()).launch {
-          onEachRoundStart().collect { completeRound() }
-        }
+        CoroutineScope(testDispatcher()).launch { onEachRoundStart().collect { completeRound() } }
     taskBarrier().awaitAllIdle()
     allowProcessing()
     drain.join()
@@ -1241,9 +1204,7 @@ abstract class KspServiceTest {
    */
   private suspend fun KspService.advanceThroughKspExecution() {
     val drainRounds =
-        CoroutineScope(testDispatcher()).launch {
-          onEachRoundStart().collect { completeRound() }
-        }
+        CoroutineScope(testDispatcher()).launch { onEachRoundStart().collect { completeRound() } }
     completeRound()
     drainRounds.join()
     allowTermination()
@@ -1252,8 +1213,7 @@ abstract class KspServiceTest {
 
   /** Asserts that processing completed successfully and no terminal errors were thrown. */
   private fun assertTerminatedWithoutError() {
-    if (!isSuccessful()) {
-    }
+    if (!isSuccessful()) {}
     assertThat(getError()).isNull()
     assertThat(isSuccessful()).isTrue()
   }
@@ -1286,7 +1246,10 @@ abstract class KspServiceTest {
    */
   private suspend fun KspService.deferNewFile() {
     var deferredTarget: KSAnnotated? = null
-    withContext { context -> val resolver = context.resolver; deferredTarget = resolver.getNewFiles().first() }
+    withContext { context ->
+      val resolver = context.resolver
+      deferredTarget = resolver.getNewFiles().first()
+    }
     defer(deferredTarget!!)
   }
 
@@ -1300,7 +1263,8 @@ abstract class KspServiceTest {
    */
   private suspend fun KspService.deferTargetAnnotation() {
     var deferredTarget: KSAnnotated? = null
-    withContext { context -> val resolver = context.resolver;
+    withContext { context ->
+      val resolver = context.resolver
       deferredTarget =
           resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).first()
     }
@@ -1314,8 +1278,7 @@ abstract class KspServiceTest {
   }
 
   private suspend fun KspService.advanceToFirstRound() {
-    val round =
-        CoroutineScope(testDispatcher()).async { onEachRoundStart().first() }
+    val round = CoroutineScope(testDispatcher()).async { onEachRoundStart().first() }
     taskBarrier().awaitAllIdle()
     allowProcessing()
     round.await()
@@ -1364,24 +1327,23 @@ abstract class KspServiceTest {
             fileName = "ExtraFile",
             contents = "package $TEST_PACKAGE\n\n@$TEST_ANNOTATION_NAME\nclass ExtraTarget")
 
-            
-            /** Source file representing a generated output. */
-            private val SOURCE_GENERATED_1 = createGeneratedSource(1)
-            
-            /** Source file representing a generated output. */
-            private val SOURCE_GENERATED_2 =
-            createGeneratedSource(2, TEST_PACKAGE, "package $TEST_PACKAGE\nclass Out2")
+    /** Source file representing a generated output. */
+    private val SOURCE_GENERATED_1 = createGeneratedSource(1)
 
-            /** Creates a source file representing a generated output. */
-            private fun createGeneratedSource(
-                index: Int,
-                packageName: String = "com.out",
-                contents: String = "class Out$index"
-            ) =
-                Source(
-                    packageName = packageName,
-                    fileName = "Out$index",
-                    extension = "kt",
-                    contents = contents)
+    /** Source file representing a generated output. */
+    private val SOURCE_GENERATED_2 =
+        createGeneratedSource(2, TEST_PACKAGE, "package $TEST_PACKAGE\nclass Out2")
+
+    /** Creates a source file representing a generated output. */
+    private fun createGeneratedSource(
+        index: Int,
+        packageName: String = "com.out",
+        contents: String = "class Out$index"
+    ) =
+        Source(
+            packageName = packageName,
+            fileName = "Out$index",
+            extension = "kt",
+            contents = contents)
   }
 }

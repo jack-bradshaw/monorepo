@@ -35,8 +35,8 @@ kt_jvm_library_with_dagger(
     visibility = ["//visibility:public"],
     deps = [
         ":application",
-        "//first_party/oksp/application/loaded/apploader:module",
         "//first_party/oksp/application/loaded/apploader:loader",
+        "//first_party/oksp/application/loaded/apploader:module",
         "@com_jackbradshaw_maven//:jakarta_inject_jakarta_inject_api",
     ],
 )
@@ -46,4 +46,3 @@ alias(
     actual = ":application",
     visibility = ["//visibility:public"],
 )
-

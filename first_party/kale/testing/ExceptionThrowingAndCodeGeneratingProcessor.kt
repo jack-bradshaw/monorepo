@@ -18,7 +18,7 @@ class ExceptionThrowingAndCodeGeneratingProcessor(
   /** Number of times [process] was invoked. */
   var roundCount = 0
     private set
-    
+
   /** Whether [process] was invoked at least once. */
   var didRunProcess = false
     private set
@@ -28,14 +28,13 @@ class ExceptionThrowingAndCodeGeneratingProcessor(
     didRunProcess = true
     if (roundCount == 1) {
       // Generate a file in the first round
-      environment.codeGenerator.createNewFile(
-          dependencies = Dependencies(aggregating = false),
-          packageName = "test",
-          fileName = "GeneratedBeforeException",
-          extensionName = "kt"
-      ).use { 
-        it.write("package test\nclass GeneratedBeforeException\n".toByteArray()) 
-      }
+      environment.codeGenerator
+          .createNewFile(
+              dependencies = Dependencies(aggregating = false),
+              packageName = "test",
+              fileName = "GeneratedBeforeException",
+              extensionName = "kt")
+          .use { it.write("package test\nclass GeneratedBeforeException\n".toByteArray()) }
       return emptyList()
     } else {
       // Throw an exception in the second round

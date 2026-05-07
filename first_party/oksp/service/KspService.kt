@@ -1,6 +1,5 @@
 package com.jackbradshaw.oksp.service
 
-import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSNode
 import com.jackbradshaw.oksp.model.KspContext
@@ -59,15 +58,19 @@ interface KspService {
    * (e.g. repeated calls do not fail).
    *
    * Semantics during an aborted state:
-   * - [onEachRoundStart]: Existing flows close immediately. New requests throw [IllegalStateException].
-   * - [onFinalRoundComplete]: Existing flows close immediately. New requests throw [IllegalStateException].
+   * - [onEachRoundStart]: Existing flows close immediately. New requests throw
+   *   [IllegalStateException].
+   * - [onFinalRoundComplete]: Existing flows close immediately. New requests throw
+   *   [IllegalStateException].
    * - [completeRound]: Throws [IllegalStateException].
-   * - [withContext]: Existing suspended calls resume without evaluating their block. New calls throw [IllegalStateException].
-   * - [publish]: Existing calls throw [kotlinx.coroutines.CancellationException]. New calls throw [IllegalStateException].
+   * - [withContext]: Existing suspended calls resume without evaluating their block. New calls
+   *   throw [IllegalStateException].
+   * - [publish]: Existing calls throw [kotlinx.coroutines.CancellationException]. New calls throw
+   *   [IllegalStateException].
    * - [defer]: Existing/new calls throw [IllegalStateException].
    *
-   * This is intended exclusively for test teardown and error-recovery scenarios where KSP
-   * execution is suspended awaiting a signal that will never arrive (e.g. [allowProcessing] or
+   * This is intended exclusively for test teardown and error-recovery scenarios where KSP execution
+   * is suspended awaiting a signal that will never arrive (e.g. [allowProcessing] or
    * [allowTermination]).
    */
   suspend fun abortProcessing()
@@ -96,8 +99,8 @@ interface KspService {
   suspend fun completeRound()
 
   /**
-   * Executes the provided [block] with the [KspContext] for the active round. This context
-   * contains both the `Resolver` and the `SymbolProcessorEnvironment` supplied natively by KSP.
+   * Executes the provided [block] with the [KspContext] for the active round. This context contains
+   * both the `Resolver` and the `SymbolProcessorEnvironment` supplied natively by KSP.
    *
    * Will fail if called before [allowProcessing], between rounds, or after the final round has
    * completed.
@@ -113,7 +116,8 @@ interface KspService {
   suspend fun publish(source: Source, anchors: List<KSNode> = emptyList())
 
   /**
-   * Publishes a generated [resource] file to the KSP code generator, anchored to the given [anchors].
+   * Publishes a generated [resource] file to the KSP code generator, anchored to the given
+   * [anchors].
    *
    * Will fail if called before [allowProcessing], between rounds, or after the final round has
    * completed.

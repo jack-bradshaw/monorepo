@@ -10,7 +10,7 @@ import javax.inject.Scope
  * This scope should be placed on aggregate [Component]s and [Module]s that bind third party
  * components into aggregate components. It should not be placed on [Backstab]-annotated components.
  */
-@Scope 
+@Scope
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS, AnnotationTarget.PROPERTY_GETTER)
-@Retention(AnnotationRetention.RUNTIME) 
+@Retention(AnnotationRetention.RUNTIME)
 annotation class AggregateScope

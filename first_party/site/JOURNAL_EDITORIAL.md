@@ -113,7 +113,7 @@ the dialogue to provide context, this ensures standalone dialogue does not appea
 
 Action beats or narrative lines that explicitly introduce dialogue must end with a colon (`:`).
 
-Positive example (introductory narrative statement):
+Positive example (introsealantory narrative statement):
 
 ```text
 The therapist smiled wryly and spoke directly:

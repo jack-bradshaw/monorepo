@@ -39,8 +39,9 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
    */
   suspend fun get(key: K): V?
 
-  /** Returns all registered resources.
-   * 
+  /**
+   * Returns all registered resources.
+   *
    * Suspends until exclusive access to the manager can be guaranteed. Throws
    * [IllegalStateException] if this manager is closed.
    */

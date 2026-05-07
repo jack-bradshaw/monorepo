@@ -1,9 +1,9 @@
 # Backstab Architecture and Design
 
 This document records the architectural decisions, design patterns, and tradeoffs that underpin the
-design of [Backstab](/first_party/backstabmigrated). It serves as the primary reference for understanding
-the system's structure and the reasoning behind it. Contributors should update it as the underlying
-code evolves.
+design of [Backstab](/first_party/backstabmigrated). It serves as the primary reference for
+understanding the system's structure and the reasoning behind it. Contributors should update it as
+the underlying code evolves.
 
 ## Overview
 
@@ -168,8 +168,8 @@ practices to keep the code clean and maintainable.
 ### Separation of Concerns
 
 The system is divided into an [entrypoint component](/first_party/backstabmigrated/entrypoint) and a
-[core component](/first_party/backstabmigrated/processor/core), with finer subcomponents as necessary. The
-entrypoint component implements the basic KSP
+[core component](/first_party/backstabmigrated/processor/core), with finer subcomponents as
+necessary. The entrypoint component implements the basic KSP
 ([SymbolProcessor](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessor.kt))
 interface, but contains minimal custom logic, instead it delegates to the core component, which
 contains the majority of the custom logic. This clean separation of concerns decouples the custom
@@ -181,12 +181,12 @@ tests verify the entire system works as intended (further details in the
 
 ### Intermediate Representation Model
 
-The [first layer](/first_party/backstabmigrated/processor/parser) of the processor parses inputs from KSP
-and transforms KSP types to an intermediate representation (i.e. a domain-specific model), and all
-processing after that uses the intermediate representation instead of the raw KSP types. This
-minimizes coupling between KSP and the custom Backstab processor, which is critical to testing since
-KSP types cannot easily be constructed in tests without running KSP in the test. While running KSP
-in a test is technically possible, the maintenance overhead of maintaining a secondary compiler
+The [first layer](/first_party/backstabmigrated/processor/parser) of the processor parses inputs
+from KSP and transforms KSP types to an intermediate representation (i.e. a domain-specific model),
+and all processing after that uses the intermediate representation instead of the raw KSP types.
+This minimizes coupling between KSP and the custom Backstab processor, which is critical to testing
+since KSP types cannot easily be constructed in tests without running KSP in the test. While running
+KSP in a test is technically possible, the maintenance overhead of maintaining a secondary compiler
 system alongside Bazel is undesirable. The [testing strategy](#testing-strategy) is further
 documented below.
 
