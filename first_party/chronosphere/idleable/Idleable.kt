@@ -6,9 +6,9 @@ package com.jackbradshaw.chronosphere.idleable
  * Idle is defined as the state where the state will not change unless acted upon by an external
  * system, even given infinite time. The infinite time constraint means that even systems which are
  * waiting for a duration of time have not reached idle, which commonly occurs in execution systems
- * (such as coroutines), where computations can pause for a fixed duration then resume. This
- * definition of idle requires all pending work to be either cancelled or completed before idle can
- * be reached.
+ * (such as coroutines), where computations can pause for a fixed duration then resume. This means a
+ * system may be considered idle even if it contains pending work, provided it lacks the autonomous
+ * capability to process that work without an external stimulus.
  *
  * The system may transition from an idle state back to an active state independent of calls to
  * [isIdle], and implementing this interface provides no guarantee the system will remain in the

@@ -1,8 +1,8 @@
 package com.jackbradshaw.sasync.inbound.transport
 
 import com.jackbradshaw.concurrency.pulsar.testing.TestPulsar
-import com.jackbradshaw.concurrency.testing.TestConcurrencyComponent
-import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
+import com.jackbradshaw.concurrency.pulsar.testing.TestPulsarComponent
+import com.jackbradshaw.concurrency.pulsar.testing.testPulsarComponent
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.sasync.inbound.InboundScope
@@ -66,7 +66,7 @@ class InboundTransportImplTest : InboundTransportTest() {
     DaggerTestComponent.builder()
         .binding(config)
         .consuming(realisticCoroutinesTestingComponent())
-        .consuming(testConcurrencyComponent())
+        .consuming(testPulsarComponent())
         .build()
         .inject(this)
 
@@ -112,8 +112,7 @@ class InboundTransportImplTest : InboundTransportTest() {
 }
 
 @InboundScope
-@Component(
-    dependencies = [RealisticCoroutinesTestingComponent::class, TestConcurrencyComponent::class])
+@Component(dependencies = [RealisticCoroutinesTestingComponent::class, TestPulsarComponent::class])
 interface TestComponent {
   fun inject(target: InboundTransportImplTest)
 
@@ -123,7 +122,7 @@ interface TestComponent {
 
     fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
 
-    fun consuming(concurrency: TestConcurrencyComponent): Builder
+    fun consuming(pulsar: TestPulsarComponent): Builder
 
     fun build(): TestComponent
   }

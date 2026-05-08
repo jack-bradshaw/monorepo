@@ -1,8 +1,8 @@
 package com.jackbradshaw.publicity.conformance.runner
 
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.concurrency.testing.TestConcurrencyComponent
-import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
+import com.jackbradshaw.concurrency.pulsar.testing.TestPulsarComponent
+import com.jackbradshaw.concurrency.pulsar.testing.testPulsarComponent
 import com.jackbradshaw.coroutines.Cpu
 import com.jackbradshaw.coroutines.testing.Coroutines
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
@@ -44,12 +44,12 @@ class RunnerImplTest : RunnerTest() {
       err: ByteArrayOutputStream
   ) {
     val coroutines = realisticCoroutinesTestingComponent()
-    val concurrency = testConcurrencyComponent()
+    val pulsar = testPulsarComponent()
 
     val sasync =
         standardComponent(
-            inbound = inboundComponent(defaultInboundConfig, coroutines, concurrency),
-            outbound = outboundComponent(defaultOutboundConfig, coroutines, concurrency),
+            inbound = inboundComponent(defaultInboundConfig, coroutines, pulsar),
+            outbound = outboundComponent(defaultOutboundConfig, coroutines, pulsar),
             output = out,
             error = err)
 
@@ -57,7 +57,7 @@ class RunnerImplTest : RunnerTest() {
         DaggerTestCheckerComponent.builder()
             .consuming(sasync)
             .consuming(coroutines)
-            .consuming(concurrency)
+            .consuming(pulsar)
             .binding(workspace)
             .build()
 
@@ -81,7 +81,7 @@ class RunnerImplTest : RunnerTest() {
         [
             StandardComponent::class,
             RealisticCoroutinesTestingComponent::class,
-            TestConcurrencyComponent::class,
+            TestPulsarComponent::class,
         ],
     modules =
         [
@@ -98,7 +98,7 @@ internal interface TestCheckerComponent {
 
     fun consuming(coroutinesComponent: RealisticCoroutinesTestingComponent): Builder
 
-    fun consuming(concurrencyComponent: TestConcurrencyComponent): Builder
+    fun consuming(pulsarComponent: TestPulsarComponent): Builder
 
     @BindsInstance fun binding(workspace: Workspace): Builder
 

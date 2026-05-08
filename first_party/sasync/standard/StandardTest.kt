@@ -1,8 +1,8 @@
 package com.jackbradshaw.sasync.standard
 
 import com.google.common.truth.Truth.assertThat
-import com.jackbradshaw.concurrency.testing.TestConcurrencyComponent
-import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
+import com.jackbradshaw.concurrency.pulsar.testing.TestPulsarComponent
+import com.jackbradshaw.concurrency.pulsar.testing.testPulsarComponent
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.sasync.inbound.config.Config as InboundConfig
@@ -31,8 +31,8 @@ class StandardTest {
     val inputStream = ByteArrayInputStream(TEST_DATA)
 
     val coroutines = realisticCoroutinesTestingComponent()
-    val concurrency = testConcurrencyComponent()
-    val standard = createStandardComponent(coroutines, concurrency, input = inputStream)
+    val pulsar = testPulsarComponent()
+    val standard = createStandardComponent(coroutines, pulsar, input = inputStream)
 
     val collected = mutableListOf<Byte>()
     CoroutineScope(coroutines.cpuContext()).launch {
@@ -46,7 +46,7 @@ class StandardTest {
 
     // Input is poll-based not push-based (backed by the pulsar), so emit pulses to drive polling.
     CoroutineScope(coroutines.cpuContext()).launch {
-      repeat(TEST_DATA.size) { concurrency.testPulsar().emit() }
+      repeat(TEST_DATA.size) { pulsar.testPulsar().emit() }
     }
     coroutines.taskBarrier().awaitAllIdle()
 
@@ -57,11 +57,11 @@ class StandardTest {
   fun linksStandardOutput(): Unit = runBlocking {
     val outputStream = ByteArrayOutputStream()
     val coroutines = realisticCoroutinesTestingComponent()
-    val concurrency = testConcurrencyComponent()
+    val pulsar = testPulsarComponent()
     val standard =
         createStandardComponent(
             coroutines,
-            concurrency,
+            pulsar,
             output = outputStream,
         )
 
@@ -77,8 +77,8 @@ class StandardTest {
   fun linksStandardError(): Unit = runBlocking {
     val errorStream = ByteArrayOutputStream()
     val coroutines = realisticCoroutinesTestingComponent()
-    val concurrency = testConcurrencyComponent()
-    val standard = createStandardComponent(coroutines, concurrency, error = errorStream)
+    val pulsar = testPulsarComponent()
+    val standard = createStandardComponent(coroutines, pulsar, error = errorStream)
 
     standard.standardErrorOutboundTransport().publishBytes(TEST_DATA)
     coroutines.taskBarrier().awaitAllIdle()
@@ -90,7 +90,7 @@ class StandardTest {
 
   private fun createStandardComponent(
       coroutines: RealisticCoroutinesTestingComponent,
-      concurrency: TestConcurrencyComponent,
+      pulsar: TestPulsarComponent,
       input: ByteArrayInputStream = ByteArrayInputStream(ByteArray(0)),
       output: ByteArrayOutputStream = ByteArrayOutputStream(),
       error: ByteArrayOutputStream = ByteArrayOutputStream(),
@@ -108,10 +108,8 @@ class StandardTest {
             .build()
 
     return standardComponent(
-        inbound =
-            inboundComponent(inboundConfig, coroutines = coroutines, concurrency = concurrency),
-        outbound =
-            outboundComponent(outboundConfig, coroutines = coroutines, concurrency = concurrency),
+        inbound = inboundComponent(inboundConfig, coroutines = coroutines, pulsar = pulsar),
+        outbound = outboundComponent(outboundConfig, coroutines = coroutines, pulsar = pulsar),
         input = input,
         output = output,
         error = error,

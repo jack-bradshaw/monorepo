@@ -2,14 +2,14 @@ package com.jackbradshaw.kale.resolver.chassis
 
 import com.jackbradshaw.closet.resourcemanager.ResourceManagerComponent
 import com.jackbradshaw.closet.resourcemanager.resourceManagerComponent
+import com.jackbradshaw.concurrency.quinn.QuinnComponent
+import com.jackbradshaw.concurrency.quinn.quinnComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.kale.KaleScope
 import com.jackbradshaw.kale.provider.ProviderRunner
 import com.jackbradshaw.kale.provider.ProviderRunnerComponent
 import com.jackbradshaw.kale.provider.providerRunnerComponent
-import com.jackbradshaw.quinn.core.QuinnComponent
-import com.jackbradshaw.quinn.core.quinnComponent
 import dagger.Component
 
 /** [ResolverChassisComponent] backed by a [ProviderRunner]. */

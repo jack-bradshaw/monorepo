@@ -1,6 +1,6 @@
 package com.jackbradshaw.concurrency.pulsar.testing
 
-import com.jackbradshaw.concurrency.ConcurrencyScope
+import com.jackbradshaw.concurrency.pulsar.PulsarScope
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import dagger.Component
@@ -20,7 +20,7 @@ class TestPulsarImplTest : TestPulsarTest() {
   override fun subject() = subject
 }
 
-@ConcurrencyScope
+@PulsarScope
 @Component(
     dependencies = [RealisticCoroutinesTestingComponent::class],
     modules = [TestPulsarModule::class])

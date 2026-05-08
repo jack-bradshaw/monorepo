@@ -42,7 +42,7 @@ kt_jvm_test(
     test_class = "com.jackbradshaw.sasync.standard.StandardTest",
     deps = [
         ":component_impl",
-        "//first_party/concurrency/testing:component_impl",
+        "//first_party/concurrency/pulsar/testing:component_impl",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sasync/inbound:component_impl",
         "//first_party/sasync/outbound:component_impl",

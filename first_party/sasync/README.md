@@ -459,7 +459,7 @@ import java.io.ByteArrayInputStream
 import com.jackbradshaw.sasync.inbound.inboundComponent
 import com.jackbradshaw.sasync.inbound.config.defaultConfig
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
-import com.jackbradshaw.concurrency.testing.testConcurrencyComponent
+import com.jackbradshaw.concurrency.pulsar.testing.testPulsarComponent
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -473,7 +473,7 @@ class TransportTest {
 
     // Inject specialized testing variants of the framework's coroutine and concurrency internals.
     val coroutines = realisticCoroutinesTestingComponent()
-    val concurrency = testConcurrencyComponent()
+    val pulsar = testPulsarComponent()
 
     val testTransport = inboundComponent(
         config = defaultConfig,

@@ -1,12 +1,12 @@
 package com.jackbradshaw.concurrency.pulsar.testing
 
-import com.jackbradshaw.concurrency.ConcurrencyScope
+import com.jackbradshaw.concurrency.pulsar.PulsarScope
 import javax.inject.Inject
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 /** Implementation of [TestPulsar] that uses a single `MutableSharedFlow` internally. */
-@ConcurrencyScope
+@PulsarScope
 class TestPulsarImpl @Inject constructor() : TestPulsar {
 
   private val sharedFlow =

@@ -215,7 +215,7 @@ Example:
 
 ```kotlin
 @Component
-interface ConcurrencyComponent {
+interface PulsarComponent {
   @Component.Builder
   interface Builder {
     // Unqualified
@@ -225,7 +225,7 @@ interface ConcurrencyComponent {
     @BindsInstance fun bindingIo(@Io scope: CoroutineScope): Builder
     @BindsInstance fun bindingMain(@Main scope: CoroutineScope): Builder
 
-    fun build(): ConcurrencyComponent
+    fun build(): PulsarComponent
   }
 }
 ```

@@ -16,7 +16,7 @@ kt_jvm_library_with_dagger(
     srcs = ["TestPulsarImpl.kt"],
     deps = [
         ":testing",
-        "//first_party/concurrency:scope",
+        "//first_party/concurrency/pulsar:scope",
     ],
 )
 
@@ -50,5 +50,26 @@ kt_jvm_test_with_dagger(
         ":module",
         ":test",
         "//first_party/coroutines/testing/realistic:component_impl",
+    ],
+)
+
+kt_jvm_library(
+    name = "component",
+    srcs = ["TestPulsarComponent.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        "//first_party/concurrency/pulsar:component",
+        "//first_party/concurrency/pulsar/testing",
+    ],
+)
+
+kt_jvm_library_with_dagger(
+    name = "component_impl",
+    srcs = ["TestPulsarComponentImpl.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        ":component",
+        "//first_party/concurrency/pulsar:scope",
+        "//first_party/concurrency/pulsar/testing:module",
     ],
 )

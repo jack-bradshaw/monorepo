@@ -1,4 +1,4 @@
-package com.jackbradshaw.quinn.core
+package com.jackbradshaw.concurrency.quinn
 
 import com.jackbradshaw.closet.observable.ObservableClosableTest
 import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
@@ -10,10 +10,10 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class QuinnImplObservableClosableTest : ObservableClosableTest<Quinn<String>>() {
+class QuinnImplAsObservableClosableTest : ObservableClosableTest<Quinn<String>>() {
 
   private val underTest =
-      DaggerQuinnImplObservableClosableTest_TestComponent.builder()
+      DaggerQuinnImplAsObservableClosableTest_TestComponent.builder()
           .consuming(realisticCoroutinesTestingComponent())
           .consuming(DaggerQuinnComponentImpl.create())
           .build()
