@@ -60,6 +60,13 @@ class ResourceManagerImpl<K, V : ObservableClosable>(coroutineContext: Coroutine
     }
   }
 
+  override suspend fun getAll(): Set<V> {
+    return lock.withLock {
+      checkOpen()
+      internalOperator.getAll()
+    }
+  }
+
   override suspend fun put(key: K, resource: V): V? {
     return lock.withLock {
       checkOpen()
@@ -204,6 +211,13 @@ class ResourceManagerImpl<K, V : ObservableClosable>(coroutineContext: Coroutine
 
         val existing = managedResources[key]
         return@withLock existing?.takeUnless { it.hasTerminalState.value }
+      }
+    }
+
+    override suspend fun getAll(): Set<V> {
+      return lock.withLock {
+        checkOpen()
+        return@withLock managedResources.values.filter { !it.hasTerminalState.value }.toSet()
       }
     }
 

@@ -40,6 +40,14 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
   suspend fun get(key: K): V?
 
   /**
+   * Returns all registered resources.
+   *
+   * Suspends until exclusive access to the manager can be guaranteed. Throws
+   * [IllegalStateException] if this manager is closed.
+   */
+  suspend fun getAll(): Set<V>
+
+  /**
    * Registers [resource] and associates it with [key].
    *
    * If another resource is already associated with [key], it is deregistered and returned, but not
@@ -150,6 +158,14 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
      * [IllegalStateException] if this manager is closed.
      */
     suspend fun get(key: K): V?
+
+    /**
+     * Returns all registered resources.
+     *
+     * Suspends until exclusive access to the manager can be guaranteed. Throws
+     * [IllegalStateException] if this manager is closed.
+     */
+    suspend fun getAll(): Set<V>
 
     /**
      * Registers [resource] and associates it with [key].

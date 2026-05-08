@@ -11,6 +11,114 @@ import org.junit.Test
 abstract class ResourceManagerTest<K, V : ObservableClosable> {
 
   @Test
+  fun retrieval_directOperation_getAll_returnsAllOpenValues(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key1, value1) = createKeyValuePair()
+    val (key2, value2) = createKeyValuePair()
+
+    resourceManager.put(key1, value1)
+    resourceManager.put(key2, value2)
+    awaitTestIdle()
+
+    assertThat(resourceManager.getAll()).containsExactly(value1, value2)
+  }
+
+  @Test
+  fun retrieval_directOperation_getAll_excludesClosedValues(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key1, value1) = createKeyValuePair()
+    val (key2, value2) = createKeyValuePair()
+
+    resourceManager.put(key1, value1)
+    resourceManager.put(key2, value2)
+    value1.close()
+    awaitTestIdle()
+
+    assertThat(resourceManager.getAll()).containsExactly(value2)
+  }
+
+  @Test
+  fun retrieval_directOperation_getAll_managerNotClosed(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key, value) = createKeyValuePair()
+
+    resourceManager.put(key, value)
+    resourceManager.getAll()
+    awaitTestIdle()
+
+    assertThat(resourceManager.hasTerminatedProcesses.value).isFalse()
+    assertThat(resourceManager.hasTerminalState.value).isFalse()
+  }
+
+  @Test
+  fun retrieval_directOperation_getAll_valuesNotClosed(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key, value) = createKeyValuePair()
+
+    resourceManager.put(key, value)
+    resourceManager.getAll()
+    awaitTestIdle()
+
+    assertThat(value.hasTerminatedProcesses.value).isFalse()
+    assertThat(value.hasTerminalState.value).isFalse()
+  }
+
+  @Test
+  fun retrieval_exclusiveAccess_getAll_returnsAllOpenValues(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key1, value1) = createKeyValuePair()
+    val (key2, value2) = createKeyValuePair()
+
+    resourceManager.put(key1, value1)
+    resourceManager.put(key2, value2)
+    awaitTestIdle()
+
+    val result = resourceManager.exclusiveAccess { it.getAll() }
+    assertThat(result).containsExactly(value1, value2)
+  }
+
+  @Test
+  fun retrieval_exclusiveAccess_getAll_excludesClosedValues(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key1, value1) = createKeyValuePair()
+    val (key2, value2) = createKeyValuePair()
+
+    resourceManager.put(key1, value1)
+    resourceManager.put(key2, value2)
+    value1.close()
+    awaitTestIdle()
+
+    val result = resourceManager.exclusiveAccess { it.getAll() }
+    assertThat(result).containsExactly(value2)
+  }
+
+  @Test
+  fun retrieval_exclusiveAccess_getAll_managerNotClosed(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key, value) = createKeyValuePair()
+
+    resourceManager.put(key, value)
+    resourceManager.exclusiveAccess { it.getAll() }
+    awaitTestIdle()
+
+    assertThat(resourceManager.hasTerminatedProcesses.value).isFalse()
+    assertThat(resourceManager.hasTerminalState.value).isFalse()
+  }
+
+  @Test
+  fun retrieval_exclusiveAccess_getAll_valuesNotClosed(): Unit = runBlocking {
+    val resourceManager = subject()
+    val (key, value) = createKeyValuePair()
+
+    resourceManager.put(key, value)
+    resourceManager.exclusiveAccess { it.getAll() }
+    awaitTestIdle()
+
+    assertThat(value.hasTerminatedProcesses.value).isFalse()
+    assertThat(value.hasTerminalState.value).isFalse()
+  }
+
+  @Test
   fun insertion_directOperation_put_isStoredAndRetrievable() = runBlocking {
     val resourceManager = subject()
     val (key, value) = createKeyValuePair()
@@ -876,6 +984,27 @@ abstract class ResourceManagerTest<K, V : ObservableClosable> {
     awaitTestIdle()
 
     val e = assertFailsWith<IllegalStateException> { resourceManager.put(key, value) }
+    assertThat(e).hasMessageThat().isEqualTo("ResourceManager is closed.")
+  }
+
+  @Test
+  fun postManagerClosure_directOperation_getAll_throwsIllegalStateException() = runBlocking {
+    val resourceManager = subject()
+    resourceManager.close()
+    awaitTestIdle()
+
+    val e = assertFailsWith<IllegalStateException> { resourceManager.getAll() }
+    assertThat(e).hasMessageThat().isEqualTo("ResourceManager is closed.")
+  }
+
+  @Test
+  fun postManagerClosure_exclusiveAccess_getAll_throwsIllegalStateException() = runBlocking {
+    val resourceManager = subject()
+    resourceManager.close()
+    awaitTestIdle()
+
+    val e =
+        assertFailsWith<IllegalStateException> { resourceManager.exclusiveAccess { it.getAll() } }
     assertThat(e).hasMessageThat().isEqualTo("ResourceManager is closed.")
   }
 
