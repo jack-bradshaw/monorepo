@@ -1,8 +1,7 @@
 
 package com.jackbradshaw.concurrency.quinn
 
-
-import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
 import com.jackbradshaw.concurrency.quinn.Quinn.InsertionResult
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
@@ -40,104 +39,99 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
 
 
   /**
-
-   * Mutex guarding [blockQueue].
+   * Mutex guarding [taskQueue].
    *
    * Used in two places: Inserting into the queue in [tryQueueInternal] and draining the queue in
    * [close]. This prevents general write races when multiple threads try to insert concurrently,
-   * and since [close] sets [shouldAcceptNewBlocks] `false` before beginning the drain, it ensures
-   * the drain operation waits until all pending insertions have released the lock and the queue is
-   * guaranteed to have no more insertions.
+   * and provides thread safety during closure. Since [close] sets [isSealed] `true`
+   * before beginning the drain, guarding insertions ensures the drain operation occurs AFTER all
+   * pending insertions are complete, which guarantees there are no write-races and ensures all
+   * pending work is drained.
    */
   private val queueLock = Mutex()
 
-  /** Whether new blocks are presently being accepted. */
-  private val shouldAcceptNewBlocks = MutableStateFlow(true)
+  /** The queue of unprocessed tasks. */
+  private val taskQueue = ArrayDeque<ConsumableTask<T>>()
 
-  /** Whether the queue of blocks is presently being consumed. */
-  private val shouldProcessExistingBlocks = MutableStateFlow(true)
-
-  /** Signal to indicate a new entry has been added to the queue and execution should resume. */
-  private val executionSignal = Channel<Unit>(1, BufferOverflow.DROP_OLDEST)
-
-  /** The queue of unprocessed blocks. */
-  private val blockQueue = ArrayDeque<ConsumableBlock<T>>()
-
+  /** Whether new tasks should be rejected. */
   private val isSealed = MutableStateFlow(false)
+  
+  /** Whether the queue of tasks is presently being consumed. */
+  private val isExecutionStopped = MutableStateFlow(false)
 
+  /** The number of calls to [execute] presently active (i.e. suspending). */
+  private val executeCallCount = AtomicInteger(0)
+
+  /** Whether a call to [execute] is presently active (i.e. suspending). */
+  private val _isExecuting = MutableStateFlow(false)
+
+  /** Whether closure has completely finished. */
   private val isFinishedClosing = MutableStateFlow(false)
+  
+  /** Signal to indicate a new entry has been added to the queue and execution should resume. */
+  private val onTaskInserted = Channel<Unit>(1, BufferOverflow.DROP_OLDEST)
 
 
   override val hasTerminalState = isSealed
 
   override val hasTerminatedProcesses = isFinishedClosing
 
-
-  private val _isExecuting = MutableStateFlow(false)
-
   override val isExecuting = _isExecuting.asStateFlow()
 
-  private val executeCallCount = AtomicInteger(0)
-
-  override suspend fun queueAtBack(errorBehaviour: ErrorBehaviour, block: (T) -> Unit) {
-
-    check(tryQueueAtBack(errorBehaviour, block) != Quinn.InsertionResult.REJECTED_CLOSED) {
-
+  override suspend fun queueAtBack(errorHandling: ErrorHandling, task: (T) -> Unit) {
+    check(tryQueueAtBack(errorHandling, task) != Quinn.InsertionResult.REJECTED_CLOSED) {
       "This Quinn instance is closed, queueAtBack cannot be used."
     }
   }
 
 
   override suspend fun tryQueueAtBack(
-      errorBehaviour: ErrorBehaviour,
-      block: (T) -> Unit
-  ): Quinn.InsertionResult = tryQueueInternal(block, errorBehaviour, atFront = false)
+      errorHandling: ErrorHandling,
+      task: (T) -> Unit
+  )= tryQueueInternal(task, errorHandling, atFront = false)
 
-  override suspend fun queueAtFront(errorBehaviour: ErrorBehaviour, block: (T) -> Unit) {
-
-    check(tryQueueAtFront(errorBehaviour, block) != Quinn.InsertionResult.REJECTED_CLOSED) {
-
+  override suspend fun queueAtFront(errorHandling: ErrorHandling, task: (T) -> Unit) {
+    check(tryQueueAtFront(errorHandling, task) != Quinn.InsertionResult.REJECTED_CLOSED) {
       "This Quinn instance is closed, queueAtFront cannot be used."
     }
   }
 
 
   override suspend fun tryQueueAtFront(
-      errorBehaviour: ErrorBehaviour,
-      block: (T) -> Unit
-  ): Quinn.InsertionResult = tryQueueInternal(block, errorBehaviour, atFront = true)
+      errorHandling: ErrorHandling,
+      task: (T) -> Unit
+  ) = tryQueueInternal(task, errorHandling, atFront = true)
 
   private suspend fun tryQueueInternal(
-      block: (T) -> Unit,
-      errorBehaviour: ErrorBehaviour,
+      task: (T) -> Unit,
+      errorHandling: ErrorHandling,
       atFront: Boolean
   ): Quinn.InsertionResult {
     // Early exit. Not strictly necessary, but it avoids redundant work.
-    if (!shouldAcceptNewBlocks.value) return Quinn.InsertionResult.REJECTED_CLOSED
+    if (isSealed.value) return Quinn.InsertionResult.REJECTED_CLOSED
 
-    val consumableBlock = ConsumableBlock(errorBehaviour, block)
+    val consumableTask = ConsumableTask(errorHandling, task)
 
     queueLock.withLock {
-      if (shouldAcceptNewBlocks.value) {
+      if (!isSealed.value) {
         if (atFront) {
-          blockQueue.addFirst(consumableBlock)
+          taskQueue.addFirst(consumableTask)
         } else {
-          blockQueue.addLast(consumableBlock)
+          taskQueue.addLast(consumableTask)
         }
-        executionSignal.trySend(Unit)
+        onTaskInserted.trySend(Unit)
       } else {
-        // Notify caller block was not executed.
         return Quinn.InsertionResult.REJECTED_CLOSED
       }
     }
 
-    val finalOutcome = consumableBlock.outcome.await()
-    if (finalOutcome is ConsumableBlock.Outcome.ExecutedWithError &&
-        errorBehaviour == ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
+    val finalOutcome = consumableTask.outcome.await()
+    if (finalOutcome is ConsumableTask.Outcome.ExecutedWithError &&
+        errorHandling == ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) {
       throw finalOutcome.error
     }
 
-    return if (finalOutcome is ConsumableBlock.Outcome.NotExecuted) {
+    return if (finalOutcome is ConsumableTask.Outcome.NotExecuted) {
       Quinn.InsertionResult.INSERTED_NOT_RUN
     } else {
 
@@ -154,27 +148,23 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
       executeLock.withLock {
 
         // Early exit. Not strictly necessary, but it avoids redundant work.
-        if (!shouldProcessExistingBlocks.value) return
+        if (isExecutionStopped.value) return
 
-        executionSignal.receiveAsFlow().collect {
+        onTaskInserted.receiveAsFlow().collect {
           while (true) {
-            val block = queueLock.withLock { blockQueue.removeFirstOrNull() } ?: break
+            val task = queueLock.withLock { taskQueue.removeFirstOrNull() } ?: break
 
-            if (!shouldProcessExistingBlocks.value) {
-              block.outcome.complete(ConsumableBlock.Outcome.NotExecuted)
-
+            if (isExecutionStopped.value) {
+              task.outcome.complete(ConsumableTask.Outcome.NotExecuted)
               break
             }
 
             try {
-
-              block.block.invoke(resource)
-              block.outcome.complete(ConsumableBlock.Outcome.ExecutedSuccessfully)
+              task.task.invoke(resource)
+              task.outcome.complete(ConsumableTask.Outcome.ExecutedSuccessfully)
             } catch (t: Throwable) {
-              block.outcome.complete(ConsumableBlock.Outcome.ExecutedWithError(t))
-
-              if (block.errorBehaviour == ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) {
-
+              task.outcome.complete(ConsumableTask.Outcome.ExecutedWithError(t))
+              if (task.errorHandling == ErrorHandling.DELIVER_TO_EXECUTION_SIDE) {
                 throw t
               }
             }
@@ -195,38 +185,34 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
       seal()
       stopProcessing()
       drainQueue()
-
-      awaitHalt()
+      awaitExecutionFinished()
       isFinishedClosing.value = true
     }
   }
 
-  /** Prevents new blocks from being inserted into the queue. */
+  /** Prevents new tasks from being inserted into the queue. */
   private fun seal() {
-    shouldAcceptNewBlocks.value = false
     isSealed.value = true
   }
 
-  /** Prevents further processing of blocks already in the queue. */
+  /** Prevents further processing of tasks already in the queue. */
   private fun stopProcessing() {
-    shouldProcessExistingBlocks.value = false
-    executionSignal.close()
+    isExecutionStopped.value = true
+    onTaskInserted.close()
   }
 
-  /** Drains existing blocks in the queue without executing them */
+  /** Drains the task queue without execution. */
   private suspend fun drainQueue() {
     queueLock.withLock {
       while (true) {
-        val block = blockQueue.removeFirstOrNull() ?: break
-        block.outcome.complete(ConsumableBlock.Outcome.NotExecuted)
-
+        val task = taskQueue.removeFirstOrNull() ?: break
+        task.outcome.complete(ConsumableTask.Outcome.NotExecuted)
       }
     }
   }
 
-
-  /** Waits until queue execution has completely halted. */
-  private suspend fun awaitHalt() {
+  /** Waits until all calls to [execute] have resumed. */
+  private suspend fun awaitExecutionFinished() {
     isExecuting.first { !it }
   }
 
@@ -237,26 +223,24 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
   }
 }
 
-
-/** A block and an associated observable flag to track processing. */
-private data class ConsumableBlock<T>(
-    val errorBehaviour: ErrorBehaviour,
-    val block: (T) -> Unit,
+/** A task and an associated observable flag to track processing. */
+private data class ConsumableTask<T>(
+    val errorHandling: ErrorHandling,
+    val task: (T) -> Unit,
 ) {
 
   /** The outcome of processing, holds null if not processed yet. */
   val outcome = CompletableDeferred<Outcome>()
 
-  /** The outcome of processing [block]. */
+  /** The outcome of processing [task]. */
   sealed class Outcome {
-    /** Block was processed without error. */
+    /** The task was run without error. */
     object ExecutedSuccessfully : Outcome()
 
-    /** Block threw [error] while processing. */
+    /** The task ran and threw [error]. */
     class ExecutedWithError(val error: Throwable) : Outcome()
 
-    /** Block was evaluated for execution but not executed. */
-
+    /** The task was dequeued by the executor but not run. */
     object NotExecuted : Outcome()
   }
 }

@@ -4,8 +4,7 @@ package com.jackbradshaw.concurrency.quinn
 
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-
-import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
 import com.jackbradshaw.concurrency.quinn.Quinn.InsertionResult
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
@@ -38,32 +37,31 @@ import org.junit.runners.JUnit4
 /**
  * Abstract tests that all [Quinn] instances should pass.
  *
-
- * Tests are organized into the following discrete functional groups:
-
- * 1. Basic Queueing and Suspension Mechanics: Verifies that submission functions (`queueAtBack`,
- *    `queueAtFront`, `tryQueueAtBack`, `tryQueueAtFront`) correctly suspend the calling coroutine
- *    while the submitted block is evaluated, and reliably resume it once evaluation completes.
- * 2. Basic Execution Mechanics: Ensures that the `execute()` function correctly suspends
- *    indefinitely while waiting for work to arrive, without returning prematurely when the queue is
+ * These tests verify:
+ * 
+ * 1. Basic queueing and suspension mechanics: Verifies that submission functions (`queueAtBack`,
+ *    `queueAtFront`, `tryQueueAtBack`, `tryQueueAtFront`) suspend while the task is pending, and
+ *    resume once the task is evaluated.
+ * 2. Basic execution mechanics: Ensures that `execute()` suspends indefinitely while waiting for
+ *    work to arrive, without returning prematurely when the queue is
  *    empty.
- * 3. Execution Evaluation Flows: Validates the fundamental end-to-end pathway, ensuring that blocks
- *    queued prior to execution are processed once `execute()` is called, and blocks queued while an
+ * 3. Execution evaluation flows: Validates the fundamental end-to-end pathway, ensuring that tasks
+ *    queued prior to execution are processed once `execute()` is called, and tasks queued while an
  *    executor is already active are processed immediately.
- * 4. Concurrent / Sequential Executor Overlap: Verifies system stability when multiple `execute()`
+ * 4. Concurrent / sequential executor overlap: Verifies system stability when multiple `execute()`
  *    calls are active either sequentially or concurrently. Ensures that the oldest active resource
  *    is consistently prioritized, tasks are never duplicated or dropped, and newly launched
  *    executors seamlessly assume responsibility if the active executor is cancelled.
- * 5. Execution State Observability: Ensures the `isExecuting` StateFlow property accurately reports
- *    `true` while any coroutine is actively blocking inside `execute()`, gracefully scaling to
+ * 5. Execution state observability: Ensures the `isExecuting` StateFlow property accurately reports
+ *    `true` while any coroutine is actively suspending inside `execute()`, gracefully scaling to
  *    track multiple concurrent or sequential executor overlaps, and strictly returning `false` only
  *    when all executors have fully terminated.
- * 6. Closure and Shutdown Semantics: Asserts the rigorous teardown protocol initiated by `close()`.
- *    Verifies that actively running blocks finish gracefully, pending blocks in the queue are
+ * 6. Closure and shutdown semantics: Asserts the rigorous teardown protocol initiated by `close()`.
+ *    Verifies that actively running tasks finish gracefully, pending tasks in the queue are
  *    safely evicted and their submission coroutines resumed, subsequent submissions are strictly
  *    rejected, and the executor loop exits reliably without error.
- * 7. Error Handling and Propagation: Verifies that exceptions thrown within queued blocks are
- *    correctly routed based on `ErrorBehaviour`. Ensures `DELIVER_TO_SUBMISSION_SIDE` safely
+ * 7. Error handling and propagation: Verifies that exceptions thrown within queued tasks are
+ *    correctly routed based on `ErrorHandling`. Ensures `DELIVER_TO_SUBMISSION_SIDE` safely
  *    propagates the exception back to the submitting coroutine without destabilizing the executor,
  *    while `DELIVER_TO_EXECUTION_SIDE` allows the exception to surface naturally on the execution
  *    thread.
@@ -398,8 +396,7 @@ abstract class QuinnTest<T> {
         }
     subjectLinkedTaskBarrier().awaitAllIdle()
 
-    // Asserting which resource was used effectively asserts which executor processed the block
-
+    // Asserting which resource was used effectively asserts which executor processed the task
     assertThat(processed).containsExactly(resource1, resource1).inOrder()
   }
 
@@ -428,8 +425,7 @@ abstract class QuinnTest<T> {
         subjectLinkedScope.launch { quinn.queueAtBack { resource -> processed.add(resource) } }
     subjectLinkedTaskBarrier().awaitAllIdle()
 
-    // Asserting which resource was used effectively asserts which executor processed the block
-
+    // Asserting which resource was used effectively asserts which executor processed the task
     assertThat(processed).containsExactly(resource1, resource2).inOrder()
   }
 
@@ -575,8 +571,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-
-  fun queueThenExecute_atBack_blockInvoked(): Unit = runBlocking {
+  fun queueThenExecute_atBack_taskInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
@@ -591,8 +586,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-
-  fun queueThenExecute_atFront_blockInvoked(): Unit = runBlocking {
+  fun queueThenExecute_atFront_taskInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
@@ -607,8 +601,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-
-  fun executeThenQueue_atBack_blockInvoked(): Unit = runBlocking {
+  fun executeThenQueue_atBack_taskInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
@@ -623,8 +616,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-
-  fun executeThenQueue_atFront_blockInvoked(): Unit = runBlocking {
+  fun executeThenQueue_atFront_taskInvoked(): Unit = runBlocking {
     val quinn = subject()
     val processed = mutableListOf<String>()
 
@@ -810,7 +802,7 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun queueAtBack_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
+  fun queueAtBack_taskFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
 
@@ -818,7 +810,7 @@ abstract class QuinnTest<T> {
         val error = IllegalStateException("Foo")
         val submissionSideError =
             assertFailsWith<IllegalStateException> {
-              quinn.queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) { throw error }
+              quinn.queueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
             }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
@@ -828,13 +820,12 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-
-  fun queueAtBack_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit = runBlocking {
+  fun queueAtBack_taskFails_deliverToCallerMode_executorRemainsOperational(): Unit = runBlocking {
     val quinn = subject()
 
     val executionSideError = executeAsyncWithCaughtError(quinn)
     try {
-      quinn.queueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
+      quinn.queueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) {
         throw IllegalStateException("Foo")
       }
     } catch (e: IllegalStateException) {
@@ -850,13 +841,13 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun queueAtBack_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
+  fun queueAtBack_taskFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
         val executionSideError = executeAsyncWithCaughtError(quinn)
 
-        quinn.queueAtBack(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { throw error }
+        quinn.queueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
         // Implicit assertion: No exception occured submission side if here.
@@ -864,9 +855,7 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-
-
-  fun queueAtFront_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
+  fun queueAtFront_taskFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
 
@@ -874,7 +863,7 @@ abstract class QuinnTest<T> {
         val error = IllegalStateException("Foo")
         val submissionSideError =
             assertFailsWith<IllegalStateException> {
-              quinn.queueAtFront(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) { throw error }
+              quinn.queueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
             }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
@@ -883,12 +872,12 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-  fun queueAtFront_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit = runBlocking {
+  fun queueAtFront_taskFails_deliverToCallerMode_executorRemainsOperational(): Unit = runBlocking {
     val quinn = subject()
 
     val executionSideError = executeAsyncWithCaughtError(quinn)
     try {
-      quinn.queueAtFront(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
+      quinn.queueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) {
         throw IllegalStateException("Foo")
       }
     } catch (e: IllegalStateException) {
@@ -904,13 +893,13 @@ abstract class QuinnTest<T> {
   }
 
   @Test
-  fun queueAtFront_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
+  fun queueAtFront_taskFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
         val executionSideError = executeAsyncWithCaughtError(quinn)
 
-        quinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { throw error }
+        quinn.queueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
         // Implicit assertion: No exception occured submission side if here.
@@ -918,7 +907,7 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-  fun tryQueueAtBack_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
+  fun tryQueueAtBack_taskFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
 
@@ -926,7 +915,7 @@ abstract class QuinnTest<T> {
         val error = IllegalStateException("Foo")
         val submissionSideError =
             assertFailsWith<IllegalStateException> {
-              quinn.tryQueueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) { throw error }
+              quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
             }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
@@ -935,13 +924,13 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-  fun tryQueueAtBack_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit =
+  fun tryQueueAtBack_taskFails_deliverToCallerMode_executorRemainsOperational(): Unit =
       runBlocking {
         val quinn = subject()
 
         val executionSideError = executeAsyncWithCaughtError(quinn)
         try {
-          quinn.tryQueueAtBack(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
+          quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) {
             throw IllegalStateException("Foo")
           }
         } catch (e: IllegalStateException) {
@@ -958,14 +947,13 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-
-  fun tryQueueAtBack_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
+  fun tryQueueAtBack_taskFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
         val executionSideError = executeAsyncWithCaughtError(quinn)
 
-        quinn.tryQueueAtBack(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { throw error }
+        quinn.tryQueueAtBack(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
         // Implicit assertion: No exception occured submission side if here.
@@ -973,9 +961,7 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-
-
-  fun tryQueueAtFront_blockFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
+  fun tryQueueAtFront_taskFails_deliverToCallerMode_throwsExceptionSubmissionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
 
@@ -983,7 +969,7 @@ abstract class QuinnTest<T> {
         val error = IllegalStateException("Foo")
         val submissionSideError =
             assertFailsWith<IllegalStateException> {
-              quinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) { throw error }
+              quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) { throw error }
             }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
@@ -992,13 +978,13 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-  fun tryQueueAtFront_blockFails_deliverToCallerMode_executorRemainsOperational(): Unit =
+  fun tryQueueAtFront_taskFails_deliverToCallerMode_executorRemainsOperational(): Unit =
       runBlocking {
         val quinn = subject()
 
         val executionSideError = executeAsyncWithCaughtError(quinn)
         try {
-          quinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_SUBMISSION_SIDE) {
+          quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_SUBMISSION_SIDE) {
             throw IllegalStateException("Foo")
           }
         } catch (e: IllegalStateException) {
@@ -1015,14 +1001,13 @@ abstract class QuinnTest<T> {
       }
 
   @Test
-
-  fun tryQueueAtFront_blockFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
+  fun tryQueueAtFront_taskFails_deliverToExecutorMode_throwsExceptionExecutionSideOnly(): Unit =
       runBlocking {
         val quinn = subject()
         val error = IllegalStateException("Foo")
         val executionSideError = executeAsyncWithCaughtError(quinn)
 
-        quinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { throw error }
+        quinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw error }
         subjectLinkedTaskBarrier().awaitAllIdle()
 
         // Implicit assertion: No exception occured submission side if here.

@@ -26,8 +26,6 @@ import javax.inject.Singleton
             QuinnProductionModule::class])
 interface TestingQuinnComponent : QuinnComponent {
 
-
-  // We need to expose the factory as an Idleable so the task barrier can use it.
   fun idleableHub(): IdleableQuinn.Hub
 
   fun factory(): Quinn.Factory

@@ -3,8 +3,7 @@ package com.jackbradshaw.concurrency.quinn.testing.idleable
 import com.jackbradshaw.concurrency.quinn.Production
 
 import com.jackbradshaw.concurrency.quinn.Quinn
-import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
-
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
 import java.util.concurrent.atomic.AtomicInteger
 
 class IdleableQuinnImpl<T>(@Production private val delegate: Quinn<T>) : IdleableQuinn<T> {
@@ -18,51 +17,51 @@ class IdleableQuinnImpl<T>(@Production private val delegate: Quinn<T>) : Idleabl
     return submittedTasks.get() == completedTasks.get()
   }
 
-  override suspend fun queueAtBack(errorBehaviour: ErrorBehaviour, block: (T) -> Unit) {
+  override suspend fun queueAtBack(errorHandling: ErrorHandling, task: (T) -> Unit) {
     submittedTasks.incrementAndGet()
     try {
-      delegate.queueAtBack(errorBehaviour, block)
+      delegate.queueAtBack(errorHandling, task)
     } finally {
       completedTasks.incrementAndGet()
     }
   }
 
   override suspend fun tryQueueAtBack(
-      errorBehaviour: ErrorBehaviour,
-      block: (T) -> Unit
+      errorHandling: ErrorHandling,
+      task: (T) -> Unit
   ): Quinn.InsertionResult {
     submittedTasks.incrementAndGet()
     try {
-      return delegate.tryQueueAtBack(errorBehaviour, block)
+      return delegate.tryQueueAtBack(errorHandling, task)
     } finally {
       completedTasks.incrementAndGet()
     }
   }
 
-  override suspend fun queueAtFront(errorBehaviour: ErrorBehaviour, block: (T) -> Unit) {
+  override suspend fun queueAtFront(errorHandling: ErrorHandling, task: (T) -> Unit) {
     submittedTasks.incrementAndGet()
     try {
-      delegate.queueAtFront(errorBehaviour, block)
+      delegate.queueAtFront(errorHandling, task)
     } finally {
       completedTasks.incrementAndGet()
     }
   }
 
   override suspend fun tryQueueAtFront(
-      errorBehaviour: ErrorBehaviour,
-      block: (T) -> Unit
+      errorHandling: ErrorHandling,
+      task: (T) -> Unit
   ): Quinn.InsertionResult {
     submittedTasks.incrementAndGet()
     try {
-      return delegate.tryQueueAtFront(errorBehaviour, block)
+      return delegate.tryQueueAtFront(errorHandling, task)
     } finally {
       completedTasks.incrementAndGet()
     }
   }
 
   /* There is no need to increment the submitted/completed counts in execute becuase it is
-  guaranteed to be idle when there are no submitted blocks running (i.e. when submitted block count
-  equals completed block count). This is guaranteed by the Quinn interface contract. */
+  guaranteed to be idle when there are no submitted tasks running (i.e. when submitted task count
+  equals completed task count). This is guaranteed by the Quinn interface contract. */
   override suspend fun execute(resource: T) = delegate.execute(resource)
 
   override val isExecuting = delegate.isExecuting
