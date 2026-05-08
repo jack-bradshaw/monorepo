@@ -5,6 +5,65 @@ import com.jackbradshaw.closet.observable.ObservableClosable
 import kotlinx.coroutines.flow.StateFlow
 
 
+A generic, reusable actor-object concurrency primitive.
+
+Quinn is a variatnion of the actor-object design pattern. It accepts tasks to run from one context
+and executes them in another; however, it deviates from the conventional actor-object pattern, where
+the tasks are zero-argument runnables that execute in the context of the executor as it works as a generic and
+reusable task queue that operates in isolation. It accepts tasks from one context as single-argument
+executables and requires the executor to supply the argument to pass into the tasl. It encapsulates
+both the queueing, dequeueing, and execution of tasks, so that the submission side simply has to
+pass in tasks, and the execution side simply has to pass in the value to supply. When the value is
+passed in, Quinn blocks the call to effectively hijack the calling thread for its execution.
+
+This is useful in situations where a thread-confined resource needs to be used in other threads
+because it effectively decouples task definition from task execution. Consider a main-threaded
+resource, perhaps a UI element, that cannot be mutated by other threads. Quinn allows any thread
+to pass in tasks that operate on the object (via [queueAtFront], [queueAtBack], etc), and the main
+thread simply has to call [execute] and pass in the object. 
+
+For exmaple, on the submission side:
+
+`quinn.queueAtFront { uiContext -> uiContext.setTextSize(10f) }`
+
+With an associated execution side:
+
+`quinn.execute(uiContext)`
+
+Quinn will iterate through the submitted tasks on the main thread (passing each the ui context
+so they can use it), thereby effectively running the tasks on the ui thread without ever moving the
+object off the main thread.
+
+Quinn implements strict suspension and closable contracts for coordination. When tasks are submitted
+the submitting call suspends until the task is complete or the quinn instance is closed. When the
+quinn instance is closed, it completes the present task (or the task that is about to run, if it has
+already been dequeued), before discarding all existing tasks and exiting execute. After closure,
+no new tasks can be submitted, and attempting to do so throws an exception.
+
+Exceptions thrown by tasks are handled in one of two places: On the submission side, or on the
+execution side, with the deciding factor being the `errorBehaviour` argument on the submission
+function. Handling on the submission side causes any exceptions thrown by the task to be caught and
+rethrown by the submission function, and handling on th eexeuction side causes any exceptions thrown by the
+task to be caught and rethrown by the execute function. In both cases quinn remains operational and
+can continue processing tasks (immediately moving on to the next in the queue without delay);
+however, whether the process at large can record from such an exception depends on the nature of the
+error, and whether it created an unrecoverable state. In any case, that is a detail of the broader
+program architecture, and cannot be predicted or accounted for by quinn.
+
+
+
+
+todo tomorrow: only a few missing details to incorporate. check gemini for details.
+
+
+
+
+
+
+
+
+
+
 
 
 /**
