@@ -14,7 +14,7 @@ kt_jvm_library_with_dagger(
     srcs = ["Conformance.kt"],
     visibility = PUBLICITY,
     deps = [
-        "//first_party/concurrency:component",
+        "//first_party/concurrency/pulsar:component",
         "//first_party/coroutines:component",
         "//first_party/publicity/conformance/model",
         "//first_party/publicity/conformance/packagechecker:impl_module",

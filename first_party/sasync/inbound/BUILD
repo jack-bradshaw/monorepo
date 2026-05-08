@@ -22,8 +22,8 @@ kt_jvm_library_with_dagger(
     deps = [
         ":component",
         ":scope",
-        "//first_party/concurrency:component",
-        "//first_party/concurrency:component_impl",
+        "//first_party/concurrency/pulsar:component",
+        "//first_party/concurrency/pulsar:component_impl",
         "//first_party/coroutines:component",
         "//first_party/coroutines:component_impl",
         "//first_party/sasync/inbound/config:kt_jvm_proto",

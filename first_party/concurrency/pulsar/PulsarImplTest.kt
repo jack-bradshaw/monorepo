@@ -1,6 +1,5 @@
 package com.jackbradshaw.concurrency.pulsar
 
-import com.jackbradshaw.concurrency.ConcurrencyScope
 import dagger.Component
 import javax.inject.Inject
 
@@ -15,7 +14,7 @@ class PulsarImplTest : PulsarTest() {
   override fun subject() = subject
 }
 
-@ConcurrencyScope
+@PulsarScope
 @Component
 interface TestComponent {
   fun inject(target: PulsarImplTest)

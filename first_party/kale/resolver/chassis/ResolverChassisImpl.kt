@@ -7,12 +7,12 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.jackbradshaw.closet.observable.ObservableClosable
 import com.jackbradshaw.closet.resourcemanager.ResourceManager
+import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.kale.model.Source
 import com.jackbradshaw.kale.model.Versions
 import com.jackbradshaw.kale.provider.ProviderRunner
 import com.jackbradshaw.kale.resolver.chassis.ResolverChassis.ResolverHarness
-import com.jackbradshaw.quinn.core.Quinn
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
@@ -133,7 +133,7 @@ internal constructor(
         object : ResolverHarness {
           override suspend fun withResolver(block: (Resolver) -> Unit) {
             try {
-              quinn.run(block)
+              quinn.queueAtBack(task = block)
             } catch (e: IllegalStateException) {
               error("This harness is closed, withResolver cannot be used.")
             }

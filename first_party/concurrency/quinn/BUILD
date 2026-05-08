@@ -1,6 +1,26 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//first_party/concurrency/quinn:publicity.bzl", "PUBLICITY")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
-load("//first_party/quinn:publicity.bzl", "PUBLICITY")
+
+kt_jvm_library(
+    name = "scope",
+    srcs = ["QuinnScope.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
+    ],
+)
+
+kt_jvm_library(
+    name = "specific",
+    srcs = [
+        "QuinnSpecific.kt",
+    ],
+    visibility = PUBLICITY,
+    deps = [
+        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
+    ],
+)
 
 kt_jvm_library(
     name = "quinn",
@@ -17,6 +37,7 @@ kt_jvm_library_with_dagger(
     srcs = ["QuinnImpl.kt"],
     deps = [
         ":quinn",
+        ":scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -36,9 +57,21 @@ kt_jvm_library_with_dagger(
     visibility = PUBLICITY,
     deps = [
         ":component",
+        ":module",
+        ":scope",
+    ],
+)
+
+kt_jvm_library_with_dagger(
+    name = "module",
+    srcs = ["QuinnModule.kt"],
+    visibility = [
+        "//first_party/concurrency/quinn:__subpackages__",
+        "//first_party/concurrency/quinn/testing:__subpackages__",
+    ],
+    deps = [
         ":impl",
         ":quinn",
-        "//first_party/quinn:scope",
     ],
 )
 
@@ -46,6 +79,7 @@ kt_jvm_library(
     name = "test",
     testonly = True,
     srcs = ["QuinnTest.kt"],
+    visibility = ["//first_party/concurrency/quinn/testing:__subpackages__"],
     deps = [
         ":quinn",
         "//first_party/chronosphere/testingtaskbarrier",
@@ -59,7 +93,7 @@ kt_jvm_library(
 kt_jvm_test_with_dagger(
     name = "impl_test",
     srcs = ["QuinnImplTest.kt"],
-    test_class = "com.jackbradshaw.quinn.core.QuinnImplTest",
+    test_class = "com.jackbradshaw.concurrency.quinn.QuinnImplTest",
     deps = [
         ":component",
         ":component_impl",
@@ -72,9 +106,9 @@ kt_jvm_test_with_dagger(
 )
 
 kt_jvm_test_with_dagger(
-    name = "impl_observable_closable_test",
-    srcs = ["QuinnImplObservableClosableTest.kt"],
-    test_class = "com.jackbradshaw.quinn.core.QuinnImplObservableClosableTest",
+    name = "impl_as_observable_closable_test",
+    srcs = ["QuinnImplAsObservableClosableTest.kt"],
+    test_class = "com.jackbradshaw.concurrency.quinn.QuinnImplAsObservableClosableTest",
     deps = [
         ":component",
         ":component_impl",

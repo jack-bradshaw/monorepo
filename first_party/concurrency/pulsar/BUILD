@@ -14,7 +14,7 @@ kt_jvm_library_with_dagger(
     srcs = ["PulsarImpl.kt"],
     deps = [
         ":pulsar",
-        "//first_party/concurrency:scope",
+        "//first_party/concurrency/pulsar:scope",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -52,10 +52,34 @@ kt_jvm_test_with_dagger(
         ":impl",
         ":pulsar",
         ":test",
-        "//first_party/concurrency:scope",
+        "//first_party/concurrency/pulsar:scope",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
+    ],
+)
+
+kt_jvm_library_with_dagger(
+    name = "scope",
+    srcs = ["PulsarScope.kt"],
+    visibility = ["//first_party/concurrency:__subpackages__"],
+)
+
+kt_jvm_library(
+    name = "component",
+    srcs = ["PulsarComponent.kt"],
+    visibility = PUBLICITY,
+    deps = ["//first_party/concurrency/pulsar"],
+)
+
+kt_jvm_library_with_dagger(
+    name = "component_impl",
+    srcs = ["PulsarComponentImpl.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        ":component",
+        ":scope",
+        "//first_party/concurrency/pulsar:module",
     ],
 )

@@ -1,4 +1,4 @@
-package com.jackbradshaw.quinn
+package com.jackbradshaw.concurrency.quinn
 
 import javax.inject.Scope
 

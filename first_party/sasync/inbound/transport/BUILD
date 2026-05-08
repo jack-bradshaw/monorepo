@@ -53,7 +53,7 @@ kt_jvm_test_with_dagger(
     deps = [
         ":impl",
         ":test",
-        "//first_party/concurrency/testing:component_impl",
+        "//first_party/concurrency/pulsar/testing:component_impl",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sasync/inbound:scope",
     ],

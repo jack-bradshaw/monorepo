@@ -1,6 +1,6 @@
 package com.jackbradshaw.publicity.conformance
 
-import com.jackbradshaw.concurrency.concurrencyComponent
+import com.jackbradshaw.concurrency.pulsar.pulsarComponent
 import com.jackbradshaw.coroutines.coroutinesComponent
 import com.jackbradshaw.publicity.conformance.model.Workspace
 import com.jackbradshaw.publicity.conformance.packagechecker.PackageCheckerImplModule
@@ -66,11 +66,11 @@ object Conformance {
         }
 
     val coroutines = coroutinesComponent()
-    val concurrency = concurrencyComponent()
+    val pulsar = pulsarComponent()
     val standard =
         standardComponent(
-            inbound = inboundComponent(inboundConfig, coroutines, concurrency),
-            outbound = outboundComponent(outboundConfig, coroutines, concurrency),
+            inbound = inboundComponent(inboundConfig, coroutines, pulsar),
+            outbound = outboundComponent(outboundConfig, coroutines, pulsar),
             input = stdin,
             output = stdout,
             error = stderr)
