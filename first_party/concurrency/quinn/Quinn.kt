@@ -1,6 +1,7 @@
 
 package com.jackbradshaw.concurrency.quinn
 
+// note to future self, this branch has the old quinn, the new stuff is beign submitted separately
 import com.jackbradshaw.closet.observable.ObservableClosable
 import kotlinx.coroutines.flow.StateFlow
 
