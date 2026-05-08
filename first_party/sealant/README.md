@@ -323,7 +323,7 @@ class CascadingPipeline(private val sealedHubFactory: SealedHub.Factory) {
     coroutineScope.cancelAndJoin()
 
     // Closes topOfPipeHub -> closes topOfPipeFlow -> closes hub1 -> closes hub1Flow
-    // Does NOT close hub2 or hub2Flow.
+    // Does NOT close hub2 or hub2Flow because they were created without automatic closure.
     if (::topOfPipeHub.isInitialized) topOfPipeHub.close()
 
     // Closes hub2 -> closes hub2Flow
@@ -351,13 +351,13 @@ class LeakySystem(
 
   suspend fun initialize() {
     // LEAK 1: Applying a buffer BEFORE the hub.
-    // The buffer breaks the upstream connection, meaning Sealant cannot verify 
-    // if 'upstream.rawData' has actually connected.
+    // The buffer breaks the connection upstream of the hub, so Sealant cannot verify whether
+    // 'upstream.rawData' has actually connected.
     val leakyUpstream = upstream.rawData.buffer(capacity = 3)
     flowHub1 = sealedHubFactory.create(leakyUpstream)
 
     // LEAK 2: Applying a buffer BETWEEN hubs.
-    // The connection from flowHub2 to flowHub1 is broken by the buffer.
+    // The connection between flowHub2 to flowHub1 is broken by the buffer, similar to leak1.
     val sealedFlow1 = flowHub1.createFlow()
     val leakyIntermediate = sealedFlow1.flow.buffer(capacity = 3)
     flowHub2 = sealedHubFactory.create(leakyIntermediate)
@@ -368,8 +368,7 @@ class LeakySystem(
       
       launch {
         // LEAK 3: Applying a buffer AFTER the sealed flow.
-        // The buffer breaks the downstream connection, meaning isConnectedToHub 
-        // only guarantees the buffer has connected, not the final collector.
+        // The connection after sealedFlow2 is broken by the buffer, similar to leak1.
         sealedFlow2.flow
             .map { it.length }
             .buffer(capacity = 3)
