@@ -19,65 +19,65 @@ import org.junit.runners.JUnit4
 abstract class SealedFlowTest<T> {
 
   @Test
-  fun beforeClose_nothingAttached_isConnectedToHubIsFalse() =
-      runBlocking<Unit> { assertThat(subject().isConnectedToHub.value).isFalse() }
+  fun beforeClose_nothingAttached_isFullyConnectedIsFalse() =
+      runBlocking<Unit> { assertThat(subject().isFullyConnected.value).isFalse() }
 
   @Test
-  fun beforeClose_transformerAttachedDirectly_isConnectedToHubIsFalse() =
+  fun beforeClose_transformerAttachedDirectly_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.filter { true } }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun beforeClose_transformerAttachedTransitively_isConnectedToHubIsFalse() =
+  fun beforeClose_transformerAttachedTransitively_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.map { it }.filter { true } }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun beforeClose_bufferAttachedDirectly_isConnectedToHubIsFalse() =
+  fun beforeClose_bufferAttachedDirectly_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.buffer() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun beforeClose_bufferAttachedTransitively_isConnectedToHubIsFalse() =
+  fun beforeClose_bufferAttachedTransitively_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.map { it }.buffer() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun beforeClose_consumerAttachedDirectly_isConnectedToHubIsTrue() =
+  fun beforeClose_consumerAttachedDirectly_isFullyConnectedIsTrue() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.collect() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isTrue()
+        assertThat(subject().isFullyConnected.value).isTrue()
       }
 
   @Test
-  fun beforeClose_consumerAttachedTransitively_isConnectedToHubIsTrue() =
+  fun beforeClose_consumerAttachedTransitively_isFullyConnectedIsTrue() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.map { it }.collect() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isTrue()
+        assertThat(subject().isFullyConnected.value).isTrue()
       }
 
   @Test
-  fun beforeClose_transformerAndBufferAttachedTransitively_isConnectedToHubIsFalse() =
+  fun beforeClose_transformerAndBufferAttachedTransitively_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         val a = subject().flow.map { it }
 
@@ -85,11 +85,11 @@ abstract class SealedFlowTest<T> {
         testScope().launch { a.buffer() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun beforeClose_transformerAndConsumerAttachedTransitively_isConnectedToHubIsTrue() =
+  fun beforeClose_transformerAndConsumerAttachedTransitively_isFullyConnectedIsTrue() =
       runBlocking<Unit> {
         val a = subject().flow.map { it }
 
@@ -97,11 +97,11 @@ abstract class SealedFlowTest<T> {
         testScope().launch { a.collect() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isTrue()
+        assertThat(subject().isFullyConnected.value).isTrue()
       }
 
   @Test
-  fun beforeClose_bufferAndConsumerAttachedTransitively_isConnectedToHubIsTrue() =
+  fun beforeClose_bufferAndConsumerAttachedTransitively_isFullyConnectedIsTrue() =
       runBlocking<Unit> {
         val a = subject().flow.map { it }
 
@@ -109,11 +109,11 @@ abstract class SealedFlowTest<T> {
         testScope().launch { a.collect() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isTrue()
+        assertThat(subject().isFullyConnected.value).isTrue()
       }
 
   @Test
-  fun beforeClose_transformerAttachedThenDetached_isConnectedToHubIsFalse() =
+  fun beforeClose_transformerAttachedThenDetached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         val job = testScope().launch { subject().flow.filter { true } }
         taskBarrier().awaitAllIdle()
@@ -121,11 +121,11 @@ abstract class SealedFlowTest<T> {
         job.cancel()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun beforeClose_bufferAttachedThenDetached_isConnectedToHubIsFalse() =
+  fun beforeClose_bufferAttachedThenDetached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         val job = testScope().launch { subject().flow.buffer() }
         taskBarrier().awaitAllIdle()
@@ -133,11 +133,11 @@ abstract class SealedFlowTest<T> {
         job.cancel()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun beforeClose_consumerAttachedThenDetached_isConnectedToHubIsFalse() =
+  fun beforeClose_consumerAttachedThenDetached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         val job = testScope().launch { subject().flow.collect() }
         taskBarrier().awaitAllIdle()
@@ -145,11 +145,11 @@ abstract class SealedFlowTest<T> {
         job.cancel()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun onClose_transformerAttachedBeforeCloseRemainsAttached_isConnectedToHubIsFalse() =
+  fun onClose_transformerAttachedBeforeCloseRemainsAttached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.filter { true } }
         taskBarrier().awaitAllIdle()
@@ -157,11 +157,11 @@ abstract class SealedFlowTest<T> {
         subject().close()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun onClose_bufferAttachedBeforeCloseRemainsAttached_isConnectedToHubIsFalse() =
+  fun onClose_bufferAttachedBeforeCloseRemainsAttached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.buffer() }
         taskBarrier().awaitAllIdle()
@@ -169,11 +169,11 @@ abstract class SealedFlowTest<T> {
         subject().close()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun onClose_consumerAttachedBeforeCloseRemainsAttached_isConnectedToHubIsFalse() =
+  fun onClose_consumerAttachedBeforeCloseRemainsAttached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         testScope().launch { subject().flow.collect() }
         taskBarrier().awaitAllIdle()
@@ -181,11 +181,11 @@ abstract class SealedFlowTest<T> {
         subject().close()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun afterClose_transformerAttachedBeforeCloseThenDetached_isConnectedToHubIsFalse() =
+  fun afterClose_transformerAttachedBeforeCloseThenDetached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         val job = testScope().launch { subject().flow.filter { true } }
         taskBarrier().awaitAllIdle()
@@ -195,11 +195,11 @@ abstract class SealedFlowTest<T> {
         job.cancel()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun afterClose_bufferAttachedBeforeCloseThenDetached_isConnectedToHubIsFalse() =
+  fun afterClose_bufferAttachedBeforeCloseThenDetached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         val job = testScope().launch { subject().flow.buffer() }
         taskBarrier().awaitAllIdle()
@@ -209,11 +209,11 @@ abstract class SealedFlowTest<T> {
         job.cancel()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun afterClose_consumerAttachedBeforeCloseThenDetached_isConnectedToHubIsFalse() =
+  fun afterClose_consumerAttachedBeforeCloseThenDetached_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         val job = testScope().launch { subject().flow.collect() }
         taskBarrier().awaitAllIdle()
@@ -223,11 +223,11 @@ abstract class SealedFlowTest<T> {
         job.cancel()
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun afterClose_transformerAttachedAfterClose_isConnectedToHubIsFalse() =
+  fun afterClose_transformerAttachedAfterClose_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         subject().close()
         taskBarrier().awaitAllIdle()
@@ -235,11 +235,11 @@ abstract class SealedFlowTest<T> {
         testScope().launch { subject().flow.filter { true } }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun afterClose_bufferAttachedAfterClose_isConnectedToHubIsFalse() =
+  fun afterClose_bufferAttachedAfterClose_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         subject().close()
         taskBarrier().awaitAllIdle()
@@ -247,11 +247,11 @@ abstract class SealedFlowTest<T> {
         testScope().launch { subject().flow.buffer() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
-  fun afterClose_consumerAttachedAfterClose_isConnectedToHubIsFalse() =
+  fun afterClose_consumerAttachedAfterClose_isFullyConnectedIsFalse() =
       runBlocking<Unit> {
         subject().close()
         taskBarrier().awaitAllIdle()
@@ -259,7 +259,7 @@ abstract class SealedFlowTest<T> {
         testScope().launch { subject().flow.collect() }
         taskBarrier().awaitAllIdle()
 
-        assertThat(subject().isConnectedToHub.value).isFalse()
+        assertThat(subject().isFullyConnected.value).isFalse()
       }
 
   @Test
@@ -268,7 +268,7 @@ abstract class SealedFlowTest<T> {
         var resumed = false
         val job =
             testScope().launch {
-              subject().awaitConnectionToHub()
+              subject().awaitFullyConnected()
               resumed = true
             }
         taskBarrier().awaitAllIdle()
@@ -281,7 +281,7 @@ abstract class SealedFlowTest<T> {
         var resumed = false
         val job =
             testScope().launch {
-              subject().awaitConnectionToHub()
+              subject().awaitFullyConnected()
               resumed = true
             }
         taskBarrier().awaitAllIdle()

@@ -3,7 +3,7 @@ package com.jackbradshaw.oksp.host
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
 import com.jackbradshaw.chronosphere.testingtaskbarrier.testingTaskBarrierComponent
 import com.jackbradshaw.concurrency.quinn.QuinnComponent
-import com.jackbradshaw.concurrency.quinn.testing.DaggerTestingQuinnComponent
+import com.jackbradshaw.concurrency.quinn.testing.testQuinnComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.coroutines.testing.Coroutines
@@ -78,13 +78,7 @@ class HostKspServiceTest : KspServiceTest() {
 
     val taskBarrier = testingTaskBarrierComponent()
     val coroutines = realisticCoroutinesTestingComponent(taskBarrier)
-    val resourceManager =
-        com.jackbradshaw.closet.resourcemanager.resourceManagerComponent(coroutines)
-    val quinn =
-        DaggerTestingQuinnComponent.builder()
-            .resourceManagerComponent(resourceManager)
-            .testingTaskBarrierComponent(taskBarrier)
-            .build()
+    val quinn = testQuinnComponent(testingTaskBarrierComponent = taskBarrier)
 
     DaggerHostKspServiceTest_TestComponent.builder()
         .coroutines(coroutines)
@@ -97,7 +91,7 @@ class HostKspServiceTest : KspServiceTest() {
     combinedTaskBarrier =
         testingTaskBarrierComponent()
             .testingTaskBarrierFactory()
-            .create(setOf(coroutinesTaskBarrier, quinn.idleableHub()))
+            .create(setOf(coroutinesTaskBarrier, quinn.taskBarrier()))
 
     // Does not use injected corotuines becuase this is effectively a blocking job that never
     // suspends

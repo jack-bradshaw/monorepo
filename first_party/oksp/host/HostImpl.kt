@@ -8,7 +8,7 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFile
 import com.google.devtools.ksp.symbol.KSNode
-import com.jackbradshaw.concurrency.quinn.Quinn.ErrorBehaviour
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
 import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.concurrency.quinn.QuinnComponent
 import com.jackbradshaw.concurrency.quinn.quinnComponent
@@ -161,7 +161,7 @@ constructor(
 
             val activeQuinn = currentRoundQuinn ?: return
 
-            activeQuinn.tryQueueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { throw abortException }
+            activeQuinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw abortException }
             activeQuinn.close()
           }
 
@@ -277,7 +277,7 @@ constructor(
             check(activeQuinn != null) { "Cannot invoke fail between KSP rounds." }
 
             try {
-              activeQuinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { context ->
+              activeQuinn.queueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { context ->
                 if (anchor != null) {
                   context.environment.logger.error(error.message ?: error.toString(), anchor)
                 }
@@ -297,7 +297,7 @@ constructor(
             check(activeQuinn != null) { "Cannot invoke fail between KSP rounds." }
 
             try {
-              activeQuinn.queueAtFront(ErrorBehaviour.DELIVER_TO_EXECUTION_SIDE) { context ->
+              activeQuinn.queueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { context ->
                 if (anchor != null) {
                   context.environment.logger.error(error, anchor)
                 } else {
