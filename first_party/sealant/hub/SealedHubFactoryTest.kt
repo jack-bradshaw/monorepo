@@ -49,10 +49,11 @@ abstract class SealedHubFactoryTest<T> {
   @Test
   fun createWithAutomaticClosure_eachCall_providesNewInstance() =
       runBlocking<Unit> {
-        val session = underlyingSession()
+        val session1 = underlyingSession()
+        val session2 = underlyingSession()
 
-        val instance1 = subject().createWithAutomaticClosure(session)
-        val instance2 = subject().createWithAutomaticClosure(session)
+        val instance1 = subject().createWithAutomaticClosure(session1)
+        val instance2 = subject().createWithAutomaticClosure(session2)
 
         assertThat(instance1).isNotSameInstanceAs(instance2)
       }

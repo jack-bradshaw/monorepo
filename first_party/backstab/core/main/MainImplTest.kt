@@ -85,9 +85,7 @@ class MainImplTest : MainTest() {
     val targets = MutableSharedFlow<BackstabTarget>(replay = 0)
     val publishedModules = mutableMapOf<BackstabTarget, List<BackstabModule>>()
 
-    override fun observeTargets() =
-        object : SealedHub<BackstabTarget> {
-          override suspend fun createFlow() =
+    override suspend fun observeTargets() =
               object : SealedFlow<BackstabTarget> {
                 override val flow = targets
                 override val isConnectedToHub = kotlinx.coroutines.flow.MutableStateFlow(false)
@@ -98,14 +96,6 @@ class MainImplTest : MainTest() {
 
                 override fun close() {}
               }
-
-          override suspend fun <R> createFlow(transformation: suspend (kotlinx.coroutines.flow.Flow<BackstabTarget>) -> kotlinx.coroutines.flow.Flow<R>): SealedFlow<R> = throw UnsupportedOperationException()
-
-          override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
-          override val hasTerminatedProcesses = kotlinx.coroutines.flow.MutableStateFlow(false)
-
-          override fun close() {}
-        }
 
     override suspend fun publish(result: BackstabModule, anchors: Set<BackstabTarget>) {
       for (anchor in anchors) {

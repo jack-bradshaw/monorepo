@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.StateFlow
  * Essentially, an observable closable broadcasts its closure state but is otherwise a normal
  * [AutoClosable], with a few conditions added around how the flags interact with closure.
  */
-interface ObservableClosable : AutoCloseable {
+interface ObservableClosable : SuspendableClosable {
 
   /** Whether the state managed by this object has reached a terminal state. */
   val hasTerminalState: StateFlow<Boolean>

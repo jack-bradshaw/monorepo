@@ -27,7 +27,7 @@ constructor(
 
   override suspend fun run() {
     coroutineScope {
-      val sealedFlow = dataService.observeTargets().createFlow()
+      val sealedFlow = dataService.observeTargets()
       launch(start = CoroutineStart.UNDISPATCHED) { generateBackstabModules(sealedFlow) }
       sealedFlow.awaitConnectionToHub()
       controlService.allowStart()

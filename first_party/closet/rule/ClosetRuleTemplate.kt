@@ -6,8 +6,10 @@ import kotlinx.coroutines.sync.withLock
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
+import com.jackbradshaw.closet.observable.SuspendableClosable
+
 /** A thread-safe abstract base implementation of [ClosetRule]. */
-abstract class ClosetRuleTemplate<T : AutoCloseable> : ClosetRule<T> {
+abstract class ClosetRuleTemplate<T : SuspendableClosable> : ClosetRule<T> {
 
   /** Guards [cache] and [isPostTest]. */
   private val mutex = Mutex()

@@ -10,6 +10,7 @@ import com.jackbradshaw.obelisk.core.model.LogLevel
 import com.jackbradshaw.oksp.model.LogLevel as OkspLogLevel
 import com.jackbradshaw.oksp.model.Source as OkspSource
 import com.jackbradshaw.oksp.service.KspService
+import com.jackbradshaw.sealant.flow.SealedFlow
 import com.jackbradshaw.sealant.hub.SealedHub
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
@@ -45,6 +46,7 @@ class ServiceImpl<A, R>(
   private val anchors = mutableMapOf<A, Set<KSNode>>()
 
   private val translations = MutableSharedFlow<A>()
+  private val translationsHub = sealedHubFactory.create(translations)
 
   private val processingScopeHandle = Job()
 
@@ -62,6 +64,7 @@ class ServiceImpl<A, R>(
     processingScope.launch {
       kspService
           .onEachRoundStart()
+          .flow
           .onEach {
             // Ensures KSP types are not retained over round boundaries.
             anchors.clear()
@@ -81,7 +84,7 @@ class ServiceImpl<A, R>(
     }
 
     processingScope.launch {
-      kspService.onFinalRoundComplete().collect {
+      kspService.onFinalRoundComplete().flow.collect {
         kspService.allowTermination()
         processingScopeHandle.cancel()
       }
@@ -106,7 +109,7 @@ class ServiceImpl<A, R>(
     kspService.abortProcessing()
   }
 
-  override fun observeTargets(): SealedHub<A> = sealedHubFactory.create(translations)
+  override suspend fun observeTargets(): SealedFlow<A> = translationsHub.createFlow()
 
   override suspend fun publish(result: R, anchors: Set<A>) {
     val okspSource =

@@ -180,14 +180,12 @@ class QuinnImpl<T> @Inject constructor() : Quinn<T> {
 
 
 
-  override fun close() {
-    runBlocking {
-      seal()
-      stopProcessing()
-      drainQueue()
-      awaitExecutionFinished()
-      isFinishedClosing.value = true
-    }
+  override suspend fun close() {
+    seal()
+    stopProcessing()
+    drainQueue()
+    awaitExecutionFinished()
+    isFinishedClosing.value = true
   }
 
   /** Prevents new tasks from being inserted into the queue. */

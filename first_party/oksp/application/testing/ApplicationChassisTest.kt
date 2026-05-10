@@ -41,15 +41,15 @@ abstract class ApplicationChassisTest {
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   val service = component.kspService()
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.withContext {
                     foundFile = it.resolver.getNewFiles().any { it.fileName == "File.kt" }
                   }
                   val completeRoundsJob = launch {
-                    service.onEachRoundStart().collect { service.completeRound() }
+                    service.onEachRoundStart().flow.collect { service.completeRound() }
                   }
                   service.completeRound()
-                  service.onFinalRoundComplete().first()
+                  service.onFinalRoundComplete().flow.first()
                   service.allowTermination()
                   completeRoundsJob.cancelAndJoin()
                 }
@@ -78,13 +78,13 @@ abstract class ApplicationChassisTest {
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   val service = component.kspService()
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.publish(TEST_FILE, emptyList())
                   val completeRoundsJob = launch {
-                    service.onEachRoundStart().collect { service.completeRound() }
+                    service.onEachRoundStart().flow.collect { service.completeRound() }
                   }
                   service.completeRound()
-                  service.onFinalRoundComplete().first()
+                  service.onFinalRoundComplete().flow.first()
                   service.allowTermination()
                   completeRoundsJob.cancelAndJoin()
                 }
@@ -107,13 +107,13 @@ abstract class ApplicationChassisTest {
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   val service = component.kspService()
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.log("Hello Chassis", LogLevel.INFO, null)
                   val completeRoundsJob = launch {
-                    service.onEachRoundStart().collect { service.completeRound() }
+                    service.onEachRoundStart().flow.collect { service.completeRound() }
                   }
                   service.completeRound()
-                  service.onFinalRoundComplete().first()
+                  service.onFinalRoundComplete().flow.first()
                   service.allowTermination()
                   completeRoundsJob.cancelAndJoin()
                 }
@@ -179,13 +179,13 @@ abstract class ApplicationChassisTest {
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   val service = component.kspService()
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.publish(TEST_FILE, emptyList())
                   val completeRoundsJob = launch {
-                    service.onEachRoundStart().collect { service.completeRound() }
+                    service.onEachRoundStart().flow.collect { service.completeRound() }
                   }
                   service.completeRound()
-                  service.onFinalRoundComplete().first()
+                  service.onFinalRoundComplete().flow.first()
                   service.allowTermination()
                   completeRoundsJob.cancelAndJoin()
                 }
@@ -233,7 +233,7 @@ abstract class ApplicationChassisTest {
                 val service = component.kspService()
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.fail(expectedError)
                 }
               }
@@ -253,10 +253,10 @@ abstract class ApplicationChassisTest {
                 val service = component.kspService()
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.publish(TEST_FILE, emptyList())
                   service.completeRound()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.fail(expectedError)
                 }
               }
@@ -277,7 +277,7 @@ abstract class ApplicationChassisTest {
                 val service = component.kspService()
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.fail(expectedMessage)
                 }
               }
@@ -299,10 +299,10 @@ abstract class ApplicationChassisTest {
                 val service = component.kspService()
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.publish(TEST_FILE, emptyList())
                   service.completeRound()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.fail(expectedMessage)
                 }
               }
@@ -324,7 +324,7 @@ abstract class ApplicationChassisTest {
                 val service = component.kspService()
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.abortProcessing()
                 }
               }
@@ -342,10 +342,10 @@ abstract class ApplicationChassisTest {
                 val service = component.kspService()
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.publish(TEST_FILE, emptyList())
                   service.completeRound()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.abortProcessing()
                 }
               }
@@ -363,7 +363,7 @@ abstract class ApplicationChassisTest {
         app.onCreateStarted.await()
         app.allowCreateCompletion.complete(Unit)
 
-        app.kspService!!.onFinalRoundComplete().first()
+        app.kspService!!.onFinalRoundComplete().flow.first()
         app.kspService!!.allowTermination()
 
         app.onDestroyStarted.await()
@@ -399,7 +399,7 @@ abstract class ApplicationChassisTest {
         delay(100)
         assertThat(app.onDestroyStarted.isCompleted).isFalse()
 
-        app.kspService!!.onFinalRoundComplete().first()
+        app.kspService!!.onFinalRoundComplete().flow.first()
         app.kspService!!.allowTermination()
         app.allowDestroyCompletion.complete(Unit)
         runJob.join()
@@ -414,7 +414,7 @@ abstract class ApplicationChassisTest {
         app.onCreateStarted.await()
         app.allowCreateCompletion.complete(Unit)
 
-        app.kspService!!.onFinalRoundComplete().first()
+        app.kspService!!.onFinalRoundComplete().flow.first()
         app.kspService!!.allowTermination()
 
         app.onDestroyStarted.await()
@@ -431,7 +431,7 @@ abstract class ApplicationChassisTest {
         app.allowCreateCompletion.complete(Unit)
 
         app.onCreateStarted.await()
-        app.kspService!!.onFinalRoundComplete().first()
+        app.kspService!!.onFinalRoundComplete().flow.first()
         app.kspService!!.allowTermination()
 
         app.onDestroyStarted.await()
@@ -499,7 +499,7 @@ abstract class ApplicationChassisTest {
                 val service = component.kspService()
                 CoroutineScope(coroutines().ioDispatcher()).launch {
                   service.allowProcessing()
-                  service.onEachRoundStart().first()
+                  service.onEachRoundStart().flow.first()
                   service.fail(expectedError)
                 }
               }
@@ -524,7 +524,7 @@ abstract class ApplicationChassisTest {
       service.allowProcessing()
       val completeRoundsJob =
           CoroutineScope(coroutines().ioDispatcher()).launch {
-            service.onEachRoundStart().collect { service.completeRound() }
+            service.onEachRoundStart().flow.collect { service.completeRound() }
           }
       service.allowTermination()
     }
@@ -552,7 +552,7 @@ abstract class ApplicationChassisTest {
       kspService!!.allowProcessing()
       completeRoundsJob =
           CoroutineScope(coroutines().ioDispatcher()).launch {
-            kspService!!.onEachRoundStart().collect { kspService!!.completeRound() }
+            kspService!!.onEachRoundStart().flow.collect { kspService!!.completeRound() }
           }
     }
 

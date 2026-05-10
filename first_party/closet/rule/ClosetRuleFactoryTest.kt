@@ -1,6 +1,7 @@
 package com.jackbradshaw.closet.rule
 
 import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.closet.observable.SuspendableClosable
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
@@ -21,17 +22,14 @@ class ClosetRuleFactoryTest : ClosetRuleTest<TestResource>() {
 
   override fun assertIsClosed(resource: TestResource) {
     assertThat(resource.isOpen).isFalse()
-  }
-}
-
 /** Simple resource for use in tests. */
-class TestResource() : AutoCloseable {
+class TestResource() : SuspendableClosable {
 
   /** Whether [close] has been called. */
   var isOpen = true
     private set
 
-  override fun close() {
+  override suspend fun close() {
     isOpen = false
   }
 }

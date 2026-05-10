@@ -76,7 +76,7 @@ class MyAnalyzerApplication : OkspApplication {
       service.startProcessing()
 
       // Suspend until the first round begins
-      service.onEachRoundStart().first()
+      service.onEachRoundStart().flow.first()
 
       // Interact safely with the native KSP Context (Resolver + Environment)
       service.withContext { context ->

@@ -7,8 +7,10 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
+import com.jackbradshaw.closet.observable.SuspendableClosable
+
 /** Abstract tests that every [ClosetRule] should pass. */
-abstract class ClosetRuleTest<T : AutoCloseable> {
+abstract class ClosetRuleTest<T : SuspendableClosable> {
 
   @Test
   fun get_returnsSameObjectEachCall() {

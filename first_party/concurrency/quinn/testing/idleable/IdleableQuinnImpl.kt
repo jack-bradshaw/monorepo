@@ -70,5 +70,5 @@ class IdleableQuinnImpl<T>(@Production private val delegate: Quinn<T>) : Idleabl
 
   override val hasTerminatedProcesses = delegate.hasTerminatedProcesses
 
-  override fun close() = delegate.close()
+  override suspend fun close() = delegate.close()
 }

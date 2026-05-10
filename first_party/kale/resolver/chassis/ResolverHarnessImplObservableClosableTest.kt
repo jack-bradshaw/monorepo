@@ -18,7 +18,8 @@ class ResolverHarnessImplObservableClosableTest :
   private val underTest = runBlocking { chassis.open(VALID_KOTLIN_SOURCE) }
 
   @After
-  override fun tearDown() {
+  override fun tearDown() = runBlocking {
+    super.tearDown()
     chassis.close()
   }
 

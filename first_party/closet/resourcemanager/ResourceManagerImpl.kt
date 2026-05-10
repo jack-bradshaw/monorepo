@@ -137,19 +137,17 @@ class ResourceManagerImpl<K, V : ObservableClosable>(coroutineContext: Coroutine
     }
   }
 
-  override fun close() {
-    val alreadyClosed = runBlocking {
-      lock.withLock {
-        if (isClosed.value) return@withLock true
-        isClosed.value = true
-        false
-      }
+  override suspend fun close() {
+    val alreadyClosed = lock.withLock {
+      if (isClosed.value) return@withLock true
+      isClosed.value = true
+      false
     }
     if (alreadyClosed) return
 
     val jobs = observeTerminationJobs.values.toList()
     observeTerminationJobs.clear()
-    runBlocking { jobs.forEach { it.cancelAndJoin() } }
+    jobs.forEach { it.cancelAndJoin() }
     coroutineScope.cancel()
 
     val items = managedResources.values.toList()
@@ -159,19 +157,17 @@ class ResourceManagerImpl<K, V : ObservableClosable>(coroutineContext: Coroutine
     isFinishedProcessing.value = true
   }
 
-  override fun closeSelfOnly() {
-    val alreadyClosed = runBlocking {
-      lock.withLock {
-        if (isClosed.value) return@withLock true
-        isClosed.value = true
-        false
-      }
+  override suspend fun closeSelfOnly() {
+    val alreadyClosed = lock.withLock {
+      if (isClosed.value) return@withLock true
+      isClosed.value = true
+      false
     }
     if (alreadyClosed) return
 
     val jobs = observeTerminationJobs.values.toList()
     observeTerminationJobs.clear()
-    runBlocking { jobs.forEach { it.cancelAndJoin() } }
+    jobs.forEach { it.cancelAndJoin() }
 
     isFinishedProcessing.value = true
   }
@@ -190,7 +186,7 @@ class ResourceManagerImpl<K, V : ObservableClosable>(coroutineContext: Coroutine
    * This is not perfect, but catches some cases, and the documentation cautions users to check that
    * returned values are not closed to account for this scenario.
    */
-  private inner class Operator : ResourceManager.Operator<K, V>, AutoCloseable {
+  private inner class Operator : ResourceManager.Operator<K, V> {
 
     /**
      * Prevents concurrent access to operator's various functions to ensure exclusive-access does
@@ -201,8 +197,8 @@ class ResourceManagerImpl<K, V : ObservableClosable>(coroutineContext: Coroutine
     /** Whether this operator has expired. */
     private var isClosed = false
 
-    override fun close() {
-      runBlocking { lock.withLock { isClosed = true } }
+    suspend fun close() {
+      lock.withLock { isClosed = true }
     }
 
     override suspend fun get(key: K): V? {

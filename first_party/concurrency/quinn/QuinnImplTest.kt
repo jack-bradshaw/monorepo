@@ -40,6 +40,7 @@ class QuinnImplTest : QuinnTest<String>() {
 
     val component =
         DaggerQuinnImplTest_TestComponent.builder()
+            .consuming(coroutines)
             .consuming(DaggerQuinnComponentImpl.create())
             .build()
     underTest = component.factory().createQuinn()
@@ -68,7 +69,7 @@ class QuinnImplTest : QuinnTest<String>() {
   @Scope annotation class TestScope
 
   @TestScope
-  @Component(dependencies = [QuinnComponent::class])
+  @Component(dependencies = [QuinnComponent::class, RealisticCoroutinesTestingComponent::class])
   interface TestComponent {
     fun factory(): Quinn.Factory
 

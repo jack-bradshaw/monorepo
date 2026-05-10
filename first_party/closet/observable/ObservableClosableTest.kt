@@ -9,7 +9,7 @@ import org.junit.Test
 abstract class ObservableClosableTest<T : ObservableClosable> {
 
   @After
-  open fun tearDown() {
+  open fun tearDown() = runBlocking {
     subject().close()
   }
 

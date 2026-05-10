@@ -592,11 +592,11 @@ abstract class HostTest {
       doOnCreate(component)
 
       scope.launch(coroutines.ioDispatcher()) {
-        component.kspService().onEachRoundStart().onEach { onRoundStart(component) }.collect()
+        component.kspService().onEachRoundStart().flow.onEach { onRoundStart(component) }.collect()
       }
 
       scope.launch(coroutines.ioDispatcher()) {
-        component.kspService().onFinalRoundComplete().onEach { onFinalRound(component) }.collect()
+        component.kspService().onFinalRoundComplete().flow.onEach { onFinalRound(component) }.collect()
       }
     }
 

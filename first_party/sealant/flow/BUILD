@@ -2,7 +2,10 @@ load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
     name = "flow",
-    srcs = ["SealedFlow.kt"],
+    srcs = [
+        "SealedFlow.kt",
+        "SealedFlowImpl.kt",
+    ],
     visibility = ["//visibility:public"],
     deps = [
         "//first_party/closet/observable",

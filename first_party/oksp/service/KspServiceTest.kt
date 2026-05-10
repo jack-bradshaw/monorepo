@@ -795,12 +795,12 @@ abstract class KspServiceTest {
         val service = subject()
         val drainRounds =
             CoroutineScope(testDispatcher()).launch {
-              subject().onEachRoundStart().collect { subject().completeRound() }
+              subject().onEachRoundStart().flow.flow.collect { subject().completeRound() }
             }
         taskBarrier().awaitAllIdle()
         subject().allowProcessing()
         drainRounds.join()
-        subject().onFinalRoundComplete().first()
+        subject().onFinalRoundComplete().flow.first()
         subject().allowTermination()
         finishExtraneousProcessing()
 
@@ -1180,7 +1180,7 @@ abstract class KspServiceTest {
    * has started.
    */
   private suspend fun KspService.advanceThroughCurrentRound() {
-    val round = CoroutineScope(testDispatcher()).async { onEachRoundStart().first() }
+    val round = CoroutineScope(testDispatcher()).async { onEachRoundStart().flow.first() }
     completeRound()
     round.await()
   }
@@ -1191,7 +1191,7 @@ abstract class KspServiceTest {
    */
   private suspend fun KspService.advanceThroughFinalRound() {
     val drain =
-        CoroutineScope(testDispatcher()).launch { onEachRoundStart().collect { completeRound() } }
+        CoroutineScope(testDispatcher()).launch { onEachRoundStart().flow.collect { completeRound() } }
     taskBarrier().awaitAllIdle()
     allowProcessing()
     drain.join()
@@ -1204,7 +1204,7 @@ abstract class KspServiceTest {
    */
   private suspend fun KspService.advanceThroughKspExecution() {
     val drainRounds =
-        CoroutineScope(testDispatcher()).launch { onEachRoundStart().collect { completeRound() } }
+        CoroutineScope(testDispatcher()).launch { onEachRoundStart().flow.collect { completeRound() } }
     completeRound()
     drainRounds.join()
     allowTermination()
@@ -1278,7 +1278,7 @@ abstract class KspServiceTest {
   }
 
   private suspend fun KspService.advanceToFirstRound() {
-    val round = CoroutineScope(testDispatcher()).async { onEachRoundStart().first() }
+    val round = CoroutineScope(testDispatcher()).async { onEachRoundStart().flow.first() }
     taskBarrier().awaitAllIdle()
     allowProcessing()
     round.await()
@@ -1288,7 +1288,7 @@ abstract class KspServiceTest {
   private fun countRoundsAsync(): kotlinx.coroutines.Deferred<Int> =
       CoroutineScope(testDispatcher()).async {
         var count = 0
-        subject().onEachRoundStart().collect { count++ }
+        subject().onEachRoundStart().flow.flow.collect { count++ }
         count
       }
 

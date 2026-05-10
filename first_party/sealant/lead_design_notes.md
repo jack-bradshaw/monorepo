@@ -1,31 +1,3 @@
-package com.jackbradshaw.sealant.connectable
-
-import com.jackbradshaw.closet.observable.ObservableClosable
-import kotlinx.coroutines.flow.StateFlow
-
-/** 
- * The base structural element of the sealed pipeline.
- */
-interface Connectable : ObservableClosable {
-  /** 
-   * True if this node is successfully connected to its immediate parent and immediate children. 
-   */
-  val isLocallyConnected: StateFlow<Boolean>
-
-  /** 
-   * True if this node is locally connected, AND every node above it up to the [Inlet] is also 
-   * locally connected. 
-   */
-  val isTransitivelyConnected: StateFlow<Boolean>
-
-  /** Suspends until [isTransitivelyConnected] is true. */
-  suspend fun awaitTransitivelyConnected()
-}
-
-
-
-
-
 alright, im thinking about the api a little, i think theres room for improvement.
 
 a few thoughts:

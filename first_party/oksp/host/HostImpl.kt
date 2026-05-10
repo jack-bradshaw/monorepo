@@ -21,6 +21,9 @@ import com.jackbradshaw.oksp.model.LogLevel
 import com.jackbradshaw.oksp.model.Resource
 import com.jackbradshaw.oksp.model.Source
 import com.jackbradshaw.oksp.service.KspService
+import com.jackbradshaw.sealant.SealantComponent
+import com.jackbradshaw.sealant.sealantComponent
+import com.jackbradshaw.sealant.flow.SealedFlow
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Inject
@@ -53,7 +56,10 @@ constructor(
     private val applicationComponent: ApplicationComponent = loadedApplicationComponent(),
     private val quinn: QuinnComponent = quinnComponent(),
     private val coroutines: CoroutinesComponent = com.jackbradshaw.coroutines.coroutinesComponent(),
+    private val sealant: SealantComponent = sealantComponent(),
 ) : Host {
+
+  private val sealedHubFactory = sealant.sealedHubFactory()
 
   private lateinit var app: Application
 
@@ -129,6 +135,16 @@ constructor(
         MutableSharedFlow<Unit>(
             replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.SUSPEND)
 
+    private val roundStartEventHub = sealedHubFactory.create(roundStartEvents)
+
+    private val finalRoundCompleteHub = sealedHubFactory.create(
+          flow {
+            isFinishedNormally.await()
+            emit(Unit)
+          }
+    )
+
+
     /** List of symbols deferred in this round. */
     private var currentRoundDeferred: MutableList<KSAnnotated>? = null
 
@@ -165,19 +181,18 @@ constructor(
             activeQuinn.close()
           }
 
-          override suspend fun onEachRoundStart(): Flow<Unit> = channelFlow {
-            val job = launch { roundStartEvents.collect { send(Unit) } }
-            select<Unit> {
-              isFinishedNormally.onAwait {}
-              isFinishedErroneously.onAwait {}
-            }
-            job.cancelAndJoin()
+          override suspend fun onEachRoundStart(): SealedFlow<Unit> = roundStartEventHub.createFlow { upstream ->
+              channelFlow {
+                  val job = launch { upstream.collect { send(Unit) } }
+                  select<Unit> {
+                      isFinishedNormally.onAwait {}
+                      isFinishedErroneously.onAwait {}
+                  }
+                  job.cancelAndJoin()
+              }
           }
 
-          override suspend fun onFinalRoundComplete(): Flow<Unit> = flow {
-            isFinishedNormally.await()
-            emit(Unit)
-          }
+          override suspend fun onFinalRoundComplete(): SealedFlow<Unit> = finalRoundCompleteHub.createFlow()
 
           override suspend fun completeRound() {
             check(isServiceReadyToStart.isCompleted) {

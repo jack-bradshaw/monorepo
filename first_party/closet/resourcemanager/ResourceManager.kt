@@ -142,7 +142,7 @@ interface ResourceManager<K, V : ObservableClosable> : ObservableClosable {
    * Closes this manager without closing managed resources, but otherwise follows the behaviour of
    * [close] exactly.
    */
-  fun closeSelfOnly()
+  suspend fun closeSelfOnly()
 
   /**
    * Performs access/mutation operations on a specific [ResourceManager].

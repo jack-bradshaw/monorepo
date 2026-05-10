@@ -4,6 +4,7 @@ import com.jackbradshaw.closet.resourcemanager.ResourceManager
 import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.sealant.SealantScope
 import com.jackbradshaw.sealant.flow.SealedFlow
+import com.jackbradshaw.sealant.flow.SealedFlowImpl
 import jakarta.inject.Inject
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicBoolean
@@ -72,102 +73,21 @@ constructor(
   override suspend fun <R> createFlow(transformation: suspend (Flow<T>) -> Flow<R>): SealedFlow<R> {
     check(!hasTerminalState.value) { "This hub is closed. Cannot open flows after closure." }
 
-    val top = MutableSharedFlow<T>(replay = 0)
-    dataLinkScope.launch(start = CoroutineStart.UNDISPATCHED) {
-      intermediatePipe.collect { top.emit(it) }
-    }
-
-    val session = SealedFlowImpl<R>(top, transformation(top))
-    resourceManager.put(nextSessionId.getAndIncrement(), session)
+    val sessionId = nextSessionId.getAndIncrement()
+    val session = SealedFlowImpl(
+        source = intermediatePipe,
+        transformation = transformation,
+        ioDispatcher = ioDispatcher
+    )
+    
+    resourceManager.put(sessionId, session)
     return session
   }
 
-  override fun close() {
+  override suspend fun close() {
     resourceManager.close()
-
-    runBlocking { dataLinkScopeHandle.cancelAndJoin() }
-
+    dataLinkScopeHandle.cancelAndJoin()
     _hasTerminatedProcesses.value = true
-  }
-
-  /** Default implementation of [SealedFlow].
-   * 
-   * Expects [derivativeFlow] to be a transformation of [dedicatedHubFlow] and expects no other
-   * users of [dedicatedHubFlow]. These constraints are critical to the implementation, which
-   * pipes [derivativeFlow] into a holding flow, passes the holding flow to users (via [flow]), and
-   * checks both the holding flow and [dedicatedHubFlow] subscription counts to ensure the final
-   * flow is actually connected to the upstream. This approach ensures the connection from the
-   * final downstream consumer of [flow] to the upstream hub can be verified even if the
-   * transformation between [dedicatedHubFlow] and [derivativeFlow] is leaky (i.e. breaks the pipe).
-   * Flow connection is verified by checking the subscription count on holding flow and the upsteam
-   * hub. When both are `1`, this means the upstream flow is being collected into the holding flow
-   * (ensuring any leaky operators between pdedicatedHubFlow] and [derivativeFlow] are active), and
-   * the final downstream flow is collecting from the holding flow.
-   */
-  private inner class SealedFlowImpl<T>(
-      private val dedicatedHubFlow: MutableSharedFlow<*>,
-      private val derivativeFlow: Flow<T>,
-  ) : SealedFlow<T> {
-
-    private val _hasTerminalState = MutableStateFlow(false)
-    
-    private val _hasTerminatedProcesses = MutableStateFlow(false)
-
-    private val dataLinkScopeHandle = Job()
-
-    private val dataLinkScope = CoroutineScope(ioDispatcher + dataLinkScopeHandle)
-
-    private val collectionMonitorScopeHandle = Job()
-
-    private val subscriptionObservationScope =
-        CoroutineScope(ioDispatcher + collectionMonitorScopeHandle)
-
-    private val sharedFlow = MutableSharedFlow<T>(replay = 0)
-
-    private val hasBeenCollected = AtomicBoolean(false)
-
-    init {
-      dataLinkScope.launch(start = CoroutineStart.UNDISPATCHED) {
-        derivativeFlow.collect { sharedFlow.emit(it) }
-      }
-    }
-
-    override val hasTerminalState = _hasTerminalState.asStateFlow()
-    
-    override val hasTerminatedProcesses = _hasTerminatedProcesses.asStateFlow()
-
-    override val flow: Flow<T> = kotlinx.coroutines.flow.channelFlow {
-      check(hasBeenCollected.compareAndSet(false, true)) {
-        "SealedFlow flows can only be collected by a single downstream consumer. They cannot be collected repeatedly, even if the previous collector has disconnected."
-      }
-      val job = launch { sharedFlow.collect { send(it) } }
-      _hasTerminalState.first { it }
-      job.cancelAndJoin()
-    }
-
-    override val isConnectedToHub: StateFlow<Boolean> =
-    combine(
-            sharedFlow.subscriptionCount,
-            dedicatedHubFlow.subscriptionCount
-        ) { shared, dedicated ->
-            shared > 0 && dedicated > 0
-        }.stateIn(subscriptionObservationScope, SharingStarted.Eagerly, initialValue = false)
-
-    override suspend fun awaitConnectionToHub() {
-      isConnectedToHub.first { it }
-    }
-
-    override fun close() {
-      _hasTerminalState.value = true
-
-      runBlocking {
-        dataLinkScopeHandle.cancelAndJoin()
-        isConnectedToHub.first { !it }
-        collectionMonitorScopeHandle.cancelAndJoin()
-      }
-
-      _hasTerminatedProcesses.value = true
-    }
   }
 
   /** Default implementation of [SealantHub.Factory].

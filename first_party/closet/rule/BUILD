@@ -6,6 +6,7 @@ kt_jvm_library(
     srcs = ["ClosetRule.kt"],
     visibility = PUBLICITY,
     deps = [
+        "//first_party/closet/observable",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

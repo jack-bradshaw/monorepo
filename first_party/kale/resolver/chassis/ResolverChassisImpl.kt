@@ -80,8 +80,8 @@ internal constructor(
     return open(setOf(source), versions, options)
   }
 
-  override fun close() {
-    runBlocking { resourceManager.close() }
+  override suspend fun close() {
+    resourceManager.close()
   }
 
   /**
@@ -145,7 +145,7 @@ internal constructor(
           override val hasTerminatedProcesses
             get() = this@CompilationSession.hasTerminatedProcesses
 
-          override fun close() {
+          override suspend fun close() {
             this@CompilationSession.close()
           }
         }
@@ -154,10 +154,10 @@ internal constructor(
 
     override val hasTerminatedProcesses = _hasTerminatedProcesses.asStateFlow()
 
-    override fun close() {
+    override suspend fun close() {
       _hasTerminalState.value = true
       quinn.close()
-      runBlocking { coroutineScopeHandle.cancelAndJoin() }
+      coroutineScopeHandle.cancelAndJoin()
       _hasTerminatedProcesses.value = true
     }
 

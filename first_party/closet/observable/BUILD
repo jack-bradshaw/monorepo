@@ -3,7 +3,10 @@ load("//first_party/closet:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "observable",
-    srcs = ["ObservableClosable.kt"],
+    srcs = [
+        "ObservableClosable.kt",
+        "SuspendableClosable.kt",
+    ],
     visibility = PUBLICITY,
     deps = [
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

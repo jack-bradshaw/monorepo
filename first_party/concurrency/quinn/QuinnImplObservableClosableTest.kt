@@ -16,31 +16,27 @@ class QuinnImplAsObservableClosableTest : ObservableClosableTest<Quinn<String>>(
 
   private val underTest =
       DaggerQuinnImplAsObservableClosableTest_TestComponent.builder()
-          .consuming(realisticCoroutinesTestingComponent())
           .consuming(DaggerQuinnComponentImpl.create())
           .build()
           .factory()
           .createQuinn<String>()
 
   @After
-  override fun tearDown() {
-    underTest.close()
+  override fun tearDown() = runBlocking {
+    super.tearDown()
   }
 
   override fun subject() = underTest
 
   @Scope annotation class TestScope
 
-  @TestScope
-  @Component(dependencies = [QuinnComponent::class, RealisticCoroutinesTestingComponent::class])
+  @Component(dependencies = [QuinnComponent::class])
   interface TestComponent {
     fun factory(): Quinn.Factory
 
     @Component.Builder
     interface Builder {
       fun consuming(quinn: QuinnComponent): Builder
-
-      fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
 
       fun build(): TestComponent
     }
