@@ -3,7 +3,7 @@ load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_test")
 filegroup(
     name = "goldens",
     testonly = True,
-    srcs = glob(["goldens/*.jpg"]),
+    srcs = glob(["goldens/*.png"]),
 )
 
 kt_jvm_test(

@@ -39,8 +39,7 @@ class Screendiffer(private val goldenBasePath: Path) {
                 .setFullPage(captureFullPage)
                 .setAnimations(ScreenshotAnimations.DISABLED)
                 .setCaret(ScreenshotCaret.HIDE)
-                .setType(ScreenshotType.JPEG)
-                .setQuality(30))
+                .setType(ScreenshotType.PNG))
     val goldenPath = goldenBasePath.resolve(goldenName).fromRunfiles()
     val goldenFile = goldenPath.toFile()
 

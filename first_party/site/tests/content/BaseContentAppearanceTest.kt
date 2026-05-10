@@ -39,7 +39,7 @@ abstract class BaseContentAppearanceTest(goldenBasePath: String) {
     page.collapseAllDetailsContentBlocks()
     page.waitForLoad()
 
-    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.jpg"
+    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     screendiffer.check(page, goldenName)
   }
 
@@ -54,7 +54,7 @@ abstract class BaseContentAppearanceTest(goldenBasePath: String) {
     page.expandAllDetailsContentBlocks()
     page.waitForLoad()
 
-    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.jpg"
+    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     screendiffer.check(page, goldenName, captureFullPage)
   }
 
@@ -69,7 +69,7 @@ abstract class BaseContentAppearanceTest(goldenBasePath: String) {
     val page = instrumentation.openPage(URI.create(path))
     page.waitForLoad()
 
-    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.jpg"
+    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     screendiffer.check(page, goldenName)
   }
 }
