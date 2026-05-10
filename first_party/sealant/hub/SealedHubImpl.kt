@@ -29,7 +29,7 @@ import kotlinx.coroutines.runBlocking
 class SealedHubImpl<T>
 constructor(
     private val underlyingFlow: Flow<T>,
-    override val isFullyConnected: StateFlow<Boolean>,
+    val isFullyConnected: StateFlow<Boolean>,
     private val resourceManagerFactory: ResourceManager.Factory,
     private val ioDispatcher: CoroutineDispatcher
 ) : SealedHub<T> {
@@ -164,7 +164,7 @@ constructor(
 
       runBlocking {
         dataLinkScopeHandle.cancelAndJoin()
-        isConnectedToHub.first { !it }
+        isFullyConnected.first { !it }
         collectionMonitorScopeHandle.cancelAndJoin()
       }
 

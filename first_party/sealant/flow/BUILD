@@ -1,5 +1,4 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
 
 kt_jvm_library(
     name = "flow",
@@ -11,12 +10,9 @@ kt_jvm_library(
     ],
 )
 
-
 kt_jvm_library(
     name = "test_abstract",
-    srcs = [
-        "SealedFlowTest.kt",
-    ],
+    srcs = ["SealedFlowTest.kt"],
     visibility = ["//visibility:public"],
     deps = [
         ":flow",
@@ -26,4 +22,3 @@ kt_jvm_library(
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
-
