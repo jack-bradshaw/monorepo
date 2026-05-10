@@ -91,12 +91,15 @@ class MainImplTest : MainTest() {
               object : SealedFlow<BackstabTarget> {
                 override val flow = targets
                 override val isConnectedToHub = kotlinx.coroutines.flow.MutableStateFlow(false)
+                override suspend fun awaitConnectionToHub() {}
                 override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
                 override val hasTerminatedProcesses =
                     kotlinx.coroutines.flow.MutableStateFlow(false)
 
                 override fun close() {}
               }
+
+          override suspend fun <R> createFlow(transformation: suspend (kotlinx.coroutines.flow.Flow<BackstabTarget>) -> kotlinx.coroutines.flow.Flow<R>): SealedFlow<R> = throw UnsupportedOperationException()
 
           override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
           override val hasTerminatedProcesses = kotlinx.coroutines.flow.MutableStateFlow(false)

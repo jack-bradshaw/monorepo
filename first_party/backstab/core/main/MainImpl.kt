@@ -27,7 +27,9 @@ constructor(
 
   override suspend fun run() {
     coroutineScope {
-      launch(start = CoroutineStart.UNDISPATCHED) { generateBackstabModules() }
+      val sealedFlow = dataService.observeTargets().createFlow()
+      launch(start = CoroutineStart.UNDISPATCHED) { generateBackstabModules(sealedFlow) }
+      sealedFlow.awaitConnectionToHub()
       controlService.allowStart()
     }
   }
@@ -35,8 +37,7 @@ constructor(
   /**
    * Generates module for targets as they are emitted by [dataService] and suspends indefinitely.
    */
-  private suspend fun generateBackstabModules() {
-    val sealedFlow = dataService.observeTargets().createFlow()
+  private suspend fun generateBackstabModules(sealedFlow: com.jackbradshaw.sealant.flow.SealedFlow<BackstabTarget>) {
     sealedFlow.flow
         .onEach { target ->
           val module =

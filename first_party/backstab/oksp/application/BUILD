@@ -31,6 +31,7 @@ kt_jvm_library_with_dagger(
         "//first_party/oksp/application",
         "//first_party/oksp/application:component",
         "//first_party/sealant:component",
+        "//first_party/sealant:component_impl",
         "@com_jackbradshaw_maven//:com_google_devtools_ksp_symbol_processing_api",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],

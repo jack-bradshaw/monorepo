@@ -58,6 +58,7 @@ kt_jvm_library_with_dagger(
     deps = [
         ":component",
         ":module",
+        ":production_module",
         ":scope",
     ],
 )
@@ -71,9 +72,7 @@ kt_jvm_library_with_dagger(
     ],
     deps = [
         ":impl",
-
         ":qualifiers",
-
         ":quinn",
     ],
 )
@@ -122,5 +121,25 @@ kt_jvm_test_with_dagger(
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:junit_junit",
+    ],
+)
+
+kt_jvm_library(
+    name = "qualifiers",
+    srcs = ["Qualifiers.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
+    ],
+)
+
+kt_jvm_library_with_dagger(
+    name = "production_module",
+    srcs = ["QuinnProductionModule.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        ":impl",
+        ":qualifiers",
+        ":quinn",
     ],
 )

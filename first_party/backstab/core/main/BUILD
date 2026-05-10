@@ -67,7 +67,7 @@ kt_jvm_test_with_dagger(
         "//first_party/backstab/core/model:type",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant/hub",
-        "//first_party/sealant/deprecated/flow",
+        "//first_party/sealant/flow",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

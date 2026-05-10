@@ -39,9 +39,9 @@ interface SealedFlow<T> : ObservableClosable {
    */
   val flow: Flow<T>
 
-  /** Whether [flow] is actively being collected and the upstream pipeline is fully connected. */
-  val isFullyConnected: StateFlow<Boolean>
+  /** Whether [flow] is actively being collected. */
+  val isConnectedToHub: StateFlow<Boolean>
 
-  /** Suspends until [isFullyConnected] becomes true. */
-  suspend fun awaitFullyConnected()
+  /** Suspends until [isConnectedToHub] becomes true. */
+  suspend fun awaitConnectionToHub()
 }

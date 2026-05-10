@@ -89,6 +89,7 @@ class ServiceImpl<A, R>(
   }
 
   override suspend fun allowStart() {
+    translations.subscriptionCount.first { it > 0 }
     kspService.allowProcessing()
   }
 

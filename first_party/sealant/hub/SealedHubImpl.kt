@@ -29,7 +29,6 @@ import kotlinx.coroutines.runBlocking
 class SealedHubImpl<T>
 constructor(
     private val underlyingFlow: Flow<T>,
-    val isFullyConnected: StateFlow<Boolean>,
     private val resourceManagerFactory: ResourceManager.Factory,
     private val ioDispatcher: CoroutineDispatcher
 ) : SealedHub<T> {
@@ -146,17 +145,16 @@ constructor(
       job.cancelAndJoin()
     }
 
-    override val isFullyConnected: StateFlow<Boolean> =
+    override val isConnectedToHub: StateFlow<Boolean> =
     combine(
             sharedFlow.subscriptionCount,
-            dedicatedHubFlow.subscriptionCount,
-            this@SealedHubImpl.isFullyConnected
-        ) { shared, dedicated, hubConnected ->
-            shared > 0 && dedicated > 0 && hubConnected
+            dedicatedHubFlow.subscriptionCount
+        ) { shared, dedicated ->
+            shared > 0 && dedicated > 0
         }.stateIn(subscriptionObservationScope, SharingStarted.Eagerly, initialValue = false)
 
-    override suspend fun awaitFullyConnected() {
-      isFullyConnected.first { it }
+    override suspend fun awaitConnectionToHub() {
+      isConnectedToHub.first { it }
     }
 
     override fun close() {
@@ -164,7 +162,7 @@ constructor(
 
       runBlocking {
         dataLinkScopeHandle.cancelAndJoin()
-        isFullyConnected.first { !it }
+        isConnectedToHub.first { !it }
         collectionMonitorScopeHandle.cancelAndJoin()
       }
 
@@ -190,7 +188,6 @@ constructor(
     override fun <T> create(underlyingFlow: Flow<T>): SealedHub<T> =
         SealedHubImpl(
             underlyingFlow = underlyingFlow, 
-            isFullyConnected = MutableStateFlow(true).asStateFlow(),
             resourceManagerFactory = resourceManagerFactory, 
             ioDispatcher = ioDispatcher
         )
@@ -202,7 +199,6 @@ constructor(
       val hub =
           SealedHubImpl(
               underlyingFlow = underlyingFlow.flow, 
-              isFullyConnected = underlyingFlow.isFullyConnected,
               resourceManagerFactory = resourceManagerFactory, 
               ioDispatcher = ioDispatcher
           )

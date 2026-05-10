@@ -3,7 +3,8 @@ package com.jackbradshaw.oksp.host
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
 import com.jackbradshaw.chronosphere.testingtaskbarrier.testingTaskBarrierComponent
 import com.jackbradshaw.concurrency.quinn.QuinnComponent
-import com.jackbradshaw.concurrency.quinn.testing.testQuinnComponent
+import com.jackbradshaw.concurrency.quinn.testing.DaggerTestingQuinnComponent
+import com.jackbradshaw.closet.resourcemanager.resourceManagerComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.coroutines.testing.Coroutines
@@ -78,7 +79,10 @@ class HostKspServiceTest : KspServiceTest() {
 
     val taskBarrier = testingTaskBarrierComponent()
     val coroutines = realisticCoroutinesTestingComponent(taskBarrier)
-    val quinn = testQuinnComponent(testingTaskBarrierComponent = taskBarrier)
+    val quinn = DaggerTestingQuinnComponent.builder()
+        .testingTaskBarrierComponent(taskBarrier)
+        .resourceManagerComponent(resourceManagerComponent(coroutines))
+        .build()
 
     DaggerHostKspServiceTest_TestComponent.builder()
         .coroutines(coroutines)

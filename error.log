@@ -1,0 +1,37 @@
+INFO: Invocation ID: aea7da96-4325-49f2-a8f1-11ab945b5afa
+Computing main repo mapping: 
+Loading: 
+Loading: 0 packages loaded
+Analyzing: target //first_party/sealant/hub:SealedHubImplTest (0 packages loaded, 0 targets configured)
+Analyzing: target //first_party/sealant/hub:SealedHubImplTest (0 packages loaded, 0 targets configured)
+
+INFO: Analyzed target //first_party/sealant/hub:SealedHubImplTest (0 packages loaded, 0 targets configured).
+ERROR: /Users/jack/gdrive/1_Active/workspaces/eng/first_party/closet/resourcemanager/BUILD:5:15: KotlinCompile //first_party/closet/resourcemanager:resource_manager { kt: 1, java: 0, srcjars: 0 } for darwin_arm64 failed: (Exit 1): build failed: error executing KotlinCompile command (from target //first_party/closet/resourcemanager:resource_manager) 
+  (cd /private/var/tmp/_bazel_jack/c65fef08856acd722e7aa00e0558f5f4/execroot/_main && \
+  exec env - \
+    LC_CTYPE=en_US.UTF-8 \
+    REPOSITORY_NAME=rules_kotlin+ \
+  bazel-out/darwin_arm64-opt-exec-ST-d57f47055a04/bin/external/rules_kotlin+/src/main/kotlin/build '--wrapper_script_flag=--main_advice_classpath=external/rules_kotlin++rules_kotlin_extensions+com_github_jetbrains_kotlin_git/lib/annotations-13.0.jar:external/rules_kotlin++rules_kotlin_extensions+com_github_jetbrains_kotlin_git/lib/kotlin-stdlib.jar:external/rules_kotlin++rules_kotlin_extensions+com_github_jetbrains_kotlin_git/lib/kotlin-stdlib-jdk7.jar:external/rules_kotlin++rules_kotlin_extensions+com_github_jetbrains_kotlin_git/lib/kotlin-stdlib-jdk8.jar' '--flagfile=bazel-out/darwin_arm64-fastbuild/bin/first_party/closet/resourcemanager/resource_manager-kt.jar-0.params')
+# Configuration: e57eb6962ab9d0c86ab9f136a4f98ccbab6c683830d70eba4273e2a7503b268f
+# Execution platform: @@platforms//host:host
+first_party/closet/resourcemanager/ResourceManager.kt:48:11: error: conflicting overloads:
+suspend fun getAll(): Set<V>
+  suspend fun getAll(): Set<V>
+          ^^^^^^^^^^^^^^^^^^^^
+first_party/closet/resourcemanager/ResourceManager.kt:56:11: error: conflicting overloads:
+suspend fun getAll(): Set<V>
+  suspend fun getAll(): Set<V>
+          ^^^^^^^^^^^^^^^^^^^^
+May 09, 2026 7:42:10 PM worker request 0
+SEVERE: Compilation failure: compile phase failed:
+first_party/closet/resourcemanager/ResourceManager.kt:48:11: error: conflicting overloads:
+suspend fun getAll(): Set<V>
+  suspend fun getAll(): Set<V>
+          ^^^^^^^^^^^^^^^^^^^^
+first_party/closet/resourcemanager/ResourceManager.kt:56:11: error: conflicting overloads:
+suspend fun getAll(): Set<V>
+  suspend fun getAll(): Set<V>
+          ^^^^^^^^^^^^^^^^^^^^Target //first_party/sealant/hub:SealedHubImplTest failed to build
+INFO: Elapsed time: 0.843s, Critical Path: 0.28s
+INFO: 2 processes: 2 internal.
+ERROR: Build did NOT complete successfully
