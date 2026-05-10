@@ -36,7 +36,7 @@ abstract class BaseMenuAppearanceTest(private val menuType: MenuType, goldenBase
     val page = instrumentation.openPage(URI.create(path))
     page.waitForLoad()
 
-    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.jpg"
+    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     screendiffer.check(page, goldenName, captureFullPage)
   }
 
@@ -52,7 +52,7 @@ abstract class BaseMenuAppearanceTest(private val menuType: MenuType, goldenBase
 
     page.expandPopupMenu(menuType)
 
-    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.jpg"
+    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     screendiffer.check(page, goldenName, captureFullPage)
   }
 
@@ -69,7 +69,7 @@ abstract class BaseMenuAppearanceTest(private val menuType: MenuType, goldenBase
 
     // No need to expand, menu is always expanded on MEDIUM screens.
 
-    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.jpg"
+    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     screendiffer.check(page, goldenName, captureFullPage)
   }
 }

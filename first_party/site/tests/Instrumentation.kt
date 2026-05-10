@@ -158,7 +158,6 @@ class Instrumentation {
                       responseFile.name.endsWith(".css") -> ContentType.Text.CSS
                       responseFile.name.endsWith(".js") -> ContentType.Application.JavaScript
                       responseFile.name.endsWith(".png") -> ContentType.Image.PNG
-                      responseFile.name.endsWith(".jpg") -> ContentType.Image.JPEG
                       responseFile.name.endsWith(".webp") -> ContentType("image", "webp")
                       else -> ContentType.Application.OctetStream
                     }

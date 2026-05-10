@@ -79,7 +79,7 @@ class CookieBannerAppearanceTest {
     val page = instrumentation.openPage(URI.create("/"))
     page.waitForLoad()
 
-    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.jpg"
+    val goldenName = "${this::class.simpleName}_${testCaseName.methodName}.png"
     screendiffer.check(page, goldenName)
   }
 
