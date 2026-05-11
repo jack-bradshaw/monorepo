@@ -52,14 +52,14 @@ be no issue, but that is not the case.
 Despite the issue, Kotlin flows are the dominant system for reactive streams in Kotlin, and it is an
 incredibly useful system for data processing, so sealant was created to allow its use in Backstab
 while ensuring the pipe itself was perfectly sealed and no emissions were lost. It produces a
-"sealed flow", which is designed to reliably produce an `isConnectedToHub` signal when the downstream
+"sealed flow", which is designed to reliably produce an `isConnectedToSource` signal when the downstream
 collector has actually started AND the pipe is connected to the source. It works by means of two
 constructs: SealedHub and SealedFlow.
 
 A sealed hub takes an existing flow and acts as the upstream for sealed flows. It produces one or
 more `SealedFlow` instances, each representing a pipeline coming off the hub. The hub receives values from its
 upstream and forwards them to each sealed flow for downstream processing. The critical factor that makes
-this more than a shared flow is the observability: Every sealed flow exposes an `isConnectedToHub` state flow that
+this more than a shared flow is the observability: Every sealed flow exposes an `isConnectedToSource` state flow that
 indicates whether its final downstream collector is actively listening AND whether its internal pipeline is securely 
 connected to the hub.
 
@@ -128,9 +128,9 @@ scope.launch {
   }
 }
 
-logSession.awaitConnectionToHub()
-checkSession.awaitConnectionToHub()
-processingSession.awaitConnectionToHub()
+logSession.awaitConnectionToSource()
+checkSession.awaitConnectionToSource()
+processingSession.awaitConnectionToSource()
 
 source.start()
 
@@ -142,7 +142,7 @@ hub.close()
 Each session object represents an exposure of the underlying source flow passed to the hub factory,
 and the connection status of each can be individually checked. The connection flags are state flows,
 so they can be observed as shown in the above example, or read directly with
-`sealedFlow.isConnectedToHub.value`.
+`sealedFlow.isConnectedToSource.value`.
 
 ## Advanced Usage
 
@@ -239,8 +239,8 @@ class Layer3(
       }.collect()
     }
 
-    emissionCountFlow.awaitConnectionToHub()
-    helloWorldSeenFlow.awaitConnectionToHub()
+    emissionCountFlow.awaitConnectionToSource()
+    helloWorldSeenFlow.awaitConnectionToSource()
 
     layer1.startEmissions()
   }
@@ -377,7 +377,7 @@ class LeakySystem(
             .collect()
       }
       
-      sealedFlow2.awaitConnectionToHub()
+      sealedFlow2.awaitConnectionToSource()
       upstream.start() // UNRELIABLE: Race condition because of the leaks!
     }
   }
@@ -421,8 +421,8 @@ class ResilientSystem(
       }
       
       // Wait for both pipelines to be securely connected from bottom to top!
-      sealedFlow1.awaitConnectionToHub()
-      sealedFlow2.awaitConnectionToHub()
+      sealedFlow1.awaitConnectionToSource()
+      sealedFlow2.awaitConnectionToSource()
       
       upstream.start() // SAFE: Data will flow reliably!
     }
@@ -432,7 +432,7 @@ class ResilientSystem(
 
 By ensuring your code follows this approach by keeping your transformations occur inside
 `createFlow`, Sealant can guarantees the entire pipeline is connected from the first source to
-the final collector before `awaitConnectionToHub()` resumes, thus eliminating race conditions even
+the final collector before `awaitConnectionToSource()` resumes, thus eliminating race conditions even
 across asynchronous boundaries and complex intermediate operators.
 
 ## Dagger

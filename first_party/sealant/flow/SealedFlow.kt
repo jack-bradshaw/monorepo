@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.StateFlow
  * 2. Zero Buffering: Emissions from the underlying flow are forwarded to the collector without
  *    buffering or artificial delay.
  * 3. The Zero-Drop Guarantee: The session passes every value received from the underlying flow to
- *    its collector without leakage while [isConnectedToHub] is true.
+ *    its collector without leakage while [isConnectedToSource] is true.
  *
- * The [isConnectedToHub] flag is true precisely while the [flow] is being collected, meaning:
+ * The [isConnectedToSource] flag is true precisely while the [flow] is being collected, meaning:
  * 1. The value begins as `false`
  * 2. The value flips to `true` when collection begins.
  * 3. The value flips to `false` when collection ends.
@@ -40,8 +40,8 @@ interface SealedFlow<T> : ObservableClosable {
   val flow: Flow<T>
 
   /** Whether [flow] is actively being collected. */
-  val isConnectedToHub: StateFlow<Boolean>
+  val isConnectedToSource: StateFlow<Boolean>
 
-  /** Suspends until [isConnectedToHub] becomes true. */
-  suspend fun awaitConnectionToHub()
+  /** Suspends until [isConnectedToSource] becomes true. */
+  suspend fun awaitConnectionToSource()
 }

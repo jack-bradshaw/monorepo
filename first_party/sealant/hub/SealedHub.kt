@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.Flow
  * flow. Since the hub forwards all values to every open session immediately without delay or
  * replay, sessions can guarantee that once they start collecting, they will receive all values from
  * the upstream flow, and can therefore reliably declare they are connected to the source with
- * `isConnectedToHub`.
+ * `isConnectedToSource`.
  */
 interface SealedHub<T> : ObservableClosable {
 
