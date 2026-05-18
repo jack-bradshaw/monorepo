@@ -9,18 +9,27 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Test
 
-/** Abstract tests that all [IdleableQuinn] instances should pass. */
+/**
+ * Abstract tests that all [IdleableQuinn] instances should pass.
+ *
+ * This test requires two separate coroutine scopes and task barriers because they require two
+ * independent pairs of execution/idling. This occurs because the system running `execute` never
+ * reaches an idle state.
+ */
 abstract class IdleableQuinnTest {
 
-  private val testScopeHandle = Job()
+  private val scope1Handle = Job()
 
-  protected val testScope by lazy { CoroutineScope(testDispatcher() + testScopeHandle) }
+  protected val scope1 by lazy { CoroutineScope(scope1Dispatcher() + scope1Handle) }
+
+  private val scope2Handle = Job()
+
+  protected val scope2 by lazy { CoroutineScope(scope2Dispatcher() + scope2Handle) }
 
   /** All latches created during testing. Collected for automatic closure. */
   private val latches = ConcurrentHashMap.newKeySet<CountDownLatch>()
@@ -32,7 +41,8 @@ abstract class IdleableQuinnTest {
 
     runBlocking {
       subject().close()
-      testScopeHandle.cancelAndJoin()
+      scope1Handle.cancelAndJoin()
+      scope2Handle.cancelAndJoin()
     }
   }
 
@@ -43,61 +53,61 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_beforeExecuting_withOneQueuedAtBack_returnsTrue() = runBlocking {
-    testScope.launch { subject().queueAtBack {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().queueAtBack {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_beforeExecuting_withOneTryQueuedAtBack_returnsTrue() = runBlocking {
-    testScope.launch { subject().tryQueueAtBack {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().tryQueueAtBack {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_beforeExecuting_withOneQueuedAtFront_returnsTrue() = runBlocking {
-    testScope.launch { subject().queueAtFront {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().queueAtFront {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_beforeExecuting_withOneTryQueuedAtFront_returnsTrue() = runBlocking {
-    testScope.launch { subject().tryQueueAtFront {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().tryQueueAtFront {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_beforeExecuting_withMultipleQueued_returnsTrue() = runBlocking {
-    testScope.launch { subject().queueAtBack {} }
-    testScope.launch { subject().queueAtBack {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().queueAtBack {} }
+    scope1.launch { subject().queueAtBack {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_whileExecuting_noTasksSubmitted_returnsTrue() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_whileExecuting_withOneQueuedAtBack_returnsFalse() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskStarted = CompletableDeferred<Unit>()
     val taskBlocker = newLatch()
-    testScope.launch {
+    scope1.launch {
       subject().queueAtBack {
         taskStarted.complete(Unit)
         taskBlocker.await()
@@ -110,12 +120,12 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_whileExecuting_withOneTryQueuedAtBack_returnsFalse() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskStarted = CompletableDeferred<Unit>()
     val taskBlocker = newLatch()
-    testScope.launch {
+    scope1.launch {
       subject().tryQueueAtBack {
         taskStarted.complete(Unit)
         taskBlocker.await()
@@ -128,12 +138,12 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_whileExecuting_withOneQueuedAtFront_returnsFalse() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskStarted = CompletableDeferred<Unit>()
     val taskBlocker = newLatch()
-    testScope.launch {
+    scope1.launch {
       subject().queueAtFront {
         taskStarted.complete(Unit)
         taskBlocker.await()
@@ -146,12 +156,12 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_whileExecuting_withOneTryQueuedAtFront_returnsFalse() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskStarted = CompletableDeferred<Unit>()
     val taskBlocker = newLatch()
-    testScope.launch {
+    scope1.launch {
       subject().tryQueueAtFront {
         taskStarted.complete(Unit)
         taskBlocker.await()
@@ -164,13 +174,13 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_whileExecuting_withMultipleQueued_noneFinished_returnsFalse() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskStarted1 = CompletableDeferred<Unit>()
     val taskBlocker1 = newLatch()
     val taskBlocker2 = newLatch()
-    testScope.launch {
+    scope1.launch {
       subject().queueAtBack {
         taskStarted1.complete(Unit)
         taskBlocker1.await()
@@ -184,12 +194,12 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_whileExecuting_withMultipleQueued_oneFinishedOneRunning_returnsFalse() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskStarted2 = CompletableDeferred<Unit>()
     val taskBlocker2 = newLatch()
-    testScope.launch {
+    scope1.launch {
       subject().queueAtBack {}
 
       subject().queueAtBack {
@@ -204,14 +214,14 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_whileExecuting_withMultipleQueued_allFinished_returnsTrue() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
-    val firstTask = testScope.launch { subject().queueAtBack {} }
+    val firstTask = scope1.launch { subject().queueAtBack {} }
 
     firstTask.join()
 
-    val secondTask = testScope.launch { subject().queueAtBack {} }
+    val secondTask = scope1.launch { subject().queueAtBack {} }
 
     secondTask.join()
 
@@ -220,8 +230,8 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_afterExecuting_noTasksSubmitted_returnsTrue() = runBlocking {
-    val executeJob = testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    val executeJob = scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     executeJob.cancelAndJoin()
 
@@ -230,78 +240,78 @@ abstract class IdleableQuinnTest {
 
   @Test
   fun isIdle_afterExecuting_withOneQueuedAtBack_returnsTrue() = runBlocking {
-    val executeJob = testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    val executeJob = scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     executeJob.cancelAndJoin()
 
-    testScope.launch { subject().queueAtBack {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().queueAtBack {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_afterExecuting_withOneTryQueuedAtBack_returnsTrue() = runBlocking {
-    val executeJob = testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    val executeJob = scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     executeJob.cancelAndJoin()
 
-    testScope.launch { subject().tryQueueAtBack {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().tryQueueAtBack {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_afterExecuting_withOneQueuedAtFront_returnsTrue() = runBlocking {
-    val executeJob = testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    val executeJob = scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     executeJob.cancelAndJoin()
 
-    testScope.launch { subject().queueAtFront {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().queueAtFront {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_afterExecuting_withOneTryQueuedAtFront_returnsTrue() = runBlocking {
-    val executeJob = testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    val executeJob = scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     executeJob.cancelAndJoin()
 
-    testScope.launch { subject().tryQueueAtFront {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().tryQueueAtFront {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_afterExecuting_withMultipleQueued_returnsTrue() = runBlocking {
-    val executeJob = testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    val executeJob = scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     executeJob.cancelAndJoin()
 
-    testScope.launch { subject().queueAtBack {} }
-    testScope.launch { subject().queueAtBack {} }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().queueAtBack {} }
+    scope1.launch { subject().queueAtBack {} }
+    scope1TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isTrue()
   }
 
   @Test
   fun isIdle_whileClosingAndFinishingLastTask_returnsFalse() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskBlocker = newLatch()
     val taskStarted = CompletableDeferred<Unit>()
-    testScope.launch {
+    scope1.launch {
       subject().queueAtBack {
         taskStarted.complete(Unit)
         taskBlocker.await()
@@ -309,21 +319,20 @@ abstract class IdleableQuinnTest {
     }
     taskStarted.await()
 
-    val closeJob = testScope.launch { subject().close() }
-
-    delay(DELAY_DURATION_MS)
+    val closeJob = scope2.launch { subject().close() }
+    scope2TaskBarrier().awaitAllIdle()
 
     assertThat(subject().isIdle()).isFalse()
   }
 
   @Test
   fun isIdle_afterClosingAndFinishingLastTask_returnsTrue() = runBlocking {
-    testScope.launch { subject().execute("test-resource") }
-    taskBarrier().awaitAllIdle()
+    scope1.launch { subject().execute("test-resource") }
+    scope1TaskBarrier().awaitAllIdle()
 
     val taskStarted = CompletableDeferred<Unit>()
     val taskBlocker = newLatch()
-    testScope.launch {
+    scope1.launch {
       subject().queueAtBack {
         taskStarted.complete(Unit)
         taskBlocker.await()
@@ -331,7 +340,7 @@ abstract class IdleableQuinnTest {
     }
     taskStarted.await()
 
-    val closeJob = testScope.launch { subject().close() }
+    val closeJob = scope2.launch { subject().close() }
 
     taskBlocker.countDown()
     closeJob.join()
@@ -339,24 +348,27 @@ abstract class IdleableQuinnTest {
     assertThat(subject().isIdle()).isTrue()
   }
 
+  /** Returns the subject under test. Must return the same instance each time. */
   abstract fun subject(): IdleableQuinn<String>
 
-  abstract fun testDispatcher(): CoroutineDispatcher
+  /** Returns a dispatcher for use in tests. Must be distinct from [scope2Dispatcher]. */
+  abstract fun scope1Dispatcher(): CoroutineDispatcher
 
-  abstract fun taskBarrier(): TestingTaskBarrier
+  /**
+   * Returns a task barrier that gates [scope1Dispatcher]. Must be distinct from
+   * [scope2TaskBarrier].
+   */
+  abstract fun scope1TaskBarrier(): TestingTaskBarrier
+
+  /** Returns a dispatcher for use in tests. Must be distinct from [scope1Dispatcher]. */
+  abstract fun scope2Dispatcher(): CoroutineDispatcher
+
+  /**
+   * Returns a task barrier that gates [scope2Dispatcher]. Must be distinct from
+   * [scope1TaskBarrier].
+   */
+  abstract fun scope2TaskBarrier(): TestingTaskBarrier
 
   /** Provides a new [CountDownLatch] with a count of `1`. The latch is registered in [latches]. */
   private fun newLatch(): CountDownLatch = CountDownLatch(1).also { latches.add(it) }
-
-  companion object {
-    /**
-     * The duration to delay when waiting for closure to reach a suspending point.
-     *
-     * This is necessary because `close` is a blocking call, so any coroutine interactions it does
-     * must be wrapped with `runBlocking, which inherently prevents use of the task barrier.
-     *
-     * TODO(jack-bradshaw): Create a suspendable closure interface so close can be non-blocking.
-     */
-    private const val DELAY_DURATION_MS = 50L
-  }
 }

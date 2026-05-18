@@ -32,6 +32,7 @@ kt_jvm_library(
     deps = [
         ":idleable",
         "//first_party/chronosphere/testingtaskbarrier",
+        "//first_party/closet/observable/helpers",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",

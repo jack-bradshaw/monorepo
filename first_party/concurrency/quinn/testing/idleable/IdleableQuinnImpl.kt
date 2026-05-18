@@ -24,9 +24,7 @@ class IdleableQuinnImpl<T>(@Prod private val delegate: Quinn<T>) : IdleableQuinn
 
   override val isExecuting = delegate.isExecuting
 
-  override val hasTerminalState = delegate.hasTerminalState
-
-  override val hasTerminatedProcesses = delegate.hasTerminatedProcesses
+  override val closureStatus = delegate.closureStatus
 
   override fun isIdle() = !isExecuting.value || submittedTasks.get() == completedTasks.get()
 
@@ -74,5 +72,5 @@ class IdleableQuinnImpl<T>(@Prod private val delegate: Quinn<T>) : IdleableQuinn
 
   override suspend fun execute(resource: T) = delegate.execute(resource)
 
-  override fun close() = delegate.close()
+  override suspend fun close() = delegate.close()
 }

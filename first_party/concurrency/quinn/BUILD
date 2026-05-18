@@ -38,6 +38,7 @@ kt_jvm_library_with_dagger(
     deps = [
         ":quinn",
         ":scope",
+        "//first_party/closet/observable/standard",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -59,6 +60,8 @@ kt_jvm_library_with_dagger(
         ":component",
         ":module",
         ":scope",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
     ],
 )
 
@@ -83,6 +86,7 @@ kt_jvm_library(
     deps = [
         ":quinn",
         "//first_party/chronosphere/testingtaskbarrier",
+        "//first_party/closet/observable/helpers",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
@@ -99,6 +103,8 @@ kt_jvm_test_with_dagger(
         ":component_impl",
         ":impl",
         ":test",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:junit_junit",
@@ -114,6 +120,25 @@ kt_jvm_test_with_dagger(
         ":component_impl",
         ":impl",
         "//first_party/closet/observable:test",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
+        "//first_party/coroutines/testing/realistic:component",
+        "//first_party/coroutines/testing/realistic:component_impl",
+        "@com_jackbradshaw_maven//:junit_junit",
+    ],
+)
+
+kt_jvm_test_with_dagger(
+    name = "impl_as_suspendable_closable_test",
+    srcs = ["QuinnImplAsSuspendableClosableTest.kt"],
+    test_class = "com.jackbradshaw.concurrency.quinn.QuinnImplAsSuspendableClosableTest",
+    deps = [
+        ":component",
+        ":component_impl",
+        ":impl",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
+        "//first_party/closet/suspending:test",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:junit_junit",

@@ -1,6 +1,7 @@
 package com.jackbradshaw.kale.resolver.chassis
 
 import com.google.common.truth.Truth.assertThat
+import com.jackbradshaw.closet.observable.ObservableClosable.Status
 import com.jackbradshaw.kale.model.Versions
 import com.jackbradshaw.kale.testing.TestSources.VALID_JAVA_SOURCE
 import com.jackbradshaw.kale.testing.TestSources.VALID_KOTLIN_SOURCE
@@ -41,10 +42,9 @@ abstract class ResolverChassisTest {
 
         chassis.close()
 
-        assertThat(harnessA.hasTerminalState.value).isTrue()
-        assertThat(harnessA.hasTerminatedProcesses.value).isTrue()
-        assertThat(harnessB.hasTerminalState.value).isTrue()
-        assertThat(harnessB.hasTerminatedProcesses.value).isTrue()
+        assertThat(subject().closureStatus.value).isEqualTo(Status.CLOSED)
+        assertThat(harnessA.closureStatus.value).isEqualTo(Status.CLOSED)
+        assertThat(harnessB.closureStatus.value).isEqualTo(Status.CLOSED)
       }
 
   @Test
@@ -65,7 +65,7 @@ abstract class ResolverChassisTest {
         chassis.close()
 
         val exception = assertFailsWith<IllegalStateException> { chassis.open(emptySet()) }
-        assertThat(exception).hasMessageThat().isEqualTo("ResourceManager is closed.")
+        assertThat(exception).hasMessageThat().isEqualTo("This resource is not open.")
       }
 
   @Test
@@ -76,8 +76,7 @@ abstract class ResolverChassisTest {
 
         harness.close()
 
-        assertThat(chassis.hasTerminalState.value).isFalse()
-        assertThat(chassis.hasTerminatedProcesses.value).isFalse()
+        assertThat(chassis.closureStatus.value).isEqualTo(Status.OPEN)
       }
 
   abstract fun subject(): ResolverChassis
