@@ -17,7 +17,7 @@ class IdleableQuinnHubImpl @Inject constructor(@Prod private val delegate: Quinn
   /** All provisioned [Quinn] instances. */
   private val provisioned = ConcurrentHashMap.newKeySet<IdleableQuinn<*>>()
 
-  override fun <T> createQuinn() =
+  override suspend fun <T> createQuinn() =
       IdleableQuinnImpl<T>(delegate.createQuinn()).also { provisioned.add(it) }
 
   override fun isIdle() = runBlocking<Boolean> { provisioned.all { it.isIdle() } }

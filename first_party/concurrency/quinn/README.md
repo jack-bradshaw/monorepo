@@ -171,6 +171,8 @@ In most cases it's sufficient to use the production Quinn in tests and check idl
 [Chronosphere](/first_party/chronosphere) and [Coroutines](/first_party/coroutines), for example:
 
 ```kotlin
+import kotlinx.coroutines.runBlocking
+
 @RunWith(JUnit4::class)
 class MyComponentTest {
 
@@ -186,7 +188,7 @@ class MyComponentTest {
   lateinit var cpuDispatcher: CoroutineDispatcher
 
   private val quinn: Quinn<String> by lazy {
-    quinnFactory.createQuinn<String>()
+    runBlocking { quinnFactory.createQuinn<String>() }
   }
 
   @Before
@@ -241,6 +243,8 @@ can use `TestQuinnComponent` to provision an `IdleableQuinn.Hub` which tracks th
 `Quinn` instance it produces. For example:
 
 ```kotlin
+import kotlinx.coroutines.runBlocking
+
 @RunWith(JUnit4::class)
 class MyIdleableComponentTest {
 
@@ -281,7 +285,9 @@ class MyIdleableComponentTest {
         .build()
         .inject(quinnInfra)
 
-    quinn = quinnInfra.quinnHub.createQuinn<String>() as IdleableQuinn<String>
+    runBlocking {
+      quinn = quinnInfra.quinnHub.createQuinn<String>() as IdleableQuinn<String>
+    }
   }
 
   @After

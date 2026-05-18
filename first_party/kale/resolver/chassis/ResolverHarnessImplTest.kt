@@ -2,6 +2,7 @@ package com.jackbradshaw.kale.resolver.chassis
 
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.kale.model.Source
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -15,7 +16,7 @@ class ResolverHarnessImplTest : ResolverHarnessTest() {
 
   @After
   override fun tearDown() {
-    chassis.close()
+    runBlocking { chassis.close() }
   }
 
   override suspend fun setupSubject(sources: Set<Source>) {

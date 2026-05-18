@@ -7,6 +7,7 @@ import com.jackbradshaw.concurrency.quinn.testing.prod.prodPassThroughComponent
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -17,40 +18,42 @@ class IdleableQuinnAsQuinnTest : QuinnTest<String>() {
 
   private lateinit var subject: IdleableQuinn<String>
 
-  private lateinit var mainDispatcher: CoroutineDispatcher
+  private lateinit var scope1Dispatcher: CoroutineDispatcher
 
-  private lateinit var mainTaskBarrier: TestingTaskBarrier
+  private lateinit var scope1TaskBarrier: TestingTaskBarrier
 
-  private lateinit var secondaryDispatcher: CoroutineDispatcher
+  private lateinit var scope2Dispatcher: CoroutineDispatcher
 
-  private lateinit var secondaryTaskBarrier: TestingTaskBarrier
+  private lateinit var scope2TaskBarrier: TestingTaskBarrier
 
   /** Counter to ensure resources produced by [createResource] are unique. */
   private var resourceCounter = AtomicInteger(0)
 
   @Before
   fun setUp() {
-    val prodFactory = prodPassThroughComponent(quinnComponent()).prodQuinnFactory()
-    subject = IdleableQuinnImpl(prodFactory.createQuinn<String>())
+    runBlocking {
+      val prodFactory = prodPassThroughComponent(quinnComponent()).prodQuinnFactory()
+      subject = IdleableQuinnImpl(prodFactory.createQuinn<String>())
+    }
 
-    val mainCoroutines = realisticCoroutinesTestingComponent()
-    mainDispatcher = mainCoroutines.cpuDispatcher()
-    mainTaskBarrier = mainCoroutines.taskBarrier()
+    val scope1Coroutines = realisticCoroutinesTestingComponent()
+    scope1Dispatcher = scope1Coroutines.cpuDispatcher()
+    scope1TaskBarrier = scope1Coroutines.taskBarrier()
 
-    val secondaryCoroutines = realisticCoroutinesTestingComponent()
-    secondaryDispatcher = secondaryCoroutines.cpuDispatcher()
-    secondaryTaskBarrier = secondaryCoroutines.taskBarrier()
+    val scope2Coroutines = realisticCoroutinesTestingComponent()
+    scope2Dispatcher = scope2Coroutines.cpuDispatcher()
+    scope2TaskBarrier = scope2Coroutines.taskBarrier()
   }
 
   override fun subject() = subject
 
-  override fun mainDispatcher() = mainDispatcher
+  override fun scope1Dispatcher() = scope1Dispatcher
 
-  override fun mainTaskBarrier() = mainTaskBarrier
+  override fun scope1TaskBarrier() = scope1TaskBarrier
 
-  override fun secondaryDispatcher() = secondaryDispatcher
+  override fun scope2Dispatcher() = scope2Dispatcher
 
-  override fun secondaryTaskBarrier() = secondaryTaskBarrier
+  override fun scope2TaskBarrier() = scope2TaskBarrier
 
   override fun createResource() = "TestResource_${resourceCounter.incrementAndGet()}"
 }

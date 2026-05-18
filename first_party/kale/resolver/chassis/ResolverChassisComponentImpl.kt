@@ -1,7 +1,9 @@
 package com.jackbradshaw.kale.resolver.chassis
 
-import com.jackbradshaw.closet.resourcemanager.ResourceManagerComponent
-import com.jackbradshaw.closet.resourcemanager.resourceManagerComponent
+import com.jackbradshaw.closet.observable.standard.StandardObservableClosableComponent
+import com.jackbradshaw.closet.observable.standard.standardObservableClosableComponent
+import com.jackbradshaw.closet.resourcemanager.set.ResourceSetComponent
+import com.jackbradshaw.closet.resourcemanager.set.resourceSetComponent
 import com.jackbradshaw.concurrency.quinn.QuinnComponent
 import com.jackbradshaw.concurrency.quinn.quinnComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
@@ -18,8 +20,9 @@ import dagger.Component
     dependencies =
         [
             CoroutinesComponent::class,
-            ResourceManagerComponent::class,
+            ResourceSetComponent::class,
             ProviderRunnerComponent::class,
+            StandardObservableClosableComponent::class,
             QuinnComponent::class],
     modules = [ResolverChassisModule::class])
 interface ResolverChassisComponentImpl : ResolverChassisComponent {
@@ -27,11 +30,13 @@ interface ResolverChassisComponentImpl : ResolverChassisComponent {
   interface Builder {
     fun consuming(coroutines: CoroutinesComponent): Builder
 
-    fun consuming(resourceManager: ResourceManagerComponent): Builder
+    fun consuming(resourceSet: ResourceSetComponent): Builder
 
     fun consuming(providerRunner: ProviderRunnerComponent): Builder
 
     fun consuming(quinn: QuinnComponent): Builder
+
+    fun consuming(standard: StandardObservableClosableComponent): Builder
 
     fun build(): ResolverChassisComponentImpl
   }
@@ -40,13 +45,15 @@ interface ResolverChassisComponentImpl : ResolverChassisComponent {
 /** Provides a new [ResolverChassisComponentImpl]. */
 fun resolverChassisComponent(
     coroutines: CoroutinesComponent = coroutinesComponent(),
-    resourceManager: ResourceManagerComponent = resourceManagerComponent(coroutines),
+    standard: StandardObservableClosableComponent = standardObservableClosableComponent(),
+    resourceSet: ResourceSetComponent = resourceSetComponent(coroutines, standard),
     providerRunner: ProviderRunnerComponent = providerRunnerComponent(),
     quinn: QuinnComponent = quinnComponent()
 ): ResolverChassisComponent =
     DaggerResolverChassisComponentImpl.builder()
         .consuming(coroutines)
-        .consuming(resourceManager)
+        .consuming(resourceSet)
         .consuming(providerRunner)
         .consuming(quinn)
+        .consuming(standard)
         .build()
