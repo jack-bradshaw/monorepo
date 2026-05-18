@@ -21,7 +21,8 @@ kt_jvm_library_with_dagger(
     ],
     deps = [
         ":chassis",
-        "//first_party/closet/resourcemanager:resource_manager",
+        "//first_party/closet/observable/standard",
+        "//first_party/closet/resourcemanager/set",
         "//first_party/concurrency/quinn",
         "//first_party/coroutines/io",
         "//first_party/kale/model:source",
@@ -59,8 +60,10 @@ kt_jvm_library_with_dagger(
     deps = [
         ":component",
         ":module",
-        "//first_party/closet/resourcemanager:component",
-        "//first_party/closet/resourcemanager:component_impl",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
+        "//first_party/closet/resourcemanager/set:component",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/concurrency/quinn:component",
         "//first_party/concurrency/quinn:component_impl",
         "//first_party/coroutines:component",
@@ -100,7 +103,7 @@ kt_jvm_test(
         ":chassis_test",
         ":component",
         ":component_impl",
-        "//first_party/closet/resourcemanager:component_impl",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/concurrency/quinn:component_impl",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
@@ -109,16 +112,16 @@ kt_jvm_test(
 )
 
 kt_jvm_test(
-    name = "chassis_impl_observable_closable_test",
+    name = "impl_as_obsevable_closable_test",
     size = "small",
-    srcs = ["ResolverChassisImplObservableClosableTest.kt"],
-    test_class = "com.jackbradshaw.kale.resolver.chassis.ResolverChassisImplObservableClosableTest",
+    srcs = ["ResolverChassisImplAsObservableClosableTest.kt"],
+    test_class = "com.jackbradshaw.kale.resolver.chassis.ResolverChassisImplAsObservableClosableTest",
     deps = [
         ":chassis",
         ":component",
         ":component_impl",
         "//first_party/closet/observable:test",
-        "//first_party/closet/resourcemanager:component_impl",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/concurrency/quinn:component_impl",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:junit_junit",
@@ -153,7 +156,7 @@ kt_jvm_test(
         ":component",
         ":component_impl",
         ":harness_test",
-        "//first_party/closet/resourcemanager:component_impl",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/concurrency/quinn:component_impl",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/kale/model:source",
@@ -163,16 +166,16 @@ kt_jvm_test(
 )
 
 kt_jvm_test(
-    name = "harness_impl_obsevable_closable_test",
+    name = "harness_impl_as_obsevable_closable_test",
     size = "small",
-    srcs = ["ResolverHarnessImplObservableClosableTest.kt"],
-    test_class = "com.jackbradshaw.kale.resolver.chassis.ResolverHarnessImplObservableClosableTest",
+    srcs = ["ResolverHarnessImplAsObservableClosableTest.kt"],
+    test_class = "com.jackbradshaw.kale.resolver.chassis.ResolverHarnessImplAsObservableClosableTest",
     deps = [
         ":chassis",
         ":component",
         ":component_impl",
         "//first_party/closet/observable:test",
-        "//first_party/closet/resourcemanager:component_impl",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/concurrency/quinn:component_impl",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/kale/model:source",

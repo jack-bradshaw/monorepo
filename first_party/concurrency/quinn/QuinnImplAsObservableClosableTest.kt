@@ -7,7 +7,7 @@ import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingC
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import dagger.Component
 import javax.inject.Scope
-import org.junit.After
+import kotlinx.coroutines.runBlocking
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.junit.Test
@@ -15,20 +15,20 @@ import org.junit.Test
 @RunWith(JUnit4::class)
 class QuinnImplAsObservableClosableTest : ObservableClosableTest<Quinn<String>>() {
 
-  private val underTest =
-      DaggerQuinnImplAsObservableClosableTest_TestComponent.builder()
-          .consuming(realisticCoroutinesTestingComponent())
-          .consuming(DaggerQuinnComponentImpl.create())
-          .build()
-          .factory()
-          .createQuinn<String>()
+  private val coroutines = realisticCoroutinesTestingComponent()
 
-  @After
-  override fun tearDown() {
-    underTest.close()
+  private val underTest = runBlocking {
+    DaggerQuinnImplAsObservableClosableTest_TestComponent.builder()
+        .consuming(coroutines)
+        .consuming(quinnComponent())
+        .build()
+        .factory()
+        .createQuinn<String>()
   }
 
   override fun subject() = underTest
+
+  override fun testDispatcher() = coroutines.ioDispatcher()
 
   @Scope annotation class TestScope
 

@@ -187,7 +187,7 @@ interface Quinn<T> : ObservableClosable {
   /** Creates instances of [Quinn]. */
   interface Factory {
     /** Creates a new instance of [Quinn]. */
-    fun <T> createQuinn(): Quinn<T>
+    suspend fun <T> createQuinn(): Quinn<T>
   }
 }
 

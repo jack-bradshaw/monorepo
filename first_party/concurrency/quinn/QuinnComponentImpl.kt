@@ -1,22 +1,23 @@
-
 package com.jackbradshaw.concurrency.quinn
 
-
-import dagger.Binds
+import com.jackbradshaw.closet.observable.standard.StandardObservableClosableComponent
+import com.jackbradshaw.closet.observable.standard.standardObservableClosableComponent
 import dagger.Component
-import dagger.Module
 
 /** Default [QuinnComponent]. */
 @QuinnScope
-@Component(modules = [QuinnProductionModule::class, QuinnComponentImpl.DefaultModule::class])
+@Component(
+    dependencies = [StandardObservableClosableComponent::class], modules = [QuinnModule::class])
 interface QuinnComponentImpl : QuinnComponent {
+  @Component.Builder
+  interface Builder {
+    fun consuming(standard: StandardObservableClosableComponent): Builder
 
-  @Module
-  interface DefaultModule {
-    @Binds fun bindDefaultFactory(@Production impl: Quinn.Factory): Quinn.Factory
+    fun build(): QuinnComponentImpl
   }
 }
 
-
 /** Provides a new [QuinnComponent]. */
-fun quinnComponent(): QuinnComponent = DaggerQuinnComponentImpl.create()
+fun quinnComponent(
+    standard: StandardObservableClosableComponent = standardObservableClosableComponent()
+): QuinnComponent = DaggerQuinnComponentImpl.builder().consuming(standard).build()

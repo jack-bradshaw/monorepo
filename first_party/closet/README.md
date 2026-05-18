@@ -1,6 +1,6 @@
 # Closet
 
-A toolkit for Java AutoClosable resources.
+Assorted tools for working with closable resources.
 
 ## Release
 
@@ -8,124 +8,195 @@ Not released to third party package managers.
 
 ## Overview
 
-Closet provides various tools and interfaces for working with `AutoCloseable` including:
+Closet provides various tools and interfaces for working with closable resources including:
 
-- [ObservableClosable](/first_party/closet/observable/ObservableClosable.kt), an interface for
-  closables that can be observed (i.e. notify on close).
-- [ResourceManager](/first_party/closet/resourcemanager/ResourceManager.kt), a thread-safe registry
-  for orchestrating multiple closables as one entity.
-- [ClosetRule](/first_party/closet/rule/ClosetRule.kt), a JUnit test rule for automatically closing
-  resources during tear down.
+- [SuspendableClosable](/first_party/closet/suspending/SuspendableClosable.kt): The foundational
+  interface for closable resources that allow suspension during closure.
+- [ObservableClosable](/first_party/closet/observable/ObservableClosable.kt): The foundational
+  interface for closables that broadcast their closure state.
+- [StandardObservableClosable](/first_party/closet/observable/standard/StandardObservableClosableComponent.kt):
+  A standard implementation of `ObservableClosable` to eliminate boilerplate.
+- [ObservableClosableHelpers](/first_party/closet/observable/helpers/ObservableClosableHelpers.kt):
+  Convenience functions for `ObservableClosable`s.
+- [ResourceMap](/first_party/closet/resourcemanager/map/ResourceMap.kt) and
+  [ResourceSet](/first_party/closet/resourcemanager/set/ResourceSet.kt): Thread-safe registries for
+  orchestrating multiple closables as one.
+- [AutoCloseRule](/first_party/closet/rule/AutoCloseRule.kt): A JUnit test rule for automatically
+  closing resources during test tear down.
 
-Together they allow you to reason about `AutoCloseable` objects as observable and composable, while
-simplifying test orchestration. Guides are provided below for each.
+Together these utilities allow you to reason about closable objects as suspendable, observable,
+composable systems, with sensible and convenient test orchestration.
+
+## SuspendableClosable
+
+[SuspendableClosable] is equivalent to [AutoCloseable], except its close function is suspending
+instead of synchronous. It is useful in scenarios where the internal logic of the closable requires
+suspending operations during closure, for example:
+
+```kotlin
+class NetworkConnection : SuspendableClosable {
+
+  private val closeLock = Mutex()
+
+  private var isClosed = false
+
+  private val connectionJob = coroutineScope.launch {
+    // Keeps connection alive, does some work.
+  }
+
+  override suspend fun close() {
+    closeLock.withLock {
+      if (isClosed) return
+      isClosed = true
+
+      // Safely wait for the background job to finish its work and terminate
+      connectionJob.cancelAndJoin()
+    }
+  }
+}
+```
+
+Using `SuspendableClosable` avoids the need for `runBlocking` in `close` which aids overall
+architecture by avoiding blocking calls deep within an asynchronous call stack.
 
 ## ObservableClosable
 
-When you have an `AutoCloseable` and you need to query or observe its closure, you can implement the
-`ObservableClosable` interface. It represents a closable that broadcasts its closure status with two
-flags:
-
-1. `hasTerminalState`, which indicates the close signal has been received and recorded internally,
-   such that any future call to any function on the object that requires a non-closed state will
-   deterministically fail or exit without effect.
-1. `hasTerminatedProcesses`, which indicates the termination of any background work the closable
-   holds internally (e.g. coroutine jobs, async tasks, etc.).
-
-Below are examples of using and implementing `ObservableClosable`.
-
-### Usage
-
-Observing an `ObservableClosable` is a standard Kotlin flow operation. For example:
+[ObservableClosable](/first_party/closet/observable/ObservableClosable.kt) is a
+`SuspendableClosable` that broadcasts its closure state, for example:
 
 ```kotlin
-coroutineScope.launch {
-  someClosable.hasTerminalState.filter { it }.onEach {
-    println("terminal state reached")
-  }.collect()
-}
-
-coroutineScope.launch {
-  someClosable.hasTerminatedProcesses.filter { it }.onEach {
-    println("background work terminated")
-  }.collect()
-}
-```
-
-### Implementation
-
-Below is an example of a custom `ObservableClosable` implementation:
-
-```kotlin
-import com.jackbradshaw.closet.observable.ObservableClosable
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
-class NetworkPipeline : ObservableClosable {
+class Foo : ObservableClosable {
 
-  private val coroutineScope = CoroutineScope(Dispatchers.Default)
-  private val backgroundWork = ConcurrentHashMap.newKeySet<Job>()
+  private val closeLock = Mutex()
 
-  private val lock = Mutex()
+  private val _closureStatus = MutableStateFlow(Status.OPEN)
 
-  private val _hasTerminalState = MutableStateFlow(false)
-  override val hasTerminalState: StateFlow<Boolean> = _hasTerminalState
+  // Some generic network system, for example purposes.
+  private val network = Network()
 
-  private val _hasTerminatedProcesses = MutableStateFlow(false)
-  override val hasTerminatedProcesses: StateFlow<Boolean> = _hasTerminatedProcesses
+  override val closureStatus = _closureStatus.asStateFlow()
 
-  suspend fun sendRequest(request: Request) {
-    lock.withLock {
-      if (_hasTerminalState.value) return
-        val job = coroutineScope.launch {
-        // Not implemented, present only for example purposes.
-      }
-      backgroundWork.add(job)
+  fun connectToServer(): Connection {
+    check(closureStatus.value == Status.OPEN) {
+      "This Foo is closed, cannot provide a new connection."
     }
+    return network.newSession()
   }
 
-  override fun close() {
-    runBlocking {
-      lock.withLock {
-        // Immediately mark closed status to reject new work.
-        _hasTerminalState.value = true
-      }
-
-      // Drain running processes
-      coroutineScope.cancel()
-      backgroundWork.forEach {
-        it.join()
+  override suspend fun close() {
+    closeLock.withLock {
+      if (_closureStatus.value != Status.CLOSED) {
+        _closureStatus.value = Status.CLOSING
+        network.closeAllSessions()
+        _closureStatus.value = Status.CLOSED
       }
     }
-    _hasTerminatedProcesses.value = true
   }
 }
 ```
 
-This example highlights a critical part of the `ObservableClosable` contract: Every call to `close`
-must block until both `hasTerminalState` and `hasTerminatedProcesses` are true. The example
-implements this by cancelling background work and joining existing jobs while they cancel. A mutex
-is used to ensure new work is not scheduled after the terminal state has been marked, which avoids a
-variety of edge cases and race conditions that can cause resource leaks.
-
-## ResourceManager
-
-When you have multiple closables you can use the `ResourceManager` to track them, coordinate them,
-and manage them as one entity. It acts as a thread-safe key-value store, and when the manager is
-closed, all registered values are closed too. For example:
+Observing closure:
 
 ```kotlin
-import com.jackbradshaw.closet.resourcemanager.ResourceManager
-import com.jackbradshaw.closet.resourcemanager.ResourceManagerComponent
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import com.jackbradshaw.closet.observable.helpers.awaitClosed
+import com.jackbradshaw.closet.observable.helpers.awaitClosing
+
+suspend fun example(foo: Foo) = coroutineScope {
+  launch {
+    foo.awaitClosing()
+    println("foo has started closing")
+  }
+
+  launch {
+    foo.awaitClosed()
+    println("background work terminated")
+  }
+}
+```
+
+## StandardObservableClosable
+
+Implementing `ObservableClosable` directly requires careful management of `Mutex` locks and state
+transitions to ensure compliance with the strict concurrency and queueing contract. You can
+eliminate this boilerplate and reduce complexity by delegating to `StandardObservableClosable`, for
+example:
+
+```kotlin
+import com.jackbradshaw.closet.observable.helpers.checkOpen
+import com.jackbradshaw.closet.observable.standard.StandardObservableClosableFactory
+import kotlinx.coroutines.runBlocking
+
+class Foo(standardFactory: StandardObservableClosableFactory) : ObservableClosable {
+
+  // Some generic network system, for example purposes.
+  private val network = Network()
+
+  private val standard = runBlocking {
+    standardFactory.createStandardClosable {
+      network.closeAllSessions()
+    }
+  }
+
+  override val closureStatus = standard.closureStatus
+
+  fun connectToServer(): Connection {
+    checkOpen("This Foo is closed, cannot provide a new connection.")
+    return network.newSession()
+  }
+
+  override suspend fun close() = standard.close()
+}
+```
+
+## ObservableClosableHelpers
+
+Helpers are available to reduce boilerplate when using `ObservableClosable`, for example:
+
+```kotlin
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import com.jackbradshaw.closet.observable.helpers.awaitClosed
+import com.jackbradshaw.closet.observable.helpers.awaitClosing
+
+suspend fun example(foo: Foo) = coroutineScope {
+  launch {
+    foo.awaitClosing()
+    println("foo has started closing")
+  }
+
+  launch {
+    foo.awaitClosed()
+    println("background work terminated")
+  }
+}
+```
+
+## ResourceMap
+
+When you have multiple closables you can use the `ResourceMap` to track them, coordinate them, and
+manage them as one entity. It acts as a thread-safe key-value store, and when the manager is closed,
+all registered values are closed too. For example:
+
+```kotlin
+import com.jackbradshaw.closet.resourcemanager.map.ResourceMap
+import com.jackbradshaw.closet.resourcemanager.map.ResourceMapComponent
 import com.jackbradshaw.coroutines.DaggerCoroutinesComponentImpl
 import dagger.Component
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 
 class ConnectionCoordinator @Inject constructor(
-  private val factory: ResourceManager.Factory
+  private val factory: ResourceMap.Factory
 ) {
 
-  private val registry = factory.createResourceManager()
+  private val registry = runBlocking { factory.createResourceMap() }
 
   suspend fun openConnection(destination: String) {
     val connection = Connection(destination)
@@ -142,13 +213,13 @@ class ConnectionCoordinator @Inject constructor(
   }
 }
 
-@Component(dependencies = [ResourceManagerComponent::class])
+@Component(dependencies = [ResourceMapComponent::class])
 interface ApplicationComponent {
   fun inject(app: MyApplication)
 
   @Component.Builder
   interface Builder {
-    fun resourceManagerComponent(component: ResourceManagerComponent): Builder
+    fun resourceMapComponent(component: ResourceMapComponent): Builder
     fun build(): ApplicationComponent
   }
 }
@@ -159,8 +230,8 @@ class MyApplication : Application() {
 
   override fun onCreate() {
     DaggerApplicationComponent.builder()
-      .resourceManagerComponent(
-        DaggerResourceManagerComponentImpl.builder()
+      .resourceMapComponent(
+        DaggerResourceMapComponentImpl.builder()
           .coroutines(DaggerCoroutinesComponentImpl.create())
           .build()
       )
@@ -187,27 +258,28 @@ class MyApplication : Application() {
 ```
 
 The dagger setup in the above example is real and can be followed in your code to get instances of
-`ResourceManager`.
+`ResourceMap`. For cases where keys are not necessary, the `ResourceSet` offers the same
+functionality without key-value associations.
 
-## ClosetRule
+## AutoCloseRule
 
-When you have closable resources in a test and cannot rely on the test process ending to close them
-safely, you will need to manually close them during tear down. The `ClosetRule` simplifies this by
-ensuring `close` is called. For example:
+When you need to open resources in a test and close them during teardown, the `AutoCloseRule` can
+simplify test boilerplate. It works as a registry and closes all registered values during tear-down,
+for example:
 
 ```kotlin
-import com.jackbradshaw.closet.rule.ClosetRuleFactory
+import com.jackbradshaw.closet.rule.autoCloseRuleComponent
 import org.junit.Rule
 import org.junit.Test
 
 class NetworkTest {
-  // Any resource registered to the ClosetRule will be automatically terminated when the test completes.
+  // Auto closes registered resources.
   @get:Rule
-  val rule = ClosetRuleFactory.create(NetworkPipeline())
+  val rule = autoCloseRuleComponent().autoCloseRule()
 
   @Test
   fun testRouting() {
-    val pipeline = rule.get()
+    val pipeline = rule.register(NetworkPipeline())
     assertThat(pipeline.route()).isTrue()
   }
 }
@@ -217,10 +289,10 @@ class NetworkTest {
 
 Interface-based programming is used extensively throughout Closet such that all tools can be
 completely reimplemented by third parties without compromising compatibility with the broader tool
-system. For example, you could implement your own `ResourceManager` and it should work with all
+system. For example, you could implement your own `ResourceMap` and it should work with all
 `ObservableClosable`s and vice versa. For convenience, abstract tests are provided for all tools,
 and you can check your implementations against them. Follow the example in
-[ResourceManagerTest](/first_party/closet/resourcemanager/ResourceManagerTest.kt).
+[ResourceMapTest](/first_party/closet/resourcemanager/map/ResourceMapTest.kt).
 
 ## Issues
 

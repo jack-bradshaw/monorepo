@@ -6,7 +6,9 @@ import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.jackbradshaw.closet.observable.ObservableClosable
-import com.jackbradshaw.closet.resourcemanager.ResourceManager
+import com.jackbradshaw.closet.observable.ObservableClosable.Status
+import com.jackbradshaw.closet.observable.standard.StandardObservableClosableFactory
+import com.jackbradshaw.closet.resourcemanager.set.ResourceSet
 import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.kale.model.Source
@@ -18,8 +20,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -44,32 +45,32 @@ class ResolverChassisImpl
 @Inject
 internal constructor(
     private val providerRunner: ProviderRunner,
-    private val resourceManagerFactory: ResourceManager.Factory,
+    private val resourceSetFactory: ResourceSet.Factory,
     private val quinnFactory: Quinn.Factory,
+    private val standardFactory: StandardObservableClosableFactory,
     @Io private val coroutineContext: CoroutineContext
 ) : ResolverChassis {
 
   /**
    * Tracks all open sessions so they can be closed when this chassis is closed.
    *
-   * There are no other states/processes so [hasTerminalState], [hasTerminatedProcesses], and
-   * [close] all delegate to this manager.
+   * There are no other states/processes so [hasStartedClosing], [hasFinishedClosing], and [close]
+   * all delegate to this manager.
    */
-  private val resourceManager =
-      resourceManagerFactory.createResourceManager<StubKey, CompilationSession>()
+  private val resourceSet = runBlocking {
+    resourceSetFactory.createResourceSet<CompilationSession>()
+  }
 
-  override val hasTerminalState = resourceManager.hasTerminalState
-
-  override val hasTerminatedProcesses = resourceManager.hasTerminatedProcesses
+  override val closureStatus = resourceSet.closureStatus
 
   override suspend fun open(
       sources: Set<Source>,
       versions: Versions,
       options: Map<String, String>
   ): ResolverHarness {
-    return resourceManager
-        .getOrPut(StubKey()) { CompilationSession(sources, versions, options) }
-        .harness
+    val session = CompilationSession(sources, versions, options).apply { initialize() }
+    resourceSet.add(session)
+    return session.harness
   }
 
   override suspend fun open(
@@ -81,7 +82,7 @@ internal constructor(
   }
 
   override suspend fun close() {
-    resourceManager.close()
+    resourceSet.close()
   }
 
   /**
@@ -94,17 +95,7 @@ internal constructor(
       private val options: Map<String, String>
   ) : ObservableClosable {
 
-    /**
-     * Whether this compilation session has entered into its terminal state. Will be set in [close]
-     * and will never become `false` after becoming `true`.
-     */
-    private val _hasTerminalState = MutableStateFlow<Boolean>(false)
-
-    /**
-     * Whether this compilation session has finished all background processing. Will be set in
-     * [close] and will never become `false` after becoming `true`.
-     */
-    private val _hasTerminatedProcesses = MutableStateFlow<Boolean>(false)
+    private lateinit var standard: ObservableClosable
 
     /** Coroutine Job linked to [coroutineScope]. Exists so the scope can be cancelled. */
     private val coroutineScopeHandle = Job()
@@ -113,9 +104,16 @@ internal constructor(
     private val coroutineScope = CoroutineScope(coroutineContext + coroutineScopeHandle)
 
     /** Bridges [harness] with a KSP execution. */
-    private val quinn = quinnFactory.createQuinn<Resolver>()
+    private lateinit var quinn: Quinn<Resolver>
 
-    init {
+    suspend fun initialize() {
+      quinn = quinnFactory.createQuinn<Resolver>()
+      standard =
+          standardFactory.createStandardClosable {
+            quinn.close()
+            coroutineScopeHandle.cancelAndJoin()
+          }
+
       coroutineScope.launch {
         val provider =
             object : SymbolProcessorProvider {
@@ -139,27 +137,18 @@ internal constructor(
             }
           }
 
-          override val hasTerminalState
-            get() = this@CompilationSession.hasTerminalState
-
-          override val hasTerminatedProcesses
-            get() = this@CompilationSession.hasTerminatedProcesses
+          override val closureStatus
+            get() = this@CompilationSession.closureStatus
 
           override suspend fun close() {
             this@CompilationSession.close()
           }
         }
 
-    override val hasTerminalState = _hasTerminalState.asStateFlow()
+    override val closureStatus: StateFlow<Status>
+      get() = standard.closureStatus
 
-    override val hasTerminatedProcesses = _hasTerminatedProcesses.asStateFlow()
-
-    override suspend fun close() {
-      _hasTerminalState.value = true
-      quinn.close()
-      coroutineScopeHandle.cancelAndJoin()
-      _hasTerminatedProcesses.value = true
-    }
+    override suspend fun close() = standard.close()
 
     /**
      * Creates a [SymbolProcessor] that uses [quinn] to execute [Resolver]-dependent work.
@@ -175,16 +164,4 @@ internal constructor(
       }
     }
   }
-}
-
-/**
- * ResourceManager is a key-value map but association is not needed in ResolverChassisImpl as it
- * effectively functions as a set. This class returns false for equals and has a dummy hash code
- * implementation to ensure each value inserted into the manager has a unique key (effectively
- * turning the map into a set).
- */
-class StubKey {
-  override fun equals(other: Any?) = false
-
-  override fun hashCode() = 0
 }

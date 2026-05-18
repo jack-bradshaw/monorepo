@@ -1,16 +1,12 @@
-
 package com.jackbradshaw.concurrency.quinn
 
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.coroutines.Cpu
-import com.jackbradshaw.coroutines.testing.Coroutines
-import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
-
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import dagger.Component
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Scope
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -20,69 +16,53 @@ class QuinnImplTest : QuinnTest<String>() {
 
   private lateinit var underTest: Quinn<String>
 
-  private lateinit var subjectLinkedTaskBarrier: TestingTaskBarrier
-  private lateinit var subjectLinkedDispatcher: CoroutineDispatcher
+  private lateinit var scope1TaskBarrier: TestingTaskBarrier
 
-  private lateinit var subjectIndependentTaskBarrier: TestingTaskBarrier
-  private lateinit var subjectIndependentDispatcher: CoroutineDispatcher
+  private lateinit var scope1Dispatcher: CoroutineDispatcher
 
+  private lateinit var scope2TaskBarrier: TestingTaskBarrier
+
+  private lateinit var scope2Dispatcher: CoroutineDispatcher
 
   /** Counter to ensure resources produced by [createResource] are unique. */
   private var resourceCounter = AtomicInteger(0)
 
   @Before
   fun setup() {
+    val component = DaggerQuinnImplTest_TestComponent.builder().consuming(quinnComponent()).build()
+    runBlocking { underTest = component.factory().createQuinn() }
 
-    val coroutines = realisticCoroutinesTestingComponent()
-    val coroutines2 = realisticCoroutinesTestingComponent()
+    val scope1Coroutines = realisticCoroutinesTestingComponent()
+    scope1TaskBarrier = scope1Coroutines.taskBarrier()
+    scope1Dispatcher = scope1Coroutines.cpuDispatcher()
 
-
-
-    val component =
-        DaggerQuinnImplTest_TestComponent.builder()
-            .consuming(coroutines)
-            .consuming(DaggerQuinnComponentImpl.create())
-            .build()
-    underTest = component.factory().createQuinn()
-
-    subjectLinkedTaskBarrier = component.taskBarrier()
-    subjectLinkedDispatcher = component.cpuDispatcher()
-    subjectIndependentTaskBarrier = coroutines2.taskBarrier()
-    subjectIndependentDispatcher = coroutines2.cpuDispatcher()
-
+    val scope2Coroutines = realisticCoroutinesTestingComponent()
+    scope2TaskBarrier = scope2Coroutines.taskBarrier()
+    scope2Dispatcher = scope2Coroutines.cpuDispatcher()
   }
 
   override fun subject() = underTest
 
+  override fun scope1Dispatcher() = scope1Dispatcher
 
-  override fun subjectLinkedDispatcher() = subjectLinkedDispatcher
+  override fun scope1TaskBarrier() = scope1TaskBarrier
 
-  override fun subjectLinkedTaskBarrier() = subjectLinkedTaskBarrier
+  override fun scope2Dispatcher() = scope2Dispatcher
 
-  override fun subjectIndependentDispatcher() = subjectIndependentDispatcher
-
-  override fun subjectIndependentTaskBarrier() = subjectIndependentTaskBarrier
-
+  override fun scope2TaskBarrier() = scope2TaskBarrier
 
   override fun createResource() = "TestResource_${resourceCounter.incrementAndGet()}"
 
   @Scope annotation class TestScope
 
   @TestScope
-  @Component(dependencies = [QuinnComponent::class, RealisticCoroutinesTestingComponent::class])
+  @Component(dependencies = [QuinnComponent::class])
   interface TestComponent {
     fun factory(): Quinn.Factory
-
-
-    @Coroutines fun taskBarrier(): TestingTaskBarrier
-
-    @Cpu fun cpuDispatcher(): CoroutineDispatcher
 
     @Component.Builder
     interface Builder {
       fun consuming(quinn: QuinnComponent): Builder
-
-      fun consuming(coroutines: RealisticCoroutinesTestingComponent): Builder
 
       fun build(): TestComponent
     }
