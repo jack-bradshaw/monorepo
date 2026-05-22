@@ -1,63 +1,61 @@
 package com.jackbradshaw.sealant.hub
 
 import com.jackbradshaw.closet.observable.ObservableClosable
-import com.jackbradshaw.sealant.flow.SealedFlow
+import com.jackbradshaw.sealant.session.SealedSession
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Transforms a single underlying flow into a series of isolated [SealedFlow]s and tracks them
- * to ensure adequate resource management.
+ * Transforms a single upstream flow into a series of isolated [SealedSession]s and tracks them to
+ * ensure cascading resource closure.
  *
- * Hub provides the following guarantees:
- * 1. Session Generation: Every call to [createFlow] produces a distinctly new session instance.
- * 2. The Zero-Drop Guarantee: The instant a session is created, it receives all future emissions
- *    from the hub without exception. The hub passes every received value to every open session
- *    without leakage.
- * 3. Zero Replay: Emissions from the underlying flow are not replayed to any session created after
+ * Hub provides the following guarantees to each session:
+ * 1. Zero-Drop: The instant a session is created, it receives all future emissions from the hub
+ *    without exception. The hub passes every received value to every open session without leakage.
+ * 2. Zero-Replay: Emissions from the upstream flow are not replayed to any session created after
  *    the emission is received at the hub.
- * 4. Zero Buffering: Emissions from the underlying flow are forwarded to existing sessions without
+ * 3. Zero-Buffering: Emissions from the upstream flow are forwarded to existing sessions without
  *    buffering or artificial delay.
- * 5. Closure Cascading: All associated sessions are closed when this hub is closed, and no further
- *    sessions can be created. Since closing a session terminates its flow, closing this hub
- *    implicitly finishes the flows of all associated sessions, and no more emissions are forwarded.
- *    Closing a session does not close the hub.
  *
- * No guarantees are made about the ordering of emissions or the parallelism of emissions, meaning
- * sessions may receive emissions simultaneously or sequentially, depending on the implementation.
+ * No guarantees are made about the ordering of emissions when multiple sessions exist, meaning
+ * sessions may receive emissions simultaneously or sequentially, depending on the implementation,
+ * and slow sessions may not necessarily delay emission to faster sessions.
  *
- * When combined with the [SealedFlow] contract, these behaviours reliably produce a sealed
- * flow. Since the hub forwards all values to every open session immediately without delay or
- * replay, sessions can guarantee that once they start collecting, they will receive all values from
- * the upstream flow, and can therefore reliably declare they are connected to the source with
- * `isConnectedToSource`.
+ * All sessions created by a hub are closed when the hub is closed, and no further sessions can be
+ * created after closure, but closing a session does not close the associated hub. Since closing a
+ * session terminates its flow, closing this hub implicitly finishes the flows of all associated
+ * sessions.
+ *
+ * This contract ensure each [SealedSession] produced by a hub can operate reliably. Since the hub
+ * forwards all values to every open session immediately without delay, drop, or replay, every
+ * session can guarantee that once it starts collecting, it will receive all new values from the
+ * upstream flow, and can reliably declare `isConnectedToSource` to be true.
  */
 interface SealedHub<T> : ObservableClosable {
 
   /**
-   * Creates a new session that receives emissions from the underlying flow of this hub.
+   * Creates a new session that receives emissions from the upstream flow of this hub.
    *
-   * A new instance is provided on every call.
-   *
-   * Fails if this hub is closed when called.
+   * A new instance is provided on every call. Fails if this hub is closed when called.
    */
-  suspend fun createFlow(): SealedFlow<T>
+  suspend fun createSession(): SealedSession<T>
 
   /**
-   * Creates a new flow that applies [transformation] to the underlying flow before exposing it.
+   * Creates a new session that applies [transformation] to the upstream flow before exposing it.
    */
-  suspend fun <R> createFlow(transformation: suspend (Flow<T>) -> Flow<R>): SealedFlow<R>
+  suspend fun <R> createSession(transformation: suspend (Flow<T>) -> Flow<R>): SealedSession<R>
 
   /** Produces [SealedHub] instances. */
   interface Factory {
-    /** Creates a new [SealedHub] backed by [underlyingFlow]. */
-    fun <T> create(underlyingFlow: Flow<T>): SealedHub<T>
+
+    /** Creates a new [SealedHub] backed by [upstreamFlow]. */
+    suspend fun <T> create(upstreamFlow: Flow<T>): SealedHub<T>
 
     /**
-     * Creates a new [SealedHub] backed by [underlyingFlow] which closes automatically when
-     * [underlyingFlow] closes.
+     * Creates a new [SealedHub] backed by [upstreamFlow].
      *
-     * Closing the returned hub does NOT close [underlyingFlow].
+     * The provided hub closes automatically when [upstreamFlow] closes, and closing the returned
+     * hub stops collection from the [upstreamFlow].
      */
-    fun <T> createWithAutomaticClosure(underlyingFlow: SealedFlow<T>): SealedHub<T>
+    suspend fun <T> createWithAutomaticClosure(upstreamFlow: SealedSession<T>): SealedHub<T>
   }
 }

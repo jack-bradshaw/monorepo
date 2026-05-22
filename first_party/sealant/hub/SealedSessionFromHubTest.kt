@@ -11,61 +11,63 @@ import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingC
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import com.jackbradshaw.sealant.SealantScope
 import com.jackbradshaw.sealant.session.SealedSession
+import com.jackbradshaw.sealant.session.SealedSessionTest
 import dagger.Component
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+/**
+ * Verifies that all [SealedSession] instances produced by [SealedHubImpl] conform to
+ * [SealedSessionTest].
+ */
 @RunWith(JUnit4::class)
-class SealedHubImplFactoryTest : SealedHubFactoryTest<String>() {
+class SealedSessionFromHubTest : SealedSessionTest<String>() {
+
+  private val valueCounter = AtomicInteger(0)
 
   private val upstreamFlow = MutableSharedFlow<String>()
 
-  private val nextValue = AtomicInteger(0)
+  private lateinit var subject: SealedSession<String>
 
-  @Inject lateinit var sealedSessionFactory: SealedSession.Factory
-
-  @Inject lateinit var subject: SealedHub.Factory
-
-  @Inject @Io lateinit var ioDispatcher: CoroutineDispatcher
+  @Inject lateinit var sealedHubFactory: SealedHub.Factory
 
   @Inject @Coroutines lateinit var taskBarrier: TestingTaskBarrier
+
+  @Inject @Io lateinit var ioDispatcher: CoroutineDispatcher
 
   @Before
   fun setUp() =
       runBlocking<Unit> {
         val coroutines = realisticCoroutinesTestingComponent()
         val closables = standardObservableClosableComponent()
-
-        DaggerSealedHubImplFactoryTest_TestComponent.builder()
+        DaggerSealedSessionFromHubTest_TestComponent.builder()
             .resourceSetComponent(resourceSetComponent(coroutines, closables))
             .realisticCoroutinesTestingComponent(coroutines)
             .standardObservableClosableComponent(closables)
             .build()
-            .inject(this@SealedHubImplFactoryTest)
+            .inject(this@SealedSessionFromHubTest)
+
+        val hub = sealedHubFactory.create(upstreamFlow)
+        subject = hub.createSession()
       }
 
-  override suspend fun subject(): SealedHub.Factory = subject
+  protected override fun subject() = subject
 
-  override suspend fun upstreamFlow(): Flow<String> = upstreamFlow
-
-  override suspend fun sealedSessionFactory(): SealedSession.Factory = sealedSessionFactory
-
-  override suspend fun createValue(): String = nextValue.incrementAndGet().toString()
-
-  override suspend fun emitUpstream(value: String) {
+  protected override suspend fun emitUpstream(value: String) {
     upstreamFlow.emit(value)
   }
 
-  override fun testDispatcher(): CoroutineDispatcher = ioDispatcher
+  protected override suspend fun createValue() = "${valueCounter.getAndIncrement()}"
 
-  override suspend fun taskBarrier(): TestingTaskBarrier = taskBarrier
+  protected override suspend fun taskBarrier() = taskBarrier
+
+  protected override fun testDispatcher(): CoroutineDispatcher = ioDispatcher
 
   @SealantScope
   @Component(
@@ -76,6 +78,6 @@ class SealedHubImplFactoryTest : SealedHubFactoryTest<String>() {
               RealisticCoroutinesTestingComponent::class,
               StandardObservableClosableComponent::class])
   interface TestComponent {
-    fun inject(target: SealedHubImplFactoryTest)
+    fun inject(target: SealedSessionFromHubTest)
   }
 }

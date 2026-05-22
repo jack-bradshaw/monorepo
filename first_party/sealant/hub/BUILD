@@ -1,13 +1,14 @@
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("//first_party/dagger:defs.bzl", "kt_jvm_library_with_dagger", "kt_jvm_test_with_dagger")
+load("//first_party/sealant:publicity.bzl", "PUBLICITY")
 
 kt_jvm_library(
     name = "hub",
     srcs = ["SealedHub.kt"],
-    visibility = ["//visibility:public"],
+    visibility = PUBLICITY,
     deps = [
         "//first_party/closet/observable",
-        "//first_party/sealant/flow",
+        "//first_party/sealant/session",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -15,13 +16,16 @@ kt_jvm_library(
 kt_jvm_library(
     name = "impl",
     srcs = ["SealedHubImpl.kt"],
-    visibility = ["//visibility:public"],
+    visibility = ["//first_party/sealant:__subpackages__"],
     deps = [
         ":hub",
-        "//first_party/closet/resourcemanager:resource_manager",
+        "//first_party/closet/observable/helpers",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
+        "//first_party/closet/resourcemanager/set",
         "//first_party/coroutines/io",
         "//first_party/sealant:scope",
-        "@com_jackbradshaw_maven//:jakarta_inject_jakarta_inject_api",
+        "@com_jackbradshaw_maven//:javax_inject_javax_inject",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -29,20 +33,33 @@ kt_jvm_library(
 kt_jvm_library_with_dagger(
     name = "module",
     srcs = ["SealedHubModule.kt"],
-    visibility = ["//visibility:public"],
+    visibility = ["//first_party/sealant:__subpackages__"],
     deps = [
         ":hub",
         ":impl",
+        "//first_party/sealant/session:module",
     ],
 )
 
 kt_jvm_library(
-    name = "test_abstract",
-    srcs = [
-        "SealedHubFactoryTest.kt",
-        "SealedHubTest.kt",
+    name = "test_factory",
+    testonly = True,
+    srcs = ["SealedHubFactoryTest.kt"],
+    visibility = PUBLICITY,
+    deps = [
+        ":hub",
+        "//first_party/chronosphere/testingtaskbarrier",
+        "@com_jackbradshaw_maven//:com_google_truth_truth",
+        "@com_jackbradshaw_maven//:junit_junit",
+        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
-    visibility = ["//visibility:public"],
+)
+
+kt_jvm_library(
+    name = "test",
+    testonly = True,
+    srcs = ["SealedHubTest.kt"],
+    visibility = PUBLICITY,
     deps = [
         ":hub",
         "//first_party/chronosphere/testingtaskbarrier",
@@ -53,14 +70,16 @@ kt_jvm_library(
 )
 
 kt_jvm_test_with_dagger(
-    name = "SealedHubImplTest",
+    name = "sealed_hub_impl_test",
+    size = "small",
     srcs = ["SealedHubImplTest.kt"],
     test_class = "com.jackbradshaw.sealant.hub.SealedHubImplTest",
     deps = [
         ":impl",
         ":module",
-        ":test_abstract",
-        "//first_party/closet/resourcemanager:module",
+        ":test",
+        "//first_party/closet/resourcemanager/set:component",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
@@ -68,32 +87,35 @@ kt_jvm_test_with_dagger(
 )
 
 kt_jvm_test_with_dagger(
-    name = "SealedHubImplFactoryTest",
+    name = "sealed_hub_impl_factory_test",
+    size = "small",
     srcs = ["SealedHubImplFactoryTest.kt"],
     test_class = "com.jackbradshaw.sealant.hub.SealedHubImplFactoryTest",
     deps = [
         ":impl",
         ":module",
-        ":test_abstract",
-        "//first_party/closet/resourcemanager:module",
+        ":test_factory",
+        "//first_party/closet/resourcemanager/set:component",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
     ],
 )
 
-
 kt_jvm_test_with_dagger(
-    name = "SealedFlowFromHubTest",
-    srcs = ["SealedFlowFromHubTest.kt"],
-    test_class = "com.jackbradshaw.sealant.hub.SealedFlowFromHubTest",
+    name = "sealed_session_from_hub_test",
+    size = "small",
+    srcs = ["SealedSessionFromHubTest.kt"],
+    test_class = "com.jackbradshaw.sealant.hub.SealedSessionFromHubTest",
     deps = [
         ":impl",
         ":module",
-        "//first_party/sealant/flow:test_abstract",
-        "//first_party/closet/resourcemanager:module",
+        "//first_party/closet/resourcemanager/set:component",
+        "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
+        "//first_party/sealant/session:test",
     ],
 )

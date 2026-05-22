@@ -2,11 +2,16 @@ package com.jackbradshaw.sealant.hub
 
 import com.google.common.truth.Truth.assertThat
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.sealant.flow.SealedFlow
+import com.jackbradshaw.closet.observable.ObservableClosable
+import com.jackbradshaw.sealant.session.SealedSession
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -15,26 +20,38 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 abstract class SealedHubFactoryTest<T> {
 
+  private val testScopeHandle = Job()
+
+  protected val testScope by lazy { CoroutineScope(testDispatcher() + testScopeHandle) }
+
+  @After
+  fun cancelTestScope() {
+    runBlocking { testScopeHandle.cancelAndJoin() }
+  }
+
   @Test
   fun create_eachCall_providesNewInstance() =
       runBlocking<Unit> {
-        val underlyingFlow = underlyingFlow()
+        val upstreamFlow = upstreamFlow()
+        taskBarrier().awaitAllIdle()
 
-        val instance1 = subject().create(underlyingFlow)
-        val instance2 = subject().create(underlyingFlow)
+        val instance1 = subject().create(upstreamFlow)
+        val instance2 = subject().create(upstreamFlow)
+        taskBarrier().awaitAllIdle()
 
         assertThat(instance1).isNotSameInstanceAs(instance2)
       }
 
   @Test
-  fun create_returnedHub_linkedToUnderlyingFlow() =
+  fun create_returnedHub_forwardsUpstreamFlow() =
       runBlocking<Unit> {
-        val flow = underlyingFlow()
+        val flow = upstreamFlow()
         val hub = subject().create(flow)
+        taskBarrier().awaitAllIdle()
 
-        val session = hub.createFlow()
+        val session = hub.createSession()
         val collections = mutableListOf<T>()
-        testScope().launch { session.flow.collect(collections::add) }
+        testScope.launch { session.flow.collect(collections::add) }
         taskBarrier().awaitAllIdle()
 
         val emission1 = createValue()
@@ -49,74 +66,72 @@ abstract class SealedHubFactoryTest<T> {
   @Test
   fun createWithAutomaticClosure_eachCall_providesNewInstance() =
       runBlocking<Unit> {
-        val session1 = underlyingSession()
-        val session2 = underlyingSession()
+        val session1 = sealedSessionFactory().create<T, T>(upstreamFlow()) { it }
+        val session2 = sealedSessionFactory().create<T, T>(upstreamFlow()) { it }
+        taskBarrier().awaitAllIdle()
 
         val instance1 = subject().createWithAutomaticClosure(session1)
         val instance2 = subject().createWithAutomaticClosure(session2)
+        taskBarrier().awaitAllIdle()
 
         assertThat(instance1).isNotSameInstanceAs(instance2)
       }
 
   @Test
-  fun createWithAutomaticClosure_returnedHub_linkedToUnderlyingFlow() =
+  fun createWithAutomaticClosure_returnedHub_forwardsUpstreamFlow() =
       runBlocking<Unit> {
-        val session = underlyingSession()
+        val session = sealedSessionFactory().create<T, T>(upstreamFlow()) { it }
         val hub = subject().createWithAutomaticClosure(session)
+        taskBarrier().awaitAllIdle()
 
-        val hubSession = hub.createFlow()
+        val hubSession = hub.createSession()
         val collections = mutableListOf<T>()
-        testScope().launch { hubSession.flow.collect(collections::add) }
+        testScope.launch { hubSession.flow.collect(collections::add) }
         taskBarrier().awaitAllIdle()
 
         val emission1 = createValue()
         val emission2 = createValue()
-        emitUpstreamSession(emission1)
-        emitUpstreamSession(emission2)
+        emitUpstream(emission1)
+        emitUpstream(emission2)
         taskBarrier().awaitAllIdle()
 
         assertThat(collections).containsExactly(emission1, emission2).inOrder()
       }
 
   @Test
-  fun createWithAutomaticClosure_closeUnderlying_closesHub() =
+  fun createWithAutomaticClosure_upstreamFlowClosed_closesHub() =
       runBlocking<Unit> {
-        val session = underlyingSession()
+        val session = sealedSessionFactory().create<T, T>(upstreamFlow()) { it }
         val hub = subject().createWithAutomaticClosure(session)
+        taskBarrier().awaitAllIdle()
 
         session.close()
         taskBarrier().awaitAllIdle()
 
-        assertThat(hub.hasTerminalState.value).isTrue()
-        assertThat(hub.hasTerminatedProcesses.value).isTrue()
+        assertThat(hub.closureStatus.value).isEqualTo(ObservableClosable.Status.CLOSED)
       }
 
-  @Test
-  fun createWithAutomaticClosure_closeHub_doesNotCloseUnderlying() =
-      runBlocking<Unit> {
-        val session = underlyingSession()
-        val hub = subject().createWithAutomaticClosure(session)
-
-        hub.close()
-        taskBarrier().awaitAllIdle()
-
-        assertThat(session.hasTerminalState.value).isFalse()
-        assertThat(session.hasTerminatedProcesses.value).isFalse()
-      }
-
+  /** The factory under test. The same instance must be returned on each call. */
   protected abstract suspend fun subject(): SealedHub.Factory
 
-  protected abstract suspend fun underlyingFlow(): Flow<T>
+  /**
+   * A flow that emits when [emitUpstream] is called. The same instance must be returned on each
+   * call.
+   */
+  protected abstract suspend fun upstreamFlow(): Flow<T>
 
-  protected abstract suspend fun underlyingSession(): SealedFlow<T>
+  /** A sealed session factory. The same instance must be returned on each call. */
+  protected abstract suspend fun sealedSessionFactory(): SealedSession.Factory
 
+  /** Creates a new, unique value. */
   protected abstract suspend fun createValue(): T
 
+  /** Emits a value from [upstreamFlow]. */
   protected abstract suspend fun emitUpstream(value: T)
 
-  protected abstract suspend fun emitUpstreamSession(value: T)
+  /** A dispatcher linked to [taskBarrier]. */
+  protected abstract fun testDispatcher(): CoroutineDispatcher
 
-  protected abstract suspend fun testScope(): CoroutineScope
-
+  /** A task barrier linked to [testDispatcher]. */
   protected abstract suspend fun taskBarrier(): TestingTaskBarrier
 }
