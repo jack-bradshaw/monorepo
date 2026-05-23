@@ -50,6 +50,7 @@ kt_jvm_library_with_dagger(
         ":module",
         "//first_party/concurrency/quinn:component",
         "//first_party/coroutines:component",
+        "//first_party/kale/provider:component",
     ],
 )
 

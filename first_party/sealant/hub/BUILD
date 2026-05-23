@@ -81,6 +81,8 @@ kt_jvm_test_with_dagger(
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
     ],
 )
 
@@ -97,6 +99,8 @@ kt_jvm_test_with_dagger(
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
     ],
 )
 
@@ -113,5 +117,7 @@ kt_jvm_test_with_dagger(
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
         "//first_party/sealant/session:test",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
     ],
 )
