@@ -12,7 +12,6 @@ import com.jackbradshaw.sealant.flow.SealedFlowTest
 import dagger.Component
 import jakarta.inject.Inject
 import java.util.concurrent.atomic.AtomicInteger
-import javax.inject.Scope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -24,8 +23,9 @@ import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-/** Verifies taht all [SealedFlow] instances produced by [SealedHubImpl] confirm to
- * [SealedFlowTest]. */
+/**
+ * Verifies taht all [SealedFlow] instances produced by [SealedHubImpl] confirm to [SealedFlowTest].
+ */
 @RunWith(JUnit4::class)
 class SealedFlowFromHubTest : SealedFlowTest<String>() {
 

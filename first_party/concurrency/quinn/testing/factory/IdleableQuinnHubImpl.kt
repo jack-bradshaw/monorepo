@@ -5,9 +5,6 @@ import com.jackbradshaw.concurrency.quinn.Production
 import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.concurrency.quinn.testing.idleable.IdleableQuinn
 import com.jackbradshaw.concurrency.quinn.testing.idleable.IdleableQuinnImpl
-
-
-
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 
@@ -18,8 +15,7 @@ constructor(
     @Production private val realQuinnFactory: Quinn.Factory,
 ) : IdleableQuinn.Hub {
 
-  private val resourceSet =
-      runBlocking { resourceSetFactory.createResourceSet<IdleableQuinn<*>>() }
+  private val resourceSet = runBlocking { resourceSetFactory.createResourceSet<IdleableQuinn<*>>() }
 
   override suspend fun <T> createQuinn(): Quinn<T> {
     val idleableQuinn = IdleableQuinnImpl<T>(realQuinnFactory.createQuinn())

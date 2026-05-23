@@ -76,13 +76,13 @@ kt_jvm_test_with_dagger(
     deps = [
         ":module",
         ":test",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
         "//first_party/closet/resourcemanager/set:component",
         "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
-        "//first_party/closet/observable/standard:component",
-        "//first_party/closet/observable/standard:component_impl",
     ],
 )
 
@@ -94,13 +94,13 @@ kt_jvm_test_with_dagger(
     deps = [
         ":module",
         ":test_factory",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
         "//first_party/closet/resourcemanager/set:component",
         "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
-        "//first_party/closet/observable/standard:component",
-        "//first_party/closet/observable/standard:component_impl",
     ],
 )
 
@@ -111,13 +111,13 @@ kt_jvm_test_with_dagger(
     test_class = "com.jackbradshaw.sealant.hub.SealedSessionFromHubTest",
     deps = [
         ":module",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
         "//first_party/closet/resourcemanager/set:component",
         "//first_party/closet/resourcemanager/set:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
         "//first_party/sealant/session:test",
-        "//first_party/closet/observable/standard:component",
-        "//first_party/closet/observable/standard:component_impl",
     ],
 )

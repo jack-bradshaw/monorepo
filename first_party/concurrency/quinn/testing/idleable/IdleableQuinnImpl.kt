@@ -1,8 +1,8 @@
 package com.jackbradshaw.concurrency.quinn.testing.idleable
 
+import com.jackbradshaw.concurrency.quinn.Production
 import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
-import com.jackbradshaw.concurrency.quinn.Production
 import java.util.concurrent.atomic.AtomicInteger
 
 /**

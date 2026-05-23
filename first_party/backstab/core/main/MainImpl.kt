@@ -37,7 +37,9 @@ constructor(
   /**
    * Generates module for targets as they are emitted by [dataService] and suspends indefinitely.
    */
-  private suspend fun generateBackstabModules(sealedFlow: com.jackbradshaw.sealant.flow.SealedFlow<BackstabTarget>) {
+  private suspend fun generateBackstabModules(
+      sealedFlow: com.jackbradshaw.sealant.flow.SealedFlow<BackstabTarget>
+  ) {
     sealedFlow.flow
         .onEach { target ->
           val module =

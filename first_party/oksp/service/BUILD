@@ -22,9 +22,9 @@ kt_jvm_library(
     visibility = ["//visibility:public"],
     deps = [
         ":service",
+        "//first_party/chronosphere/testingtaskbarrier",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
-        "//first_party/chronosphere/testingtaskbarrier:testingtaskbarrier",
         "//first_party/kale/model:artifacts",
         "//first_party/kale/model:log",
         "//first_party/kale/model:result",

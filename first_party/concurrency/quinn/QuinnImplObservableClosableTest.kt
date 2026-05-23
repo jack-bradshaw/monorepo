@@ -1,18 +1,15 @@
 package com.jackbradshaw.concurrency.quinn
 
-
 import com.jackbradshaw.closet.observable.ObservableClosableTest
-import com.jackbradshaw.coroutines.testing.realistic.RealisticCoroutinesTestingComponent
-import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import dagger.Component
 import javax.inject.Scope
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 @RunWith(JUnit4::class)
 class QuinnImplObservableClosableTest : ObservableClosableTest<Quinn<String>>() {
@@ -23,18 +20,17 @@ class QuinnImplObservableClosableTest : ObservableClosableTest<Quinn<String>>() 
 
   @Before
   fun setUp() = runBlocking {
-    underTest = DaggerQuinnImplObservableClosableTest_TestComponent.builder()
-        .consuming(quinnComponent())
-        .build()
-        .factory()
-        .createQuinn<String>()
+    underTest =
+        DaggerQuinnImplObservableClosableTest_TestComponent.builder()
+            .consuming(quinnComponent())
+            .build()
+            .factory()
+            .createQuinn<String>()
   }
 
   @After
   override fun tearDown() {
-    runBlocking {
-      super.tearDown()
-    }
+    runBlocking { super.tearDown() }
   }
 
   override fun subject() = underTest

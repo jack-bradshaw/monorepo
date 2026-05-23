@@ -10,7 +10,6 @@ import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingC
 import com.jackbradshaw.obelisk.core.services.ObeliskControlService
 import com.jackbradshaw.obelisk.core.services.ObeliskDataService
 import com.jackbradshaw.obelisk.core.services.ObeliskErrorService
-import com.jackbradshaw.sealant.hub.SealedHub
 import com.jackbradshaw.sealant.flow.SealedFlow
 import dagger.Component
 import javax.inject.Inject
@@ -86,16 +85,17 @@ class MainImplTest : MainTest() {
     val publishedModules = mutableMapOf<BackstabTarget, List<BackstabModule>>()
 
     override suspend fun observeTargets() =
-              object : SealedFlow<BackstabTarget> {
-                override val flow = targets
-                override val isConnectedToHub = kotlinx.coroutines.flow.MutableStateFlow(false)
-                override suspend fun awaitConnectionToHub() {}
-                override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
-                override val hasTerminatedProcesses =
-                    kotlinx.coroutines.flow.MutableStateFlow(false)
+        object : SealedFlow<BackstabTarget> {
+          override val flow = targets
+          override val isConnectedToHub = kotlinx.coroutines.flow.MutableStateFlow(false)
 
-                override fun close() {}
-              }
+          override suspend fun awaitConnectionToHub() {}
+
+          override val hasTerminalState = kotlinx.coroutines.flow.MutableStateFlow(false)
+          override val hasTerminatedProcesses = kotlinx.coroutines.flow.MutableStateFlow(false)
+
+          override fun close() {}
+        }
 
     override suspend fun publish(result: BackstabModule, anchors: Set<BackstabTarget>) {
       for (anchor in anchors) {

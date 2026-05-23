@@ -8,8 +8,8 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFile
 import com.google.devtools.ksp.symbol.KSNode
-import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
 import com.jackbradshaw.concurrency.quinn.Quinn
+import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
 import com.jackbradshaw.concurrency.quinn.QuinnComponent
 import com.jackbradshaw.concurrency.quinn.quinnComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
@@ -22,8 +22,8 @@ import com.jackbradshaw.oksp.model.Resource
 import com.jackbradshaw.oksp.model.Source
 import com.jackbradshaw.oksp.service.KspService
 import com.jackbradshaw.sealant.SealantComponent
-import com.jackbradshaw.sealant.sealantComponent
 import com.jackbradshaw.sealant.hub.SealedHub
+import com.jackbradshaw.sealant.sealantComponent
 import com.jackbradshaw.sealant.session.SealedSession
 import dagger.BindsInstance
 import dagger.Component
@@ -33,7 +33,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.first
@@ -142,10 +141,9 @@ constructor(
     private lateinit var finalRoundCompleteHub: SealedHub<Unit>
 
     suspend fun initialize() {
-        roundStartEventHub = sealedHubFactory.create(roundStartEvents)
-        finalRoundCompleteHub = sealedHubFactory.create(kotlinx.coroutines.flow.emptyFlow())
+      roundStartEventHub = sealedHubFactory.create(roundStartEvents)
+      finalRoundCompleteHub = sealedHubFactory.create(kotlinx.coroutines.flow.emptyFlow())
     }
-
 
     /** List of symbols deferred in this round. */
     private var currentRoundDeferred: MutableList<KSAnnotated>? = null
@@ -179,36 +177,40 @@ constructor(
 
             val activeQuinn = currentRoundQuinn ?: return
 
-            activeQuinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) { throw abortException }
+            activeQuinn.tryQueueAtFront(ErrorHandling.DELIVER_TO_EXECUTION_SIDE) {
+              throw abortException
+            }
             activeQuinn.close()
           }
 
-          override suspend fun onEachRoundStart(): SealedSession<Unit> = roundStartEventHub.createSession { upstream ->
-              channelFlow {
+          override suspend fun onEachRoundStart(): SealedSession<Unit> =
+              roundStartEventHub.createSession { upstream ->
+                channelFlow {
                   println("DEBUG: onEachRoundStart channelFlow started")
                   val job = launch { upstream.collect { send(Unit) } }
                   select<Unit> {
-                      isFinishedNormally.onAwait {
-                          println("DEBUG: isFinishedNormally triggered in select")
-                      }
-                      isFinishedErroneously.onAwait {
-                          println("DEBUG: isFinishedErroneously triggered in select")
-                      }
+                    isFinishedNormally.onAwait {
+                      println("DEBUG: isFinishedNormally triggered in select")
+                    }
+                    isFinishedErroneously.onAwait {
+                      println("DEBUG: isFinishedErroneously triggered in select")
+                    }
                   }
                   println("DEBUG: select finished, cancelling job")
                   job.cancelAndJoin()
                   println("DEBUG: job cancelled, channelFlow finishing")
+                }
               }
-          }
 
-          override suspend fun onFinalRoundComplete(): SealedSession<Unit> = finalRoundCompleteHub.createSession { upstream ->
-              channelFlow {
-                  val job = launch { upstream.collect { } }
+          override suspend fun onFinalRoundComplete(): SealedSession<Unit> =
+              finalRoundCompleteHub.createSession { upstream ->
+                channelFlow {
+                  val job = launch { upstream.collect {} }
                   isFinishedNormally.await()
                   send(Unit)
                   job.cancelAndJoin()
+                }
               }
-          }
 
           override suspend fun completeRound() {
             check(isServiceReadyToStart.isCompleted) {

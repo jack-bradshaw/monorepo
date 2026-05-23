@@ -16,6 +16,8 @@ kt_jvm_library_with_dagger(
         "//first_party/chronosphere/testingtaskbarrier",
         "//first_party/chronosphere/testingtaskbarrier:component",
         "//first_party/chronosphere/testingtaskbarrier:component_impl",
+        "//first_party/closet/observable/standard:component",
+        "//first_party/closet/observable/standard:component_impl",
         "//first_party/closet/resourcemanager/set",
         "//first_party/closet/resourcemanager/set:component",
         "//first_party/closet/resourcemanager/set:component_impl",
@@ -25,12 +27,8 @@ kt_jvm_library_with_dagger(
         "//first_party/concurrency/quinn:qualifiers",
         "//first_party/concurrency/quinn/testing/idleable",
         "//first_party/concurrency/quinn/testing/idleable:impl",
-        "//first_party/closet/observable/standard:component",
-        "//first_party/closet/observable/standard:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
-
-

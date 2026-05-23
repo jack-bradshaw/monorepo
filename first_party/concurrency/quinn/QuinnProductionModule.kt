@@ -1,7 +1,5 @@
 package com.jackbradshaw.concurrency.quinn
 
-
-
 import dagger.Binds
 import dagger.Module
 
@@ -10,5 +8,4 @@ import dagger.Module
 interface QuinnProductionModule {
 
   @Binds @Production fun bindFactory(impl: QuinnImpl.Factory): Quinn.Factory
-
 }

@@ -2,9 +2,9 @@ package com.jackbradshaw.oksp.host
 
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
 import com.jackbradshaw.chronosphere.testingtaskbarrier.testingTaskBarrierComponent
+import com.jackbradshaw.closet.resourcemanager.set.resourceSetComponent
 import com.jackbradshaw.concurrency.quinn.QuinnComponent
 import com.jackbradshaw.concurrency.quinn.testing.DaggerTestingQuinnComponent
-import com.jackbradshaw.closet.resourcemanager.set.resourceSetComponent
 import com.jackbradshaw.coroutines.CoroutinesComponent
 import com.jackbradshaw.coroutines.Io
 import com.jackbradshaw.coroutines.testing.Coroutines
@@ -79,11 +79,17 @@ class HostKspServiceTest : KspServiceTest() {
 
     val taskBarrier = testingTaskBarrierComponent()
     val coroutines = realisticCoroutinesTestingComponent(taskBarrier)
-    val quinn = DaggerTestingQuinnComponent.builder()
-        .testingTaskBarrierComponent(taskBarrier)
-        .resourceSetComponent(com.jackbradshaw.closet.resourcemanager.set.resourceSetComponent(coroutines, com.jackbradshaw.closet.observable.standard.standardObservableClosableComponent()))
-        .standardObservableClosableComponent(com.jackbradshaw.closet.observable.standard.standardObservableClosableComponent())
-        .build()
+    val quinn =
+        DaggerTestingQuinnComponent.builder()
+            .testingTaskBarrierComponent(taskBarrier)
+            .resourceSetComponent(
+                com.jackbradshaw.closet.resourcemanager.set.resourceSetComponent(
+                    coroutines,
+                    com.jackbradshaw.closet.observable.standard
+                        .standardObservableClosableComponent()))
+            .standardObservableClosableComponent(
+                com.jackbradshaw.closet.observable.standard.standardObservableClosableComponent())
+            .build()
 
     DaggerHostKspServiceTest_TestComponent.builder()
         .coroutines(coroutines)
@@ -199,6 +205,7 @@ class HostKspServiceTest : KspServiceTest() {
       fun quinn(component: QuinnComponent): Builder
 
       fun applicationComponent(component: ApplicationComponent): Builder
+
       fun sealant(component: com.jackbradshaw.sealant.SealantComponent): Builder
 
       fun build(): TestComponent
