@@ -25,8 +25,6 @@ kt_jvm_library(
     ],
     visibility = PUBLICITY,
     deps = [
-        ":placement_kt_jvm_proto",
-        "//first_party/otter/math/model:kt_jvm_proto",
         "//first_party/otter/math/model:proto_extensions",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
     ],
@@ -58,8 +56,6 @@ kt_jvm_library(
     ],
     visibility = ["//first_party/otter:__subpackages__"],
     deps = [
-        ":force_kt_jvm_proto",
-        "//first_party/otter/math/model:kt_jvm_proto",
         "//first_party/otter/math/model:proto_extensions",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
     ],

@@ -26,6 +26,5 @@ kt_jvm_library(
     ],
     visibility = PUBLICITY,
     deps = [
-        ":kt_jvm_proto",
     ],
 )

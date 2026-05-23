@@ -51,7 +51,6 @@ kt_jvm_test_with_dagger(
         ":impl",
         ":loader",
         ":test",
-        "//first_party/oksp/application",
         "//first_party/oksp/application:component",
         "@com_jackbradshaw_maven//:junit_junit",
     ],

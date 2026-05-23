@@ -10,12 +10,8 @@ kt_jvm_library(
     visibility = PUBLICITY,
     deps = [
         "//first_party/klu/flow",
-        "//first_party/otter/engine/core",
-        "//first_party/otter/math/model:proto_extensions",
         "//first_party/otter/physics/model:proto_extensions",
         "//first_party/otter/scene/item",
-        "//first_party/otter/scene/primitive",
-        "@com_jackbradshaw_maven//:com_google_guava_guava",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -28,7 +24,6 @@ kt_jvm_library(
     visibility = ["//visibility:private"],
     deps = [
         ":stage",
-        "//first_party/klu/flow",
         "//first_party/otter/coroutines",
         "//first_party/otter/engine/core",
         "//first_party/otter/qualifiers",

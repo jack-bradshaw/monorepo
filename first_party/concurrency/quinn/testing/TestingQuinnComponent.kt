@@ -2,7 +2,7 @@ package com.jackbradshaw.concurrency.quinn.testing
 
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrierComponent
-import com.jackbradshaw.closet.resourcemanager.ResourceManagerComponent
+import com.jackbradshaw.closet.resourcemanager.set.ResourceSetComponent
 
 import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.concurrency.quinn.QuinnComponent
@@ -14,11 +14,18 @@ import com.jackbradshaw.concurrency.quinn.testing.taskbarrier.TestingTaskBarrier
 import dagger.Component
 
 import javax.inject.Singleton
+import com.jackbradshaw.concurrency.quinn.QuinnScope
 
-@Singleton
+import com.jackbradshaw.closet.observable.standard.StandardObservableClosableComponent
+import com.jackbradshaw.chronosphere.testingtaskbarrier.testingTaskBarrierComponent
+import com.jackbradshaw.closet.observable.standard.standardObservableClosableComponent
+import com.jackbradshaw.closet.resourcemanager.set.resourceSetComponent
+import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
+
+@QuinnScope
 @Component(
 
-    dependencies = [TestingTaskBarrierComponent::class, ResourceManagerComponent::class],
+    dependencies = [TestingTaskBarrierComponent::class, ResourceSetComponent::class, StandardObservableClosableComponent::class],
     modules =
         [
             IdleableQuinnHubModule::class,
@@ -33,4 +40,14 @@ interface TestingQuinnComponent : QuinnComponent {
 
   @QuinnQualifier fun taskBarrier(): TestingTaskBarrier
 
+}
+
+fun testingQuinnComponent(): TestingQuinnComponent {
+  val standard = standardObservableClosableComponent()
+  val coroutines = realisticCoroutinesTestingComponent()
+  return DaggerTestingQuinnComponent.builder()
+      .testingTaskBarrierComponent(testingTaskBarrierComponent())
+      .resourceSetComponent(resourceSetComponent(coroutines, standard))
+      .standardObservableClosableComponent(standard)
+      .build()
 }

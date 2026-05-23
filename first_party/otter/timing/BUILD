@@ -24,7 +24,6 @@ kt_jvm_library(
         ":timing",
         "//first_party/otter/coroutines",
         "//first_party/otter/engine/core",
-        "//first_party/otter/qualifiers",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -40,6 +39,5 @@ kt_jvm_library_with_dagger(
     deps = [
         ":impl",
         ":timing",
-        "//first_party/otter:scope",
     ],
 )

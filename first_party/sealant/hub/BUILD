@@ -20,8 +20,7 @@ kt_jvm_library(
     deps = [
         ":hub",
         "//first_party/closet/observable/helpers",
-        "//first_party/closet/observable/standard:component",
-        "//first_party/closet/observable/standard:component_impl",
+        "//first_party/closet/observable/standard",
         "//first_party/closet/resourcemanager/set",
         "//first_party/coroutines/io",
         "//first_party/sealant:scope",
@@ -75,7 +74,6 @@ kt_jvm_test_with_dagger(
     srcs = ["SealedHubImplTest.kt"],
     test_class = "com.jackbradshaw.sealant.hub.SealedHubImplTest",
     deps = [
-        ":impl",
         ":module",
         ":test",
         "//first_party/closet/resourcemanager/set:component",
@@ -92,7 +90,6 @@ kt_jvm_test_with_dagger(
     srcs = ["SealedHubImplFactoryTest.kt"],
     test_class = "com.jackbradshaw.sealant.hub.SealedHubImplFactoryTest",
     deps = [
-        ":impl",
         ":module",
         ":test_factory",
         "//first_party/closet/resourcemanager/set:component",
@@ -109,7 +106,6 @@ kt_jvm_test_with_dagger(
     srcs = ["SealedSessionFromHubTest.kt"],
     test_class = "com.jackbradshaw.sealant.hub.SealedSessionFromHubTest",
     deps = [
-        ":impl",
         ":module",
         "//first_party/closet/resourcemanager/set:component",
         "//first_party/closet/resourcemanager/set:component_impl",

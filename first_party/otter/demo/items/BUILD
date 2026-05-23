@@ -29,7 +29,6 @@ kt_jvm_library(
     deps = [
         ":items",
         "//first_party/otter/coroutines",
-        "//first_party/otter/demo:scope",
         "//first_party/otter/demo/constants",
         "//first_party/otter/demo/materials",
         "//first_party/otter/engine/core",

@@ -46,10 +46,6 @@ kt_jvm_library(
         ":component",
         ":component_impl",
         "//first_party/otter:component_impl",
-        "//first_party/otter/config:kt_jvm_proto",
-        "//first_party/otter/config:proto_extensions",
-        "//first_party/otter/engine/config:kt_jvm_proto",
-        "//first_party/otter/openxr/config:kt_jvm_proto",
         "//first_party/otter/openxr/config:proto_extensions",
     ],
 )

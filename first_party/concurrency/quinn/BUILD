@@ -59,7 +59,6 @@ kt_jvm_library_with_dagger(
     deps = [
         ":component",
         ":module",
-        ":production_module",
         ":scope",
         "//first_party/closet/observable/standard:component",
         "//first_party/closet/observable/standard:component_impl",
@@ -75,7 +74,6 @@ kt_jvm_library_with_dagger(
     ],
     deps = [
         ":impl",
-        ":qualifiers",
         ":quinn",
     ],
 )
@@ -88,7 +86,6 @@ kt_jvm_library(
     deps = [
         ":quinn",
         "//first_party/chronosphere/testingtaskbarrier",
-        "//first_party/closet/observable/helpers",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlin_kotlin_test",
@@ -103,10 +100,8 @@ kt_jvm_test_with_dagger(
     deps = [
         ":component",
         ":component_impl",
-        ":impl",
         ":test",
         "//first_party/closet/observable/standard:component",
-        "//first_party/closet/observable/standard:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:junit_junit",
@@ -139,9 +134,7 @@ kt_jvm_test_with_dagger(
     deps = [
         ":component",
         ":component_impl",
-        ":impl",
         "//first_party/closet/observable/standard:component",
-        "//first_party/closet/observable/standard:component_impl",
         "//first_party/closet/suspending:test",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",

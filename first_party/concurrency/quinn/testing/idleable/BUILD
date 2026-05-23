@@ -16,12 +16,12 @@ kt_jvm_library_with_dagger(
     name = "impl",
     srcs = ["IdleableQuinnImpl.kt"],
     visibility = [
-        "//first_party/concurrency/quinn/testing/hub:__pkg__",
+        "//first_party/concurrency/quinn/testing:__pkg__",
     ],
     deps = [
         ":idleable",
         "//first_party/concurrency/quinn",
-        "//first_party/concurrency/quinn/testing/prod",
+        "//first_party/concurrency/quinn:qualifiers",
     ],
 )
 
@@ -32,7 +32,6 @@ kt_jvm_library(
     deps = [
         ":idleable",
         "//first_party/chronosphere/testingtaskbarrier",
-        "//first_party/closet/observable/helpers",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
@@ -48,8 +47,7 @@ kt_jvm_test_with_dagger(
         ":impl",
         ":test",
         "//first_party/chronosphere/testingtaskbarrier",
-        "//first_party/concurrency/quinn/testing/prod:component",
-        "//first_party/concurrency/quinn/testing/prod:component_impl",
+        "//first_party/concurrency/quinn/testing:idleable",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:junit_junit",
@@ -66,10 +64,8 @@ kt_jvm_test_with_dagger(
         ":impl",
         "//first_party/chronosphere/testingtaskbarrier",
         "//first_party/chronosphere/testingtaskbarrier:component",
-        "//first_party/chronosphere/testingtaskbarrier:component_impl",
         "//first_party/concurrency/quinn:test",
-        "//first_party/concurrency/quinn/testing/prod:component",
-        "//first_party/concurrency/quinn/testing/prod:component_impl",
+        "//first_party/concurrency/quinn/testing:idleable",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "@com_jackbradshaw_maven//:junit_junit",

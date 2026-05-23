@@ -10,7 +10,6 @@ kt_jvm_library(
         "//first_party/kale/model:result",
         "//first_party/kale/model:source",
         "//first_party/oksp/application",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -24,7 +23,6 @@ kt_jvm_library_with_dagger(
         "//first_party/concurrency/quinn:component",
         "//first_party/coroutines:component",
         "//first_party/kale/model:result",
-        "//first_party/kale/provider:component",
         "//first_party/kale/provider:runner",
         "//first_party/oksp/application/passed",
         "//first_party/oksp/host:host_impl",
@@ -78,7 +76,6 @@ kt_jvm_test_with_dagger(
     deps = [
         ":component",
         ":test",
-        "//first_party/concurrency/quinn:component_impl",
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/kale/provider:component_impl",

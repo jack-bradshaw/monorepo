@@ -9,6 +9,6 @@ import dagger.Module
 @Module
 interface QuinnProductionModule {
 
-  @Binds @Production fun bindFactory(impl: QuinnImpl.FactoryImpl): Quinn.Factory
+  @Binds @Production fun bindFactory(impl: QuinnImpl.Factory): Quinn.Factory
 
 }

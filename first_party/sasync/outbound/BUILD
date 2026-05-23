@@ -27,7 +27,6 @@ kt_jvm_library_with_dagger(
         "//first_party/coroutines:component",
         "//first_party/coroutines:component_impl",
         "//first_party/sasync/outbound/config:default",
-        "//first_party/sasync/outbound/config:kt_jvm_proto",
         "//first_party/sasync/outbound/transport:module",
     ],
 )

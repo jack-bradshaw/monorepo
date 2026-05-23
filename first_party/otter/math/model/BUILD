@@ -28,7 +28,6 @@ kt_jvm_library(
     ],
     visibility = PUBLICITY,
     deps = [
-        ":kt_jvm_proto",
         "//first_party/autofactory",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
     ],

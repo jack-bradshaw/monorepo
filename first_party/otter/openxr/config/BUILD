@@ -26,7 +26,6 @@ kt_jvm_library(
     ],
     visibility = PUBLICITY,
     deps = [
-        ":kt_jvm_proto",
     ],
 )
 
@@ -41,6 +40,5 @@ kt_jvm_test(
         "//first_party/otter/openxr/config:proto_extensions",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

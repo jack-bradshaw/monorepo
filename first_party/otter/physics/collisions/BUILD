@@ -30,7 +30,6 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        ":interaction_kt_jvm_proto",
     ],
 )
 
@@ -41,7 +40,6 @@ kt_jvm_library(
     ],
     visibility = ["//first_party/otter:__subpackages__"],
     deps = [
-        ":interaction_kt_jvm_proto",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
     ],
 )
@@ -55,9 +53,6 @@ kt_jvm_library(
     deps = [
         ":collision",
         ":interaction_extensions",
-        ":interaction_kt_jvm_proto",
-        "//first_party/otter/engine/core",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_bullet",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
     ],

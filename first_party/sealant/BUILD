@@ -69,8 +69,6 @@ kt_jvm_test_with_dagger(
         "//first_party/coroutines/testing/realistic:component",
         "//first_party/coroutines/testing/realistic:component_impl",
         "//first_party/sealant:scope",
-        "//first_party/sealant/hub",
-        "//first_party/sealant/hub:impl",
         "//first_party/sealant/hub:module",
         "//first_party/sealant/source:module",
         "@com_jackbradshaw_maven//:junit_junit",

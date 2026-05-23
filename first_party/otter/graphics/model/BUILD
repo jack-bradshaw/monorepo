@@ -28,9 +28,6 @@ kt_jvm_library(
     ],
     visibility = ["//first_party/otter:__subpackages__"],
     deps = [
-        ":kt_jvm_proto",
-        "//first_party/otter/math/model:proto_extensions",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_jmonkeyengine_jme3_core",
     ],
 )

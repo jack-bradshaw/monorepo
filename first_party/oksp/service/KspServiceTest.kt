@@ -43,6 +43,28 @@ abstract class KspServiceTest {
   }
 
   /**
+   * Helper function to reduce boilerplate across KspService tests that track rounds.
+   */
+  protected fun runKspTest(
+      sources: Set<Source> = emptySet(),
+      block: suspend KspService.(kotlinx.coroutines.Deferred<Int>) -> Unit
+  ) = runBlocking<Unit> {
+    val roundCount = beginProcessingWithRoundCount(sources)
+    subject().block(roundCount)
+  }
+
+  /**
+   * Helper function to reduce boilerplate across KspService tests that do not track rounds.
+   */
+  protected fun runKspUnitTest(
+      sources: Set<Source> = emptySet(),
+      block: suspend KspService.() -> Unit
+  ) = runBlocking<Unit> {
+    beginProcessingWithoutRoundCount(sources)
+    subject().block()
+  }
+
+  /**
    * Prepares [subject].
    *
    * When this function completes, [subject] must return an instance, and the host KSP process must
@@ -86,12 +108,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral__multi_sources_defer_batch__halts_natively_after_one_round() =
-      runBlocking<Unit> {
-        val roundCount =
-            beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION, SOURCE_WITHOUT_ANNOTATION))
-        var d1: KSAnnotated? = null
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION, SOURCE_WITHOUT_ANNOTATION)) { roundCount ->
+                var d1: KSAnnotated? = null
         var d2: KSAnnotated? = null
-        subject().withContext { context ->
+        withContext { context ->
           val resolver = context.resolver
           val symbols =
               resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).toList()
@@ -115,12 +135,16 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral__multi_sources_defer_one__halts_natively_after_one_round() =
-      runBlocking<Unit> {
-        val roundCount =
-            beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION, SOURCE_WITHOUT_ANNOTATION))
-        subject().deferTargetAnnotation()
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION, SOURCE_WITHOUT_ANNOTATION)) { roundCount ->
+        lateinit var deferredTarget: KSAnnotated
+        withContext { context ->
+          val resolver = context.resolver
+          deferredTarget =
+              resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).first()
+        }
+        defer(deferredTarget)
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         assertTerminatedWithoutError()
@@ -134,11 +158,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral__one_source_defer_input__halts_natively_after_one_round() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION))
-        subject().deferTargetAnnotation()
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION)) { roundCount ->
+                deferTargetAnnotation()
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         assertTerminatedWithoutError()
@@ -154,16 +177,15 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__input_driven_iterative__runs_three_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION))
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION)) { roundCount ->
+        
+        deferTargetAnnotation()
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferTargetAnnotation()
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughCurrentRound()
-
-        subject().deferTargetAnnotation()
-        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
-        subject().advanceThroughKspExecution()
+        deferTargetAnnotation()
+        publish(createGeneratedSource(2), emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(3)
         assertTerminatedWithoutError()
@@ -176,11 +198,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__input_driven_standard__runs_two_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION))
-        subject().deferTargetAnnotation()
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughKspExecution()
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION)) { roundCount ->
+                deferTargetAnnotation()
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -195,17 +216,16 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__input_head_chain_long__runs_four_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION))
-        subject().deferTargetAnnotation()
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION)) { roundCount ->
+                deferTargetAnnotation()
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
-        subject().advanceThroughCurrentRound()
+        publish(createGeneratedSource(2), emptyList())
+        advanceThroughCurrentRound()
 
-        subject().publish(Source("com.test", "DummyRound3", "kt", "class DummyRound3"), emptyList())
-        subject().advanceThroughKspExecution()
+        publish(createGeneratedSource(3), emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(4)
         assertTerminatedWithoutError()
@@ -220,14 +240,13 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__input_head_chain_short__runs_three_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION))
-        subject().deferTargetAnnotation()
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION)) { roundCount ->
+                deferTargetAnnotation()
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
-        subject().advanceThroughKspExecution()
+        publish(createGeneratedSource(2), emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(3)
         assertTerminatedWithoutError()
@@ -242,34 +261,33 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__input_iterative_deep__runs_four_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_WITH_ANNOTATION))
-        var deferredTarget: KSAnnotated? = null
-        subject().withContext { context ->
+      runKspTest(setOf(SOURCE_WITH_ANNOTATION)) { roundCount ->
+                lateinit var deferredTarget: KSAnnotated
+        withContext { context ->
           val resolver = context.resolver
           deferredTarget =
-              resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).firstOrNull()
+              resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).single()
         }
-        subject().defer(requireNotNull(deferredTarget) { "Deep iterative cascade failed in R1" })
+        subject().defer(deferredTarget)
         subject().publish(SOURCE_GENERATED_1, emptyList())
         subject().advanceThroughCurrentRound()
 
         subject().withContext { context ->
           val resolver = context.resolver
           deferredTarget =
-              resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).firstOrNull()
+              resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).single()
         }
-        subject().defer(requireNotNull(deferredTarget) { "Deep iterative cascade failed in R2" })
-        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
+        subject().defer(deferredTarget)
+        subject().publish(createGeneratedSource(2), emptyList())
         subject().advanceThroughCurrentRound()
 
         subject().withContext { context ->
           val resolver = context.resolver
           deferredTarget =
-              resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).firstOrNull()
+              resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).single()
         }
-        subject().defer(requireNotNull(deferredTarget) { "Deep iterative cascade failed in R3" })
-        subject().publish(Source("com.test", "DummyRound3", "kt", "class DummyRound3"), emptyList())
+        subject().defer(deferredTarget)
+        subject().publish(createGeneratedSource(3), emptyList())
         subject().advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(4)
@@ -284,14 +302,13 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__spontaneous_delayed_r2__runs_three_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferNewFile()
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughKspExecution()
+        deferNewFile()
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(3)
         assertTerminatedWithoutError()
@@ -306,17 +323,16 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__spontaneous_halt_delayed__aborts_in_r3() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughCurrentRound()
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferNewFile()
+        deferNewFile()
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(3)
         assertTerminatedWithoutError()
@@ -332,14 +348,13 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__spontaneous_halt_r1__aborts_in_r2() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferNewFile()
+        deferNewFile()
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -355,19 +370,18 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__spontaneous_iterative_cascade__runs_four_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferNewFile()
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughCurrentRound()
+        deferNewFile()
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferNewFile()
-        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
+        deferNewFile()
+        publish(createGeneratedSource(2), emptyList())
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(4)
         assertTerminatedWithoutError()
@@ -382,17 +396,16 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__deferral_cascade__spontaneous_mid_chain__runs_four_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferNewFile()
-        subject().publish(Source("com.test", "DummyRound2", "kt", "class DummyRound2"), emptyList())
-        subject().advanceThroughCurrentRound()
+        deferNewFile()
+        publish(createGeneratedSource(2), emptyList())
+        advanceThroughCurrentRound()
 
-        subject().publish(Source("com.test", "DummyRound3", "kt", "class DummyRound3"), emptyList())
-        subject().advanceThroughKspExecution()
+        publish(createGeneratedSource(3), emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(4)
         assertTerminatedWithoutError()
@@ -406,10 +419,9 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__error__multi_sources_fail_string__halts_pipeline() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION))
-
-        subject().fail("Foo", null)
+      runKspUnitTest(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION)) {
+        
+        fail("Foo", null)
         finishExtraneousProcessing()
 
         assertThat(getLogs().filter { it.first == null && it.second.contains("Foo") }).isNotEmpty()
@@ -423,11 +435,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__error__one_source_fail_runtime__halts_pipeline() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(setOf(SOURCE_UNANNOTATED))
-
+      runKspUnitTest(setOf(SOURCE_UNANNOTATED)) {
+        
         val exception = IllegalStateException("Foo")
-        subject().fail(exception)
+        fail(exception)
         finishExtraneousProcessing()
 
         assertThat(getError()).isEqualTo(exception)
@@ -465,14 +476,13 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__error__with_resolver_throws_caught_locally__allows_continuation() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED))
-
+      runKspTest(setOf(SOURCE_UNANNOTATED)) { roundCount ->
+        
         try {
-          subject().withContext { throw IllegalStateException("My error") }
+          withContext { throw IllegalStateException("My error") }
         } catch (e: Throwable) {}
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         assertTerminatedWithoutError()
@@ -487,15 +497,14 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__error__publish_throws_caught_locally__allows_continuation() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED))
-
-        subject().publish(SOURCE_GENERATED_1, emptyList())
+      runKspTest(setOf(SOURCE_UNANNOTATED)) { roundCount ->
+        
+        publish(SOURCE_GENERATED_1, emptyList())
         try {
-          subject().publish(SOURCE_GENERATED_1, emptyList())
+          publish(SOURCE_GENERATED_1, emptyList())
         } catch (e: Throwable) {}
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -509,12 +518,11 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__generation__deep_iterative__runs_six_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED))
-
+      runKspTest(setOf(SOURCE_UNANNOTATED)) { roundCount ->
+        
         for (i in 1..5) {
-          subject().publish(createGeneratedSource(i), emptyList())
-          subject().advanceThroughCurrentRound()
+          publish(createGeneratedSource(i), emptyList())
+          advanceThroughCurrentRound()
         }
 
         subject().advanceThroughKspExecution()
@@ -531,12 +539,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__generation__multi_sources_generate_batch__runs_two_rounds() =
-      runBlocking<Unit> {
-        val roundCount =
-            beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION))
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughKspExecution()
+      runKspTest(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION)) { roundCount ->
+                publish(SOURCE_GENERATED_1, emptyList())
+        publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -550,12 +556,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__generation__multi_sources_generate_one__runs_two_rounds() =
-      runBlocking<Unit> {
-        val roundCount =
-            beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION))
-
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughKspExecution()
+      runKspTest(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION)) { roundCount ->
+        
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -569,12 +573,11 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__generation__one_source_generate_batch__runs_two_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED))
-
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughKspExecution()
+      runKspTest(setOf(SOURCE_UNANNOTATED)) { roundCount ->
+        
+        publish(SOURCE_GENERATED_1, emptyList())
+        publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -588,11 +591,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__generation__one_source_generate_one__runs_two_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED))
-
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughKspExecution()
+      runKspTest(setOf(SOURCE_UNANNOTATED)) { roundCount ->
+        
+        publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -606,11 +608,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__generation__zero_sources_generate_batch__runs_two_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughKspExecution()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_1, emptyList())
+        publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -624,10 +625,9 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__generation__zero_sources_generate_one__runs_two_rounds() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughKspExecution()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         assertTerminatedWithoutError()
@@ -642,11 +642,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__log__zero_sources_cascading_warn__outputs_cleanly() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().log("Warn Msg Cascaded", LogLevel.WARNING, null)
-        subject().advanceThroughKspExecution()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_1, emptyList())
+        log("Warn Msg Cascaded", LogLevel.WARNING, null)
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         val logs = getLogs()
@@ -662,14 +661,13 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__log__zero_sources_delayed_warn__outputs_cleanly() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspTest(emptySet()) { roundCount ->
+                publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().log("Warn Msg Delayed", LogLevel.WARNING, null)
+        log("Warn Msg Delayed", LogLevel.WARNING, null)
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(2)
         val logs = getLogs()
@@ -684,10 +682,9 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__log__zero_sources_silent_info__outputs_cleanly() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().log("Info Msg", LogLevel.INFO, null)
-        subject().advanceThroughKspExecution()
+      runKspTest(emptySet()) { roundCount ->
+                log("Info Msg", LogLevel.INFO, null)
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         val logs = getLogs()
@@ -702,10 +699,9 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__log__zero_sources_silent_warn__outputs_cleanly() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().log("Warn Msg", LogLevel.WARNING, null)
-        subject().advanceThroughKspExecution()
+      runKspTest(emptySet()) { roundCount ->
+                log("Warn Msg", LogLevel.WARNING, null)
+        advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         val logs = getLogs()
@@ -721,10 +717,8 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__passive__multi_sources__runs_single_round_and_terminates() =
-      runBlocking<Unit> {
-        val roundCount =
-            beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION))
-        subject().advanceThroughKspExecution()
+      runKspTest(setOf(SOURCE_UNANNOTATED, SOURCE_WITHOUT_ANNOTATION)) { roundCount ->
+                advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         assertTerminatedWithoutError()
@@ -738,9 +732,8 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__passive__one_source__runs_single_round_and_terminates() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(setOf(SOURCE_UNANNOTATED))
-        subject().advanceThroughKspExecution()
+      runKspTest(setOf(SOURCE_UNANNOTATED)) { roundCount ->
+                advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         assertTerminatedWithoutError()
@@ -754,9 +747,8 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__passive__zero_sources__runs_single_round_and_terminates() =
-      runBlocking<Unit> {
-        val roundCount = beginProcessingWithRoundCount(emptySet())
-        subject().advanceThroughKspExecution()
+      runKspTest(emptySet()) { roundCount ->
+                advanceThroughKspExecution()
 
         assertThat(roundCount.await()).isEqualTo(1)
         assertTerminatedWithoutError()
@@ -795,7 +787,7 @@ abstract class KspServiceTest {
         val service = subject()
         val drainRounds =
             CoroutineScope(testDispatcher()).launch {
-              subject().onEachRoundStart().flow.flow.collect { subject().completeRound() }
+              subject().onEachRoundStart().flow.collect { subject().completeRound() }
             }
         taskBarrier().awaitAllIdle()
         subject().allowProcessing()
@@ -815,11 +807,10 @@ abstract class KspServiceTest {
    */
   @Test
   fun e2e__termination__mid_termination__sweeps_execution_safely() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(setOf(SOURCE_UNANNOTATED))
-        subject().allowTermination()
+      runKspUnitTest(setOf(SOURCE_UNANNOTATED)) {
+                allowTermination()
 
-        subject().advanceThroughKspExecution()
+        advanceThroughKspExecution()
         assertTerminatedWithoutError()
       }
 
@@ -1055,14 +1046,13 @@ abstract class KspServiceTest {
   /** Checks that pending withContext calls are cancelled on round completion. */
   @Test
   fun partial__resolution__completingRoundCancelsPendingCalls() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(setOf(SOURCE_UNANNOTATED))
-
+      runKspUnitTest(setOf(SOURCE_UNANNOTATED)) {
+        
         val resolver1blocker = newLatch()
         val resolver1Run = MutableStateFlow(false)
         val resolverJob1 =
             CoroutineScope(testDispatcher()).async {
-              subject().withContext {
+              withContext {
                 resolver1Run.value = true
                 resolver1blocker.await()
               }
@@ -1110,10 +1100,9 @@ abstract class KspServiceTest {
    */
   @Test
   fun partial__resolution__firstRoundNoSources__evaluatesNothing() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(emptySet())
-
-        subject().withContext { context ->
+      runKspUnitTest(emptySet()) {
+        
+        withContext { context ->
           val resolver = context.resolver
           assertThat(resolver.getAllFiles().toList()).isEmpty()
         }
@@ -1125,10 +1114,9 @@ abstract class KspServiceTest {
    */
   @Test
   fun partial__resolution__firstRoundWithSources__evaluatesSources() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(setOf(SOURCE_UNANNOTATED))
-
-        subject().withContext { context ->
+      runKspUnitTest(setOf(SOURCE_UNANNOTATED)) {
+        
+        withContext { context ->
           val resolver = context.resolver
           assertThat(resolver.getAllFiles().toList()).hasSize(1)
         }
@@ -1140,14 +1128,13 @@ abstract class KspServiceTest {
    */
   @Test
   fun partial__resolution__secondRound__evaluatesDeferredSources() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(setOf(SOURCE_WITH_ANNOTATION))
+      runKspUnitTest(setOf(SOURCE_WITH_ANNOTATION)) {
+        
+        deferTargetAnnotation()
+        publish(SOURCE_GENERATED_2, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().deferTargetAnnotation()
-        subject().publish(SOURCE_GENERATED_2, emptyList())
-        subject().advanceThroughCurrentRound()
-
-        subject().withContext { context ->
+        withContext { context ->
           val resolver = context.resolver
           val symbols =
               resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).toList()
@@ -1161,12 +1148,11 @@ abstract class KspServiceTest {
    */
   @Test
   fun partial__resolution__secondRound__evaluatesGeneratedSources() =
-      runBlocking<Unit> {
-        beginProcessingWithoutRoundCount(emptySet())
-        subject().publish(SOURCE_GENERATED_1, emptyList())
-        subject().advanceThroughCurrentRound()
+      runKspUnitTest(emptySet()) {
+                publish(SOURCE_GENERATED_1, emptyList())
+        advanceThroughCurrentRound()
 
-        subject().withContext { context ->
+        withContext { context ->
           val resolver = context.resolver
           val files = resolver.getNewFiles().toList()
           assertThat(files).hasSize(1)
@@ -1195,7 +1181,7 @@ abstract class KspServiceTest {
     taskBarrier().awaitAllIdle()
     allowProcessing()
     drain.join()
-    onFinalRoundComplete().first()
+    onFinalRoundComplete().flow.first()
   }
 
   /**
@@ -1245,10 +1231,10 @@ abstract class KspServiceTest {
    * has been generated in the current round.
    */
   private suspend fun KspService.deferNewFile() {
-    var deferredTarget: KSAnnotated? = null
+    lateinit var deferredTarget: KSAnnotated
     withContext { context ->
       val resolver = context.resolver
-      deferredTarget = resolver.getNewFiles().first()
+      deferredTarget = resolver.getNewFiles().single()
     }
     defer(deferredTarget!!)
   }
@@ -1262,11 +1248,11 @@ abstract class KspServiceTest {
    * resolver. Assumes exactly one such symbol exists.
    */
   private suspend fun KspService.deferTargetAnnotation() {
-    var deferredTarget: KSAnnotated? = null
+    lateinit var deferredTarget: KSAnnotated
     withContext { context ->
       val resolver = context.resolver
       deferredTarget =
-          resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).first()
+          resolver.getSymbolsWithAnnotation(TEST_ANNOTATION_NAME_FULLY_QUALIFIED).single()
     }
     defer(deferredTarget!!)
   }
@@ -1288,7 +1274,7 @@ abstract class KspServiceTest {
   private fun countRoundsAsync(): kotlinx.coroutines.Deferred<Int> =
       CoroutineScope(testDispatcher()).async {
         var count = 0
-        subject().onEachRoundStart().flow.flow.collect { count++ }
+        subject().onEachRoundStart().flow.collect { count++ }
         count
       }
 

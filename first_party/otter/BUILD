@@ -22,7 +22,6 @@ kt_jvm_library(
     ],
     visibility = PUBLICITY,
     deps = [
-        "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/engine/core",
         "//first_party/otter/openxr/manifest/encoder",
         "//first_party/otter/openxr/manifest/generator",
@@ -43,7 +42,6 @@ kt_jvm_library_with_dagger(
     deps = [
         ":component",
         ":scope",
-        "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/config:proto_extensions",
         "//first_party/otter/coroutines:module",
         "//first_party/otter/engine/core:module",

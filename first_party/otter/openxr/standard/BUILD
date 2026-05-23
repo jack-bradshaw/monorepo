@@ -17,7 +17,6 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        "//first_party/otter/openxr/model:kt_jvm_proto",
     ],
 )
 
@@ -29,11 +28,9 @@ kt_jvm_test(
     test_class = "com.jackbradshaw.otter.openxr.standard.InputExtTest",
     visibility = ["//visibility:private"],
     deps = [
-        "//first_party/otter/openxr/model:kt_jvm_proto",
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -45,11 +42,9 @@ kt_jvm_test(
     test_class = "com.jackbradshaw.otter.openxr.standard.OutputExtTest",
     visibility = ["//visibility:private"],
     deps = [
-        "//first_party/otter/openxr/model:kt_jvm_proto",
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -64,7 +59,6 @@ kt_jvm_test(
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -79,7 +73,6 @@ kt_jvm_test(
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -94,7 +87,6 @@ kt_jvm_test(
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -109,7 +101,6 @@ kt_jvm_test(
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -124,7 +115,6 @@ kt_jvm_test(
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 
@@ -139,6 +129,5 @@ kt_jvm_test(
         "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

@@ -28,7 +28,6 @@ kt_jvm_library(
     ],
     visibility = PUBLICITY,
     deps = [
-        ":kt_jvm_proto",
         "//first_party/otter/engine/config:proto_extensions",
         "//first_party/otter/openxr/config:proto_extensions",
     ],

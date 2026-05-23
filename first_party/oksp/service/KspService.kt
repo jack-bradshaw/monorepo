@@ -7,7 +7,7 @@ import com.jackbradshaw.oksp.model.LogLevel
 import com.jackbradshaw.oksp.model.Resource
 import com.jackbradshaw.oksp.model.Source
 import kotlinx.coroutines.flow.Flow
-import com.jackbradshaw.sealant.flow.SealedFlow
+import com.jackbradshaw.sealant.session.SealedSession
 
 // todo need to updae docs to specify that using symbols outside with ocntext is ONLY safe if those
 // symbols are passed back to OKSP unmodified, effectively as references, within the same round
@@ -82,14 +82,14 @@ interface KspService {
    * remains open until the last emission then closes. If opened after the final round has started,
    * closes immediately without emission.
    */
-  suspend fun onEachRoundStart(): SealedFlow<Unit>
+  suspend fun onEachRoundStart(): SealedSession<Unit>
 
   /**
    * Creates a new cold flow that emits at the conclusion of the final round. The flow replays (i.e.
    * emits upon collection if opened after the final round has completed). The flow closes after
    * emission.
    */
-  suspend fun onFinalRoundComplete(): SealedFlow<Unit>
+  suspend fun onFinalRoundComplete(): SealedSession<Unit>
 
   /**
    * Allows the active round to complete.

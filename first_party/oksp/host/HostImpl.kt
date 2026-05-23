@@ -23,7 +23,8 @@ import com.jackbradshaw.oksp.model.Source
 import com.jackbradshaw.oksp.service.KspService
 import com.jackbradshaw.sealant.SealantComponent
 import com.jackbradshaw.sealant.sealantComponent
-import com.jackbradshaw.sealant.flow.SealedFlow
+import com.jackbradshaw.sealant.hub.SealedHub
+import com.jackbradshaw.sealant.session.SealedSession
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Inject
@@ -70,6 +71,7 @@ constructor(
   override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor = runBlocking {
     this@HostImpl.environment = environment
     this@HostImpl.processor = Processor()
+    processor.initialize()
 
     try {
       withContext(coroutines.ioDispatcher()) { startApplication() }
@@ -135,14 +137,14 @@ constructor(
         MutableSharedFlow<Unit>(
             replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.SUSPEND)
 
-    private val roundStartEventHub = sealedHubFactory.create(roundStartEvents)
+    private lateinit var roundStartEventHub: SealedHub<Unit>
 
-    private val finalRoundCompleteHub = sealedHubFactory.create(
-          flow {
-            isFinishedNormally.await()
-            emit(Unit)
-          }
-    )
+    private lateinit var finalRoundCompleteHub: SealedHub<Unit>
+
+    suspend fun initialize() {
+        roundStartEventHub = sealedHubFactory.create(roundStartEvents)
+        finalRoundCompleteHub = sealedHubFactory.create(kotlinx.coroutines.flow.emptyFlow())
+    }
 
 
     /** List of symbols deferred in this round. */
@@ -181,18 +183,32 @@ constructor(
             activeQuinn.close()
           }
 
-          override suspend fun onEachRoundStart(): SealedFlow<Unit> = roundStartEventHub.createFlow { upstream ->
+          override suspend fun onEachRoundStart(): SealedSession<Unit> = roundStartEventHub.createSession { upstream ->
               channelFlow {
+                  println("DEBUG: onEachRoundStart channelFlow started")
                   val job = launch { upstream.collect { send(Unit) } }
                   select<Unit> {
-                      isFinishedNormally.onAwait {}
-                      isFinishedErroneously.onAwait {}
+                      isFinishedNormally.onAwait {
+                          println("DEBUG: isFinishedNormally triggered in select")
+                      }
+                      isFinishedErroneously.onAwait {
+                          println("DEBUG: isFinishedErroneously triggered in select")
+                      }
                   }
+                  println("DEBUG: select finished, cancelling job")
                   job.cancelAndJoin()
+                  println("DEBUG: job cancelled, channelFlow finishing")
               }
           }
 
-          override suspend fun onFinalRoundComplete(): SealedFlow<Unit> = finalRoundCompleteHub.createFlow()
+          override suspend fun onFinalRoundComplete(): SealedSession<Unit> = finalRoundCompleteHub.createSession { upstream ->
+              channelFlow {
+                  val job = launch { upstream.collect { } }
+                  isFinishedNormally.await()
+                  send(Unit)
+                  job.cancelAndJoin()
+              }
+          }
 
           override suspend fun completeRound() {
             check(isServiceReadyToStart.isCompleted) {
@@ -412,10 +428,15 @@ constructor(
     }
 
     override fun finish() {
+      println("DEBUG: finish() called")
       runBlocking {
+        println("DEBUG: inside runBlocking")
         withContext(coroutines.ioDispatcher()) {
+          println("DEBUG: inside ioDispatcher, completing isFinishedNormally")
           isFinishedNormally.complete(Unit)
+          println("DEBUG: calling shutDownApplicationAfterGate")
           shutDownApplicationAfterGate(isServiceReadyToEnd)
+          println("DEBUG: shutDownApplicationAfterGate returned")
         }
       }
     }
@@ -423,8 +444,10 @@ constructor(
     override fun onError() {
       runBlocking {
         withContext(coroutines.ioDispatcher()) {
+          println("DEBUG: inside onError, completing isFinishedErroneously")
           isFinishedErroneously.complete(Unit)
           // Not gated by `isServiceReadyToEnd` since errors should exit immediately.
+          println("DEBUG: calling shutDownApplicationImmediately")
           shutDownApplicationImmediately()
         }
       }

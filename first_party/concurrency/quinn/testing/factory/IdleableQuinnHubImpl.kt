@@ -1,12 +1,12 @@
 package com.jackbradshaw.concurrency.quinn.testing.factory
 
-import com.jackbradshaw.closet.resourcemanager.ResourceManager
+import com.jackbradshaw.closet.resourcemanager.set.ResourceSet
 import com.jackbradshaw.concurrency.quinn.Production
 import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.concurrency.quinn.testing.idleable.IdleableQuinn
 import com.jackbradshaw.concurrency.quinn.testing.idleable.IdleableQuinnImpl
 
-import java.util.UUID
+
 
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
@@ -14,29 +14,20 @@ import kotlinx.coroutines.runBlocking
 class IdleableQuinnHubImpl
 @Inject
 constructor(
-    private val resourceManagerFactory: ResourceManager.Factory,
+    private val resourceSetFactory: ResourceSet.Factory,
     @Production private val realQuinnFactory: Quinn.Factory,
 ) : IdleableQuinn.Hub {
 
-  // We use UUID as keys for the resource manager
-  private val resourceManager =
-      resourceManagerFactory.createResourceManager<String, IdleableQuinn<*>>()
+  private val resourceSet =
+      runBlocking { resourceSetFactory.createResourceSet<IdleableQuinn<*>>() }
 
-  override fun <T> createQuinn(): Quinn<T> {
+  override suspend fun <T> createQuinn(): Quinn<T> {
     val idleableQuinn = IdleableQuinnImpl<T>(realQuinnFactory.createQuinn())
-    // Add to resource manager. Since it's suspend, we must use runBlocking here, or we can't create
-    // it synchronously.
-    // Wait, Quinn.Factory.createQuinn() is NOT suspend.
-    // So we MUST use runBlocking to mutate the ResourceManager.
-    runBlocking { resourceManager.put(UUID.randomUUID().toString(), idleableQuinn) }
+    resourceSet.add(idleableQuinn)
     return idleableQuinn
   }
 
   override fun isIdle(): Boolean {
-    // We are idle if all currently open Quinns are idle.
-    // The runBlocking here acts as the transitive lock you designed: if another thread is
-    // actively creating a Quinn (holding the RM mutex via put), this will block, which is
-    // correct because it means the system is not yet idle.
-    return runBlocking { resourceManager.getAll().all { it.isIdle() } }
+    return runBlocking { resourceSet.getAll().all { it.isIdle() } }
   }
 }

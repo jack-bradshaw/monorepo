@@ -14,9 +14,6 @@ kt_jvm_library_with_dagger(
     srcs = ["OutboundTransportImpl.kt"],
     deps = [
         ":transport",
-        "//first_party/coroutines:component",
-        "//first_party/sasync/outbound/config:kt_jvm_proto",
-        "//first_party/universal/count:kt_jvm_proto",
     ],
 )
 
@@ -37,7 +34,6 @@ kt_jvm_library(
     visibility = PUBLICITY,
     deps = [
         ":transport",
-        "//first_party/coroutines/testing/realistic:component",
         "//first_party/sasync/outbound/config:kt_jvm_proto",
         "//first_party/universal/count:kt_jvm_proto",
         "@com_jackbradshaw_maven//:com_google_truth_truth",

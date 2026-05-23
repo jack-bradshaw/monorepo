@@ -29,12 +29,7 @@ kt_jvm_library(
         "//first_party/otter/openxr/manifest:__subpackages__",
     ],
     deps = [
-        "//first_party/otter/openxr/manifest/encoder",
-        "//first_party/otter/openxr/manifest/installer",
         "//first_party/otter/openxr/standard",
         "@bazel_tools//tools/java/runfiles",
-        "@com_jackbradshaw_maven//:com_google_truth_truth",
-        "@com_jackbradshaw_maven//:junit_junit",
-        "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

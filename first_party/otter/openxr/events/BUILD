@@ -10,9 +10,6 @@ kt_jvm_library(
         "//first_party/otter:__subpackages__",
     ],
     deps = [
-        "//first_party/otter/openxr/manifest/encoder",
-        "//first_party/otter/openxr/model:kt_jvm_proto",
-        "//first_party/otter/openxr/standard",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )

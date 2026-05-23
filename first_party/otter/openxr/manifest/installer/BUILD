@@ -25,9 +25,7 @@ kt_jvm_library(
     deps = [
         ":installer",
         "//first_party/otter:scope",
-        "//first_party/otter/config:kt_jvm_proto",
         "//first_party/otter/openxr/manifest/generator",
-        "@com_jackbradshaw_maven//:com_google_code_gson_gson",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
@@ -56,15 +54,11 @@ kt_jvm_test_with_dagger(
     deps = [
         "//first_party/otter:component",
         "//first_party/otter:component_impl",
-        "//first_party/otter/config:proto_extensions",
-        "//first_party/otter/openxr/config:proto_extensions",
-        "//first_party/otter/openxr/manifest/encoder",
         "//first_party/otter/openxr/manifest/installer",
         "//first_party/otter/openxr/manifest/testgoldens",
         "//first_party/otter/openxr/standard",
         "@bazel_tools//tools/java/runfiles",
         "@com_jackbradshaw_maven//:com_google_protobuf_protobuf_kotlin_lite",
-        "@com_jackbradshaw_maven//:com_google_truth_truth",
         "@com_jackbradshaw_maven//:junit_junit",
         "@com_jackbradshaw_maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
         "@com_jackbradshaw_maven//:org_skyscreamer_jsonassert",

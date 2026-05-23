@@ -15,8 +15,6 @@ kt_jvm_library_with_dagger(
     deps = [
         ":transport",
         "//first_party/concurrency/pulsar",
-        "//first_party/coroutines:component",
-        "//first_party/sasync/inbound/config:kt_jvm_proto",
         "//first_party/universal/frequency:kt_helpers",
     ],
 )
@@ -38,7 +36,6 @@ kt_jvm_library(
     visibility = PUBLICITY,
     deps = [
         ":transport",
-        "//first_party/coroutines/testing/realistic:component",
         "//first_party/universal/count:kt_jvm_proto",
         "@com_jackbradshaw_maven//:com_google_truth_truth",
     ],

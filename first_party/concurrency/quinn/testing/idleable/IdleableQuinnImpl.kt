@@ -2,7 +2,7 @@ package com.jackbradshaw.concurrency.quinn.testing.idleable
 
 import com.jackbradshaw.concurrency.quinn.Quinn
 import com.jackbradshaw.concurrency.quinn.Quinn.ErrorHandling
-import com.jackbradshaw.concurrency.quinn.testing.prod.Prod
+import com.jackbradshaw.concurrency.quinn.Production
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * ensure it functions as a simple wrapper, including closure, so when [delegate] is closed, this is
  * closed.
  */
-class IdleableQuinnImpl<T>(@Prod private val delegate: Quinn<T>) : IdleableQuinn<T> {
+class IdleableQuinnImpl<T>(@Production private val delegate: Quinn<T>) : IdleableQuinn<T> {
 
   /** The number of tasks that have been submitted (but not necessarily executed). */
   private val submittedTasks = AtomicInteger(0)

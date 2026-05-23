@@ -48,7 +48,6 @@ kt_jvm_test_with_dagger(
     srcs = ["WorkspaceCheckerImplTest.kt"],
     test_class = "com.jackbradshaw.publicity.conformance.workspacechecker.WorkspaceCheckerImplTest",
     deps = [
-        ":impl",
         ":impl_module",
         ":test",
         "//first_party/publicity/conformance/model",

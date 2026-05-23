@@ -1,8 +1,7 @@
 package com.jackbradshaw.concurrency.quinn.testing.idleable
 
 import com.jackbradshaw.chronosphere.testingtaskbarrier.TestingTaskBarrier
-import com.jackbradshaw.concurrency.quinn.quinnComponent
-import com.jackbradshaw.concurrency.quinn.testing.prod.prodPassThroughComponent
+import com.jackbradshaw.concurrency.quinn.testing.testingQuinnComponent
 import com.jackbradshaw.coroutines.testing.realistic.realisticCoroutinesTestingComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.runBlocking
@@ -26,8 +25,8 @@ class IdleableQuinnImplTest : IdleableQuinnTest() {
   @Before
   fun setUp() {
     runBlocking {
-      val prodFactory = prodPassThroughComponent(quinnComponent()).prodQuinnFactory()
-      subject = IdleableQuinnImpl(prodFactory.createQuinn<String>())
+      val quinnFactory = testingQuinnComponent().factory()
+      subject = IdleableQuinnImpl(quinnFactory.createQuinn<String>())
     }
 
     val scope1CoroutinesComponent = realisticCoroutinesTestingComponent()

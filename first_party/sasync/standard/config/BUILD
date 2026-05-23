@@ -36,7 +36,6 @@ kt_jvm_library_with_dagger(
     srcs = ["ConfigModule.kt"],
     visibility = ["//first_party/sasync/standard:__subpackages__"],
     deps = [
-        ":kt_jvm_proto",
         "//first_party/sasync/standard:scope",
     ],
 )
