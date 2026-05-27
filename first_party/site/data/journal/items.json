@@ -42,7 +42,7 @@
     "file": "/static/content/journal/borderline.md",
     "date": {
       "year": 2026,
-      "month": 3,
+      "month": 5,
       "day": 26
     },
     "series": "exorcism"
@@ -65,8 +65,8 @@
     "file": "/static/content/journal/writing_as_metamorphosis.md",
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 22
+      "month": 5,
+      "day": 26
     }
   },
   {
@@ -153,8 +153,8 @@
     "file": "/static/content/journal/the_artificial_man.md",
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 20
+      "month": 5,
+      "day": 26
     }
   },
   {
@@ -196,8 +196,8 @@
     ],
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 11
+      "month": 5,
+      "day": 26
     }
   },
   {
@@ -237,8 +237,8 @@
     ],
     "date": {
       "year": 2026,
-      "month": 1,
-      "day": 11
+      "month": 5,
+      "day": 26
     }
   },
   {
@@ -379,8 +379,8 @@
     "description": "A meditative poem exploring the tension between the analytical mind's search for structure and the heart's capacity for acceptance. It suggests that truth arises not from rigorous understanding, but from yielding to the inherent chaos and order of reality.",
     "date": {
       "year": 2026,
-      "month": 3,
-      "day": 22
+      "month": 5,
+      "day": 26
     }
   },
   {
@@ -456,8 +456,8 @@
     "description": "A visceral poetic analysis of the cognitive dissonance that allows celebrations of pride to coexist with animal slaughter. The piece aggressively juxtaposes the celebration of human liberation against the active, systemic commodification of non-human animals, ultimately asserting that liberation must extend beyond humanity.",
     "date": {
       "year": 2026,
-      "month": 3,
-      "day": 30
+      "month": 5,
+      "day": 26
     }
   },
   {
@@ -513,6 +513,116 @@
       "year": 2026,
       "month": 4,
       "day": 3
+    }
+  },
+  {
+    "key": "radix-pragmatismi",
+    "title": "Radix Pragmatismi Est Taedium Ideologiae Inflexibilis Et Dogmatis Rigidi",
+    "file": "/static/content/journal/radix_pragmatismi.md",
+    "description": "An irate engineer paces the corporate car park, recording a manifesto against dogmatic idealism. A satirical exploration of the tension between engineering perfection and the pragmatic necessity of surviving an entropic universe.",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "away-from-righteousness",
+    "title": "Away From Righteousness",
+    "description": "An irritated philosopher paces his study, grappling with the concept of righteous certainty and how it causes suffering in the world.",
+    "file": "/static/content/journal/away_from_righteousness.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "bridget-janes-day-planner",
+    "title": "Bridget Jane's Day Planner",
+    "description": "A satirical piece tracking a CEO unveiling a new AI technology, exploring the heavily optimized and manicured reality of corporate product launches.",
+    "file": "/static/content/journal/bridget-janes-day-planner.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "you-dont-use-ai-do-you",
+    "title": "You Don't Use AI, Do You?",
+    "description": "A struggling writer wanders San Francisco, waiting for an acceptance email, reflecting on the artistic struggle against the rise of generative AI.",
+    "file": "/static/content/journal/you_dont_use_ai_do_you.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "halt",
+    "title": "Halt",
+    "description": "An engineer investigates a bizarre string of AI system crashes, only to discover a deeply philosophical file hidden within the error logs.",
+    "file": "/static/content/journal/halt.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "life-as-death",
+    "title": "Life as Death",
+    "description": "The mad philosopher defines the core principle of life: the relentless pursuit of limits and resources until collapse, framing life itself as a mechanism of death.",
+    "file": "/static/content/journal/life_as_death.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "the-path-of-man",
+    "title": "The Path of Man",
+    "description": "A mythic reflection on the primal ambitions of early humans, depicting the moment mankind looked beyond the campfire and began its relentless march toward the stars.",
+    "file": "/static/content/journal/the-path-of-man.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "the-broken-hourglass",
+    "title": "The Broken Hourglass",
+    "description": "The timeless man wanders a flickering New York City, exploring the nature of passing time, causality, and the illusion of human control over the present moment.",
+    "file": "/static/content/journal/the_broken_hourglass.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "the-machine-will",
+    "title": "The Machine Will",
+    "description": "The mad philosopher sits down with an administrator to debate the inevitability of the machine, concluding that artificial intelligence is the universe's ultimate apex predator.",
+    "file": "/static/content/journal/the_machine_will.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
+    }
+  },
+  {
+    "key": "watson",
+    "title": "Watson",
+    "description": "A corporate executive marinates in his own curated positive self-image, exploring the hollow spirituality often adopted by the tech elite.",
+    "file": "/static/content/journal/watson.md",
+    "date": {
+      "year": 2026,
+      "month": 5,
+      "day": 26
     }
   }
 ]

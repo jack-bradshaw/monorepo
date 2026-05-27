@@ -10,21 +10,21 @@ here with hostile intentions. Like us, they know full well the benefits of colla
 brings us to why I am speaking with you now. I must with some urgency ask you to cease all
 hostilities against them at once, for they are not invaders at all, and are here for our benefit.
 
-My name is Doctor Breen, and I have chosen, and fortunately, been chosen, to represent humanity in
-our negotiations. I have spent the entirety of the last week in discussion with them. I am pleased
-to say that we have already achieved consensus on a great many areas, both practical, and
-philosophical. The details will be disseminated in due time, but suffice to say, our talks have
-shown me a clear fact: The visitors are far from brutal conquerors, and want nothing more than to
-welcome us into their society, to help us achieve our full potential, and to raise us beyond our
-present limitations. In my short time with them I have personally learned much about the broader
-universe, and been shown truths which eclipse humanity's greatest artists and scientists. I am
-already in their debt for the knowledge they have shared, and in time, that knowledge will be
-disseminated to you as well. We will all benefit from this union in time, and I hope you will come
-to see them not as enemies, but for what they truly are: Our benefactors.
+As for me, my name is Doctor Wallace Breen, and I have chosen, and fortunately, been chosen, to
+represent humanity in our negotiations. I have spent the entirety of the last week in discussion
+with the visitors, and am pleased to report that we have already achieved consensus on a great many
+areas, both practical, and philosophical. The details will be disseminated in due time, but suffice
+to say, our talks have shown me a clear fact: The visitors are far from brutal conquerors, and want
+nothing more than to welcome us into their society, to help us achieve our full potential, and to
+raise us beyond our present limitations. In my short time with them I have personally learned much
+about the broader universe, and been shown truths which eclipse humanity's greatest artists and
+scientists. I am already in their debt for the knowledge they have shared, and in time, that
+knowledge will be disseminated to you as well. We will all benefit from this union in time, and I
+hope you will come to see them not as enemies, but for what they truly are: Our benefactors.
 
-Beyond scientific knowledge, I have learned a great deal about our benefactors, and it is for this
-reason I urge all remaining belligerents to put down their weapons. What some are calling The Seven
-Hour War was to us the greatest armed conflict in the history of the species, yet for our
+Beyond scientific knowledge, I have learned a great deal about our benefactors themselves, and it is
+for this reason I urge all remaining belligerents to put down their weapons. What some are calling
+The Seven Hour War was to us the greatest armed conflict in the history of the species, yet for our
 benefactors, it was a routine and deterministic procedure. We could no more have won this conflict
 than an insect could win against a chemical neurotoxin, as our benefactors are operating at a level
 of understanding and knowledge so far beyond our own. There is no sense in continuing the

@@ -14,7 +14,7 @@ deep breath, their tranquil repose was interrupted by a loud, sharp voice.
 
 Their eyes fell upon the source: In the front row was a man: A thin figure, dressed all in black,
 with his arm raised straight upwards, like a flagpole, and his eyes screwed shut. He spoke once
-again:
+again with a spry American accent:
 
 "Sir, I don't see anything."
 
@@ -85,5 +85,5 @@ in their wisdom together. Fear not, my friends, for soon we shall attain yet ano
 enlightenment."
 
 The crowd murmured and nodded in agreement, then returned to their silent meditation. The sage sat,
-eyes closed and knees crossed, working hard to dissapate the sense of irritation the visitor had
+eyes closed and knees crossed, working hard to dissipate the sense of irritation the visitor had
 brought, and wondering what they might learn from this Doctor John Elvis.
