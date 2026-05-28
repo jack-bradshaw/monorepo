@@ -1,4 +1,4 @@
-The activist sat on the bus and watched the streets pass by. A deep grey sky hung over the city and
+The Activist sat on the bus and watched the streets pass by. A deep grey sky hung over the city and
 leaves blew through the streets. A storm was coming, they thought, and their attention turned to the
 homeless man in the distance. It was a difficult time to be alive, but they were struggling to find
 a reason to care. Even the homeless man, they told themselves, was better off than some.
@@ -6,7 +6,7 @@ a reason to care. Even the homeless man, they told themselves, was better off th
 They arrived at their destination, a restaurant, to meet up with a friend. They had known each other
 since college but were not as close as they had once been. Still, company was company, and they were
 grateful to have someone to eat with, yet this was not to be a joyful occasion. Just forty minutes
-later, they exited the restaurant, said a strained goodbye, and went separate ways. As the activist
+later, they exited the restaurant, said a strained goodbye, and went separate ways. As The Activist
 boarded the bus again, they sat, fuming, as thoughts raced through their mind. They were the kind of
 thoughts that refused to be quiet, for there was nowhere for them to go, and they were far too true
 to be hidden under a rug or shoved into the back of a closet. They pulled out their laptop, a dying
@@ -175,7 +175,7 @@ A moment.
 Enough!"
 
 Their face contorted in fury as they continued to type. A nearby passenger stood and moved to a seat
-towards the front of the bus. The activist didn't care, they were in flow, and the words continued
+towards the front of the bus. The Activist didn't care, they were in flow, and the words continued
 to pour out of them:
 
 "Anger. Malice. Fury.\

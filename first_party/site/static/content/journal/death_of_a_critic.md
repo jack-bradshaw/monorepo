@@ -33,14 +33,14 @@ marriage, but it no longer controls me, so perhaps, this is a new beginning."
 
 The aspiring writer looked at the paragraph, somewhat unable to believe they had written it. The
 aspiring writer remembered all the times they had tried to write, to express something joyful, and
-how much pain the critic had shown them. What happened today though? Where did these words come
-from, and where was the critic? Rather than question the miracle, they once again put the pen to the
+how much pain The Critic had shown them. What happened today though? Where did these words come
+from, and where was The Critic? Rather than question the miracle, they once again put the pen to the
 page:
 
-"I have tried writing so many times, but the Critic always stopped me. It nit-picked every sentence,
+"I have tried writing so many times, but The Critic always stopped me. It nit-picked every sentence,
 every word, and every syllable, and after perfecting those, it tore down my tone, the flow of my
-words, and my style. Eventually those too would be perfected, only to meet with the Critic’s most
-desperate defence: Appeal to futility. In the past, the Critic would have me believe nothing is
+words, and my style. Eventually those too would be perfected, only to meet with The Critic’s most
+desperate defence: Appeal to futility. In the past, The Critic would have me believe nothing is
 truly worth doing, and everything is ultimately futile, but not today."
 
 In their mind, they saw images of snide laughter, pointed fingers, and hateful comments. The Critic,
@@ -48,17 +48,17 @@ slow to rise, had returned, and it wanted nothing more than to stop the writer i
 stood, pulled open the curtains, and let the light flow into the room. They returned to the table
 and continued to write:
 
-"Today I am resisting those messages, and I am choosing to write not in spite of the Critic, but in
+"Today I am resisting those messages, and I am choosing to write not in spite of The Critic, but in
 defiance of it. There are words worth publishing, and they do not need to be perfect. The lies of
-the Critic have wasted and discarded years of my work; shredded pages, deleted files, and discarded
+The Critic have wasted and discarded years of my work; shredded pages, deleted files, and discarded
 ideas; notions dismissed, possibilities ignored, and potential squandered. All this because the
 Critic needed me to be isolated and alone. Not today though, today I am rewriting the script."
 
 They began to write faster, and faster, and faster as the pen did the work for them:
 
-"If you are reading these words, then the Critic failed today. It fell by the wayside, a victim of
+"If you are reading these words, then The Critic failed today. It fell by the wayside, a victim of
 its own failures, and hereon out my life and my publications are within my control. A new chapter is
-just beginning, and the Critic is no longer a character in my story. So good riddance Critic, you
+just beginning, and The Critic is no longer a character in my story. So good riddance Critic, you
 were never welcome, and I’m not sad to see you go."
 
 The pen began to run out of ink, and each new word was dimmer than the last, but the aspiring writer
@@ -181,7 +181,7 @@ personal. Nothing about this room was perfect, but it did not need to be, and th
 finally felt at ease. Following in their predecessor's footsteps, they retrieved a simple black pen
 from their pocket, and began to write.
 
-"Two years ago I wrote that the Critic was dead, but it was a lie. It lives within me still,
+"Two years ago I wrote that The Critic was dead, but it was a lie. It lives within me still,
 jabbing, pecking, and tugging at the threads of my mind with relentless razors of spite, vitriol,
 and disappointment. I have tried to suppress it, erase it, and repress it, but nothing works
 forever. I wish it would stay away, but it always comes back, and it always has something to say.

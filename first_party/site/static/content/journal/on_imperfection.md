@@ -1,4 +1,4 @@
-A year ago I wrote that the Critic was dead but it was a lie. It lives within me still, jabbing,
+A year ago I wrote that The Critic was dead but it was a lie. It lives within me still, jabbing,
 pecking, and tugging at the threads of my mind with relentless razors of spite, vitriol, and
 disappointment. I have tried to suppress it, erase it, and repress it, but nothing works forever. It
 always comes back and it always has something to say. When I write an essay, it shows me every

@@ -1,10 +1,10 @@
-Many weeks passed as the Cynic read the works of his brothers. Still clad in all black, he sat
+Many weeks passed as The Cynic read the works of his brothers. Still clad in all black, he sat
 comfortably in an armchair, legs crossed, sipping a cocktail, and scouring the pages with his red
 pen. He made a note on the final page, and with a swift gesture cast the last book aside, smiling
 with juvenile glee as it toppled a stack of books to the ground. What once was a pristine library of
 knowledge and wisdom had become a pigsty of disorder. Books lay scattered about the floor, empty
 champagne and cocktail glasses adorned the bookshelves, and virtually no work had been spared the
-touch of the Cynic's red pen. The Cynic, feeling quite pleased with himself, began another letter to
+touch of The Cynic's red pen. The Cynic, feeling quite pleased with himself, began another letter to
 his brothers. It read:
 
 Dear Brothers, I hope you're well, just kidding, I still hate you. I found my way back into our
@@ -30,11 +30,11 @@ tossing it out the window. It sailed off, hovering gently above the treetops of 
 before disappearing over the horizon. Without wasting any time, The Cynic rose from his chair, and
 with a snap of his fingers, summoned a gasoline tank. Before he even had an opportunity to act
 though, the doorway of light materialised behind him, flew open, and knocked him to the ground. Two
-figures strode through: the Pragmatist, dressed in all grey pajamas, looking far more tired than
-usual, and the Altruist, dressed in an all-white suit, his face displaying the hallmark signs of
+figures strode through: The Pragmatist, dressed in all grey pajamas, looking far more tired than
+usual, and The Altruist, dressed in an all-white suit, his face displaying the hallmark signs of
 disappointment and sadness.
 
-"Are you _quite_ alright?", spat the Pragmatist with a weary sneer, as he wiped sleep from his eyes
+"Are you _quite_ alright?", spat The Pragmatist with a weary sneer, as he wiped sleep from his eyes
 and glared at the gasoline tank laying on the floor.
 
 The Cynic jumped to his feet undeterred.
@@ -64,13 +64,13 @@ know who else hangs out there?"
 
 The Pragmatist spoke with stern conviction.
 
-"Yes, we know, Cynic. We know who lives there. It's no surprise you're behaving like the Critic."
+"Yes, we know, Cynic. We know who lives there. It's no surprise you're behaving like The Critic."
 
-The Cynic stared into the eyes of the Pragmatist for a few moments before glaring at the Altruist.
+The Cynic stared into the eyes of The Pragmatist for a few moments before glaring at The Altruist.
 When he spoke the bitterness had been replaced with derision:
 
 "You know what has always irritated me most about you, Pragmatist? You side with him", he said,
-still staring directly into the Altruist's eyes, "when really, you should be with me. What do you
+still staring directly into The Altruist's eyes, "when really, you should be with me. What do you
 think is more likely: We live in a place where good is possible, or we live in a meat grinder that
 is slowly killing us all?"
 
@@ -90,7 +90,7 @@ The Altruist's face distorted with genuine concern.
 "Oh Cynic, you're not happy with anything anymore, that's the problem, you always find the flaw no
 matter what we do. We've been trying to publish all these documents for over a year now and you just
 keep covering them with red ink. We've barely published 20,000 words and have another 100,000 to go.
-We got rid of the Critic because she was making life impossible and now you're doing the same. Why?
+We got rid of The Critic because she was making life impossible and now you're doing the same. Why?
 What do you want from us?"
 
 The Cynic paused, taken aback, and thought for a moment. His eyes dropped as sadness made its way to
@@ -102,18 +102,18 @@ and without me, we end up with crap like "First Poem". Here, let me read you a l
 freedom, and there is no control.' Guys, I think the people locked up for crimes they didn't commit
 might disagree on that. Practically speaking."
 
-The Pragmatist looked to the side momentarily, the gears in his mind clicking, while the Altruist
+The Pragmatist looked to the side momentarily, the gears in his mind clicking, while The Altruist
 spoke in the same kind tone:
 
 "Cynic please, why are you behaving this way? This isn't you. The Cynic I know is cynical because he
 cares, not because he is full of spite. This isn't cynicism, this is pessimism and criticism, where
 did you go?"
 
-The sadness of the Cynic continued to rise, accompanied with a newfound frustration. He spoke again,
+The sadness of The Cynic continued to rise, accompanied with a newfound frustration. He spoke again,
 more metered than before, as if to make a point to annoying, dimwitted solicitors.
 
 "Maybe you should have thought of that before you cast me into the void to fend for myself. All I
-had for company was the Critic. You try spending any time with her, it's _miserable_. She infects
+had for company was The Critic. You try spending any time with her, it's _miserable_. She infects
 you with all her, all her hate, until there's nothing else left. I didn't even know she was there
 until it was too late."
 
@@ -125,12 +125,12 @@ The Cynic paused, then nodded in exasperation, his eyes wide as if to say "obvio
 
 "Yes, absolutely. Hit me with an apology. Whenever you're ready", he said bluntly.
 
-The Altruist and the Pragmatist looked at one another for a few moments, nodded, then spoke in
+The Altruist and The Pragmatist looked at one another for a few moments, nodded, then spoke in
 unison.
 
-"It was wrong to cast you out like that", said the Altruist.
+"It was wrong to cast you out like that", said The Altruist.
 
-"We're sorry", said the Pragmatist.
+"We're sorry", said The Pragmatist.
 
 The Cynic closed his eyes and took it in. Several moments passed and slowly his frown turned upwards
 into a coy smile. A weight lifted and when he opened his eyes, the bitterness had faded (but not
@@ -140,7 +140,7 @@ vicious snark of his voice replaced with a playful teasing:
 "Alright, you're forgiven, but if you _ever_ do that to me again, there will be _hell_ to pay. I'll
 burn the whole goddamn library to the ground next time. Got it?"
 
-The Altruist gulped and looked around nervously while the Pragmatist stared into the Cynic's eyes as
+The Altruist gulped and looked around nervously while The Pragmatist stared into The Cynic's eyes as
 if to say "DO NOT".
 
 "Acknowledged", he said sternly.
@@ -166,10 +166,10 @@ What if instead of always keeping a perfect balance on every piece, we try and k
 overall? I'm sure you would enjoy writing pure cynicism sometimes? Remember The Cursed Cursor? That
 was pure cynical perfection."
 
-The Cynic raised an eyebrow in genuine curiosity, mulling it over, while the Pragmatist chimed in:
+The Cynic raised an eyebrow in genuine curiosity, mulling it over, while The Pragmatist chimed in:
 
 "Yes, exactly. Our work will proceed far more smoothly if we change it up occasionally, and don't
-aim for perfection. We don't want to invite the Critic back, do we? A few of the unpublished pieces
+aim for perfection. We don't want to invite The Critic back, do we? A few of the unpublished pieces
 are skewed far too heavily towards the enlightenment angle you don't like, and to be honest, I'm not
 a huge fan of them either, but they might still be enjoyable for others, and it would be a waste to
 throw them all away. What if we just, talk to each other, and aim for balance over time?"
@@ -194,7 +194,7 @@ He looked back to his brothers, smiled, and spoke just one word:
 
 "Deal."
 
-The Altruist smiled and the Pragmatist let out a sigh of relief, while the Cynic awkwardly discarded
+The Altruist smiled and The Pragmatist let out a sigh of relief, while The Cynic awkwardly discarded
 his gasoline tank with a flick of his wrist, as if to shoo a pesky dog. All three watched as it
 evaporated into a thin dark mist before dissipating entirely. With that, the three entities began
 tidying the library, and set out to complete the work they started, not with a particular

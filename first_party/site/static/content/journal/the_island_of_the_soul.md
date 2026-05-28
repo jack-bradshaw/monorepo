@@ -1,17 +1,17 @@
-A child sits on a beach in the afternoon sun. Warm sand comforts them from below and a gentle breeze
+A Child sits on a beach in the afternoon sun. Warm sand comforts them from below and a gentle breeze
 flows through their hair as waves peacefully lap at the shoreline. Birds chirp in the distance,
 gracefully singing the song they were born to share. The serenity of the scene stands in contrast to
-the child, their face hidden behind their hands, silent tears streaming through their fingers. A
+The Child, their face hidden behind their hands, silent tears streaming through their fingers. A
 gentle voice speaks from afar:
 
 "Don't cry little one, I have you."
 
-The child looks around, confused, with eyes still wet from fear and sadness. A warm breeze gently
+The Child looks around, confused, with eyes still wet from fear and sadness. A warm breeze gently
 nestles around them and eases their despair. The voice speaks again:
 
 "Tell me what is upsetting you."
 
-The child chokes back the tears and speaks with the voice of wisdom yet undisturbed by age:
+The Child chokes back the tears and speaks with the voice of wisdom yet undisturbed by age:
 
 "I can feel myself changing. I am forgetting joy and everywhere I look there is just more trouble.
 Why are the adults all so broken? Am I going to become like them?"
@@ -25,28 +25,28 @@ A few moments pass before the voice speaks again:
 
 "Don't fret little one, I have you."
 
-The warm air continues to surround the child, slowly drying their tears and bringing peace. As calm
+The warm air continues to surround The Child, slowly drying their tears and bringing peace. As calm
 acceptance washes over them they pull themselves upwards, not just against gravity, but against a
 world they are no longer a part of. They walk into the distance, following the beach, and aging as
 they do, slowly becoming the adult they were always destined to be.
 
 A figure watches from nearby. A mature being: All grown up and perfectly who they were supposed to
 be. Their face does not yet show the lines of age, but their eyes tell the tale of a tired soul. A
-spark is missing, and their lips have not smiled in years. As they watch the child walk away,
+spark is missing, and their lips have not smiled in years. As they watch The Child walk away,
 becoming smaller and smaller until they are but a speck in the distance, a single tear falls from
 their eye and splashes into the sand. The nearby birds cease their song and the waves become still,
-bringing a silence across the island that mirrors the watcher's inner world. The gentle voice speaks
+bringing a silence across the island that mirrors The Watcher's inner world. The gentle voice speaks
 again:
 
 "Don't cry little one, I have you."
 
-A frown appears across the watcher's face as they draw their tears inwards.
+A frown appears across The Watcher's face as they draw their tears inwards.
 
 "I haven't been called little one in a long time. Who are you?", they demand.
 
-The voice is silent. The watcher stands and looks around, their eyes narrowed, their lips pursed.
+The voice is silent. The Watcher stands and looks around, their eyes narrowed, their lips pursed.
 The breeze continues to blow past them, and the sand continues to warm their feet through the heavy
-soles of their dark brown shoes. The watcher speaks again, louder this time, bordering on a shout:
+soles of their dark brown shoes. The Watcher speaks again, louder this time, bordering on a shout:
 
 "I asked you a question!"
 
@@ -58,8 +58,8 @@ irritated.
 
 "Tell me what is upsetting you", says the voice.
 
-"Enough!", cries the watcher in frustration. As if obeying the command, the sand falls to the
-ground, the island returns to its peaceful repose, and the watcher recollects themself. They dust
+"Enough!", cries The Watcher in frustration. As if obeying the command, the sand falls to the
+ground, the island returns to its peaceful repose, and The Watcher recollects themself. They dust
 their clothes off and empty their shoes, but cannot escape the discomfort of the sand clinging to
 their skin.
 
@@ -71,7 +71,7 @@ away, until the island is a distant speck, and they find themselves treading wat
 the ocean. In panic they try to swim back, to fight against the current, but they only tire
 themselves to the edge of drowning.
 
-As the watcher loses strength they try to call out, to call for help, and to signal their distress,
+As The Watcher loses strength they try to call out, to call for help, and to signal their distress,
 but their cries go unanswered. Their mouth barely remains above the water, and as their limbs tire,
 they sink below the surface to watch in horror as the light of the surface fades. Soon they can hold
 their breath no longer and their lungs fill, but not with bitter salt nor painful water, but rather
@@ -97,8 +97,8 @@ The cool water continues to fill their body, slowly quelling their pain and brin
 remain for some time but continue to cry, and as calm acceptance washes through them, they swim
 upwards with effortless grace, not in fear of the abyss below them, but in awe of it. Not rushing,
 not dashing, just moving with the flow of the ocean. As they breach the surface, they find the
-island nearby once more, and their attention returns to the child still walking into the distance.
-Without rushing, they return to the shore and follow the child into the distance, aging as they do,
+island nearby once more, and their attention returns to The Child still walking into the distance.
+Without rushing, they return to the shore and follow The Child into the distance, aging as they do,
 but returning to who they always were.
 
 Not far from here, a third being sits gracefully in the wet sand, aware of the two others, but
